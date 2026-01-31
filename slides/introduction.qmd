@@ -1,0 +1,70 @@
+---
+format: rostools-theme-revealjs
+search: false
+---
+
+# Welcome to the TODO: add workshop name
+
+TODO: update these.
+
+-   :heavy_check_mark: Accept the GitHub Organization invite
+-   :heavy_check_mark: Go to the table with the group name
+-   :heavy_check_mark: Introduce yourself to your group members
+
+::: notes
+Introduce teachers and helpers after welcoming everyone and getting
+them to do this.
+:::
+
+TODO: Add more slides as desired or needed.
+
+## :raising_hand_woman: Before this workshop... How many knew or have heard about ... {.center}
+
+# Workshop details
+
+## Setup and layout {.smaller}
+
+::: columns
+::: {.column width="50%"}
+-   Workshop is mix of:
+    -   "Code-alongs" (we type and explain, you type along)
+    -   Hands-on coding, discussing, and reading exercises
+-   All material is online (and [openly licensed](../LICENSE.html))
+-   [Further Learning](https://guides.rostools.org/learning.html) page
+    for resources
+:::
+
+::: {.column width="50%"}
+-   Schedule listed is a *guide* only, some sessions are longer, others
+    shorter
+-   Includes plenty of social activities
+    -   During lunch, try to sit beside someone you don't know
+    -   Discussion activities
+    -
+:::
+:::
+
+::: notes
+Explain a bit more about the reading, why doing it, and that this workshop
+in particular has a lot more of it than more advanced workshops.
+:::
+
+## Getting or asking for help :raising_hand_woman::raising_hand_man: {.smaller}
+
+-   Put the sticky on your laptop to get help
+-   There are lots of helpers
+-   Table mates, try to help out too
+-   We're all learning here!
+    -   This is a supportive and safe environment
+    -   Remember our Code of Conduct
+
+## Practice using stickies: Have you TODO: Complete this. {.center}
+
+# Activities {.center}
+
+## :walking::walking_woman: Who has TODO: Complete this {.center}
+
+::: notes
+Go to different sides of the room for "Yes" and "No". Or a continuum
+from one end of the room to the other.
+:::

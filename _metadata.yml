@@ -1,0 +1,16 @@
+gh:
+  org: "DanMazJen"
+  repo: "medicinsk-statistik"
+
+# TODO: Fill in and/or confirm these titles
+titles:
+  full: ""
+
+# TODO: Confirm these URLs
+urls:
+  home: "https://medicinsk-statistik.DanMazJen.org"
+
+# TODO: Add the URLs to the surveys.
+surveys:
+  pre-workshop: "TODO"
+  feedback: "TODO"

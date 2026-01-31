@@ -1,0 +1,25 @@
+{
+  "creators": [
+    {
+      "name": "Mazhari-Jensen, Daniel",
+      "affiliation": "TODO: Add affiliation",
+      "orcid": "TODO: Add ORCID ID if available"
+    }
+  ],
+  "title": "TODO: The title of the website, shown as the landing page on Zenodo",
+  "description": "TODO: Fill in abstract of website, will be shown on Zenodo landing page",
+  "access_right": "open",
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/DanMazJen/medicinsk-statistik",
+      "relation": "isIdenticalTo",
+      "resource_type": "lesson"
+    }
+  ],
+  "keywords": [
+    "quarto website",
+  ],
+  "license": "cc-by-4.0",
+  "upload_type": "lesson",
+  "language": "eng"
+}

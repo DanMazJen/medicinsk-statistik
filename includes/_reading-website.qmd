@@ -1,0 +1,9 @@
+We try to be consistent with the way to present certain information in
+this website. Specifically, we follow some conventions that you should
+be aware of:
+
+-   Folder names always end with `/`, for example `data/` means the data
+    folder.
+-   File names always end with their file extension, for example
+    `content.md` means the file is a Markdown file.
+

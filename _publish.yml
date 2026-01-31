@@ -1,0 +1,5 @@
+- source: project
+  netlify:
+    # TODO: Fill these out from Netlify config.
+    - id: ""
+      url: "https://DanMazJen-medicinsk-statistik.netlify.app"

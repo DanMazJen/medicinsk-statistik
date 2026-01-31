@@ -1,0 +1,70 @@
+{
+  "Insert TODO formatting": {
+    "scope": "quarto,markdown",
+    "prefix": "todo",
+    "body": [
+      "<!-- TODO: ${0:Write text here} -->"
+    ],
+    "description": "Insert TODO formatting"
+  },
+  "R package name syntax": {
+    "scope": "quarto,markdown",
+    "prefix": "pkg",
+    "body": [
+      "`{${0:Package}}`"
+    ],
+    "description": "The syntax used to display and link R packages to their websites."
+  },
+  "Insert code exercise": {
+    "scope": "quarto,markdown",
+    "prefix": "exercise",
+    "body": [
+      "## :technologist: Exercise: ${0:Title}",
+      "",
+      "**Time: ~${1:Minutes} minutes.**",
+      "",
+      "${2:Text}",
+      "",
+      "{{< text_snippet sticky_up >}}",
+    ],
+    "description": "Insert a hands-on coding exercise section."
+  },
+  "Insert discussion exercise": {
+    "scope": "quarto,markdown",
+    "prefix": "discussion",
+    "body": [
+      "## :speech_balloon: Discussion activity: ${0:Title}",
+      "",
+      "**Time: ~${1:Minutes} minutes.**",
+      "",
+      "${2:Text}",
+    ],
+    "description": "Insert a discussion activity section."
+  },
+  "Insert reading task": {
+    "scope": "quarto,markdown",
+    "prefix": "reading",
+    "body": [
+      "## :book: Reading task: ${0:Title}",
+      "",
+      "**Time: ~${1:Minutes} minutes.**",
+      "",
+      "${2:Text}",
+      "",
+      "{{< text_snippet sticky_up >}}",
+    ],
+    "description": "Insert reading task section."
+  },
+  "Insert teacher note": {
+    "scope": "quarto,markdown",
+    "prefix": "teacher_note",
+    "body": [
+      "::: {.callout-note collapse=\"true\"}",
+      "## :teacher: Teacher note",
+      "",
+      "${0:Text body}",
+      ":::",
+    ],
+    "description": "Insert teacher note that is a Quarto callout note block."
+  }
+}

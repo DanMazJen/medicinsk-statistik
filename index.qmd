@@ -1,0 +1,71 @@
+# Welcome! {.unnumbered}
+
+
+
+<!-- TODO: Add a short description and motivation of the workshop here. -->
+
+<!-- TODO: Update the text below to match things -->
+
+This ((TODO: length)) workshop is a ((TODO: Short description of the workshop.))
+It is designed for doing participatory live-typing, where the teacher
+demonstrates the tasks on their computer connected to a projector while learners
+type along on their own computer. The workshop also includes reading tasks,
+discussion activities, and hands-on exercises.
+
+This website contains all of the material for the workshop, including
+readings, exercises, presentations, live-typing material, and images. It
+is structured as a book, with "chapters" as sessions, in order of
+appearance. We make heavy use of the website throughout the workshop
+where "type-along" sessions almost identically follow the material on
+the website (with slight modifications for time or more detailed
+explanations).
+
+Check out the overview section of the workshop, starting with the
+[Syllabus](/overview/syllabus.qmd).
+
+If you plan on attending the workshop, please make sure to complete the
+[Pre-workshop tasks](/pre-workshop/overview.qmd) to get set up and ready
+for the workshop. The pre-workshop tasks include a survey that you need
+to fill out before the workshop starts.
+
+{{< include /includes/_star-us.qmd >}}
+
+## Target audiences
+
+This website and its content are targeted to three groups:
+
+1.  For the **learners** to use during the workshop, both to follow
+    along and also to use as a reference after the workshop ends. A more
+    detailed description of who the learner is can be found in [Is this
+    for you?](/overview/is-this-for-you.qmd)
+2.  For the **teachers** to use as a guide for when they do the
+    type-along sessions.
+3.  For those who are **interested in teaching**, who may not have much
+    experience or may not know where to start, to use this website as a
+    guide to running and teaching their own workshops.
+
+## Re-use and licensing
+
+The workshop material is licensed under the [Creative Commons Attribution 4.0
+License](LICENSE.md), so the material can be used, re-used, and modified, as
+long as there is attribution to this source. Check out the [For
+teachers](/appendix/for-teachers.qmd) section for more details and tips on using
+this material for teaching.
+
+## Contributing
+
+Want to contribute to this workshop? Look through our
+[CONTRIBUTING](CONTRIBUTING.md) page for contribution guidelines on how to
+get started.
+
+## How the website is made
+
+The workshop material is created using [Quarto](https://quarto.org) to
+write the material and create the book format,
+[GitHub](https://github.com/) to host the [Git](https://git-scm.com/)
+repository of the material, and [GitHub
+Actions](https://github.com/features/actions) with
+[Netlify](https://www.netlify.com/) to build and host the website. The
+original source material for this workshop is found on the
+[`{{< meta gh.repo >}}`](https://github.com/{{< meta gh.org >}}/{{< meta gh.repo >}})
+GitHub repository.

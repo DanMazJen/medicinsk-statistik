@@ -6,4 +6,3 @@ version_provider = "commitizen"
 update_changelog_on_bump = true
 # Don't regenerate the changelog on every update
 changelog_incremental = true
-

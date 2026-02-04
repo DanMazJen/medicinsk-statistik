@@ -1,0 +1,47 @@
+# Effect measurements
+
+<!-- TODO: Add an introduction here -->
+
+## Learning objectives
+
+The learning objectives for this session are:
+
+{{< include /includes/objectives/_session2.qmd >}}
+
+## TODO: Section
+
+::: callout-note
+## Reading task: \~4 minutes
+
+TODO: Reading text
+:::
+
+## :technologist: Exercise: Title
+
+**Time: ~NUM minutes.**
+
+Text
+
+{{< text_snippet sticky_up >}}
+
+## :speech_balloon: Discussion activity: Title
+
+**Time: ~Num minutes.**
+
+Text
+
+## :book: Reading task: Title
+
+**Time: ~Num minutes.**
+
+Text
+
+{{< text_snippet sticky_up >}}
+
+## Summary
+
+-   TODO: List of summary items
+
+## Survey
+
+{{< include /includes/_survey.qmd >}}

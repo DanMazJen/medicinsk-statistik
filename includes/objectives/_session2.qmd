@@ -1,0 +1,5 @@
+-   Udvise forståelse for usikkerheds- og sandsynlighedsbegrebet samt grundliggende begreber indenfor biostatistik
+-	Udvise kendskab til de grundliggende overordnede studietyper samt at skelne mellem forklarende, eksplorative og prædiktive studier
+-	Redegøre for forskellige typer af tilfældig og ikke tilfældig variation
+-	Udvise forståelse for statistiske værktøjers begrænsninger og muligheder
+-	Forstå statistiske problemstillinger, der er centrale for medicin med industrial specialisering og forstå, hvordan de biostatistiske værktøjer kan appliceres på disse problemstillinger

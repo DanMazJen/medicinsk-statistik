@@ -1,0 +1,81 @@
+name: Release project
+
+on:
+  workflow_call:
+    inputs:
+      # The GitHub App that has been given permission to push to repo.
+      app-id:
+        type: "string"
+        required: true
+    outputs:
+      # The previous and current version of the package.
+      previous_version:
+        value: ${{ jobs.release.outputs.previous_version }}
+        description: "The previous version of the package."
+      current_version:
+        value: ${{ jobs.release.outputs.current_version }}
+        description: "The current version of the package. Can also be the same as previous version if no changes were made."
+    secrets:
+      # Needs read and write contents permission to push to main.
+      update-version-gh-token:
+        required: true
+
+jobs:
+  release:
+    name: "Update project's version and changelog, then make GitHub release"
+    if: "!startsWith(github.event.head_commit.message, 'build(version): ')"
+    runs-on: ubuntu-latest
+    concurrency:
+      group: release-project-group
+      cancel-in-progress: true
+    outputs:
+      previous_version: ${{ steps.version-var.outputs.previous_version }}
+      current_version: ${{ steps.version-var.outputs.current_version }}
+    steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@e3f713f2d8f53843e71c69a996d56f51aa9adfb9 # v2.14.1
+        with:
+          egress-policy: audit
+
+      - uses: actions/create-github-app-token@29824e69f54612133e76f7eaac726eef6c875baf # v2.2.1
+        id: app-token
+        with:
+          app-id: ${{ inputs.app-id }}
+          private-key: ${{ secrets.update-version-gh-token }}
+
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          # Only need the last commit from the repo.
+          fetch-depth: 0
+          token: ${{ steps.app-token.outputs.token }}
+
+      - name: Set User
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - id: cz
+        name: Update version and changelog
+        uses: commitizen-tools/commitizen-action@2e8226b3e7e141ae28de9942957f267eb5d68fb6 # 0.27.0
+        with:
+          github_token: ${{ steps.app-token.outputs.token }}
+          changelog: true
+
+      - name: Create GitHub release
+        uses: softprops/action-gh-release@a06a81a03ee405af7f2048a818ed3f03bbf83c7b # v2.5.0
+        if: ${{ env.PREVIOUS_REVISION != env.REVISION }}
+        with:
+          generate_release_notes: true
+          # env variable containing the new version, created by the Commitizen action
+          tag_name: ${{ env.REVISION }}
+          # To help with preventing random updates to existing releases.
+          overwrite_files: false
+          append_body: false
+
+      # Need to output this to tell the next job that a release was made.
+      - id: version-var
+        name: Output version variable
+        run: |
+          echo "previous_version=$PREVIOUS_REVISION" >> "$GITHUB_OUTPUT"
+          echo "current_version=$REVISION" >> "$GITHUB_OUTPUT"

@@ -14,8 +14,10 @@ jobs:
     # Only give permissions for this job.
     permissions:
       contents: write
-    uses: seedcase-project/.github/.github/workflows/reusable-release-project.yml@main
+    uses: ./.github/workflows/reusable-release-project.yml
     with:
-      app-id: ${{ vars.UPDATE_VERSION_APP_ID }}
+      # Should be called UPDATE_VERSION_APP_ID and not ADD_TO_BOARD_APP_ID
+      app-id: ${{ vars.ADD_TO_BOARD_APP_ID }}
     secrets:
-      update-version-gh-token: ${{ secrets.UPDATE_VERSION_TOKEN }}
+      # Should be called UPDATE_VERSION_TOKEN and not ADD_TO_BOARD
+      update-version-gh-token: ${{ secrets.ADD_TO_BOARD }}

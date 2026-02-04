@@ -1,5 +1,4 @@
 - source: project
   netlify:
-    # TODO: Fill these out from Netlify config.
-    - id: ""
-      url: "https://DanMazJen-medicinsk-statistik.netlify.app"
+    - id: "bc949a1b-379b-4ed1-93d7-c3ebadaaf316"
+      url: "https://medical-statistics-aau.netlify.app/"

@@ -1,0 +1,48 @@
+name: Add to project board and add assignee
+
+on:
+  workflow_call:
+    inputs:
+      board-number:
+        required: true
+        type: number
+      app-id:
+        type: "string"
+        required: true
+    secrets:
+      add-to-board-token:
+        required: true
+      gh-token:
+        required: true
+
+jobs:
+  add-to-project:
+    name: Add to project
+    runs-on: ubuntu-latest
+    steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@e3f713f2d8f53843e71c69a996d56f51aa9adfb9 # v2.14.1
+        with:
+          egress-policy: audit
+
+      - uses: actions/create-github-app-token@29824e69f54612133e76f7eaac726eef6c875baf # v2.2.1
+        id: app-token
+        with:
+          app-id: ${{ inputs.app-id }}
+          private-key: ${{ secrets.add-to-board-token }}
+
+      - name: Add issue or PR to project board
+        uses: actions/add-to-project@244f685bbc3b7adfa8466e08b698b5577571133e # v1.0.2
+        with:
+          project-url: https://github.com/orgs/${{ github.repository_owner }}/projects/${{ inputs.board-number }}
+          github-token: ${{ steps.app-token.outputs.token }}
+
+      - name: Assign PR to creator
+        if: ${{ github.event_name == 'pull_request' }}
+        run: |
+          gh pr edit $PR --add-assignee $AUTHOR --repo $REPO
+        env:
+          REPO: ${{ github.repository }}
+          AUTHOR: ${{ github.event.pull_request.user.login }}
+          PR: ${{ github.event.pull_request.html_url }}
+          GH_TOKEN: ${{ secrets.gh-token }}

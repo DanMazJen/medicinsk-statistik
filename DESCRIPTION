@@ -9,4 +9,5 @@ Suggests:
 URL: https://github.com/DanMazJen/medicinsk-statistik
 BugReports: https://github.com/DanMazJen/medicinsk-statistik/issues
 Imports:
-    downlit
+    downlit,
+    pak

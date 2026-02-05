@@ -1,0 +1,12 @@
+Package: medicinsk-statistik
+Title: medicinsk-statistik
+Type: Project
+Version: 0.0.1
+Encoding: UTF-8
+Suggests:
+    gitcreds,
+    usethis
+URL: https://github.com/DanMazJen/medicinsk-statistik
+BugReports: https://github.com/DanMazJen/medicinsk-statistik/issues
+Imports:
+    downlit

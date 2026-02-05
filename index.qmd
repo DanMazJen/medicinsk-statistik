@@ -1,6 +1,9 @@
 # Welcome! {.unnumbered}
 
 
+# Data management, statistical inference, and clinical decision-making using R
+
+This website hosts all materials for the course Medical Statistics at Aalborg University, Faculty of Health as a collaboration between the Department of Health Science & Technology and the Department of Clinical Medicine. The course is currently offered for the education Medicine with Industrial Specialization at the 6th and final semester of the bachelor.
 
 <!-- TODO: Add a short description and motivation of the workshop here. -->
 

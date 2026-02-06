@@ -3,7 +3,7 @@
 ```{r}
 #| include: false
 # To trigger downlit linking
-library(downlit)
+#library(downlit)
 ```
 
 During this workshop we will be spending most of our time in RStudio.
@@ -65,8 +65,9 @@ introductory workshop), the Git pane *does not* show up. It only shows
 up in R Projects that use Git to track file changes.
 :::
 
-![Interface to
-RStudio.](/images/rstudio-introduction.png){#fig-rstudio-introduction}
+```{r}
+#![Interface to RStudio.](/images/rstudio-introduction.png){#fig-rstudio-introduction}
+```
 
 While you can customize where the individual panels go, the default
 panel layout is what is shown above.

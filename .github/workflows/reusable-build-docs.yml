@@ -1,0 +1,82 @@
+name: Build website
+
+on:
+  workflow_call:
+    inputs:
+      tinytex:
+        description: "Whether to install TinyTeX for PDF rendering."
+        required: false
+        type: boolean
+        default: false
+      hosting-provider:
+        description: "Hosting provider to use for publishing the website: netlify or gh-pages. If 'gh-pages', also need to set permissions."
+        required: false
+        type: string
+        default: "netlify"
+    secrets:
+      netlify-token:
+        required: false
+      github-token:
+        # Needs permissions: contents: write, pages: write
+        required: false
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: build-website-group
+      cancel-in-progress: true
+    steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@e3f713f2d8f53843e71c69a996d56f51aa9adfb9 # v2.14.1
+        with:
+          egress-policy: audit
+
+      - name: Check out repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Spell check repo
+        uses: crate-ci/typos@06d010dfe4c84fdab1a25ea02b57b3585018ba80 # v1.42.3
+
+      - name: Set up R
+        uses: r-lib/actions/setup-r@v2
+ #       with:
+ #         r-version: '4.3'
+
+      - name: Install R packages needed for rendering (dependencies in DESCRIPTION file)
+        uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          packages: |
+            knitr
+            rmarkdown
+            downlit
+
+      - name: Set up Quarto
+        uses: quarto-dev/quarto-actions/setup@8a96df13519ee81fd526f2dfca5962811136661b # v2.2.0
+        # Use basic token to avoid rate limiting when downloading tinytex, which uses GitHub API.
+        env:
+          GH_TOKEN: ${{ secrets.github-token }}
+        with:
+          tinytex: ${{ inputs.tinytex }}
+
+      - name: Install Chrome for PDF rendering
+        if: ${{ inputs.tinytex }}
+        run: |
+          wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+          sudo apt install ./google-chrome-stable_current_amd64.deb
+
+      - name: Publish to Netlify (and render)
+        if: ${{ inputs.hosting-provider == 'netlify' }}
+        uses: quarto-dev/quarto-actions/publish@8a96df13519ee81fd526f2dfca5962811136661b # v2.2.0
+        with:
+          target: netlify
+          NETLIFY_AUTH_TOKEN: ${{ secrets.netlify-token }}
+
+      # NOTE: If Publishing to GitHub Pages, set the permissions correctly (see above).
+      - name: Publish to GitHub Pages (and render)
+        if: ${{ inputs.hosting-provider == 'gh-pages' }}
+        uses: quarto-dev/quarto-actions/publish@8a96df13519ee81fd526f2dfca5962811136661b # v2.2.0
+        with:
+          target: gh-pages
+        env:
+          GITHUB_TOKEN: ${{ secrets.github-token }}

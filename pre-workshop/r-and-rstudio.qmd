@@ -3,7 +3,7 @@
 ```{r}
 #| include: false
 # To trigger downlit linking
-#library(downlit)
+library(downlit)
 ```
 
 During this workshop we will be spending most of our time in RStudio.

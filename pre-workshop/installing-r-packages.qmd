@@ -8,7 +8,7 @@ execute:
 ```{r}
 #| include: false
 # To trigger downlit linking
-#library(pak)
+library(pak)
 ```
 
 

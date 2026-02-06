@@ -10,7 +10,7 @@ permissions: read-all
 
 jobs:
   build-website:
-    uses: seedcase-project/.github/.github/workflows/reusable-build-docs.yml@main
+    uses: ./.github/workflows/reusable-build-docs.yml
     secrets:
       netlify-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
       # This is to allow using `gh` CLI

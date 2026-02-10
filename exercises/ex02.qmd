@@ -1,0 +1,23 @@
+# Exercises: Probability and stochastic variables
+
+<!-- TODO: Add an introduction here -->
+
+## Learning objectives
+
+The learning objectives for this session are:
+
+{{< include /includes/objectives/_session2.qmd >}}
+
+## :technologist: Exercise: Title
+
+**Time: ~NUM minutes.**
+
+Text
+
+## Summary
+
+-   TODO: List of summary items
+
+## Survey
+
+{{< include /includes/_survey.qmd >}}

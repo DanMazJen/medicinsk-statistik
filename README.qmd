@@ -8,30 +8,60 @@ format: gfm
 
 ## Description
 
-<!-- TODO: Very brief intro, motivation, and overview of workshop. -->
+Welcome to the **Medical Statistics** course repository.
+This repo contains all teaching materials, exercises, datasets, and project resources used in the course.
 
-This repository contains the lesson, lecture, and assignment material
-for the workshop, including the website source files and other
-associated workshop administration and development files. For more
-detail on the workshop, check out the [welcome
+The course focuses on **clinical data analysis, biostatistics, and data-driven clinical decision-making** through hands-on learning and real-world case studies. For the academic regulations of the course, see [Medical Statistics](https://moduler.aau.dk/course/2024-2025/MEDMS24B5_1).
+
+### Course Overview
+
+The purpose of this module is to provide students with fundamental skills in:
+
+- Handling and managing clinical and health-related data
+- Visualizing and exploring biomedical datasets
+- Applying biostatistical methods to clinical and industrial medical problems
+- Supporting clinical decision-making using quantitative evidence
+
+Teaching begins with practical, case-based exercises and progresses toward independent statistical projects with collaborative workshops and evaluations.
+
+### Learning Objectives
+
+#### **Knowledge**
+Students will:
+
+- Understand uncertainty, probability, and core biostatistical concepts
+- Recognize major study designs and distinguish between **explanatory**, **exploratory**, and **predictive** studies
+- Explain random and non-random variation
+- Understand the limitations and possibilities of statistical tools
+- Apply biostatistics to problems in medicine with industrial specialization
+
+#### **Skills**
+Students will be able to:
+
+- Read and interpret software documentation
+- Select and apply appropriate visualization tools for health data
+- Formulate scientific statistical problems and apply biostatistical methods
+- Manipulate, visualize, and analyze complex and large datasets
+- Communicate statistical results in a clinical context using relevant literature and databases
+- Collaborate effectively in interdisciplinary project groups
+
+#### **Competencies**
+Students will:
+
+- Quantify clinical and health-related problems using biostatistical methods
+- Integrate uncertainty and clinical relevance in decision-making
+- Translate data analysis into clinical decision support
+- Critically evaluate statistical approaches and participate in scientific discussions
+
+### Teaching Format
+
+- Interactive lectures
+- Individual problem-based assignments
+- Group-based project work
+- Joint project workshops and evaluations
+
+This repository contains all materials for the course Medical Statistics at Aalborg University, Faculty of Health as a collaboration between the Department of Health Science & Technology and the Department of Clinical Medicine. The course is currently offered for the education Medicine with Industrial Specialization at the 5th semester. For more detail on the course, check out the [welcome
 page]({{< meta urls.home >}}).
-
-::: callout-tip
-This workshop repository was generated from the
-[`template-workshop`](https://github.com/rostools/template-workshop)
-rostools template.
-:::
-
-## Instructional Design
-
-The lectures and lessons in this workshop are designed to be presented
-primarily with a participatory live-coding approach. This involves an
-teacher typing and running code in an editor or similar platform in
-front of the class, while the class follows along using their own
-computers. Exercises are interspersed in the lesson material, allowing
-participants to collaboratively work on smaller coding problems for a
-few minutes. All lesson materials are provided ahead of time on the
-workshop website for participants to refer to during lectures.
 
 ## Lesson content
 
@@ -84,12 +114,17 @@ follows the file and folder structure conventions from that package.
     [CODEOWNERS](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners)
     file.
 
+::: callout-tip
+This workshop repository was generated from the
+[`template-workshop`](https://github.com/rostools/template-workshop)
+rostools template.
+:::
+
 ## Contributing
 
 If you are interested in contributing to the workshop material, please
 refer to the [contributing guidelines](CONTRIBUTING.md). For guidelines
-on how to be a helper or teacher, check out the [For
-teachers](https://r-cubed.rostools.org/for-teachers.html) page.
+on how to be a helper or teacher, check out the [for teachers](appendix/for-teachers.qmd).
 
 Please note that the project is released with a [Contributor Code of
 Conduct](CODE_OF_CONDUCT.md). By contributing to or being involved in
@@ -104,12 +139,12 @@ This project is licensed under the [CC-BY-4.0 License](LICENSE.md).
 The workshop is largely designed to be taught in the order given, as
 each session builds off of the previous ones. The easiest way to use
 this material is to use it as-is, making use of the tips and
-instructions found throughout this page. The only thing you might want
-to make as your own would be the slides, however, they are also good
-enough to use on their own too.
+instructions found throughout this page. As not all contributors to the course share their lectures, you will have to fill in the blanks.
 
-To help with general admin tasks of running the workshop, there is the
-[samwise](https://github.com/rostools/samwise) R package.
+::: content-hidden
+To help with general admin tasks of running the workshop, there is the [medisr](link) R package.
+
+:::
 
 ## Changelog
 

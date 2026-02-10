@@ -1,10 +1,10 @@
 project:
   type: rostools-theme
   # TODO: Uncomment if you want to use slides.
-  # pre-render:
-    # - quarto render slides/*.qmd
-  # resources:
-  #   - slides/*.html
+  pre-render:
+    - quarto render slides/*.qmd
+  resources:
+    - slides/*.html
 
 book:
   title: "Medical Statistics, MEDMS24B5_1"
@@ -16,7 +16,7 @@ book:
   date: last-modified
   repo-url: https://github.com/DanMazJen/medicinsk-statistik
   site-url: https://medicinsk-statistik.DanMazJen.org
-  body-header: "{{< text_snippet wip >}}"
+  body-header: "{{< text_snippet wip >}}" # Comment me out when all website is not actively worked on!
   chapters:
     - index.qmd
     - part: "Overview"
@@ -46,6 +46,11 @@ book:
         - sessions/session07.qmd
         - sessions/session08.qmd
         - sessions/conclusion.qmd
+    - part: "Exercises"
+      chapters:
+        - exercises/data.qmd
+        - exercises/ex01.qmd
+        - exercises/ex02.qmd
   appendices:
     - appendix/for-teachers.qmd
     - appendix/references.qmd
@@ -58,6 +63,9 @@ book:
         href: LICENSE.md
       - text: "Code of Conduct"
         href: "pre-workshop/code-of-conduct.qmd"
+
+bibliography:
+- "includes/references.bib"
 
 format:
   rostools-theme-html:

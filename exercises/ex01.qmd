@@ -1,0 +1,17 @@
+# Exercises: Getting R up and running
+
+<!-- TODO: Add an introduction here -->
+
+## Learning objectives
+
+The learning objectives for this session are:
+
+{{< include /includes/objectives/_session1.qmd >}}
+
+## Exercises
+
+Everything for this session was covered within the [session](sessions/session01.qmd) and is therefore not repeated here.
+
+## Survey
+
+{{< include /includes/_survey.qmd >}}

@@ -1,0 +1,57 @@
+# Data for Medical Statistics
+
+<!-- TODO: Add an introduction here -->
+
+## Datasets we use
+
+In this course, we use the following datasets:
+
+-   Random-Dataset-1
+-   Random-Dataset-2
+-   Random-Dataset-3
+
+Here, we provide some meta-data about the datasets. Please take the time to carefully read this section before jumping in and wrangling data without knowing the design or variables collected.
+
+::: callout-note
+## Open source data: \~4 minutes
+
+Data can be made publicly available. This is not a problem, despite GDPR regulatins. Datasets are often made available on websites such as [Zenodo](https://zenodo.org/communities/eu/collections/subjects/mhealth?q=&f=resource_type%3Adataset&f=file_type%3Acsv&l=list&p=1&s=10&sort=newest).
+:::
+
+## :technologist: Random-Dataset-1
+
+**Time: ~NUM minutes.**
+
+Dataset 1 contains...
+
+### :download: Accessing Random-Dataset-1
+
+In order to access the dataset, we suggest using:
+
+```{.r filename="my-report.qmd"}
+post_meal_insulin <- readr::read_csv2("https://zenodo.org/records/4989220/files/Eliasson_data2.csv?download=1")
+```
+
+## :technologist: Random-Dataset-2
+
+**Time: ~NUM minutes.**
+
+Text
+
+### :download: Accessing Random-Dataset-2
+
+```{.r filename="my-report.qmd"}
+post_meal_insulin <- readr::read_csv2("https://zenodo.org/records/4989220/files/Eliasson_data2.csv?download=1")
+```
+
+## :technologist: Random-Dataset-3
+
+**Time: ~NUM minutes.**
+
+Text
+
+### :download: Accessing Random-Dataset-3
+
+```{.r filename="my-report.qmd"}
+post_meal_insulin <- readr::read_csv2("https://zenodo.org/records/4989220/files/Eliasson_data2.csv?download=1")
+```

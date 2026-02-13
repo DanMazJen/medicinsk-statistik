@@ -1,0 +1,29 @@
+/*-- scss:defaults --*/
+
+@import url(https://fonts.googleapis.com/css?family=Quicksand&display=swap);
+@import url(https://fonts.googleapis.com/css?family=Outfit&display=swap);
+@import url(https://fonts.googleapis.com/css2?family=PT+Mono);
+
+$font-family-serif: "Quicksand", sans-serif !default;
+$font-family-sans-serif: "Quicksand", sans-serif !default;
+$font-family-monospace: "PT Mono", monospace !default;
+$presentation-heading-font: "Outfit", sans-serif !default;
+$primary: #203C6E !default;
+$secondary: #adb5bd !default;
+$presentation-heading-color: $primary !default;
+$presentation-font-size-root: 35px !default;
+$presentation-h2-font-size: 2em !default;
+$body-bg: #E9E9E9 !default;
+$link-color: #4582ec !default;
+
+/*-- scss:rules --*/
+
+.reveal .progress {
+  height: 8px;
+  color: $primary;
+  top: 0;
+}
+
+.reveal .slide-logo {
+  top: 0;
+}

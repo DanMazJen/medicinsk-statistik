@@ -9,7 +9,7 @@ urls:
   home: "https://medical-statistics-aau.netlify.app/"
 
 surveys:
-  pre-workshop: "https://docs.google.com/forms/d/e/1FAIpQLScbMwxPff50ERfy9iVVvOfi9IweyvA3ioWLSqyaTSKG0MqGKw/viewform?usp=header"
+  pre-course: "https://docs.google.com/forms/d/e/1FAIpQLScbMwxPff50ERfy9iVVvOfi9IweyvA3ioWLSqyaTSKG0MqGKw/viewform?usp=header"
   feedback: "https://docs.google.com/forms/d/e/1FAIpQLSejsgArWYbCpTjKoxdCArtAVJrtBZQCINIEUj1TqppYrd3n8g/viewform?usp=publish-editor"
 
 # Use `r3::get_allowed_r_versions()` and `r3::get_allowed_rstudio_versions()`

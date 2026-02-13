@@ -1,9 +1,9 @@
 # Schedule {#sec-schedule}
 
-The workshop is structured as a series of participatory live-coding
+The course is structured as a series of participatory live-coding
 sessions interspersed with hands-on exercises and group work, using
 either a practice dataset or some other real-world dataset. There are
-some lectures given, mainly at the start and end of the workshop. The
+some lectures given, mainly at the start and end of the course. The
 general schedule outline is shown in the below table. This is not a
 fixed schedule of the timings of each session---some may be shorter
 and others may be longer. Instead, it is meant to be an approximate
@@ -11,11 +11,11 @@ guide and overview.
 
 | Week | Date |Topic| Notes/Readings |
 | ---- | ---- | ----------- | ---------------- |
-| 1    | xx   | Install R and RStudio, basic functions, and data types | **Install programs before!** see [Pre-course tasks](pre-workshop/installing-programs-r.qmd). In general, go through all the Pre-course tasks, so that you can follow along without technical issue slowing you down |
+| 1    | xx   | Install R and RStudio, basic functions, and data types | **Install programs before!** see [Pre-course tasks](/pre-course/installing-programs-r.qmd). In general, go through all the Pre-course tasks, so that you can follow along without technical issue slowing you down |
 | 2    | xx   | Probability and stochastic variables, distributions and realizations |  |
 | 3    | xx   | Outcome types and measuring effects |  |
 | 4    | xx   | Descriptive data: box, violin, and bar plots |  |
-| 5    | xx   | **Workshop:** Operationalizing a research question (SAP examples) | Group exercises |
+| 5    | xx   | **course:** Operationalizing a research question (SAP examples) | Group exercises |
 | 6    | xx   | Law of Large Numbers, uncertainty, permutation tests, bootstrapping |  |
 | 7    | xx   | Systematic vs. random noise, hypothesis testing, reproducibility, confounding, selection bias |      |
 | 8    | xx   | Data manipulation |  |
@@ -27,8 +27,8 @@ guide and overview.
 | 14   | xx   | ANOVA, repeated measures, difference-in-difference |  |
 | 15   | xx   | Margins analysis and margins plots |  |
 | 16   | xx   | Power calculations |  |
-| 17   | xx   | **Workshop:** Prediction vs. explanatory models (diagnostics) |  |
+| 17   | xx   | **course:** Prediction vs. explanatory models (diagnostics) |  |
 | 18   | xx   | Validation of binary prediction models (power, calibration, ROC) | |
 | 19   | xx   | Validation of continuous prediction models (including power calculations) |    |
-| 20   | xx   | **Workshop:** From statistical analysis to clinical decision-making |   |
+| 20   | xx   | **course:** From statistical analysis to clinical decision-making |   |
 | 21   | xx   | Introduction to meta-analysis |  |

@@ -3,11 +3,11 @@ format: rostools-theme-revealjs
 search: false
 ---
 
-# Welcome to the TODO: add workshop name
+# Welcome to Medical Statistics
 
 TODO: update these.
 
--   :heavy_check_mark: Accept the GitHub Organization invite
+-   :heavy_check_mark: Check out the website [Medical Statistics](https://medical-statistics-aau.netlify.app/)
 -   :heavy_check_mark: Go to the table with the group name
 -   :heavy_check_mark: Introduce yourself to your group members
 

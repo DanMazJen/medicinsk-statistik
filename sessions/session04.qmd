@@ -450,8 +450,7 @@ ggplot(post_meal_data, aes(x = BMI, y = auc_pg)) +
 
 Run this code chunk with {{< var keybind.run-code >}} and we'll see a
 scatterplot of BMI and the area under the curve for glucose with a
-smoothing line on top of the points. To help build the habit of styling
-the code, run `{styler}` on the file with {{< var keybind.styler >}}.
+smoothing line on top of the points.
 Before rendering our HTML document, let's add a caption and label to the
 plot:
 

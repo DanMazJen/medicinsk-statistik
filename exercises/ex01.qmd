@@ -10,7 +10,7 @@ The learning objectives for this session are:
 
 ## Exercises
 
-Everything for this session was covered within the [session](sessions/session01.qmd) and is therefore not repeated here.
+Everything for this session was covered within the [session](/sessions/session01.qmd) and is therefore not repeated here.
 
 ## Survey
 

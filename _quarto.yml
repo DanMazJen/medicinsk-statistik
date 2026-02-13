@@ -24,15 +24,15 @@ book:
         - overview/syllabus.qmd
         - overview/schedule.qmd
         - overview/learning-design.qmd
-    - part: "Pre-workshop"
+    - part: "Pre-course"
       chapters:
-        - pre-workshop/overview.qmd
-        - pre-workshop/reading.qmd
-        - pre-workshop/installing-programs-r.qmd
-        - pre-workshop/r-and-rstudio.qmd
-        - pre-workshop/installing-r-packages.qmd
-        - pre-workshop/code-of-conduct.qmd
-        - pre-workshop/survey.qmd
+        - pre-course/overview.qmd
+        - pre-course/reading.qmd
+        - pre-course/installing-programs-r.qmd
+        - pre-course/r-and-rstudio.qmd
+        - pre-course/installing-r-packages.qmd
+        - pre-course/code-of-conduct.qmd
+        - pre-course/survey.qmd
     - part: "Sessions"
       chapters:
         - sessions/introduction.qmd
@@ -61,7 +61,7 @@ book:
       - text: "License: CC BY 4.0 {{< fa brands creative-commons >}} {{< fa brands creative-commons-by >}}"
         href: LICENSE.md
       - text: "Code of Conduct"
-        href: "pre-workshop/code-of-conduct.qmd"
+        href: "pre-course/code-of-conduct.qmd"
 
 bibliography:
 - "includes/references.bib"

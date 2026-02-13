@@ -13,7 +13,7 @@ library(pak)
 
 
 Now that you have RStudio and R on your computer and have read about
-them, you need to install the R packages we'll use in the workshop. R
+them, you need to install the R packages we'll use in the course. R
 packages are bundles of R code that other people have written. There are
 so many R packages available that there is likely an R package for
 anything you'd like to do in R. Making use of R packages can help you
@@ -27,7 +27,7 @@ Before we continue, let's briefly explain what some terms mean.
     numbers.
     -   R code is split into two types: objects (like a dataset) or
         actions (called functions). For the most part, whenever you see
-        code with `()` at the end (at least in this workshop), that
+        code with `()` at the end (at least in this course), that
         means it is a function (an action).
     -   A function is a set of bundled R code that performs a specific
         task. Like the example `mean()` above.
@@ -39,11 +39,11 @@ Before we continue, let's briefly explain what some terms mean.
     data) that work together to expand on or improve R code and R
     functionality.
 
-For this workshop, we will be focusing on R packages that are powerful
+For this course, we will be focusing on R packages that are powerful
 and general-purpose enough to help you in multiple aspects of your
 research. To install these packages, you'll need to install our custom
-r3 helper package that we use for this workshop to help you install all
-the needed packages and to run some basic checks during the pre-workshop
+r3 helper package that we use for this course to help you install all
+the needed packages and to run some basic checks during the pre-course
 setup. To install it, you'll first need to install the `{pak}` package.
 
 ::: callout-tip
@@ -76,13 +76,12 @@ survey.
 
 The problem usually happens because some institutions block or restrict
 what types of software get installed. If you run into issues, try to
-install in administrator mode, or ask IT to allow you to install the
-package.
+install in administrator mode.
 :::
 
 ```{r install-r3}
 #| filename: "Console"
-pak::pak("rostools/r3", upgrade = TRUE)
+pak::pak("DanMazJen/medisr", upgrade = TRUE)
 ```
 
 <!-- TODO: Show picture of the Console and with the code in and running -->
@@ -100,24 +99,24 @@ use a function from a package, without needing to load the whole package
 and all of its other functions too. We use this trick because we only
 want to use the one function `pak()` and not load all the other
 functions from the `{pak}` package into R. We will be using `::` often
-in this workshop.
+in this course.
 
-Most of the packages we will be using in this workshop are bundled
+Most of the packages we will be using in this course are bundled
 together into one package called `{tidyverse}`. This package is a
 collection of packages that are designed for common tasks in data
 science, ranging from data exploration to data visualization. As the
 name suggests, `{tidyverse}` is an attempt to organize the "universe" of
 data analysis by providing packages that guide workflows and lead to
 more reproducible analysis projects. To install all the packages we will
-use for this workshop, copy and paste this command into the R Console:
+use for this course, copy and paste this command into the R Console:
 
 ```{r install-necessary-packages}
 #| filename: "Console"
-r3::install_packages_introduction()
+medisr::install_packages()
 ```
 
 ::: callout-important
-This step sometimes fails for some people because their work computer
+This step sometimes fails for some people because their computer
 restricts how certain software are installed. If you do have issues, you
 can manually install the necessary packages with this code:
 
@@ -127,13 +126,13 @@ install.packages(c("tidyverse", "here", "hexbin", "prodigenr", "styler", "usethi
 ```
 :::
 
-Same as when you installed the r3 package, this may take some time to
+Same as when you installed the `{medisr}` package, this may take some time to
 install all the packages. We have you use this function to install
 everything rather than install all the packages with
 `install.packages()` individually, as this makes it a bit easier for you
 to get set up.
 
-The specific packages from `{tidyverse}` that we will use are
+We will be using two packages from `{tidyverse}` for nearly all sessions:
 `{ggplot2}` and `{dplyr}`. These packages provide a set of tools for the
 most common data analysis tasks and have excellent documentation and
 tutorials on how to use them.

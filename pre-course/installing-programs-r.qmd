@@ -1,0 +1,94 @@
+# Installing the programs {#sec-install-programs}
+
+In order to participate in the course, you'll need to install these
+programs. You may already have some of them installed and if you did,
+please make sure that they are at least the minimum versions listed
+below. If not, you will need to update them.
+
+::: {.callout-note appearance="default"}
+*A note to those who use other solutions than a laptop*: R and RStudio will not work on an iPad or tablet. Please use your laptop for this course.
+:::
+
+::: panel-tabset
+### Windows
+
+1.  [R](https://cloud.r-project.org/bin/windows/base/): Any version
+    above {{< meta versions.r >}}. If you have used R before, you can
+    confirm the version by running `R.version.string` in the Console.
+2.  [RStudio](https://www.rstudio.com/products/rstudio/download/#download):
+    Any version above {{< meta versions.rstudio >}}. If you have
+    installed it before, check the current version by going to the menu
+    "Help -\> About RStudio".
+3.  [Rtools](https://cran.r-project.org/bin/windows/Rtools/): Choose the
+    version that says "R-release". Rtools is needed in order to build
+    some R packages. For some computers, installing Rtools can take some
+    time.
+
+### MacOS
+
+1.  [R](https://cloud.r-project.org/bin/macosx/): Any version above
+    {{< meta versions.r >}}. If you have used R before, you can confirm
+    the version by running `R.version.string` in the Console. If you
+    don't use [Homebrew](https://brew.sh/) to install software in MacOS,
+    we strongly recommend you [install it](https://brew.sh/). It makes
+    it much easier to install things, for example installing R is as
+    easy as opening a Terminal and running:
+
+    ``` {.bash filename="Terminal"}
+    brew install --cask r
+    ```
+
+    If you don't use Homebrew, you can download and install R as you
+    normally would by clicking the link above.
+
+2.  [RStudio](https://www.rstudio.com/products/rstudio/download/#download):
+    Any version above {{< meta versions.rstudio >}}. If you have
+    installed it before, check the current version by going to the menu
+    "Help -\> About RStudio". Like with installing R above with
+    Homebrew, installing RStudio can be done by opening a Terminal and
+    writing:
+
+    ``` {.bash filename="Terminal"}
+    brew install --cask rstudio
+    ```
+
+    If you don't use Homebrew, you can download and install RStudio as
+    you normally would by clicking the link above.
+
+### Linux (Ubuntu)
+
+1.  [R](https://cloud.r-project.org/bin/linux/ubuntu/): Any version
+    above {{< meta versions.r >}}. If you have used R before, you can
+    confirm the version by running `R.version.string` in the Console.
+
+    ``` {.bash filename="Terminal"}
+    sudo apt -y install r-base
+    ```
+
+2.  [RStudio](https://www.rstudio.com/products/rstudio/download/#download):
+    Any version above {{< meta versions.rstudio >}}. If you have
+    installed it before, check the current version by going to the menu
+    "Help -\> About RStudio".
+
+:::
+
+::: callout-tip
+All these programs are required for the course.
+:::
+
+Once R and RStudio have been installed, open RStudio. *If you
+encounter any troubles during these pre-course tasks*, try as best as
+you can to complete the task and then let us know about the issues in
+the pre-course survey. If you continue having problems, indicate on
+the survey that you need help and we can try to book a quick video call
+to fix the problem. Otherwise, you can come to the course 15-20
+minutes earlier to get help.
+
+To see whether everything is set up okay,
+see [this video at YouTube](https://www.youtube.com/watch?v=mAtAHwiP204) by Edge Rubak.
+
+If you're unable to complete the setup procedure due to unfixable
+technical issues, you can use Posit Cloud (to use RStudio on the cloud)
+as a final solution in order to participate in the course. For help
+setting up Posit Cloud for this course, refer to the [Posit Cloud
+setup guide](https://guides.rostools.org/posit-cloud).

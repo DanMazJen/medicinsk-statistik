@@ -6,7 +6,7 @@
 library(downlit)
 ```
 
-During this workshop we will be spending most of our time in RStudio.
+During this course we will be spending most of our time in RStudio.
 RStudio is an "environment" that we use to interact with R. R is like an
 engine, while RStudio is like the tools we use to actually work with
 that engine. Prior to taking a look at what RStudio looks like, let's
@@ -58,45 +58,43 @@ has four "panels", dividing the screen into the four sections.
 
 ::: {.callout-note appearance="default"}
 This image may look slightly different from your own computer depending
-on your operating system and other settings. For example, some pictures
-may show a Git pane in RStudio, but you may not see it. If you haven't
+on your operating system and other settings. If you haven't
 created or opened an RStudio R Project (which is taught in the
-introductory workshop), the Git pane *does not* show up. It only shows
-up in R Projects that use Git to track file changes.
+first session), your files may be outside the scope for RStudio to find them by itself.
+In that case, you will either have to change the current directory or
+make/open an RStudio R Project.
 :::
 
-```{r}
-#![Interface to RStudio.](/images/rstudio-introduction.png){#fig-rstudio-introduction}
-```
+
+![Interface to RStudio.](/images/rstudio-introduction.png){#fig-rstudio-introduction}
 
 While you can customize where the individual panels go, the default
 panel layout is what is shown above.
 
 -   Panel "A" is the panel that shows the "scripts", which we will be
-    using a lot during the workshop. You *may or may not see this panel*
+    using a lot during the course. You *may or may not see this panel*
     when you open RStudio for the first time. This panel is where you
     write R code that will be saved as a file.
 -   Panel "B" is the Console. This is where R commands are sent and
     evaluated by R. This is the "engine". No R code written here is
-    saved. All code in this workshop will eventually be sent to the R
+    saved. All code in this course will eventually be sent to the R
     Console, as this is the most common way of using and running R code.
-    **Throughout the rest of the pre-workshop tasks, if you see a code
+    **Throughout the rest of the pre-course tasks, if you see a code
     chunk with the label "Console" above it, this is the panel we want you
     to type or paste the code into.**
 -   Panel "C" contains the Environment, History, Connections, and Git
-    tabs. In this workshop, we will only be using the Environment and
-    Git tab.
+    tabs. In this course, we will only be using the Environment tab.
 -   Panel "D" has the Files, Plots, Packages, Help, Build, and Viewer
-    tabs. For this workshop, we will only be going over the Files,
+    tabs. For this course, we will only be going over the Files,
     Plots, Packages, and Help tabs. There can be slight differences in
     your layout of tabs in each panel.
 
-While we will spend part of the workshop using an R script to play
+While we will spend part of the course using an R script to play
 around with code, we will also be learning and using
 [Quarto](https://quarto.org) (files that end in `.qmd`). Quarto is an
 important tool in helping make your analysis more reproducible. You may
 have read about R Markdown before or you may see it mentioned on
-websites or blogs after this workshop. Quarto is an upgraded version of
+websites or blogs after this course. Quarto is an upgraded version of
 R Markdown. We will explain Quarto (and R Markdown) in more detail in
 @sec-reproducible-documents.
 
@@ -111,7 +109,7 @@ written with Quarto.
 ## Quality of life settings
 
 Before continuing, set some RStudio options that will help you and the
-helpers and teachers out a lot during the workshop. Go to
+helpers and teachers out a lot during the course. Go to
 `Tools -> Global Options...` and do these tasks:
 
 1.  In "General", under the "Basic" tab, uncheck all boxes under "R
@@ -119,10 +117,9 @@ helpers and teachers out a lot during the workshop. Go to
     workspace to .RData on exit" to "Never".
 2.  In "Code", under the "Editing" tab, change the "Tab width" to 2. The
     tidyverse style guide as well as `{styler}` both use 2 spaces for
-    tabs, and since we are using the `{styler}` package, we can set this
-    option here to save us with formatting issues.
+    tabs. We can set this option here to save us with formatting issues.
 3.  In "Code", under the "Saving" tab, check all the boxes under
     "General" and "Auto-save". This last one, the "Auto-save", will help
     out a lot, since one of the biggest "troubleshooting issues" we
-    encounter when helping during the version control session is that
+    encounter when helping during the first session is that
     people forget to save. This solves that problem.

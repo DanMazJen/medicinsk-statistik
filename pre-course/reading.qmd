@@ -1,12 +1,10 @@
 # Pre-reading {#sec-pre-reading}
 
-If you haven't already, go through the workshop overview section. Read
+If you haven't already, go through the course overview section. Read
 the syllabus in @sec-syllabus, especially the part about what the
-workshop will cover and what we expect you to learn at the end of it.
-Then read the 'Is this for you?' section in @sec-is-this-for-you to
-clarify who we've designed and built this workshop for. Lastly, read the
-learning design section in @sec-learning-design to get an overview of
-what types of activities we will do during the workshop as well as the
+course will cover and what we expect you to learn at the end of it.
+Then read the learning design section in @sec-learning-design to get an overview of
+what types of activities we will do during the course as well as the
 reasons for them in relation to learning.
 
 Related to the learning design, an important component of learning is
@@ -15,27 +13,28 @@ specific sections of the material beforehand as we've found that these
 particular topics are often more difficult to grasp and understand for
 beginners. Reading it beforehand will give your brain some time to start
 processing the information, so that when you see it again during the
-workshop, it will be easier to understand and learn. During the
-workshop, you will read these sections again and we will explain them
+course, it will be easier to understand and learn. During the
+course, you will read these sections again and we will explain them
 verbally as well, to further reinforce the concepts.
 
-Because our main learning outcome is **reproducible research**, we will
-use tools like Git that is the foundation to doing reproducible
-research. Without a way to easily and quickly share code, your research
-*cannot* be *independently* reproducible. Using Git is the most common
-way to share code.
+Because our main learning outcome is **statistical litteracy**, we will
+use tools like R that is the foundation for most modern statistical workflows .
+Without a way to easily and quickly share code, your research
+*cannot* be *independently* reproducible. Using R is the most common
+way to write statistical analyses within the health sciences.
 
-So, please read about version control and Git in
+So, please read about R and the tidyverse in
 @sec-what-is-version-control, @sec-what-is-git, and @sec-basics-of-git.
-Git and version control are some of the more difficult things you will
-learn in this workshop because they are fundamentally very different
-ways of working on your computer than you are used to. They require
-changing how you see and interact with your projects and computer in big
-ways.
+R and its associated computer code will be the main topic for the course.
+However, all exercises and implementations of the statistical concepts
+and usecases of the material we cover will only be achievable through R and code.
+Learning how to program requires a change in how you see and interact with your projects
+and computer in big ways. Try not to underestimate R and what it can do for you in order
+to learn quicker or even slower during this course.
 
-Lastly, briefly read through the team project work section in
+Lastly, briefly read through the group project work section in
 @sec-project-work so you are familiar with what you will do at the end
-of the workshop. You'll have time during the project work session to
+of the course. You'll have time during the project work session to
 read through it again, but we've found that participants prefer and want
 to be aware beforehand on what is expected of them during the project
 work.
@@ -59,7 +58,7 @@ RStudio provides some great
 fantastic resources and a great reference to have readily available,
 either on your computer or printed out. We suggest that you download at
 least these following cheatsheets and have them available either
-digitally or printed out during the workshop, especially for when you do
+digitally or printed out during the course, especially for when you do
 the exercises and team project work:
 
 -   [RStudio IDE](https://rstudio.github.io/cheatsheets/rstudio-ide.pdf)

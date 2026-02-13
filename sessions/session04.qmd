@@ -16,7 +16,7 @@ session, we will cover the basics of creating plots.
 
 ## Learning objectives
 
-{{< include /includes/objectives/_visualization.qmd >}}
+{{< include /includes/objectives/_session.qmd >}}
 
 ## :book: Reading task: Basic principles for creating graphs
 
@@ -490,5 +490,3 @@ an idea of general trends or relationships between the two variables.
 Please complete the survey for this session:
 
 {{< include /includes/_survey.qmd >}}
-
-{{< include /includes/_code-appendix.qmd >}}

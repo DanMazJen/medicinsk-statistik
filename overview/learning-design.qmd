@@ -2,6 +2,15 @@
 
 # Learning design {#sec-learning-design}
 
+Teaching begins with practical, case-based exercises and progresses toward independent statistical projects with collaborative workshops and evaluations.
+
+- Interactive lectures
+- Individual problem-based assignments
+- Group-based project work
+- Joint project workshops and evaluations
+
+## Strategies
+
 This workshop is designed using the science of learning. Learning is
 when new content gets incorporated into long-term storage in the brain
 in a way that it can be later retrieved. Some of the best ways to enable
@@ -23,6 +32,7 @@ Throughout the workshop, we use these practices to support learning:
     you have a better idea of where you are going, where you are at in
     relation to the end goal, and what to expect along the way.
 
+:::{.hidden}
 -   The main activities are "code-alongs", where the teacher types on
     the computer and explains what it means while you type along. The
     connection between using the hands and doing something tangible
@@ -30,6 +40,7 @@ Throughout the workshop, we use these practices to support learning:
     since we have to both explain and type things out, which helps you
     learn better. The phrase "less is more" applies strongly to
     learning.
+:::
 
 -   We include several hands-on exercises that reinforce what was just
     taught through retrieval practice and repetition. It gives you a
@@ -44,6 +55,7 @@ Throughout the workshop, we use these practices to support learning:
     learn! The quote "while we teach, we learn" from the Roman
     philosopher Seneca is true here.
 
+:::{.hidden}
 -   We have minimal to no slides or lectures, as they are forms of
     information sharing with the lowest rates of learning. Instead we
     include reading tasks, so you can go at your pace, re-read things
@@ -52,6 +64,7 @@ Throughout the workshop, we use these practices to support learning:
     briefly summarise and emphasise key points after reading tasks, to
     repeat the main points and target another part of the brain (the
     auditory pathway).
+:::
 
 -   We include several breaks throughout the workshop to help you
     recharge and refocus. The brain is only able to effectively focus on

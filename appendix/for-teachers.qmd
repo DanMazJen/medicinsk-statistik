@@ -1,8 +1,78 @@
 # For teachers
 
-A more general guide to teaching or helping is found on the
-[Guides](https://guides.rostools.org/) website. This page has
-information relevant specifically to this workshop.
 
--   For created teams, assign one teacher or helper to each group to
-    help them specifically during the final group project.
+This page is intended as a short guide for teachers, supervisors, and teaching assistants involved in the **Medical Statistics** course. The goal is to align expectations, support students effectively, and maintain a consistent pedagogical level across projects and exercises.
+
+---
+
+## Supporting Students When Coding Feels Hard
+
+Learning statistics through coding can be challenging for many medical students, especially for those with limited programming background. Teachers play a key role in creating a supportive learning environment.
+
+**General principles:**
+
+* Normalize difficulty: Emphasize that struggling with code is a normal and expected part of learning statistics and data science.
+* Encourage process over perfection: Reward clear reasoning, reproducibility, and interpretation, not just polished code.
+* Promote peer learning: Encourage students to discuss approaches and troubleshoot together, while still submitting individual work.
+* Focus on conceptual understanding: Ensure students understand statistical concepts and study design, not only syntax.
+
+When students feel stuck:
+
+* Ask them to explain what they *think* the code should do.
+* Encourage them to read error messages and search documentation.
+* Provide small, targeted hints rather than full solutions when possible.
+
+Avoid taking over their computer and start typing yourself.
+
+---
+
+## Expected Project Level
+
+Projects and assignments should match the learning objectives of the course, see [here](https://moduler.aau.dk/course/2024-2025/MEDMS24B5_1). Students are expected to:
+
+* Perform basic data cleaning and transformation using tidyverse-style workflows.
+* Conduct descriptive statistics, hypothesis testing, and various regression analyses for predictive and causal purposes.
+* Produce reproducible reports using Quarto documents.
+* Create clear and interpretable figures using ggplot2.
+
+Projects should **not** require advanced programming techniques (e.g., complex functional programming, package development, machine learning pipelines) unless the supervisor feel comfortable taking the response of fully teaching the students themself in such concepts and practices, which is beyond the scope of the course and therefore not rewarded at the exam.
+
+---
+
+## Alignment With the Syllabus
+
+Teachers and supervisors should consult the official syllabus to ensure that:
+
+* The statistical methods required are covered in lectures or course materials.
+* Coding tasks reflect the intended learning outcomes.
+* Assessment criteria align with taught content and practice exercises.
+
+The syllabus defines the expected *know-how* for students at this stage. Tasks beyond this scope should be clearly marked as optional or advanced.
+
+---
+
+## Responsibility for Advanced Coding
+
+Students may choose to explore more advanced coding techniques (e.g., complex pipelines, custom functions, or specialized packages). While such initiative is encouraged, **coding beyond the defined course level is the student’s responsibility** and should not be required for passing the course.
+
+Teachers should avoid penalizing students for not using advanced methods when simpler, syllabus-aligned approaches are sufficient.
+
+---
+
+## Recommended Technical Stack
+
+To maintain consistency across teaching materials and student projects, the course uses:
+
+* **Tidyverse-style workflows** for data manipulation and analysis.
+* **ggplot2** for visualization, emphasizing reproducible and publication-ready figures.
+* **Quarto documents** for reports, enabling reproducible research practices and integration of code, results, and narrative text.
+
+Using this shared stack reduces cognitive load for students and improves collaboration between instructors and teaching assistants.
+
+---
+
+## Final Remarks
+
+The primary goal is to help medical students develop statistical reasoning, reproducible workflows, and confidence in working with data. Programming is a tool to support clinical and research understanding, not an end in itself.
+
+Teachers are encouraged to keep expectations transparent, provide constructive feedback, and refer consistently to the syllabus when defining project scope and assessment criteria.

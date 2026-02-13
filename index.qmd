@@ -1,32 +1,31 @@
 # Welcome! {.unnumbered}
 
+Welcome to the **Medical Statistics** course repository.
+This repo contains all teaching materials, exercises, datasets, and project resources used in the course.
 
-# Data management, statistical inference, and clinical decision-making using R
+The course focuses on **clinical data analysis, biostatistics, and data-driven clinical decision-making** through hands-on learning and real-world case studies. For the academic regulations of the course, see [Medical Statistics](https://moduler.aau.dk/course/2024-2025/MEDMS24B5_1).
 
-This website hosts all materials for the course Medical Statistics at Aalborg University, Faculty of Health as a collaboration between the Department of Health Science & Technology and the Department of Clinical Medicine. The course is currently offered for the education Medicine with Industrial Specialization at the 6th and final semester of the bachelor.
+## Course Overview
 
-<!-- TODO: Add a short description and motivation of the workshop here. -->
+Learn to turn clinical data into robust evidence that informs real clinical and research decisions. Healthcare generates enormous amounts of data, yet many decisions are still based on studies with limited statistical rigor, misinterpreted results, or insufficient consideration of uncertainty, bias, and reproducibility. Clinicians and researchers increasingly need the skills to critically appraise the literature and understand how evidence is generated, interpreted, and communicated in scientific work. To address this, you need strong statistical reasoning, practical data analysis skills, and the ability to translate quantitative results into clinically meaningful insight. In this course, you will learn how to use R for data analysis; understand probability, uncertainty, and stochastic processes; apply regression and generalized linear models; design and validate prediction models; evaluate bias, confounding, and reproducibility; perform power and sample size calculations; analyze time-to-event and repeated-measures data; and connect statistical findings to clinical decision-making and meta-analysis.
 
-<!-- TODO: Update the text below to match things -->
+By the end of the course, you will be able to engage confidently with scientific research, communicate quantitative findings clearly, and contribute to high-quality evidence generation. These skills will empower you to participate fully in modern clinical and translational research, collaborate effectively with statisticians and data scientists, and strengthen the scientific basis of your clinical and research practice.
 
-This ((TODO: length)) workshop is a ((TODO: Short description of the workshop.))
-It is designed for doing participatory live-typing, where the teacher
-demonstrates the tasks on their computer connected to a projector while learners
-type along on their own computer. The workshop also includes reading tasks,
-discussion activities, and hands-on exercises.
+The purpose of this module is to provide students with fundamental skills in:
 
-This website contains all of the material for the workshop, including
-readings, exercises, presentations, live-typing material, and images. It
-is structured as a book, with "chapters" as sessions, in order of
-appearance. We make heavy use of the website throughout the workshop
-where "type-along" sessions almost identically follow the material on
-the website (with slight modifications for time or more detailed
-explanations).
+- Handling and managing clinical and health-related data
+- Visualizing and exploring biomedical datasets
+- Applying biostatistical methods to clinical and industrial medical problems
+- Supporting clinical decision-making using quantitative evidence
+
+## This website
+
+This website contains all materials for the course Medical Statistics at Aalborg University, Faculty of Health as a collaboration between the Department of Health Science & Technology and the Department of Clinical Medicine. The course is currently offered for the education Medicine with Industrial Specialization at the 5th semester.
 
 Check out the overview section of the workshop, starting with the
 [Syllabus](/overview/syllabus.qmd).
 
-If you plan on attending the workshop, please make sure to complete the
+If you plan on attending the course, please make sure to complete the
 [Pre-workshop tasks](/pre-workshop/overview.qmd) to get set up and ready
 for the workshop. The pre-workshop tasks include a survey that you need
 to fill out before the workshop starts.
@@ -37,13 +36,14 @@ to fill out before the workshop starts.
 
 This website and its content are targeted to three groups:
 
-1.  For the **learners** to use during the workshop, both to follow
-    along and also to use as a reference after the workshop ends. A more
-    detailed description of who the learner is can be found in [Is this
+1.  For the **learners** to use during the course, both to follow
+    along and also to use as a reference during the project or even after the course ends. A more detailed description of who the learner is can be found in [Is this
     for you?](/overview/is-this-for-you.qmd)
-2.  For the **teachers** to use as a guide for when they do the
-    type-along sessions.
-3.  For those who are **interested in teaching**, who may not have much
+2.  For the **teachers** to use as a guide for teaching the course and for the exercise
+    material.
+3.  For the **project supervisors** to use as a reference on what to expect during the
+    projects work and references for R code help.
+4.  For those who are **interested in teaching**, who may not have much
     experience or may not know where to start, to use this website as a
     guide to running and teaching their own workshops.
 

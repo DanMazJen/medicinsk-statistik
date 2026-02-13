@@ -1,28 +1,75 @@
 # Syllabus {#sec-syllabus}
 
-TODO: Include description and overall introduction of workshop
+Learn to turn clinical data into robust evidence that informs real clinical and research decisions. Healthcare generates enormous amounts of data, yet many decisions are still based on studies with limited statistical rigor, misinterpreted results, or insufficient consideration of uncertainty, bias, and reproducibility. Clinicians and researchers increasingly need the skills to critically appraise the literature and understand how evidence is generated, interpreted, and communicated in scientific work. To address this, you need strong statistical reasoning, practical data analysis skills, and the ability to translate quantitative results into clinically meaningful insight. In this course, you will learn how to use R for data analysis; understand probability, uncertainty, and stochastic processes; apply regression and generalized linear models; design and validate prediction models; evaluate bias, confounding, and reproducibility; perform power and sample size calculations; analyze time-to-event and repeated-measures data; and connect statistical findings to clinical decision-making and meta-analysis.
 
-This workshop lasts TODO: Time and is split into the following sessions,
+By the end of the course, you will be able to engage confidently with scientific research, communicate quantitative findings clearly, and contribute to high-quality evidence generation. These skills will empower you to participate fully in modern clinical and translational research, collaborate effectively with statisticians and data scientists, and strengthen the scientific basis of your clinical and research practice.
+
+This course spans four months and is split into the following sessions,
 listed in the [schedule](/overview/schedule.qmd), which will be covered
 in order:
 
--   [Introduction to the workshop](/sessions/introduction.qmd)
--   [TODO: Session title](/sessions/session.qmd)
--   [Concluding remarks](/sessions/conclusion.qmd)
+-   [Introduction to R](/sessions/session01.qmd)
+-   [Probability and stochastic variables](/sessions/session02.qmd)
+-   [Outcome types and measuring effects](/sessions/session03.qmd)
+-   [Describing and plotting data](/sessions/session04.qmd)
+-   [Formulating a research question](/sessions/session05.qmd)
+-   [Law of Large Numbers](/sessions/session06.qmd)
+-   [hypothesis testing](/sessions/session07.qmd)
+-   [Data manipulation](/sessions/session08.qmd)
+-   [Linear regression](/sessions/session08.qmd)
+-   [Logistic regression](/sessions/session08.qmd)
+-   [Interaction](/sessions/session08.qmd)
+-   [Generalized linear regression](/sessions/session08.qmd)
+-   [Time-to-event analysis](/sessions/session08.qmd)
+-   [Repeated measures](/sessions/session08.qmd)
+-   [Margins analysis](/sessions/session08.qmd)
+-   [Power calculations](/sessions/session08.qmd)
+-   [Workshop: Prediction vs. explanatory models](/sessions/session08.qmd)
+-   [Validation of binary prediction models](/sessions/session08.qmd)
+-   [Validation of continuous prediction models](/sessions/session08.qmd)
+-   [Workshop: From statistical analysis to clinical decision-making](/sessions/session08.qmd)
+-   [Introduction to meta-analysis](/sessions/session08.qmd)
+
 
 ## Learning outcome and objectives
 
-The overall aim of this workshop is to enable you to:
+### **Knowledge**
+Students will:
 
-1.
+- Understand uncertainty, probability, and core biostatistical concepts
+- Recognize major study designs and distinguish between **explanatory**, **exploratory**, and **predictive** studies
+- Explain random and non-random variation
+- Understand the limitations and possibilities of statistical tools
+- Apply biostatistics to problems in medicine with industrial specialization
 
+### **Skills**
+Students will be able to:
+
+- Read and interpret software documentation
+- Select and apply appropriate visualization tools for health data
+- Formulate scientific statistical problems and apply biostatistical methods
+- Manipulate, visualize, and analyze complex and large datasets
+- Communicate statistical results in a clinical context using relevant literature and databases
+- Collaborate effectively in interdisciplinary project groups
+
+### **Competencies**
+Students will:
+
+- Quantify clinical and health-related problems using biostatistical methods
+- Integrate uncertainty and clinical relevance in decision-making
+- Translate data analysis into clinical decision support
+- Critically evaluate statistical approaches and participate in scientific discussions
+
+
+:::{.hidden}
 Broken down into specific objectives for each session, we've designed
 the workshop to enable you to do the following:
 
-[**TODO: Session title**](/sessions/session.qmd)
+[**Session title**](/sessions/session.qmd)
 
 {{< include /includes/objectives/_session.qmd >}}
 
 Tangibly, during the workshop you will:
 
--   TODO: List concrete tasks and steps
+-   List concrete tasks and steps
+:::

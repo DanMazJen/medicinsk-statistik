@@ -11,7 +11,7 @@ book:
   author:
     - name: "Daniel Skak Mahzari-Jensen"
       affiliation: "Aalborg University"
-      orcid: "test"
+      orcid: "0000-0003-1180-7734"
 
   date: last-modified
   repo-url: https://github.com/DanMazJen/medicinsk-statistik
@@ -22,7 +22,6 @@ book:
     - part: "Overview"
       chapters:
         - overview/syllabus.qmd
-        - overview/is-this-for-you.qmd
         - overview/schedule.qmd
         - overview/learning-design.qmd
     - part: "Pre-workshop"

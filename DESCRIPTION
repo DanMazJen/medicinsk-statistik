@@ -10,4 +10,15 @@ URL: https://github.com/DanMazJen/medicinsk-statistik
 BugReports: https://github.com/DanMazJen/medicinsk-statistik/issues
 Imports:
     downlit,
-    pak
+    dplyr,
+    forcats,
+    ggplot2,
+    haven,
+    here,
+    lubridate,
+    pak,
+    purrr,
+    readr,
+    stringr,
+    tibble,
+    tidyr

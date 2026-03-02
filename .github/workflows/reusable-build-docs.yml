@@ -12,7 +12,7 @@ on:
         description: "Hosting provider to use for publishing the website: netlify or gh-pages. If 'gh-pages', also need to set permissions."
         required: false
         type: string
-        default: "netlify"
+        default: "gh-pages" #"netlify"
     secrets:
       netlify-token:
         required: false
@@ -50,6 +50,7 @@ jobs:
             knitr
             rmarkdown
             downlit
+            tidyverse
 
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@8a96df13519ee81fd526f2dfca5962811136661b # v2.2.0

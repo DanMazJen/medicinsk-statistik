@@ -1,30 +1,52 @@
 # Data for Medical Statistics
 
-<!-- TODO: Add an introduction here -->
+You can run the most advanced regression model, calculate the fanciest p-values, and produce the prettiest graphs—but if your data is garbage, your results are just beautiful garbage. Statistics is not a magic spell that turns messy, biased, incomplete, or poorly structured data into truth. It only amplifies what’s already there.
+
+In medical research, data quality is everything. If diagnoses are miscoded, if measurements are inconsistent, if inclusion criteria are unclear, or if missing values are ignored, your conclusions can be dangerously wrong. A flawed dataset can make a harmful treatment look effective or hide real side effects. No confidence interval can fix systematic bias. No machine learning model can compensate for a broken study design.
+
+And structure matters. A dataset without clear variables, units, metadata, and consistent formats is a nightmare to analyze and easy to misunderstand. Garbage in, garbage out—except in medicine, “garbage out” can influence clinical decisions and patient care.
+
+So before you worship statistical methods, worship your data pipeline. Clean data. Well-defined variables. Thoughtful study design. Documentation. Because statistics is a microscope, not a disinfectant. It reveals reality—it does not repair it.
+
+::: callout-note
+## Open source data: \~1 minute
+
+Data can be made publicly available. This is often not a problem, despite GDPR regulations. Datasets are often made available on websites such as [Zenodo](https://zenodo.org/communities/eu/collections/subjects/mhealth?q=&f=resource_type%3Adataset&f=file_type%3Acsv&l=list&p=1&s=10&sort=newest).
+
+Open science is a movement that encourages transparency and quality over productivity. In a world where
+we produce more data than we are capable of analysing ourselves, it is meaningful and highly encouraged
+to provide data using the [FAIR principles](https://www.go-fair.org/fair-principles/).
+:::
 
 ## Datasets we use
 
 In this course, we use the following datasets:
 
--   Random-Dataset-1
--   Random-Dataset-2
--   Random-Dataset-3
+(@)   AlzheimerDisease (AppliedPredictiveModeling) @#AlzheimerDisease-data
+(@)   Cleveland Heart Disease (ISLR) @#HeartDisease-data
+(@)   Medical Expenditure Panel Survey (heckmanGE) @#MEPS-data
+(@)   Mayo Clinic Primary Biliary Cholangitis Data (Survival) @#survival-data
+(@)   Sleep Study (lme4) @#sleep-data
+(@)   Diabetes study @#diabetes-data
+(@)   Cognitive weight loss RCT @#weight-data
+(@)   FEV1 COPD simulation data () @#fev1-data
 
-Here, we provide some meta-data about the datasets. Please take the time to carefully read this section before jumping in and wrangling data without knowing the design or variables collected.
+Here, we provide some context and meta-data about the datasets. Please take the time to carefully read this section before jumping in and wrangling data without knowing the design or variables collected.
 
-::: callout-note
-## Open source data: \~4 minutes
+## AlzheimerDisease (AppliedPredictiveModeling) {#AlzheimerDisease-data}
 
-Data can be made publicly available. This is not a problem, despite GDPR regulatins. Datasets are often made available on websites such as [Zenodo](https://zenodo.org/communities/eu/collections/subjects/mhealth?q=&f=resource_type%3Adataset&f=file_type%3Acsv&l=list&p=1&s=10&sort=newest).
-:::
+**Time: ~3 minutes.**
 
-## :technologist: Random-Dataset-1
+Washington University conducted a clinical study to determine if biological measurements made from cerebrospinal fluid (CSF) can be used to diagnose or predict Alzheimer's disease ([Craig-Schapiro et al. 2011](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0018850)). These data are a modified version of the values used for the publication.
 
-**Time: ~NUM minutes.**
+The R factor vector diagnosis contains the outcome data for 333 of the subjects. The demographic and laboratory results are collected in the data frame predictors.
 
-Dataset 1 contains...
+One important indicator of Alzheimer's disease is the genetic background of a subject. In particular, what versions of the Apolipoprotein E gene inherited from one's parents has an association with the disease. There are three variants of the gene: E2, E3 and E4. Since a child inherits a version of the gene from each parent, there are six possible combinations (e.g. E2/E2, E2/E3, and so on). This data is contained in the predictor column named Genotype.
 
-### :download: Accessing Random-Dataset-1
+**Source:**
+Craig-Schapiro, R., Kuhn, M., Xiong, C., Pickering, E. H., Liu, J., Misko, T. P., Perrin, R. J., et al. (2011). Multiplexed Immunoassay Panel Identifies Novel CSF Biomarkers for Alzheimer's Disease Diagnosis and Prognosis. PLoS ONE, 6(4), e18850.
+
+### Accessing the AlzheimerDisease dataset
 
 In order to access the dataset, we suggest using:
 
@@ -32,26 +54,535 @@ In order to access the dataset, we suggest using:
 post_meal_insulin <- readr::read_csv2("https://zenodo.org/records/4989220/files/Eliasson_data2.csv?download=1")
 ```
 
-## :technologist: Random-Dataset-2
+## Cleveland Heart Disease {#HeartDisease-data}
 
-**Time: ~NUM minutes.**
+**Time: ~5 minutes.**
 
-Text
+Cleveland Heart Disease
 
-### :download: Accessing Random-Dataset-2
+**Description**
+This dataset contains clinical and test measurements for 303 patients with chest pain.
+The outcome variable indicates whether angiographically confirmed heart disease is present.
+
+**Outcome Variable**
+-   A HD (or HD) – Heart Disease Status (Confirmed coronary artery disease based on angiography (gold standard)).
+    -   Yes = heart disease present
+    -   No = no heart disease
+
+**Predictor Variables**
+
+-   Age:
+    -    Patient age in years.
+-   Sex:
+    -   1 = male
+    -   0 = female
+-   ChestPain:
+    -   typical = typical angina (classic cardiac chest pain)
+    -   atypical = atypical angina
+    -   nonanginal = chest pain not due to heart
+    -   asymptomatic = no chest pain symptoms
+-   RestBP – Resting Blood Pressure (mm Hg measured at rest)
+-   Chol – Serum Cholesterol/Blood cholesterol level (mg/dL)
+-   Fbs – Fasting Blood Sugar
+    -   1 = fasting glucose > 120 mg/dL
+    -   0 = normal
+-   RestECG – Resting ECG Result
+    -   0 = normal
+    -   1 = ST-T wave abnormality
+    -   2 = left ventricular hypertrophy (LVH)
+-   MaxHR – Maximum Heart Rate
+    -   Highest heart rate during exercise test (beats/min).
+-   ExAng – Exercise-Induced Angina
+    -   1 = chest pain during exercise
+    -   0 = no chest pain
+-   Oldpeak – ST Depression
+    -   Numeric measure of ECG change during exercise vs rest. Larger values suggest ischemia.
+-   Slope – ST Segment Slope During Exercise (Flat/downsloping are more concerning)
+    -   1 = upsloping
+    -   2 = flat
+    -   3 = downsloping
+-   Ca – Number of Major Coronary Vessels
+    -   Values: 0–3
+    -   Number of vessels with visible disease on angiography.
+-   Thal – Thallium Stress Test Result
+    -   normal = normal blood flow
+    -   fixed = fixed defect (old infarct/scar)
+    -   reversible = reversible defect (ischemia under stress)
+
+### Accessing the Cleveland Heart Disease dataset
 
 ```{.r filename="my-report.qmd"}
-post_meal_insulin <- readr::read_csv2("https://zenodo.org/records/4989220/files/Eliasson_data2.csv?download=1")
+hd <- readr::read_csv("https://www.statlearning.com/s/Heart.csv")
 ```
 
-## :technologist: Random-Dataset-3
+## Medical Expenditure Panel Survey 2001: Ambulatory Expenditures Data {#MEPS-data}
 
-**Time: ~NUM minutes.**
+**Time: ~5 minutes.**
 
-Text
+**Description**
+This dataset is an extract from the 2001 Medical Expenditure Panel Survey (MEPS), providing information on ambulatory expenditures and various demographic and health-related variables. It has been used for illustrative examples by Cameron and Trivedi (2009, Chapter 16).
 
-### :download: Accessing Random-Dataset-3
+**Format**
+A data frame with 3,328 observations on the following 22 variables.
+
+educ
+Education status
+
+age
+Age
+
+income
+Income
+
+female
+Gender
+
+vgood
+Self-reported health status, very good
+
+good
+Self-reported health status, good
+
+hospexp
+Hospital expenditures
+
+totchr
+Total number of chronic diseases
+
+ffs
+Family support
+
+dhospexp
+Dummy variable for hospital expenditures
+
+age2
+Age squared
+
+agefem
+Interaction between age and gender
+
+fairpoor
+Self-reported health status, fair or poor
+
+year01
+Year of survey
+
+instype
+Type of insurance
+
+ambexp
+Ambulatory expenditures
+
+lambexp
+Log of ambulatory expenditures
+
+blhisp
+Ethnicity
+
+instype_s1
+Insurance type, version 1
+
+dambexp
+Dummy variable for ambulatory expenditures
+
+lnambx
+Log-transformed ambulatory expenditures
+
+ins
+Insurance status
+
+**Source**
+2001 Medical Expenditure Panel Survey by the Agency for Healthcare Research and Quality.
+
+### Accessing the Medical Expenditure Panel Survey dataset
 
 ```{.r filename="my-report.qmd"}
+#data_url <- "https://raw.githubusercontent.com/cran/ssmrob/master/data/MEPS2001.rda"
+data_url <- "https://raw.githubusercontent.com/cran/heckmanGE/master/data/MEPS2001.rda"
+load(url(data_url))
+meps2001 <- tibble::tibble(MEPS2001)
+rm(MEPS2001)
+```
+
+## Mayo Clinic Primary Biliary Cholangitis Data {#survival-data}
+
+**Time: ~5 minutes.**
+
+**Description**
+Primary biliary cholangitis is an autoimmune disease leading to destruction of the small bile ducts in the liver. Progression is slow but inexhortable, eventually leading to cirrhosis and liver decompensation. The condition has been recognised since at least 1851 and was named "primary biliary cirrhosis" in 1949. Because cirrhosis is a feature only of advanced disease, a change of its name to "primary biliary cholangitis" was proposed by patient advocacy groups in 2014.
+
+This data is from the Mayo Clinic trial in PBC conducted between 1974 and 1984. A total of 424 PBC patients, referred to Mayo Clinic during that ten-year interval, met eligibility criteria for the randomized placebo controlled trial of the drug D-penicillamine. The first 312 cases in the data set participated in the randomized trial and contain largely complete data. The additional 112 cases did not participate in the clinical trial, but consented to have basic measurements recorded and to be followed for survival. Six of those cases were lost to follow-up shortly after diagnosis, so the data here are on an additional 106 cases as well as the 312 randomized participants.
+
+A nearly identical data set found in appendix D of Fleming and Harrington; this version has fewer missing values.
+
+**Format**
+age:	in years
+albumin:	serum albumin (g/dl)
+alk.phos:	alkaline phosphotase (U/liter)
+ascites:	presence of ascites
+ast:	aspartate aminotransferase, once called SGOT (U/ml)
+bili:	serum bilirunbin (mg/dl)
+chol:	serum cholesterol (mg/dl)
+copper:	urine copper (ug/day)
+edema:	0 no edema, 0.5 untreated or successfully treated
+1 edema despite diuretic therapy
+hepato:	presence of hepatomegaly or enlarged liver
+id:	case number
+platelet:	platelet count
+protime:	standardised blood clotting time
+sex:	m/f
+spiders:	blood vessel malformations in the skin
+stage:	histologic stage of disease (needs biopsy)
+status:	status at endpoint, 0/1/2 for censored, transplant, dead
+time:	number of days between registration and the earlier of death,
+transplantion, or study analysis in July, 1986
+trt:	1/2/NA for D-penicillmain, placebo, not randomised
+trig:	triglycerides (mg/dl)
+
+**Source**
+T Therneau and P Grambsch (2000), Modeling Survival Data: Extending the Cox Model, Springer-Verlag, New York. ISBN: 0-387-98784-3.
+
+### Accessing the Mayo Clinic Primary Biliary Cholangitis dataset
+
+```{.r filename="my-report.qmd"}
+data(pbc, package="survival")
+pbc |>
+    tibble::as.tibble()
+```
+
+## Sleep study (lme4) {#sleep-data}
+
+**Time: ~2 minutes.**
+
+**Description**
+The average reaction time per day (in milliseconds) for subjects in a sleep deprivation study. Stress reduction techniques
+
+Days 0-1 were adaptation and training (T1/T2), day 2 was baseline (B); sleep deprivation started after day 2.
+
+**Format**
+A data frame with 180 observations on the following 3 variables.
+
+Reaction
+Average reaction time (ms)
+
+Days
+Number of days of sleep deprivation
+
+**Subject**
+Subject number on which the observation was made.
+
+**Details**
+These data are from the study described in Belenky et al. (2003), for the most sleep-deprived group (3 hours time-in-bed) and for the first 10 days of the study, up to the recovery period. The original study analyzed speed (1/(reaction time)) and treated day as a categorical rather than a continuous predictor.
+
+**Source**
+Gregory Belenky, Nancy J. Wesensten, David R. Thorne, Maria L. Thomas, Helen C. Sing, Daniel P. Redmond, Michael B. Russo and Thomas J. Balkin (2003) Patterns of performance degradation and restoration during sleep restriction and subsequent recovery: a sleep dose-response study. Journal of Sleep Research 12, 1–12.
+
+### Accessing the Sleep study dataset
+
+In order to access the dataset, we suggest using:
+
+```{.r filename="my-report.qmd"}
+data_url <- "https://raw.githubusercontent.com/cran/lme4/master/data/sleepstudy.rda"
+load(url(data_url))
+head(sleepstudy)
+```
+
+## Diabetes {#diabetes-data}
+
+**Time: ~5 minutes.**
+
+https://zenodo.org/records/8292712/files/SUA_CVDs_risk_factors.csv
+
+**Study context**
+
+ID: Unique identifier for each participant
+Age: Age of the participant in years
+Sex: Gender of the participant (1.Male /2.Female)
+BMI: Body Mass Index of the participant
+SBP/DBP: Blood pressure readings of the participant (Systolic/Diastolic)
+FBG: Fasting blood glucose of participants of the participant
+TC: Cholesterol level of the participant
+Cr: Serum creatinine of the participants
+GFR: Glomerular filtration rate of participants
+UA: Measurement of serum uric acid level in the participant's blood
+Times: Number of medical follow-up visits for participants
+Hypertension: Participants with or without hypertension (1.No/2.Yes)
+Hyperglycemia: Participants with or without hyperglycemia (1.No/2.Yes)
+Dyslipidemia: Participants with or without dyslipidemia (1.No/2.Yes)
+
+**Source**
+
+Luo, Y., Wu, Q., Meng, R., Lian, F., Jiang, C., Hu, M., Wang, Y., & Ma, H. (2023). Associations of serum uric acid with cardiovascular disease risk factors: a retrospective cohort study in Southeastern China [Data set]. Zenodo. https://doi.org/10.5061/dryad.z08kprrk1
+
+### Accessing the diabetes2 dataset
+
+In order to access the dataset, we suggest using:
+
+```{.r filename="my-report.qmd"}
+# https://datadryad.org/dataset/doi:10.5061/dryad.96320
+# https://zenodo.org/records/4989220
+post_meal_insulin <- readr::read_csv2("https://zenodo.org/records/8292712/files/SUA_CVDs_risk_factors.csv")
+```
+
+
+
+##  Cognitive weight loss intervention {#weight-data}
+
+TODO
+
+### Accessing the Cognitive weight loss intervention dataset
+
+```{.r filename="my-report.qmd"}
+horan1971 <- tibble(
+  sl = c(letters[1:22], letters[1:20], letters[1:19], letters[1:19]),
+  sn = 1:80,
+  treatment = factor(rep(1:4, times = c(22, 20, 19, 19))),
+  pre = c(149.5, 131.25, 146.5, 133.25, 131, 141, 145.75, 146.75, 172.5, 156.5, 153, 136.25, 148.25, 152.25, 167.5, 169.5, 151.5, 165, 144.25, 167, 195, 179.5,
+          127, 134, 163.5, 155, 157.25, 121, 161.25, 147.25, 134.5, 121, 133.5, 128.5, 151, 141.25, 164.25, 138.25, 176, 178, 183, 164,
+          149, 134.25, 168, 116.25, 122.75, 122.5, 130, 139, 121.75, 126, 159, 134.75, 140.5, 174.25, 140.25, 133, 171.25, 198.25, 141.25,
+          137, 157, 142.25, 123, 163.75, 168.25, 146.25, 174.75, 174.5, 179.75, 162.5, 145, 127, 146.75, 137.5, 179.75, 168.25, 187.5, 144.5),
+  post = c(149, 130, 147.75, 139, 134, 145.25, 142.25, 147, 158.25, 155.25, 151.5, 134.5, 145.75, 153.5, 163.75, 170, 153, 178, 144.75, 164.25, 194, 183.25,
+           121.75, 132.25, 166, 146.5, 154.5, 114, 148.25, 148.25, 133.5, 126.5, 137, 126.5, 148.5, 145.5, 151.5, 128.5, 176.5, 170.5, 181.5, 160.5,
+           145.5, 122.75, 164, 118.5, 122, 125.5, 129.5, 137, 119.5, 123.5, 150.5, 125.75, 135, 164.25, 144.5, 135.5, 169.5, 194.5, 142.5,
+           129, 146.5, 142.25, 114.5, 148.25, 161.25, 142.5, 174.5, 163, 160.5, 151.25, 144, 135.5, 136.5, 145.5, 185, 174.75, 179, 141.5)) %>%
+  mutate(treatment = factor(treatment, labels = c("delayed", "placebo", "scheduled", "experimental")))
+```
+
+
+## FEV1 data {#fev1-data}
+
+**Description**
+
+It is an artificial (simulated) dataset of a clinical trial investigating the effect of an active treatment on FEV1 (forced expired volume in one second), compared to placebo. FEV1 is a measure of how quickly the lungs can be emptied and low levels may indicate chronic obstructive pulmonary disease (COPD).
+
+The dataset is made within a collaboration by people from major pharmaceutical companies, such as Eli Lilly and Company, Boehringer Ingelheim Pharma GmbH & Co, Gilead Sciences, Inc., F. Hoffmann-La Roche AG, Merck Sharp & Dohme, Inc., AstraZeneca plc, and inferential.biostatistics GmbH.
+
+**Format**
+
+The dataset is a tibble with 800 rows and the following notable variables:
+
+-   USUBJID (subject ID)
+-   AVISIT (visit number, factor)
+-   VISITN (visit number, numeric)
+-   ARMCD (treatment, TRT or PBO)
+-   RACE (3-category race)
+-   SEX (female or male)
+-   FEV1_BL (FEV1 at baseline, %)
+-   FEV1 (FEV1 at study visits)
+-   WEIGHT (weighting variable, z-scored?)
+
+The primary endpoint for the analysis is change from baseline in FEV1, which we derive below and denote FEV1_CHG.
+
+### Accessing the FEV1 dataset
+
+```{.r filename="my-report.qmd"}
+https://github.com/openpharma/mmrm/blob/main/data/fev_data.rda
+data_url <- "https://raw.githubusercontent.com/openpharma/mmrm/main/data/fev_data.rda"
+load(url(data_url))
+fev_data |> tibble::tibble()
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+::: {.hidden}
+##################################################################################
+#########################################  NOTE USED!!!!!!!  #########################################
+##################################################################################
+
+
+Not incl.
+
+-   Diabetes study1
+-   Framingham Heart Study
+-   ???NHANES (National Health and Nutrition Examination Survey)
+
+
+## Diabetes1
+
+**Time: ~5 minutes.**
+
+https://zenodo.org/records/4989220
+
+**Study context**
+This dataset comes from a physiological study of early (cephalic) insulin secretion in humans.
+Participants were 31 individuals with or without a family history of type 2 diabetes (FDR) and with varying glucose tolerance status.
+
+The study measured glucose, insulin, and C-peptide repeatedly during an oral glucose tolerance test (OGTT), including very early time points (before blood glucose rises).
+
+**Study Design**
+Subjects: 31 healthy individuals
+
+Groups:
+Controls (no family history of diabetes)
+FDR (first-degree relatives of T2D patients)
+
+Procedure:
+Fasting blood samples
+Oral glucose tolerance test (OGTT)
+Very frequent sampling in the first minutes to capture cephalic phase insulin secretion
+
+Core Physiological Concepts
+Cephalic Phase Insulin Secretion
+
+Early insulin release before glucose rises
+
+Triggered by taste, smell, and neural signals
+
+Occurs in the first 5–10 minutes of eating
+
+Post-absorptive Phase
+
+Insulin release after glucose enters bloodstream (30–120 min)
+
+**Variable Groups and Meaning**
+Subject Identifiers and Grouping
+-   OFS.ID / id - Subject identifier.
+-   Group
+    -   FDR = first-degree relative of type 2 diabetes patient
+    -   CTRL (or similar) = control subject
+-   glykemi
+    -   Glucose tolerance category (e.g., normal vs impaired fasting glucose / impaired glucose tolerance).
+
+Anthropometry and Body Composition
+
+-   Age in years.
+-   BMI: Body mass index (kg/m²).
+
+Length
+
+Height in meters.
+
+Weight
+
+Body weight in kg.
+
+Bone.mineral.DXA
+
+Bone mineral content (kg), measured by DXA.
+
+Fat.mass.DXA / Fat.mass...DXA
+
+Body fat mass (kg) by DXA.
+
+Fat.free.mass.DXA
+
+Fat-free mass (kg).
+
+Fat.free.soft.tissue.DXA
+
+Lean soft tissue mass (kg).
+
+Fasting (Screening) Measurements
+
+FP.Glucose.screen
+
+Fasting plasma glucose (mmol/L).
+
+FS.Insulin.screen
+
+Fasting serum insulin (pmol/L or mU/L depending on lab).
+
+OGTT Glucose Measurements
+Plasma glucose during OGTT (mmol/L)
+
+P.Glucose.0.OGTT
+
+Fasting glucose (0 min).
+
+P.Glucose.30, 60, 90, 120.OGTT
+
+Glucose at 30, 60, 90, 120 minutes after glucose load.
+
+PG.5, PG.10, PG.15, … PG.120
+
+High-frequency glucose measurements (minutes).
+
+Used to detect very early glucose dynamics.
+
+OGTT Insulin Measurements
+Serum insulin during OGTT (pmol/L or mU/L)
+
+Insulin.0, 30, 60, 90, 120.OGTT
+
+Standard OGTT insulin time points.
+
+Insulin.5, Insulin.10, Insulin.15, … Insulin.120
+
+High-frequency insulin measurements.
+
+Critical for cephalic phase detection (0–10 min).
+
+C-Peptide Measurements
+
+CP.5, CP.10, CP.15, … CP.120
+
+C-peptide concentrations over time.
+
+Reflect endogenous insulin secretion (not affected by hepatic extraction).
+
+Derived Kinetic and Summary Variables
+Area Under the Curve (AUC)
+
+auc_pg, auc_ins, auc_cp
+
+Total glucose, insulin, and C-peptide AUC over OGTT.
+
+iauc_pg, iauc_ins, iauc_cp
+
+Incremental AUC (above baseline).
+
+Measures response to glucose load.
+
+Early (Cephalic Phase) AUC
+
+iauc_pg_e, iauc_ins_e, iauc_cp_e
+
+Incremental AUC in early phase (e.g., 0–10 or 0–15 min).
+
+Used to quantify cephalic insulin secretion.
+
+Kinetic Efficiency Factors
+
+kef_glu, kef_ins, kef_cp
+
+Model-based parameters describing dynamic response rates (study-specific).
+
+
+**Source:**
+Eliasson, Björn et al. (2017), Cephalic phase of insulin secretion in response to a meal is unrelated to family history of type 2 diabetes, PLOS ONE, Article-journal, https://doi.org/10.1371/journal.pone.0173654
+
+
+### Accessing the Diabetes1 dataset
+
+In order to access the dataset, we suggest using:
+
+```{.r filename="my-report.qmd"}
+# https://datadryad.org/dataset/doi:10.5061/dryad.96320
+# https://zenodo.org/records/4989220
 post_meal_insulin <- readr::read_csv2("https://zenodo.org/records/4989220/files/Eliasson_data2.csv?download=1")
 ```
+:::

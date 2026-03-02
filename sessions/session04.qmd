@@ -4,7 +4,11 @@
 
 ```{r setup}
 #| include: false
-library(tidyverse)
+#library(tidyverse)
+#ddagit782594dalibrary(tidyverse)
+library(ggplot2)
+library(dplyr)
+
 post_meal_data <- read_csv2(
   here::here("data/post-meal-insulin.csv")
 )

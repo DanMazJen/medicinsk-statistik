@@ -1,0 +1,1436 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Medical Statistics, MEDMS24B5_1",
+    "section": "",
+    "text": "Welcome!\nWelcome to the Medical Statistics course repository. This repo contains all teaching materials, exercises, datasets, and project resources used in the course.\nThe course focuses on clinical data analysis, biostatistics, and data-driven clinical decision-making through hands-on learning and real-world case studies. For the academic regulations of the course, see Medical Statistics.",
+    "crumbs": [
+      "Welcome!"
+    ]
+  },
+  {
+    "objectID": "index.html#course-overview",
+    "href": "index.html#course-overview",
+    "title": "Medical Statistics, MEDMS24B5_1",
+    "section": "Course Overview",
+    "text": "Course Overview\nLearn to turn clinical data into robust evidence that informs real clinical and research decisions. Healthcare generates enormous amounts of data, yet many decisions are still based on studies with limited statistical rigor, misinterpreted results, or insufficient consideration of uncertainty, bias, and reproducibility. Clinicians and researchers increasingly need the skills to critically appraise the literature and understand how evidence is generated, interpreted, and communicated in scientific work. To address this, you need strong statistical reasoning, practical data analysis skills, and the ability to translate quantitative results into clinically meaningful insight. In this course, you will learn how to use R for data analysis; understand probability, uncertainty, and stochastic processes; apply regression and generalized linear models; design and validate prediction models; evaluate bias, confounding, and reproducibility; perform power and sample size calculations; analyze time-to-event and repeated-measures data; and connect statistical findings to clinical decision-making and meta-analysis.\nBy the end of the course, you will be able to engage confidently with scientific research, communicate quantitative findings clearly, and contribute to high-quality evidence generation. These skills will empower you to participate fully in modern clinical and translational research, collaborate effectively with statisticians and data scientists, and strengthen the scientific basis of your clinical and research practice.\nThe purpose of this module is to provide students with fundamental skills in:\n\nHandling and managing clinical and health-related data\nVisualizing and exploring biomedical datasets\nApplying biostatistical methods to clinical and industrial medical problems\nSupporting clinical decision-making using quantitative evidence",
+    "crumbs": [
+      "Welcome!"
+    ]
+  },
+  {
+    "objectID": "index.html#this-website",
+    "href": "index.html#this-website",
+    "title": "Medical Statistics, MEDMS24B5_1",
+    "section": "This website",
+    "text": "This website\nThis website contains all materials for the course Medical Statistics at Aalborg University, Faculty of Health as a collaboration between the Department of Health Science & Technology and the Department of Clinical Medicine. The course is currently offered for the education Medicine with Industrial Specialization at the 5th semester.\nCheck out the overview section of the course, starting with the Syllabus.\nIf you plan on attending the course, please make sure to complete the Pre-course tasks to get set up and ready for the course. The pre-course tasks include a survey that you need to fill out before the course starts.\n\n\n\n\n\n\nTipDo you find this workshop material useful?\n\n\n\nIf yes, please consider “starring” our GitHub repository. Starring the repository will save it to your list of saved repositories, so it’s easy for you to find again later. As a plus, it helps give our project more visibility 🌟",
+    "crumbs": [
+      "Welcome!"
+    ]
+  },
+  {
+    "objectID": "index.html#target-audiences",
+    "href": "index.html#target-audiences",
+    "title": "Medical Statistics, MEDMS24B5_1",
+    "section": "Target audiences",
+    "text": "Target audiences\nThis website and its content are targeted to three groups:\n\nFor the learners to use during the course, both to follow along and also to use as a reference during the project or even after the course ends. A more detailed description of who the learner is can be found in Is this for you?\nFor the teachers to use as a guide for teaching the course and for the exercise material.\nFor the project supervisors to use as a reference on what to expect during the projects work and references for R code help.\nFor those who are interested in teaching, who may not have much experience or may not know where to start, to use this website as a guide to running and teaching their own courses.",
+    "crumbs": [
+      "Welcome!"
+    ]
+  },
+  {
+    "objectID": "index.html#re-use-and-licensing",
+    "href": "index.html#re-use-and-licensing",
+    "title": "Medical Statistics, MEDMS24B5_1",
+    "section": "Re-use and licensing",
+    "text": "Re-use and licensing\nThe course material is licensed under the Creative Commons Attribution 4.0 License, so the material can be used, re-used, and modified, as long as there is attribution to this source. Check out the For teachers section for more details and tips on using this material for teaching.",
+    "crumbs": [
+      "Welcome!"
+    ]
+  },
+  {
+    "objectID": "index.html#contributing",
+    "href": "index.html#contributing",
+    "title": "Medical Statistics, MEDMS24B5_1",
+    "section": "Contributing",
+    "text": "Contributing\nWant to contribute to this course? Look through our CONTRIBUTING page for contribution guidelines on how to get started.",
+    "crumbs": [
+      "Welcome!"
+    ]
+  },
+  {
+    "objectID": "index.html#how-the-website-is-made",
+    "href": "index.html#how-the-website-is-made",
+    "title": "Medical Statistics, MEDMS24B5_1",
+    "section": "How the website is made",
+    "text": "How the website is made\nThe course material is created using Quarto to write the material and create the book format, GitHub to host the Git repository of the material, and GitHub Actions with Netlify to build and host the website. The original source material for this course is found on the medicinsk-statistik GitHub repository.",
+    "crumbs": [
+      "Welcome!"
+    ]
+  },
+  {
+    "objectID": "overview/syllabus.html",
+    "href": "overview/syllabus.html",
+    "title": "1  Syllabus",
+    "section": "",
+    "text": "1.1 Learning outcome and objectives\nLearn to turn clinical data into robust evidence that informs real clinical and research decisions. Healthcare generates enormous amounts of data, yet many decisions are still based on studies with limited statistical rigor, misinterpreted results, or insufficient consideration of uncertainty, bias, and reproducibility. Clinicians and researchers increasingly need the skills to critically appraise the literature and understand how evidence is generated, interpreted, and communicated in scientific work. To address this, you need strong statistical reasoning, practical data analysis skills, and the ability to translate quantitative results into clinically meaningful insight. In this course, you will learn how to use R for data analysis; understand probability, uncertainty, and stochastic processes; apply regression and generalized linear models; design and validate prediction models; evaluate bias, confounding, and reproducibility; perform power and sample size calculations; analyze time-to-event and repeated-measures data; and connect statistical findings to clinical decision-making and meta-analysis.\nBy the end of the course, you will be able to engage confidently with scientific research, communicate quantitative findings clearly, and contribute to high-quality evidence generation. These skills will empower you to participate fully in modern clinical and translational research, collaborate effectively with statisticians and data scientists, and strengthen the scientific basis of your clinical and research practice.\nThis course spans four months and is split into the following sessions, listed in the schedule, which will be covered in order:",
+    "crumbs": [
+      "Overview",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Syllabus</span>"
+    ]
+  },
+  {
+    "objectID": "overview/syllabus.html#learning-outcome-and-objectives",
+    "href": "overview/syllabus.html#learning-outcome-and-objectives",
+    "title": "1  Syllabus",
+    "section": "",
+    "text": "1.1.1 Knowledge\nStudents will:\n\nUnderstand uncertainty, probability, and core biostatistical concepts\nRecognize major study designs and distinguish between explanatory, exploratory, and predictive studies\nExplain random and non-random variation\nUnderstand the limitations and possibilities of statistical tools\nApply biostatistics to problems in medicine with industrial specialization\n\n\n\n1.1.2 Skills\nStudents will be able to:\n\nRead and interpret software documentation\nSelect and apply appropriate visualization tools for health data\nFormulate scientific statistical problems and apply biostatistical methods\nManipulate, visualize, and analyze complex and large datasets\nCommunicate statistical results in a clinical context using relevant literature and databases\nCollaborate effectively in interdisciplinary project groups\n\n\n\n1.1.3 Competencies\nStudents will:\n\nQuantify clinical and health-related problems using biostatistical methods\nIntegrate uncertainty and clinical relevance in decision-making\nTranslate data analysis into clinical decision support\nCritically evaluate statistical approaches and participate in scientific discussions\n\n\nBroken down into specific objectives for each session, we’ve designed the workshop to enable you to do the following:\nSession title\nTangibly, during the workshop you will:\n\nList concrete tasks and steps",
+    "crumbs": [
+      "Overview",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Syllabus</span>"
+    ]
+  },
+  {
+    "objectID": "overview/schedule.html",
+    "href": "overview/schedule.html",
+    "title": "2  Schedule",
+    "section": "",
+    "text": "Warning\n\n\n\n🚧 This section is being actively worked on. 🚧\n\nThe course is structured as a series of participatory live-coding sessions interspersed with hands-on exercises and group work, using either a practice dataset or some other real-world dataset. There are some lectures given, mainly at the start and end of the course. The general schedule outline is shown in the below table. This is not a fixed schedule of the timings of each session—some may be shorter and others may be longer. Instead, it is meant to be an approximate guide and overview.\n\n\n\nWeek\nDate\nTopic\nNotes/Readings\n\n\n\n\n1\nxx\nInstall R and RStudio, basic functions, and data types\nInstall programs before! see Pre-course tasks. In general, go through all the Pre-course tasks, so that you can follow along without technical issue slowing you down\n\n\n2\nxx\nProbability and stochastic variables, distributions and realizations\n\n\n\n3\nxx\nOutcome types and measuring effects\n\n\n\n4\nxx\nDescriptive data: box, violin, and bar plots\n\n\n\n5\nxx\ncourse: Operationalizing a research question (SAP examples)\nGroup exercises\n\n\n6\nxx\nLaw of Large Numbers, uncertainty, permutation tests, bootstrapping\n\n\n\n7\nxx\nSystematic vs. random noise, hypothesis testing, reproducibility, confounding, selection bias\n\n\n\n8\nxx\nData manipulation\n\n\n\n9\nxx\nLinear regression and likelihood theory (estimand, estimator, estimate)\n\n\n\n10\nxx\nLogistic regression and likelihood theory\n\n\n\n11\nxx\nScatter plots, best fit, and interaction\n\n\n\n12\nxx\nGeneralized linear regression\n\n\n\n13\nxx\nTime-to-event analysis\n\n\n\n14\nxx\nANOVA, repeated measures, difference-in-difference\n\n\n\n15\nxx\nMargins analysis and margins plots\n\n\n\n16\nxx\nPower calculations\n\n\n\n17\nxx\ncourse: Prediction vs. explanatory models (diagnostics)\n\n\n\n18\nxx\nValidation of binary prediction models (power, calibration, ROC)\n\n\n\n19\nxx\nValidation of continuous prediction models (including power calculations)\n\n\n\n20\nxx\ncourse: From statistical analysis to clinical decision-making\n\n\n\n21\nxx\nIntroduction to meta-analysis",
+    "crumbs": [
+      "Overview",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Schedule</span>"
+    ]
+  },
+  {
+    "objectID": "overview/learning-design.html",
+    "href": "overview/learning-design.html",
+    "title": "3  Learning design",
+    "section": "",
+    "text": "3.1 Strategies\nTeaching begins with practical, case-based exercises and progresses toward independent statistical projects with collaborative workshops and evaluations.\nThis workshop is designed using the science of learning. Learning is when new content gets incorporated into long-term storage in the brain in a way that it can be later retrieved. Some of the best ways to enable learning is to do “active learning” by engaging with the material, practicing retrieving what was just covered, repeatedly being exposed to the content, linking the new information with what you already know, and explaining it to someone else.\nWe use a variety of activities to target the different “pathways” of learning. A big part of learning is being engaged in the process of learning, not just learning the content itself. So to help you be engaged in your own learning, we want to involve you in the reasons why we do the things we do during this workshop.\nThroughout the workshop, we use these practices to support learning:\nNow you know a bit more about the thoughts behind how we’ve designed this workshop to really try to support and enable your learning! 🎉 😁",
+    "crumbs": [
+      "Overview",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Learning design</span>"
+    ]
+  },
+  {
+    "objectID": "overview/learning-design.html#strategies",
+    "href": "overview/learning-design.html#strategies",
+    "title": "3  Learning design",
+    "section": "",
+    "text": "We have a clear learning goal with a strong narrative throughout the workshop that ties back to that goal. It’s much easier to learn when you have a better idea of where you are going, where you are at in relation to the end goal, and what to expect along the way.\n\n\n\nThe main activities are “code-alongs”, where the teacher types on the computer and explains what it means while you type along. The connection between using the hands and doing something tangible helps reinforce learning. It also helps the teachers to go slower since we have to both explain and type things out, which helps you learn better. The phrase “less is more” applies strongly to learning.\n\n\n\nWe include several hands-on exercises that reinforce what was just taught through retrieval practice and repetition. It gives you a chance to engage with the material and the space to try it out on your own, so you start to get a real sense of how to do it yourself.\nWe have discussion activities to encourage linking the new information with what you already know and do in your work as well as how you can apply it. Since humans are social beings, we also tend to learn better when there is some social aspect to it. Explaining something to someone else is one of the best ways to learn! The quote “while we teach, we learn” from the Roman philosopher Seneca is true here.\n\n\n\nWe have minimal to no slides or lectures, as they are forms of information sharing with the lowest rates of learning. Instead we include reading tasks, so you can go at your pace, re-read things you may not understand, and take notes, all of which support learning. To help reinforce what you just read, the teacher will briefly summarise and emphasise key points after reading tasks, to repeat the main points and target another part of the brain (the auditory pathway).\n\n\n\nWe include several breaks throughout the workshop to help you recharge and refocus. The brain is only able to effectively focus on one thing at a time in 30-50 minute blocks of time. That’s why we mix together code-alongs, exercises, discussions, and reading to give your brain some variation. Having an explicit break, even 5 minutes, is enough for the brain to better process and store what was covered.\nWe put all the material online so that it is easy for you to go back to after the workshop, which builds the repetition and retrieval practice part of learning. Our brains get easily distracted, which is completely normal. So if you get distracted during the workshop, you can go to the material online to quickly get caught up with where we are. We also make sure to follow the material on the website closely, so that it is easier for you to follow along.\nBeing in a safe and supportive environment puts the brain into a more relaxed state that is optimal for learning. That’s why we try to explicitly create that space, for example with the use of our Code of Conduct.\nAsking for help can feel difficult, especially when you are learning and are unsure about something. To make it easier and feel safer, we use origami hats (or stickies) to show how everyone is doing. If you need help, you put up the “help” hat (usually orange) and a helper will come to you as soon as possible. If not, you can put up a “all good” hat (usually blue) to let us know you are following along. Since we often have several helpers, you usually won’t wait long. This simple system lets you ask for help without interrupting the teacher or drawing attention, so you can keep following along while you wait. Our goal is to make getting help easier and more comfortable.",
+    "crumbs": [
+      "Overview",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Learning design</span>"
+    ]
+  },
+  {
+    "objectID": "pre-course/overview.html",
+    "href": "pre-course/overview.html",
+    "title": "4  Overview",
+    "section": "",
+    "text": "4.1 How to read this website\nIn order to participate in this course, you must complete everything in this section and finish with completing the survey at the end. These tasks are meant to provide everyone with the necessary setup and a shared foundation for the course.\nDepending on your prior knowledge and skills, these tasks could take between TIME hrs to finish, so we suggest planning some time to complete them. While many of the tasks are mostly readings, they are important in making sure you get the most out of the course.\nWe try to be consistent with the way to present certain information in this website. Specifically, we follow some conventions that you should be aware of:",
+    "crumbs": [
+      "Pre-course",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Overview</span>"
+    ]
+  },
+  {
+    "objectID": "pre-course/overview.html#how-to-read-this-website",
+    "href": "pre-course/overview.html#how-to-read-this-website",
+    "title": "4  Overview",
+    "section": "",
+    "text": "Folder names always end with /, for example data/ means the data folder.\nFile names always end with their file extension, for example content.md means the file is a Markdown file.",
+    "crumbs": [
+      "Pre-course",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Overview</span>"
+    ]
+  },
+  {
+    "objectID": "pre-course/overview.html#summary-of-tasks",
+    "href": "pre-course/overview.html#summary-of-tasks",
+    "title": "4  Overview",
+    "section": "4.2 Summary of tasks",
+    "text": "4.2 Summary of tasks\nHere’s a quick overview of the tasks you need to do. Specific details about them are found as you work through the tasks.\nIf you haven’t already, go through the course overview section, including the Syllabus, Is this for you?, and Learning design to get an overview of what this course contains and the learning design behind the course material.\nAfter that, please go through the the pre-course tasks designed to establish a shared foundation for the start of the course. This includes:\n\nInstall a version of R, RStudio, Quarto, and Git that is as updated as possible. For some people, depending on their institution, this task can take the longest amount of time because you have to contact your IT to install these packages.\nInstall necessary R packages.\nTODO: Add more tasks\nRead the syllabus (Chapter 1).\nRead the Code of Conduct.\nComplete the pre-course survey: This survey is pretty quick, maybe ~10 minutes. There will be some bits from the tasks that you will need to paste into this survey.\n\nCheck each section for exact details on completing these tasks.\n\n\n\n\n\n\nTip\n\n\n\nYou will be taken through the pre-course tasks in order by clicking the arrow at the bottom of each page ➡️",
+    "crumbs": [
+      "Pre-course",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Overview</span>"
+    ]
+  },
+  {
+    "objectID": "pre-course/reading.html",
+    "href": "pre-course/reading.html",
+    "title": "5  Pre-reading",
+    "section": "",
+    "text": "5.1 Cheatsheets\nIf you haven’t already, go through the course overview section. Read the syllabus in Chapter 1, especially the part about what the course will cover and what we expect you to learn at the end of it. Then read the learning design section in Chapter 3 to get an overview of what types of activities we will do during the course as well as the reasons for them in relation to learning.\nRelated to the learning design, an important component of learning is repeated exposure to a concept or skill. We want you to read through specific sections of the material beforehand as we’ve found that these particular topics are often more difficult to grasp and understand for beginners. Reading it beforehand will give your brain some time to start processing the information, so that when you see it again during the course, it will be easier to understand and learn. During the course, you will read these sections again and we will explain them verbally as well, to further reinforce the concepts.\nBecause our main learning outcome is statistical litteracy, we will use tools like R that is the foundation for most modern statistical workflows . Without a way to easily and quickly share code, your research cannot be independently reproducible. Using R is the most common way to write statistical analyses within the health sciences.\nSo, please read about R and the tidyverse in ?sec-what-is-version-control, ?sec-what-is-git, and ?sec-basics-of-git. R and its associated computer code will be the main topic for the course. However, all exercises and implementations of the statistical concepts and usecases of the material we cover will only be achievable through R and code. Learning how to program requires a change in how you see and interact with your projects and computer in big ways. Try not to underestimate R and what it can do for you in order to learn quicker or even slower during this course.\nLastly, briefly read through the group project work section in ?sec-project-work so you are familiar with what you will do at the end of the course. You’ll have time during the project work session to read through it again, but we’ve found that participants prefer and want to be aware beforehand on what is expected of them during the project work.\nRStudio provides some great cheatsheets that are fantastic resources and a great reference to have readily available, either on your computer or printed out. We suggest that you download at least these following cheatsheets and have them available either digitally or printed out during the course, especially for when you do the exercises and team project work:",
+    "crumbs": [
+      "Pre-course",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Pre-reading</span>"
+    ]
+  },
+  {
+    "objectID": "pre-course/reading.html#cheatsheets",
+    "href": "pre-course/reading.html#cheatsheets",
+    "title": "5  Pre-reading",
+    "section": "",
+    "text": "RStudio IDE\nQuarto\ndplyr\nggplot2",
+    "crumbs": [
+      "Pre-course",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Pre-reading</span>"
+    ]
+  },
+  {
+    "objectID": "pre-course/installing-programs-r.html",
+    "href": "pre-course/installing-programs-r.html",
+    "title": "6  Installing the programs",
+    "section": "",
+    "text": "Warning\n\n\n\n🚧 This section is being actively worked on. 🚧\n\nIn order to participate in the course, you’ll need to install these programs. You may already have some of them installed and if you did, please make sure that they are at least the minimum versions listed below. If not, you will need to update them.\n\n\n\n\n\n\nNote\n\n\n\nA note to those who use other solutions than a laptop: R and RStudio will not work on an iPad or tablet. Please use your laptop for this course.\n\n\n\nWindowsMacOSLinux (Ubuntu)\n\n\n\nR: Any version above 4.4.3. If you have used R before, you can confirm the version by running R.version.string in the Console.\nRStudio: Any version above v2025.05.1+513. If you have installed it before, check the current version by going to the menu “Help -&gt; About RStudio”.\nRtools: Choose the version that says “R-release”. Rtools is needed in order to build some R packages. For some computers, installing Rtools can take some time.\n\n\n\n\nR: Any version above 4.4.3. If you have used R before, you can confirm the version by running R.version.string in the Console. If you don’t use Homebrew to install software in MacOS, we strongly recommend you install it. It makes it much easier to install things, for example installing R is as easy as opening a Terminal and running:\n\n\nTerminal\n\nbrew install --cask r\n\nIf you don’t use Homebrew, you can download and install R as you normally would by clicking the link above.\nRStudio: Any version above v2025.05.1+513. If you have installed it before, check the current version by going to the menu “Help -&gt; About RStudio”. Like with installing R above with Homebrew, installing RStudio can be done by opening a Terminal and writing:\n\n\nTerminal\n\nbrew install --cask rstudio\n\nIf you don’t use Homebrew, you can download and install RStudio as you normally would by clicking the link above.\n\n\n\n\nR: Any version above 4.4.3. If you have used R before, you can confirm the version by running R.version.string in the Console.\n\n\nTerminal\n\nsudo apt -y install r-base\n\nRStudio: Any version above v2025.05.1+513. If you have installed it before, check the current version by going to the menu “Help -&gt; About RStudio”.\n\n\n\n\n\n\n\n\n\n\nTip\n\n\n\nAll these programs are required for the course.\n\n\nOnce R and RStudio have been installed, open RStudio. If you encounter any troubles during these pre-course tasks, try as best as you can to complete the task and then let us know about the issues in the pre-course survey. If you continue having problems, indicate on the survey that you need help and we can try to book a quick video call to fix the problem. Otherwise, you can come to the course 15-20 minutes earlier to get help.\nTo see whether everything is set up okay, see this video at YouTube by Edge Rubak.\nIf you’re unable to complete the setup procedure due to unfixable technical issues, you can use Posit Cloud (to use RStudio on the cloud) as a final solution in order to participate in the course. For help setting up Posit Cloud for this course, refer to the Posit Cloud setup guide.",
+    "crumbs": [
+      "Pre-course",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Installing the programs</span>"
+    ]
+  },
+  {
+    "objectID": "pre-course/r-and-rstudio.html",
+    "href": "pre-course/r-and-rstudio.html",
+    "title": "7  R and RStudio",
+    "section": "",
+    "text": "7.1 What is R?\nDuring this course we will be spending most of our time in RStudio. RStudio is an “environment” that we use to interact with R. R is like an engine, while RStudio is like the tools we use to actually work with that engine. Prior to taking a look at what RStudio looks like, let’s talk briefly about R as a programming language.\nR is a free programming language/environment used in statistical computing, data analytics, and scientific research. R is used to clean, organize, analyze, and report on data. R has powerful visualization features, so it is a particularly useful tool for creating charts and figures. R is different from SPSS and other statistical programs in that you run analyses by typing commands in a console rather than using click-based, drop-down menus.\nIn recent years, R has become one of the most popular languages among statisticians and data scientists for several reasons:\nHowever, like many programming languages, R is not easy to learn. Some commands you will use are spread across many packages, which means that you need to have prior knowledge of these packages in order to use some commands. But R offers such a supportive community and rich functionality that it is worth the challenge!",
+    "crumbs": [
+      "Pre-course",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>R and RStudio</span>"
+    ]
+  },
+  {
+    "objectID": "pre-course/r-and-rstudio.html#what-is-r",
+    "href": "pre-course/r-and-rstudio.html#what-is-r",
+    "title": "7  R and RStudio",
+    "section": "",
+    "text": "It is open source, so you are able to see how exactly, for instance, a statistical method works.\nIt runs on all operating systems (Windows, macOS, Linux).\nIt is highly compatible with other programming languages.\nIt provides access to a vast number of packages that can do nearly any task or statistical approach.\nThere is a huge online community to help you problem-solve any issue and that has so many learning resources, support, and help!\nIt is free, which means you can continue using the skills you gain in R throughout your entire career without worrying about expensive licensing fees (for example, if your employer can’t or doesn’t pay for the software).\nStrong push by major R developers to improve beginner-friendliness and usability of R, for example from Posit who makes RStudio and contributes heavily to R packages such as the {tidyverse} set of packages and Quarto.\nR has one of the best data visualization tools available with {ggplot2}.",
+    "crumbs": [
+      "Pre-course",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>R and RStudio</span>"
+    ]
+  },
+  {
+    "objectID": "pre-course/r-and-rstudio.html#sec-learn-rstudio",
+    "href": "pre-course/r-and-rstudio.html#sec-learn-rstudio",
+    "title": "7  R and RStudio",
+    "section": "7.2 Getting familiar with RStudio",
+    "text": "7.2 Getting familiar with RStudio\nLet’s start getting familiar with RStudio and how to navigate and use it. Check out Figure 7.1 below. You can see that RStudio has four “panels”, dividing the screen into the four sections.\n\n\n\n\n\n\nNote\n\n\n\nThis image may look slightly different from your own computer depending on your operating system and other settings. If you haven’t created or opened an RStudio R Project (which is taught in the first session), your files may be outside the scope for RStudio to find them by itself. In that case, you will either have to change the current directory or make/open an RStudio R Project.\n\n\n\n\n\n\n\n\nFigure 7.1: Interface to RStudio.\n\n\n\nWhile you can customize where the individual panels go, the default panel layout is what is shown above.\n\nPanel “A” is the panel that shows the “scripts”, which we will be using a lot during the course. You may or may not see this panel when you open RStudio for the first time. This panel is where you write R code that will be saved as a file.\nPanel “B” is the Console. This is where R commands are sent and evaluated by R. This is the “engine”. No R code written here is saved. All code in this course will eventually be sent to the R Console, as this is the most common way of using and running R code. Throughout the rest of the pre-course tasks, if you see a code chunk with the label “Console” above it, this is the panel we want you to type or paste the code into.\nPanel “C” contains the Environment, History, Connections, and Git tabs. In this course, we will only be using the Environment tab.\nPanel “D” has the Files, Plots, Packages, Help, Build, and Viewer tabs. For this course, we will only be going over the Files, Plots, Packages, and Help tabs. There can be slight differences in your layout of tabs in each panel.\n\nWhile we will spend part of the course using an R script to play around with code, we will also be learning and using Quarto (files that end in .qmd). Quarto is an important tool in helping make your analysis more reproducible. You may have read about R Markdown before or you may see it mentioned on websites or blogs after this course. Quarto is an upgraded version of R Markdown. We will explain Quarto (and R Markdown) in more detail in ?sec-reproducible-documents.\nQuarto allows you to interweave chunks of code along with text and images. R runs the code and inserts the code output into the Quarto file. The Quarto document can be converted into a wide range of document types, including MS Word, PDF, or HTML. Some researchers write and manage entire papers, theses, websites, or books using Quarto, as it can make things easier to organize and maintain. In fact, this website is written with Quarto.",
+    "crumbs": [
+      "Pre-course",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>R and RStudio</span>"
+    ]
+  },
+  {
+    "objectID": "pre-course/r-and-rstudio.html#quality-of-life-settings",
+    "href": "pre-course/r-and-rstudio.html#quality-of-life-settings",
+    "title": "7  R and RStudio",
+    "section": "7.3 Quality of life settings",
+    "text": "7.3 Quality of life settings\nBefore continuing, set some RStudio options that will help you and the helpers and teachers out a lot during the course. Go to Tools -&gt; Global Options... and do these tasks:\n\nIn “General”, under the “Basic” tab, uncheck all boxes under “R Session”, “Workspaces”, and “History”, as well as changing the “Save workspace to .RData on exit” to “Never”.\nIn “Code”, under the “Editing” tab, change the “Tab width” to 2. The tidyverse style guide as well as {styler} both use 2 spaces for tabs. We can set this option here to save us with formatting issues.\nIn “Code”, under the “Saving” tab, check all the boxes under “General” and “Auto-save”. This last one, the “Auto-save”, will help out a lot, since one of the biggest “troubleshooting issues” we encounter when helping during the first session is that people forget to save. This solves that problem.",
+    "crumbs": [
+      "Pre-course",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>R and RStudio</span>"
+    ]
+  },
+  {
+    "objectID": "pre-course/installing-r-packages.html",
+    "href": "pre-course/installing-r-packages.html",
+    "title": "8  Installing R packages",
+    "section": "",
+    "text": "Warning\n\n\n\n🚧 This section is being actively worked on. 🚧\n\nNow that you have RStudio and R on your computer and have read about them, you need to install the R packages we’ll use in the course. R packages are bundles of R code that other people have written. There are so many R packages available that there is likely an R package for anything you’d like to do in R. Making use of R packages can help you immensely when doing your research.\nBefore we continue, let’s briefly explain what some terms mean.\n\nR code is any individual piece of text that R interprets as commands to do something. For example, the code mean() is a complete piece of text that tells R to calculate the mean of some numbers.\n\nR code is split into two types: objects (like a dataset) or actions (called functions). For the most part, whenever you see code with () at the end (at least in this course), that means it is a function (an action).\nA function is a set of bundled R code that performs a specific task. Like the example mean() above.\n\nR script is any file with the ending .R that contains R code that completes tasks in a sequence (from the top of the file to the bottom).\nR package is a set of R scripts that contain multiple bundles of R code (mostly these bundles are functions, but can sometimes be data) that work together to expand on or improve R code and R functionality.\n\nFor this course, we will be focusing on R packages that are powerful and general-purpose enough to help you in multiple aspects of your research. To install these packages, you’ll need to install our custom r3 helper package that we use for this course to help you install all the needed packages and to run some basic checks during the pre-course setup. To install it, you’ll first need to install the {pak} package.\n\n\n\n\n\n\nTip\n\n\n\nWhen running R code in the Console, sometimes it may show up as red text. Usually this means there is an error or a warning. Unfortunately, the Console sometimes shows text in red even when there is no error or warning. Don’t be alarmed if you see red text. Take a moment and read the text to see if it says “error” or “warning”. If it doesn’t, then ignore it!\n\n\nOpen your RStudio and copy and paste the below code into the Console (panel “B” in Figure 7.1):\n\n\n\nConsole\n\ninstall.packages(\"pak\")\n\n\nNext, copy and paste (or type) the function below into the RStudio Console (panel “B” in Figure 7.1) to install the r3 package. Hit “Enter” and the r3 helper package will be installed.\n\n\n\n\n\n\nWarning\n\n\n\nYou might encounter an error when running the below code. That’s ok, if you restart R by going to Sessions -&gt; Restart R and re-running this code, it should work. If it still doesn’t, try to complete the other tasks, complete the survey, and let us know you have a problem in the survey.\nThe problem usually happens because some institutions block or restrict what types of software get installed. If you run into issues, try to install in administrator mode.\n\n\n\n\n\nConsole\n\npak::pak(\"DanMazJen/medisr\", upgrade = TRUE)\n\n\n\nWhen you see R code like something::something(), for example with pak::pak(), you would “read” this as:\n\nR, can you please use the pak() function from the {pak} package.\n\nThe most common way of using functions from packages is to load the package with library(), for example like library(pak). Then you can use the functions from the package directly, like pak(). When you use the code :: (pronounced “colon colon”), you are telling R to directly use a function from a package, without needing to load the whole package and all of its other functions too. We use this trick because we only want to use the one function pak() and not load all the other functions from the {pak} package into R. We will be using :: often in this course.\nMost of the packages we will be using in this course are bundled together into one package called {tidyverse}. This package is a collection of packages that are designed for common tasks in data science, ranging from data exploration to data visualization. As the name suggests, {tidyverse} is an attempt to organize the “universe” of data analysis by providing packages that guide workflows and lead to more reproducible analysis projects. To install all the packages we will use for this course, copy and paste this command into the R Console:\n\n\n\nConsole\n\nmedisr::install_packages()\n\n\n\n\n\n\n\n\nImportant\n\n\n\nThis step sometimes fails for some people because their computer restricts how certain software are installed. If you do have issues, you can manually install the necessary packages with this code:\n\n\n\nConsole\n\ninstall.packages(c(\"tidyverse\", \"here\", \"hexbin\", \"prodigenr\", \"styler\", \"usethis\"))\n\n\n\n\nSame as when you installed the {medisr} package, this may take some time to install all the packages. We have you use this function to install everything rather than install all the packages with install.packages() individually, as this makes it a bit easier for you to get set up.\nWe will be using two packages from {tidyverse} for nearly all sessions: {ggplot2} and {dplyr}. These packages provide a set of tools for the most common data analysis tasks and have excellent documentation and tutorials on how to use them.\n\n{dplyr} (along with a complementary package {tidyr}) is a package that is very popular and contains important data manipulation functions, including functions that select and/or create variables depending on certain conditions. {dplyr} is built to work directly with data frames (rectangular data like those found in spreadsheets).\n{ggplot2} is a data visualization package that can be used to create bar charts, pie charts, histograms, scatterplots, error charts, and more. It uses a “grammar” as a way to construct and customize your graphs in a layered, descriptive approach.",
+    "crumbs": [
+      "Pre-course",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Installing R packages</span>"
+    ]
+  },
+  {
+    "objectID": "pre-course/code-of-conduct.html",
+    "href": "pre-course/code-of-conduct.html",
+    "title": "9  Code of conduct",
+    "section": "",
+    "text": "9.1 Expected behavior\nScience thrives on diversity of thought and origin. We value the participation of every member of the scientific community and want all learners to have an enjoyable and fulfilling experience. Accordingly, all learners are expected to show respect and courtesy to other members throughout the course, in group work, and any activity associated with this course.\nTo make clear what is expected, everyone taking part in this course, including teachers, helpers, organizers, and learners, is required to conform to the following code of conduct. Organizers will enforce this code throughout the course, but you may also contact us privately; all communication will be treated as confidential.\nThe code of conduct applies to all spaces associated with this course including, but not limited to, group work, emails, and any online forums like GitHub. By participating, learners indicate their acceptance of the procedures by which the teachers and organizers resolves any code of conduct incidents.\nWe are dedicated to providing a welcoming and supportive environment for all people, regardless of background and identity. As such, we do not tolerate behaviour that is disrespectful to our teachers or learners or that excludes, intimidates, or causes discomfort to others. We do not tolerate discrimination or harassment based on characteristics that include, but are not limited to, gender identity and expression, sexual orientation, disability, physical appearance, body size, citizenship, nationality, ethnic or social origin, pregnancy, familial status, veteran status, genetic information, religion or belief (or lack thereof), membership of a national minority, property, age, education, socio-economic status, technical choices, and experience level.\nIn order to foster a positive and professional learning environment, we encourage the following kinds of behaviours in all interactions during this course:\nSee the four social rules for further recommendations and details on proper behaviour.",
+    "crumbs": [
+      "Pre-course",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Code of conduct</span>"
+    ]
+  },
+  {
+    "objectID": "pre-course/code-of-conduct.html#expected-behavior",
+    "href": "pre-course/code-of-conduct.html#expected-behavior",
+    "title": "9  Code of conduct",
+    "section": "",
+    "text": "Show kindness, courtesy and respect towards other course members\nAll interactions should be professional regardless of platform: online or in-person\nBe aware of your words by using welcoming and inclusive language\nBe respectful of different viewpoints and experiences\nGracefully accept constructive criticism\nFocus on what is best for the course members and the community overall",
+    "crumbs": [
+      "Pre-course",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Code of conduct</span>"
+    ]
+  },
+  {
+    "objectID": "pre-course/code-of-conduct.html#unacceptable-behavior",
+    "href": "pre-course/code-of-conduct.html#unacceptable-behavior",
+    "title": "9  Code of conduct",
+    "section": "9.2 Unacceptable behavior",
+    "text": "9.2 Unacceptable behavior\nExamples of unacceptable behavior by learners include:\n\nWritten or verbal comments which have the effect of excluding people on the basis of membership of any specific group\nCausing someone to fear for their safety, such as through stalking, following, or intimidation\nViolent threats or language directed against another person\nThe display of sexual or violent images\nUnwelcome sexual attention\nNon-consensual or unwelcome physical contact\nSustained disruption of talks, events or communications\nInsults or put downs\nSexist, racist, homophobic, transphobic, ableist, or exclusionary jokes\nExcessive swearing\nIncitement to violence, suicide, or self-harm\nContinuing to initiate interaction (including photography or recording) with someone after being asked to stop\nPublication of private communication without consent",
+    "crumbs": [
+      "Pre-course",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Code of conduct</span>"
+    ]
+  },
+  {
+    "objectID": "pre-course/code-of-conduct.html#consequences-of-unacceptable-behavior",
+    "href": "pre-course/code-of-conduct.html#consequences-of-unacceptable-behavior",
+    "title": "9  Code of conduct",
+    "section": "9.3 Consequences of unacceptable behavior",
+    "text": "9.3 Consequences of unacceptable behavior\nLearners who are asked, either in person or online, to stop any inappropriate behavior are expected to comply immediately. If a learners engages in behaviour that violates this code of conduct, the organizers, teachers, or helpers may take any action they deem appropriate, including warning the offender or expulsion from the course.\nThank you for helping make this a welcoming, friendly course for all 😄\n\n\n\n\n\n\nNote\n\n\n\nAcknowledgements: This code of conduct was borrowed from R3 by rostools. Large portions of this code of conduct were taken and modified from other codes of conduct, specifically Software Carpentry and UofTCoders.",
+    "crumbs": [
+      "Pre-course",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Code of conduct</span>"
+    ]
+  },
+  {
+    "objectID": "pre-course/survey.html",
+    "href": "pre-course/survey.html",
+    "title": "10  Survey",
+    "section": "",
+    "text": "Warning\n\n\n\n🚧 This section is being actively worked on. 🚧\n\nWe have a Code of Conduct.\nIf you haven’t read the sections under “Course overview” and “Pre-course tasks”, please read them now.\nYou’re almost done. Please fill out the pre-course survey to finish this section:\nPre-course survey 🎉\nSee you at the course! 👋",
+    "crumbs": [
+      "Pre-course",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Survey</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/introduction.html",
+    "href": "sessions/introduction.html",
+    "title": "11  Introduction to workshop",
+    "section": "",
+    "text": "11.1 The Big Picture\nTODO: Add text highlighting the bigger picture of why we teach this.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Introduction to workshop</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session01.html",
+    "href": "sessions/session01.html",
+    "title": "12  Getting R up and running",
+    "section": "",
+    "text": "12.1 Learning objectives\ntest1\nThe learning objectives for this session are:",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Getting R up and running</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session01.html#learning-objectives",
+    "href": "sessions/session01.html#learning-objectives",
+    "title": "12  Getting R up and running",
+    "section": "",
+    "text": "Udvise forståelse for usikkerheds- og sandsynlighedsbegrebet samt grundliggende begreber indenfor biostatistik\nUdvise kendskab til de grundliggende overordnede studietyper samt at skelne mellem forklarende, eksplorative og prædiktive studier\nRedegøre for forskellige typer af tilfældig og ikke tilfældig variation\nUdvise forståelse for statistiske værktøjers begrænsninger og muligheder\nForstå statistiske problemstillinger, der er centrale for medicin med industrial specialisering og forstå, hvordan de biostatistiske værktøjer kan appliceres på disse problemstillinger",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Getting R up and running</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session01.html#todo-section",
+    "href": "sessions/session01.html#todo-section",
+    "title": "12  Getting R up and running",
+    "section": "12.2 TODO: Section",
+    "text": "12.2 TODO: Section\n\n\n\n\n\n\nNoteReading task: ~4 minutes\n\n\n\nTODO: Reading text",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Getting R up and running</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session01.html#exercise-title",
+    "href": "sessions/session01.html#exercise-title",
+    "title": "12  Getting R up and running",
+    "section": "12.3 🧑‍💻 Exercise: Title",
+    "text": "12.3 🧑‍💻 Exercise: Title\nTime: ~NUM minutes.\nText\n\n\n\n\n\n\nCautionSticky/hat up!\n\n\n\nWhen you’re ready to continue, place the sticky/paper hat on your computer to indicate this to the teacher 👒 🎩",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Getting R up and running</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session01.html#discussion-activity-title",
+    "href": "sessions/session01.html#discussion-activity-title",
+    "title": "12  Getting R up and running",
+    "section": "12.4 💬 Discussion activity: Title",
+    "text": "12.4 💬 Discussion activity: Title\nTime: ~Num minutes.\nText",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Getting R up and running</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session01.html#reading-task-title",
+    "href": "sessions/session01.html#reading-task-title",
+    "title": "12  Getting R up and running",
+    "section": "12.5 📖 Reading task: Title",
+    "text": "12.5 📖 Reading task: Title\nTime: ~Num minutes.\nText\n\n\n\n\n\n\nCautionSticky/hat up!\n\n\n\nWhen you’re ready to continue, place the sticky/paper hat on your computer to indicate this to the teacher 👒 🎩",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Getting R up and running</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session01.html#summary",
+    "href": "sessions/session01.html#summary",
+    "title": "12  Getting R up and running",
+    "section": "12.6 Summary",
+    "text": "12.6 Summary\n\nTODO: List of summary items",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Getting R up and running</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session01.html#survey",
+    "href": "sessions/session01.html#survey",
+    "title": "12  Getting R up and running",
+    "section": "12.7 Survey",
+    "text": "12.7 Survey\nFeedback survey! 🎉",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Getting R up and running</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session02.html",
+    "href": "sessions/session02.html",
+    "title": "13  Probability and stochastic variables",
+    "section": "",
+    "text": "13.1 Learning objectives\nThe learning objectives for this session are:",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Probability and stochastic variables</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session02.html#learning-objectives",
+    "href": "sessions/session02.html#learning-objectives",
+    "title": "13  Probability and stochastic variables",
+    "section": "",
+    "text": "Udvise forståelse for usikkerheds- og sandsynlighedsbegrebet samt grundliggende begreber indenfor biostatistik\nUdvise kendskab til de grundliggende overordnede studietyper samt at skelne mellem forklarende, eksplorative og prædiktive studier\nRedegøre for forskellige typer af tilfældig og ikke tilfældig variation\nUdvise forståelse for statistiske værktøjers begrænsninger og muligheder\nForstå statistiske problemstillinger, der er centrale for medicin med industrial specialisering og forstå, hvordan de biostatistiske værktøjer kan appliceres på disse problemstillinger",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Probability and stochastic variables</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session02.html#todo-section",
+    "href": "sessions/session02.html#todo-section",
+    "title": "13  Probability and stochastic variables",
+    "section": "13.2 TODO: Section",
+    "text": "13.2 TODO: Section\n\n\n\n\n\n\nNoteReading task: ~4 minutes\n\n\n\nTODO: Reading text",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Probability and stochastic variables</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session02.html#exercise-title",
+    "href": "sessions/session02.html#exercise-title",
+    "title": "13  Probability and stochastic variables",
+    "section": "13.3 🧑‍💻 Exercise: Title",
+    "text": "13.3 🧑‍💻 Exercise: Title\nTime: ~NUM minutes.\nText\n\n\n\n\n\n\nCautionSticky/hat up!\n\n\n\nWhen you’re ready to continue, place the sticky/paper hat on your computer to indicate this to the teacher 👒 🎩",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Probability and stochastic variables</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session02.html#discussion-activity-title",
+    "href": "sessions/session02.html#discussion-activity-title",
+    "title": "13  Probability and stochastic variables",
+    "section": "13.4 💬 Discussion activity: Title",
+    "text": "13.4 💬 Discussion activity: Title\nTime: ~Num minutes.\nText",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Probability and stochastic variables</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session02.html#reading-task-title",
+    "href": "sessions/session02.html#reading-task-title",
+    "title": "13  Probability and stochastic variables",
+    "section": "13.5 📖 Reading task: Title",
+    "text": "13.5 📖 Reading task: Title\nTime: ~Num minutes.\nText\n\n\n\n\n\n\nCautionSticky/hat up!\n\n\n\nWhen you’re ready to continue, place the sticky/paper hat on your computer to indicate this to the teacher 👒 🎩",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Probability and stochastic variables</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session02.html#summary",
+    "href": "sessions/session02.html#summary",
+    "title": "13  Probability and stochastic variables",
+    "section": "13.6 Summary",
+    "text": "13.6 Summary\n\nTODO: List of summary items",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Probability and stochastic variables</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session02.html#survey",
+    "href": "sessions/session02.html#survey",
+    "title": "13  Probability and stochastic variables",
+    "section": "13.7 Survey",
+    "text": "13.7 Survey\nFeedback survey! 🎉",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Probability and stochastic variables</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session03.html",
+    "href": "sessions/session03.html",
+    "title": "14  Effect measurements",
+    "section": "",
+    "text": "14.1 Learning objectives\nThe learning objectives for this session are:",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Effect measurements</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session03.html#learning-objectives",
+    "href": "sessions/session03.html#learning-objectives",
+    "title": "14  Effect measurements",
+    "section": "",
+    "text": "Udvise forståelse for usikkerheds- og sandsynlighedsbegrebet samt grundliggende begreber indenfor biostatistik\nUdvise kendskab til de grundliggende overordnede studietyper samt at skelne mellem forklarende, eksplorative og prædiktive studier\nRedegøre for forskellige typer af tilfældig og ikke tilfældig variation\nUdvise forståelse for statistiske værktøjers begrænsninger og muligheder\nForstå statistiske problemstillinger, der er centrale for medicin med industrial specialisering og forstå, hvordan de biostatistiske værktøjer kan appliceres på disse problemstillinger",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Effect measurements</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session03.html#todo-section",
+    "href": "sessions/session03.html#todo-section",
+    "title": "14  Effect measurements",
+    "section": "14.2 TODO: Section",
+    "text": "14.2 TODO: Section\n\n\n\n\n\n\nNoteReading task: ~4 minutes\n\n\n\nTODO: Reading text",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Effect measurements</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session03.html#exercise-title",
+    "href": "sessions/session03.html#exercise-title",
+    "title": "14  Effect measurements",
+    "section": "14.3 🧑‍💻 Exercise: Title",
+    "text": "14.3 🧑‍💻 Exercise: Title\nTime: ~NUM minutes.\nText\n\n\n\n\n\n\nCautionSticky/hat up!\n\n\n\nWhen you’re ready to continue, place the sticky/paper hat on your computer to indicate this to the teacher 👒 🎩",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Effect measurements</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session03.html#discussion-activity-title",
+    "href": "sessions/session03.html#discussion-activity-title",
+    "title": "14  Effect measurements",
+    "section": "14.4 💬 Discussion activity: Title",
+    "text": "14.4 💬 Discussion activity: Title\nTime: ~Num minutes.\nText",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Effect measurements</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session03.html#reading-task-title",
+    "href": "sessions/session03.html#reading-task-title",
+    "title": "14  Effect measurements",
+    "section": "14.5 📖 Reading task: Title",
+    "text": "14.5 📖 Reading task: Title\nTime: ~Num minutes.\nText\n\n\n\n\n\n\nCautionSticky/hat up!\n\n\n\nWhen you’re ready to continue, place the sticky/paper hat on your computer to indicate this to the teacher 👒 🎩",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Effect measurements</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session03.html#summary",
+    "href": "sessions/session03.html#summary",
+    "title": "14  Effect measurements",
+    "section": "14.6 Summary",
+    "text": "14.6 Summary\n\nTODO: List of summary items",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Effect measurements</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session03.html#survey",
+    "href": "sessions/session03.html#survey",
+    "title": "14  Effect measurements",
+    "section": "14.7 Survey",
+    "text": "14.7 Survey\nFeedback survey! 🎉",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Effect measurements</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session04.html",
+    "href": "sessions/session04.html",
+    "title": "15  Describing and plotting data",
+    "section": "",
+    "text": "16 Basic data visualization\nVisualizing research data and especially the results of an analysis can be an effective way of communicating your findings to others. In this session, we will cover the basics of creating plots.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Describing and plotting data</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session04.html#learning-objectives",
+    "href": "sessions/session04.html#learning-objectives",
+    "title": "15  Describing and plotting data",
+    "section": "16.1 Learning objectives",
+    "text": "16.1 Learning objectives",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Describing and plotting data</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session04.html#reading-task-basic-principles-for-creating-graphs",
+    "href": "sessions/session04.html#reading-task-basic-principles-for-creating-graphs",
+    "title": "15  Describing and plotting data",
+    "section": "16.2 📖 Reading task: Basic principles for creating graphs",
+    "text": "16.2 📖 Reading task: Basic principles for creating graphs\n\n\n\n\n\n\nNote🧑‍🏫 Instructor note\n\n\n\n\n\nBecause this is fairly short, you don’t need to spend too much time going over it.\n\n\n\nTime: ~4 minutes\nMaking graphs in R is relatively easy compared to other programs and can be done with very little code. Because it takes a few lines of code to create multiple types of plots, it gives you some time to consider: why you are making them; whether the graph you’ve selected is the most appropriate for your data or results; and how you can design your graphs to be as accessible and understandable as possible.\nTo start, here are some tips for making a graph:\n\nWhenever possible or reasonable, show raw data values rather than summaries (e.g. means).\nThough commonly used in scientific papers, avoid barplots with means and error bars as they greatly misrepresent the data (we’ll cover why later).\nUse colour to highlight and enhance your message, and make the plot visually appealing.\nUse a colour-blind friendly palette to make the plot more accessible to others (more on this later too).\n\nThere are also excellent online books on this that are included in the resources page of the Guides website.\n\n\n\n\n\n\nCautionOrigami hats up!\n\n\n\nWhen you’re ready to continue, place the paper hat on your computer to indicate this to the teacher 👒 🎩",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Describing and plotting data</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session04.html#reading-task-basic-structure-of-using-ggplot2",
+    "href": "sessions/session04.html#reading-task-basic-structure-of-using-ggplot2",
+    "title": "15  Describing and plotting data",
+    "section": "16.3 📖 Reading task: Basic structure of using ggplot2",
+    "text": "16.3 📖 Reading task: Basic structure of using ggplot2\n\n\n\n\n\n\nNote🧑‍🏫 Instructor note\n\n\n\n\n\nEmphasize the “layers” aspect of {ggplot2}, as well as the geom_ and aes() parts, since that is what we will mostly cover. Then emphasize the part about why {ggplot2} is so powerful.\n\n\n\nTime: ~6 minutes\n{ggplot2} is an implementation of the “Grammar of Graphics” (“gg”). This is a powerful approach to creating plots because it provides a set of structured rules (a “grammar”) that allow you to expressively describe components (or “layers”) of a graph. Since you are able to describe the components, it is easier to then implement those “descriptions” in creating a graph. There are at least four aspects to using {ggplot2} that relate to its “grammar”:\n\nAesthetics, aes(): How data are mapped to the plot, including what data are put on the x and y axes, and/or whether to use a colour for a variable.\nGeometries, geom_ functions: Visual representation of the data, as a layer. This tells {ggplot2} how the aesthetics should be visualized, including whether they should be shown as points, lines, boxes, bins, or bars.\nScales, scale_ functions: Controls the visual properties of the geom_ layers. Can be used to modify the appearance of the axes, to change the colour of dots from, e.g., red to blue, or to use a different colour palette entirely.\nThemes, theme_ functions or theme(): Directly controls all other aspects of the plot, such as the size, font, and angle of axis text, and the thickness or colour of the axis lines.\n\nThere is a massive amount of features in {ggplot2}. Thankfully, {ggplot2} was specifically designed to make it easy to find and use its functions and settings using tab auto-completion. To demonstrate this feature, try typing out geom_ and you’ll start seeing a menu pop-up with a list of functions that start with geom_. You can then use the arrow keys to move up and down the list and then hit either Enter or Tab to select the function. You can use this with scale_ or the options inside theme(), for instance try typing out theme(axis. to see all options for the axis a list of theme settings related to the axis will pop up.\nSo, why do we teach {ggplot2} and not base R plotting? Base R plotting functionality is quite good and you can make really nice publication-quality graphs. However, there are several major limitations to base R plots from a beginner and a user-interface perspective:\n\nFunction and argument names are inconsistent and opaque (e.g. the cex argument can be used to magnify text and symbols, but you can’t immediately tell from the name that it does that).\nUser-friendly documentation that is accessible to a broad range of people is not much of a priority, so often the help documentation isn’t written with beginners in mind.\nGraphs are built similar to painting on a canvas; make a mistake and you need to start all over (e.g. restart R).\n\nThese limitations are due to the fact that base R plotting was developed:\n\nBy different people over different periods of time.\nBy people who were/are mostly from statistics and maths backgrounds.\nBy people who (generally) don’t have training in principles of software user-design, user-interface, or engineering.\nWithout a strong “design philosophy” to guide development.\nDuring a time when auto-completion didn’t really exist or was sub-optimal, so short function and object names were more important than they are today.\n\nOn the other hand, {ggplot2}:\n\nHas excellent documentation for help and learning.\nHas a strong design philosophy that makes it easier to use.\nWorks in “layers”, so you don’t have to start over if you make a mistake.\nWorks very well with auto-completion.\nUses function and argument naming that is consistent and descriptive (in plain English).\n\nThese are the reasons we teach and use {ggplot2}.\n\n\n\n\n\n\nCautionOrigami hats up!\n\n\n\nWhen you’re ready to continue, place the paper hat on your computer to indicate this to the teacher 👒 🎩",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Describing and plotting data</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session04.html#plot-one-continuous-variable",
+    "href": "sessions/session04.html#plot-one-continuous-variable",
+    "title": "15  Describing and plotting data",
+    "section": "16.4 Plot one continuous variable",
+    "text": "16.4 Plot one continuous variable\nVery often you want to get a sense of your data, one variable (i.e. column in a data frame) at a time. You create plots to see the distribution of a variable and visually inspect the data for any problems. There are several ways of plotting continuous variables like age or BMI in {ggplot2}. For discrete variables like diabetes status, there is really only one way.\nWe use the word variable to mean a column in a data frame that is tidy. If you recall the definition of tidy data, it consists of “variables” (columns) and “observations” (rows) of a data frame. To us, a “variable” is something that we are interested in analyzing or visualizing, and which only contains values relevant to that measurement For instance, an age variable must only contain values in a unit of time like years.\nOur post_meal_data data frame is fairly tidy, though there are a few things we will fix in later sessions. Rows are individual participants at a specific time and the columns are the variables that were measured, like weight. Let’s visually explore our data! In the LearningR project in the docs/learning.qmd file, create a new second-level header on the bottom of the file called ## Plot one continuous variable and create a new code chunk below the header with ?var:keybind.chunk. Then we can make our first plot!\nSince BMI is a strong risk factor for diabetes, let’s check out the distribution of BMI among the participants. There are two good geoms for examining distributions for continuous variables: geom_density() and geom_histogram(). Before we can make a plot, we need to tell {ggplot2} what data we are using and which variable to put in which axis or dimension. For that we use the ggplot() function with the aes() function used inside of it.\n\n\n\ndocs/learning.qmd\n\nggplot(post_meal_data, aes(x = BMI))\n\n\n\n\n\n\n\n\n\nRun this code by using ?var:keybind.run-code. You’ll get a blank plot. That’s because we haven’t told {ggplot2} what kind of plot we want to make, which needs a geom_ function.\nWe’ll start with creating a histogram, which is a useful way of visualizing the distribution of a continuous variable. We do that with geom_histogram(), but you can easily replace the code with geom_density() to make a density plot. Note that it is good practice to always create a new line after the +.\n\n\n\ndocs/learning.qmd\n\nggplot(post_meal_data, aes(x = BMI)) +\n  geom_histogram()\n\n\n`stat_bin()` using `bins = 30`. Pick better value `binwidth`.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTip\n\n\n\nIf your data has missing values, {ggplot2} gives us a warning about dropping the missing values. Like many functions in R, especially the summary statistic functions like mean(), you can set the argument na.rm = TRUE in the geom_histogram() function, as well as in other geom_* functions.\n\n\nOur plot shows that, for the most part, there is a even distribution with BMI. In general, it is good practice to create a new code chunk for each plot in Quarto for several reasons. One, it makes it easier to maintain a nice readable code and, two, there are some chunk options that only work with one figure. However, it is possible to show multiple graphs for instance side-by-side, as we will do later.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Describing and plotting data</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session04.html#exercise-plot-a-discrete-variable",
+    "href": "sessions/session04.html#exercise-plot-a-discrete-variable",
+    "title": "15  Describing and plotting data",
+    "section": "16.5 🧑‍💻 Exercise: Plot a discrete variable",
+    "text": "16.5 🧑‍💻 Exercise: Plot a discrete variable\nTime: ~10 minutes.\nUsing the same structure as the code from above, let’s plot a discrete variable. The geom_histogram() from above is appropriate for plotting continuous variables, but not for discrete variables. Sadly, there’s really only one: geom_bar(). This isn’t a geom for a barplot though; instead, it shows the counts of a discrete variable. There aren’t too many discrete variables our dataset, only Group and glykemi, so let’s use this geom to visualize those.\nFor this exercise, create a new header at the bottom of the docs/learning.qmd file called ## Exercise: discrete plots. Then, copy the below code chunk template and paste it below the header. Complete the tasks below on this template.\n\n\ndocs/learning.qmd\n\n```{r}\nggplot(post_meal_data, aes(x = ___)) +\n  ___()\n```\n\nSee above for a cool plot!\n\n\nDecide on either Group or glykemi to plot on the x axis in the aes() function, replacing the ___ with the one you chose.\nReplace the ___ below the ggplot() function with geom_bar().\nAdd a caption to the plot with #| fig-cap where the ___ is placed.\nAdd a label in the #| label option section, again, replacing the fig-___ with a label that describes the plot, like fig-group-bar\nReplace the ___ under the code chunk where the @fig- reference is with the label you chose in the plot (like @fig-group-bar).\nRender the document with ?var:keybind.render to see the plot you created.\n\n\n\nClick for the solution. Only click if you are struggling or are out of time.\n```{r solution-discrete-variables}\n#| eval: false\n#| code-fold: true\n#| code-summary: '**Click for the solution**. Only click if you are struggling or are out of time.'\n# This is a potential solution\nggplot(post_meal_data, aes(x = glykemi)) +\n  geom_bar()\n```\n\n\n\n\n\n\n\n\nCautionOrigami hats up!\n\n\n\nWhen you’re ready to continue, place the paper hat on your computer to indicate this to the teacher 👒 🎩",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Describing and plotting data</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session04.html#plot-two-discrete-variables",
+    "href": "sessions/session04.html#plot-two-discrete-variables",
+    "title": "15  Describing and plotting data",
+    "section": "16.6 Plot two discrete variables",
+    "text": "16.6 Plot two discrete variables\nUnlike plotting continuous variables, there are not as many plotting options for discrete variables, even two of them, without major data wrangling. You’ve already tried the geom_bar() for one variable, let’s do one for two variables. We can use the geom_bar() “fill” option to have a certain colour for different levels of a variable. Let’s use this to see differences between Group and glykemi. Create a new header at the bottom of the file called ## Plotting two discrete variables and create a new code chunk below that with ?var:keybind.chunk. While we could put either Group or glykemi on the x-axis, let’s put Group on the x-axis and glykemi as the fill.\n\n\n\ndocs/learning.qmd\n\nggplot(post_meal_data, aes(x = Group, fill = glykemi)) +\n  geom_bar()\n\n\nWarning: The following aesthetics were dropped during statistical\ntransformation: fill.\nℹ This can happen when ggplot fails to infer the correct grouping\n  structure in the data.\nℹ Did you forget to specify a `group` aesthetic or to convert a\n  numerical variable into a factor?\n\n\n\n\n\n\n\n\n\nRun this code with ?var:keybind.run-code. You’ll see we get a warning message, which tells us the problem: glykemi should be a factor or a character for the fill aesthetic, but it is actually a number. The fill aesthetic needs a categorical variable, not a continuous one. We can easily fix this by using as.character() on the glykemi variable in the aes() function.\n\n\n\ndocs/learning.qmd\n\nggplot(post_meal_data, aes(x = Group, fill = as.character(glykemi))) +\n  geom_bar()\n\n\n\n\n\n\n\n\n\nRunning this code with ?var:keybind.run-code will show you a barplot of Group with glykemi as the fill, without the warning message. But the legend on the side is a bit ugly. It’s easy to fix with the use of the theme() function, but we won’t cover that in this session.\nBy default, geom_bar() will make “fill” groups stacked on top of each other. In this case, it isn’t really that useful, so let’s change them to be sitting side by side. For that, we need to use the position argument with a function called position_dodge(). This new function takes the “fill” grouping variable and “dodges” them (moves them) to be side by side.\n\n\n\ndocs/learning.qmd\n\nggplot(post_meal_data, aes(x = Group, fill = as.character(glykemi))) +\n  geom_bar(position = position_dodge())\n\n\n\n\n\n\n\n\n\nWe can see from this plot there are very few people with the glykemi as 1. Let’s render the document with ?var:keybind.render to see the plot in the output document.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Describing and plotting data</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session04.html#putting-two-plots-side-by-side",
+    "href": "sessions/session04.html#putting-two-plots-side-by-side",
+    "title": "15  Describing and plotting data",
+    "section": "16.7 Putting two plots side by side",
+    "text": "16.7 Putting two plots side by side\nWhile we said in general you should use one figure per code chunk, if you want figures to be side by side as “one figure”, you can use a feature in Quarto to place figures into other different layouts. It is described in more detail in Quarto’s Figures page.\nFirst, let’s create a new header called ## Side by side plots and create a new code chunk with ?var:keybind.chunk below that. Then write out the same code for the figures from above.\n\n\n\ndocs/learning.qmd\n\nggplot(post_meal_data, aes(x = BMI)) +\n  geom_histogram()\n\n\n`stat_bin()` using `bins = 30`. Pick better value `binwidth`.\n\n\n\n\n\n\n\n\nggplot(post_meal_data, aes(x = glykemi)) +\n  geom_bar()\n\n\n\n\n\n\n\n\nBefore we continue, let’s see what that looks like by rendering the document with ?var:keybind.render. See how the figures are placed one after the other?",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Describing and plotting data</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session04.html#reading-task-be-careful-with-certain-plots",
+    "href": "sessions/session04.html#reading-task-be-careful-with-certain-plots",
+    "title": "15  Describing and plotting data",
+    "section": "16.8 📖 Reading task: Be careful with certain plots",
+    "text": "16.8 📖 Reading task: Be careful with certain plots\n\n\n\n\n\n\nNoteInstructor note\n\n\n\n\n\nFor this section on the bar-with-standard-error plots, make sure to go over and emphasize the problems and major flaws with using this type of plot. Really try to reinforce the concept here.\n\n\n\nTime: ~5 minutes\nBefore continuing with plotting, let’s take a minute to talk about a commonly used barplots with mean and error bars. In all cases, barplots should only be used for discrete (categorical) data where you want to show counts or proportions. As a general rule, they should not be used for continuous data. This is because the commonly used “bar plot of means with error bars” actually hides the underlying distribution of the data. To have a better explanation of this, you can read the article on why to avoid barplots after the workshop. The image below was taken from that paper, and briefly demonstrates why this plot type is not useful.\n\n\n\n\n\n\nFigure 16.1: Bars deceive what the data actually look like. Image sourced from a PLoS Biology article.\n\n\n\nIf you do want to create a barplot, you’ll quickly find out that it is actually quite hard to do in {ggplot2}. The reason it is difficult to create in {ggplot2} is by design: it’s a bad plot to use, so use something else.\n\n\n\n\n\n\nFigure 16.2: Barplots hide interesting results. Artwork by @allison_horst.\n\n\n\n\n\n\n\n\n\nCautionOrigami hats up!\n\n\n\nWhen you’re ready to continue, place the paper hat on your computer to indicate this to the teacher 👒 🎩",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Describing and plotting data</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session04.html#plotting-two-continuous-variables",
+    "href": "sessions/session04.html#plotting-two-continuous-variables",
+    "title": "15  Describing and plotting data",
+    "section": "16.9 Plotting two continuous variables",
+    "text": "16.9 Plotting two continuous variables\nThere are many more types of “geoms” to use when plotting two variables. Your choice of which one to use depends on what you are trying to show or communicate, and the nature of the data. Usually, the variable that you “control or influence” (the independent variable) in an experimental setting goes on the x-axis, and the variable that “responds” (the dependent variable) goes on the y-axis.\nFor now, let’s focus on plotting continuous data, since our data has a lot of continuous data and often in research we work with more continuous than discrete variables. When you have two continuous variables, some geoms to use are:\n\ngeom_point(), which is used to create a standard scatterplot. Since it is so commonly used, we’ll use this one.\ngeom_hex(), which is used to replace geom_point() when your data are massive and creating points for each value takes too long to plot.\ngeom_smooth(), which applies a “regression-type” line to the data.\n\nLet’s check out how BMI may influence the area under the curve for blood glucose after the meal using a point plot. The area under the curve of glucose is a measure of how much glucose is present in the blood over a fixed period of time. A higher area under the curve for glucose usually suggests that the body has a harder time handling glucose. But, like everything in biology, it’s more complex than that. But we won’t cover that complexity in this workshop.\nFirst, write out a new Markdown header called ## Plotting two continuous variables at the bottom of the document and create a new code chunk below the header with ?var:keybind.chunk. Like with the previous plot we created using BMI, we’ll put BMI on the x axis in the aes() function, since we are assuming that BMI “causes” or contributes to higher glucose in the blood after a meal. Then we put the area under the curve for glucose (auc_pg) on the y axis, since it will be “responding to” or “caused by” BMI.\n\n\n\ndocs/learning.qmd\n\nggplot(post_meal_data, aes(x = BMI, y = auc_pg)) +\n  geom_point()\n\n\n\n\n\n\n\n\n\nRun this code chunk with ?var:keybind.run-code. You’ll see a scatterplot of BMI and the area under the curve for glucose. Notice how there is a bit of an increase in glucose as BMI increases? Because {ggplot2} works in layers, we can add another layer to the plot by adding a + after the geom_point() function. Let’s add a smoothing line to the plot to see if there is a general trend between BMI and glucose by using geom_smooth().\n\n\n\ndocs/learning.qmd\n\nggplot(post_meal_data, aes(x = BMI, y = auc_pg)) +\n  geom_point() +\n  geom_smooth()\n\n\n`geom_smooth()` using method = 'loess' and formula = 'y ~ x'\n\n\n\n\n\n\n\n\n\nRun this code chunk with ?var:keybind.run-code and we’ll see a scatterplot of BMI and the area under the curve for glucose with a smoothing line on top of the points. Before rendering our HTML document, let’s add a caption and label to the plot:\n\nggplot(post_meal_data, aes(x = BMI, y = auc_pg)) +\n  geom_point() +\n  geom_smooth()\n\n`geom_smooth()` using method = 'loess' and formula = 'y ~ x'\n\n\n\n\n\n\n\n\n\nNow, let’s make our HTML document by rendering the document with ?var:keybind.render. Now you can see the plot in the rendered document! This makes a nice smoothing line through the data and gives us an idea of general trends or relationships between the two variables.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Describing and plotting data</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session04.html#summary",
+    "href": "sessions/session04.html#summary",
+    "title": "15  Describing and plotting data",
+    "section": "16.10 Summary",
+    "text": "16.10 Summary\n\nUse a consistent style guide for code for using {styler}.\nUse the “Grammar of Graphics” approach together with the {ggplot2} package within {tidyverse} to plot your data.\nPrioritize plotting raw data instead of summaries whenever possible.\n{ggplot2} has 4 levels of grammar: aes() to say which data to plot and how, geom_ to set the kind of plot to use, scale_ to make the plot prettier, and theme() to control the specifics of the plot. We covered the aes() and geom_ layers.\nOnly use barplots for discrete values. If applying them on continuous variables, it hides the distribution of the data.\nUse geom_point() to create a scatterplot of two continuous variables.\nUse geom_smooth() to add a smoothing line to the scatterplot.\nUse geom_bar() to create a barplot of discrete variables.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Describing and plotting data</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session04.html#survey",
+    "href": "sessions/session04.html#survey",
+    "title": "15  Describing and plotting data",
+    "section": "16.11 Survey",
+    "text": "16.11 Survey\nPlease complete the survey for this session:\nFeedback survey! 🎉",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Describing and plotting data</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session05.html",
+    "href": "sessions/session05.html",
+    "title": "16  Statistical Analysis Plan (SAP)",
+    "section": "",
+    "text": "16.1 Learning objectives\nThe learning objectives for this session are:",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Statistical Analysis Plan (SAP)</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session05.html#learning-objectives",
+    "href": "sessions/session05.html#learning-objectives",
+    "title": "16  Statistical Analysis Plan (SAP)",
+    "section": "",
+    "text": "Udvise forståelse for usikkerheds- og sandsynlighedsbegrebet samt grundliggende begreber indenfor biostatistik\nUdvise kendskab til de grundliggende overordnede studietyper samt at skelne mellem forklarende, eksplorative og prædiktive studier\nRedegøre for forskellige typer af tilfældig og ikke tilfældig variation\nUdvise forståelse for statistiske værktøjers begrænsninger og muligheder\nForstå statistiske problemstillinger, der er centrale for medicin med industrial specialisering og forstå, hvordan de biostatistiske værktøjer kan appliceres på disse problemstillinger",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Statistical Analysis Plan (SAP)</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session05.html#todo-section",
+    "href": "sessions/session05.html#todo-section",
+    "title": "16  Statistical Analysis Plan (SAP)",
+    "section": "16.2 TODO: Section",
+    "text": "16.2 TODO: Section\n\n\n\n\n\n\nNoteReading task: ~4 minutes\n\n\n\nTODO: Reading text",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Statistical Analysis Plan (SAP)</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session05.html#exercise-title",
+    "href": "sessions/session05.html#exercise-title",
+    "title": "16  Statistical Analysis Plan (SAP)",
+    "section": "16.3 🧑‍💻 Exercise: Title",
+    "text": "16.3 🧑‍💻 Exercise: Title\nTime: ~NUM minutes.\nText\n\n\n\n\n\n\nCautionSticky/hat up!\n\n\n\nWhen you’re ready to continue, place the sticky/paper hat on your computer to indicate this to the teacher 👒 🎩",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Statistical Analysis Plan (SAP)</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session05.html#discussion-activity-title",
+    "href": "sessions/session05.html#discussion-activity-title",
+    "title": "16  Statistical Analysis Plan (SAP)",
+    "section": "16.4 💬 Discussion activity: Title",
+    "text": "16.4 💬 Discussion activity: Title\nTime: ~Num minutes.\nText",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Statistical Analysis Plan (SAP)</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session05.html#reading-task-title",
+    "href": "sessions/session05.html#reading-task-title",
+    "title": "16  Statistical Analysis Plan (SAP)",
+    "section": "16.5 📖 Reading task: Title",
+    "text": "16.5 📖 Reading task: Title\nTime: ~Num minutes.\nText\n\n\n\n\n\n\nCautionSticky/hat up!\n\n\n\nWhen you’re ready to continue, place the sticky/paper hat on your computer to indicate this to the teacher 👒 🎩",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Statistical Analysis Plan (SAP)</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session05.html#summary",
+    "href": "sessions/session05.html#summary",
+    "title": "16  Statistical Analysis Plan (SAP)",
+    "section": "16.6 Summary",
+    "text": "16.6 Summary\n\nTODO: List of summary items",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Statistical Analysis Plan (SAP)</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session05.html#survey",
+    "href": "sessions/session05.html#survey",
+    "title": "16  Statistical Analysis Plan (SAP)",
+    "section": "16.7 Survey",
+    "text": "16.7 Survey\nFeedback survey! 🎉",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Statistical Analysis Plan (SAP)</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session06.html",
+    "href": "sessions/session06.html",
+    "title": "17  Central Limit Theorem, uncertainty, and Monte Carlo sampling",
+    "section": "",
+    "text": "17.1 Learning objectives\nThe learning objectives for this session are:",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Central Limit Theorem, uncertainty, and Monte Carlo sampling</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session06.html#learning-objectives",
+    "href": "sessions/session06.html#learning-objectives",
+    "title": "17  Central Limit Theorem, uncertainty, and Monte Carlo sampling",
+    "section": "",
+    "text": "Udvise forståelse for usikkerheds- og sandsynlighedsbegrebet samt grundliggende begreber indenfor biostatistik\nUdvise kendskab til de grundliggende overordnede studietyper samt at skelne mellem forklarende, eksplorative og prædiktive studier\nRedegøre for forskellige typer af tilfældig og ikke tilfældig variation\nUdvise forståelse for statistiske værktøjers begrænsninger og muligheder\nForstå statistiske problemstillinger, der er centrale for medicin med industrial specialisering og forstå, hvordan de biostatistiske værktøjer kan appliceres på disse problemstillinger",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Central Limit Theorem, uncertainty, and Monte Carlo sampling</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session06.html#todo-section",
+    "href": "sessions/session06.html#todo-section",
+    "title": "17  Central Limit Theorem, uncertainty, and Monte Carlo sampling",
+    "section": "17.2 TODO: Section",
+    "text": "17.2 TODO: Section\n\n\n\n\n\n\nNoteReading task: ~4 minutes\n\n\n\nTODO: Reading text",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Central Limit Theorem, uncertainty, and Monte Carlo sampling</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session06.html#exercise-title",
+    "href": "sessions/session06.html#exercise-title",
+    "title": "17  Central Limit Theorem, uncertainty, and Monte Carlo sampling",
+    "section": "17.3 🧑‍💻 Exercise: Title",
+    "text": "17.3 🧑‍💻 Exercise: Title\nTime: ~NUM minutes.\nText\n\n\n\n\n\n\nCautionSticky/hat up!\n\n\n\nWhen you’re ready to continue, place the sticky/paper hat on your computer to indicate this to the teacher 👒 🎩",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Central Limit Theorem, uncertainty, and Monte Carlo sampling</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session06.html#discussion-activity-title",
+    "href": "sessions/session06.html#discussion-activity-title",
+    "title": "17  Central Limit Theorem, uncertainty, and Monte Carlo sampling",
+    "section": "17.4 💬 Discussion activity: Title",
+    "text": "17.4 💬 Discussion activity: Title\nTime: ~Num minutes.\nText",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Central Limit Theorem, uncertainty, and Monte Carlo sampling</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session06.html#reading-task-title",
+    "href": "sessions/session06.html#reading-task-title",
+    "title": "17  Central Limit Theorem, uncertainty, and Monte Carlo sampling",
+    "section": "17.5 📖 Reading task: Title",
+    "text": "17.5 📖 Reading task: Title\nTime: ~Num minutes.\nText\n\n\n\n\n\n\nCautionSticky/hat up!\n\n\n\nWhen you’re ready to continue, place the sticky/paper hat on your computer to indicate this to the teacher 👒 🎩",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Central Limit Theorem, uncertainty, and Monte Carlo sampling</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session06.html#summary",
+    "href": "sessions/session06.html#summary",
+    "title": "17  Central Limit Theorem, uncertainty, and Monte Carlo sampling",
+    "section": "17.6 Summary",
+    "text": "17.6 Summary\n\nTODO: List of summary items",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Central Limit Theorem, uncertainty, and Monte Carlo sampling</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session06.html#survey",
+    "href": "sessions/session06.html#survey",
+    "title": "17  Central Limit Theorem, uncertainty, and Monte Carlo sampling",
+    "section": "17.7 Survey",
+    "text": "17.7 Survey\nFeedback survey! 🎉",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Central Limit Theorem, uncertainty, and Monte Carlo sampling</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session07.html",
+    "href": "sessions/session07.html",
+    "title": "18  Hypothesis testing, confounding, and reproducibility",
+    "section": "",
+    "text": "18.1 Learning objectives\nThe learning objectives for this session are:",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Hypothesis testing, confounding, and reproducibility</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session07.html#learning-objectives",
+    "href": "sessions/session07.html#learning-objectives",
+    "title": "18  Hypothesis testing, confounding, and reproducibility",
+    "section": "",
+    "text": "Udvise forståelse for usikkerheds- og sandsynlighedsbegrebet samt grundliggende begreber indenfor biostatistik\nUdvise kendskab til de grundliggende overordnede studietyper samt at skelne mellem forklarende, eksplorative og prædiktive studier\nRedegøre for forskellige typer af tilfældig og ikke tilfældig variation\nUdvise forståelse for statistiske værktøjers begrænsninger og muligheder\nForstå statistiske problemstillinger, der er centrale for medicin med industrial specialisering og forstå, hvordan de biostatistiske værktøjer kan appliceres på disse problemstillinger",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Hypothesis testing, confounding, and reproducibility</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session07.html#todo-section",
+    "href": "sessions/session07.html#todo-section",
+    "title": "18  Hypothesis testing, confounding, and reproducibility",
+    "section": "18.2 TODO: Section",
+    "text": "18.2 TODO: Section\n\n\n\n\n\n\nNoteReading task: ~4 minutes\n\n\n\nTODO: Reading text",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Hypothesis testing, confounding, and reproducibility</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session07.html#exercise-title",
+    "href": "sessions/session07.html#exercise-title",
+    "title": "18  Hypothesis testing, confounding, and reproducibility",
+    "section": "18.3 🧑‍💻 Exercise: Title",
+    "text": "18.3 🧑‍💻 Exercise: Title\nTime: ~NUM minutes.\nText\n\n\n\n\n\n\nCautionSticky/hat up!\n\n\n\nWhen you’re ready to continue, place the sticky/paper hat on your computer to indicate this to the teacher 👒 🎩",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Hypothesis testing, confounding, and reproducibility</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session07.html#discussion-activity-title",
+    "href": "sessions/session07.html#discussion-activity-title",
+    "title": "18  Hypothesis testing, confounding, and reproducibility",
+    "section": "18.4 💬 Discussion activity: Title",
+    "text": "18.4 💬 Discussion activity: Title\nTime: ~Num minutes.\nText",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Hypothesis testing, confounding, and reproducibility</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session07.html#reading-task-title",
+    "href": "sessions/session07.html#reading-task-title",
+    "title": "18  Hypothesis testing, confounding, and reproducibility",
+    "section": "18.5 📖 Reading task: Title",
+    "text": "18.5 📖 Reading task: Title\nTime: ~Num minutes.\nText\n\n\n\n\n\n\nCautionSticky/hat up!\n\n\n\nWhen you’re ready to continue, place the sticky/paper hat on your computer to indicate this to the teacher 👒 🎩",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Hypothesis testing, confounding, and reproducibility</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session07.html#summary",
+    "href": "sessions/session07.html#summary",
+    "title": "18  Hypothesis testing, confounding, and reproducibility",
+    "section": "18.6 Summary",
+    "text": "18.6 Summary\n\nTODO: List of summary items",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Hypothesis testing, confounding, and reproducibility</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session07.html#survey",
+    "href": "sessions/session07.html#survey",
+    "title": "18  Hypothesis testing, confounding, and reproducibility",
+    "section": "18.7 Survey",
+    "text": "18.7 Survey\nFeedback survey! 🎉",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Hypothesis testing, confounding, and reproducibility</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session08.html",
+    "href": "sessions/session08.html",
+    "title": "19  Data wrangling using R",
+    "section": "",
+    "text": "19.1 Learning objectives\nThe learning objectives for this session are:",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Data wrangling using R</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session08.html#learning-objectives",
+    "href": "sessions/session08.html#learning-objectives",
+    "title": "19  Data wrangling using R",
+    "section": "",
+    "text": "Udvise forståelse for usikkerheds- og sandsynlighedsbegrebet samt grundliggende begreber indenfor biostatistik\nUdvise kendskab til de grundliggende overordnede studietyper samt at skelne mellem forklarende, eksplorative og prædiktive studier\nRedegøre for forskellige typer af tilfældig og ikke tilfældig variation\nUdvise forståelse for statistiske værktøjers begrænsninger og muligheder\nForstå statistiske problemstillinger, der er centrale for medicin med industrial specialisering og forstå, hvordan de biostatistiske værktøjer kan appliceres på disse problemstillinger",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Data wrangling using R</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session08.html#todo-section",
+    "href": "sessions/session08.html#todo-section",
+    "title": "19  Data wrangling using R",
+    "section": "19.2 TODO: Section",
+    "text": "19.2 TODO: Section\n\n\n\n\n\n\nNoteReading task: ~4 minutes\n\n\n\nTODO: Reading text",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Data wrangling using R</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session08.html#exercise-title",
+    "href": "sessions/session08.html#exercise-title",
+    "title": "19  Data wrangling using R",
+    "section": "19.3 🧑‍💻 Exercise: Title",
+    "text": "19.3 🧑‍💻 Exercise: Title\nTime: ~NUM minutes.\nText\n\n\n\n\n\n\nCautionSticky/hat up!\n\n\n\nWhen you’re ready to continue, place the sticky/paper hat on your computer to indicate this to the teacher 👒 🎩",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Data wrangling using R</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session08.html#discussion-activity-title",
+    "href": "sessions/session08.html#discussion-activity-title",
+    "title": "19  Data wrangling using R",
+    "section": "19.4 💬 Discussion activity: Title",
+    "text": "19.4 💬 Discussion activity: Title\nTime: ~Num minutes.\nText",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Data wrangling using R</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session08.html#reading-task-title",
+    "href": "sessions/session08.html#reading-task-title",
+    "title": "19  Data wrangling using R",
+    "section": "19.5 📖 Reading task: Title",
+    "text": "19.5 📖 Reading task: Title\nTime: ~Num minutes.\nText\n\n\n\n\n\n\nCautionSticky/hat up!\n\n\n\nWhen you’re ready to continue, place the sticky/paper hat on your computer to indicate this to the teacher 👒 🎩",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Data wrangling using R</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session08.html#summary",
+    "href": "sessions/session08.html#summary",
+    "title": "19  Data wrangling using R",
+    "section": "19.6 Summary",
+    "text": "19.6 Summary\n\nTODO: List of summary items",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Data wrangling using R</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session08.html#survey",
+    "href": "sessions/session08.html#survey",
+    "title": "19  Data wrangling using R",
+    "section": "19.7 Survey",
+    "text": "19.7 Survey\nFeedback survey! 🎉",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Data wrangling using R</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/conclusion.html",
+    "href": "sessions/conclusion.html",
+    "title": "20  What next",
+    "section": "",
+    "text": "Warning\n\n\n\n🚧 This section is being actively worked on. 🚧\n\n\nSlides\n\n\n\n\n\n\n\n\n\n\nNoteTeacher note\n\n\n\n\n\nThe slides contain speaking notes that you can view by pressing ‘S’ on the keyboard.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>What next</span>"
+    ]
+  },
+  {
+    "objectID": "exercises/data.html",
+    "href": "exercises/data.html",
+    "title": "21  Data for Medical Statistics",
+    "section": "",
+    "text": "21.1 Datasets we use\nYou can run the most advanced regression model, calculate the fanciest p-values, and produce the prettiest graphs—but if your data is garbage, your results are just beautiful garbage. Statistics is not a magic spell that turns messy, biased, incomplete, or poorly structured data into truth. It only amplifies what’s already there.\nIn medical research, data quality is everything. If diagnoses are miscoded, if measurements are inconsistent, if inclusion criteria are unclear, or if missing values are ignored, your conclusions can be dangerously wrong. A flawed dataset can make a harmful treatment look effective or hide real side effects. No confidence interval can fix systematic bias. No machine learning model can compensate for a broken study design.\nAnd structure matters. A dataset without clear variables, units, metadata, and consistent formats is a nightmare to analyze and easy to misunderstand. Garbage in, garbage out—except in medicine, “garbage out” can influence clinical decisions and patient care.\nSo before you worship statistical methods, worship your data pipeline. Clean data. Well-defined variables. Thoughtful study design. Documentation. Because statistics is a microscope, not a disinfectant. It reveals reality—it does not repair it.\nIn this course, we use the following datasets:\nHere, we provide some context and meta-data about the datasets. Please take the time to carefully read this section before jumping in and wrangling data without knowing the design or variables collected.",
+    "crumbs": [
+      "Exercises",
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Data for Medical Statistics</span>"
+    ]
+  },
+  {
+    "objectID": "exercises/data.html#datasets-we-use",
+    "href": "exercises/data.html#datasets-we-use",
+    "title": "21  Data for Medical Statistics",
+    "section": "",
+    "text": "AlzheimerDisease (AppliedPredictiveModeling) @#AlzheimerDisease-data\nCleveland Heart Disease (ISLR) @#HeartDisease-data\nMedical Expenditure Panel Survey (heckmanGE) @#MEPS-data\nMayo Clinic Primary Biliary Cholangitis Data (Survival) @#survival-data\nSleep Study (lme4) @#sleep-data\nDiabetes study @#diabetes-data\nCognitive weight loss RCT @#weight-data\nFEV1 COPD simulation data () @#fev1-data",
+    "crumbs": [
+      "Exercises",
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Data for Medical Statistics</span>"
+    ]
+  },
+  {
+    "objectID": "exercises/data.html#AlzheimerDisease-data",
+    "href": "exercises/data.html#AlzheimerDisease-data",
+    "title": "21  Data for Medical Statistics",
+    "section": "21.2 AlzheimerDisease (AppliedPredictiveModeling)",
+    "text": "21.2 AlzheimerDisease (AppliedPredictiveModeling)\nTime: ~3 minutes.\nWashington University conducted a clinical study to determine if biological measurements made from cerebrospinal fluid (CSF) can be used to diagnose or predict Alzheimer’s disease (Craig-Schapiro et al. 2011). These data are a modified version of the values used for the publication.\nThe R factor vector diagnosis contains the outcome data for 333 of the subjects. The demographic and laboratory results are collected in the data frame predictors.\nOne important indicator of Alzheimer’s disease is the genetic background of a subject. In particular, what versions of the Apolipoprotein E gene inherited from one’s parents has an association with the disease. There are three variants of the gene: E2, E3 and E4. Since a child inherits a version of the gene from each parent, there are six possible combinations (e.g. E2/E2, E2/E3, and so on). This data is contained in the predictor column named Genotype.\nSource: Craig-Schapiro, R., Kuhn, M., Xiong, C., Pickering, E. H., Liu, J., Misko, T. P., Perrin, R. J., et al. (2011). Multiplexed Immunoassay Panel Identifies Novel CSF Biomarkers for Alzheimer’s Disease Diagnosis and Prognosis. PLoS ONE, 6(4), e18850.\n\n21.2.1 Accessing the AlzheimerDisease dataset\nIn order to access the dataset, we suggest using:\n\n\nmy-report.qmd\n\npost_meal_insulin &lt;- readr::read_csv2(\"https://zenodo.org/records/4989220/files/Eliasson_data2.csv?download=1\")",
+    "crumbs": [
+      "Exercises",
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Data for Medical Statistics</span>"
+    ]
+  },
+  {
+    "objectID": "exercises/data.html#HeartDisease-data",
+    "href": "exercises/data.html#HeartDisease-data",
+    "title": "21  Data for Medical Statistics",
+    "section": "21.3 Cleveland Heart Disease",
+    "text": "21.3 Cleveland Heart Disease\nTime: ~5 minutes.\nCleveland Heart Disease\nDescription This dataset contains clinical and test measurements for 303 patients with chest pain. The outcome variable indicates whether angiographically confirmed heart disease is present.\nOutcome Variable - A HD (or HD) – Heart Disease Status (Confirmed coronary artery disease based on angiography (gold standard)). - Yes = heart disease present - No = no heart disease\nPredictor Variables\n\nAge:\n\nPatient age in years.\n\nSex:\n\n1 = male\n0 = female\n\nChestPain:\n\ntypical = typical angina (classic cardiac chest pain)\natypical = atypical angina\nnonanginal = chest pain not due to heart\nasymptomatic = no chest pain symptoms\n\nRestBP – Resting Blood Pressure (mm Hg measured at rest)\nChol – Serum Cholesterol/Blood cholesterol level (mg/dL)\nFbs – Fasting Blood Sugar\n\n1 = fasting glucose &gt; 120 mg/dL\n0 = normal\n\nRestECG – Resting ECG Result\n\n0 = normal\n1 = ST-T wave abnormality\n2 = left ventricular hypertrophy (LVH)\n\nMaxHR – Maximum Heart Rate\n\nHighest heart rate during exercise test (beats/min).\n\nExAng – Exercise-Induced Angina\n\n1 = chest pain during exercise\n0 = no chest pain\n\nOldpeak – ST Depression\n\nNumeric measure of ECG change during exercise vs rest. Larger values suggest ischemia.\n\nSlope – ST Segment Slope During Exercise (Flat/downsloping are more concerning)\n\n1 = upsloping\n2 = flat\n3 = downsloping\n\nCa – Number of Major Coronary Vessels\n\nValues: 0–3\nNumber of vessels with visible disease on angiography.\n\nThal – Thallium Stress Test Result\n\nnormal = normal blood flow\nfixed = fixed defect (old infarct/scar)\nreversible = reversible defect (ischemia under stress)\n\n\n\n21.3.1 Accessing the Cleveland Heart Disease dataset\n\n\nmy-report.qmd\n\nhd &lt;- readr::read_csv(\"https://www.statlearning.com/s/Heart.csv\")",
+    "crumbs": [
+      "Exercises",
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Data for Medical Statistics</span>"
+    ]
+  },
+  {
+    "objectID": "exercises/data.html#MEPS-data",
+    "href": "exercises/data.html#MEPS-data",
+    "title": "21  Data for Medical Statistics",
+    "section": "21.4 Medical Expenditure Panel Survey 2001: Ambulatory Expenditures Data",
+    "text": "21.4 Medical Expenditure Panel Survey 2001: Ambulatory Expenditures Data\nTime: ~5 minutes.\nDescription This dataset is an extract from the 2001 Medical Expenditure Panel Survey (MEPS), providing information on ambulatory expenditures and various demographic and health-related variables. It has been used for illustrative examples by Cameron and Trivedi (2009, Chapter 16).\nFormat A data frame with 3,328 observations on the following 22 variables.\neduc Education status\nage Age\nincome Income\nfemale Gender\nvgood Self-reported health status, very good\ngood Self-reported health status, good\nhospexp Hospital expenditures\ntotchr Total number of chronic diseases\nffs Family support\ndhospexp Dummy variable for hospital expenditures\nage2 Age squared\nagefem Interaction between age and gender\nfairpoor Self-reported health status, fair or poor\nyear01 Year of survey\ninstype Type of insurance\nambexp Ambulatory expenditures\nlambexp Log of ambulatory expenditures\nblhisp Ethnicity\ninstype_s1 Insurance type, version 1\ndambexp Dummy variable for ambulatory expenditures\nlnambx Log-transformed ambulatory expenditures\nins Insurance status\nSource 2001 Medical Expenditure Panel Survey by the Agency for Healthcare Research and Quality.\n\n21.4.1 Accessing the Medical Expenditure Panel Survey dataset\n\n\nmy-report.qmd\n\n#data_url &lt;- \"https://raw.githubusercontent.com/cran/ssmrob/master/data/MEPS2001.rda\"\ndata_url &lt;- \"https://raw.githubusercontent.com/cran/heckmanGE/master/data/MEPS2001.rda\"\nload(url(data_url))\nmeps2001 &lt;- tibble::tibble(MEPS2001)\nrm(MEPS2001)",
+    "crumbs": [
+      "Exercises",
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Data for Medical Statistics</span>"
+    ]
+  },
+  {
+    "objectID": "exercises/data.html#survival-data",
+    "href": "exercises/data.html#survival-data",
+    "title": "21  Data for Medical Statistics",
+    "section": "21.5 Mayo Clinic Primary Biliary Cholangitis Data",
+    "text": "21.5 Mayo Clinic Primary Biliary Cholangitis Data\nTime: ~5 minutes.\nDescription Primary biliary cholangitis is an autoimmune disease leading to destruction of the small bile ducts in the liver. Progression is slow but inexhortable, eventually leading to cirrhosis and liver decompensation. The condition has been recognised since at least 1851 and was named “primary biliary cirrhosis” in 1949. Because cirrhosis is a feature only of advanced disease, a change of its name to “primary biliary cholangitis” was proposed by patient advocacy groups in 2014.\nThis data is from the Mayo Clinic trial in PBC conducted between 1974 and 1984. A total of 424 PBC patients, referred to Mayo Clinic during that ten-year interval, met eligibility criteria for the randomized placebo controlled trial of the drug D-penicillamine. The first 312 cases in the data set participated in the randomized trial and contain largely complete data. The additional 112 cases did not participate in the clinical trial, but consented to have basic measurements recorded and to be followed for survival. Six of those cases were lost to follow-up shortly after diagnosis, so the data here are on an additional 106 cases as well as the 312 randomized participants.\nA nearly identical data set found in appendix D of Fleming and Harrington; this version has fewer missing values.\nFormat age: in years albumin: serum albumin (g/dl) alk.phos: alkaline phosphotase (U/liter) ascites: presence of ascites ast: aspartate aminotransferase, once called SGOT (U/ml) bili: serum bilirunbin (mg/dl) chol: serum cholesterol (mg/dl) copper: urine copper (ug/day) edema: 0 no edema, 0.5 untreated or successfully treated 1 edema despite diuretic therapy hepato: presence of hepatomegaly or enlarged liver id: case number platelet: platelet count protime: standardised blood clotting time sex: m/f spiders: blood vessel malformations in the skin stage: histologic stage of disease (needs biopsy) status: status at endpoint, 0/1/2 for censored, transplant, dead time: number of days between registration and the earlier of death, transplantion, or study analysis in July, 1986 trt: 1/2/NA for D-penicillmain, placebo, not randomised trig: triglycerides (mg/dl)\nSource T Therneau and P Grambsch (2000), Modeling Survival Data: Extending the Cox Model, Springer-Verlag, New York. ISBN: 0-387-98784-3.\n\n21.5.1 Accessing the Mayo Clinic Primary Biliary Cholangitis dataset\n\n\nmy-report.qmd\n\ndata(pbc, package=\"survival\")\npbc |&gt;\n    tibble::as.tibble()",
+    "crumbs": [
+      "Exercises",
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Data for Medical Statistics</span>"
+    ]
+  },
+  {
+    "objectID": "exercises/data.html#sleep-data",
+    "href": "exercises/data.html#sleep-data",
+    "title": "21  Data for Medical Statistics",
+    "section": "21.6 Sleep study (lme4)",
+    "text": "21.6 Sleep study (lme4)\nTime: ~2 minutes.\nDescription The average reaction time per day (in milliseconds) for subjects in a sleep deprivation study. Stress reduction techniques\nDays 0-1 were adaptation and training (T1/T2), day 2 was baseline (B); sleep deprivation started after day 2.\nFormat A data frame with 180 observations on the following 3 variables.\nReaction Average reaction time (ms)\nDays Number of days of sleep deprivation\nSubject Subject number on which the observation was made.\nDetails These data are from the study described in Belenky et al. (2003), for the most sleep-deprived group (3 hours time-in-bed) and for the first 10 days of the study, up to the recovery period. The original study analyzed speed (1/(reaction time)) and treated day as a categorical rather than a continuous predictor.\nSource Gregory Belenky, Nancy J. Wesensten, David R. Thorne, Maria L. Thomas, Helen C. Sing, Daniel P. Redmond, Michael B. Russo and Thomas J. Balkin (2003) Patterns of performance degradation and restoration during sleep restriction and subsequent recovery: a sleep dose-response study. Journal of Sleep Research 12, 1–12.\n\n21.6.1 Accessing the Sleep study dataset\nIn order to access the dataset, we suggest using:\n\n\nmy-report.qmd\n\ndata_url &lt;- \"https://raw.githubusercontent.com/cran/lme4/master/data/sleepstudy.rda\"\nload(url(data_url))\nhead(sleepstudy)",
+    "crumbs": [
+      "Exercises",
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Data for Medical Statistics</span>"
+    ]
+  },
+  {
+    "objectID": "exercises/data.html#diabetes-data",
+    "href": "exercises/data.html#diabetes-data",
+    "title": "21  Data for Medical Statistics",
+    "section": "21.7 Diabetes",
+    "text": "21.7 Diabetes\nTime: ~5 minutes.\nhttps://zenodo.org/records/8292712/files/SUA_CVDs_risk_factors.csv\nStudy context\nID: Unique identifier for each participant Age: Age of the participant in years Sex: Gender of the participant (1.Male /2.Female) BMI: Body Mass Index of the participant SBP/DBP: Blood pressure readings of the participant (Systolic/Diastolic) FBG: Fasting blood glucose of participants of the participant TC: Cholesterol level of the participant Cr: Serum creatinine of the participants GFR: Glomerular filtration rate of participants UA: Measurement of serum uric acid level in the participant’s blood Times: Number of medical follow-up visits for participants Hypertension: Participants with or without hypertension (1.No/2.Yes) Hyperglycemia: Participants with or without hyperglycemia (1.No/2.Yes) Dyslipidemia: Participants with or without dyslipidemia (1.No/2.Yes)\nSource\nLuo, Y., Wu, Q., Meng, R., Lian, F., Jiang, C., Hu, M., Wang, Y., & Ma, H. (2023). Associations of serum uric acid with cardiovascular disease risk factors: a retrospective cohort study in Southeastern China [Data set]. Zenodo. https://doi.org/10.5061/dryad.z08kprrk1\n\n21.7.1 Accessing the diabetes2 dataset\nIn order to access the dataset, we suggest using:\n\n\nmy-report.qmd\n\n# https://datadryad.org/dataset/doi:10.5061/dryad.96320\n# https://zenodo.org/records/4989220\npost_meal_insulin &lt;- readr::read_csv2(\"https://zenodo.org/records/8292712/files/SUA_CVDs_risk_factors.csv\")",
+    "crumbs": [
+      "Exercises",
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Data for Medical Statistics</span>"
+    ]
+  },
+  {
+    "objectID": "exercises/data.html#weight-data",
+    "href": "exercises/data.html#weight-data",
+    "title": "21  Data for Medical Statistics",
+    "section": "21.8 Cognitive weight loss intervention",
+    "text": "21.8 Cognitive weight loss intervention\nTODO\n\n21.8.1 Accessing the Cognitive weight loss intervention dataset\n\n\nmy-report.qmd\n\nhoran1971 &lt;- tibble(\n  sl = c(letters[1:22], letters[1:20], letters[1:19], letters[1:19]),\n  sn = 1:80,\n  treatment = factor(rep(1:4, times = c(22, 20, 19, 19))),\n  pre = c(149.5, 131.25, 146.5, 133.25, 131, 141, 145.75, 146.75, 172.5, 156.5, 153, 136.25, 148.25, 152.25, 167.5, 169.5, 151.5, 165, 144.25, 167, 195, 179.5,\n          127, 134, 163.5, 155, 157.25, 121, 161.25, 147.25, 134.5, 121, 133.5, 128.5, 151, 141.25, 164.25, 138.25, 176, 178, 183, 164,\n          149, 134.25, 168, 116.25, 122.75, 122.5, 130, 139, 121.75, 126, 159, 134.75, 140.5, 174.25, 140.25, 133, 171.25, 198.25, 141.25,\n          137, 157, 142.25, 123, 163.75, 168.25, 146.25, 174.75, 174.5, 179.75, 162.5, 145, 127, 146.75, 137.5, 179.75, 168.25, 187.5, 144.5),\n  post = c(149, 130, 147.75, 139, 134, 145.25, 142.25, 147, 158.25, 155.25, 151.5, 134.5, 145.75, 153.5, 163.75, 170, 153, 178, 144.75, 164.25, 194, 183.25,\n           121.75, 132.25, 166, 146.5, 154.5, 114, 148.25, 148.25, 133.5, 126.5, 137, 126.5, 148.5, 145.5, 151.5, 128.5, 176.5, 170.5, 181.5, 160.5,\n           145.5, 122.75, 164, 118.5, 122, 125.5, 129.5, 137, 119.5, 123.5, 150.5, 125.75, 135, 164.25, 144.5, 135.5, 169.5, 194.5, 142.5,\n           129, 146.5, 142.25, 114.5, 148.25, 161.25, 142.5, 174.5, 163, 160.5, 151.25, 144, 135.5, 136.5, 145.5, 185, 174.75, 179, 141.5)) %&gt;%\n  mutate(treatment = factor(treatment, labels = c(\"delayed\", \"placebo\", \"scheduled\", \"experimental\")))",
+    "crumbs": [
+      "Exercises",
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Data for Medical Statistics</span>"
+    ]
+  },
+  {
+    "objectID": "exercises/data.html#fev1-data",
+    "href": "exercises/data.html#fev1-data",
+    "title": "21  Data for Medical Statistics",
+    "section": "21.9 FEV1 data",
+    "text": "21.9 FEV1 data\nDescription\nIt is an artificial (simulated) dataset of a clinical trial investigating the effect of an active treatment on FEV1 (forced expired volume in one second), compared to placebo. FEV1 is a measure of how quickly the lungs can be emptied and low levels may indicate chronic obstructive pulmonary disease (COPD).\nThe dataset is made within a collaboration by people from major pharmaceutical companies, such as Eli Lilly and Company, Boehringer Ingelheim Pharma GmbH & Co, Gilead Sciences, Inc., F. Hoffmann-La Roche AG, Merck Sharp & Dohme, Inc., AstraZeneca plc, and inferential.biostatistics GmbH.\nFormat\nThe dataset is a tibble with 800 rows and the following notable variables:\n\nUSUBJID (subject ID)\nAVISIT (visit number, factor)\nVISITN (visit number, numeric)\nARMCD (treatment, TRT or PBO)\nRACE (3-category race)\nSEX (female or male)\nFEV1_BL (FEV1 at baseline, %)\nFEV1 (FEV1 at study visits)\nWEIGHT (weighting variable, z-scored?)\n\nThe primary endpoint for the analysis is change from baseline in FEV1, which we derive below and denote FEV1_CHG.\n\n21.9.1 Accessing the FEV1 dataset\n\n\nmy-report.qmd\n\nhttps://github.com/openpharma/mmrm/blob/main/data/fev_data.rda\ndata_url &lt;- \"https://raw.githubusercontent.com/openpharma/mmrm/main/data/fev_data.rda\"\nload(url(data_url))\nfev_data |&gt; tibble::tibble()\n\n\n\n\n\n\nNOTE USED!!!!!!!\n\n\nNot incl.\n\nDiabetes study1\nFramingham Heart Study\n???NHANES (National Health and Nutrition Examination Survey)\n\n\n\n\n21.10 Diabetes1\nTime: ~5 minutes.\nhttps://zenodo.org/records/4989220\nStudy context This dataset comes from a physiological study of early (cephalic) insulin secretion in humans. Participants were 31 individuals with or without a family history of type 2 diabetes (FDR) and with varying glucose tolerance status.\nThe study measured glucose, insulin, and C-peptide repeatedly during an oral glucose tolerance test (OGTT), including very early time points (before blood glucose rises).\nStudy Design Subjects: 31 healthy individuals\nGroups: Controls (no family history of diabetes) FDR (first-degree relatives of T2D patients)\nProcedure: Fasting blood samples Oral glucose tolerance test (OGTT) Very frequent sampling in the first minutes to capture cephalic phase insulin secretion\nCore Physiological Concepts Cephalic Phase Insulin Secretion\nEarly insulin release before glucose rises\nTriggered by taste, smell, and neural signals\nOccurs in the first 5–10 minutes of eating\nPost-absorptive Phase\nInsulin release after glucose enters bloodstream (30–120 min)\nVariable Groups and Meaning Subject Identifiers and Grouping - OFS.ID / id - Subject identifier. - Group - FDR = first-degree relative of type 2 diabetes patient - CTRL (or similar) = control subject - glykemi - Glucose tolerance category (e.g., normal vs impaired fasting glucose / impaired glucose tolerance).\nAnthropometry and Body Composition\n\nAge in years.\nBMI: Body mass index (kg/m²).\n\nLength\nHeight in meters.\nWeight\nBody weight in kg.\nBone.mineral.DXA\nBone mineral content (kg), measured by DXA.\nFat.mass.DXA / Fat.mass…DXA\nBody fat mass (kg) by DXA.\nFat.free.mass.DXA\nFat-free mass (kg).\nFat.free.soft.tissue.DXA\nLean soft tissue mass (kg).\nFasting (Screening) Measurements\nFP.Glucose.screen\nFasting plasma glucose (mmol/L).\nFS.Insulin.screen\nFasting serum insulin (pmol/L or mU/L depending on lab).\nOGTT Glucose Measurements Plasma glucose during OGTT (mmol/L)\nP.Glucose.0.OGTT\nFasting glucose (0 min).\nP.Glucose.30, 60, 90, 120.OGTT\nGlucose at 30, 60, 90, 120 minutes after glucose load.\nPG.5, PG.10, PG.15, … PG.120\nHigh-frequency glucose measurements (minutes).\nUsed to detect very early glucose dynamics.\nOGTT Insulin Measurements Serum insulin during OGTT (pmol/L or mU/L)\nInsulin.0, 30, 60, 90, 120.OGTT\nStandard OGTT insulin time points.\nInsulin.5, Insulin.10, Insulin.15, … Insulin.120\nHigh-frequency insulin measurements.\nCritical for cephalic phase detection (0–10 min).\nC-Peptide Measurements\nCP.5, CP.10, CP.15, … CP.120\nC-peptide concentrations over time.\nReflect endogenous insulin secretion (not affected by hepatic extraction).\nDerived Kinetic and Summary Variables Area Under the Curve (AUC)\nauc_pg, auc_ins, auc_cp\nTotal glucose, insulin, and C-peptide AUC over OGTT.\niauc_pg, iauc_ins, iauc_cp\nIncremental AUC (above baseline).\nMeasures response to glucose load.\nEarly (Cephalic Phase) AUC\niauc_pg_e, iauc_ins_e, iauc_cp_e\nIncremental AUC in early phase (e.g., 0–10 or 0–15 min).\nUsed to quantify cephalic insulin secretion.\nKinetic Efficiency Factors\nkef_glu, kef_ins, kef_cp\nModel-based parameters describing dynamic response rates (study-specific).\nSource: Eliasson, Björn et al. (2017), Cephalic phase of insulin secretion in response to a meal is unrelated to family history of type 2 diabetes, PLOS ONE, Article-journal, https://doi.org/10.1371/journal.pone.0173654\n\n21.10.1 Accessing the Diabetes1 dataset\nIn order to access the dataset, we suggest using:\n\n\nmy-report.qmd\n\n# https://datadryad.org/dataset/doi:10.5061/dryad.96320\n# https://zenodo.org/records/4989220\npost_meal_insulin &lt;- readr::read_csv2(\"https://zenodo.org/records/4989220/files/Eliasson_data2.csv?download=1\")",
+    "crumbs": [
+      "Exercises",
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Data for Medical Statistics</span>"
+    ]
+  },
+  {
+    "objectID": "exercises/data.html#diabetes1",
+    "href": "exercises/data.html#diabetes1",
+    "title": "21  Data for Medical Statistics",
+    "section": "21.10 Diabetes1",
+    "text": "21.10 Diabetes1\nTime: ~5 minutes.\nhttps://zenodo.org/records/4989220\nStudy context This dataset comes from a physiological study of early (cephalic) insulin secretion in humans. Participants were 31 individuals with or without a family history of type 2 diabetes (FDR) and with varying glucose tolerance status.\nThe study measured glucose, insulin, and C-peptide repeatedly during an oral glucose tolerance test (OGTT), including very early time points (before blood glucose rises).\nStudy Design Subjects: 31 healthy individuals\nGroups: Controls (no family history of diabetes) FDR (first-degree relatives of T2D patients)\nProcedure: Fasting blood samples Oral glucose tolerance test (OGTT) Very frequent sampling in the first minutes to capture cephalic phase insulin secretion\nCore Physiological Concepts Cephalic Phase Insulin Secretion\nEarly insulin release before glucose rises\nTriggered by taste, smell, and neural signals\nOccurs in the first 5–10 minutes of eating\nPost-absorptive Phase\nInsulin release after glucose enters bloodstream (30–120 min)\nVariable Groups and Meaning Subject Identifiers and Grouping - OFS.ID / id - Subject identifier. - Group - FDR = first-degree relative of type 2 diabetes patient - CTRL (or similar) = control subject - glykemi - Glucose tolerance category (e.g., normal vs impaired fasting glucose / impaired glucose tolerance).\nAnthropometry and Body Composition\n\nAge in years.\nBMI: Body mass index (kg/m²).\n\nLength\nHeight in meters.\nWeight\nBody weight in kg.\nBone.mineral.DXA\nBone mineral content (kg), measured by DXA.\nFat.mass.DXA / Fat.mass…DXA\nBody fat mass (kg) by DXA.\nFat.free.mass.DXA\nFat-free mass (kg).\nFat.free.soft.tissue.DXA\nLean soft tissue mass (kg).\nFasting (Screening) Measurements\nFP.Glucose.screen\nFasting plasma glucose (mmol/L).\nFS.Insulin.screen\nFasting serum insulin (pmol/L or mU/L depending on lab).\nOGTT Glucose Measurements Plasma glucose during OGTT (mmol/L)\nP.Glucose.0.OGTT\nFasting glucose (0 min).\nP.Glucose.30, 60, 90, 120.OGTT\nGlucose at 30, 60, 90, 120 minutes after glucose load.\nPG.5, PG.10, PG.15, … PG.120\nHigh-frequency glucose measurements (minutes).\nUsed to detect very early glucose dynamics.\nOGTT Insulin Measurements Serum insulin during OGTT (pmol/L or mU/L)\nInsulin.0, 30, 60, 90, 120.OGTT\nStandard OGTT insulin time points.\nInsulin.5, Insulin.10, Insulin.15, … Insulin.120\nHigh-frequency insulin measurements.\nCritical for cephalic phase detection (0–10 min).\nC-Peptide Measurements\nCP.5, CP.10, CP.15, … CP.120\nC-peptide concentrations over time.\nReflect endogenous insulin secretion (not affected by hepatic extraction).\nDerived Kinetic and Summary Variables Area Under the Curve (AUC)\nauc_pg, auc_ins, auc_cp\nTotal glucose, insulin, and C-peptide AUC over OGTT.\niauc_pg, iauc_ins, iauc_cp\nIncremental AUC (above baseline).\nMeasures response to glucose load.\nEarly (Cephalic Phase) AUC\niauc_pg_e, iauc_ins_e, iauc_cp_e\nIncremental AUC in early phase (e.g., 0–10 or 0–15 min).\nUsed to quantify cephalic insulin secretion.\nKinetic Efficiency Factors\nkef_glu, kef_ins, kef_cp\nModel-based parameters describing dynamic response rates (study-specific).\nSource: Eliasson, Björn et al. (2017), Cephalic phase of insulin secretion in response to a meal is unrelated to family history of type 2 diabetes, PLOS ONE, Article-journal, https://doi.org/10.1371/journal.pone.0173654\n\n21.10.1 Accessing the Diabetes1 dataset\nIn order to access the dataset, we suggest using:\n\n\nmy-report.qmd\n\n# https://datadryad.org/dataset/doi:10.5061/dryad.96320\n# https://zenodo.org/records/4989220\npost_meal_insulin &lt;- readr::read_csv2(\"https://zenodo.org/records/4989220/files/Eliasson_data2.csv?download=1\")",
+    "crumbs": [
+      "Exercises",
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Data for Medical Statistics</span>"
+    ]
+  },
+  {
+    "objectID": "exercises/ex01.html",
+    "href": "exercises/ex01.html",
+    "title": "22  Exercises: Getting R up and running",
+    "section": "",
+    "text": "22.1 Learning objectives\nThe learning objectives for this session are:",
+    "crumbs": [
+      "Exercises",
+      "<span class='chapter-number'>22</span>  <span class='chapter-title'>Exercises: Getting R up and running</span>"
+    ]
+  },
+  {
+    "objectID": "exercises/ex01.html#learning-objectives",
+    "href": "exercises/ex01.html#learning-objectives",
+    "title": "22  Exercises: Getting R up and running",
+    "section": "",
+    "text": "Udvise forståelse for usikkerheds- og sandsynlighedsbegrebet samt grundliggende begreber indenfor biostatistik\nUdvise kendskab til de grundliggende overordnede studietyper samt at skelne mellem forklarende, eksplorative og prædiktive studier\nRedegøre for forskellige typer af tilfældig og ikke tilfældig variation\nUdvise forståelse for statistiske værktøjers begrænsninger og muligheder\nForstå statistiske problemstillinger, der er centrale for medicin med industrial specialisering og forstå, hvordan de biostatistiske værktøjer kan appliceres på disse problemstillinger",
+    "crumbs": [
+      "Exercises",
+      "<span class='chapter-number'>22</span>  <span class='chapter-title'>Exercises: Getting R up and running</span>"
+    ]
+  },
+  {
+    "objectID": "exercises/ex01.html#exercises",
+    "href": "exercises/ex01.html#exercises",
+    "title": "22  Exercises: Getting R up and running",
+    "section": "22.2 Exercises",
+    "text": "22.2 Exercises\nEverything for this session was covered within the session and is therefore not repeated here.",
+    "crumbs": [
+      "Exercises",
+      "<span class='chapter-number'>22</span>  <span class='chapter-title'>Exercises: Getting R up and running</span>"
+    ]
+  },
+  {
+    "objectID": "exercises/ex01.html#survey",
+    "href": "exercises/ex01.html#survey",
+    "title": "22  Exercises: Getting R up and running",
+    "section": "22.3 Survey",
+    "text": "22.3 Survey\nFeedback survey! 🎉",
+    "crumbs": [
+      "Exercises",
+      "<span class='chapter-number'>22</span>  <span class='chapter-title'>Exercises: Getting R up and running</span>"
+    ]
+  },
+  {
+    "objectID": "exercises/ex02.html",
+    "href": "exercises/ex02.html",
+    "title": "23  Exercises: Probability and stochastic variables",
+    "section": "",
+    "text": "23.1 Learning objectives\nThe learning objectives for this session are:",
+    "crumbs": [
+      "Exercises",
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Exercises: Probability and stochastic variables</span>"
+    ]
+  },
+  {
+    "objectID": "exercises/ex02.html#learning-objectives",
+    "href": "exercises/ex02.html#learning-objectives",
+    "title": "23  Exercises: Probability and stochastic variables",
+    "section": "",
+    "text": "Udvise forståelse for usikkerheds- og sandsynlighedsbegrebet samt grundliggende begreber indenfor biostatistik\nUdvise kendskab til de grundliggende overordnede studietyper samt at skelne mellem forklarende, eksplorative og prædiktive studier\nRedegøre for forskellige typer af tilfældig og ikke tilfældig variation\nUdvise forståelse for statistiske værktøjers begrænsninger og muligheder\nForstå statistiske problemstillinger, der er centrale for medicin med industrial specialisering og forstå, hvordan de biostatistiske værktøjer kan appliceres på disse problemstillinger",
+    "crumbs": [
+      "Exercises",
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Exercises: Probability and stochastic variables</span>"
+    ]
+  },
+  {
+    "objectID": "exercises/ex02.html#exercise-title",
+    "href": "exercises/ex02.html#exercise-title",
+    "title": "23  Exercises: Probability and stochastic variables",
+    "section": "23.2 🧑‍💻 Exercise: Title",
+    "text": "23.2 🧑‍💻 Exercise: Title\nTime: ~NUM minutes.\nText",
+    "crumbs": [
+      "Exercises",
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Exercises: Probability and stochastic variables</span>"
+    ]
+  },
+  {
+    "objectID": "exercises/ex02.html#summary",
+    "href": "exercises/ex02.html#summary",
+    "title": "23  Exercises: Probability and stochastic variables",
+    "section": "23.3 Summary",
+    "text": "23.3 Summary\n\nTODO: List of summary items",
+    "crumbs": [
+      "Exercises",
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Exercises: Probability and stochastic variables</span>"
+    ]
+  },
+  {
+    "objectID": "exercises/ex02.html#survey",
+    "href": "exercises/ex02.html#survey",
+    "title": "23  Exercises: Probability and stochastic variables",
+    "section": "23.4 Survey",
+    "text": "23.4 Survey\nFeedback survey! 🎉",
+    "crumbs": [
+      "Exercises",
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Exercises: Probability and stochastic variables</span>"
+    ]
+  },
+  {
+    "objectID": "appendix/for-teachers.html",
+    "href": "appendix/for-teachers.html",
+    "title": "Appendix A — For teachers",
+    "section": "",
+    "text": "A.1 Supporting Students When Coding Feels Hard\nThis page is intended as a short guide for teachers, supervisors, and teaching assistants involved in the Medical Statistics course. The goal is to align expectations, support students effectively, and maintain a consistent pedagogical level across projects and exercises.\nLearning statistics through coding can be challenging for many medical students, especially for those with limited programming background. Teachers play a key role in creating a supportive learning environment.\nGeneral principles:\nWhen students feel stuck:\nAvoid taking over their computer and start typing yourself.",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>A</span>  <span class='chapter-title'>For teachers</span>"
+    ]
+  },
+  {
+    "objectID": "appendix/for-teachers.html#supporting-students-when-coding-feels-hard",
+    "href": "appendix/for-teachers.html#supporting-students-when-coding-feels-hard",
+    "title": "Appendix A — For teachers",
+    "section": "",
+    "text": "Normalize difficulty: Emphasize that struggling with code is a normal and expected part of learning statistics and data science.\nEncourage process over perfection: Reward clear reasoning, reproducibility, and interpretation, not just polished code.\nPromote peer learning: Encourage students to discuss approaches and troubleshoot together, while still submitting individual work.\nFocus on conceptual understanding: Ensure students understand statistical concepts and study design, not only syntax.\n\n\n\nAsk them to explain what they think the code should do.\nEncourage them to read error messages and search documentation.\nProvide small, targeted hints rather than full solutions when possible.",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>A</span>  <span class='chapter-title'>For teachers</span>"
+    ]
+  },
+  {
+    "objectID": "appendix/for-teachers.html#expected-project-level",
+    "href": "appendix/for-teachers.html#expected-project-level",
+    "title": "Appendix A — For teachers",
+    "section": "A.2 Expected Project Level",
+    "text": "A.2 Expected Project Level\nProjects and assignments should match the learning objectives of the course, see here. Students are expected to:\n\nPerform basic data cleaning and transformation using tidyverse-style workflows.\nConduct descriptive statistics, hypothesis testing, and various regression analyses for predictive and causal purposes.\nProduce reproducible reports using Quarto documents.\nCreate clear and interpretable figures using ggplot2.\n\nProjects should not require advanced programming techniques (e.g., complex functional programming, package development, machine learning pipelines) unless the supervisor feel comfortable taking the response of fully teaching the students themself in such concepts and practices, which is beyond the scope of the course and therefore not rewarded at the exam.",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>A</span>  <span class='chapter-title'>For teachers</span>"
+    ]
+  },
+  {
+    "objectID": "appendix/for-teachers.html#alignment-with-the-syllabus",
+    "href": "appendix/for-teachers.html#alignment-with-the-syllabus",
+    "title": "Appendix A — For teachers",
+    "section": "A.3 Alignment With the Syllabus",
+    "text": "A.3 Alignment With the Syllabus\nTeachers and supervisors should consult the official syllabus to ensure that:\n\nThe statistical methods required are covered in lectures or course materials.\nCoding tasks reflect the intended learning outcomes.\nAssessment criteria align with taught content and practice exercises.\n\nThe syllabus defines the expected know-how for students at this stage. Tasks beyond this scope should be clearly marked as optional or advanced.",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>A</span>  <span class='chapter-title'>For teachers</span>"
+    ]
+  },
+  {
+    "objectID": "appendix/for-teachers.html#responsibility-for-advanced-coding",
+    "href": "appendix/for-teachers.html#responsibility-for-advanced-coding",
+    "title": "Appendix A — For teachers",
+    "section": "A.4 Responsibility for Advanced Coding",
+    "text": "A.4 Responsibility for Advanced Coding\nStudents may choose to explore more advanced coding techniques (e.g., complex pipelines, custom functions, or specialized packages). While such initiative is encouraged, coding beyond the defined course level is the student’s responsibility and should not be required for passing the course.\nTeachers should avoid penalizing students for not using advanced methods when simpler, syllabus-aligned approaches are sufficient.",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>A</span>  <span class='chapter-title'>For teachers</span>"
+    ]
+  },
+  {
+    "objectID": "appendix/for-teachers.html#recommended-technical-stack",
+    "href": "appendix/for-teachers.html#recommended-technical-stack",
+    "title": "Appendix A — For teachers",
+    "section": "A.5 Recommended Technical Stack",
+    "text": "A.5 Recommended Technical Stack\nTo maintain consistency across teaching materials and student projects, the course uses:\n\nTidyverse-style workflows for data manipulation and analysis.\nggplot2 for visualization, emphasizing reproducible and publication-ready figures.\nQuarto documents for reports, enabling reproducible research practices and integration of code, results, and narrative text.\n\nUsing this shared stack reduces cognitive load for students and improves collaboration between instructors and teaching assistants.",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>A</span>  <span class='chapter-title'>For teachers</span>"
+    ]
+  },
+  {
+    "objectID": "appendix/for-teachers.html#final-remarks",
+    "href": "appendix/for-teachers.html#final-remarks",
+    "title": "Appendix A — For teachers",
+    "section": "A.6 Final Remarks",
+    "text": "A.6 Final Remarks\nThe primary goal is to help medical students develop statistical reasoning, reproducible workflows, and confidence in working with data. Programming is a tool to support clinical and research understanding, not an end in itself.\nTeachers are encouraged to keep expectations transparent, provide constructive feedback, and refer consistently to the syllabus when defining project scope and assessment criteria.",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>A</span>  <span class='chapter-title'>For teachers</span>"
+    ]
+  },
+  {
+    "objectID": "appendix/references.html",
+    "href": "appendix/references.html",
+    "title": "References",
+    "section": "",
+    "text": "Warning\n\n\n\n🚧 This section is being actively worked on. 🚧",
+    "crumbs": [
+      "Appendices",
+      "References"
+    ]
+  },
+  {
+    "objectID": "CHANGELOG.html",
+    "href": "CHANGELOG.html",
+    "title": "Appendix B — Changelog",
+    "section": "",
+    "text": "Warning\n\n\n\n🚧 This section is being actively worked on. 🚧\n\nSince we follow Conventional Commits when writing commit messages, we’re able to automatically create formal “releases” of the workshop based on the commit messages. Releases in the context of workshops are simply snapshots in time of the workshop content. The releases are published to Zenodo for easier discovery, archival, and citation purposes. We use Commitizen to be able to automatically create these releases, which uses SemVar as the version numbering scheme.\nBecause releases are created based on commit messages, we release quite often, sometimes several times in a day. This also means that any individual release will not have many changes within it. Below is a list of the releases we’ve made so far, along with what was changed within each release.\nIf you attended a workshop or used the workshop material as some point in time, you can always refer to this changelog page to find out what has been changed since you last used it.",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>B</span>  <span class='chapter-title'>Changelog</span>"
+    ]
+  },
+  {
+    "objectID": "CONTRIBUTING.html",
+    "href": "CONTRIBUTING.html",
+    "title": "Appendix C — Contributing",
+    "section": "",
+    "text": "C.1 Issues and bugs 🐛\nCheck out the Contributing Guide for more details on how to contribute. For guidelines on how to be a helper or teacher, check out the For teachers page. As always, make sure to adhere to the Code of Conduct.\nThe easiest way to contribute is to report issues or bugs that you might find while using or reading the workshop material. You can do this by creating a new issue on our GitHub repository.",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>C</span>  <span class='chapter-title'>Contributing</span>"
+    ]
+  },
+  {
+    "objectID": "CONTRIBUTING.html#adding-or-modifying-content",
+    "href": "CONTRIBUTING.html#adding-or-modifying-content",
+    "title": "Appendix C — Contributing",
+    "section": "C.2 Adding or modifying content ✏️",
+    "text": "C.2 Adding or modifying content ✏️\nTo contribute to the workshop, you first need to install uv and justfile. We use uv and justfile to manage our project, such as to run checks and build the workshop website. Both the uv and justfile websites have a more detailed guide on using uv, but below are some simple instructions to get you started.\nIt’s easiest to install uv and justfile using pipx, so install that first. Then, install uv and justfile by running:\npipx install uv rust-just\nWe keep all our development workflows in the justfile, so you can explore it to see what commands are available. To see a list of commands available, run:\njust\nAs you contribute, make sure your changes will pass our checks by opening a terminal so that the working directory is the root of this workshop’s parent/root folder and running:\njust run-all\nWhen committing changes, please try to follow Conventional Commits as Git messages. Using this convention allows us to be able to automatically create a release based on the commit message by using Commitizen. If you don’t use Conventional Commits when making a commit, we will revise the pull request title to follow that format, as we use squash merges when merging pull requests. This way, the commits in the pull request will be squashed into one commit.",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>C</span>  <span class='chapter-title'>Contributing</span>"
+    ]
+  },
+  {
+    "objectID": "LICENSE.html",
+    "href": "LICENSE.html",
+    "title": "Appendix D — Creative Commons Attribution 4.0 International",
+    "section": "",
+    "text": "D.1 Creative Commons Attribution 4.0 International Public License\nCreative Commons Corporation (“Creative Commons”) is not a law firm and does not provide legal services or legal advice. Distribution of Creative Commons public licenses does not create a lawyer-client or other relationship. Creative Commons makes its licenses and related information available on an “as-is” basis. Creative Commons gives no warranties regarding its licenses, any material licensed under their terms and conditions, or any related information. Creative Commons disclaims all liability for damages resulting from their use to the fullest extent possible.\nUsing Creative Commons Public Licenses\nCreative Commons public licenses provide a standard set of terms and conditions that creators and other rights holders may use to share original works of authorship and other material subject to copyright and certain other rights specified in the public license below. The following considerations are for informational purposes only, are not exhaustive, and do not form part of our licenses.\nBy exercising the Licensed Rights (defined below), You accept and agree to be bound by the terms and conditions of this Creative Commons Attribution 4.0 International Public License (“Public License”). To the extent this Public License may be interpreted as a contract, You are granted the Licensed Rights in consideration of Your acceptance of these terms and conditions, and the Licensor grants You such rights in consideration of benefits the Licensor receives from making the Licensed Material available under these terms and conditions.",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>D</span>  <span class='chapter-title'>Creative Commons Attribution 4.0 International</span>"
+    ]
+  },
+  {
+    "objectID": "LICENSE.html#creative-commons-attribution-4.0-international-public-license",
+    "href": "LICENSE.html#creative-commons-attribution-4.0-international-public-license",
+    "title": "Appendix D — Creative Commons Attribution 4.0 International",
+    "section": "",
+    "text": "D.1.1 Section 1 – Definitions.\n\nAdapted Material means material subject to Copyright and Similar Rights that is derived from or based upon the Licensed Material and in which the Licensed Material is translated, altered, arranged, transformed, or otherwise modified in a manner requiring permission under the Copyright and Similar Rights held by the Licensor. For purposes of this Public License, where the Licensed Material is a musical work, performance, or sound recording, Adapted Material is always produced where the Licensed Material is synched in timed relation with a moving image.\nAdapter’s License means the license You apply to Your Copyright and Similar Rights in Your contributions to Adapted Material in accordance with the terms and conditions of this Public License.\nCopyright and Similar Rights means copyright and/or similar rights closely related to copyright including, without limitation, performance, broadcast, sound recording, and Sui Generis Database Rights, without regard to how the rights are labeled or categorized. For purposes of this Public License, the rights specified in Section 2(b)(1)-(2) are not Copyright and Similar Rights.\nEffective Technological Measures means those measures that, in the absence of proper authority, may not be circumvented under laws fulfilling obligations under Article 11 of the WIPO Copyright Treaty adopted on December 20, 1996, and/or similar international agreements.\nExceptions and Limitations means fair use, fair dealing, and/or any other exception or limitation to Copyright and Similar Rights that applies to Your use of the Licensed Material.\nLicensed Material means the artistic or literary work, database, or other material to which the Licensor applied this Public License.\nLicensed Rights means the rights granted to You subject to the terms and conditions of this Public License, which are limited to all Copyright and Similar Rights that apply to Your use of the Licensed Material and that the Licensor has authority to license.\nLicensor means the individual(s) or entity(ies) granting rights under this Public License.\nShare means to provide material to the public by any means or process that requires permission under the Licensed Rights, such as reproduction, public display, public performance, distribution, dissemination, communication, or importation, and to make material available to the public including in ways that members of the public may access the material from a place and at a time individually chosen by them.\nSui Generis Database Rights means rights other than copyright resulting from Directive 96/9/EC of the European Parliament and of the Council of 11 March 1996 on the legal protection of databases, as amended and/or succeeded, as well as other essentially equivalent rights anywhere in the world.\nYou means the individual or entity exercising the Licensed Rights under this Public License. Your has a corresponding meaning.\n\n\n\nD.1.2 Section 2 – Scope.\n\nLicense grant.\n\nSubject to the terms and conditions of this Public License, the Licensor hereby grants You a worldwide, royalty-free, non-sublicensable, non-exclusive, irrevocable license to exercise the Licensed Rights in the Licensed Material to:\nA. reproduce and Share the Licensed Material, in whole or in part; and\nB. produce, reproduce, and Share Adapted Material.\nExceptions and Limitations. For the avoidance of doubt, where Exceptions and Limitations apply to Your use, this Public License does not apply, and You do not need to comply with its terms and conditions.\nTerm. The term of this Public License is specified in Section 6(a).\nMedia and formats; technical modifications allowed. The Licensor authorizes You to exercise the Licensed Rights in all media and formats whether now known or hereafter created, and to make technical modifications necessary to do so. The Licensor waives and/or agrees not to assert any right or authority to forbid You from making technical modifications necessary to exercise the Licensed Rights, including technical modifications necessary to circumvent Effective Technological Measures. For purposes of this Public License, simply making modifications authorized by this Section 2(a)(4) never produces Adapted Material.\nDownstream recipients.\nA. Offer from the Licensor – Licensed Material. Every recipient of the Licensed Material automatically receives an offer from the Licensor to exercise the Licensed Rights under the terms and conditions of this Public License.\nB. No downstream restrictions. You may not offer or impose any additional or different terms or conditions on, or apply any Effective Technological Measures to, the Licensed Material if doing so restricts exercise of the Licensed Rights by any recipient of the Licensed Material.\nNo endorsement. Nothing in this Public License constitutes or may be construed as permission to assert or imply that You are, or that Your use of the Licensed Material is, connected with, or sponsored, endorsed, or granted official status by, the Licensor or others designated to receive attribution as provided in Section 3(a)(1)(A)(i).\n\nOther rights.\n\nMoral rights, such as the right of integrity, are not licensed under this Public License, nor are publicity, privacy, and/or other similar personality rights; however, to the extent possible, the Licensor waives and/or agrees not to assert any such rights held by the Licensor to the limited extent necessary to allow You to exercise the Licensed Rights, but not otherwise.\nPatent and trademark rights are not licensed under this Public License.\nTo the extent possible, the Licensor waives any right to collect royalties from You for the exercise of the Licensed Rights, whether directly or through a collecting society under any voluntary or waivable statutory or compulsory licensing scheme. In all other cases the Licensor expressly reserves any right to collect such royalties.\n\n\n\n\nD.1.3 Section 3 – License Conditions.\nYour exercise of the Licensed Rights is expressly made subject to the following conditions.\n\nAttribution.\n\nIf You Share the Licensed Material (including in modified form), You must:\nA. retain the following if it is supplied by the Licensor with the Licensed Material:\n\nidentification of the creator(s) of the Licensed Material and any others designated to receive attribution, in any reasonable manner requested by the Licensor (including by pseudonym if designated);\na copyright notice;\na notice that refers to this Public License;\na notice that refers to the disclaimer of warranties;\na URI or hyperlink to the Licensed Material to the extent reasonably practicable;\n\nB. indicate if You modified the Licensed Material and retain an indication of any previous modifications; and\nC. indicate the Licensed Material is licensed under this Public License, and include the text of, or the URI or hyperlink to, this Public License.\nYou may satisfy the conditions in Section 3(a)(1) in any reasonable manner based on the medium, means, and context in which You Share the Licensed Material. For example, it may be reasonable to satisfy the conditions by providing a URI or hyperlink to a resource that includes the required information.\nIf requested by the Licensor, You must remove any of the information required by Section 3(a)(1)(A) to the extent reasonably practicable.\nIf You Share Adapted Material You produce, the Adapter’s License You apply must not prevent recipients of the Adapted Material from complying with this Public License.\n\n\n\n\nD.1.4 Section 4 – Sui Generis Database Rights.\nWhere the Licensed Rights include Sui Generis Database Rights that apply to Your use of the Licensed Material:\n\nfor the avoidance of doubt, Section 2(a)(1) grants You the right to extract, reuse, reproduce, and Share all or a substantial portion of the contents of the database;\nif You include all or a substantial portion of the database contents in a database in which You have Sui Generis Database Rights, then the database in which You have Sui Generis Database Rights (but not its individual contents) is Adapted Material; and\nYou must comply with the conditions in Section 3(a) if You Share all or a substantial portion of the contents of the database.\n\nFor the avoidance of doubt, this Section 4 supplements and does not replace Your obligations under this Public License where the Licensed Rights include other Copyright and Similar Rights.\n\n\nD.1.5 Section 5 – Disclaimer of Warranties and Limitation of Liability.\n\nUnless otherwise separately undertaken by the Licensor, to the extent possible, the Licensor offers the Licensed Material as-is and as-available, and makes no representations or warranties of any kind concerning the Licensed Material, whether express, implied, statutory, or other. This includes, without limitation, warranties of title, merchantability, fitness for a particular purpose, non-infringement, absence of latent or other defects, accuracy, or the presence or absence of errors, whether or not known or discoverable. Where disclaimers of warranties are not allowed in full or in part, this disclaimer may not apply to You.\nTo the extent possible, in no event will the Licensor be liable to You on any legal theory (including, without limitation, negligence) or otherwise for any direct, special, indirect, incidental, consequential, punitive, exemplary, or other losses, costs, expenses, or damages arising out of this Public License or use of the Licensed Material, even if the Licensor has been advised of the possibility of such losses, costs, expenses, or damages. Where a limitation of liability is not allowed in full or in part, this limitation may not apply to You.\nThe disclaimer of warranties and limitation of liability provided above shall be interpreted in a manner that, to the extent possible, most closely approximates an absolute disclaimer and waiver of all liability.\n\n\n\nD.1.6 Section 6 – Term and Termination.\n\nThis Public License applies for the term of the Copyright and Similar Rights licensed here. However, if You fail to comply with this Public License, then Your rights under this Public License terminate automatically.\nWhere Your right to use the Licensed Material has terminated under Section 6(a), it reinstates:\n\nautomatically as of the date the violation is cured, provided it is cured within 30 days of Your discovery of the violation; or\nupon express reinstatement by the Licensor.\n\nFor the avoidance of doubt, this Section 6(b) does not affect any right the Licensor may have to seek remedies for Your violations of this Public License.\nFor the avoidance of doubt, the Licensor may also offer the Licensed Material under separate terms or conditions or stop distributing the Licensed Material at any time; however, doing so will not terminate this Public License.\nSections 1, 5, 6, 7, and 8 survive termination of this Public License.\n\n\n\nD.1.7 Section 7 – Other Terms and Conditions.\n\nThe Licensor shall not be bound by any additional or different terms or conditions communicated by You unless expressly agreed.\nAny arrangements, understandings, or agreements regarding the Licensed Material not stated herein are separate from and independent of the terms and conditions of this Public License.\n\n\n\nD.1.8 Section 8 – Interpretation.\n\nFor the avoidance of doubt, this Public License does not, and shall not be interpreted to, reduce, limit, restrict, or impose conditions on any use of the Licensed Material that could lawfully be made without permission under this Public License.\nTo the extent possible, if any provision of this Public License is deemed unenforceable, it shall be automatically reformed to the minimum extent necessary to make it enforceable. If the provision cannot be reformed, it shall be severed from this Public License without affecting the enforceability of the remaining terms and conditions.\nNo term or condition of this Public License will be waived and no failure to comply consented to unless expressly agreed to by the Licensor.\nNothing in this Public License constitutes or may be interpreted as a limitation upon, or waiver of, any privileges and immunities that apply to the Licensor or You, including from the legal processes of any jurisdiction or authority.\n\n\nCreative Commons is not a party to its public licenses. Notwithstanding, Creative Commons may elect to apply one of its public licenses to material it publishes and in those instances will be considered the “Licensor.” Except for the limited purpose of indicating that material is shared under a Creative Commons public license or as otherwise permitted by the Creative Commons policies published at creativecommons.org/policies, Creative Commons does not authorize the use of the trademark “Creative Commons” or any other trademark or logo of Creative Commons without its prior written consent including, without limitation, in connection with any unauthorized modifications to any of its public licenses or any other arrangements, understandings, or agreements concerning use of licensed material. For the avoidance of doubt, this paragraph does not form part of the public licenses.\nCreative Commons may be contacted at creativecommons.org",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>D</span>  <span class='chapter-title'>Creative Commons Attribution 4.0 International</span>"
+    ]
+  }
+]

@@ -6,7 +6,10 @@ on:
       - main
 
 # Limit token permissions for security
-permissions: read-all
+#permissions: read-all
+permissions:
+  contents: write
+  pages: write
 
 jobs:
   build-website:

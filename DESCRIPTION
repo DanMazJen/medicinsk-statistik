@@ -15,10 +15,12 @@ Imports:
     ggplot2,
     haven,
     here,
+    knitr,
     lubridate,
     pak,
     purrr,
     readr,
+    rmarkdown,
     stringr,
     tibble,
     tidyr

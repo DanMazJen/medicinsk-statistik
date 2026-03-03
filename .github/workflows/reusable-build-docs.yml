@@ -34,6 +34,8 @@ jobs:
 
       - name: Check out repository
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          fetch-depth: 0
 
       - name: Spell check repo
         uses: crate-ci/typos@06d010dfe4c84fdab1a25ea02b57b3585018ba80 # v1.42.3
@@ -43,14 +45,20 @@ jobs:
  #       with:
  #         r-version: '4.3'
 
+# Great speed-up on compilation from binaries
+      - name: Use RSPM binaries
+        run: |
+          echo 'options(repos = c(CRAN = "https://packagemanager.posit.co/cran/__linux__/jammy/latest"))' >> ~/.Rprofile
+
       - name: Install R packages needed for rendering (dependencies in DESCRIPTION file)
         uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          packages: |
-            knitr
-            rmarkdown
-            downlit
-            tidyverse
+          cache: true
+#          packages: |
+#            knitr
+#            rmarkdown
+#            downlit
+#            tidyverse
 
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@8a96df13519ee81fd526f2dfca5962811136661b # v2.2.0

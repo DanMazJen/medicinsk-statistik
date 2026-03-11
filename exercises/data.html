@@ -484,20 +484,20 @@ Warning
 <h2 data-number="21.1" class="anchored" data-anchor-id="datasets-we-use"><span class="header-section-number">21.1</span> Datasets we use</h2>
 <p>In this course, we use the following datasets:</p>
 <ol class="example" type="1">
-<li>AlzheimerDisease (AppliedPredictiveModeling) @#AlzheimerDisease-data</li>
-<li>Cleveland Heart Disease (ISLR) @#HeartDisease-data</li>
-<li>Medical Expenditure Panel Survey (heckmanGE) @#MEPS-data</li>
-<li>Mayo Clinic Primary Biliary Cholangitis Data (Survival) @#survival-data</li>
-<li>Sleep Study (lme4) @#sleep-data</li>
-<li>Diabetes study @#diabetes-data</li>
-<li>Cognitive weight loss RCT @#weight-data</li>
-<li>FEV1 COPD simulation data () @#fev1-data</li>
+<li><a href="@ref(AlzheimerDisease-data)">AlzheimerDisease (AppliedPredictiveModeling)</a></li>
+<li><a href="@ref(HeartDisease-data)">Cleveland Heart Disease (ISLR)</a></li>
+<li><a href="@ref(MEPS-data)">Medical Expenditure Panel Survey (heckmanGE)</a></li>
+<li><a href="@ref(survival-data)">Mayo Clinic Primary Biliary Cholangitis Data (Survival)</a></li>
+<li><a href="@ref(sleep-data)">Sleep Study (lme4)</a></li>
+<li><a href="@ref(diabetes-data)">Diabetes study</a></li>
+<li><a href="@ref(weight-data)">Cognitive weight loss RCT</a></li>
+<li><a href="@ref(fev1-data)">FEV1 COPD simulation data</a></li>
 </ol>
 <p>Here, we provide some context and meta-data about the datasets. Please take the time to carefully read this section before jumping in and wrangling data without knowing the design or variables collected.</p>
 </section>
 <section id="AlzheimerDisease-data" class="level2" data-number="21.2">
 <h2 data-number="21.2" class="anchored" data-anchor-id="AlzheimerDisease-data"><span class="header-section-number">21.2</span> AlzheimerDisease (AppliedPredictiveModeling)</h2>
-<p><strong>Time: ~3 minutes.</strong></p>
+<p><strong>Description:</strong></p>
 <p>Washington University conducted a clinical study to determine if biological measurements made from cerebrospinal fluid (CSF) can be used to diagnose or predict Alzheimer’s disease (<a href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0018850">Craig-Schapiro et al.&nbsp;2011</a>). These data are a modified version of the values used for the publication.</p>
 <p>The R factor vector diagnosis contains the outcome data for 333 of the subjects. The demographic and laboratory results are collected in the data frame predictors.</p>
 <p>One important indicator of Alzheimer’s disease is the genetic background of a subject. In particular, what versions of the Apolipoprotein E gene inherited from one’s parents has an association with the disease. There are three variants of the gene: E2, E3 and E4. Since a child inherits a version of the gene from each parent, there are six possible combinations (e.g.&nbsp;E2/E2, E2/E3, and so on). This data is contained in the predictor column named Genotype.</p>
@@ -509,16 +509,28 @@ Warning
 <div class="code-with-filename-file">
 <pre><strong>my-report.qmd</strong></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-filename="my-report.qmd"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>post_meal_insulin <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv2</span>(<span class="st">"https://zenodo.org/records/4989220/files/Eliasson_data2.csv?download=1"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-filename="my-report.qmd"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>ad_data <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">"https://raw.githubusercontent.com/DanMazJen/medicinsk-statistik/main/data/ad_data.csv"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>ad_data <span class="sc">|&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    tibble<span class="sc">::</span><span class="fu">tibble</span>(ad_data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="hidden">
+<p>https://github.com/cran/AppliedPredictiveModeling/blob/master/data/AlzheimerDisease.RData data_url &lt;- “https://raw.githubusercontent.com/cran/AppliedPredictiveModeling/master/data/AlzheimerDisease.RData” load(url(data_url))</p>
 </div>
 </section>
 </section>
 <section id="HeartDisease-data" class="level2" data-number="21.3">
 <h2 data-number="21.3" class="anchored" data-anchor-id="HeartDisease-data"><span class="header-section-number">21.3</span> Cleveland Heart Disease</h2>
-<p><strong>Time: ~5 minutes.</strong></p>
-<p>Cleveland Heart Disease</p>
-<p><strong>Description</strong> This dataset contains clinical and test measurements for 303 patients with chest pain. The outcome variable indicates whether angiographically confirmed heart disease is present.</p>
-<p><strong>Outcome Variable</strong> - A HD (or HD) – Heart Disease Status (Confirmed coronary artery disease based on angiography (gold standard)). - Yes = heart disease present - No = no heart disease</p>
+<p><strong>Description</strong></p>
+<p>This dataset contains clinical and test measurements for 303 patients with chest pain. The outcome variable indicates whether angiographically confirmed heart disease is present.</p>
+<p><strong>Outcome Variable</strong></p>
+<ul>
+<li>HD – Heart Disease Status (Confirmed coronary artery disease based on angiography (gold standard)).
+<ul>
+<li>Yes = heart disease present</li>
+<li>No = no heart disease</li>
+</ul></li>
+</ul>
 <p><strong>Predictor Variables</strong></p>
 <ul>
 <li>Age:
@@ -587,60 +599,90 @@ Warning
 <div class="code-with-filename-file">
 <pre><strong>my-report.qmd</strong></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" data-filename="my-report.qmd"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>hd <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">"https://www.statlearning.com/s/Heart.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" data-filename="my-report.qmd"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>hd_data <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">"https://raw.githubusercontent.com/DanMazJen/medicinsk-statistik/main/data/hd_data.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="hidden">
+<p>hd_data &lt;- readr::read_csv(“https://www.statlearning.com/s/Heart.csv”)</p>
 </div>
 </section>
 </section>
 <section id="MEPS-data" class="level2" data-number="21.4">
 <h2 data-number="21.4" class="anchored" data-anchor-id="MEPS-data"><span class="header-section-number">21.4</span> Medical Expenditure Panel Survey 2001: Ambulatory Expenditures Data</h2>
-<p><strong>Time: ~5 minutes.</strong></p>
-<p><strong>Description</strong> This dataset is an extract from the 2001 Medical Expenditure Panel Survey (MEPS), providing information on ambulatory expenditures and various demographic and health-related variables. It has been used for illustrative examples by Cameron and Trivedi (2009, Chapter 16).</p>
-<p><strong>Format</strong> A data frame with 3,328 observations on the following 22 variables.</p>
-<p>educ Education status</p>
-<p>age Age</p>
-<p>income Income</p>
-<p>female Gender</p>
-<p>vgood Self-reported health status, very good</p>
-<p>good Self-reported health status, good</p>
-<p>hospexp Hospital expenditures</p>
-<p>totchr Total number of chronic diseases</p>
-<p>ffs Family support</p>
-<p>dhospexp Dummy variable for hospital expenditures</p>
-<p>age2 Age squared</p>
-<p>agefem Interaction between age and gender</p>
-<p>fairpoor Self-reported health status, fair or poor</p>
-<p>year01 Year of survey</p>
-<p>instype Type of insurance</p>
-<p>ambexp Ambulatory expenditures</p>
-<p>lambexp Log of ambulatory expenditures</p>
-<p>blhisp Ethnicity</p>
-<p>instype_s1 Insurance type, version 1</p>
-<p>dambexp Dummy variable for ambulatory expenditures</p>
-<p>lnambx Log-transformed ambulatory expenditures</p>
-<p>ins Insurance status</p>
-<p><strong>Source</strong> 2001 Medical Expenditure Panel Survey by the Agency for Healthcare Research and Quality.</p>
+<p><strong>Description</strong></p>
+<p>This dataset is an extract from the 2001 Medical Expenditure Panel Survey (MEPS), providing information on ambulatory expenditures and various demographic and health-related variables. It has been used for illustrative examples by Cameron and Trivedi (2009, Chapter 16).</p>
+<p><strong>Format</strong></p>
+<p>A data frame with 3,328 observations on the following 22 variables.</p>
+<ul>
+<li>educ: Education status</li>
+<li>age: Age</li>
+<li>income: Income</li>
+<li>female: Gender</li>
+<li>vgood: Self-reported health status, very good</li>
+<li>good: Self-reported health status, good</li>
+<li>hospexp: Hospital expenditures</li>
+<li>totchr: Total number of chronic diseases</li>
+<li>ffs: Family support</li>
+<li>dhospexp: Dummy variable for hospital expenditures</li>
+<li>age2: Age squared</li>
+<li>agefem: Interaction between age and gender</li>
+<li>fairpoor: Self-reported health status, fair or poor</li>
+<li>year01: Year of survey</li>
+<li>instype: Type of insurance</li>
+<li>ambexp: Ambulatory expenditures</li>
+<li>lambexp: Log of ambulatory expenditures</li>
+<li>blhisp: Ethnicity</li>
+<li>instype_s1: Insurance type, version 1</li>
+<li>dambexp: Dummy variable for ambulatory expenditures</li>
+<li>lnambx: Log-transformed ambulatory expenditures</li>
+<li>ins: Insurance status</li>
+</ul>
+<p><strong>Source</strong></p>
+<p>2001 Medical Expenditure Panel Survey by the Agency for Healthcare Research and Quality.</p>
 <section id="accessing-the-medical-expenditure-panel-survey-dataset" class="level3" data-number="21.4.1">
 <h3 data-number="21.4.1" class="anchored" data-anchor-id="accessing-the-medical-expenditure-panel-survey-dataset"><span class="header-section-number">21.4.1</span> Accessing the Medical Expenditure Panel Survey dataset</h3>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>my-report.qmd</strong></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" data-filename="my-report.qmd"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#data_url &lt;- "https://raw.githubusercontent.com/cran/ssmrob/master/data/MEPS2001.rda"</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>data_url <span class="ot">&lt;-</span> <span class="st">"https://raw.githubusercontent.com/cran/heckmanGE/master/data/MEPS2001.rda"</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="fu">url</span>(data_url))</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>meps2001 <span class="ot">&lt;-</span> tibble<span class="sc">::</span><span class="fu">tibble</span>(MEPS2001)</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(MEPS2001)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" data-filename="my-report.qmd"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>meps2001 <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">"https://raw.githubusercontent.com/DanMazJen/medicinsk-statistik/main/data/meps2001.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="hidden">
+<p>https://github.com/cran/heckmanGE/blob/master/data/MEPS2001.rda data_url &lt;- “https://raw.githubusercontent.com/cran/heckmanGE/master/data/MEPS2001.rda” load(url(data_url)) meps2001 &lt;- tibble::tibble(MEPS2001) rm(MEPS2001)</p>
 </div>
 </section>
 </section>
 <section id="survival-data" class="level2" data-number="21.5">
 <h2 data-number="21.5" class="anchored" data-anchor-id="survival-data"><span class="header-section-number">21.5</span> Mayo Clinic Primary Biliary Cholangitis Data</h2>
 <p><strong>Time: ~5 minutes.</strong></p>
-<p><strong>Description</strong> Primary biliary cholangitis is an autoimmune disease leading to destruction of the small bile ducts in the liver. Progression is slow but inexhortable, eventually leading to cirrhosis and liver decompensation. The condition has been recognised since at least 1851 and was named “primary biliary cirrhosis” in 1949. Because cirrhosis is a feature only of advanced disease, a change of its name to “primary biliary cholangitis” was proposed by patient advocacy groups in 2014.</p>
+<p><strong>Description</strong></p>
+<p>Primary biliary cholangitis is an autoimmune disease leading to destruction of the small bile ducts in the liver. Progression is slow but inexhortable, eventually leading to cirrhosis and liver decompensation. The condition has been recognised since at least 1851 and was named “primary biliary cirrhosis” in 1949. Because cirrhosis is a feature only of advanced disease, a change of its name to “primary biliary cholangitis” was proposed by patient advocacy groups in 2014.</p>
 <p>This data is from the Mayo Clinic trial in PBC conducted between 1974 and 1984. A total of 424 PBC patients, referred to Mayo Clinic during that ten-year interval, met eligibility criteria for the randomized placebo controlled trial of the drug D-penicillamine. The first 312 cases in the data set participated in the randomized trial and contain largely complete data. The additional 112 cases did not participate in the clinical trial, but consented to have basic measurements recorded and to be followed for survival. Six of those cases were lost to follow-up shortly after diagnosis, so the data here are on an additional 106 cases as well as the 312 randomized participants.</p>
 <p>A nearly identical data set found in appendix D of Fleming and Harrington; this version has fewer missing values.</p>
-<p><strong>Format</strong> age: in years albumin: serum albumin (g/dl) alk.phos: alkaline phosphotase (U/liter) ascites: presence of ascites ast: aspartate aminotransferase, once called SGOT (U/ml) bili: serum bilirunbin (mg/dl) chol: serum cholesterol (mg/dl) copper: urine copper (ug/day) edema: 0 no edema, 0.5 untreated or successfully treated 1 edema despite diuretic therapy hepato: presence of hepatomegaly or enlarged liver id: case number platelet: platelet count protime: standardised blood clotting time sex: m/f spiders: blood vessel malformations in the skin stage: histologic stage of disease (needs biopsy) status: status at endpoint, 0/1/2 for censored, transplant, dead time: number of days between registration and the earlier of death, transplantion, or study analysis in July, 1986 trt: 1/2/NA for D-penicillmain, placebo, not randomised trig: triglycerides (mg/dl)</p>
-<p><strong>Source</strong> T Therneau and P Grambsch (2000), Modeling Survival Data: Extending the Cox Model, Springer-Verlag, New York. ISBN: 0-387-98784-3.</p>
+<p><strong>Format</strong></p>
+<ul>
+<li>age: in years</li>
+<li>albumin: serum albumin (g/dl)</li>
+<li>alk.phos: alkaline phosphotase (U/liter)</li>
+<li>ascites: presence of ascites</li>
+<li>ast: aspartate aminotransferase, once called SGOT (U/ml)</li>
+<li>bili: serum bilirunbin (mg/dl)</li>
+<li>chol: serum cholesterol (mg/dl)</li>
+<li>copper: urine copper (ug/day)</li>
+<li>edema: 0 no edema, 0.5 untreated or successfully treated, and 1 edema despite diuretic therapy</li>
+<li>hepato: presence of hepatomegaly or enlarged liver</li>
+<li>id: case number</li>
+<li>platelet: platelet count</li>
+<li>protime: standardised blood clotting time</li>
+<li>sex: m/f</li>
+<li>spiders: blood vessel malformations in the skin</li>
+<li>stage: histologic stage of disease (needs biopsy)</li>
+<li>status: status at endpoint, 0/1/2 for censored, transplant, dead</li>
+<li>time: number of days between registration and the earlier of death, transplantion, or study analysis in July, 1986</li>
+<li>trt: 1/2/NA for D-penicillmain, placebo, not randomised</li>
+<li>trig: triglycerides (mg/dl)</li>
+</ul>
+<p><strong>Source</strong></p>
+<p>T Therneau and P Grambsch (2000), Modeling Survival Data: Extending the Cox Model, Springer-Verlag, New York. ISBN: 0-387-98784-3.</p>
 <section id="accessing-the-mayo-clinic-primary-biliary-cholangitis-dataset" class="level3" data-number="21.5.1">
 <h3 data-number="21.5.1" class="anchored" data-anchor-id="accessing-the-mayo-clinic-primary-biliary-cholangitis-dataset"><span class="header-section-number">21.5.1</span> Accessing the Mayo Clinic Primary Biliary Cholangitis dataset</h3>
 <div class="code-with-filename">
@@ -655,15 +697,19 @@ Warning
 </section>
 <section id="sleep-data" class="level2" data-number="21.6">
 <h2 data-number="21.6" class="anchored" data-anchor-id="sleep-data"><span class="header-section-number">21.6</span> Sleep study (lme4)</h2>
-<p><strong>Time: ~2 minutes.</strong></p>
-<p><strong>Description</strong> The average reaction time per day (in milliseconds) for subjects in a sleep deprivation study. Stress reduction techniques</p>
+<p><strong>Description</strong></p>
+<p>These data are from the study described in Belenky et al.&nbsp;(2003), for the most sleep-deprived group (3 hours time-in-bed) and for the first 10 days of the study, up to the recovery period. The original study analyzed speed (1/(reaction time)) and treated day as a categorical rather than a continuous predictor.</p>
+<p>The average reaction time per day (in milliseconds) for subjects in a sleep deprivation study.</p>
 <p>Days 0-1 were adaptation and training (T1/T2), day 2 was baseline (B); sleep deprivation started after day 2.</p>
-<p><strong>Format</strong> A data frame with 180 observations on the following 3 variables.</p>
-<p>Reaction Average reaction time (ms)</p>
-<p>Days Number of days of sleep deprivation</p>
-<p><strong>Subject</strong> Subject number on which the observation was made.</p>
-<p><strong>Details</strong> These data are from the study described in Belenky et al.&nbsp;(2003), for the most sleep-deprived group (3 hours time-in-bed) and for the first 10 days of the study, up to the recovery period. The original study analyzed speed (1/(reaction time)) and treated day as a categorical rather than a continuous predictor.</p>
-<p><strong>Source</strong> Gregory Belenky, Nancy J. Wesensten, David R. Thorne, Maria L. Thomas, Helen C. Sing, Daniel P. Redmond, Michael B. Russo and Thomas J. Balkin (2003) Patterns of performance degradation and restoration during sleep restriction and subsequent recovery: a sleep dose-response study. Journal of Sleep Research 12, 1–12.</p>
+<p><strong>Format</strong></p>
+<p>A data frame with 180 observations on the following 3 variables.</p>
+<ul>
+<li>Reaction: Average reaction time (ms)</li>
+<li>Days: Number of days of sleep deprivation</li>
+<li>Subject: Subject number on which the observation was made.</li>
+</ul>
+<p><strong>Source</strong></p>
+<p>Gregory Belenky, Nancy J. Wesensten, David R. Thorne, Maria L. Thomas, Helen C. Sing, Daniel P. Redmond, Michael B. Russo and Thomas J. Balkin (2003) Patterns of performance degradation and restoration during sleep restriction and subsequent recovery: a sleep dose-response study. Journal of Sleep Research 12, 1–12.</p>
 <section id="accessing-the-sleep-study-dataset" class="level3" data-number="21.6.1">
 <h3 data-number="21.6.1" class="anchored" data-anchor-id="accessing-the-sleep-study-dataset"><span class="header-section-number">21.6.1</span> Accessing the Sleep study dataset</h3>
 <p>In order to access the dataset, we suggest using:</p>
@@ -671,9 +717,10 @@ Warning
 <div class="code-with-filename-file">
 <pre><strong>my-report.qmd</strong></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5" data-filename="my-report.qmd"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>data_url <span class="ot">&lt;-</span> <span class="st">"https://raw.githubusercontent.com/cran/lme4/master/data/sleepstudy.rda"</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="fu">url</span>(data_url))</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(sleepstudy)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5" data-filename="my-report.qmd"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>sleepstudy <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">"https://raw.githubusercontent.com/DanMazJen/medicinsk-statistik/main/data/sleepstudy.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="hidden">
+<p>data_url &lt;- “https://raw.githubusercontent.com/cran/lme4/master/data/sleepstudy.rda” load(url(data_url)) head(sleepstudy)</p>
 </div>
 </section>
 </section>
@@ -681,10 +728,29 @@ Warning
 <h2 data-number="21.7" class="anchored" data-anchor-id="diabetes-data"><span class="header-section-number">21.7</span> Diabetes</h2>
 <p><strong>Time: ~5 minutes.</strong></p>
 <p>https://zenodo.org/records/8292712/files/SUA_CVDs_risk_factors.csv</p>
-<p><strong>Study context</strong></p>
-<p>ID: Unique identifier for each participant Age: Age of the participant in years Sex: Gender of the participant (1.Male /2.Female) BMI: Body Mass Index of the participant SBP/DBP: Blood pressure readings of the participant (Systolic/Diastolic) FBG: Fasting blood glucose of participants of the participant TC: Cholesterol level of the participant Cr: Serum creatinine of the participants GFR: Glomerular filtration rate of participants UA: Measurement of serum uric acid level in the participant’s blood Times: Number of medical follow-up visits for participants Hypertension: Participants with or without hypertension (1.No/2.Yes) Hyperglycemia: Participants with or without hyperglycemia (1.No/2.Yes) Dyslipidemia: Participants with or without dyslipidemia (1.No/2.Yes)</p>
+<p><strong>Description</strong></p>
+<p>This dataset provides information on serum uric acid levels and cardiovascular disease risk factors, as well as basic demographic information. High blood concentrations of uric acid can lead to gout and are associated with other medical conditions, including diabetes and the formation of ammonium acid urate kidney stones. It was a retrospective cohort study conducted every two years from 2010 to 2018 in Hangzhou, Zhejiang Province, Southeastern China. 6119 participants aged 40 years and above who underwent at least three times of physical examinations were enrolled.</p>
+<p><strong>Format</strong></p>
+<ul>
+<li>ID: Unique identifier for each participant</li>
+<li>Age: Age of the participant in years</li>
+<li>Sex: Gender of the participant (1.Male /2.Female)</li>
+<li>BMI: Body Mass Index of the participant</li>
+<li>SBP/DBP: Blood pressure readings of the participant (Systolic/Diastolic)</li>
+<li>FBG: Fasting blood glucose of the participants</li>
+<li>TC: Cholesterol level of the participant</li>
+<li>Cr: Serum creatinine of the participants</li>
+<li>GFR: Glomerular filtration rate of participants</li>
+<li>UA: Measurement of serum uric acid level in the participant’s blood</li>
+<li>Times: Number of medical follow-up visits for participants</li>
+<li>Hypertension: Participants with or without hypertension (1.No/2.Yes)</li>
+<li>Hyperglycemia: Participants with or without hyperglycemia (1.No/2.Yes)</li>
+<li>Dyslipidemia: Participants with or without dyslipidemia (1.No/2.Yes)</li>
+</ul>
+<p><strong>Details</strong></p>
 <p><strong>Source</strong></p>
 <p>Luo, Y., Wu, Q., Meng, R., Lian, F., Jiang, C., Hu, M., Wang, Y., &amp; Ma, H. (2023). Associations of serum uric acid with cardiovascular disease risk factors: a retrospective cohort study in Southeastern China [Data set]. Zenodo. https://doi.org/10.5061/dryad.z08kprrk1</p>
+<p>See the Zenodo record <a href="https://zenodo.org/records/8292712">https://zenodo.org/records/8292712</a></p>
 <section id="accessing-the-diabetes2-dataset" class="level3" data-number="21.7.1">
 <h3 data-number="21.7.1" class="anchored" data-anchor-id="accessing-the-diabetes2-dataset"><span class="header-section-number">21.7.1</span> Accessing the diabetes2 dataset</h3>
 <p>In order to access the dataset, we suggest using:</p>
@@ -692,34 +758,49 @@ Warning
 <div class="code-with-filename-file">
 <pre><strong>my-report.qmd</strong></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6" data-filename="my-report.qmd"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># https://datadryad.org/dataset/doi:10.5061/dryad.96320</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># https://zenodo.org/records/4989220</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>post_meal_insulin <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv2</span>(<span class="st">"https://zenodo.org/records/8292712/files/SUA_CVDs_risk_factors.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6" data-filename="my-report.qmd"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>SUA_data <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv2</span>(<span class="st">"https://zenodo.org/records/8292712/files/SUA_CVDs_risk_factors.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 </section>
 <section id="weight-data" class="level2" data-number="21.8">
 <h2 data-number="21.8" class="anchored" data-anchor-id="weight-data"><span class="header-section-number">21.8</span> Cognitive weight loss intervention</h2>
-<p>TODO</p>
+<p><strong>Description</strong> Horan and Johnson randomly assigned 80 women who were between “20 per cent and 30 per cent overweight” into four groups for weight loss. In the horan1971 data, these four groups are differentiated in the treatment column, which is coded</p>
+<ul>
+<li>delayed, a “delayed treatment control” (i.e., wait-list control), the members of which received an active treatment after the study;</li>
+<li>placebo, a minimalist intervention where participants were given basic information about nutrition and weight-loss strategies;</li>
+<li>scheduled, an active treatment that added a cognitive element to the information from the placebo group; and</li>
+<li>experimental, which added a full behavioral element (based on the Premack principle) to the placebo intervention.</li>
+</ul>
+<p><strong>Format</strong></p>
+<ul>
+<li>sl: subject as a letter ID</li>
+<li>sn: subject as a number ID</li>
+<li>treatment: delayed”, “placebo”, “scheduled”, “experimental</li>
+<li>pre: weight before intervention, measured in pounds</li>
+<li>post: weight after intervention, measured in pounds</li>
+</ul>
+<p><strong>Source</strong></p>
+<p>Horan, J. J., &amp; Johnson, R. G. (1971). Coverant conditioning through a self-management application of the Premack principle: Its effect on weight reduction. Journal of Behavior Therapy and Experimental Psychiatry, 2(4), 243–249. <a href="https://doi.org/10.1016/0005-7916(71)90040-1">link</a></p>
 <section id="accessing-the-cognitive-weight-loss-intervention-dataset" class="level3" data-number="21.8.1">
 <h3 data-number="21.8.1" class="anchored" data-anchor-id="accessing-the-cognitive-weight-loss-intervention-dataset"><span class="header-section-number">21.8.1</span> Accessing the Cognitive weight loss intervention dataset</h3>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>my-report.qmd</strong></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7" data-filename="my-report.qmd"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>horan1971 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">sl =</span> <span class="fu">c</span>(letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">22</span>], letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>], letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">19</span>], letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">19</span>]),</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">sn =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">80</span>,</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">treatment =</span> <span class="fu">factor</span>(<span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">times =</span> <span class="fu">c</span>(<span class="dv">22</span>, <span class="dv">20</span>, <span class="dv">19</span>, <span class="dv">19</span>))),</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">pre =</span> <span class="fu">c</span>(<span class="fl">149.5</span>, <span class="fl">131.25</span>, <span class="fl">146.5</span>, <span class="fl">133.25</span>, <span class="dv">131</span>, <span class="dv">141</span>, <span class="fl">145.75</span>, <span class="fl">146.75</span>, <span class="fl">172.5</span>, <span class="fl">156.5</span>, <span class="dv">153</span>, <span class="fl">136.25</span>, <span class="fl">148.25</span>, <span class="fl">152.25</span>, <span class="fl">167.5</span>, <span class="fl">169.5</span>, <span class="fl">151.5</span>, <span class="dv">165</span>, <span class="fl">144.25</span>, <span class="dv">167</span>, <span class="dv">195</span>, <span class="fl">179.5</span>,</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>          <span class="dv">127</span>, <span class="dv">134</span>, <span class="fl">163.5</span>, <span class="dv">155</span>, <span class="fl">157.25</span>, <span class="dv">121</span>, <span class="fl">161.25</span>, <span class="fl">147.25</span>, <span class="fl">134.5</span>, <span class="dv">121</span>, <span class="fl">133.5</span>, <span class="fl">128.5</span>, <span class="dv">151</span>, <span class="fl">141.25</span>, <span class="fl">164.25</span>, <span class="fl">138.25</span>, <span class="dv">176</span>, <span class="dv">178</span>, <span class="dv">183</span>, <span class="dv">164</span>,</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>          <span class="dv">149</span>, <span class="fl">134.25</span>, <span class="dv">168</span>, <span class="fl">116.25</span>, <span class="fl">122.75</span>, <span class="fl">122.5</span>, <span class="dv">130</span>, <span class="dv">139</span>, <span class="fl">121.75</span>, <span class="dv">126</span>, <span class="dv">159</span>, <span class="fl">134.75</span>, <span class="fl">140.5</span>, <span class="fl">174.25</span>, <span class="fl">140.25</span>, <span class="dv">133</span>, <span class="fl">171.25</span>, <span class="fl">198.25</span>, <span class="fl">141.25</span>,</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>          <span class="dv">137</span>, <span class="dv">157</span>, <span class="fl">142.25</span>, <span class="dv">123</span>, <span class="fl">163.75</span>, <span class="fl">168.25</span>, <span class="fl">146.25</span>, <span class="fl">174.75</span>, <span class="fl">174.5</span>, <span class="fl">179.75</span>, <span class="fl">162.5</span>, <span class="dv">145</span>, <span class="dv">127</span>, <span class="fl">146.75</span>, <span class="fl">137.5</span>, <span class="fl">179.75</span>, <span class="fl">168.25</span>, <span class="fl">187.5</span>, <span class="fl">144.5</span>),</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">post =</span> <span class="fu">c</span>(<span class="dv">149</span>, <span class="dv">130</span>, <span class="fl">147.75</span>, <span class="dv">139</span>, <span class="dv">134</span>, <span class="fl">145.25</span>, <span class="fl">142.25</span>, <span class="dv">147</span>, <span class="fl">158.25</span>, <span class="fl">155.25</span>, <span class="fl">151.5</span>, <span class="fl">134.5</span>, <span class="fl">145.75</span>, <span class="fl">153.5</span>, <span class="fl">163.75</span>, <span class="dv">170</span>, <span class="dv">153</span>, <span class="dv">178</span>, <span class="fl">144.75</span>, <span class="fl">164.25</span>, <span class="dv">194</span>, <span class="fl">183.25</span>,</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>           <span class="fl">121.75</span>, <span class="fl">132.25</span>, <span class="dv">166</span>, <span class="fl">146.5</span>, <span class="fl">154.5</span>, <span class="dv">114</span>, <span class="fl">148.25</span>, <span class="fl">148.25</span>, <span class="fl">133.5</span>, <span class="fl">126.5</span>, <span class="dv">137</span>, <span class="fl">126.5</span>, <span class="fl">148.5</span>, <span class="fl">145.5</span>, <span class="fl">151.5</span>, <span class="fl">128.5</span>, <span class="fl">176.5</span>, <span class="fl">170.5</span>, <span class="fl">181.5</span>, <span class="fl">160.5</span>,</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>           <span class="fl">145.5</span>, <span class="fl">122.75</span>, <span class="dv">164</span>, <span class="fl">118.5</span>, <span class="dv">122</span>, <span class="fl">125.5</span>, <span class="fl">129.5</span>, <span class="dv">137</span>, <span class="fl">119.5</span>, <span class="fl">123.5</span>, <span class="fl">150.5</span>, <span class="fl">125.75</span>, <span class="dv">135</span>, <span class="fl">164.25</span>, <span class="fl">144.5</span>, <span class="fl">135.5</span>, <span class="fl">169.5</span>, <span class="fl">194.5</span>, <span class="fl">142.5</span>,</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>           <span class="dv">129</span>, <span class="fl">146.5</span>, <span class="fl">142.25</span>, <span class="fl">114.5</span>, <span class="fl">148.25</span>, <span class="fl">161.25</span>, <span class="fl">142.5</span>, <span class="fl">174.5</span>, <span class="dv">163</span>, <span class="fl">160.5</span>, <span class="fl">151.25</span>, <span class="dv">144</span>, <span class="fl">135.5</span>, <span class="fl">136.5</span>, <span class="fl">145.5</span>, <span class="dv">185</span>, <span class="fl">174.75</span>, <span class="dv">179</span>, <span class="fl">141.5</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">treatment =</span> <span class="fu">factor</span>(treatment, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"delayed"</span>, <span class="st">"placebo"</span>, <span class="st">"scheduled"</span>, <span class="st">"experimental"</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7" data-filename="my-report.qmd"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Constructing the data yourself using `tibble`:</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>horan1971 <span class="ot">&lt;-</span> tibble<span class="sc">::</span><span class="fu">tibble</span>(</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">sl =</span> <span class="fu">c</span>(letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">22</span>], letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>], letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">19</span>], letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">19</span>]),</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">sn =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">80</span>,</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">treatment =</span> <span class="fu">factor</span>(<span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">times =</span> <span class="fu">c</span>(<span class="dv">22</span>, <span class="dv">20</span>, <span class="dv">19</span>, <span class="dv">19</span>))),</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">pre =</span> <span class="fu">c</span>(<span class="fl">149.5</span>, <span class="fl">131.25</span>, <span class="fl">146.5</span>, <span class="fl">133.25</span>, <span class="dv">131</span>, <span class="dv">141</span>, <span class="fl">145.75</span>, <span class="fl">146.75</span>, <span class="fl">172.5</span>, <span class="fl">156.5</span>, <span class="dv">153</span>, <span class="fl">136.25</span>, <span class="fl">148.25</span>, <span class="fl">152.25</span>, <span class="fl">167.5</span>, <span class="fl">169.5</span>, <span class="fl">151.5</span>, <span class="dv">165</span>, <span class="fl">144.25</span>, <span class="dv">167</span>, <span class="dv">195</span>, <span class="fl">179.5</span>,</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>          <span class="dv">127</span>, <span class="dv">134</span>, <span class="fl">163.5</span>, <span class="dv">155</span>, <span class="fl">157.25</span>, <span class="dv">121</span>, <span class="fl">161.25</span>, <span class="fl">147.25</span>, <span class="fl">134.5</span>, <span class="dv">121</span>, <span class="fl">133.5</span>, <span class="fl">128.5</span>, <span class="dv">151</span>, <span class="fl">141.25</span>, <span class="fl">164.25</span>, <span class="fl">138.25</span>, <span class="dv">176</span>, <span class="dv">178</span>, <span class="dv">183</span>, <span class="dv">164</span>,</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>          <span class="dv">149</span>, <span class="fl">134.25</span>, <span class="dv">168</span>, <span class="fl">116.25</span>, <span class="fl">122.75</span>, <span class="fl">122.5</span>, <span class="dv">130</span>, <span class="dv">139</span>, <span class="fl">121.75</span>, <span class="dv">126</span>, <span class="dv">159</span>, <span class="fl">134.75</span>, <span class="fl">140.5</span>, <span class="fl">174.25</span>, <span class="fl">140.25</span>, <span class="dv">133</span>, <span class="fl">171.25</span>, <span class="fl">198.25</span>, <span class="fl">141.25</span>,</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>          <span class="dv">137</span>, <span class="dv">157</span>, <span class="fl">142.25</span>, <span class="dv">123</span>, <span class="fl">163.75</span>, <span class="fl">168.25</span>, <span class="fl">146.25</span>, <span class="fl">174.75</span>, <span class="fl">174.5</span>, <span class="fl">179.75</span>, <span class="fl">162.5</span>, <span class="dv">145</span>, <span class="dv">127</span>, <span class="fl">146.75</span>, <span class="fl">137.5</span>, <span class="fl">179.75</span>, <span class="fl">168.25</span>, <span class="fl">187.5</span>, <span class="fl">144.5</span>),</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">post =</span> <span class="fu">c</span>(<span class="dv">149</span>, <span class="dv">130</span>, <span class="fl">147.75</span>, <span class="dv">139</span>, <span class="dv">134</span>, <span class="fl">145.25</span>, <span class="fl">142.25</span>, <span class="dv">147</span>, <span class="fl">158.25</span>, <span class="fl">155.25</span>, <span class="fl">151.5</span>, <span class="fl">134.5</span>, <span class="fl">145.75</span>, <span class="fl">153.5</span>, <span class="fl">163.75</span>, <span class="dv">170</span>, <span class="dv">153</span>, <span class="dv">178</span>, <span class="fl">144.75</span>, <span class="fl">164.25</span>, <span class="dv">194</span>, <span class="fl">183.25</span>,</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>           <span class="fl">121.75</span>, <span class="fl">132.25</span>, <span class="dv">166</span>, <span class="fl">146.5</span>, <span class="fl">154.5</span>, <span class="dv">114</span>, <span class="fl">148.25</span>, <span class="fl">148.25</span>, <span class="fl">133.5</span>, <span class="fl">126.5</span>, <span class="dv">137</span>, <span class="fl">126.5</span>, <span class="fl">148.5</span>, <span class="fl">145.5</span>, <span class="fl">151.5</span>, <span class="fl">128.5</span>, <span class="fl">176.5</span>, <span class="fl">170.5</span>, <span class="fl">181.5</span>, <span class="fl">160.5</span>,</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>           <span class="fl">145.5</span>, <span class="fl">122.75</span>, <span class="dv">164</span>, <span class="fl">118.5</span>, <span class="dv">122</span>, <span class="fl">125.5</span>, <span class="fl">129.5</span>, <span class="dv">137</span>, <span class="fl">119.5</span>, <span class="fl">123.5</span>, <span class="fl">150.5</span>, <span class="fl">125.75</span>, <span class="dv">135</span>, <span class="fl">164.25</span>, <span class="fl">144.5</span>, <span class="fl">135.5</span>, <span class="fl">169.5</span>, <span class="fl">194.5</span>, <span class="fl">142.5</span>,</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>           <span class="dv">129</span>, <span class="fl">146.5</span>, <span class="fl">142.25</span>, <span class="fl">114.5</span>, <span class="fl">148.25</span>, <span class="fl">161.25</span>, <span class="fl">142.5</span>, <span class="fl">174.5</span>, <span class="dv">163</span>, <span class="fl">160.5</span>, <span class="fl">151.25</span>, <span class="dv">144</span>, <span class="fl">135.5</span>, <span class="fl">136.5</span>, <span class="fl">145.5</span>, <span class="dv">185</span>, <span class="fl">174.75</span>, <span class="dv">179</span>, <span class="fl">141.5</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">treatment =</span> <span class="fu">factor</span>(treatment, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"delayed"</span>, <span class="st">"placebo"</span>, <span class="st">"scheduled"</span>, <span class="st">"experimental"</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 </section>
@@ -727,7 +808,6 @@ Warning
 <h2 data-number="21.9" class="anchored" data-anchor-id="fev1-data"><span class="header-section-number">21.9</span> FEV1 data</h2>
 <p><strong>Description</strong></p>
 <p>It is an artificial (simulated) dataset of a clinical trial investigating the effect of an active treatment on FEV1 (forced expired volume in one second), compared to placebo. FEV1 is a measure of how quickly the lungs can be emptied and low levels may indicate chronic obstructive pulmonary disease (COPD).</p>
-<p>The dataset is made within a collaboration by people from major pharmaceutical companies, such as Eli Lilly and Company, Boehringer Ingelheim Pharma GmbH &amp; Co, Gilead Sciences, Inc., F. Hoffmann-La Roche AG, Merck Sharp &amp; Dohme, Inc., AstraZeneca plc, and inferential.biostatistics GmbH.</p>
 <p><strong>Format</strong></p>
 <p>The dataset is a tibble with 800 rows and the following notable variables:</p>
 <ul>
@@ -741,17 +821,23 @@ Warning
 <li>FEV1 (FEV1 at study visits)</li>
 <li>WEIGHT (weighting variable, z-scored?)</li>
 </ul>
-<p>The primary endpoint for the analysis is change from baseline in FEV1, which we derive below and denote FEV1_CHG.</p>
+<p>The primary endpoint for the analysis is change from baseline in FEV1, which we derive ourselves and denote FEV1_CHG.</p>
+<p><strong>Source</strong></p>
+<p>This is an artificial dataset made within a collaboration by people from major pharmaceutical companies, such as Eli Lilly and Company, Boehringer Ingelheim Pharma GmbH &amp; Co, Gilead Sciences, Inc., F. Hoffmann-La Roche AG, Merck Sharp &amp; Dohme, Inc., AstraZeneca plc, and inferential.biostatistics GmbH.</p>
 <section id="accessing-the-fev1-dataset" class="level3" data-number="21.9.1">
 <h3 data-number="21.9.1" class="anchored"><span class="header-section-number">21.9.1</span> Accessing the FEV1 dataset</h3>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>my-report.qmd</strong></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8" data-filename="my-report.qmd"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>https<span class="sc">:</span><span class="er">//</span>github.com<span class="sc">/</span>openpharma<span class="sc">/</span>mmrm<span class="sc">/</span>blob<span class="sc">/</span>main<span class="sc">/</span>data<span class="sc">/</span>fev_data.rda</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>data_url <span class="ot">&lt;-</span> <span class="st">"https://raw.githubusercontent.com/openpharma/mmrm/main/data/fev_data.rda"</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="fu">url</span>(data_url))</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>fev_data <span class="sc">|&gt;</span> tibble<span class="sc">::</span><span class="fu">tibble</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8" data-filename="my-report.qmd"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Importing the data:</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>fev_data <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">"https://raw.githubusercontent.com/DanMazJen/medicinsk-statistik/main/data/fev_data.csv"</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Make it a tibble:</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>fev_data <span class="sc">|&gt;</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    tibble<span class="sc">::</span><span class="fu">tibble</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="hidden">
+<p>https://github.com/openpharma/mmrm/blob/main/data/fev_data.rda data_url &lt;- “https://raw.githubusercontent.com/openpharma/mmrm/main/data/fev_data.rda” load(url(data_url)) fev_data |&gt; tibble::tibble()</p>
 </div>
 <div class="hidden">
 <section id="section" class="level82">
@@ -771,7 +857,6 @@ Warning
 </section>
 <section id="diabetes1" class="level2" data-number="21.10">
 <h2 data-number="21.10" class="anchored" data-anchor-id="diabetes1"><span class="header-section-number">21.10</span> Diabetes1</h2>
-<p><strong>Time: ~5 minutes.</strong></p>
 <p>https://zenodo.org/records/4989220</p>
 <p><strong>Study context</strong> This dataset comes from a physiological study of early (cephalic) insulin secretion in humans. Participants were 31 individuals with or without a family history of type 2 diabetes (FDR) and with varying glucose tolerance status.</p>
 <p>The study measured glucose, insulin, and C-peptide repeatedly during an oral glucose tolerance test (OGTT), including very early time points (before blood glucose rises).</p>

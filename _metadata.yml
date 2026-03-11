@@ -6,7 +6,8 @@ titles:
   full: "Medical Statistics, MEDMS24B5_1"
 
 urls:
-  home: "https://medical-statistics-aau.netlify.app/"
+   home: "https://danmazjen.github.io/medicinsk-statistik/"
+#  home: "https://medical-statistics-aau.netlify.app/"
 
 surveys:
   pre-course: "https://docs.google.com/forms/d/e/1FAIpQLScbMwxPff50ERfy9iVVvOfi9IweyvA3ioWLSqyaTSKG0MqGKw/viewform?usp=header"
@@ -15,5 +16,5 @@ surveys:
 # Use `r3::get_allowed_r_versions()` and `r3::get_allowed_rstudio_versions()`
 # to get a list of the allowed R and RStudio versions.
 versions:
-  r: "4.4.3"
+  r: "4.5.1"
   rstudio: "v2025.05.1+513"

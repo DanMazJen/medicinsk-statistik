@@ -9,6 +9,7 @@ And structure matters. A dataset without clear variables, units, metadata, and c
 So before you worship statistical methods, worship your data pipeline. Clean data. Well-defined variables. Thoughtful study design. Documentation. Because statistics is a microscope, not a disinfectant. It reveals reality—it does not repair it.
 
 ::: callout-note
+
 ## Open source data: \~1 minute
 
 Data can be made publicly available. This is often not a problem, despite GDPR regulations. Datasets are often made available on websites such as [Zenodo](https://zenodo.org/communities/eu/collections/subjects/mhealth?q=&f=resource_type%3Adataset&f=file_type%3Acsv&l=list&p=1&s=10&sort=newest).
@@ -16,26 +17,27 @@ Data can be made publicly available. This is often not a problem, despite GDPR r
 Open science is a movement that encourages transparency and quality over productivity. In a world where
 we produce more data than we are capable of analysing ourselves, it is meaningful and highly encouraged
 to provide data using the [FAIR principles](https://www.go-fair.org/fair-principles/).
+
 :::
 
 ## Datasets we use
 
 In this course, we use the following datasets:
 
-(@)   AlzheimerDisease (AppliedPredictiveModeling) @#AlzheimerDisease-data
-(@)   Cleveland Heart Disease (ISLR) @#HeartDisease-data
-(@)   Medical Expenditure Panel Survey (heckmanGE) @#MEPS-data
-(@)   Mayo Clinic Primary Biliary Cholangitis Data (Survival) @#survival-data
-(@)   Sleep Study (lme4) @#sleep-data
-(@)   Diabetes study @#diabetes-data
-(@)   Cognitive weight loss RCT @#weight-data
-(@)   FEV1 COPD simulation data () @#fev1-data
+(@)   [AlzheimerDisease (AppliedPredictiveModeling)](@ref(AlzheimerDisease-data))
+(@)   [Cleveland Heart Disease (ISLR)](@ref(HeartDisease-data))
+(@)   [Medical Expenditure Panel Survey (heckmanGE)](@ref(MEPS-data))
+(@)   [Mayo Clinic Primary Biliary Cholangitis Data (Survival)](@ref(survival-data))
+(@)   [Sleep Study (lme4)](@ref(sleep-data))
+(@)   [Diabetes study](@ref(diabetes-data))
+(@)   [Cognitive weight loss RCT](@ref(weight-data))
+(@)   [FEV1 COPD simulation data](@ref(fev1-data))
 
 Here, we provide some context and meta-data about the datasets. Please take the time to carefully read this section before jumping in and wrangling data without knowing the design or variables collected.
 
 ## AlzheimerDisease (AppliedPredictiveModeling) {#AlzheimerDisease-data}
 
-**Time: ~3 minutes.**
+**Description:**
 
 Washington University conducted a clinical study to determine if biological measurements made from cerebrospinal fluid (CSF) can be used to diagnose or predict Alzheimer's disease ([Craig-Schapiro et al. 2011](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0018850)). These data are a modified version of the values used for the publication.
 
@@ -51,21 +53,29 @@ Craig-Schapiro, R., Kuhn, M., Xiong, C., Pickering, E. H., Liu, J., Misko, T. P.
 In order to access the dataset, we suggest using:
 
 ```{.r filename="my-report.qmd"}
-post_meal_insulin <- readr::read_csv2("https://zenodo.org/records/4989220/files/Eliasson_data2.csv?download=1")
+ad_data <- readr::read_csv("https://raw.githubusercontent.com/DanMazJen/medicinsk-statistik/main/data/ad_data.csv")
+
+ad_data |>
+    tibble::tibble(ad_data)
 ```
+
+:::{.hidden}
+https://github.com/cran/AppliedPredictiveModeling/blob/master/data/AlzheimerDisease.RData
+data_url <- "https://raw.githubusercontent.com/cran/AppliedPredictiveModeling/master/data/AlzheimerDisease.RData"
+load(url(data_url))
+:::
+
 
 ## Cleveland Heart Disease {#HeartDisease-data}
 
-**Time: ~5 minutes.**
-
-Cleveland Heart Disease
-
 **Description**
+
 This dataset contains clinical and test measurements for 303 patients with chest pain.
 The outcome variable indicates whether angiographically confirmed heart disease is present.
 
 **Outcome Variable**
--   A HD (or HD) – Heart Disease Status (Confirmed coronary artery disease based on angiography (gold standard)).
+
+-   HD – Heart Disease Status (Confirmed coronary artery disease based on angiography (gold standard)).
     -   Yes = heart disease present
     -   No = no heart disease
 
@@ -112,103 +122,70 @@ The outcome variable indicates whether angiographically confirmed heart disease 
 ### Accessing the Cleveland Heart Disease dataset
 
 ```{.r filename="my-report.qmd"}
-hd <- readr::read_csv("https://www.statlearning.com/s/Heart.csv")
+hd_data <- readr::read_csv("https://raw.githubusercontent.com/DanMazJen/medicinsk-statistik/main/data/hd_data.csv")
 ```
+
+:::{.hidden}
+hd_data <- readr::read_csv("https://www.statlearning.com/s/Heart.csv")
+:::
 
 ## Medical Expenditure Panel Survey 2001: Ambulatory Expenditures Data {#MEPS-data}
 
-**Time: ~5 minutes.**
-
 **Description**
+
 This dataset is an extract from the 2001 Medical Expenditure Panel Survey (MEPS), providing information on ambulatory expenditures and various demographic and health-related variables. It has been used for illustrative examples by Cameron and Trivedi (2009, Chapter 16).
 
 **Format**
+
 A data frame with 3,328 observations on the following 22 variables.
 
-educ
-Education status
-
-age
-Age
-
-income
-Income
-
-female
-Gender
-
-vgood
-Self-reported health status, very good
-
-good
-Self-reported health status, good
-
-hospexp
-Hospital expenditures
-
-totchr
-Total number of chronic diseases
-
-ffs
-Family support
-
-dhospexp
-Dummy variable for hospital expenditures
-
-age2
-Age squared
-
-agefem
-Interaction between age and gender
-
-fairpoor
-Self-reported health status, fair or poor
-
-year01
-Year of survey
-
-instype
-Type of insurance
-
-ambexp
-Ambulatory expenditures
-
-lambexp
-Log of ambulatory expenditures
-
-blhisp
-Ethnicity
-
-instype_s1
-Insurance type, version 1
-
-dambexp
-Dummy variable for ambulatory expenditures
-
-lnambx
-Log-transformed ambulatory expenditures
-
-ins
-Insurance status
+-   educ: Education status
+-   age: Age
+-   income: Income
+-   female: Gender
+-   vgood: Self-reported health status, very good
+-   good: Self-reported health status, good
+-   hospexp: Hospital expenditures
+-   totchr: Total number of chronic diseases
+-   ffs: Family support
+-   dhospexp: Dummy variable for hospital expenditures
+-   age2: Age squared
+-   agefem: Interaction between age and gender
+-   fairpoor: Self-reported health status, fair or poor
+-   year01: Year of survey
+-   instype: Type of insurance
+-   ambexp: Ambulatory expenditures
+-   lambexp: Log of ambulatory expenditures
+-    blhisp: Ethnicity
+-   instype_s1: Insurance type, version 1
+-   dambexp: Dummy variable for ambulatory expenditures
+-   lnambx: Log-transformed ambulatory expenditures
+-   ins: Insurance status
 
 **Source**
+
 2001 Medical Expenditure Panel Survey by the Agency for Healthcare Research and Quality.
 
 ### Accessing the Medical Expenditure Panel Survey dataset
 
 ```{.r filename="my-report.qmd"}
-#data_url <- "https://raw.githubusercontent.com/cran/ssmrob/master/data/MEPS2001.rda"
+meps2001 <- readr::read_csv("https://raw.githubusercontent.com/DanMazJen/medicinsk-statistik/main/data/meps2001.csv")
+```
+
+:::{.hidden}
+https://github.com/cran/heckmanGE/blob/master/data/MEPS2001.rda
 data_url <- "https://raw.githubusercontent.com/cran/heckmanGE/master/data/MEPS2001.rda"
 load(url(data_url))
 meps2001 <- tibble::tibble(MEPS2001)
 rm(MEPS2001)
-```
+:::
 
 ## Mayo Clinic Primary Biliary Cholangitis Data {#survival-data}
 
 **Time: ~5 minutes.**
 
 **Description**
+
 Primary biliary cholangitis is an autoimmune disease leading to destruction of the small bile ducts in the liver. Progression is slow but inexhortable, eventually leading to cirrhosis and liver decompensation. The condition has been recognised since at least 1851 and was named "primary biliary cirrhosis" in 1949. Because cirrhosis is a feature only of advanced disease, a change of its name to "primary biliary cholangitis" was proposed by patient advocacy groups in 2014.
 
 This data is from the Mayo Clinic trial in PBC conducted between 1974 and 1984. A total of 424 PBC patients, referred to Mayo Clinic during that ten-year interval, met eligibility criteria for the randomized placebo controlled trial of the drug D-penicillamine. The first 312 cases in the data set participated in the randomized trial and contain largely complete data. The additional 112 cases did not participate in the clinical trial, but consented to have basic measurements recorded and to be followed for survival. Six of those cases were lost to follow-up shortly after diagnosis, so the data here are on an additional 106 cases as well as the 312 randomized participants.
@@ -216,30 +193,30 @@ This data is from the Mayo Clinic trial in PBC conducted between 1974 and 1984. 
 A nearly identical data set found in appendix D of Fleming and Harrington; this version has fewer missing values.
 
 **Format**
-age:	in years
-albumin:	serum albumin (g/dl)
-alk.phos:	alkaline phosphotase (U/liter)
-ascites:	presence of ascites
-ast:	aspartate aminotransferase, once called SGOT (U/ml)
-bili:	serum bilirunbin (mg/dl)
-chol:	serum cholesterol (mg/dl)
-copper:	urine copper (ug/day)
-edema:	0 no edema, 0.5 untreated or successfully treated
-1 edema despite diuretic therapy
-hepato:	presence of hepatomegaly or enlarged liver
-id:	case number
-platelet:	platelet count
-protime:	standardised blood clotting time
-sex:	m/f
-spiders:	blood vessel malformations in the skin
-stage:	histologic stage of disease (needs biopsy)
-status:	status at endpoint, 0/1/2 for censored, transplant, dead
-time:	number of days between registration and the earlier of death,
-transplantion, or study analysis in July, 1986
-trt:	1/2/NA for D-penicillmain, placebo, not randomised
-trig:	triglycerides (mg/dl)
+
+-   age:	in years
+-   albumin:	serum albumin (g/dl)
+-   alk.phos:	alkaline phosphotase (U/liter)
+-   ascites:	presence of ascites
+-   ast:	aspartate aminotransferase, once called SGOT (U/ml)
+-   bili:	serum bilirunbin (mg/dl)
+-   chol:	serum cholesterol (mg/dl)
+-   copper:	urine copper (ug/day)
+-   edema:	0 no edema, 0.5 untreated or successfully treated, and 1 edema despite diuretic therapy
+-   hepato:	presence of hepatomegaly or enlarged liver
+-   id:	case number
+-   platelet: platelet count
+-   protime: standardised blood clotting time
+-   sex: m/f
+-   spiders: blood vessel malformations in the skin
+-   stage: histologic stage of disease (needs biopsy)
+-   status: status at endpoint, 0/1/2 for censored, transplant, dead
+-   time: number of days between registration and the earlier of death, transplantion, or study analysis in July, 1986
+-   trt: 1/2/NA for D-penicillmain, placebo, not randomised
+-   trig: triglycerides (mg/dl)
 
 **Source**
+
 T Therneau and P Grambsch (2000), Modeling Survival Data: Extending the Cox Model, Springer-Verlag, New York. ISBN: 0-387-98784-3.
 
 ### Accessing the Mayo Clinic Primary Biliary Cholangitis dataset
@@ -252,29 +229,24 @@ pbc |>
 
 ## Sleep study (lme4) {#sleep-data}
 
-**Time: ~2 minutes.**
-
 **Description**
-The average reaction time per day (in milliseconds) for subjects in a sleep deprivation study. Stress reduction techniques
+
+These data are from the study described in Belenky et al. (2003), for the most sleep-deprived group (3 hours time-in-bed) and for the first 10 days of the study, up to the recovery period. The original study analyzed speed (1/(reaction time)) and treated day as a categorical rather than a continuous predictor.
+
+The average reaction time per day (in milliseconds) for subjects in a sleep deprivation study.
 
 Days 0-1 were adaptation and training (T1/T2), day 2 was baseline (B); sleep deprivation started after day 2.
 
 **Format**
+
 A data frame with 180 observations on the following 3 variables.
 
-Reaction
-Average reaction time (ms)
-
-Days
-Number of days of sleep deprivation
-
-**Subject**
-Subject number on which the observation was made.
-
-**Details**
-These data are from the study described in Belenky et al. (2003), for the most sleep-deprived group (3 hours time-in-bed) and for the first 10 days of the study, up to the recovery period. The original study analyzed speed (1/(reaction time)) and treated day as a categorical rather than a continuous predictor.
+-   Reaction: Average reaction time (ms)
+-   Days: Number of days of sleep deprivation
+-   Subject: Subject number on which the observation was made.
 
 **Source**
+
 Gregory Belenky, Nancy J. Wesensten, David R. Thorne, Maria L. Thomas, Helen C. Sing, Daniel P. Redmond, Michael B. Russo and Thomas J. Balkin (2003) Patterns of performance degradation and restoration during sleep restriction and subsequent recovery: a sleep dose-response study. Journal of Sleep Research 12, 1–12.
 
 ### Accessing the Sleep study dataset
@@ -282,10 +254,14 @@ Gregory Belenky, Nancy J. Wesensten, David R. Thorne, Maria L. Thomas, Helen C. 
 In order to access the dataset, we suggest using:
 
 ```{.r filename="my-report.qmd"}
+sleepstudy <- readr::read_csv("https://raw.githubusercontent.com/DanMazJen/medicinsk-statistik/main/data/sleepstudy.csv")
+```
+
+:::{.hidden}
 data_url <- "https://raw.githubusercontent.com/cran/lme4/master/data/sleepstudy.rda"
 load(url(data_url))
 head(sleepstudy)
-```
+:::
 
 ## Diabetes {#diabetes-data}
 
@@ -293,47 +269,74 @@ head(sleepstudy)
 
 https://zenodo.org/records/8292712/files/SUA_CVDs_risk_factors.csv
 
-**Study context**
+**Description**
 
-ID: Unique identifier for each participant
-Age: Age of the participant in years
-Sex: Gender of the participant (1.Male /2.Female)
-BMI: Body Mass Index of the participant
-SBP/DBP: Blood pressure readings of the participant (Systolic/Diastolic)
-FBG: Fasting blood glucose of participants of the participant
-TC: Cholesterol level of the participant
-Cr: Serum creatinine of the participants
-GFR: Glomerular filtration rate of participants
-UA: Measurement of serum uric acid level in the participant's blood
-Times: Number of medical follow-up visits for participants
-Hypertension: Participants with or without hypertension (1.No/2.Yes)
-Hyperglycemia: Participants with or without hyperglycemia (1.No/2.Yes)
-Dyslipidemia: Participants with or without dyslipidemia (1.No/2.Yes)
+This dataset provides information on serum uric acid levels and cardiovascular disease risk factors, as well as basic demographic information.
+High blood concentrations of uric acid can lead to gout and are associated with other medical conditions, including diabetes and the formation of ammonium acid urate kidney stones.
+It was a retrospective cohort study conducted every two years from 2010 to 2018 in Hangzhou, Zhejiang Province, Southeastern China.
+6119 participants aged 40 years and above who underwent at least three times of physical examinations were enrolled.
+
+
+**Format**
+
+-   ID: Unique identifier for each participant
+-   Age: Age of the participant in years
+-   Sex: Gender of the participant (1.Male /2.Female)
+-   BMI: Body Mass Index of the participant
+-   SBP/DBP: Blood pressure readings of the participant (Systolic/Diastolic)
+-   FBG: Fasting blood glucose of the participants
+-   TC: Cholesterol level of the participant
+-   Cr: Serum creatinine of the participants
+-   GFR: Glomerular filtration rate of participants
+-   UA: Measurement of serum uric acid level in the participant's blood
+-   Times: Number of medical follow-up visits for participants
+-   Hypertension: Participants with or without hypertension (1.No/2.Yes)
+-   Hyperglycemia: Participants with or without hyperglycemia (1.No/2.Yes)
+-   Dyslipidemia: Participants with or without dyslipidemia (1.No/2.Yes)
+
+**Details**
 
 **Source**
 
 Luo, Y., Wu, Q., Meng, R., Lian, F., Jiang, C., Hu, M., Wang, Y., & Ma, H. (2023). Associations of serum uric acid with cardiovascular disease risk factors: a retrospective cohort study in Southeastern China [Data set]. Zenodo. https://doi.org/10.5061/dryad.z08kprrk1
+
+See the Zenodo record [https://zenodo.org/records/8292712](https://zenodo.org/records/8292712)
 
 ### Accessing the diabetes2 dataset
 
 In order to access the dataset, we suggest using:
 
 ```{.r filename="my-report.qmd"}
-# https://datadryad.org/dataset/doi:10.5061/dryad.96320
-# https://zenodo.org/records/4989220
-post_meal_insulin <- readr::read_csv2("https://zenodo.org/records/8292712/files/SUA_CVDs_risk_factors.csv")
+SUA_data <- readr::read_csv2("https://zenodo.org/records/8292712/files/SUA_CVDs_risk_factors.csv")
 ```
-
-
 
 ##  Cognitive weight loss intervention {#weight-data}
 
-TODO
+**Description**
+Horan and Johnson randomly assigned 80 women who were between “20 per cent and 30 per cent overweight” into four groups for weight loss. In the horan1971 data, these four groups are differentiated in the treatment column, which is coded
+
+-   delayed, a “delayed treatment control” (i.e., wait-list control), the members of which received an active treatment after the study;
+-   placebo, a minimalist intervention where participants were given basic information about nutrition and weight-loss strategies;
+-   scheduled, an active treatment that added a cognitive element to the information from the placebo group; and
+-   experimental, which added a full behavioral element (based on the Premack principle) to the placebo intervention.
+
+**Format**
+
+-   sl: subject as a letter ID
+-   sn: subject as a number ID
+-   treatment: delayed", "placebo", "scheduled", "experimental
+-   pre: weight before intervention, measured in pounds
+-   post: weight after intervention, measured in pounds
+
+**Source**
+
+Horan, J. J., & Johnson, R. G. (1971). Coverant conditioning through a self-management application of the Premack principle: Its effect on weight reduction. Journal of Behavior Therapy and Experimental Psychiatry, 2(4), 243–249. [link](https://doi.org/10.1016/0005-7916(71)90040-1)
 
 ### Accessing the Cognitive weight loss intervention dataset
 
 ```{.r filename="my-report.qmd"}
-horan1971 <- tibble(
+# Constructing the data yourself using `tibble`:
+horan1971 <- tibble::tibble(
   sl = c(letters[1:22], letters[1:20], letters[1:19], letters[1:19]),
   sn = 1:80,
   treatment = factor(rep(1:4, times = c(22, 20, 19, 19))),
@@ -345,7 +348,7 @@ horan1971 <- tibble(
            121.75, 132.25, 166, 146.5, 154.5, 114, 148.25, 148.25, 133.5, 126.5, 137, 126.5, 148.5, 145.5, 151.5, 128.5, 176.5, 170.5, 181.5, 160.5,
            145.5, 122.75, 164, 118.5, 122, 125.5, 129.5, 137, 119.5, 123.5, 150.5, 125.75, 135, 164.25, 144.5, 135.5, 169.5, 194.5, 142.5,
            129, 146.5, 142.25, 114.5, 148.25, 161.25, 142.5, 174.5, 163, 160.5, 151.25, 144, 135.5, 136.5, 145.5, 185, 174.75, 179, 141.5)) %>%
-  mutate(treatment = factor(treatment, labels = c("delayed", "placebo", "scheduled", "experimental")))
+  dplyr::mutate(treatment = factor(treatment, labels = c("delayed", "placebo", "scheduled", "experimental")))
 ```
 
 
@@ -355,7 +358,6 @@ horan1971 <- tibble(
 
 It is an artificial (simulated) dataset of a clinical trial investigating the effect of an active treatment on FEV1 (forced expired volume in one second), compared to placebo. FEV1 is a measure of how quickly the lungs can be emptied and low levels may indicate chronic obstructive pulmonary disease (COPD).
 
-The dataset is made within a collaboration by people from major pharmaceutical companies, such as Eli Lilly and Company, Boehringer Ingelheim Pharma GmbH & Co, Gilead Sciences, Inc., F. Hoffmann-La Roche AG, Merck Sharp & Dohme, Inc., AstraZeneca plc, and inferential.biostatistics GmbH.
 
 **Format**
 
@@ -371,19 +373,28 @@ The dataset is a tibble with 800 rows and the following notable variables:
 -   FEV1 (FEV1 at study visits)
 -   WEIGHT (weighting variable, z-scored?)
 
-The primary endpoint for the analysis is change from baseline in FEV1, which we derive below and denote FEV1_CHG.
+The primary endpoint for the analysis is change from baseline in FEV1, which we derive ourselves and denote FEV1_CHG.
+
+**Source**
+
+This is an artificial dataset made within a collaboration by people from major pharmaceutical companies, such as Eli Lilly and Company, Boehringer Ingelheim Pharma GmbH & Co, Gilead Sciences, Inc., F. Hoffmann-La Roche AG, Merck Sharp & Dohme, Inc., AstraZeneca plc, and inferential.biostatistics GmbH.
 
 ### Accessing the FEV1 dataset
 
 ```{.r filename="my-report.qmd"}
+# Importing the data:
+fev_data <- readr::read_csv("https://raw.githubusercontent.com/DanMazJen/medicinsk-statistik/main/data/fev_data.csv")
+# Make it a tibble:
+fev_data |>
+    tibble::tibble()
+```
+
+:::{.hidden}
 https://github.com/openpharma/mmrm/blob/main/data/fev_data.rda
 data_url <- "https://raw.githubusercontent.com/openpharma/mmrm/main/data/fev_data.rda"
 load(url(data_url))
 fev_data |> tibble::tibble()
-```
-
-
-
+:::
 
 
 
@@ -422,8 +433,6 @@ Not incl.
 
 
 ## Diabetes1
-
-**Time: ~5 minutes.**
 
 https://zenodo.org/records/4989220
 

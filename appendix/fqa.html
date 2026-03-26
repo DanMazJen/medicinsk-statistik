@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>23&nbsp; Exercises: Probability and stochastic variables – Medical Statistics, MEDMS24B5_1</title>
+<title>Appendix B — Frequently Asked Questions – Medical Statistics, MEDMS24B5_1</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -32,8 +32,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../appendix/for-teachers.html" rel="next">
-<link href="../exercises/ex01.html" rel="prev">
+<link href="../CHANGELOG.html" rel="next">
+<link href="../appendix/references.html" rel="prev">
 <link href="../site_libs/quarto-contrib/quarto-project/rostools/rostools-theme/favicon.ico" rel="icon">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -107,7 +107,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../exercises/data.html">Exercises</a></li><li class="breadcrumb-item"><a href="../exercises/ex02.html"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Exercises: Probability and stochastic variables</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../appendix/for-teachers.html">Appendices</a></li><li class="breadcrumb-item"><a href="../appendix/fqa.html"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Frequently Asked Questions</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -301,7 +301,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../exercises/ex02.html" class="sidebar-item-text sidebar-link active">
+  <a href="../exercises/ex02.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Exercises: Probability and stochastic variables</span></span></a>
   </div>
 </li>
@@ -330,7 +330,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../appendix/fqa.html" class="sidebar-item-text sidebar-link">
+  <a href="../appendix/fqa.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Frequently Asked Questions</span></span></a>
   </div>
 </li>
@@ -364,20 +364,24 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link active" data-scroll-target="#learning-objectives"><span class="header-section-number">23.1</span> Learning objectives</a></li>
-  <li><a href="#exercise-title" id="toc-exercise-title" class="nav-link" data-scroll-target="#exercise-title"><span class="header-section-number">23.2</span> <span class="emoji" data-emoji="technologist">🧑‍💻</span> Exercise: Title</a></li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">23.3</span> Summary</a></li>
-  <li><a href="#survey" id="toc-survey" class="nav-link" data-scroll-target="#survey"><span class="header-section-number">23.4</span> Survey</a></li>
+  <li><a href="#frequently-asked-questions" id="toc-frequently-asked-questions" class="nav-link active" data-scroll-target="#frequently-asked-questions"><span class="header-section-number">C</span> Frequently Asked Questions</a>
+  <ul class="collapse">
+  <li><a href="#issues-with-r" id="toc-issues-with-r" class="nav-link" data-scroll-target="#issues-with-r"><span class="header-section-number">C.1</span> Issues with R</a></li>
+  <li><a href="#using-other-software" id="toc-using-other-software" class="nav-link" data-scroll-target="#using-other-software"><span class="header-section-number">C.2</span> Using Other Software</a></li>
+  <li><a href="#how-do-i-find-the-datasets-mentioned-in-the-course" id="toc-how-do-i-find-the-datasets-mentioned-in-the-course" class="nav-link" data-scroll-target="#how-do-i-find-the-datasets-mentioned-in-the-course"><span class="header-section-number">C.3</span> How do I find the datasets mentioned in the course?</a></li>
+  <li><a href="#miscellaneous" id="toc-miscellaneous" class="nav-link" data-scroll-target="#miscellaneous"><span class="header-section-number">C.4</span> Miscellaneous</a></li>
+  <li><a href="#finding-documentation-and-help-within-r" id="toc-finding-documentation-and-help-within-r" class="nav-link" data-scroll-target="#finding-documentation-and-help-within-r"><span class="header-section-number">C.5</span> Finding documentation and help within R</a></li>
+  </ul></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/DanMazJen/medicinsk-statistik/edit/main/exercises/ex02.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/blob/main/exercises/ex02.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/DanMazJen/medicinsk-statistik/edit/main/appendix/fqa.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/blob/main/appendix/fqa.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 <script data-goatcounter="https://DanMazJen-medicinsk-statistik.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script>
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../exercises/data.html">Exercises</a></li><li class="breadcrumb-item"><a href="../exercises/ex02.html"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Exercises: Probability and stochastic variables</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../appendix/for-teachers.html">Appendices</a></li><li class="breadcrumb-item"><a href="../appendix/fqa.html"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Frequently Asked Questions</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Exercises: Probability and stochastic variables</span></h1>
+<h1 class="title">Appendix B — Frequently Asked Questions</h1>
 </div>
 
 
@@ -406,34 +410,192 @@ Warning
 <p>🚧 This section is being actively worked on. 🚧</p>
 </div>
 </div>
-<!-- TODO: Add an introduction here -->
-<section id="learning-objectives" class="level2" data-number="23.1">
-<h2 data-number="23.1" class="anchored" data-anchor-id="learning-objectives"><span class="header-section-number">23.1</span> Learning objectives</h2>
-<p>The learning objectives for this session are:</p>
-<ul>
-<li>Udvise forståelse for usikkerheds- og sandsynlighedsbegrebet samt grundliggende begreber indenfor biostatistik</li>
-<li>Udvise kendskab til de grundliggende overordnede studietyper samt at skelne mellem forklarende, eksplorative og prædiktive studier</li>
-<li>Redegøre for forskellige typer af tilfældig og ikke tilfældig variation</li>
-<li>Udvise forståelse for statistiske værktøjers begrænsninger og muligheder</li>
-<li>Forstå statistiske problemstillinger, der er centrale for medicin med industrial specialisering og forstå, hvordan de biostatistiske værktøjer kan appliceres på disse problemstillinger</li>
-</ul>
+<p>This page is intended as a “quick-fix” repositroty for common issues and simple solutions for the <strong>Medical Statistics</strong> course.</p>
+<hr>
+<section id="frequently-asked-questions" class="level1" data-number="C">
+<h1 data-number="C"><span class="header-section-number">C</span> Frequently Asked Questions</h1>
+<p>This page is intended as a quick-reference repository for common issues and simple solutions for the Medical Statistics course.</p>
+<section id="issues-with-r" class="level2" data-number="C.1">
+<h2 data-number="C.1" class="anchored" data-anchor-id="issues-with-r"><span class="header-section-number">C.1</span> Issues with R</h2>
+<div id="tip-runissue" class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip&nbsp;C.1: R will not run my code
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Check the following:</p>
+<p>Make sure you have loaded all the required packages with library(). Verify that your data is correctly loaded and appears in the Environment/Variables pane. Restart R and try again if the issue persists.</p>
+</div>
+</div>
+</div>
+<div id="tip-mispackage" class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip&nbsp;C.2: I get an error about a missing package
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Install the package using: <code>install.packages("packageName")</code></p>
+<p>Then load it with: <code>library(packageName)</code></p>
+</div>
+</div>
+</div>
+<div id="tip-plotshow" class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip&nbsp;C.3: My plots do not show
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Ensure your plotting window (Plots pane in RStudio) is open. Use print(plot_object) inside functions or loops to display plots. Check for typos in variable names or dataset columns.</p>
+</div>
+</div>
+</div>
 </section>
-<section id="exercise-title" class="level2" data-number="23.2">
-<h2 data-number="23.2" class="anchored" data-anchor-id="exercise-title"><span class="header-section-number">23.2</span> <span class="emoji" data-emoji="technologist">🧑‍💻</span> Exercise: Title</h2>
-<p><strong>Time: ~NUM minutes.</strong></p>
-<p>Text</p>
+<section id="using-other-software" class="level2" data-number="C.2">
+<h2 data-number="C.2" class="anchored" data-anchor-id="using-other-software"><span class="header-section-number">C.2</span> Using Other Software</h2>
+<div id="tip-python" class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip&nbsp;C.4: Can I use software other than R?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>For this course, no. Assignments and evaluations are based on R skills. You may explore other software independently, but submissions must be done in R. IF you already know other programs like python, julia, matlab etc., you will learn faster and gain a deeper intuition of programming in general by learning R. However, R is by far the most capable when it comes to statistical programming within medical statistics.</p>
+</div>
+</div>
+</div>
+<div id="tip-python" class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip&nbsp;C.5: Can I use an IDE other than RStudio?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Yes, you can use any IDE you prefer. However, we will not provide specific instructions for other IDEs. Any issues or troubleshooting will be your responsibility.</p>
+</div>
+</div>
+</div>
 </section>
-<section id="summary" class="level2" data-number="23.3">
-<h2 data-number="23.3" class="anchored" data-anchor-id="summary"><span class="header-section-number">23.3</span> Summary</h2>
-<ul>
-<li>TODO: List of summary items</li>
-</ul>
+<section id="how-do-i-find-the-datasets-mentioned-in-the-course" class="level2" data-number="C.3">
+<h2 data-number="C.3" class="anchored" data-anchor-id="how-do-i-find-the-datasets-mentioned-in-the-course"><span class="header-section-number">C.3</span> How do I find the datasets mentioned in the course?</h2>
+<div id="tip-data" class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip&nbsp;C.6
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Where do I find the course datasets?</p>
+<p>Datasets are available <a href="../exercises/data.html">here</a>.</p>
+</div>
+</div>
+</div>
 </section>
-<section id="survey" class="level2" data-number="23.4">
-<h2 data-number="23.4" class="anchored" data-anchor-id="survey"><span class="header-section-number">23.4</span> Survey</h2>
-<p><a href="https://docs.google.com/forms/d/e/1FAIpQLSejsgArWYbCpTjKoxdCArtAVJrtBZQCINIEUj1TqppYrd3n8g/viewform?usp=publish-editor" class="btn btn-primary" role="button">Feedback survey! <span class="emoji" data-emoji="tada">🎉</span></a></p>
+<section id="miscellaneous" class="level2" data-number="C.4">
+<h2 data-number="C.4" class="anchored" data-anchor-id="miscellaneous"><span class="header-section-number">C.4</span> Miscellaneous</h2>
+<div id="tip-difficult" class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip&nbsp;C.7: I don’t understand a concept in class
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Review lecture slides and the recommended textbook. Check online resources for statistics tutorials. Attend office hours or contact the instructor for guidance. What should I do if I miss a class? Watch recorded lectures (if available) and review slides. Work through exercises to catch up. Ask classmates or the instructor for clarifications.</p>
+</div>
+</div>
+</div>
+<div id="tip-cite" class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip&nbsp;C.8: How do I cite R or packages in assignments?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Use the citation information provided by: <code>citation("packageName")</code></p>
+<p>For R itself: <code>citation()</code></p>
+</div>
+</div>
+</div>
+</section>
+<section id="finding-documentation-and-help-within-r" class="level2" data-number="C.5">
+<h2 data-number="C.5" class="anchored" data-anchor-id="finding-documentation-and-help-within-r"><span class="header-section-number">C.5</span> Finding documentation and help within R</h2>
+<div id="tip-helpfunc" class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip&nbsp;C.9: Leverage help and tutorials
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Use <code>?functionName</code> for built-in guidance. Explore RStudio cheat sheets for statistics, data wrangling, and plotting. Online tutorials (like R for Data Science by Hadley Wickham) are excellent references.</p>
+</div>
+</div>
+</div>
+<div id="tip-errors" class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip&nbsp;C.10: What happens when I get scary red text and “error” messages?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Don’t worry about making mistakes — R’s error messages are your friends. They often tell you exactly what went wrong and how to fix it. Learning to read them is a skill in itself.</p>
+</div>
+</div>
+</div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -839,13 +1001,13 @@ Warning
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../exercises/ex01.html" class="pagination-link" aria-label="Exercises: Getting R up and running">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Exercises: Getting R up and running</span></span>
+      <a href="../appendix/references.html" class="pagination-link" aria-label="References">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">References</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../appendix/for-teachers.html" class="pagination-link" aria-label="For teachers">
-        <span class="nav-page-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">For teachers</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../CHANGELOG.html" class="pagination-link" aria-label="Changelog">
+        <span class="nav-page-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Changelog</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -868,7 +1030,7 @@ Warning
 </a>
   </li>  
 </ul>
-    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/DanMazJen/medicinsk-statistik/edit/main/exercises/ex02.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/blob/main/exercises/ex02.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/DanMazJen/medicinsk-statistik/edit/main/appendix/fqa.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/blob/main/appendix/fqa.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>

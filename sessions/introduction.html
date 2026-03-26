@@ -2,13 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.27">
+<meta name="generator" content="quarto-1.9.36">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>11&nbsp; Introduction to workshop – Medical Statistics, MEDMS24B5_1</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -34,19 +37,18 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-contrib/quarto-project/rostools/rostools-theme/favicon.ico" rel="icon">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-e689d78d6c8c7950ebe29ea6de1e7d7a.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-98ac0766720b79c043bef3f424e3b115.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-e689d78d6c8c7950ebe29ea6de1e7d7a.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-539da54b52e565de953b06aa3a3fe8b8.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-54b04885f2c4ac579f857cf6ad304830.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-539da54b52e565de953b06aa3a3fe8b8.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-2f3853e0fbf373a2af93153644b979c3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-277583e6f1b463ccb2648f6ee27a41b5.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-2f3853e0fbf373a2af93153644b979c3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-9f0b012cea2d396286b579a17324ec51.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-0b32639f3c91ebcfe44c0b28852bd319.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-9f0b012cea2d396286b579a17324ec51.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/quarto-contrib/fontawesome6-1.2.0/all.min.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/fontawesome6-1.2.0/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
@@ -87,8 +89,8 @@ ul.task-list li input[type="checkbox"] {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a href="../index.html" class="navbar-brand navbar-brand-logo">
-    <img src="../site_libs/quarto-contrib/quarto-project/rostools/rostools-theme/favicon-white.ico" alt="Graphic of a capital R with a 3 as a superscript." class="navbar-logo light-content">
-    <img src="../site_libs/quarto-contrib/quarto-project/rostools/rostools-theme/favicon-white.ico" alt="Graphic of a capital R with a 3 as a superscript." class="navbar-logo dark-content">
+    <img src="../site_libs/quarto-contrib/quarto-project/rostools/rostools-theme/favicon.ico" alt="Graphic of a medical pill with a scatter plot and a regression line inside it." class="navbar-logo light-content">
+    <img src="../site_libs/quarto-contrib/quarto-project/rostools/rostools-theme/favicon.ico" alt="Graphic of a medical pill with a scatter plot and a regression line inside it." class="navbar-logo dark-content">
     </a>
     <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Medical Statistics, MEDMS24B5_1</span>
@@ -328,20 +330,26 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../appendix/fqa.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Frequently Asked Questions</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../CHANGELOG.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Changelog</span></span></a>
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Changelog</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../CONTRIBUTING.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Contributing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Contributing</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../LICENSE.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Creative Commons Attribution 4.0 International</span></span></a>
+ <span class="menu-text"><span class="chapter-number">E</span>&nbsp; <span class="chapter-title">Creative Commons Attribution 4.0 International</span></span></a>
   </div>
 </li>
       </ul>
@@ -419,7 +427,37 @@ Warning
 </div>
 <section id="the-big-picture" class="level2" data-number="11.1">
 <h2 data-number="11.1" class="anchored" data-anchor-id="the-big-picture"><span class="header-section-number">11.1</span> The Big Picture</h2>
-<p>TODO: Add text highlighting the bigger picture of why we teach this.</p>
+<p>To repeat from the <a href="https://moduler.aau.dk/course/2024-2025/MEDMS24B5_1">official syllabus</a>, our <strong>main tangible goal</strong> is to:</p>
+<ol type="1">
+<li>Acquire literacy of medical statistics in order to read and critically evaluate results and procedures in medical research and production.</li>
+<li>Gain practical skills in the domain of statistical programming in order to perform a broad repetoir of statistical procedures yourself</li>
+<li>Use your literacy and practical skills in medical statistics to formulate plans, execute the plan, and make inference for clinical decision-making.</li>
+</ol>
+<p><em>The learning goals are as follows:</em></p>
+<p><strong>Knowledge</strong></p>
+<ul>
+<li>Demonstrate understanding of the concepts of uncertainty and probability, as well as fundamental concepts within <em>biostatistic</em></li>
+<li>Demonstrate knowledge of the basic overarching study designs and the ability to distinguish between <em>explanatory, exploratory, and predictive studies</em></li>
+<li>Account for different types of random and non-random variation</li>
+<li>Demonstrate understanding of the limitations and possibilities of <em>statistical tools</em></li>
+<li>Understand statistical issues that are central to medicine with an industrial specialisation, and understand how <em>biostatistical tools can be applied to these issues</em></li>
+</ul>
+<p><strong>Skills</strong></p>
+<ul>
+<li>Be able to read and understand <em>program documentation</em></li>
+<li>Be able to use and <em>select appropriate visualisation tools</em> for analysing health-related data</li>
+<li>Be able to identify and frame statistical scientific problems that are central to medicine with an industrial specialisation, and to use biostatistical methods to address these problems</li>
+<li>Be able to <em>manipulate, visualise, and analyse relevant data</em>, including large and complex datasets</li>
+<li>Explain complex statistical data in a medical context using relevant literature and available reference databases</li>
+<li>Be able to accommodate the diverse backgrounds and knowledge of project group participants in relation to the project</li>
+</ul>
+<p><strong>Competences</strong></p>
+<ul>
+<li>Be able to make healthcare-related problems measurable and apply appropriate biostatistical methods</li>
+<li>Be able to examine healthcare-related problems from multiple perspectives and relate uncertainty to clinical relevance</li>
+<li>Be able to translate data into <em>clinical decision-making</em></li>
+<li>Be able to critically evaluate biostatistical issues across a wide range of contexts and participate in scientific discussions on these matters</li>
+</ul>
 
 
 </section>

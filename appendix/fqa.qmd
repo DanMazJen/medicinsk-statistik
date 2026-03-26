@@ -5,26 +5,118 @@ This page is intended as a "quick-fix" repositroty for common issues and simple 
 
 ---
 
+
+# Frequently Asked Questions
+
+This page is intended as a quick-reference repository for common issues and simple solutions for the Medical Statistics course.
+
+
 ## Issues with R
 
-### R will not run my code
+::: {#tip-runissue .callout-tip collapse="true"}
+
+## R will not run my code
 
 Check the following:
-    -   Load the packages you want to use
-    -   Check that the data is loaded and is an object in the variables pane
-    -   Otherwise, restart R and try again
----
 
-## Using other software
+Make sure you have loaded all the required packages with library().
+Verify that your data is correctly loaded and appears in the Environment/Variables pane.
+Restart R and try again if the issue persists.
 
-### Can I use other software than R?
+:::
 
-In this course, no. You are very welcome to use any other software before or after the course. However, for this specific course, we evaluate your skills in R.
+::: {#tip-mispackage .callout-tip collapse="true"}
 
-### Can I use other software than RStudio?
+# I get an error about a missing package
 
-You are welcome to use any IDE you want. However, we will not give special instructions on using other IDEs, so this is your own responsibility.
+Install the package using:
+`install.packages("packageName")`
 
----
+Then load it with:
+`library(packageName)`
+:::
 
-## Miscellineous
+::: {#tip-plotshow .callout-tip collapse="true"}
+
+# My plots do not show
+
+Ensure your plotting window (Plots pane in RStudio) is open.
+Use print(plot_object) inside functions or loops to display plots.
+Check for typos in variable names or dataset columns.
+
+:::
+
+## Using Other Software
+
+::: {#tip-python .callout-tip collapse="true"}
+
+# Can I use software other than R?
+
+For this course, no. Assignments and evaluations are based on R skills. You may explore other software independently, but submissions must be done in R. IF you already know other programs like python, julia, matlab etc., you will learn faster and gain a deeper intuition of programming in general by learning R. However, R is by far the most capable when it comes to statistical programming within medical statistics.
+
+:::
+
+::: {#tip-python .callout-tip collapse="true"}
+
+# Can I use an IDE other than RStudio?
+
+Yes, you can use any IDE you prefer. However, we will not provide specific instructions for other IDEs. Any issues or troubleshooting will be your responsibility.
+
+:::
+
+## How do I find the datasets mentioned in the course?
+
+::: {#tip-data .callout-tip collapse="true"}
+
+Where do I find the course datasets?
+
+Datasets are available [here](/exercises/data.qmd).
+
+:::
+
+## Miscellaneous
+
+::: {#tip-difficult .callout-tip collapse="true"}
+
+# I don’t understand a concept in class
+
+Review lecture slides and the recommended textbook.
+Check online resources for statistics tutorials.
+Attend office hours or contact the instructor for guidance.
+What should I do if I miss a class?
+Watch recorded lectures (if available) and review slides.
+Work through exercises to catch up.
+Ask classmates or the instructor for clarifications.
+
+:::
+
+::: {#tip-cite .callout-tip collapse="true"}
+
+# How do I cite R or packages in assignments?
+
+Use the citation information provided by:
+`citation("packageName")`
+
+For R itself:
+`citation()`
+
+:::
+
+## Finding documentation and help within R
+
+::: {#tip-helpfunc .callout-tip collapse="true"}
+
+# Leverage help and tutorials
+Use `?functionName` for built-in guidance.
+Explore RStudio cheat sheets for statistics, data wrangling, and plotting.
+Online tutorials (like R for Data Science by Hadley Wickham) are excellent references.
+
+:::
+
+::: {#tip-errors .callout-tip collapse="true"}
+
+# What happens when I get scary red text and "error" messages?
+
+Don’t worry about making mistakes — R’s error messages are your friends. They often tell you exactly what went wrong and how to fix it. Learning to read them is a skill in itself.
+
+:::

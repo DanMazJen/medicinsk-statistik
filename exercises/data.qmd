@@ -10,7 +10,7 @@ So before you worship statistical methods, worship your data pipeline. Clean dat
 
 ::: callout-note
 
-## Open source data: \~1 minute
+## Open source data:
 
 Data can be made publicly available. This is often not a problem, despite GDPR regulations. Datasets are often made available on websites such as [Zenodo](https://zenodo.org/communities/eu/collections/subjects/mhealth?q=&f=resource_type%3Adataset&f=file_type%3Acsv&l=list&p=1&s=10&sort=newest).
 
@@ -24,18 +24,21 @@ to provide data using the [FAIR principles](https://www.go-fair.org/fair-princip
 
 In this course, we use the following datasets:
 
-(@)   [AlzheimerDisease (AppliedPredictiveModeling)](@ref(AlzheimerDisease-data))
-(@)   [Cleveland Heart Disease (ISLR)](@ref(HeartDisease-data))
-(@)   [Medical Expenditure Panel Survey (heckmanGE)](@ref(MEPS-data))
-(@)   [Mayo Clinic Primary Biliary Cholangitis Data (Survival)](@ref(survival-data))
-(@)   [Sleep Study (lme4)](@ref(sleep-data))
-(@)   [Diabetes study](@ref(diabetes-data))
-(@)   [Cognitive weight loss RCT](@ref(weight-data))
-(@)   [FEV1 COPD simulation data](@ref(fev1-data))
+(@)   [AlzheimerDisease (AppliedPredictiveModeling)](#sec-AlzheimerDisease-data)
+(@)   [Cleveland Heart Disease (ISLR)](#sec-HeartDisease-data)
+(@)   [Medical Expenditure Panel Survey (heckmanGE)](#sec-MEPS-data)
+(@)   [Mayo Clinic Primary Biliary Cholangitis Data (Survival)](#sec-survival-data)
+(@)   [Sleep Study (lme4)](#sec-sleep-data)
+(@)   [Diabetes study](#sec-diabetes-data)
+(@)   [Cognitive weight loss RCT](#sec-weight-data)
+(@)   [FEV1 COPD simulation data](#sec-fev1-data)
+(@)   [Messidor diabetic retinopathy](#sec-retinopathy-data)
+(@)   [The Framingham Heart Disease Cohort study](#sec-framingham2-data)
+
 
 Here, we provide some context and meta-data about the datasets. Please take the time to carefully read this section before jumping in and wrangling data without knowing the design or variables collected.
 
-## AlzheimerDisease (AppliedPredictiveModeling) {#AlzheimerDisease-data}
+## AlzheimerDisease (AppliedPredictiveModeling) {#sec-AlzheimerDisease-data}
 
 **Description:**
 
@@ -66,7 +69,7 @@ load(url(data_url))
 :::
 
 
-## Cleveland Heart Disease {#HeartDisease-data}
+## Cleveland Heart Disease {#sec-HeartDisease-data}
 
 **Description**
 
@@ -129,7 +132,7 @@ hd_data <- readr::read_csv("https://raw.githubusercontent.com/DanMazJen/medicins
 hd_data <- readr::read_csv("https://www.statlearning.com/s/Heart.csv")
 :::
 
-## Medical Expenditure Panel Survey 2001: Ambulatory Expenditures Data {#MEPS-data}
+## Medical Expenditure Panel Survey 2001: Ambulatory Expenditures Data {#sec-MEPS-data}
 
 **Description**
 
@@ -180,9 +183,7 @@ meps2001 <- tibble::tibble(MEPS2001)
 rm(MEPS2001)
 :::
 
-## Mayo Clinic Primary Biliary Cholangitis Data {#survival-data}
-
-**Time: ~5 minutes.**
+## Mayo Clinic Primary Biliary Cholangitis Data {#sec-survival-data}
 
 **Description**
 
@@ -227,7 +228,7 @@ pbc |>
     tibble::as.tibble()
 ```
 
-## Sleep study (lme4) {#sleep-data}
+## Sleep study (lme4) {#sec-sleep-data}
 
 **Description**
 
@@ -263,11 +264,7 @@ load(url(data_url))
 head(sleepstudy)
 :::
 
-## Diabetes {#diabetes-data}
-
-**Time: ~5 minutes.**
-
-https://zenodo.org/records/8292712/files/SUA_CVDs_risk_factors.csv
+## Diabetes {#sec-diabetes-data}
 
 **Description**
 
@@ -294,9 +291,9 @@ It was a retrospective cohort study conducted every two years from 2010 to 2018 
 -   Hyperglycemia: Participants with or without hyperglycemia (1.No/2.Yes)
 -   Dyslipidemia: Participants with or without dyslipidemia (1.No/2.Yes)
 
-**Details**
-
 **Source**
+
+https://zenodo.org/records/8292712/files/SUA_CVDs_risk_factors.csv
 
 Luo, Y., Wu, Q., Meng, R., Lian, F., Jiang, C., Hu, M., Wang, Y., & Ma, H. (2023). Associations of serum uric acid with cardiovascular disease risk factors: a retrospective cohort study in Southeastern China [Data set]. Zenodo. https://doi.org/10.5061/dryad.z08kprrk1
 
@@ -307,10 +304,10 @@ See the Zenodo record [https://zenodo.org/records/8292712](https://zenodo.org/re
 In order to access the dataset, we suggest using:
 
 ```{.r filename="my-report.qmd"}
-SUA_data <- readr::read_csv2("https://zenodo.org/records/8292712/files/SUA_CVDs_risk_factors.csv")
+SUA_data <- readr::read_csv("https://zenodo.org/records/8292712/files/SUA_CVDs_risk_factors.csv")
 ```
 
-##  Cognitive weight loss intervention {#weight-data}
+##  Cognitive weight loss intervention {#sec-weight-data}
 
 **Description**
 Horan and Johnson randomly assigned 80 women who were between “20 per cent and 30 per cent overweight” into four groups for weight loss. In the horan1971 data, these four groups are differentiated in the treatment column, which is coded
@@ -352,7 +349,7 @@ horan1971 <- tibble::tibble(
 ```
 
 
-## FEV1 data {#fev1-data}
+## FEV1 data {#sec-fev1-data}
 
 **Description**
 
@@ -398,17 +395,126 @@ fev_data |> tibble::tibble()
 
 
 
+## Messidor diabetic retinopathy {#sec-retinopathy-data}
+
+**Description**
+
+This dataset contains features extracted from the Messidor image set to predict whether an image contains signs of diabetic retinopathy or not.
+
+The Messidor image set is available at [http://messidor.crihan.fr/index-en.php](http://messidor.crihan.fr/index-en.php).
 
 
+**Format**
 
+-   quality: The binary result of quality assessment. 0 = bad quality 1 = sufficient quality.
+-   pre_screening: The binary result of pre-screening, where 1 indicates severe retinal abnormality and 0 its lack.
+-   ma1 through ma6: contain the results of MA detection. Each feature value stand for the number of MAs found at the confidence levels alpha = 0.5, . . . , 1, respectively.
+-   exudate1 through exudate8: contain the same information as ma1 through ma6 for exudates. However, as exudates are represented by a set of points rather than the number of pixels constructing the lesions, these features are normalized by dividing the number of lesions with the diameter of the ROI to compensate different image sizes.
+-   macula_opticdisc_distance: The euclidean distance of the center of the macula and the center of the optic disc to provide important information regarding the patient's condition. This feature is also normalized with the diameter of the ROI.
+-   opticdisc_diameter: The diameter of the optic disc.
+-   am_fm_classification: The binary result of the AM/FM-based classification.
+-   Class: label. 1 = contains signs of diabetic retinopathy (Accumulative label for the Messidor classes 1, 2, 3), 0 = no signs of diabetic retinopathy.
 
+**Source**
 
+Antal, B., & Hajdu, A. (2014). An ensemble-based system for automatic screening of diabetic retinopathy. Knowledge-based systems, 60, 20-27. [link](https://dl.acm.org/doi/abs/10.1016/j.knosys.2013.12.023)
 
+DOI of the dataset: [10.24432/C5XP4P](10.24432/C5XP4P) and [link](https://archive.ics.uci.edu/dataset/329/diabetic+retinopathy+debrecen)
 
+### Accessing the Messidor diabetic retinopathy dataset
 
+```{.r filename="my-report.qmd"}
+# Importing the data:
+messidor <- readr::read_csv("https://raw.githubusercontent.com/DanMazJen/medicinsk-statistik/main/data/messidor.csv")
+# Make it a tibble:
+messidor |>
+    tibble::tibble()
+```
 
+## The Framingham Heart Disease dataset {#sec-framingham2-data}
 
+**Description**
 
+The framingham heart study began in 1948 for regular surveillance of clinical examinations and heart health outcomes of patients in Framingham, Massechusettes. The dataset we host contains laboratory and clinical data on a subset of the study from 1956-1968.
+
+The data is provided in Longitudinal form. Each participant has 1 to 3 observations depending
+on the number of exams the subject attended, and as a result there are 11,627 observations on
+the 4,434 participants. Event data for each participant has been added without regard for
+prevalent disease status or when examination data was collected. For example, consider the
+following participant:
+
+|RANDID | age | SEX |time  | period | prevchd | mi_fchd | timemifc |
+|95148  | 52  | 2   | 0    | 1      | 0       | 1       | 3607     |
+|95148  | 58  | 2   | 2128 | 2      | 0       | 1       | 3607     |
+|95148  | 64  | 2   | 4192 | 3      | 1       | 1       | 3607     |
+
+Participant `95148` entered the study (`time`=0 or `period`=1) free of prevalent coronary heart
+disease (`prevchd`=0 at `period`=1); however, during followup, an MI event occurred at day 3607
+following the baseline examination. The MI occurred after the second exam the subject attended
+(`period`=2 or `time`=2128 days), but before the third attended exam (`period`=3 or `time`=4192
+days). Since the event occurred prior to the third exam, the subject was prevalent for CHD
+(`prevchd`=1) at the third examination. Note that the event data (`mi_fchd`, `timemifc`) covers the
+entire followup period and does not change according to exam.
+
+**Format**
+
+-   RANDID: Unique identification number for each participant
+-   SEX Participant sex 1=Men 2=Women
+-   PERIOD Examination Cycle 1=Period 1 2=Period 2 3=Period 3
+-   TIME Number of days since baseline exam
+-   AGE Age at exam (years)
+-   SYSBP Systolic Blood Pressure (mean of last two of three measurements) (mmHg)
+-   DIABP Diastolic Blood Pressure (mean of last two of three measurements) (mmHg)
+-   BPMEDS Use of Anti-hypertensive medication at exam 0=Not currently used 1=Current Use
+-   CURSMOKE Current cigarette smoking at exam 0=Not current smoker 1=Current smoker
+-   CIGPDAY Number of cigarettes smoked each day 0=Not current smoker 1-90 cigarettes per day
+-   EDUC Attained Education 1=0-11 years 2=High School Diploma, GED 3=Some College, Vocational School 4=College (BSc, BArt) degree or more
+-   TOTCHOL Serum Total Cholesterol (mg/dL)
+-   HDLC High Density Lipoprotein Cholesterol (mg/dL) available for period 3 only
+-   LDLC Low Density Lipoprotein Cholesterol (mg/dL) available for period 3 only
+-   BMI Body Mass Index, weight in kilograms/height meters squared
+-   LUCOSE Casual serum glucose (mg/dL)
+-   DIABETES Diabetic according to criteria of first exam treated or first exam with casual glucose of 200 mg/dL or more 0=Not a diabetic 1=Diabetic
+-   HEARTRTE Heart rate (Ventricular rate) in beats/min
+-   PREVAP Prevalent Angina Pectoris at exam 0=Free of disease 1=Prevalent disease
+-   PREVCHD Prevalent Coronary Heart Disease defined as pre-existing Angina Pectoris, Myocardial Infarction (hospitalized, silent or unrecognized), or Coronary Insufficiency (unstable angina) 0=Free of disease 1=Prevalent disease
+-   PREVMI Prevalent Myocardial Infarction 0=Free of disease 1=Prevalent disease
+-   PREVSTRK Prevalent Stroke 0=Free of disease 1=Prevalent disease
+-   PREVHYP Prevalent Hypertensive. Subject was defined as hypertensive if treated or if second exam at which mean systolic was >=140 mmHg or mean Diastolic >=90 mmHg 0=Free of disease 1=Prevalent disease
+-   ANGINA Angina Pectoris HOSPMI Hospitalized Myocardial Infarction
+-   MI_FCHD Hospitalized Myocardial Infarction or Fatal Coronary Heart Disease
+-   ANYCHD Angina Pectoris, Myocardial infarction (Hospitalized and silent or unrecognized), Coronary Insufficiency (Unstable Angina), or Fatal Coronary Heart Disease
+-   STROKE Atherothrombotic infarction, Cerebral Embolism, Intracerebral Hemorrhage, or Subarachnoid Hemorrhage or Fatal Cerebrovascular Disease
+-   CVD Myocardial infarction (Hospitalized and silent or unrecognized), Fatal Coronary Heart Disease, Atherothrombotic infarction, Cerebral Embolism, Intracerebral Hemorrhage, or Subarachnoid Hemorrhage or Fatal Cerebrovascular Disease
+-   HYPERTEN Hypertensive. Defined as the first exam treated for high blood pressure or second exam in which either Systolic is >= 140 mmHg or Diastolic <= 90mmHg
+-   DEATH Death from any cause
+-   TIMEAP Number of days from Baseline exam to first Angina during the followup or Number of days from Baseline to censor date. Censor date may be end of followup, death or last known contact date if subject is lost to followup
+-   TIMEMI Defined as above for the first
+-   HOSPMI event during followup
+-   TIMEMIFC Defined as above for the first
+-   MI_FCHD event during followup
+-   TIMECHD Defined as above for the first
+-   ANYCHD event during followup
+-   TIMESTRK Defined as above for the first STROKE event during followup
+-   TIMECVD Defined as above for the first CVD event during followup
+-   TIMEHYP Defined as above for the first HYPERTEN event during followup
+-   TIMEDTH Number of days from Baseline exam to death if occurring during followup or Number of days from Baseline to censor date. Censor date may be end of followup, or last known contact date if subject is lost to followup
+
+**Source**
+
+https://www.framinghamheartstudy.org/
+
+This dataset is the teaching dataset from the Framingham Heart Study (No. N01-HC-25195), provided with permission from #' the National Heart, Lung, and Blood Institute (NHLBI).
+
+### Accessing the Framingham Heart Disease dataset
+
+```{.r filename="my-report.qmd"}
+# Importing the data:
+framingham2 <- readr::read_csv("https://raw.githubusercontent.com/DanMazJen/medicinsk-statistik/main/data/framingham2.csv")
+# Make it a tibble:
+framingham2 |>
+    tibble::tibble()
+```
 
 
 

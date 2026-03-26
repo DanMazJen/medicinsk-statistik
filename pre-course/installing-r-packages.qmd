@@ -42,7 +42,7 @@ Before we continue, let's briefly explain what some terms mean.
 For this course, we will be focusing on R packages that are powerful
 and general-purpose enough to help you in multiple aspects of your
 research. To install these packages, you'll need to install our custom
-r3 helper package that we use for this course to help you install all
+`{medisr}` helper package that we use for this course to help you install all
 the needed packages and to run some basic checks during the pre-course
 setup. To install it, you'll first need to install the `{pak}` package.
 
@@ -64,8 +64,8 @@ install.packages("pak")
 ```
 
 Next, copy and paste (or type) the function below into the RStudio
-Console (panel "B" in @fig-rstudio-introduction) to install the r3
-package. Hit "Enter" and the r3 helper package will be installed.
+Console (panel "B" in @fig-rstudio-introduction) to install the `{medisr}`
+package. Hit "Enter" and the `{medisr}` helper package will be installed.
 
 ::: {.callout-warning appearance="default"}
 You might encounter an error when running the below code. That's ok, if
@@ -79,7 +79,7 @@ what types of software get installed. If you run into issues, try to
 install in administrator mode.
 :::
 
-```{r install-r3}
+```{r install-medisr}
 #| filename: "Console"
 pak::pak("DanMazJen/medisr", upgrade = TRUE)
 ```
@@ -122,7 +122,7 @@ can manually install the necessary packages with this code:
 
 ```{r manual-install-packages}
 #| filename: "Console"
-install.packages(c("tidyverse", "here", "hexbin", "prodigenr", "styler", "usethis"))
+install.packages(c("tidyverse", "here", "survival", "prodigenr", "styler"))
 ```
 :::
 

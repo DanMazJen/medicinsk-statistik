@@ -32,9 +32,9 @@ indicate this to the teacher :womans_hat: :tophat:
 ]]
 
 local faq_text = [[
-Throughout the many times we've taught this and other workshops we
+Throughout the many times we've taught R and statistics courses we
 get asked a lot of questions. We have a [Frequently Asked
-Questions](https://guides.rostools.org/faq) page for keeping track of
+Questions](/appendix/fqa) page for keeping track of
 some of these questions. Check out this page, maybe your question has
 already been answered!
 ]]
@@ -46,9 +46,9 @@ local wip = [[
 ]]
 
 local discord_text = [[
-If you want to get help virtually or after the workshop, you can join the
-[Discord channel](https://discord.gg/WKyTF5yXBJ) where you can ask questions
-in the `questions-or-advice` text channel.
+If you want to get help virtually or after the course, you can
+make issues or comments to the GitHub page or email the course
+responsibles at their respective emails.
 ]]
 
 function text_snippet(args)

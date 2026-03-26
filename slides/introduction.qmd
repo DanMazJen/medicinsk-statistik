@@ -5,11 +5,8 @@ search: false
 
 # Welcome to Medical Statistics
 
-TODO: update these.
-
--   :heavy_check_mark: Check out the website [Medical Statistics](https://medical-statistics-aau.netlify.app/)
--   :heavy_check_mark: Go to the table with the group name
--   :heavy_check_mark: Introduce yourself to your group members
+-   :heavy_check_mark: Find a seat and check in with the persons sitting next to you
+-   :heavy_check_mark: Check out the website [Medical Statistics](https://danmazjen.github.io/medicinsk-statistik/)
 
 ::: notes
 Introduce teachers and helpers after welcoming everyone and getting
@@ -18,7 +15,11 @@ them to do this.
 
 TODO: Add more slides as desired or needed.
 
-## :raising_hand_woman: Before this workshop... How many knew or have heard about ... {.center}
+## :raising_hand_woman: How many have read results in a paper and wondered how they <u>actually</u> did it? {.center}
+
+## :raising_hand_woman: How many have read results in a paper and wondered how they <u>actually</u> did it? {.center}
+
+## :raising_hand_woman: How many have read results in a paper and wondered how they <u>actually</u> did it? {.center}
 
 # Workshop details
 

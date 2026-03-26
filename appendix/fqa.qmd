@@ -1,0 +1,30 @@
+# Frequently Asked Questions
+
+
+This page is intended as a "quick-fix" repositroty for common issues and simple solutions for the **Medical Statistics** course.
+
+---
+
+## Issues with R
+
+### R will not run my code
+
+Check the following:
+    -   Load the packages you want to use
+    -   Check that the data is loaded and is an object in the variables pane
+    -   Otherwise, restart R and try again
+---
+
+## Using other software
+
+### Can I use other software than R?
+
+In this course, no. You are very welcome to use any other software before or after the course. However, for this specific course, we evaluate your skills in R.
+
+### Can I use other software than RStudio?
+
+You are welcome to use any IDE you want. However, we will not give special instructions on using other IDEs, so this is your own responsibility.
+
+---
+
+## Miscellineous

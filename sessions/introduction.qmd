@@ -19,4 +19,34 @@ the keyboard.
 
 ## The Big Picture
 
-TODO: Add text highlighting the bigger picture of why we teach this.
+To repeat from the [official syllabus](https://moduler.aau.dk/course/2024-2025/MEDMS24B5_1), our **main tangible goal** is to:
+
+1)   Acquire literacy of medical statistics in order to read and critically evaluate results and procedures in medical research and production.
+2)   Gain practical skills in the domain of statistical programming in order to perform a broad repetoir of statistical procedures yourself
+3)   Use your literacy and practical skills in medical statistics to formulate plans, execute the plan, and make inference for clinical decision-making.
+
+*The learning goals are as follows:*
+
+**Knowledge**
+
+-   Demonstrate understanding of the concepts of uncertainty and probability, as well as fundamental concepts within *biostatistic*
+-   Demonstrate knowledge of the basic overarching study designs and the ability to distinguish between *explanatory, exploratory, and predictive studies*
+-   Account for different types of random and non-random variation
+-   Demonstrate understanding of the limitations and possibilities of *statistical tools*
+-   Understand statistical issues that are central to medicine with an industrial specialisation, and understand how *biostatistical tools can be applied to these issues*
+
+**Skills**
+
+-   Be able to read and understand *program documentation*
+-   Be able to use and *select appropriate visualisation tools* for analysing health-related data
+-   Be able to identify and frame statistical scientific problems that are central to medicine with an industrial specialisation, and to use biostatistical methods to address these problems
+-   Be able to *manipulate, visualise, and analyse relevant data*, including large and complex datasets
+-   Explain complex statistical data in a medical context using relevant literature and available reference databases
+-   Be able to accommodate the diverse backgrounds and knowledge of project group participants in relation to the project
+
+**Competences**
+
+-   Be able to make healthcare-related problems measurable and apply appropriate biostatistical methods
+-   Be able to examine healthcare-related problems from multiple perspectives and relate uncertainty to clinical relevance
+-   Be able to translate data into *clinical decision-making*
+-   Be able to critically evaluate biostatistical issues across a wide range of contexts and participate in scientific discussions on these matters

@@ -37,8 +37,8 @@ contributes:
 
     book:
       navbar:
-        logo: "favicon-white.ico"
-        logo-alt: "Graphic of a capital R with a 3 as a superscript."
+        logo: "favicon.ico"
+        logo-alt: "Graphic of a medical pill with a scatter plot and a regression line inside it."
         pinned: true
       search:
         location: navbar

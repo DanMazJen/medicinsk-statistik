@@ -80,13 +80,17 @@ Once R and RStudio have been installed, open RStudio. *If you
 encounter any troubles during these pre-course tasks*, try as best as
 you can to complete the task and then let us know about the issues in
 the pre-course survey. If you continue having problems, indicate on
-the survey that you need help and we can try to book a quick video call
-to fix the problem. Otherwise, you can come to the course 15-20
+the survey that you need help you can come to the course 30
 minutes earlier to get help.
 
-To see whether everything is set up okay,
-see [this video at YouTube](https://www.youtube.com/watch?v=mAtAHwiP204) by Edge Rubak.
+<!--- cSpell:words Mazhari-Jensen --->
+<!--- cSpell:ignore edge, Rubak --->
 
+<!--- cSpell:disable --->
+To see whether everything is set up okay,
+see [this video at YouTube](https://www.youtube.com/watch?v=mAtAHwiP204) by Prof. Rubak.
+
+<!--- cSpell:enable --->
 If you're unable to complete the setup procedure due to unfixable
 technical issues, you can use Posit Cloud (to use RStudio on the cloud)
 as a final solution in order to participate in the course. For help

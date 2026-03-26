@@ -5,4 +5,4 @@ be aware of:
 -   Folder names always end with `/`, for example `data/` means the data
     folder.
 -   File names always end with their file extension, for example
-    `content.md` means the file is a Markdown file.
+    `content.R` means the file is an R file.

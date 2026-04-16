@@ -25,3 +25,5 @@ Imports:
     stringr,
     tibble,
     tidyr
+Depends:
+    tidyverse

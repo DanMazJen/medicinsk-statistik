@@ -358,23 +358,18 @@ One "meta-package" we will use throughout the course is called
 from inside it.
 
 The way you load a package and get access to the functions inside is by
-using the `library()` function. So let's load the `{tidyverse}` package
-by writing `library(tidyverse)` in the code chunk. It should look like
-this:
+using the `library()` function. So let's load the `{dplyr}` package
+by writing `library(dplyr)`.
 
-```{{r setup}}
-library(tidyverse)
-```
-
-Let's run this code chunk by placing the cursor over the code and using
+Let's run this code by placing the cursor over the code and using
 {{< var keybind.run-code >}}. After you run the code, you should see
-some text below the `setup` chunk that might look something like this:
+some text that might look something like this:
 
 ```{r}
 #| echo: false
 #| message: true
 #| warning: true
-library(tidyverse)
+library(dplyr)
 ```
 
 ## ceci n'est pas une pipe `|>`

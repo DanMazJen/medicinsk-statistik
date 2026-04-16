@@ -1,13 +1,10 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.36">
-
+<meta name="generator" content="quarto-1.9.37">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
-
-<title>12&nbsp; Getting R up and running – Medical Statistics, MEDMS24B5_1</title>
+<title>11&nbsp; Hallo Medical Statistics – Medical Statistics, MEDMS24B5_1</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -23,8 +20,42 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
-
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
@@ -33,7 +64,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
 <link href="../sessions/session02.html" rel="next">
-<link href="../sessions/introduction.html" rel="prev">
+<link href="../pre-course/survey.html" rel="prev">
 <link href="../site_libs/quarto-contrib/quarto-project/rostools/rostools-theme/favicon.ico" rel="icon">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -41,17 +72,19 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-539da54b52e565de953b06aa3a3fe8b8.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-54b04885f2c4ac579f857cf6ad304830.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-539da54b52e565de953b06aa3a3fe8b8.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-11de9ebaf3acc46bae6e6cb0e9c92b73.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-2202c5d486b5eda57934a2e5d036d4fd.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-11de9ebaf3acc46bae6e6cb0e9c92b73.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-9f0b012cea2d396286b579a17324ec51.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-0b32639f3c91ebcfe44c0b28852bd319.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-9f0b012cea2d396286b579a17324ec51.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-aefc556d4da62ad8220d4afb747bc167.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-5da255673fa09d964ff52f2d655febf3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-aefc556d4da62ad8220d4afb747bc167.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/quarto-contrib/fontawesome6-1.2.0/all.min.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/fontawesome6-1.2.0/latex-fontsize.css" rel="stylesheet">
-<script id="quarto-search-options" type="application/json">{
+<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet"><script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
@@ -77,21 +110,14 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-
-
 </head>
-
 <body class="nav-sidebar floating nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
-      <div class="navbar-container container-fluid">
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a href="../index.html" class="navbar-brand navbar-brand-logo">
-    <img src="../site_libs/quarto-contrib/quarto-project/rostools/rostools-theme/favicon.ico" alt="Graphic of a medical pill with a scatter plot and a regression line inside it." class="navbar-logo light-content">
-    <img src="../site_libs/quarto-contrib/quarto-project/rostools/rostools-theme/favicon.ico" alt="Graphic of a medical pill with a scatter plot and a regression line inside it." class="navbar-logo dark-content">
-    </a>
+    <img src="../site_libs/quarto-contrib/quarto-project/rostools/rostools-theme/favicon.ico" alt="Graphic of a medical pill with a scatter plot and a regression line inside it." class="navbar-logo light-content"><img src="../site_libs/quarto-contrib/quarto-project/rostools/rostools-theme/favicon.ico" alt="Graphic of a medical pill with a scatter plot and a regression line inside it." class="navbar-logo dark-content"></a>
     <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Medical Statistics, MEDMS24B5_1</span>
     </a>
@@ -101,25 +127,19 @@ ul.task-list li input[type="checkbox"] {
 </div>
           <div id="quarto-search" class="" title="Search"></div>
       </div> <!-- /container-fluid -->
-    </nav>
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
+    </nav><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/introduction.html">Sessions</a></li><li class="breadcrumb-item"><a href="../sessions/session01.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Getting R up and running</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/session01.html">Sessions</a></li><li class="breadcrumb-item"><a href="../sessions/session01.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Hallo Medical Statistics</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
-  </nav>
-</header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="sidebar-menu-container"> 
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Welcome!</span></a>
@@ -133,8 +153,8 @@ ul.task-list li input[type="checkbox"] {
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../overview/syllabus.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Syllabus</span></span></a>
@@ -153,7 +173,7 @@ ul.task-list li input[type="checkbox"] {
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
@@ -162,8 +182,8 @@ ul.task-list li input[type="checkbox"] {
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../pre-course/overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Overview</span></span></a>
@@ -206,7 +226,7 @@ ul.task-list li input[type="checkbox"] {
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
@@ -215,69 +235,57 @@ ul.task-list li input[type="checkbox"] {
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/introduction.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Introduction to workshop</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session01.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Getting R up and running</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Hallo Medical Statistics</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session02.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Probability and stochastic variables</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Probability and stochastic variables</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session03.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Effect measurements</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Effect measurements</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session04.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Describing and plotting data</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Describing and plotting data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session05.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Statistical Analysis Plan (SAP)</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Statistical Analysis Plan (SAP)</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session06.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Central Limit Theorem, uncertainty, and Monte Carlo sampling</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Central Limit Theorem, uncertainty, and Monte Carlo sampling</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session07.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Hypothesis testing, confounding, and reproducibility</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Hypothesis testing, confounding, and reproducibility</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session08.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Data wrangling using R</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/conclusion.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">What next</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Data wrangling using R</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
@@ -286,27 +294,27 @@ ul.task-list li input[type="checkbox"] {
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Data for Medical Statistics</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Data for Medical Statistics</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/ex01.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Exercises: Getting R up and running</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Exercises: Hallo Medical Statistics</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/ex02.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Exercises: Probability and stochastic variables</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Exercises: Probability and stochastic variables</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
@@ -315,8 +323,8 @@ ul.task-list li input[type="checkbox"] {
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../appendix/for-teachers.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">For teachers</span></span></a>
@@ -353,34 +361,35 @@ ul.task-list li input[type="checkbox"] {
   </div>
 </li>
       </ul>
-  </li>
+</li>
     </ul>
-    </div>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link active" data-scroll-target="#learning-objectives"><span class="header-section-number">12.1</span> Learning objectives</a></li>
-  <li><a href="#todo-section" id="toc-todo-section" class="nav-link" data-scroll-target="#todo-section"><span class="header-section-number">12.2</span> TODO: Section</a></li>
-  <li><a href="#exercise-title" id="toc-exercise-title" class="nav-link" data-scroll-target="#exercise-title"><span class="header-section-number">12.3</span> <span class="emoji" data-emoji="technologist">🧑‍💻</span> Exercise: Title</a></li>
-  <li><a href="#discussion-activity-title" id="toc-discussion-activity-title" class="nav-link" data-scroll-target="#discussion-activity-title"><span class="header-section-number">12.4</span> <span class="emoji" data-emoji="speech_balloon">💬</span> Discussion activity: Title</a></li>
-  <li><a href="#reading-task-title" id="toc-reading-task-title" class="nav-link" data-scroll-target="#reading-task-title"><span class="header-section-number">12.5</span> <span class="emoji" data-emoji="book">📖</span> Reading task: Title</a></li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">12.6</span> Summary</a></li>
-  <li><a href="#survey" id="toc-survey" class="nav-link" data-scroll-target="#survey"><span class="header-section-number">12.7</span> Survey</a></li>
-  </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/DanMazJen/medicinsk-statistik/edit/main/sessions/session01.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/blob/main/sessions/session01.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
+<li><a href="#the-big-picture" id="toc-the-big-picture" class="nav-link active" data-scroll-target="#the-big-picture"><span class="header-section-number">11.1</span> The Big Picture</a></li>
+  <li><a href="#sec-setup-project" id="toc-sec-setup-project" class="nav-link" data-scroll-target="#sec-setup-project"><span class="header-section-number">11.2</span> Setting up an R project</a></li>
+  <li><a href="#reading-task-what-is-a-project-and-why-use-it" id="toc-reading-task-what-is-a-project-and-why-use-it" class="nav-link" data-scroll-target="#reading-task-what-is-a-project-and-why-use-it"><span class="header-section-number">11.3</span> <span class="emoji" data-emoji="book">📖</span> Reading task: What is a project and why use it?</a></li>
+  <li><a href="#rstudio-and-r-projects" id="toc-rstudio-and-r-projects" class="nav-link" data-scroll-target="#rstudio-and-r-projects"><span class="header-section-number">11.4</span> RStudio and R Projects</a></li>
+  <li><a href="#rstudio-layout-and-usage" id="toc-rstudio-layout-and-usage" class="nav-link" data-scroll-target="#rstudio-layout-and-usage"><span class="header-section-number">11.5</span> RStudio layout and usage</a></li>
+  <li><a href="#reading-task-basics-of-r" id="toc-reading-task-basics-of-r" class="nav-link" data-scroll-target="#reading-task-basics-of-r"><span class="header-section-number">11.6</span> <span class="emoji" data-emoji="book">📖</span> Reading task: Basics of R</a></li>
+  <li><a href="#asking-for-help-or-learning-more-about-functions" id="toc-asking-for-help-or-learning-more-about-functions" class="nav-link" data-scroll-target="#asking-for-help-or-learning-more-about-functions"><span class="header-section-number">11.7</span> Asking for help or learning more about functions</a></li>
+  <li><a href="#standing-on-giants---using-other-peoples-code" id="toc-standing-on-giants---using-other-peoples-code" class="nav-link" data-scroll-target="#standing-on-giants---using-other-peoples-code"><span class="header-section-number">11.8</span> Standing on giants - using other peoples code</a></li>
+  <li><a href="#ceci-nest-pas-une-pipe" id="toc-ceci-nest-pas-une-pipe" class="nav-link" data-scroll-target="#ceci-nest-pas-une-pipe"><span class="header-section-number">11.9</span> ceci n’est pas une pipe <code>|&gt;</code></a></li>
+  <li><a href="#reading-and-writing-data" id="toc-reading-and-writing-data" class="nav-link" data-scroll-target="#reading-and-writing-data"><span class="header-section-number">11.10</span> Reading and writing data</a></li>
+  <li><a href="#overview-of-data" id="toc-overview-of-data" class="nav-link" data-scroll-target="#overview-of-data"><span class="header-section-number">11.11</span> Overview of data</a></li>
+  <li><a href="#using-functions-on-datasets" id="toc-using-functions-on-datasets" class="nav-link" data-scroll-target="#using-functions-on-datasets"><span class="header-section-number">11.12</span> Using functions on datasets</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">11.13</span> Summary</a></li>
+  <li><a href="#survey" id="toc-survey" class="nav-link" data-scroll-target="#survey"><span class="header-section-number">11.14</span> Survey</a></li>
+  <li><a href="#exercises-and-learn-more" id="toc-exercises-and-learn-more" class="nav-link" data-scroll-target="#exercises-and-learn-more"><span class="header-section-number">11.22</span> Exercises and learn more</a></li>
+  </ul><div class="toc-actions"><ul><li><a href="https://github.com/DanMazJen/medicinsk-statistik/edit/main/sessions/session01.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/blob/main/sessions/session01.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-<script data-goatcounter="https://DanMazJen-medicinsk-statistik.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script>
-
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/introduction.html">Sessions</a></li><li class="breadcrumb-item"><a href="../sessions/session01.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Getting R up and running</span></a></li></ol></nav>
-<div class="quarto-title">
-<h1 class="title"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Getting R up and running</span></h1>
+<main class="content" id="quarto-document-content"><script data-goatcounter="https://DanMazJen-medicinsk-statistik.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/session01.html">Sessions</a></li><li class="breadcrumb-item"><a href="../sessions/session01.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Hallo Medical Statistics</span></a></li></ol></nav><div class="quarto-title">
+<h1 class="title"><span id="sec-introduction" class="quarto-section-identifier"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Hallo Medical Statistics</span></span></h1>
 </div>
 
 
@@ -394,9 +403,7 @@ ul.task-list li input[type="checkbox"] {
   
 
 
-</header>
-
-<div class="callout callout-style-default callout-warning callout-titled">
+</header><div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
@@ -408,11 +415,384 @@ Warning
 <div class="callout-body-container callout-body">
 <p>🚧 This section is being actively worked on. 🚧</p>
 </div>
+</div><blockquote class="blockquote">
+<p><a href="../slides/introduction.html"><strong>Introduction slides</strong></a></p>
+</blockquote>
+<div>
+<iframe class="slide-deck" src="../slides/day1.html"></iframe>
 </div>
-<!-- TODO: Add an introduction here -->
-<p>test1</p>
-<section id="learning-objectives" class="level2" data-number="12.1">
-<h2 data-number="12.1" class="anchored" data-anchor-id="learning-objectives"><span class="header-section-number">12.1</span> Learning objectives</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Teacher note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The slides contain speaking notes that you can view by pressing ‘S’ on the keyboard.</p>
+</div>
+</div>
+</div>
+<section id="the-big-picture" class="level2" data-number="11.1"><h2 data-number="11.1" class="anchored" data-anchor-id="the-big-picture">
+<span class="header-section-number">11.1</span> The Big Picture</h2>
+<p>To repeat from the <a href="https://moduler.aau.dk/course/2024-2025/MEDMS24B5_1">official syllabus</a>, our <strong>main tangible goal</strong> is to:</p>
+<ol type="1">
+<li>Acquire literacy of medical statistics in order to read and critically evaluate results and procedures in medical research and production.</li>
+<li>Gain practical skills in the domain of statistical programming in order to perform a broad repetoir of statistical procedures yourself</li>
+<li>Use your literacy and practical skills in medical statistics to formulate plans, execute the plan, and make inference for clinical decision-making.</li>
+</ol>
+<p><em>The learning goals are as follows:</em></p>
+<p><strong>Knowledge</strong></p>
+<ul>
+<li>Demonstrate understanding of the concepts of uncertainty and probability, as well as fundamental concepts within <em>biostatistic</em>
+</li>
+<li>Demonstrate knowledge of the basic overarching study designs and the ability to distinguish between <em>explanatory, exploratory, and predictive studies</em>
+</li>
+<li>Account for different types of random and non-random variation</li>
+<li>Demonstrate understanding of the limitations and possibilities of <em>statistical tools</em>
+</li>
+<li>Understand statistical issues that are central to medicine with an industrial specialisation, and understand how <em>biostatistical tools can be applied to these issues</em>
+</li>
+</ul>
+<p><strong>Skills</strong></p>
+<ul>
+<li>Be able to read and understand <em>program documentation</em>
+</li>
+<li>Be able to use and <em>select appropriate visualisation tools</em> for analysing health-related data</li>
+<li>Be able to identify and frame statistical scientific problems that are central to medicine with an industrial specialisation, and to use biostatistical methods to address these problems</li>
+<li>Be able to <em>manipulate, visualise, and analyse relevant data</em>, including large and complex datasets</li>
+<li>Explain complex statistical data in a medical context using relevant literature and available reference databases</li>
+<li>Be able to accommodate the diverse backgrounds and knowledge of project group participants in relation to the project</li>
+</ul>
+<p><strong>Competences</strong></p>
+<ul>
+<li>Be able to make healthcare-related problems measurable and apply appropriate biostatistical methods</li>
+<li>Be able to examine healthcare-related problems from multiple perspectives and relate uncertainty to clinical relevance</li>
+<li>Be able to translate data into <em>clinical decision-making</em>
+</li>
+<li>Be able to critically evaluate biostatistical issues across a wide range of contexts and participate in scientific discussions on these matters</li>
+</ul></section><section id="sec-setup-project" class="level2" data-number="11.2"><h2 data-number="11.2" class="anchored" data-anchor-id="sec-setup-project">
+<span class="header-section-number">11.2</span> Setting up an R project</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Instructor note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Because it is the first session, take it slowly. Regularly check for learner’s understanding and make use of the stickies/hats to do so.</p>
+</div>
+</div>
+</div>
+<p>To do data analysis effectively and in an organised and less stressful way, everything comes down to how you setup and structure your folders and files. Essentially, how to make your analysis project into a self-contained project at the folder level. This session will cover how to set up a project into an RStudio R Project and structure the files and folders using the <a href="https://github.com/rostools/prodigenr">prodigenr</a> package.</p>
+</section><section id="reading-task-what-is-a-project-and-why-use-it" class="level2" data-number="11.3"><h2 data-number="11.3" class="anchored" data-anchor-id="reading-task-what-is-a-project-and-why-use-it">
+<span class="header-section-number">11.3</span> <span class="emoji" data-emoji="book">📖</span> Reading task: What is a project and why use it?</h2>
+<p><strong>Time: ~5 minutes</strong></p>
+<p>Before we create a project, we should first define what we mean by “project”. What is a project? In a research context, a project is a set of files that together lead to some type of scientific “output” or “product”, for instance a scientific document. Use data for your output? That’s part of the project. Do any analysis on the data to give some results? Also part of the project. Write a document based on the data and results? Have figures inserted into the output document? These are also part of the project.</p>
+<p>More and more <em>how</em> we make a claim in a scientific product is just as important as the output describing the claim. This includes not only the written description of the methods but also the exact steps taken, that is, the code used. So, using a project file organization can help with keeping things self-contained and easier to track and link with your scientific product. Here are some things to consider when working in projects:</p>
+<ul>
+<li>Organise all files necessary for the scientific product in one folder (also called “directory”) along with sub-folders so it is more <em>self-contained</em> (doesn’t rely on other components in your computer).</li>
+<li>Use a common and consistent folder and file structure for your projects.</li>
+<li>Make raw data “read-only” (don’t edit it directly) and use code to show what was done.</li>
+<li>Think of your code and project like you do your scientific document or thesis: that other people will eventually look at it and review it, and that it will likely also be published or archived online.</li>
+</ul>
+<p>These simple steps can be huge steps toward being reproducible in your analysis. And by managing your projects in a reproducible fashion, you’ll not only make your science better and more rigorous, it also makes your life easier too!</p>
+<div class="callout callout-style-simple callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Caution</span>Origami hats up!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>When you’re ready to continue, place the paper hat on your computer to indicate this to the teacher <span class="emoji" data-emoji="womans_hat">👒</span> <span class="emoji" data-emoji="tophat">🎩</span></p>
+</div>
+</div>
+</section><section id="rstudio-and-r-projects" class="level2" data-number="11.4"><h2 data-number="11.4" class="anchored" data-anchor-id="rstudio-and-r-projects">
+<span class="header-section-number">11.4</span> RStudio and R Projects</h2>
+<p>RStudio helps us with managing projects by making use of <a href="https://docs.posit.co/ide/user/ide/guide/code/projects.html#working-with-projects">R Projects</a>. RStudio R Projects make it easy to divide your work projects into a “container”, that have their own working directory (the folder where your analysis occurs), workspace (where all the R activity and output is temporarily saved), history, and documents.</p>
+<p>There are many ways one could organise a project folder. We’ll be setting up a project folder and file structure using <a href="https://github.com/rostools/prodigenr">prodigenr</a>. We’ll use RStudio’s “New Project” menu item under “File -&gt; New Project…”. A new pop-up window shows up. Click “New directory” and scroll down to “Scientific Analysis Project using prodigenr”. Type out <code>medical-statistics</code> as the directory name and save it to the <code>Desktop/</code>.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You can also type the below function into the Console, but we won’t do that in this session.</p>
+<div class="cell">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Console</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">prodigenr</span><span class="fu">::</span><span class="fu">setup_project</span><span class="op">(</span><span class="st">"~/Desktop/medical-statistics"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+</div>
+<p>After we’ve created a New Project in RStudio, we’ll have a bunch of new files and folders.</p>
+<pre><code>LearningR
+├── .git/
+├── R/
+│   └── README.md
+├── data/
+│   └── README.md
+├── data-raw/
+│   └── README.md
+├── docs/
+│   └── README.md
+├── .gitignore
+├── DESCRIPTION
+├── medical-statistics.Rproj
+├── README.md
+└── TODO.md</code></pre>
+<p>This forces a specific and consistent folder structure to all your work. Think of this like the “Introduction”, “Methods”, “Results”, and “Discussion” sections of your paper. Each project is then like a single scientific report, that contains everything relevant to that specific project. There is a lot of power in something as simple as a consistent file and folder structure. Projects are used to make life easier. Once a project is opened within RStudio the following actions are automatically taken:</p>
+<ul>
+<li>A new R session (process) is started.</li>
+<li>The R session’s working directory is set to the project directory.</li>
+<li>RStudio project options are loaded.</li>
+</ul>
+<p>Each R project is designated with a <code>.Rproj</code> file. This file contains information about the file path and various metadata. So, when opening an R project, you need to open it using the <code>.Rproj</code> file.</p>
+<p>A project can be opened by either double clicking on the <code>.Rproj</code> from your file browser or from the file prompt within R Studio:</p>
+<pre><code>File -&gt; Open Project</code></pre>
+<p>or</p>
+<pre><code>File -&gt; Recent Project.. -&gt; medical-statistics</code></pre>
+<p>Within the project we created, there are several README files in each folder that explain a bit about what should be placed there. Briefly:</p>
+<ol type="1">
+<li>Documents like reports, theses, conference abstracts, and exploration type documents should be put in the <code>docs/</code> directory, including <a href="https://quarto.org">Quarto</a> files.</li>
+<li>Data, raw data, and metadata should be in either the <code>data/</code> directory or in <code>data-raw/</code> for the raw data. We’ll explain this more later.</li>
+<li>All <code>.R</code> files (called scripts) and code should be in the <code>R/</code> directory.</li>
+</ol></section><section id="rstudio-layout-and-usage" class="level2" data-number="11.5"><h2 data-number="11.5" class="anchored" data-anchor-id="rstudio-layout-and-usage">
+<span class="header-section-number">11.5</span> RStudio layout and usage</h2>
+<p>You’ve already gotten a bit familiar with RStudio in the pre-course tasks, but if you want more details, RStudio has a great <a href="https://www.rstudio.com/resources/cheatsheets/#ide">cheat sheet</a> on how to use RStudio. The items to know right now are the “Console”, “Files”/“Help”, and “Source” tabs.</p>
+<p>Code is written in the “Source” tab, where it saves the code and text as a file. You can send selected code to the Console from the opened file by typing <strong>?var:keybind.run-code</strong> (or clicking the “Run” button). In the “Source” tab (where R scripts and Quarto files are shown), there is a “Document Outline” button (top right beside the “Run” button) that shows you the headers or “Sections” (more on that later). To open it you can either click the button, use the keybinding <strong>?var:keybind.outline</strong>, go through the menu to <code>Code -&gt; Show Document Outline</code>. The Command Palette is a very useful tool to learn, since you can easily access almost all features and options inside RStudio through it. Because of this reason, we will be using it a lot throughout the course. Open it up with <strong>?var:keybind.palette</strong> and then in the pop-up search bar, type out “document outline”. The first item should be the one we want, so hit <code>Enter</code> to activate the Outline.</p>
+<p>If you can’t remember a specific keybinding in RStudio, check out the help for it by going to the menu item <code>Help -&gt; Keyboard Shortcuts Help</code>.</p>
+</section><section id="reading-task-basics-of-r" class="level2" data-number="11.6"><h2 data-number="11.6" class="anchored" data-anchor-id="reading-task-basics-of-r">
+<span class="header-section-number">11.6</span> <span class="emoji" data-emoji="book">📖</span> Reading task: Basics of R</h2>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Instructor note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Let them read it over, then briefly go over the content again.</p>
+<p>Emphasize that, in general, code with <code>()</code> means it is a function and that it does an action. Mention that, like everything, there are some situations where that isn’t completely true but it mostly is.</p>
+</div>
+</div>
+</div>
+<p><strong>Time: ~5 minutes</strong></p>
+<p>Before moving on, let’s go over a bit about how R works, and what the “R session” means. An R session is the way you normally interact with R, where you would write code in the Console to tell R to do something. Normally, when you open an R session without an R Project, the session defaults to assuming you will be working in the <code>~/Desktop</code> or <code>~</code> (your Home folder) location. But this location usually isn’t where you actually work and where your R code is. You normally work in the folder that has your R scripts, Quarto documents, or data files. The assumption with R Projects on the other hand, is that the R session’s working directory should be where the R Project is, since that is where you have your R scripts and data files.</p>
+<p>R can be used as a simple calculator - try writing:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fl">2</span> <span class="op">+</span> <span class="fl">2</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>In R, everything is an object and every action is a function. A function is also an object, but an object isn’t always a function. To create an object, also called a variable, we use the <code>&lt;-</code> assignment operator. So, if we want to create an object called <code>weight_kilos</code> and assign it the value <code>100</code>, we would write:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">weight_kilos</span> <span class="op">&lt;-</span> <span class="fl">100</span></span>
+<span><span class="va">weight_kilos</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The new object now stores the value we assigned it. We can read it like:</p>
+<blockquote class="blockquote">
+<p>“<code>weight_kilos</code> contains the number 100” or “put 100 into the object <code>weight_kilos</code>”</p>
+</blockquote>
+<p>We can name our objects the way we like. There are <em>almost</em> no restrictions.</p>
+<ul>
+<li>can’t start by numbers</li>
+<li>can’t use hypen/dash, <code>-</code>, nor colon, <code>:</code>, in the naming (nor <code>*</code>, <code>+</code>, <code>%</code> and other crazy things)</li>
+<li>OK to use underscore, <code>_</code>, and dots, <code>.</code>
+</li>
+</ul>
+<p>There are also several main “classes” (or types) of objects in R: lists, vectors, matrices, and data frames. For now, the only two we will cover are <em>vectors</em> and <em>data frames</em>. A vector is a string of values, while a data frame is multiple vectors put together as columns. Data frames are a form of data that you’d typically see as a spreadsheet. This type of data is called “rectangular data” since it has two dimensions: columns and rows.</p>
+<p>So these are vectors, which have different types like character, number, or factor:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Character vector</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span><span class="op">)</span></span>
+<span><span class="co"># Logic vector</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="co"># Numeric vector</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">5</span>, <span class="fl">6</span><span class="op">)</span></span>
+<span><span class="co"># Factor vector (special types of character vectors)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"low"</span>, <span class="st">"high"</span>, <span class="st">"medium"</span>, <span class="st">"high"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Notice how we use the <code>#</code> to write comments or notes. Whatever we write after the “hash” (<code>#</code>) tells R to ignore it and not run it.</p>
+<p>This is what a data frame looks like, if we look at the built-in dataset called <code>airquality</code>, which is a data frame object loaded by default when you start R:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">airquality</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 6
+  Ozone Solar.R  Wind  Temp Month   Day
+  &lt;int&gt;   &lt;int&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
+1    41     190   7.4    67     5     1
+2    36     118   8      72     5     2
+3    12     149  12.6    74     5     3
+4    18     313  11.5    62     5     4
+5    NA      NA  14.3    56     5     5
+6    28      NA  14.9    66     5     6</code></pre>
+</div>
+</div>
+<p>The <code><a href="https://rdrr.io/r/base/c.html">c()</a></code> function puts values together and <code><a href="https://rdrr.io/r/utils/head.html">head()</a></code> prints the first 6 rows. Both <code><a href="https://rdrr.io/r/base/c.html">c()</a></code> and <code><a href="https://rdrr.io/r/utils/head.html">head()</a></code> are <em>functions</em> since they do an <em>action</em> and they can be recognized by the <code>()</code> at their end. Functions take an <em>input</em> (known as <em>arguments</em>) and give back an <em>output</em>. Each argument is separated by a comma <code>,</code>. Some functions can take unlimited number of arguments (like <code><a href="https://rdrr.io/r/base/c.html">c()</a></code>). Others, like <code><a href="https://rdrr.io/r/utils/head.html">head()</a></code> can only take a few arguments. In the case of <code><a href="https://rdrr.io/r/utils/head.html">head()</a></code>, the first argument requires a data frame object.</p>
+<p><code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code> is also a nice function, so we don’t have to compute it by hand all the time.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">foo</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">31</span>, <span class="fl">3</span>, <span class="fl">94</span><span class="op">)</span></span>
+<span><span class="op">(</span><span class="fl">31</span> <span class="op">+</span> <span class="fl">3</span> <span class="op">+</span> <span class="fl">94</span><span class="op">)</span> <span class="op">/</span> <span class="fl">3</span> <span class="co"># Manual computing the mean</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">foo</span><span class="op">)</span> <span class="co"># automatically computes the mean</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section><section id="asking-for-help-or-learning-more-about-functions" class="level2" data-number="11.7"><h2 data-number="11.7" class="anchored" data-anchor-id="asking-for-help-or-learning-more-about-functions">
+<span class="header-section-number">11.7</span> Asking for help or learning more about functions</h2>
+<p>Consider the scenario where you learn about a new function or become interested in using a function for a different purpose. Let’s say you want to learn more about <code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code>. You simply write a <code>?</code> before the function and RStudio will show you documentation about the function and possible suggestions of how to use it correctly in different scenarios - cool, right? Like this:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="op">?</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="callout callout-style-simple callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Caution</span>Origami hats up!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>When you’re ready to continue, place the paper hat on your computer to indicate this to the teacher <span class="emoji" data-emoji="womans_hat">👒</span> <span class="emoji" data-emoji="tophat">🎩</span></p>
+</div>
+</div>
+</section><section id="standing-on-giants---using-other-peoples-code" class="level2" data-number="11.8"><h2 data-number="11.8" class="anchored" data-anchor-id="standing-on-giants---using-other-peoples-code">
+<span class="header-section-number">11.8</span> Standing on giants - using other peoples code</h2>
+<p>One of the major strengths of R, and many other programming languages, is in its ability for other people to create packages that simplify doing complex tasks. For example, if you need to use mixed effects models for your data analysis, you can use the <a href="https://github.com/lme4/lme4/">lme4</a> package. Or if you want to create figures you can use the <a href="https://ggplot2.tidyverse.org">ggplot2</a> package. As you experienced from the pre-course tasks, installing packages is easy by using <code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages()</a></code>. Whenever we work with R, we very rarely work only with the base R functions. We usually use a lot of functions from many other packages, because that is one of the easiest ways for you to simplify your work! No need to re-invent the wheel <span class="emoji" data-emoji="grin">😁</span></p>
+<p>One “meta-package” we will use throughout the course is called <a href="https://tidyverse.tidyverse.org">tidyverse</a>. So let’s load the package up so we can use the functions from inside it.</p>
+<p>The way you load a package and get access to the functions inside is by using the <code><a href="https://rdrr.io/r/base/library.html">library()</a></code> function. So let’s load the <a href="https://dplyr.tidyverse.org">dplyr</a> package by writing <code><a href="https://dplyr.tidyverse.org">library(dplyr)</a></code>.</p>
+<p>Let’s run this code by placing the cursor over the code and using <strong>?var:keybind.run-code</strong>. After you run the code, you should see some text that might look something like this:</p>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'dplyr'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:stats':
+
+    filter, lag</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union</code></pre>
+</div>
+</div>
+</section><section id="ceci-nest-pas-une-pipe" class="level2" data-number="11.9"><h2 data-number="11.9" class="anchored" data-anchor-id="ceci-nest-pas-une-pipe">
+<span class="header-section-number">11.9</span> ceci n’est pas une pipe <code>|&gt;</code>
+</h2>
+<p>The pipe, <code>|&gt;</code> or <code>%&gt;%</code>, is a handy way to write multiple lines of R code.</p>
+<p>You choose which pipe to use in the menu: - <em>Tools</em> &gt; <em>Global Options</em> &gt; <em>Code</em> (tick “Use native pipe…”)</p>
+<p><code>|&gt;</code> is pronounced as “and then”.</p>
+<p>It can take a variable and then compute the mean:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">values</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">values</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>instead of this notation:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">values</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Which reads: take the mean of <code>values</code>.</p>
+<p>It does not make a big difference in this example but later we will see how the pipe helps us break code into chunks that are easier to read, write, debug, extend, modify and combine.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>DATA <span class="sc">|&gt;</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">some_change_to_the_data</span>() <span class="sc">|&gt;</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">a_subsequent_operation</span>() <span class="sc">|&gt;</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  ... <span class="sc">|&gt;</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">final_operation_or_plot</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><a href="images/pipe.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="images/pipe.png" class="img-fluid"></a></p>
+<p>Basic piping:</p>
+<p><code>x |&gt; f()</code> is equivalent to <code>f(x)</code> <code>x |&gt; f(y)</code> is equivalent to <code>f(x, y)</code> <code>x |&gt; f() |&gt; g() |&gt; h()</code> is equivalent to <code>h(g(f(x)))</code></p>
+</section><section id="reading-and-writing-data" class="level2" data-number="11.10"><h2 data-number="11.10" class="anchored" data-anchor-id="reading-and-writing-data">
+<span class="header-section-number">11.10</span> Reading and writing data</h2>
+<p>You have already tried reading in data. The command was:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">SUA_data</span> <span class="op">&lt;-</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span></span>
+<span>  <span class="st">"https://zenodo.org/records/8292712/files/SUA_CVDs_risk_factors.csv"</span></span>
+<span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 25744 Columns: 15
+── Column specification ────────────────────────────────────────────────
+Delimiter: ","
+dbl (15): ID, sex, Age, BMI, SBP, DBP, FBG, TC, Cr, GFR, UA, Times, ...
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+</div>
+<p>Here, we used the <a href="https://readr.tidyverse.org">readr</a> package to read a csv file from the course website using the function <code>read_csv()</code>. As we haven’t loaded the <a href="https://readr.tidyverse.org">readr</a> package, R doesn’t know that there’s a function called <code>read_csv()</code>. Instead of loading the entire library of functions (using <code><a href="https://readr.tidyverse.org">library(readr)</a></code>), we simply tell R to find the <a href="https://readr.tidyverse.org">readr</a> package and look for the function <code>read_csv()</code> using colon-colon <code>package::function</code>.</p>
+<p>If you wanted to store or save a csv-file, you could write the csv file to your computer using <code>write_csv()</code>. Here, you need to specify where you want the file. For now, we will store it in the <code>medical-statistics/data-raw/</code> folder and name the file <code>SUA_data</code>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html">write_csv</a></span><span class="op">(</span><span class="va">SUA_data</span>, <span class="st">"data-raw/SUA_data.csv"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>You can always read more about the function using <code><a href="https://readr.tidyverse.org/reference/write_delim.html">?readr::write_csv</a></code></p>
+</section><section id="overview-of-data" class="level2" data-number="11.11"><h2 data-number="11.11" class="anchored" data-anchor-id="overview-of-data">
+<span class="header-section-number">11.11</span> Overview of data</h2>
+<p><code><a href="https://rdrr.io/r/utils/View.html">View()</a></code> function.</p>
+<p>As R is case sensitive, <code>view()</code> will now work - try it!</p>
+<p><code>{.r view} view(SUA_data) # Will produce an error # Instead try: View(SUA_data)</code></p>
+</section><section id="using-functions-on-datasets" class="level2" data-number="11.12"><h2 data-number="11.12" class="anchored" data-anchor-id="using-functions-on-datasets">
+<span class="header-section-number">11.12</span> Using functions on datasets</h2>
+<p>The <code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code> function also works on datasets. However, we need to specify which variable it should take the mean of.</p>
+<p>We do this by either selecting it with the <code>$</code> sign:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">SUA_data</span><span class="op">$</span><span class="va">Age</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 69.38102</code></pre>
+</div>
+</div>
+<p>Another approach is to use the <a href="https://dplyr.tidyverse.org">dplyr</a> function <code><a href="https://dplyr.tidyverse.org/reference/pull.html">pull()</a></code>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">SUA_data</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">Age</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 69.38102</code></pre>
+</div>
+</div>
+<p>Both yield the same result. The first is quick but can be difficult to extend or even read.</p>
+<p>The dplyr-version is easy to read and can be extended for multiple variables, and is in general much more flexible when we want to do more operations.</p>
+</section><section id="summary" class="level2" data-number="11.13"><h2 data-number="11.13" class="anchored" data-anchor-id="summary">
+<span class="header-section-number">11.13</span> Summary</h2>
+<ul>
+<li>Use <a href="https://github.com/rostools/prodigenr">prodigenr</a> to assist with setting up a new project, with standard files and folders to begin working on a data analysis project.</li>
+<li>Use R Projects in RStudio to manage your project and make it easier to work with R in it.</li>
+<li>Use R as a basic calculator.</li>
+<li>R atomic vectors: <code>numeric</code>,<code>character</code>,<code>logic</code>, and <code>factor</code>.</li>
+<li>Import and examine a dataset within R using basic functions.</li>
+</ul></section><section id="survey" class="level2" data-number="11.14"><h2 data-number="11.14" class="anchored" data-anchor-id="survey">
+<span class="header-section-number">11.14</span> Survey</h2>
+<p>Please complete the survey for this session:</p>
+<p><a href="https://docs.google.com/forms/d/e/1FAIpQLSejsgArWYbCpTjKoxdCArtAVJrtBZQCINIEUj1TqppYrd3n8g/viewform?usp=publish-editor" class="btn btn-primary" role="button">Feedback survey! <span class="emoji" data-emoji="tada">🎉</span></a></p>
+</section><div class="hidden">
+<section id="learning-objectives" class="level2" data-number="11.15"><h2 data-number="11.15" class="anchored" data-anchor-id="learning-objectives">
+<span class="header-section-number">11.15</span> Learning objectives</h2>
 <p>The learning objectives for this session are:</p>
 <ul>
 <li>Udvise forståelse for usikkerheds- og sandsynlighedsbegrebet samt grundliggende begreber indenfor biostatistik</li>
@@ -420,10 +800,8 @@ Warning
 <li>Redegøre for forskellige typer af tilfældig og ikke tilfældig variation</li>
 <li>Udvise forståelse for statistiske værktøjers begrænsninger og muligheder</li>
 <li>Forstå statistiske problemstillinger, der er centrale for medicin med industrial specialisering og forstå, hvordan de biostatistiske værktøjer kan appliceres på disse problemstillinger</li>
-</ul>
-</section>
-<section id="todo-section" class="level2" data-number="12.2">
-<h2 data-number="12.2" class="anchored" data-anchor-id="todo-section"><span class="header-section-number">12.2</span> TODO: Section</h2>
+</ul></section><section id="todo-section" class="level2" data-number="11.16"><h2 data-number="11.16" class="anchored" data-anchor-id="todo-section">
+<span class="header-section-number">11.16</span> TODO: Section</h2>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -437,9 +815,8 @@ Warning
 <p>TODO: Reading text</p>
 </div>
 </div>
-</section>
-<section id="exercise-title" class="level2" data-number="12.3">
-<h2 data-number="12.3" class="anchored" data-anchor-id="exercise-title"><span class="header-section-number">12.3</span> <span class="emoji" data-emoji="technologist">🧑‍💻</span> Exercise: Title</h2>
+</section><section id="exercise-title" class="level2" data-number="11.17"><h2 data-number="11.17" class="anchored" data-anchor-id="exercise-title">
+<span class="header-section-number">11.17</span> <span class="emoji" data-emoji="technologist">🧑‍💻</span> Exercise: Title</h2>
 <p><strong>Time: ~NUM minutes.</strong></p>
 <p>Text</p>
 <div class="callout callout-style-simple callout-caution no-icon callout-titled">
@@ -455,14 +832,12 @@ Warning
 <p>When you’re ready to continue, place the sticky/paper hat on your computer to indicate this to the teacher <span class="emoji" data-emoji="womans_hat">👒</span> <span class="emoji" data-emoji="tophat">🎩</span></p>
 </div>
 </div>
-</section>
-<section id="discussion-activity-title" class="level2" data-number="12.4">
-<h2 data-number="12.4" class="anchored" data-anchor-id="discussion-activity-title"><span class="header-section-number">12.4</span> <span class="emoji" data-emoji="speech_balloon">💬</span> Discussion activity: Title</h2>
+</section><section id="discussion-activity-title" class="level2" data-number="11.18"><h2 data-number="11.18" class="anchored" data-anchor-id="discussion-activity-title">
+<span class="header-section-number">11.18</span> <span class="emoji" data-emoji="speech_balloon">💬</span> Discussion activity: Title</h2>
 <p><strong>Time: ~Num minutes.</strong></p>
 <p>Text</p>
-</section>
-<section id="reading-task-title" class="level2" data-number="12.5">
-<h2 data-number="12.5" class="anchored" data-anchor-id="reading-task-title"><span class="header-section-number">12.5</span> <span class="emoji" data-emoji="book">📖</span> Reading task: Title</h2>
+</section><section id="reading-task-title" class="level2" data-number="11.19"><h2 data-number="11.19" class="anchored" data-anchor-id="reading-task-title">
+<span class="header-section-number">11.19</span> <span class="emoji" data-emoji="book">📖</span> Reading task: Title</h2>
 <p><strong>Time: ~Num minutes.</strong></p>
 <p>Text</p>
 <div class="callout callout-style-simple callout-caution no-icon callout-titled">
@@ -478,22 +853,26 @@ Warning
 <p>When you’re ready to continue, place the sticky/paper hat on your computer to indicate this to the teacher <span class="emoji" data-emoji="womans_hat">👒</span> <span class="emoji" data-emoji="tophat">🎩</span></p>
 </div>
 </div>
-</section>
-<section id="summary" class="level2" data-number="12.6">
-<h2 data-number="12.6" class="anchored" data-anchor-id="summary"><span class="header-section-number">12.6</span> Summary</h2>
+</section><section id="summary-1" class="level2" data-number="11.20"><h2 data-number="11.20" class="anchored" data-anchor-id="summary-1">
+<span class="header-section-number">11.20</span> Summary</h2>
 <ul>
 <li>TODO: List of summary items</li>
-</ul>
-</section>
-<section id="survey" class="level2" data-number="12.7">
-<h2 data-number="12.7" class="anchored" data-anchor-id="survey"><span class="header-section-number">12.7</span> Survey</h2>
+</ul></section><section id="survey-1" class="level2" data-number="11.21"><h2 data-number="11.21" class="anchored" data-anchor-id="survey-1">
+<span class="header-section-number">11.21</span> Survey</h2>
 <p><a href="https://docs.google.com/forms/d/e/1FAIpQLSejsgArWYbCpTjKoxdCArtAVJrtBZQCINIEUj1TqppYrd3n8g/viewform?usp=publish-editor" class="btn btn-primary" role="button">Feedback survey! <span class="emoji" data-emoji="tada">🎉</span></a></p>
-
-
 </section>
+</div>
+<section id="exercises-and-learn-more" class="level2" data-number="11.22"><h2 data-number="11.22" class="anchored" data-anchor-id="exercises-and-learn-more">
+<span class="header-section-number">11.22</span> Exercises and learn more</h2>
+<p>Everything for this session will be practiced and expanded in the <a href="../exercises/ex01.html">exercises</a>.</p>
+<p>Further material:</p>
+<ul>
+<li>RStudio’s cheat-sheet:</li>
+<li>?</li>
+</ul>
 
-</main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
+
+</section><script async="" src="https://scripts.simpleanalyticscdn.com/latest.js"></script></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
     const anchorJS = new window.AnchorJS();
@@ -892,28 +1271,25 @@ Warning
       }
     }
   });
-  </script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
-      <a href="../sessions/introduction.html" class="pagination-link" aria-label="Introduction to workshop">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Introduction to workshop</span></span>
+  </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="../pre-course/survey.html" class="pagination-link" aria-label="Survey">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Survey</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="../sessions/session02.html" class="pagination-link" aria-label="Probability and stochastic variables">
-        <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Probability and stochastic variables</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Probability and stochastic variables</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
 </div> <!-- /content -->
-<footer class="footer">
-  <div class="nav-footer">
+<footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">
       &nbsp;
     </div>   
     <div class="nav-footer-center">
       <ul class="footer-items list-unstyled">
-    <li class="nav-item">
+<li class="nav-item">
     <a class="nav-link active" href="../LICENSE.html" aria-current="page">
 <p>License: CC BY 4.0 <i class="fa-brands fa-creative-commons" aria-label="creative-commons"></i> <i class="fa-brands fa-creative-commons-by" aria-label="creative-commons-by"></i></p>
 </a>
@@ -924,14 +1300,43 @@ Warning
 </a>
   </li>  
 </ul>
-    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/DanMazJen/medicinsk-statistik/edit/main/sessions/session01.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/blob/main/sessions/session01.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/DanMazJen/medicinsk-statistik/edit/main/sessions/session01.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/blob/main/sessions/session01.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>
   </div>
-</footer>
-
-
+</footer><script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
 
 
 </body></html>

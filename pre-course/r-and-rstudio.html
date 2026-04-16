@@ -1,12 +1,9 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.36">
-
+<meta name="generator" content="quarto-1.9.37">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
-
 <title>7&nbsp; R and RStudio – Medical Statistics, MEDMS24B5_1</title>
 <style>
 /* Default styles provided by pandoc.
@@ -25,7 +22,6 @@ ul.task-list li input[type="checkbox"] {
 }
 </style>
 
-
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -41,17 +37,16 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-539da54b52e565de953b06aa3a3fe8b8.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-54b04885f2c4ac579f857cf6ad304830.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-539da54b52e565de953b06aa3a3fe8b8.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-11de9ebaf3acc46bae6e6cb0e9c92b73.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-2202c5d486b5eda57934a2e5d036d4fd.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-11de9ebaf3acc46bae6e6cb0e9c92b73.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-9f0b012cea2d396286b579a17324ec51.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-0b32639f3c91ebcfe44c0b28852bd319.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-9f0b012cea2d396286b579a17324ec51.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-aefc556d4da62ad8220d4afb747bc167.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-5da255673fa09d964ff52f2d655febf3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-aefc556d4da62ad8220d4afb747bc167.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/quarto-contrib/fontawesome6-1.2.0/all.min.css" rel="stylesheet">
-<link href="../site_libs/quarto-contrib/fontawesome6-1.2.0/latex-fontsize.css" rel="stylesheet">
-<script id="quarto-search-options" type="application/json">{
+<link href="../site_libs/quarto-contrib/fontawesome6-1.2.0/latex-fontsize.css" rel="stylesheet"><script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
@@ -77,21 +72,14 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-
-
 </head>
-
 <body class="nav-sidebar floating nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
-      <div class="navbar-container container-fluid">
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a href="../index.html" class="navbar-brand navbar-brand-logo">
-    <img src="../site_libs/quarto-contrib/quarto-project/rostools/rostools-theme/favicon.ico" alt="Graphic of a medical pill with a scatter plot and a regression line inside it." class="navbar-logo light-content">
-    <img src="../site_libs/quarto-contrib/quarto-project/rostools/rostools-theme/favicon.ico" alt="Graphic of a medical pill with a scatter plot and a regression line inside it." class="navbar-logo dark-content">
-    </a>
+    <img src="../site_libs/quarto-contrib/quarto-project/rostools/rostools-theme/favicon.ico" alt="Graphic of a medical pill with a scatter plot and a regression line inside it." class="navbar-logo light-content"><img src="../site_libs/quarto-contrib/quarto-project/rostools/rostools-theme/favicon.ico" alt="Graphic of a medical pill with a scatter plot and a regression line inside it." class="navbar-logo dark-content"></a>
     <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Medical Statistics, MEDMS24B5_1</span>
     </a>
@@ -101,9 +89,7 @@ ul.task-list li input[type="checkbox"] {
 </div>
           <div id="quarto-search" class="" title="Search"></div>
       </div> <!-- /container-fluid -->
-    </nav>
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
+    </nav><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
@@ -111,15 +97,11 @@ ul.task-list li input[type="checkbox"] {
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
-  </nav>
-</header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="sidebar-menu-container"> 
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Welcome!</span></a>
@@ -133,8 +115,8 @@ ul.task-list li input[type="checkbox"] {
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../overview/syllabus.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Syllabus</span></span></a>
@@ -153,7 +135,7 @@ ul.task-list li input[type="checkbox"] {
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
@@ -162,8 +144,8 @@ ul.task-list li input[type="checkbox"] {
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../pre-course/overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Overview</span></span></a>
@@ -206,7 +188,7 @@ ul.task-list li input[type="checkbox"] {
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
@@ -215,69 +197,57 @@ ul.task-list li input[type="checkbox"] {
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/introduction.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Introduction to workshop</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session01.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Getting R up and running</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Hallo Medical Statistics</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session02.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Probability and stochastic variables</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Probability and stochastic variables</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session03.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Effect measurements</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Effect measurements</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session04.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Describing and plotting data</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Describing and plotting data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session05.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Statistical Analysis Plan (SAP)</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Statistical Analysis Plan (SAP)</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session06.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Central Limit Theorem, uncertainty, and Monte Carlo sampling</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Central Limit Theorem, uncertainty, and Monte Carlo sampling</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session07.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Hypothesis testing, confounding, and reproducibility</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Hypothesis testing, confounding, and reproducibility</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session08.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Data wrangling using R</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/conclusion.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">What next</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Data wrangling using R</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
@@ -286,27 +256,27 @@ ul.task-list li input[type="checkbox"] {
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Data for Medical Statistics</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Data for Medical Statistics</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/ex01.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Exercises: Getting R up and running</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Exercises: Hallo Medical Statistics</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/ex02.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Exercises: Probability and stochastic variables</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Exercises: Probability and stochastic variables</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
@@ -315,8 +285,8 @@ ul.task-list li input[type="checkbox"] {
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../appendix/for-teachers.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">For teachers</span></span></a>
@@ -353,29 +323,22 @@ ul.task-list li input[type="checkbox"] {
   </div>
 </li>
       </ul>
-  </li>
+</li>
     </ul>
-    </div>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#what-is-r" id="toc-what-is-r" class="nav-link active" data-scroll-target="#what-is-r"><span class="header-section-number">7.1</span> What is R?</a></li>
+<li><a href="#what-is-r" id="toc-what-is-r" class="nav-link active" data-scroll-target="#what-is-r"><span class="header-section-number">7.1</span> What is R?</a></li>
   <li><a href="#sec-learn-rstudio" id="toc-sec-learn-rstudio" class="nav-link" data-scroll-target="#sec-learn-rstudio"><span class="header-section-number">7.2</span> Getting familiar with RStudio</a></li>
   <li><a href="#quality-of-life-settings" id="toc-quality-of-life-settings" class="nav-link" data-scroll-target="#quality-of-life-settings"><span class="header-section-number">7.3</span> Quality of life settings</a></li>
-  </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/DanMazJen/medicinsk-statistik/edit/main/pre-course/r-and-rstudio.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/blob/main/pre-course/r-and-rstudio.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
+  </ul><div class="toc-actions"><ul><li><a href="https://github.com/DanMazJen/medicinsk-statistik/edit/main/pre-course/r-and-rstudio.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/blob/main/pre-course/r-and-rstudio.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-<script data-goatcounter="https://DanMazJen-medicinsk-statistik.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script>
-
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../pre-course/overview.html">Pre-course</a></li><li class="breadcrumb-item"><a href="../pre-course/r-and-rstudio.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">R and RStudio</span></a></li></ol></nav>
-<div class="quarto-title">
+<main class="content" id="quarto-document-content"><script data-goatcounter="https://DanMazJen-medicinsk-statistik.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../pre-course/overview.html">Pre-course</a></li><li class="breadcrumb-item"><a href="../pre-course/r-and-rstudio.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">R and RStudio</span></a></li></ol></nav><div class="quarto-title">
 <h1 class="title"><span id="sec-r-and-rstudio" class="quarto-section-identifier"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">R and RStudio</span></span></h1>
 </div>
 
@@ -390,9 +353,7 @@ ul.task-list li input[type="checkbox"] {
   
 
 
-</header>
-
-<div class="callout callout-style-default callout-warning callout-titled">
+</header><div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
@@ -404,10 +365,9 @@ Warning
 <div class="callout-body-container callout-body">
 <p>🚧 This section is being actively worked on. 🚧</p>
 </div>
-</div>
-<p>During this course we will be spending most of our time in RStudio. RStudio is an “environment” that we use to interact with R. R is like an engine, while RStudio is like the tools we use to actually work with that engine. Prior to taking a look at what RStudio looks like, let’s talk briefly about R as a programming language.</p>
-<section id="what-is-r" class="level2" data-number="7.1">
-<h2 data-number="7.1" class="anchored" data-anchor-id="what-is-r"><span class="header-section-number">7.1</span> What is R?</h2>
+</div><p>During this course we will be spending most of our time in RStudio. RStudio is an “environment” that we use to interact with R. R is like an engine, while RStudio is like the tools we use to actually work with that engine. Prior to taking a look at what RStudio looks like, let’s talk briefly about R as a programming language.</p>
+<section id="what-is-r" class="level2" data-number="7.1"><h2 data-number="7.1" class="anchored" data-anchor-id="what-is-r">
+<span class="header-section-number">7.1</span> What is R?</h2>
 <p>R is a free programming language/environment used in statistical computing, data analytics, and scientific research. R is used to clean, organize, analyze, and report on data. R has powerful visualization features, so it is a particularly useful tool for creating charts and figures. R is different from SPSS and other statistical programs in that you run analyses by typing commands in a console rather than using click-based, drop-down menus.</p>
 <p>In recent years, R has become one of the most popular languages among statisticians and data scientists for several reasons:</p>
 <ul>
@@ -417,13 +377,12 @@ Warning
 <li>It provides access to a vast number of packages that can do nearly any task or statistical approach.</li>
 <li>There is a huge online community to help you problem-solve any issue and that has so many learning resources, support, and help!</li>
 <li>It is free, which means you can continue using the skills you gain in R throughout your entire career without worrying about expensive licensing fees (for example, if your employer can’t or doesn’t pay for the software).</li>
-<li>Strong push by major R developers to improve beginner-friendliness and usability of R, for example from <a href="https://posit.co">Posit</a> who makes RStudio and contributes heavily to R packages such as the <code>{tidyverse}</code> set of packages and <a href="https://quarto.org">Quarto</a>.</li>
-<li>R has one of the best data visualization tools available with <code>{ggplot2}</code>.</li>
+<li>Strong push by major R developers to improve beginner-friendliness and usability of R, for example from <a href="https://posit.co">Posit</a> who makes RStudio and contributes heavily to R packages such as the <a href="https://tidyverse.tidyverse.org">tidyverse</a> set of packages and <a href="https://quarto.org">Quarto</a>.</li>
+<li>R has one of the best data visualization tools available with <a href="https://ggplot2.tidyverse.org">ggplot2</a>.</li>
 </ul>
 <p>However, like many programming languages, R is not easy to learn. Some commands you will use are spread across many packages, which means that you need to have prior knowledge of these packages in order to use some commands. But R offers such a supportive community and rich functionality that it is worth the challenge!</p>
-</section>
-<section id="sec-learn-rstudio" class="level2" data-number="7.2">
-<h2 data-number="7.2" class="anchored" data-anchor-id="sec-learn-rstudio"><span class="header-section-number">7.2</span> Getting familiar with RStudio</h2>
+</section><section id="sec-learn-rstudio" class="level2" data-number="7.2"><h2 data-number="7.2" class="anchored" data-anchor-id="sec-learn-rstudio">
+<span class="header-section-number">7.2</span> Getting familiar with RStudio</h2>
 <p>Let’s start getting familiar with RStudio and how to navigate and use it. Check out <a href="#fig-rstudio-introduction" class="quarto-xref">Figure&nbsp;<span>7.1</span></a> below. You can see that RStudio has four “panels”, dividing the screen into the four sections.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -439,39 +398,34 @@ Note
 </div>
 </div>
 <div id="fig-rstudio-introduction" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-rstudio-introduction-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-rstudio-introduction-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="../images/rstudio-introduction.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rstudio-introduction-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;7.1: Interface to RStudio.
-</figcaption>
-</figure>
+</figcaption></figure>
 </div>
 <p>While you can customize where the individual panels go, the default panel layout is what is shown above.</p>
 <ul>
 <li>Panel “A” is the panel that shows the “scripts”, which we will be using a lot during the course. You <em>may or may not see this panel</em> when you open RStudio for the first time. This panel is where you write R code that will be saved as a file.</li>
-<li>Panel “B” is the Console. This is where R commands are sent and evaluated by R. This is the “engine”. No R code written here is saved. All code in this course will eventually be sent to the R Console, as this is the most common way of using and running R code. <strong>Throughout the rest of the pre-course tasks, if you see a code chunk with the label “Console” above it, this is the panel we want you to type or paste the code into.</strong></li>
+<li>Panel “B” is the Console. This is where R commands are sent and evaluated by R. This is the “engine”. No R code written here is saved. All code in this course will eventually be sent to the R Console, as this is the most common way of using and running R code. <strong>Throughout the rest of the pre-course tasks, if you see a code chunk with the label “Console” above it, this is the panel we want you to type or paste the code into.</strong>
+</li>
 <li>Panel “C” contains the Environment, History, Connections, and Git tabs. In this course, we will only be using the Environment tab.</li>
 <li>Panel “D” has the Files, Plots, Packages, Help, Build, and Viewer tabs. For this course, we will only be going over the Files, Plots, Packages, and Help tabs. There can be slight differences in your layout of tabs in each panel.</li>
 </ul>
 <p>While we will spend part of the course using an R script to play around with code, we will also be learning and using <a href="https://quarto.org">Quarto</a> (files that end in <code>.qmd</code>). Quarto is an important tool in helping make your analysis more reproducible. You may have read about R Markdown before or you may see it mentioned on websites or blogs after this course. Quarto is an upgraded version of R Markdown. We will explain Quarto (and R Markdown) in more detail in <span class="quarto-unresolved-ref">?sec-reproducible-documents</span>.</p>
 <p>Quarto allows you to interweave chunks of code along with text and images. R runs the code and inserts the code output into the Quarto file. The Quarto document can be converted into a wide range of document types, including MS Word, PDF, or HTML. Some researchers write and manage entire papers, theses, websites, or books using Quarto, as it can make things easier to organize and maintain. In fact, this website is written with Quarto.</p>
-</section>
-<section id="quality-of-life-settings" class="level2" data-number="7.3">
-<h2 data-number="7.3" class="anchored" data-anchor-id="quality-of-life-settings"><span class="header-section-number">7.3</span> Quality of life settings</h2>
+</section><section id="quality-of-life-settings" class="level2" data-number="7.3"><h2 data-number="7.3" class="anchored" data-anchor-id="quality-of-life-settings">
+<span class="header-section-number">7.3</span> Quality of life settings</h2>
 <p>Before continuing, set some RStudio options that will help you and the helpers and teachers out a lot during the course. Go to <code>Tools -&gt; Global Options...</code> and do these tasks:</p>
 <ol type="1">
 <li>In “General”, under the “Basic” tab, uncheck all boxes under “R Session”, “Workspaces”, and “History”, as well as changing the “Save workspace to .RData on exit” to “Never”.</li>
-<li>In “Code”, under the “Editing” tab, change the “Tab width” to 2. The tidyverse style guide as well as <code>{styler}</code> both use 2 spaces for tabs. We can set this option here to save us with formatting issues.</li>
+<li>In “Code”, under the “Editing” tab, change the “Tab width” to 2. The tidyverse style guide as well as <a href="https://github.com/r-lib/styler">styler</a> both use 2 spaces for tabs. We can set this option here to save us with formatting issues.</li>
 <li>In “Code”, under the “Saving” tab, check all the boxes under “General” and “Auto-save”. This last one, the “Auto-save”, will help out a lot, since one of the biggest “troubleshooting issues” we encounter when helping during the first session is that people forget to save. This solves that problem.</li>
 </ol>
 
 
-</section>
-
-</main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
+</section><script async="" src="https://scripts.simpleanalyticscdn.com/latest.js"></script></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
     const anchorJS = new window.AnchorJS();
@@ -870,9 +824,7 @@ Figure&nbsp;7.1: Interface to RStudio.
       }
     }
   });
-  </script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
+  </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
       <a href="../pre-course/installing-programs-r.html" class="pagination-link" aria-label="Installing the programs">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Installing the programs</span></span>
       </a>          
@@ -884,14 +836,13 @@ Figure&nbsp;7.1: Interface to RStudio.
   </div>
 </nav>
 </div> <!-- /content -->
-<footer class="footer">
-  <div class="nav-footer">
+<footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">
       &nbsp;
     </div>   
     <div class="nav-footer-center">
       <ul class="footer-items list-unstyled">
-    <li class="nav-item">
+<li class="nav-item">
     <a class="nav-link active" href="../LICENSE.html" aria-current="page">
 <p>License: CC BY 4.0 <i class="fa-brands fa-creative-commons" aria-label="creative-commons"></i> <i class="fa-brands fa-creative-commons-by" aria-label="creative-commons-by"></i></p>
 </a>
@@ -902,14 +853,12 @@ Figure&nbsp;7.1: Interface to RStudio.
 </a>
   </li>  
 </ul>
-    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/DanMazJen/medicinsk-statistik/edit/main/pre-course/r-and-rstudio.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/blob/main/pre-course/r-and-rstudio.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/DanMazJen/medicinsk-statistik/edit/main/pre-course/r-and-rstudio.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/blob/main/pre-course/r-and-rstudio.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>
   </div>
 </footer>
-
-
 
 
 </body></html>

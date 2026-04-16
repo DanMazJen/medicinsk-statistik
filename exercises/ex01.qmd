@@ -1,6 +1,11 @@
-# Exercises: Getting R up and running
+# Exercises: Hallo Medical Statistics {#sec-ex-intro}
 
-<!-- TODO: Add an introduction here -->
+
+::: {.callout-tip collapse="false"}
+## Hallo Medical Statistics
+
+Pre-requicite for these exercises was covered within the [session](/sessions/session01.qmd) and is therefore not repeated here. The exercises build on this material.
+:::
 
 ## Learning objectives
 
@@ -10,7 +15,30 @@ The learning objectives for this session are:
 
 ## Exercises
 
-Everything for this session was covered within the [session](/sessions/session01.qmd) and is therefore not repeated here.
+**Exercise 1A**:
+What happens when you take the mean of a character string?
+e.g., `mean("hi")`?
+
+**Exercise 2A**:
+View the dataset `sleep_data` from the website. Import the data in your RStudio session. How many variables does it have?
+
+**Exercise 3A**:
+
+
+**Exercise 1B**:
+List all the variable types the `mean()` function can take the mean of. There should be 5. Seek help inside RStudio.
+
+**Exercise 2B**:
+How many missing values does `sleepdata` have (tip: view it).
+
+**Exercise 3B**:
+Take the mean and standard deviation of the variables that make sense in the `sleepdata`.
+
+**Exercise 1C**:
+Consider now what you took the mean and standard deviation of in exercise 3B. How can you interpret this? What can we say from this?
+
+**Exercise 2C**:
+More concept and medical relevant..
 
 ## Survey
 

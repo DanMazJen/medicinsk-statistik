@@ -28,3 +28,4 @@ repos:
     rev: v1.42.3
     hooks:
       - id: typos
+        args: ["--config", ".typos.toml"]

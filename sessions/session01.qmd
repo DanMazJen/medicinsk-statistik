@@ -1,8 +1,533 @@
-# Getting R up and running
+# Hallo Medical Statistics {#sec-introduction}
 
-<!-- TODO: Add an introduction here -->
+> [**Introduction slides**](../slides/introduction.html)
 
-test1
+<div>
+
+```{=html}
+<iframe class="slide-deck" src="../slides/day1.html"></iframe>
+```
+
+</div>
+
+::: {.callout-note collapse="true"}
+## Teacher note
+
+The slides contain speaking notes that you can view by pressing 'S' on
+the keyboard.
+:::
+
+## The Big Picture
+
+To repeat from the [official syllabus](https://moduler.aau.dk/course/2024-2025/MEDMS24B5_1), our **main tangible goal** is to:
+
+1)   Acquire literacy of medical statistics in order to read and critically evaluate results and procedures in medical research and production.
+2)   Gain practical skills in the domain of statistical programming in order to perform a broad repetoir of statistical procedures yourself
+3)   Use your literacy and practical skills in medical statistics to formulate plans, execute the plan, and make inference for clinical decision-making.
+
+*The learning goals are as follows:*
+
+**Knowledge**
+
+-   Demonstrate understanding of the concepts of uncertainty and probability, as well as fundamental concepts within *biostatistic*
+-   Demonstrate knowledge of the basic overarching study designs and the ability to distinguish between *explanatory, exploratory, and predictive studies*
+-   Account for different types of random and non-random variation
+-   Demonstrate understanding of the limitations and possibilities of *statistical tools*
+-   Understand statistical issues that are central to medicine with an industrial specialisation, and understand how *biostatistical tools can be applied to these issues*
+
+**Skills**
+
+-   Be able to read and understand *program documentation*
+-   Be able to use and *select appropriate visualisation tools* for analysing health-related data
+-   Be able to identify and frame statistical scientific problems that are central to medicine with an industrial specialisation, and to use biostatistical methods to address these problems
+-   Be able to *manipulate, visualise, and analyse relevant data*, including large and complex datasets
+-   Explain complex statistical data in a medical context using relevant literature and available reference databases
+-   Be able to accommodate the diverse backgrounds and knowledge of project group participants in relation to the project
+
+**Competences**
+
+-   Be able to make healthcare-related problems measurable and apply appropriate biostatistical methods
+-   Be able to examine healthcare-related problems from multiple perspectives and relate uncertainty to clinical relevance
+-   Be able to translate data into *clinical decision-making*
+-   Be able to critically evaluate biostatistical issues across a wide range of contexts and participate in scientific discussions on these matters
+
+
+## Setting up an R project {#sec-setup-project}
+
+::: {.callout-note collapse="true"}
+
+## Instructor note
+
+Because it is the first session, take it slowly. Regularly check for
+learner's understanding and make use of the stickies/hats to do so.
+:::
+
+To do data analysis effectively and in an organised and less stressful
+way, everything comes down to how you setup and structure your folders
+and files. Essentially, how to make your analysis project into a
+self-contained project at the folder level. This session will cover how
+to set up a project into an RStudio R Project and structure the files
+and folders using the `{prodigenr}` package.
+
+## :book: Reading task: What is a project and why use it?
+
+**Time: \~5 minutes**
+
+Before we create a project, we should first define what we mean by
+"project". What is a project? In a research context, a project is a set
+of files that together lead to some type of scientific "output" or
+"product", for instance a scientific document. Use data for your output?
+That's part of the project. Do any analysis on the data to give some
+results? Also part of the project. Write a document based on the data
+and results? Have figures inserted into the output document? These are
+also part of the project.
+
+More and more *how* we make a claim in a scientific product is just as
+important as the output describing the claim. This includes not only the
+written description of the methods but also the exact steps taken, that
+is, the code used. So, using a project file organization can help with
+keeping things self-contained and easier to track and link with your
+scientific product. Here are some things to consider when working in
+projects:
+
+-   Organise all files necessary for the scientific product in one
+    folder (also called "directory") along with sub-folders so it is
+    more *self-contained* (doesn't rely on other components in your
+    computer).
+-   Use a common and consistent folder and file structure for your
+    projects.
+-   Make raw data "read-only" (don't edit it directly) and use code to
+    show what was done.
+-   Think of your code and project like you do your scientific document
+    or thesis: that other people will eventually look at it and review
+    it, and that it will likely also be published or archived online.
+
+These simple steps can be huge steps toward being reproducible in your
+analysis. And by managing your projects in a reproducible fashion,
+you'll not only make your science better and more rigorous, it also
+makes your life easier too!
+
+{{< text_snippet hats_up >}}
+
+## RStudio and R Projects
+
+RStudio helps us with managing projects by making use of [R
+Projects](https://docs.posit.co/ide/user/ide/guide/code/projects.html#working-with-projects).
+RStudio R Projects make it easy to divide your work projects into a
+"container", that have their own working directory (the folder where
+your analysis occurs), workspace (where all the R activity and output is
+temporarily saved), history, and documents.
+
+There are many ways one could organise a project folder. We'll be
+setting up a project folder and file structure using `{prodigenr}`.
+We'll use RStudio's "New Project" menu item under
+"File -> New Project...". A new pop-up window shows up. Click
+"New directory" and scroll down to "Scientific Analysis Project using prodigenr".
+Type out `medical-statistics` as the directory name and save it to the `Desktop/`.
+
+::: {.callout-tip appearance="default"}
+You can also type the below function into the Console, but we won't do
+that in this session.
+
+```{r prodigenr-setup}
+#| filename: "Console"
+#| eval: false
+prodigenr::setup_project("~/Desktop/medical-statistics")
+```
+:::
+
+After we've created a New Project in RStudio, we'll have a bunch of new
+files and folders.
+
+```
+LearningR
+├── .git/
+├── R/
+│   └── README.md
+├── data/
+│   └── README.md
+├── data-raw/
+│   └── README.md
+├── docs/
+│   └── README.md
+├── .gitignore
+├── DESCRIPTION
+├── medical-statistics.Rproj
+├── README.md
+└── TODO.md
+```
+
+This forces a specific and consistent folder structure to all your work.
+Think of this like the "Introduction", "Methods", "Results", and
+"Discussion" sections of your paper. Each project is then like a single
+scientific report, that contains everything relevant to that specific
+project. There is a lot of power in something as simple as a consistent
+file and folder structure. Projects are used to make life easier. Once a
+project is opened within RStudio the following actions are automatically
+taken:
+
+-   A new R session (process) is started.
+-   The R session's working directory is set to the project directory.
+-   RStudio project options are loaded.
+
+Each R project is designated with a `.Rproj` file. This file contains
+information about the file path and various metadata. So, when opening
+an R project, you need to open it using the `.Rproj` file.
+
+A project can be opened by either double clicking on the `.Rproj` from
+your file browser or from the file prompt within R Studio:
+
+```
+File -> Open Project
+```
+
+or
+
+```
+File -> Recent Project.. -> medical-statistics
+```
+
+Within the project we created, there are several README files in each
+folder that explain a bit about what should be placed there. Briefly:
+
+1.  Documents like reports, theses, conference abstracts, and
+    exploration type documents should be put in the `docs/` directory,
+    including [Quarto](https://quarto.org) files.
+2.  Data, raw data, and metadata should be in either the `data/`
+    directory or in `data-raw/` for the raw data. We'll explain this
+    more later.
+3.  All `.R` files (called scripts) and code should be in the `R/`
+    directory.
+
+## RStudio layout and usage
+
+You've already gotten a bit familiar with RStudio in the pre-course
+tasks, but if you want more details, RStudio has a great [cheat
+sheet](https://www.rstudio.com/resources/cheatsheets/#ide) on how to use
+RStudio. The items to know right now are the "Console", "Files"/"Help",
+and "Source" tabs.
+
+Code is written in the "Source" tab, where it saves the code and text as
+a file. You can send selected code to the Console from the opened file
+by typing {{< var keybind.run-code >}} (or clicking the "Run" button).
+In the "Source" tab (where R scripts and Quarto files are shown), there
+is a "Document Outline" button (top right beside the "Run" button) that
+shows you the headers or "Sections" (more on that later). To open it you
+can either click the button, use the keybinding
+{{< var keybind.outline >}}, go through the menu to
+`Code -> Show Document Outline`. The Command Palette is a very useful
+tool to learn, since you can easily access almost all features and
+options inside RStudio through it. Because of this reason, we will be
+using it a lot throughout the course. Open it up with
+{{< var keybind.palette >}} and then in the pop-up search bar, type out
+"document outline". The first item should be the one we want, so hit
+`Enter` to activate the Outline.
+
+If you can't remember a specific keybinding in RStudio, check out the
+help for it by going to the menu item `Help -> Keyboard Shortcuts Help`.
+
+## :book: Reading task: Basics of R
+
+::: {.callout-note appearance="minimal" collapse="true"}
+## Instructor note
+
+Let them read it over, then briefly go over the content again.
+
+Emphasize that, in general, code with `()` means it is a function and
+that it does an action. Mention that, like everything, there are some
+situations where that isn't completely true but it mostly is.
+:::
+
+**Time: \~5 minutes**
+
+Before moving on, let's go over a bit about how R works, and what the "R
+session" means. An R session is the way you normally interact with R,
+where you would write code in the Console to tell R to do something.
+Normally, when you open an R session without an R Project, the session
+defaults to assuming you will be working in the `~/Desktop` or `~` (your
+Home folder) location. But this location usually isn't where you
+actually work and where your R code is. You normally work in the folder
+that has your R scripts, Quarto documents, or data files. The assumption
+with R Projects on the other hand, is that the R session's working
+directory should be where the R Project is, since that is where you have
+your R scripts and data files.
+
+R can be used as a simple calculator - try writing:
+
+```{r calculator, eval=FALSE}
+2 + 2
+```
+
+In R, everything is an object and every action is a function. A function
+is also an object, but an object isn't always a function. To create an
+object, also called a variable, we use the `<-` assignment operator. So,
+if we want to create an object called `weight_kilos` and assign it the
+value `100`, we would write:
+
+```{r using-assignment-operator, eval=FALSE}
+weight_kilos <- 100
+weight_kilos
+```
+
+The new object now stores the value we assigned it. We can read it like:
+
+> "`weight_kilos` contains the number 100" or "put 100 into the object
+> `weight_kilos`"
+
+We can name our objects the way we like. There are *almost* no restrictions.
+
+-   can’t start by numbers
+-   can’t use hypen/dash, `-`, nor colon, `:`, in the naming (nor `*`, `+`, `%` and other crazy things)
+-   OK to use underscore, `_`, and dots, `.`
+
+There are also several main "classes" (or types) of objects in R: lists,
+vectors, matrices, and data frames. For now, the only two we will cover
+are *vectors* and *data frames*. A vector is a string of values, while a
+data frame is multiple vectors put together as columns. Data frames are
+a form of data that you'd typically see as a spreadsheet. This type of
+data is called "rectangular data" since it has two dimensions: columns
+and rows.
+
+So these are vectors, which have different types like character, number,
+or factor:
+
+```{r vectors, eval=FALSE}
+# Character vector
+c("a", "b", "c")
+# Logic vector
+c(TRUE, FALSE, FALSE)
+# Numeric vector
+c(1, 5, 6)
+# Factor vector (special types of character vectors)
+factor(c("low", "high", "medium", "high"))
+```
+
+Notice how we use the `#` to write comments or notes. Whatever we write
+after the "hash" (`#`) tells R to ignore it and not run it.
+
+This is what a data frame looks like, if we look at the built-in dataset
+called `airquality`, which is a data frame object loaded by default when
+you start R:
+
+```{r dataframes}
+head(airquality)
+```
+
+The `c()` function puts values together and `head()` prints the first 6
+rows. Both `c()` and `head()` are *functions* since they do an *action*
+and they can be recognized by the `()` at their end. Functions take an
+*input* (known as *arguments*) and give back an *output*. Each argument
+is separated by a comma `,`. Some functions can take unlimited number of
+arguments (like `c()`). Others, like `head()` can only take a few
+arguments. In the case of `head()`, the first argument requires a data
+frame object.
+
+`mean()` is also a nice function, so we don't have to compute it by hand all the time.
+
+```{r mean, eval=FALSE}
+foo = c(31, 3, 94)
+(31 + 3 + 94) / 3 # Manual computing the mean
+mean(foo) # automatically computes the mean
+```
+
+## Asking for help or learning more about functions
+
+Consider the scenario where you learn about a new function or become interested in using a function for a different purpose. Let's say you want to learn more about `mean()`. You simply write a `?` before the function and RStudio will show you documentation about the function and possible suggestions of how to use it correctly in different scenarios - cool, right? Like this:
+
+```{r mean-questionmark, eval=FALSE}
+?mean()
+```
+
+{{< text_snippet hats_up >}}
+
+## Standing on giants - using other peoples code
+
+One of the major strengths of R, and many other programming languages,
+is in its ability for other people to create packages that simplify
+doing complex tasks. For example, if you need to use mixed effects
+models for your data analysis, you can use the `{lme4}` package. Or if
+you want to create figures you can use the `{ggplot2}` package. As you
+experienced from the pre-course tasks, installing packages is easy by
+using `install.packages()`. Whenever we work with R, we very rarely work
+only with the base R functions. We usually use a lot of functions from
+many other packages, because that is one of the easiest ways for you to
+simplify your work! No need to re-invent the wheel :grin:
+
+One "meta-package" we will use throughout the course is called
+`{tidyverse}`. So let's load the package up so we can use the functions
+from inside it.
+
+The way you load a package and get access to the functions inside is by
+using the `library()` function. So let's load the `{tidyverse}` package
+by writing `library(tidyverse)` in the code chunk. It should look like
+this:
+
+```{{r setup}}
+library(tidyverse)
+```
+
+Let's run this code chunk by placing the cursor over the code and using
+{{< var keybind.run-code >}}. After you run the code, you should see
+some text below the `setup` chunk that might look something like this:
+
+```{r}
+#| echo: false
+#| message: true
+#| warning: true
+library(tidyverse)
+```
+
+## ceci n'est pas une pipe `|>`
+
+The pipe, `|>` or `%>%`, is a handy way to write multiple lines of R code.
+
+You choose which pipe to use in the menu:
+-   *Tools* > *Global Options* > *Code* (tick “Use native pipe…”)
+
+`|>` is pronounced as “and then”.
+
+It can take a variable and then compute the mean:
+
+```{r pipe-showoff, eval=FALSE}
+values <- c(1:10)
+
+values |>
+  mean()
+```
+
+instead of this notation:
+
+```{r no-pipe, eval=FALSE}
+mean(values)
+```
+
+Which reads: take the mean of `values`.
+
+It does not make a big difference in this example but later we will see how the pipe helps us break code into chunks that are easier to read, write, debug, extend, modify and combine.
+
+```{r pipe-complicated, eval=FALSE}
+DATA |>
+  some_change_to_the_data() |>
+  a_subsequent_operation() |>
+  ... |>
+  final_operation_or_plot()
+```
+
+![](images/pipe.png){.lightbox}
+
+Basic piping:
+
+`x |> f()` is equivalent to `f(x)`
+`x |> f(y)` is equivalent to `f(x, y)`
+`x |> f() |> g() |> h()` is equivalent to `h(g(f(x)))`
+
+## Reading and writing data
+
+You have already tried reading in data. The command was:
+
+```{r read-data}
+SUA_data <- readr::read_csv(
+  "https://zenodo.org/records/8292712/files/SUA_CVDs_risk_factors.csv"
+)
+```
+
+Here, we used the `{readr}` package to read a csv file from the course website using the function `read_csv()`. As we haven't loaded the `{readr}` package, R doesn't know that there's a function called `read_csv()`. Instead of loading the entire library of functions (using `library(readr)`), we simply tell R to find the `{readr}` package and look for the function `read_csv()` using colon-colon `package::function`.
+
+If you wanted to store or save a csv-file, you could write the csv file to your computer using `write_csv()`. Here, you need to specify where you want the file. For now, we will store it in the `medical-statistics/data-raw/` folder and name the file `SUA_data`:
+
+```{r write-data, eval=FALSE}
+readr::write_csv(SUA_data, "data-raw/SUA_data.csv")
+```
+
+You can always read more about the function using `?readr::write_csv`
+
+## Overview of data
+
+`View()` function.
+
+As R is case sensitive, `view()` will now work - try it!
+
+```{r view}
+view(SUA_data)
+# Instead try:
+View(SUA_data)
+```
+
+## Using functions on datasets
+
+The `mean()` function also works on datasets. However, we need to specify which variable it should take the mean of.
+
+We do this by either selecting it with the `$` sign:
+
+```{r mean-base}
+mean(SUA_data$Age)
+```
+
+Another approach is to use the `{dplyr}` function `pull()`:
+
+```{r mean-tidyverse}
+library(dplyr)
+
+SUA_data |>
+  pull(Age) |>
+  mean()
+```
+
+Both yield the same result. The first is quick but can be difficult to extend or even read.
+
+The dplyr-version is easy to read and can be extended for multiple variables, and is in general much more flexible when we want to do more operations.
+
+## Summary
+
+-   Use `{prodigenr}` to assist with setting up a new project, with
+    standard files and folders to begin working on a data analysis
+    project.
+-   Use R Projects in RStudio to manage your project and make it easier
+    to work with R in it.
+-   Use R as a basic calculator.
+-   R atomic vectors: `numeric`,`character`,`logic`, and `factor`.
+-   Import and examine a dataset within R using basic functions.
+
+## Survey
+
+Please complete the survey for this session:
+
+{{< include /includes/_survey.qmd >}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+:::{.hidden}
 
 ## Learning objectives
 
@@ -47,3 +572,14 @@ Text
 ## Survey
 
 {{< include /includes/_survey.qmd >}}
+
+:::
+
+## Exercises and learn more
+
+Everything for this session will be practiced and expanded in the [exercises](/exercises/ex01.qmd).
+
+Further material:
+
+-   RStudio's cheat-sheet:
+-   ?

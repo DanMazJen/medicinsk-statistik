@@ -1,0 +1,64 @@
+
+
+```{r}
+library(tidyverse)
+library(reticulate)
+```
+
+```{r}
+reticulate::use_python("/usr/local/bin/python")
+# If you haven't installed Python, the line below will prompt you!
+reticulate::py_install("pillow")
+```
+
+```{python}
+import numpy as np
+from PIL import Image
+```
+
+```{python}
+# Thanks to Bart Huntley for pointing out a typo previously in this chunk!
+im = Image.open(
+    "/images/gorilla-waving-cartoon-black-white-outline-clipart-914"
+)  # download at https://classroomclipart.com/clipart-view/Clipart/Black_and_White_Clipart/Animals/gorilla-waving-cartoon-black-white-outline-clipart-914_jpg.htm
+pixels = np.asarray(im)
+
+# Set threshold level
+threshold_level = 50
+
+# Find coordinates of all pixels below threshold
+coords = np.column_stack(np.where(pixels < threshold_level))
+```
+
+```{r}
+coords <-
+  as.data.frame(py$coords) %>%
+  sample_n(1768) %>%
+  mutate(bmi = V2 * 17 + 15, steps = 15000 - V1 * 15000 / max(V1)) %>%
+  mutate(
+    randvar = rnorm(n(), mean = 0, sd = 10),
+    randi = steps * (1 + randvar),
+    gender = case_when(randi < median(steps) ~ "Female", TRUE ~ "Male")
+  )
+```
+
+```{r}
+coords %>%
+  count(gender)
+```
+
+```{r}
+coords %>%
+  ggplot(aes(x = bmi, y = steps)) +
+  geom_point() +
+  theme_void() +
+  xlim(0, 15000)
+```
+
+```{r}
+coords %>%
+  ggplot(aes(x = bmi, y = steps, color = gender)) +
+  geom_point() +
+  theme_void() +
+  xlim(0, 15000)
+```

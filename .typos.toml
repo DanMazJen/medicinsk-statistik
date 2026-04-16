@@ -8,4 +8,14 @@ extend-exclude = [
   "_book/*",
   "_extensions/*",
   "*.bib",
+  "arrows/*",
 ]
+
+[default.extend-words]
+# Map word typos to their corrections as: <typo> = "<correction>"
+# When the correction is blank, the word is never valid. When the correction is the key, the word is always valid.
+Ege = "Ege"
+fpt = "fpt"
+
+[default.extend-identifiers]
+fpt = "fpt"

@@ -6,11 +6,6 @@ This page is intended as a "quick-fix" repositroty for common issues and simple 
 ---
 
 
-# Frequently Asked Questions
-
-This page is intended as a quick-reference repository for common issues and simple solutions for the Medical Statistics course.
-
-
 ## Issues with R
 
 ::: {#tip-runissue .callout-tip collapse="true"}

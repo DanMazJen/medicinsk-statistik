@@ -1,0 +1,331 @@
+---
+format: rostools-theme-revealjs
+search: false
+revealjs-plugins:
+  - editable
+filters:
+  - editable
+---
+
+# Welcome to Medical Statistics
+
+-   :heavy_check_mark: Find a seat and check in with the persons sitting next to you
+-   :heavy_check_mark: If you haven't prepared R and RStudio, find somebody who did that you can sit next to.
+-   :heavy_check_mark: Check out the website [Medical Statistics](https://danmazjen.github.io/medicinsk-statistik/)
+
+::: notes
+Introduce teachers and helpers after welcoming everyone and getting
+them to do this.
+:::
+
+## Case intro session 1
+
+You have been tasked with the responsibility as medical expert on a clinical trial. The projects' statistician want's you to give her some information in order for her to start her work.
+
+-   Provide the mean and standard deviation of a prior study, so that she can compute power calculations.
+-   Provide variables that you believe are medically relevant, based on medical expertise and prior studies.
+
+The data is stored in `.csv` format and the company has provided you access to a GDPR-friendly and secure server where all the company data are stored. The only software installed on the server is `R` and `RStudio`.
+
+:::{.hidden}
+
+## Case intro session X
+
+Søren, 45 yours old, Male, farther of three
+
+Søren was recently diagnosed with cancer. The cancer is malignant but he's not particularly affected by it yet. The oncology team has proposed he could receive either chemotherapy, surgery, or radio therapy. He's unsure which treatment to opt in to. You read a paper in which the OR was x, y, z, the RR was x, y, z, and the AR was x, y, z.
+
+Which recommendation would you give Søren?
+
+## Case intro session Y
+
+You notice a sub-group of the patients in the ICU die after leaving the ICU, while another sub-population recover well. You plan to test the mortality between the two in order to determine wither the sub-groups really differ.
+
+Which considerations should you have?
+
+## Case example 3
+
+You work at a pharmaceutical company which is planning a clinical trial. The company wants to know how many patients to include. It turns out that your colleagues came up with different numbers between 100 and 1000. Which is correct and why did they come up with different answers?
+
+The company want to go with the lowest level of patients due to economy. How can you evaluate this?
+
+## Case example 5
+
+You have been tasked to be the medical expert on a clinical trial. The projects' statistician want's you to draft a SAP for her. You need to give the statistician some information in order for her to start her work.
+
+-   Define a clinically relevant effect.
+-   Give him the mean and standard deviation of a prior study, so that he can make power calculations.
+-   Provide variables that you believe are medically relevant, based on medical expertise and prior studies.
+
+:::
+
+## {auto-animate=true}
+
+Medical science and clinical practice relies on statistics
+
+## {auto-animate=true}
+
+Medical statistics relies on clinical knowledge and patient data
+
+Medical science and clinical practice relies on statistics
+
+## What do you make of this plot?
+
+```{r first-plot}
+#| echo: false
+# output-location: slide
+
+hd_data <- readr::read_csv(
+  "https://raw.githubusercontent.com/DanMazJen/medicinsk-statistik/main/data/hd_data.csv"
+)
+
+hd_data |>
+  ggauto::ggauto(
+    HD,
+    MaxHR,
+    title = "Coronary Heart Disease",
+    subtitle = "303 individuals (139 Yes, 164 No) measured.",
+    caption = "**Source**: Cleveland Medical Center",
+    xlab = "Max Hear Rate",
+    ylab = "Coronary Heart Disease"
+  )
+```
+
+
+## What about this one?
+
+```{r second-plot}
+#| echo: false
+# output-location: slide
+
+hd_data <- readr::read_csv(
+  "https://raw.githubusercontent.com/DanMazJen/medicinsk-statistik/main/data/hd_data.csv"
+)
+
+hd_data |>
+  ggauto::ggauto(
+    Age,
+    MaxHR,
+    title = "Coronary Heart Disease",
+    subtitle = "303 individuals (139 Yes, 164 No) measured.",
+    caption = "**Source**: Cleveland Medical Center",
+    xlab = "Age",
+    ylab = "Max Hear Rate"
+  )
+```
+
+## Can we spot heart disease from simple data?
+
+::: {.fragment}
+Max heart rate and coronary heart disease...
+:::
+
+::: {.fragment}
+Max heart rate and age...
+:::
+
+::: {.fragment}
+Age and coronary heart disease?
+:::
+
+
+## Exploring the Heard Disease dataset
+
+1)  Go to [**https://danmazjen.github.io/medicinsk-statistik**](https://danmazjen.github.io/medicinsk-statistik), exercises, and find the Cleveland Heart Disease dataset
+
+2)  Copy the following code:
+
+```r
+hd_data <- readr::read_csv("https://raw.githubusercontent.com/DanMazJen/medicinsk-statistik/main/data/hd_data.csv")
+```
+
+3)  Past it into your R console and check if you see the data in your `variable` pane.
+
+
+## Code-along {auto-animate=true}
+
+```r
+library(ggplot2)                                # <1>
+
+hd_data                                       # <2>
+```
+
+1. Tell R you will be using the `ggplot2` package
+2. Take `hd_data`, and then,
+
+
+## Code-along {auto-animate=true}
+
+```r
+library(ggplot2)                                # <1>
+
+hd_data |>                                      # <2>
+  ggplot(                                        # <3>
+    aes(x = HD, y = Age)                    # <4>
+    ) +                                          # <5>
+  geom_boxplot()                                 # <6>
+```
+
+1. Tell R you will be using the `ggplot2` package
+2. Take `hd_data`, and then,
+3. Make a `ggplot` skeleton
+4. Select the x and y variables using `aes` (aestetics)
+5. End the ggplot function that has a parenthesis open. Add `+` more...
+6. Specify the type of plot you want `ggplot` to do with the skeleton
+
+
+
+# Medical Statistics
+
+In this course, we will
+
+-   develop statistical literacy skills
+-   Learn to make medical inference from statistics
+-   Perform statistics using R
+
+## Develop statistical literacy skills
+
+::: {.fragment}
+What does it mean to have an odds ratio of 0.9?
+:::
+
+::: {.fragment}
+Is it good or bad for my patient that a study concluded `OR: 0.9` for a 5 year mortality risk?
+:::
+
+::: {.fragment}
+When informing my patient about surgery, should I use the relative risk or absolute risk difference?
+:::
+
+
+## Learn to make medical inference from statistics
+
+::: {.fragment}
+What does it mean to have an odds ratio of 0.9?
+:::
+
+::: {.fragment}
+Is it good or bad for my patient that a study concluded `OR: 0.9` for a 5 year mortality risk?
+:::
+
+::: {.fragment}
+When informing my patient about surgery, should I use the relative risk or absolute risk difference?
+:::
+
+
+
+## Perform statistics using R
+
+::: {.fragment}
+Plotting data using `ggplot2` as you've already experienced
+:::
+
+::: {.fragment}
+Run statistical tests such as t-test, regression etc.
+:::
+
+::: {.fragment}
+Read and understand the `R` output
+:::
+
+
+## :raising_hand_woman: How many use statistics without <u>really</u> understanding it (chatGPT incl.)? {.center}
+
+## :raising_hand_woman: How many have read results in a paper and wondered what the numbers <u>actually</u> means? {.center}
+
+## :raising_hand_woman: How many have wondered how scientists make <u>predictions</u> for future disease probabilities? {.center}
+
+## :raising_hand_woman: Would you be interested in learning how to navigate scientific claims based on data? {.center}
+
+## This course is for you :tada: {.center}
+
+
+
+## :walking::walking_woman: Do you have coding/programming experience? {.center}
+
+<- Never
+I took a course in computer science ->
+
+
+## :walking::walking_woman: Are you scared of statistics? {.center}
+
+<- Not at all
+I had nightmares about this course already ->
+
+
+## :walking::walking_woman: How good are you right now at statistics? {.center}
+
+
+<- Ronald Fisher level
+Who is Ronald Fisher? ->
+
+## :walking::walking_woman: How high expectations do you have for yourself in this course? {.center}
+
+<- I want to learn everything
+I don't mind failing 1st time ->
+
+
+## Please open your RStudio now {.center}
+
+
+## 5 minutes break
+
+We'll start again by learning the basics of R for medical purposes
+
+-   If you don't have R installed yet - no break for you, sorry...
+-   If you need help, grab hold of a teacher
+
+
+# RStudio IDE
+
+::: editable
+
+RStudio is a window that helps us navigate in R.
+
+    :::
+
+![](images/rstudio-introduction.png){.editable}
+
+## Setup and layout {.smaller}
+
+::: columns
+::: {.column width="50%"}
+-   Workddd
+:::
+
+::: {.column width="50%"}
+-   Sc
+:::
+:::
+
+
+## Getting or asking for help :raising_hand_woman::raising_hand_man: {.smaller}
+
+-   Put the sticky on your laptop to get help
+-   We are 2-4 teachers eager to help
+-   Table mates, try to help out too
+-   We're all learning here!
+    -   This is a supportive and safe environment
+    -   Remember our Code of Conduct
+
+## {auto-animate="true"}
+
+```r
+# Fill in the spot we created for a plot
+output$phonePlot <- renderPlot({
+  # Render a barplot
+})
+```
+
+## {auto-animate=true}
+
+```r
+# Fill in the spot we created for a plot
+output$phonePlot <- renderPlot({
+  # Render a barplot
+  barplot(WorldPhones[,input$region]*1000,
+          main=input$region,
+          ylab="Number of Telephones",
+          xlab="Year")
+})
+```

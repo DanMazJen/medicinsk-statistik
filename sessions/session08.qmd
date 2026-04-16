@@ -45,3 +45,200 @@ Text
 ## Survey
 
 {{< include /includes/_survey.qmd >}}
+
+
+
+
+
+
+
+
+## :book: Reading task: Working with messy and tidy data
+
+::: {.callout-note collapse="true"}
+## Instructor note
+
+For the reading section, emphasize the characteristics of a "tidy"
+dataset.
+:::
+
+**Time: \~12 minutes**
+
+The concept of "tidy" data was popularized in an
+[article](https://www.jstatsoft.org/v59/i10/paper) [@Wickham2014] by
+Hadley Wickham and described in more detail in the [Tidy Data
+chapter](https://r4ds.hadley.nz/data-tidy.html) of the *R for Data
+Science* online book. Before we continue with tidy data, we need to
+cover something that is related to the concept of "tidy" and that has
+already come up in this workshop: the `{tidyverse}`. The `{tidyverse}`
+is an ecosystem of R packages that are designed to work well together,
+that all follow a strong "[design
+philosophy](https://design.tidyverse.org/)" and common [style
+guide](https://style.tidyverse.org/). This makes combining these
+packages in the tidyverse much easier. We teach the tidyverse because of
+these reasons.
+
+Part of the "tidy" part of tidyverse revolves around tidy data. A tidy
+dataset is when:
+
+-   Each variable has its own column (e.g. "Body Weight").
+-   Each observation has its own row (e.g. "Person").
+-   Each value has its own cell (e.g. "Body weight for a person at a
+    specific date").
+
+Take a look at the example "tidy" and "messy" data frames (also called
+"tibbles" in the tidyverse) below. Think about why each may be
+considered "tidy" or "messy". What do you notice between the tidy
+versions and the messier versions?
+
+```{r}
+library(tidyr)
+```
+
+```{r}
+# Datasets come from tidyr
+# Tidy:
+table1
+
+# Partly tidy:
+table2
+
+# Messier:
+table3
+
+# Messy:
+table4a
+
+# Messy:
+table4b
+```
+
+The "most" tidy version is `table1` as each column describes their
+values (e.g. population is population size), each row is unique (e.g.
+first row is for values from Afghanistan from 1999), and each cell is an
+explicit value representative of its column and row.
+
+`table2` is a "long" version of `table1` so it is partly "tidy", but it
+doesn't satisfy the rule that each variable has a column, since `count`
+represents both cases and population size.
+
+On the other hand, `table3` is messy because the `rate` column values
+are a composite of two other column values (cases and population), when
+it should be a single number (a percent). Both `table4a` and `table4b`
+have columns with ambiguous values inside. For example, you can't tell
+from the data what the values in the `1999` column contain.
+
+Tidy data has a few notable benefits:
+
+1.  Time spent preparing your data to be tidy from the beginning can
+    save days of added work and frustration in the long run.
+2.  "Tidy data" is a conceptual framework that allows you to easily
+    build off and wrangle (i.e. "manipulate", "clean up", "manage") data
+    in simpler and easy-to-interpret ways, especially when used within
+    the framework of the tidyverse.
+3.  Tidier data is easier to visualize and "map" onto different axes of
+    the plot, like the x and y axes.
+
+The concept of tidy data also gives rise to "tidy code" for visualizing
+and wrangling. By using "verbs" (R functions) and chaining them together
+in "sentences" (in a sequential pipeline), you can construct meaningful
+and readable code that describes in plainer English what you are doing
+to the data. This is one simple way that you can enhance the
+reproducibility of your code. There are other ways to make your code
+tidier and more readable, all of which we will cover in this workshop.
+
+-   Document what you did to your data and why you did it, to help you
+    remember later on by using comments with `#` hashes as well as using
+    Markdown text to describe things that can't be easily explained by
+    the code, for example, the "why" behind the code.
+-   Keep the code simple: Don't be clever nor overly concise, always be
+    clear even if it means more code. Clear code is easier to understand
+    than clever and sometimes overly-complex or -concise code.
+
+Whether working with either messy or tidy data, there are a few
+principles to follow:
+
+-   You should always save your original raw dataset in the `data-raw/`
+    folder.
+    -   *Note*: Whether or not you save data to `data-raw/` depends on
+        how you collected the data and how many collaborators are on
+        your team. You may end up storing and processing the data in
+        another folder as a project of its own.
+-   **Never** edit your raw data directly. If you have to edit it to fix
+    mistakes, have some version control of it so you can track it and
+    see what has been changed.
+-   Only work with your raw data using R code. *As much as possible or
+    is reasonable, don't manually edit it*. Manual editing doesn't leave
+    a history of what you've done to it, so you can't go back and see
+    what you've done. Always keep a history of any changes you've made
+    to the data, preferably by using R code.
+-   Save the edited data as another dataset and store it in the `data/`
+    folder.
+
+We are saving to `data/` because the dataset is already collected and
+published, so the original raw data can always be downloaded again.
+
+{{< text_snippet hats_up >}}
+
+## :speech_balloon: Discussion activity: How tidy is our data?
+
+**Time: \~10**
+
+Now that we've learned about the concept of "tidy" data, let's discuss
+how tidy our data is. At a glance, there are approximately 7 things in
+this data that are mildly untidy or could be improved. Can you identify
+them?
+
+1.  On your own, take 2 minutes to look over the data and try to find
+    what could be improved.
+2.  With your neighbour, take 5 minutes and discuss what you found and
+    see if you have overlap in agreement or if you found different
+    things.
+3.  As a group, we will take 3 minutes and we will share what you all
+    discussed and then go over the 7 things.
+
+::: {.callout-note appearance="minimal" collapse="true"}
+## :teacher: Instructor note
+
+The 6 main things are:
+
+1.  Column names are not tidy or standardised. For instance, there are
+    `.` in the names and some use abbreviations.
+2.  Some column names also contain data. For instance, all the columns
+    with numbers at the end are time points, like `Insulin1` is insulin
+    measured at 1 minute after eating the meal. This data is in the wide
+    format, when it should be in the long format. We'll cover long and
+    wide in @sec-wrangling.
+3.  Some columns that contain a number at the end, likely indicating
+    time, also contain `..` instead of `.`. This likely means it was
+    minus the number (`-5`, 5 minutes before the test). So it should be
+    renamed to something like `_minus5`.
+4.  The data could actually be split into two or three datasets, one in
+    the long format for the measurements taken at regular minute
+    intervals, one for the measurements taken at 30 minute intervals
+    (the OGTT).
+5.  There are two ID columns, `id` and `OFS.ID`.
+6.  The `Group` column has abbreviations as `FDR` and `CTR` instead of
+    the full names.
+7.  There are two similar columns for insulin from the OGTT:
+    `Insulin.0.OGTT.X` and `Insulin.0.OGTT`.
+:::
+
+## Summary
+
+-   Use `read_csv()` or `read_csv2()` to import data from a `.csv`
+    (comma or tab separated) file.
+-   Use `here::here()` to make file paths easier to manage in your R
+    project.
+-   Use `glimpse()` to get an overview of the data.
+-   Use the Quarto code chunk options like `echo`, `message`, or
+    `warning` to control what is shown in the output of the code chunk.
+-   Use tab auto-completion when writing code.
+-   With tidy data, each variable has its own column, each observation
+    has its own row, and each value has its own cell.
+-   Never edit raw data. Instead, use R code to make changes and clean
+    up the raw data, rather than manually editing the dataset.
+
+## Survey
+
+Please complete the survey for this session:

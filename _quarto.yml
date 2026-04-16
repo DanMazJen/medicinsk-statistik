@@ -35,7 +35,7 @@ book:
         - pre-course/survey.qmd
     - part: "Sessions"
       chapters:
-        - sessions/introduction.qmd
+        #- sessions/introduction.qmd
         - sessions/session01.qmd
         - sessions/session02.qmd
         - sessions/session03.qmd
@@ -44,7 +44,7 @@ book:
         - sessions/session06.qmd
         - sessions/session07.qmd
         - sessions/session08.qmd
-        - sessions/conclusion.qmd
+        #- sessions/conclusion.qmd
     - part: "Exercises"
       chapters:
         - exercises/data.qmd
@@ -63,6 +63,9 @@ book:
         href: LICENSE.md
       - text: "Code of Conduct"
         href: "pre-course/code-of-conduct.qmd"
+  body-footer:
+  # Simple analytics tracking activity
+    <script async src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
 
 bibliography:
 - "includes/references.bib"

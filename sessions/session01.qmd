@@ -442,8 +442,8 @@ You can always read more about the function using `?readr::write_csv`
 
 As R is case sensitive, `view()` will now work - try it!
 
-```{r view}
-view(SUA_data)
+```{.r view}
+view(SUA_data) # Will produce an error
 # Instead try:
 View(SUA_data)
 ```

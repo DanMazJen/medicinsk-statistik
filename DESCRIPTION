@@ -12,6 +12,7 @@ Imports:
     downlit,
     dplyr,
     forcats,
+    ggauto,
     ggplot2,
     haven,
     here,

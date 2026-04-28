@@ -337,8 +337,8 @@
     "objectID": "sessions/session01.html#sec-setup-project",
     "href": "sessions/session01.html#sec-setup-project",
     "title": "11  Hallo Medical Statistics",
-    "section": "\n11.2 Setting up an R project",
-    "text": "11.2 Setting up an R project\n\n\n\n\n\n\nNoteInstructor note\n\n\n\n\n\nBecause it is the first session, take it slowly. Regularly check for learner’s understanding and make use of the stickies/hats to do so.\n\n\n\nTo do data analysis effectively and in an organised and less stressful way, everything comes down to how you setup and structure your folders and files. Essentially, how to make your analysis project into a self-contained project at the folder level. This session will cover how to set up a project into an RStudio R Project and structure the files and folders using the prodigenr package.",
+    "section": "\n12.1 Setting up an R project",
+    "text": "12.1 Setting up an R project\n\n\n\n\n\n\nNoteInstructor note\n\n\n\n\n\nBecause it is the first session, take it slowly. Regularly check for learner’s understanding and make use of the stickies/hats to do so.\n\n\n\nTo do data analysis effectively and in an organised and less stressful way, everything comes down to how you setup and structure your folders and files. Essentially, how to make your analysis project into a self-contained project at the folder level. This session will cover how to set up a project into an RStudio R Project and structure the files and folders using the prodigenr package.",
     "crumbs": [
       "Sessions",
       "<span class='chapter-number'>11</span>  <span class='chapter-title'>Hallo Medical Statistics</span>"
@@ -348,8 +348,8 @@
     "objectID": "sessions/session01.html#reading-task-what-is-a-project-and-why-use-it",
     "href": "sessions/session01.html#reading-task-what-is-a-project-and-why-use-it",
     "title": "11  Hallo Medical Statistics",
-    "section": "\n11.3 📖 Reading task: What is a project and why use it?",
-    "text": "11.3 📖 Reading task: What is a project and why use it?\nTime: ~5 minutes\nBefore we create a project, we should first define what we mean by “project”. What is a project? In a research context, a project is a set of files that together lead to some type of scientific “output” or “product”, for instance a scientific document. Use data for your output? That’s part of the project. Do any analysis on the data to give some results? Also part of the project. Write a document based on the data and results? Have figures inserted into the output document? These are also part of the project.\nMore and more how we make a claim in a scientific product is just as important as the output describing the claim. This includes not only the written description of the methods but also the exact steps taken, that is, the code used. So, using a project file organization can help with keeping things self-contained and easier to track and link with your scientific product. Here are some things to consider when working in projects:\n\nOrganise all files necessary for the scientific product in one folder (also called “directory”) along with sub-folders so it is more self-contained (doesn’t rely on other components in your computer).\nUse a common and consistent folder and file structure for your projects.\nMake raw data “read-only” (don’t edit it directly) and use code to show what was done.\nThink of your code and project like you do your scientific document or thesis: that other people will eventually look at it and review it, and that it will likely also be published or archived online.\n\nThese simple steps can be huge steps toward being reproducible in your analysis. And by managing your projects in a reproducible fashion, you’ll not only make your science better and more rigorous, it also makes your life easier too!\n\n\n\n\n\n\nCautionOrigami hats up!\n\n\n\nWhen you’re ready to continue, place the paper hat on your computer to indicate this to the teacher 👒 🎩",
+    "section": "\n12.2 📖 Reading task: What is a project and why use it?",
+    "text": "12.2 📖 Reading task: What is a project and why use it?\nTime: ~5 minutes\nBefore we create a project, we should first define what we mean by “project”. What is a project? In a research context, a project is a set of files that together lead to some type of scientific “output” or “product”, for instance a scientific document. Use data for your output? That’s part of the project. Do any analysis on the data to give some results? Also part of the project. Write a document based on the data and results? Have figures inserted into the output document? These are also part of the project.\nMore and more how we make a claim in a scientific product is just as important as the output describing the claim. This includes not only the written description of the methods but also the exact steps taken, that is, the code used. So, using a project file organization can help with keeping things self-contained and easier to track and link with your scientific product. Here are some things to consider when working in projects:\n\nOrganise all files necessary for the scientific product in one folder (also called “directory”) along with sub-folders so it is more self-contained (doesn’t rely on other components in your computer).\nUse a common and consistent folder and file structure for your projects.\nMake raw data “read-only” (don’t edit it directly) and use code to show what was done.\nThink of your code and project like you do your scientific document or thesis: that other people will eventually look at it and review it, and that it will likely also be published or archived online.\n\nThese simple steps can be huge steps toward being reproducible in your analysis. And by managing your projects in a reproducible fashion, you’ll not only make your science better and more rigorous, it also makes your life easier too!\n\n\n\n\n\n\nCautionOrigami hats up!\n\n\n\nWhen you’re ready to continue, place the paper hat on your computer to indicate this to the teacher 👒 🎩",
     "crumbs": [
       "Sessions",
       "<span class='chapter-number'>11</span>  <span class='chapter-title'>Hallo Medical Statistics</span>"
@@ -359,8 +359,8 @@
     "objectID": "sessions/session01.html#rstudio-and-r-projects",
     "href": "sessions/session01.html#rstudio-and-r-projects",
     "title": "11  Hallo Medical Statistics",
-    "section": "\n11.4 RStudio and R Projects",
-    "text": "11.4 RStudio and R Projects\nRStudio helps us with managing projects by making use of R Projects. RStudio R Projects make it easy to divide your work projects into a “container”, that have their own working directory (the folder where your analysis occurs), workspace (where all the R activity and output is temporarily saved), history, and documents.\nThere are many ways one could organise a project folder. We’ll be setting up a project folder and file structure using prodigenr. We’ll use RStudio’s “New Project” menu item under “File -&gt; New Project…”. A new pop-up window shows up. Click “New directory” and scroll down to “Scientific Analysis Project using prodigenr”. Type out medical-statistics as the directory name and save it to the Desktop/.\n\n\n\n\n\n\nTip\n\n\n\nYou can also type the below function into the Console, but we won’t do that in this session.\n\n\n\nConsole\n\nprodigenr::setup_project(\"~/Desktop/medical-statistics\")\n\n\n\n\nAfter we’ve created a New Project in RStudio, we’ll have a bunch of new files and folders.\nLearningR\n├── .git/\n├── R/\n│   └── README.md\n├── data/\n│   └── README.md\n├── data-raw/\n│   └── README.md\n├── docs/\n│   └── README.md\n├── .gitignore\n├── DESCRIPTION\n├── medical-statistics.Rproj\n├── README.md\n└── TODO.md\nThis forces a specific and consistent folder structure to all your work. Think of this like the “Introduction”, “Methods”, “Results”, and “Discussion” sections of your paper. Each project is then like a single scientific report, that contains everything relevant to that specific project. There is a lot of power in something as simple as a consistent file and folder structure. Projects are used to make life easier. Once a project is opened within RStudio the following actions are automatically taken:\n\nA new R session (process) is started.\nThe R session’s working directory is set to the project directory.\nRStudio project options are loaded.\n\nEach R project is designated with a .Rproj file. This file contains information about the file path and various metadata. So, when opening an R project, you need to open it using the .Rproj file.\nA project can be opened by either double clicking on the .Rproj from your file browser or from the file prompt within R Studio:\nFile -&gt; Open Project\nor\nFile -&gt; Recent Project.. -&gt; medical-statistics\nWithin the project we created, there are several README files in each folder that explain a bit about what should be placed there. Briefly:\n\nDocuments like reports, theses, conference abstracts, and exploration type documents should be put in the docs/ directory, including Quarto files.\nData, raw data, and metadata should be in either the data/ directory or in data-raw/ for the raw data. We’ll explain this more later.\nAll .R files (called scripts) and code should be in the R/ directory.",
+    "section": "\n12.3 RStudio and R Projects",
+    "text": "12.3 RStudio and R Projects\nRStudio helps us with managing projects by making use of R Projects. RStudio R Projects make it easy to divide your work projects into a “container”, that have their own working directory (the folder where your analysis occurs), workspace (where all the R activity and output is temporarily saved), history, and documents.\nThere are many ways one could organise a project folder. We’ll be setting up a project folder and file structure using prodigenr. We’ll use RStudio’s “New Project” menu item under “File -&gt; New Project…”. A new pop-up window shows up. Click “New directory” and scroll down to “Scientific Analysis Project using prodigenr”. Type out medical-statistics as the directory name and save it to the Desktop/.\n\n\n\n\n\n\nTip\n\n\n\nYou can also type the below function into the Console, but we won’t do that in this session.\n\n\n\nConsole\n\nprodigenr::setup_project(\"~/Desktop/medical-statistics\")\n\n\n\n\nAfter we’ve created a New Project in RStudio, we’ll have a bunch of new files and folders.\nLearningR\n├── .git/\n├── R/\n│   └── README.md\n├── data/\n│   └── README.md\n├── data-raw/\n│   └── README.md\n├── docs/\n│   └── README.md\n├── .gitignore\n├── DESCRIPTION\n├── medical-statistics.Rproj\n├── README.md\n└── TODO.md\nThis forces a specific and consistent folder structure to all your work. Think of this like the “Introduction”, “Methods”, “Results”, and “Discussion” sections of your paper. Each project is then like a single scientific report, that contains everything relevant to that specific project. There is a lot of power in something as simple as a consistent file and folder structure. Projects are used to make life easier. Once a project is opened within RStudio the following actions are automatically taken:\n\nA new R session (process) is started.\nThe R session’s working directory is set to the project directory.\nRStudio project options are loaded.\n\nEach R project is designated with a .Rproj file. This file contains information about the file path and various metadata. So, when opening an R project, you need to open it using the .Rproj file.\nA project can be opened by either double clicking on the .Rproj from your file browser or from the file prompt within R Studio:\nFile -&gt; Open Project\nor\nFile -&gt; Recent Project.. -&gt; medical-statistics\nWithin the project we created, there are several README files in each folder that explain a bit about what should be placed there. Briefly:\n\nDocuments like reports, theses, conference abstracts, and exploration type documents should be put in the docs/ directory, including Quarto files.\nData, raw data, and metadata should be in either the data/ directory or in data-raw/ for the raw data. We’ll explain this more later.\nAll .R files (called scripts) and code should be in the R/ directory.",
     "crumbs": [
       "Sessions",
       "<span class='chapter-number'>11</span>  <span class='chapter-title'>Hallo Medical Statistics</span>"
@@ -370,8 +370,8 @@
     "objectID": "sessions/session01.html#rstudio-layout-and-usage",
     "href": "sessions/session01.html#rstudio-layout-and-usage",
     "title": "11  Hallo Medical Statistics",
-    "section": "\n11.5 RStudio layout and usage",
-    "text": "11.5 RStudio layout and usage\nYou’ve already gotten a bit familiar with RStudio in the pre-course tasks, but if you want more details, RStudio has a great cheat sheet on how to use RStudio. The items to know right now are the “Console”, “Files”/“Help”, and “Source” tabs.\nCode is written in the “Source” tab, where it saves the code and text as a file. You can send selected code to the Console from the opened file by typing ?var:keybind.run-code (or clicking the “Run” button). In the “Source” tab (where R scripts and Quarto files are shown), there is a “Document Outline” button (top right beside the “Run” button) that shows you the headers or “Sections” (more on that later). To open it you can either click the button, use the keybinding ?var:keybind.outline, go through the menu to Code -&gt; Show Document Outline. The Command Palette is a very useful tool to learn, since you can easily access almost all features and options inside RStudio through it. Because of this reason, we will be using it a lot throughout the course. Open it up with ?var:keybind.palette and then in the pop-up search bar, type out “document outline”. The first item should be the one we want, so hit Enter to activate the Outline.\nIf you can’t remember a specific keybinding in RStudio, check out the help for it by going to the menu item Help -&gt; Keyboard Shortcuts Help.",
+    "section": "\n12.4 RStudio layout and usage",
+    "text": "12.4 RStudio layout and usage\nYou’ve already gotten a bit familiar with RStudio in the pre-course tasks, but if you want more details, RStudio has a great cheat sheet on how to use RStudio. The items to know right now are the “Console”, “Files”/“Help”, and “Source” tabs.\nCode is written in the “Source” tab, where it saves the code and text as a file. You can send selected code to the Console from the opened file by typing ?var:keybind.run-code (or clicking the “Run” button). In the “Source” tab (where R scripts and Quarto files are shown), there is a “Document Outline” button (top right beside the “Run” button) that shows you the headers or “Sections” (more on that later). To open it you can either click the button, use the keybinding ?var:keybind.outline, go through the menu to Code -&gt; Show Document Outline. The Command Palette is a very useful tool to learn, since you can easily access almost all features and options inside RStudio through it. Because of this reason, we will be using it a lot throughout the course. Open it up with ?var:keybind.palette and then in the pop-up search bar, type out “document outline”. The first item should be the one we want, so hit Enter to activate the Outline.\nIf you can’t remember a specific keybinding in RStudio, check out the help for it by going to the menu item Help -&gt; Keyboard Shortcuts Help.",
     "crumbs": [
       "Sessions",
       "<span class='chapter-number'>11</span>  <span class='chapter-title'>Hallo Medical Statistics</span>"
@@ -381,8 +381,8 @@
     "objectID": "sessions/session01.html#reading-task-basics-of-r",
     "href": "sessions/session01.html#reading-task-basics-of-r",
     "title": "11  Hallo Medical Statistics",
-    "section": "\n11.6 📖 Reading task: Basics of R",
-    "text": "11.6 📖 Reading task: Basics of R\n\n\n\n\n\n\nNoteInstructor note\n\n\n\n\n\nLet them read it over, then briefly go over the content again.\nEmphasize that, in general, code with () means it is a function and that it does an action. Mention that, like everything, there are some situations where that isn’t completely true but it mostly is.\n\n\n\nTime: ~5 minutes\nBefore moving on, let’s go over a bit about how R works, and what the “R session” means. An R session is the way you normally interact with R, where you would write code in the Console to tell R to do something. Normally, when you open an R session without an R Project, the session defaults to assuming you will be working in the ~/Desktop or ~ (your Home folder) location. But this location usually isn’t where you actually work and where your R code is. You normally work in the folder that has your R scripts, Quarto documents, or data files. The assumption with R Projects on the other hand, is that the R session’s working directory should be where the R Project is, since that is where you have your R scripts and data files.\nR can be used as a simple calculator - try writing:\n\n2 + 2\n\nIn R, everything is an object and every action is a function. A function is also an object, but an object isn’t always a function. To create an object, also called a variable, we use the &lt;- assignment operator. So, if we want to create an object called weight_kilos and assign it the value 100, we would write:\n\nweight_kilos &lt;- 100\nweight_kilos\n\nThe new object now stores the value we assigned it. We can read it like:\n\n“weight_kilos contains the number 100” or “put 100 into the object weight_kilos”\n\nWe can name our objects the way we like. There are almost no restrictions.\n\ncan’t start by numbers\ncan’t use hypen/dash, -, nor colon, :, in the naming (nor *, +, % and other crazy things)\nOK to use underscore, _, and dots, .\n\n\nThere are also several main “classes” (or types) of objects in R: lists, vectors, matrices, and data frames. For now, the only two we will cover are vectors and data frames. A vector is a string of values, while a data frame is multiple vectors put together as columns. Data frames are a form of data that you’d typically see as a spreadsheet. This type of data is called “rectangular data” since it has two dimensions: columns and rows.\nSo these are vectors, which have different types like character, number, or factor:\n\n# Character vector\nc(\"a\", \"b\", \"c\")\n# Logic vector\nc(TRUE, FALSE, FALSE)\n# Numeric vector\nc(1, 5, 6)\n# Factor vector (special types of character vectors)\nfactor(c(\"low\", \"high\", \"medium\", \"high\"))\n\nNotice how we use the # to write comments or notes. Whatever we write after the “hash” (#) tells R to ignore it and not run it.\nThis is what a data frame looks like, if we look at the built-in dataset called airquality, which is a data frame object loaded by default when you start R:\n\nhead(airquality)\n\n# A tibble: 6 × 6\n  Ozone Solar.R  Wind  Temp Month   Day\n  &lt;int&gt;   &lt;int&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;\n1    41     190   7.4    67     5     1\n2    36     118   8      72     5     2\n3    12     149  12.6    74     5     3\n4    18     313  11.5    62     5     4\n5    NA      NA  14.3    56     5     5\n6    28      NA  14.9    66     5     6\n\n\nThe c() function puts values together and head() prints the first 6 rows. Both c() and head() are functions since they do an action and they can be recognized by the () at their end. Functions take an input (known as arguments) and give back an output. Each argument is separated by a comma ,. Some functions can take unlimited number of arguments (like c()). Others, like head() can only take a few arguments. In the case of head(), the first argument requires a data frame object.\nmean() is also a nice function, so we don’t have to compute it by hand all the time.\n\nfoo = c(31, 3, 94)\n(31 + 3 + 94) / 3 # Manual computing the mean\nmean(foo) # automatically computes the mean",
+    "section": "\n12.5 📖 Reading task: Basics of R",
+    "text": "12.5 📖 Reading task: Basics of R\n\n\n\n\n\n\nNoteInstructor note\n\n\n\n\n\nLet them read it over, then briefly go over the content again.\nEmphasize that, in general, code with () means it is a function and that it does an action. Mention that, like everything, there are some situations where that isn’t completely true but it mostly is.\n\n\n\nTime: ~5 minutes\nBefore moving on, let’s go over a bit about how R works, and what the “R session” means. An R session is the way you normally interact with R, where you would write code in the Console to tell R to do something. Normally, when you open an R session without an R Project, the session defaults to assuming you will be working in the ~/Desktop or ~ (your Home folder) location. But this location usually isn’t where you actually work and where your R code is. You normally work in the folder that has your R scripts, Quarto documents, or data files. The assumption with R Projects on the other hand, is that the R session’s working directory should be where the R Project is, since that is where you have your R scripts and data files.\nR can be used as a simple calculator - try writing:\n\n2 + 2\n\nIn R, everything is an object and every action is a function. A function is also an object, but an object isn’t always a function. To create an object, also called a variable, we use the &lt;- assignment operator. So, if we want to create an object called weight_kilos and assign it the value 100, we would write:\n\nweight_kilos &lt;- 100\n\nThe new object now stores the value we assigned it. We can read it like:\n\n“weight_kilos contains the number 100” or “put 100 into the object weight_kilos”\n\nIn order to show the stored values, you can print the values in your console by typing the name of the object:\n\nweight_kilos\n\nWe can name our objects the way we like. There are almost no restrictions.\n\ncan’t start by numbers\ncan’t use hypen/dash, -, nor colon, :, in the naming (nor *, +, % and other crazy things)\nOK to use underscore, _, and dots, .\n\n\nThere are also several main “classes” (or types) of objects in R: lists, vectors, matrices, and data frames. For now, the only two we will cover are vectors and data frames. A vector is a string of values, while a data frame is multiple vectors put together as columns. Data frames are a form of data that you’d typically see as a spreadsheet. This type of data is called “rectangular data” since it has two dimensions: columns and rows.\nSo these are vectors, which have different types like character, number, or factor:\n\n# Character vector\nc(\"a\", \"b\", \"c\")\n# Logic vector\nc(TRUE, FALSE, FALSE)\n# Numeric vector\nc(1, 5, 6)\n# Factor vector (special types of character vectors)\nfactor(c(\"low\", \"high\", \"medium\", \"high\"))\n\nNotice how we use the # to write comments or notes. Whatever we write after the “hash” (#) tells R to ignore it and not run it.\nThis is what a data frame looks like, if we look at the built-in dataset called airquality, which is a data frame object loaded by default when you start R:\n\nhead(airquality)\n\n# A tibble: 6 × 6\n  Ozone Solar.R  Wind  Temp Month   Day\n  &lt;int&gt;   &lt;int&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;\n1    41     190   7.4    67     5     1\n2    36     118   8      72     5     2\n3    12     149  12.6    74     5     3\n4    18     313  11.5    62     5     4\n5    NA      NA  14.3    56     5     5\n6    28      NA  14.9    66     5     6\n\n\nThe c() function puts values together and head() prints the first 6 rows. Both c() and head() are functions since they do an action and they can be recognized by the () at their end. Functions take an input (known as arguments) and give back an output. Each argument is separated by a comma ,. Some functions can take unlimited number of arguments (like c()). Others, like head() can only take a few arguments. In the case of head(), the first argument requires a data frame object.\nmean() is also a nice function, so we don’t have to compute it by hand all the time.\n\nfoo = c(31, 3, 94)\n(31 + 3 + 94) / 3 # Manual computing the mean\nmean(foo) # automatically computes the mean",
     "crumbs": [
       "Sessions",
       "<span class='chapter-number'>11</span>  <span class='chapter-title'>Hallo Medical Statistics</span>"
@@ -392,8 +392,8 @@
     "objectID": "sessions/session01.html#asking-for-help-or-learning-more-about-functions",
     "href": "sessions/session01.html#asking-for-help-or-learning-more-about-functions",
     "title": "11  Hallo Medical Statistics",
-    "section": "\n11.7 Asking for help or learning more about functions",
-    "text": "11.7 Asking for help or learning more about functions\nConsider the scenario where you learn about a new function or become interested in using a function for a different purpose. Let’s say you want to learn more about mean(). You simply write a ? before the function and RStudio will show you documentation about the function and possible suggestions of how to use it correctly in different scenarios - cool, right? Like this:\n\n?mean()\n\n\n\n\n\n\n\nCautionOrigami hats up!\n\n\n\nWhen you’re ready to continue, place the paper hat on your computer to indicate this to the teacher 👒 🎩",
+    "section": "\n12.6 Asking for help or learning more about functions",
+    "text": "12.6 Asking for help or learning more about functions\nConsider the scenario where you learn about a new function or become interested in using a function for a different purpose. Let’s say you want to learn more about mean(). You simply write a ? before the function and RStudio will show you documentation about the function and possible suggestions of how to use it correctly in different scenarios - cool, right? Like this:\n\n?mean()\n\n\n\n\n\n\n\nCautionOrigami hats up!\n\n\n\nWhen you’re ready to continue, place the paper hat on your computer to indicate this to the teacher 👒 🎩",
     "crumbs": [
       "Sessions",
       "<span class='chapter-number'>11</span>  <span class='chapter-title'>Hallo Medical Statistics</span>"
@@ -403,8 +403,8 @@
     "objectID": "sessions/session01.html#standing-on-giants---using-other-peoples-code",
     "href": "sessions/session01.html#standing-on-giants---using-other-peoples-code",
     "title": "11  Hallo Medical Statistics",
-    "section": "\n11.8 Standing on giants - using other peoples code",
-    "text": "11.8 Standing on giants - using other peoples code\nOne of the major strengths of R, and many other programming languages, is in its ability for other people to create packages that simplify doing complex tasks. For example, if you need to use mixed effects models for your data analysis, you can use the lme4 package. Or if you want to create figures you can use the ggplot2 package. As you experienced from the pre-course tasks, installing packages is easy by using install.packages(). Whenever we work with R, we very rarely work only with the base R functions. We usually use a lot of functions from many other packages, because that is one of the easiest ways for you to simplify your work! No need to re-invent the wheel 😁\nOne “meta-package” we will use throughout the course is called tidyverse. So let’s load the package up so we can use the functions from inside it.\nThe way you load a package and get access to the functions inside is by using the library() function. So let’s load the dplyr package by writing library(dplyr).\nLet’s run this code by placing the cursor over the code and using ?var:keybind.run-code. After you run the code, you should see some text that might look something like this:\n\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union",
+    "section": "\n12.7 Standing on giants - using other peoples code",
+    "text": "12.7 Standing on giants - using other peoples code\nOne of the major strengths of R, and many other programming languages, is in its ability for other people to create packages that simplify doing complex tasks. For example, if you need to use mixed effects models for your data analysis, you can use the lme4 package. Or if you want to create figures you can use the ggplot2 package. As you experienced from the pre-course tasks, installing packages is easy by using install.packages(). Whenever we work with R, we very rarely work only with the base R functions. We usually use a lot of functions from many other packages, because that is one of the easiest ways for you to simplify your work! No need to re-invent the wheel 😁\nOne “meta-package” we will use throughout the course is called tidyverse. So let’s load the package up so we can use the functions from inside it.\nThe way you load a package and get access to the functions inside is by using the library() function. So let’s load the dplyr package by writing library(dplyr).\nLet’s run this code by placing the cursor over the code and using ?var:keybind.run-code. After you run the code, you should see some text that might look something like this:\n\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union",
     "crumbs": [
       "Sessions",
       "<span class='chapter-number'>11</span>  <span class='chapter-title'>Hallo Medical Statistics</span>"
@@ -414,8 +414,8 @@
     "objectID": "sessions/session01.html#ceci-nest-pas-une-pipe",
     "href": "sessions/session01.html#ceci-nest-pas-une-pipe",
     "title": "11  Hallo Medical Statistics",
-    "section": "\n11.9 ceci n’est pas une pipe |>\n",
-    "text": "11.9 ceci n’est pas une pipe |&gt;\n\nThe pipe, |&gt; or %&gt;%, is a handy way to write multiple lines of R code.\nYou choose which pipe to use in the menu: - Tools &gt; Global Options &gt; Code (tick “Use native pipe…”)\n|&gt; is pronounced as “and then”.\nIt can take a variable and then compute the mean:\n\nvalues &lt;- c(1:10)\n\nvalues |&gt;\n  mean()\n\ninstead of this notation:\n\nmean(values)\n\nWhich reads: take the mean of values.\nIt does not make a big difference in this example but later we will see how the pipe helps us break code into chunks that are easier to read, write, debug, extend, modify and combine.\n\nDATA |&gt;\n  some_change_to_the_data() |&gt;\n  a_subsequent_operation() |&gt;\n  ... |&gt;\n  final_operation_or_plot()\n\n\nBasic piping:\nx |&gt; f() is equivalent to f(x) x |&gt; f(y) is equivalent to f(x, y) x |&gt; f() |&gt; g() |&gt; h() is equivalent to h(g(f(x)))",
+    "section": "\n12.8 ceci n’est pas une pipe |>\n",
+    "text": "12.8 ceci n’est pas une pipe |&gt;\n\nThe pipe, |&gt; or %&gt;%, is a handy way to write multiple lines of R code.\nYou choose which pipe to use in the menu: - Tools &gt; Global Options &gt; Code (tick “Use native pipe…”)\n|&gt; is pronounced as “and then”.\nIt can take a variable and then compute the mean:\n\nvalues &lt;- c(1:10)\n\nvalues |&gt;\n  mean()\n\ninstead of this notation:\n\nmean(values)\n\nWhich reads: take the mean of values.\nIt does not make a big difference in this example but later we will see how the pipe helps us break code into chunks that are easier to read, write, debug, extend, modify and combine.\n\nDATA |&gt;\n  some_change_to_the_data() |&gt;\n  a_subsequent_operation() |&gt;\n  ... |&gt;\n  final_operation_or_plot()\n\n\nBasic piping:\nx |&gt; f() is equivalent to f(x) x |&gt; f(y) is equivalent to f(x, y) x |&gt; f() |&gt; g() |&gt; h() is equivalent to h(g(f(x)))",
     "crumbs": [
       "Sessions",
       "<span class='chapter-number'>11</span>  <span class='chapter-title'>Hallo Medical Statistics</span>"
@@ -425,8 +425,8 @@
     "objectID": "sessions/session01.html#reading-and-writing-data",
     "href": "sessions/session01.html#reading-and-writing-data",
     "title": "11  Hallo Medical Statistics",
-    "section": "\n11.10 Reading and writing data",
-    "text": "11.10 Reading and writing data\nYou have already tried reading in data. The command was:\n\nSUA_data &lt;- readr::read_csv(\n  \"https://zenodo.org/records/8292712/files/SUA_CVDs_risk_factors.csv\"\n)\n\nRows: 25744 Columns: 15\n── Column specification ────────────────────────────────────────────────\nDelimiter: \",\"\ndbl (15): ID, sex, Age, BMI, SBP, DBP, FBG, TC, Cr, GFR, UA, Times, ...\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.\n\n\nHere, we used the readr package to read a csv file from the course website using the function read_csv(). As we haven’t loaded the readr package, R doesn’t know that there’s a function called read_csv(). Instead of loading the entire library of functions (using library(readr)), we simply tell R to find the readr package and look for the function read_csv() using colon-colon package::function.\nIf you wanted to store or save a csv-file, you could write the csv file to your computer using write_csv(). Here, you need to specify where you want the file. For now, we will store it in the medical-statistics/data-raw/ folder and name the file SUA_data:\n\nreadr::write_csv(SUA_data, \"data-raw/SUA_data.csv\")\n\nYou can always read more about the function using ?readr::write_csv",
+    "section": "\n12.9 Reading and writing data",
+    "text": "12.9 Reading and writing data\nYou have already tried reading in data. The command was:\n\nSUA_data &lt;- readr::read_csv(\n  \"https://zenodo.org/records/8292712/files/SUA_CVDs_risk_factors.csv\"\n)\n\nRows: 25744 Columns: 15\n── Column specification ────────────────────────────────────────────────\nDelimiter: \",\"\ndbl (15): ID, sex, Age, BMI, SBP, DBP, FBG, TC, Cr, GFR, UA, Times, ...\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.\n\n\nHere, we used the readr package to read a csv file from the course website using the function read_csv(). As we haven’t loaded the readr package, R doesn’t know that there’s a function called read_csv(). Instead of loading the entire library of functions (using library(readr)), we simply tell R to find the readr package and look for the function read_csv() using colon-colon package::function.\nIf you wanted to store or save a csv-file, you could write the csv file to your computer using write_csv(). Here, you need to specify where you want the file. For now, we will store it in the medical-statistics/data-raw/ folder and name the file SUA_data:\n\nreadr::write_csv(SUA_data, \"data-raw/SUA_data.csv\")\n\nYou can always read more about the function using ?readr::write_csv",
     "crumbs": [
       "Sessions",
       "<span class='chapter-number'>11</span>  <span class='chapter-title'>Hallo Medical Statistics</span>"
@@ -436,8 +436,8 @@
     "objectID": "sessions/session01.html#overview-of-data",
     "href": "sessions/session01.html#overview-of-data",
     "title": "11  Hallo Medical Statistics",
-    "section": "\n11.11 Overview of data",
-    "text": "11.11 Overview of data\nView() function.\nAs R is case sensitive, view() will now work - try it!\n{.r view} view(SUA_data) # Will produce an error # Instead try: View(SUA_data)",
+    "section": "\n12.10 Overview of data",
+    "text": "12.10 Overview of data\nView() function.\nAs R is case sensitive, view() will now work - try it!\n{.r view} view(SUA_data) # Will produce an error # Instead try: View(SUA_data)",
     "crumbs": [
       "Sessions",
       "<span class='chapter-number'>11</span>  <span class='chapter-title'>Hallo Medical Statistics</span>"
@@ -447,8 +447,8 @@
     "objectID": "sessions/session01.html#using-functions-on-datasets",
     "href": "sessions/session01.html#using-functions-on-datasets",
     "title": "11  Hallo Medical Statistics",
-    "section": "\n11.12 Using functions on datasets",
-    "text": "11.12 Using functions on datasets\nThe mean() function also works on datasets. However, we need to specify which variable it should take the mean of.\nWe do this by either selecting it with the $ sign:\n\nmean(SUA_data$Age)\n\n[1] 69.38102\n\n\nAnother approach is to use the dplyr function pull():\n\nlibrary(dplyr)\n\nSUA_data |&gt;\n  pull(Age) |&gt;\n  mean()\n\n[1] 69.38102\n\n\nBoth yield the same result. The first is quick but can be difficult to extend or even read.\nThe dplyr-version is easy to read and can be extended for multiple variables, and is in general much more flexible when we want to do more operations.",
+    "section": "\n12.11 Using functions on datasets",
+    "text": "12.11 Using functions on datasets\nThe mean() function also works on datasets. However, we need to specify which variable it should take the mean of.\nWe do this by either selecting it with the $ sign:\n\nmean(SUA_data$Age)\n\n[1] 69.38102\n\n\nAnother approach is to use the dplyr function pull():\n\nlibrary(dplyr)\n\nSUA_data |&gt;\n  pull(Age) |&gt;\n  mean()\n\n[1] 69.38102\n\n\nBoth yield the same result. The first is quick but can be difficult to extend or even read.\nThe dplyr-version is easy to read and more flexible when we want to do more operations.",
     "crumbs": [
       "Sessions",
       "<span class='chapter-number'>11</span>  <span class='chapter-title'>Hallo Medical Statistics</span>"
@@ -458,8 +458,8 @@
     "objectID": "sessions/session01.html#summary",
     "href": "sessions/session01.html#summary",
     "title": "11  Hallo Medical Statistics",
-    "section": "\n11.13 Summary",
-    "text": "11.13 Summary\n\nUse prodigenr to assist with setting up a new project, with standard files and folders to begin working on a data analysis project.\nUse R Projects in RStudio to manage your project and make it easier to work with R in it.\nUse R as a basic calculator.\nR atomic vectors: numeric,character,logic, and factor.\nImport and examine a dataset within R using basic functions.",
+    "section": "\n12.12 Summary",
+    "text": "12.12 Summary\n\nUse prodigenr to assist with setting up a new project, with standard files and folders to begin working on a data analysis project.\nUse R Projects in RStudio to manage your project and make it easier to work with R in it.\nUse R as a basic calculator.\nR atomic vectors: numeric,character,logic, and factor.\nImport and examine a dataset within R using basic functions.",
     "crumbs": [
       "Sessions",
       "<span class='chapter-number'>11</span>  <span class='chapter-title'>Hallo Medical Statistics</span>"
@@ -469,8 +469,63 @@
     "objectID": "sessions/session01.html#survey",
     "href": "sessions/session01.html#survey",
     "title": "11  Hallo Medical Statistics",
-    "section": "\n11.14 Survey",
-    "text": "11.14 Survey\nPlease complete the survey for this session:\nFeedback survey! 🎉",
+    "section": "\n12.13 Survey",
+    "text": "12.13 Survey\nPlease complete the survey for this session:\nFeedback survey! 🎉",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Hallo Medical Statistics</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session01.html#case-intro-session-1",
+    "href": "sessions/session01.html#case-intro-session-1",
+    "title": "11  Hallo Medical Statistics",
+    "section": "\n12.14 Case intro session 1",
+    "text": "12.14 Case intro session 1\nYou have been tasked with the responsibility as medical expert on a clinical trial. The projects’ statistician want’s you to give her some information in order for her to start her work.\n\nProvide the mean and standard deviation of a prior study, so that she can compute power calculations.\nProvide variables that you believe are medically relevant, based on medical expertise and prior studies.\n\nThe data is stored in .csv format and the company has provided you access to a GDPR-friendly and secure server where all the company data are stored. The only software installed on the server is R and RStudio.",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Hallo Medical Statistics</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session01.html#case-intro-session-x",
+    "href": "sessions/session01.html#case-intro-session-x",
+    "title": "11  Hallo Medical Statistics",
+    "section": "\n12.15 Case intro session X",
+    "text": "12.15 Case intro session X\nSøren, 45 yours old, Male, farther of three\nSøren was recently diagnosed with cancer. The cancer is malignant but he’s not particularly affected by it yet. The oncology team has proposed he could receive either chemotherapy, surgery, or radio therapy. He’s unsure which treatment to opt in to. You read a paper in which the OR was x, y, z, the RR was x, y, z, and the AR was x, y, z.\nWhich recommendation would you give Søren?",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Hallo Medical Statistics</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session01.html#case-intro-session-y",
+    "href": "sessions/session01.html#case-intro-session-y",
+    "title": "11  Hallo Medical Statistics",
+    "section": "\n12.16 Case intro session Y",
+    "text": "12.16 Case intro session Y\nYou notice a sub-group of the patients in the ICU die after leaving the ICU, while another sub-population recover well. You plan to test the mortality between the two in order to determine wither the sub-groups really differ.\nWhich considerations should you have?",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Hallo Medical Statistics</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session01.html#case-example-3",
+    "href": "sessions/session01.html#case-example-3",
+    "title": "11  Hallo Medical Statistics",
+    "section": "\n12.17 Case example 3",
+    "text": "12.17 Case example 3\nYou work at a pharmaceutical company which is planning a clinical trial. The company wants to know how many patients to include. It turns out that your colleagues came up with different numbers between 100 and 1000. Which is correct and why did they come up with different answers?\nThe company want to go with the lowest level of patients due to economy. How can you evaluate this?",
+    "crumbs": [
+      "Sessions",
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Hallo Medical Statistics</span>"
+    ]
+  },
+  {
+    "objectID": "sessions/session01.html#case-example-5",
+    "href": "sessions/session01.html#case-example-5",
+    "title": "11  Hallo Medical Statistics",
+    "section": "\n12.18 Case example 5",
+    "text": "12.18 Case example 5\nYou have been tasked to be the medical expert on a clinical trial. The projects’ statistician want’s you to draft a SAP for her. You need to give the statistician some information in order for her to start her work.\n\nDefine a clinically relevant effect.\nGive him the mean and standard deviation of a prior study, so that he can make power calculations.\nProvide variables that you believe are medically relevant, based on medical expertise and prior studies.",
     "crumbs": [
       "Sessions",
       "<span class='chapter-number'>11</span>  <span class='chapter-title'>Hallo Medical Statistics</span>"
@@ -480,8 +535,8 @@
     "objectID": "sessions/session01.html#learning-objectives",
     "href": "sessions/session01.html#learning-objectives",
     "title": "11  Hallo Medical Statistics",
-    "section": "\n11.15 Learning objectives",
-    "text": "11.15 Learning objectives\nThe learning objectives for this session are:\n\nUdvise forståelse for usikkerheds- og sandsynlighedsbegrebet samt grundliggende begreber indenfor biostatistik\nUdvise kendskab til de grundliggende overordnede studietyper samt at skelne mellem forklarende, eksplorative og prædiktive studier\nRedegøre for forskellige typer af tilfældig og ikke tilfældig variation\nUdvise forståelse for statistiske værktøjers begrænsninger og muligheder\nForstå statistiske problemstillinger, der er centrale for medicin med industrial specialisering og forstå, hvordan de biostatistiske værktøjer kan appliceres på disse problemstillinger",
+    "section": "\n12.19 Learning objectives",
+    "text": "12.19 Learning objectives\nThe learning objectives for this session are:\n\nUdvise forståelse for usikkerheds- og sandsynlighedsbegrebet samt grundliggende begreber indenfor biostatistik\nUdvise kendskab til de grundliggende overordnede studietyper samt at skelne mellem forklarende, eksplorative og prædiktive studier\nRedegøre for forskellige typer af tilfældig og ikke tilfældig variation\nUdvise forståelse for statistiske værktøjers begrænsninger og muligheder\nForstå statistiske problemstillinger, der er centrale for medicin med industrial specialisering og forstå, hvordan de biostatistiske værktøjer kan appliceres på disse problemstillinger",
     "crumbs": [
       "Sessions",
       "<span class='chapter-number'>11</span>  <span class='chapter-title'>Hallo Medical Statistics</span>"
@@ -491,8 +546,8 @@
     "objectID": "sessions/session01.html#todo-section",
     "href": "sessions/session01.html#todo-section",
     "title": "11  Hallo Medical Statistics",
-    "section": "\n11.16 TODO: Section",
-    "text": "11.16 TODO: Section\n\n\n\n\n\n\nNoteReading task: ~4 minutes\n\n\n\nTODO: Reading text",
+    "section": "\n12.20 TODO: Section",
+    "text": "12.20 TODO: Section\n\n\n\n\n\n\nNoteReading task: ~4 minutes\n\n\n\nTODO: Reading text",
     "crumbs": [
       "Sessions",
       "<span class='chapter-number'>11</span>  <span class='chapter-title'>Hallo Medical Statistics</span>"
@@ -502,8 +557,8 @@
     "objectID": "sessions/session01.html#exercise-title",
     "href": "sessions/session01.html#exercise-title",
     "title": "11  Hallo Medical Statistics",
-    "section": "\n11.17 🧑‍💻 Exercise: Title",
-    "text": "11.17 🧑‍💻 Exercise: Title\nTime: ~NUM minutes.\nText\n\n\n\n\n\n\nCautionSticky/hat up!\n\n\n\nWhen you’re ready to continue, place the sticky/paper hat on your computer to indicate this to the teacher 👒 🎩",
+    "section": "\n12.21 🧑‍💻 Exercise: Title",
+    "text": "12.21 🧑‍💻 Exercise: Title\nTime: ~NUM minutes.\nText\n\n\n\n\n\n\nCautionSticky/hat up!\n\n\n\nWhen you’re ready to continue, place the sticky/paper hat on your computer to indicate this to the teacher 👒 🎩",
     "crumbs": [
       "Sessions",
       "<span class='chapter-number'>11</span>  <span class='chapter-title'>Hallo Medical Statistics</span>"
@@ -513,8 +568,8 @@
     "objectID": "sessions/session01.html#discussion-activity-title",
     "href": "sessions/session01.html#discussion-activity-title",
     "title": "11  Hallo Medical Statistics",
-    "section": "\n11.18 💬 Discussion activity: Title",
-    "text": "11.18 💬 Discussion activity: Title\nTime: ~Num minutes.\nText",
+    "section": "\n12.22 💬 Discussion activity: Title",
+    "text": "12.22 💬 Discussion activity: Title\nTime: ~Num minutes.\nText",
     "crumbs": [
       "Sessions",
       "<span class='chapter-number'>11</span>  <span class='chapter-title'>Hallo Medical Statistics</span>"
@@ -524,8 +579,8 @@
     "objectID": "sessions/session01.html#reading-task-title",
     "href": "sessions/session01.html#reading-task-title",
     "title": "11  Hallo Medical Statistics",
-    "section": "\n11.19 📖 Reading task: Title",
-    "text": "11.19 📖 Reading task: Title\nTime: ~Num minutes.\nText\n\n\n\n\n\n\nCautionSticky/hat up!\n\n\n\nWhen you’re ready to continue, place the sticky/paper hat on your computer to indicate this to the teacher 👒 🎩",
+    "section": "\n12.23 📖 Reading task: Title",
+    "text": "12.23 📖 Reading task: Title\nTime: ~Num minutes.\nText\n\n\n\n\n\n\nCautionSticky/hat up!\n\n\n\nWhen you’re ready to continue, place the sticky/paper hat on your computer to indicate this to the teacher 👒 🎩",
     "crumbs": [
       "Sessions",
       "<span class='chapter-number'>11</span>  <span class='chapter-title'>Hallo Medical Statistics</span>"
@@ -535,8 +590,8 @@
     "objectID": "sessions/session01.html#summary-1",
     "href": "sessions/session01.html#summary-1",
     "title": "11  Hallo Medical Statistics",
-    "section": "\n11.20 Summary",
-    "text": "11.20 Summary\n\nTODO: List of summary items",
+    "section": "\n12.24 Summary",
+    "text": "12.24 Summary\n\nTODO: List of summary items",
     "crumbs": [
       "Sessions",
       "<span class='chapter-number'>11</span>  <span class='chapter-title'>Hallo Medical Statistics</span>"
@@ -546,8 +601,8 @@
     "objectID": "sessions/session01.html#survey-1",
     "href": "sessions/session01.html#survey-1",
     "title": "11  Hallo Medical Statistics",
-    "section": "\n11.21 Survey",
-    "text": "11.21 Survey\nFeedback survey! 🎉",
+    "section": "\n12.25 Survey",
+    "text": "12.25 Survey\nFeedback survey! 🎉",
     "crumbs": [
       "Sessions",
       "<span class='chapter-number'>11</span>  <span class='chapter-title'>Hallo Medical Statistics</span>"
@@ -557,8 +612,8 @@
     "objectID": "sessions/session01.html#exercises-and-learn-more",
     "href": "sessions/session01.html#exercises-and-learn-more",
     "title": "11  Hallo Medical Statistics",
-    "section": "\n11.22 Exercises and learn more",
-    "text": "11.22 Exercises and learn more\nEverything for this session will be practiced and expanded in the exercises.\nFurther material:\n\nRStudio’s cheat-sheet:\n?",
+    "section": "\n12.26 Exercises and learn more",
+    "text": "12.26 Exercises and learn more\nEverything for this session will be practiced and expanded on in the exercises.\nFurther material:\n\nRStudio’s cheat-sheet\n?",
     "crumbs": [
       "Sessions",
       "<span class='chapter-number'>11</span>  <span class='chapter-title'>Hallo Medical Statistics</span>"
@@ -1434,11 +1489,11 @@
     ]
   },
   {
-    "objectID": "exercises/ex01.html#exercises",
-    "href": "exercises/ex01.html#exercises",
+    "objectID": "exercises/ex01.html#exercises-just-send-a-quick-summary",
+    "href": "exercises/ex01.html#exercises-just-send-a-quick-summary",
     "title": "20  Exercises: Hallo Medical Statistics",
-    "section": "20.2 Exercises",
-    "text": "20.2 Exercises\nExercise 1A: What happens when you take the mean of a character string? e.g., mean(\"hi\")?\nExercise 2A: View the dataset sleep_data from the website. Import the data in your RStudio session. How many variables does it have?\nExercise 3A:\nExercise 1B: List all the variable types the mean() function can take the mean of. There should be 5. Seek help inside RStudio.\nExercise 2B: How many missing values does sleepdata have (tip: view it).\nExercise 3B: Take the mean and standard deviation of the variables that make sense in the sleepdata.\nExercise 1C: Consider now what you took the mean and standard deviation of in exercise 3B. How can you interpret this? What can we say from this?\nExercise 2C: More concept and medical relevant..",
+    "section": "20.2 Exercises: “Just send a quick summary”",
+    "text": "20.2 Exercises: “Just send a quick summary”\nYou have been asked to prepare a quick summary of a dataset of 303 chest pain patients to support a potential clinical trial collaboration. “Nothing complicated—just mean and standard deviation for a few variables.” You open RStudio…\nA Let’s start orienting ourselves in the dataset.\nExercise 1A: Import the Cleveland Heart Disease dataset into R.\n\nWhat is the name of your dataset?\nHow many rows and columns does it have?\nHow many variables does it have?\nHow many participants does it have?\nIs there any pattern here?\n\nView the dataset sleep_data from the website. Import the data in your RStudio session. How many variables does it have?\nExercise 2A: View the dataset.\n\nList 3 variables you think are numeric\nList 2 variables you think are categorical\n\nWhy does this distinction matter when calculating a mean?\nExercise 3A:\nWhat happens when you take the mean of a character string? e.g., mean(\"hi\")? Why do you think this happens?\nExercise 4A:\nExtract one variable (e.g., Age or Cholesterol) and:\n\nPrint it to see alt it’s values\nCalculate its mean\n\nB Now you start doing the actual request from the email.\nExercise 1B:\nCalculate the mean and standard deviation for:\n\nAge\nChol\nRestBP\nMaxHR\n\nExercise 2B:\nCheck if there are missing values in the dataset.\n\nHow many are there and for which variables (tip: view it or use is.nan())?\nWhat happens if you try to calculate the mean when missing values are present?\n\nExercise 3B:\nList all the variable types the mean() function can take the mean of. There should be 5. Seek help inside RStudio.\nC\nYou reflect on your day at work during your evening at home…\nExercise 1C:\nConsider now what you took the mean and standard deviation of in exercise 3B. How can you interpret this? What can we say from this?\nExercise 2C:\nA colleague suggested calculating the mean of Sex.\n\nWhat would that number represent?\nIs it meaningful? Why or why not?\n\nExercise 3C:\nWhy is it important to report both mean and standard deviation, and not just the mean? Think in a clinical context.",
     "crumbs": [
       "Exercises",
       "<span class='chapter-number'>20</span>  <span class='chapter-title'>Exercises: Hallo Medical Statistics</span>"

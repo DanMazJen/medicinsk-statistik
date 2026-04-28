@@ -353,7 +353,7 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link active" data-scroll-target="#learning-objectives"><span class="header-section-number">20.1</span> Learning objectives</a></li>
-  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">20.2</span> Exercises</a></li>
+  <li><a href="#exercises-just-send-a-quick-summary" id="toc-exercises-just-send-a-quick-summary" class="nav-link" data-scroll-target="#exercises-just-send-a-quick-summary"><span class="header-section-number">20.2</span> Exercises: “Just send a quick summary”</a></li>
   <li><a href="#survey" id="toc-survey" class="nav-link" data-scroll-target="#survey"><span class="header-section-number">20.3</span> Survey</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/DanMazJen/medicinsk-statistik/edit/main/exercises/ex01.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/blob/main/exercises/ex01.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
@@ -420,16 +420,62 @@ Warning
 <li>Forstå statistiske problemstillinger, der er centrale for medicin med industrial specialisering og forstå, hvordan de biostatistiske værktøjer kan appliceres på disse problemstillinger</li>
 </ul>
 </section>
-<section id="exercises" class="level2" data-number="20.2">
-<h2 data-number="20.2" class="anchored" data-anchor-id="exercises"><span class="header-section-number">20.2</span> Exercises</h2>
-<p><strong>Exercise 1A</strong>: What happens when you take the mean of a character string? e.g., <code>mean("hi")</code>?</p>
-<p><strong>Exercise 2A</strong>: View the dataset <code>sleep_data</code> from the website. Import the data in your RStudio session. How many variables does it have?</p>
+<section id="exercises-just-send-a-quick-summary" class="level2" data-number="20.2">
+<h2 data-number="20.2" class="anchored" data-anchor-id="exercises-just-send-a-quick-summary"><span class="header-section-number">20.2</span> Exercises: “Just send a quick summary”</h2>
+<p>You have been asked to prepare a quick summary of a dataset of 303 chest pain patients to support a potential clinical trial collaboration. “Nothing complicated—just mean and standard deviation for a few variables.” You open RStudio…</p>
+<p><strong>A</strong> Let’s start orienting ourselves in the dataset.</p>
+<p><strong>Exercise 1A</strong>: Import the Cleveland Heart Disease dataset into R.</p>
+<ul>
+<li>What is the name of your dataset?</li>
+<li>How many rows and columns does it have?</li>
+<li>How many variables does it have?</li>
+<li>How many participants does it have?</li>
+<li>Is there any pattern here?</li>
+</ul>
+<p>View the dataset <code>sleep_data</code> from the website. Import the data in your RStudio session. How many variables does it have?</p>
+<p><strong>Exercise 2A</strong>: View the dataset.</p>
+<ul>
+<li>List 3 variables you think are numeric</li>
+<li>List 2 variables you think are categorical</li>
+</ul>
+<p>Why does this distinction matter when calculating a mean?</p>
 <p><strong>Exercise 3A</strong>:</p>
-<p><strong>Exercise 1B</strong>: List all the variable types the <code>mean()</code> function can take the mean of. There should be 5. Seek help inside RStudio.</p>
-<p><strong>Exercise 2B</strong>: How many missing values does <code>sleepdata</code> have (tip: view it).</p>
-<p><strong>Exercise 3B</strong>: Take the mean and standard deviation of the variables that make sense in the <code>sleepdata</code>.</p>
-<p><strong>Exercise 1C</strong>: Consider now what you took the mean and standard deviation of in exercise 3B. How can you interpret this? What can we say from this?</p>
-<p><strong>Exercise 2C</strong>: More concept and medical relevant..</p>
+<p>What happens when you take the mean of a character string? e.g., <code>mean("hi")</code>? Why do you think this happens?</p>
+<p><strong>Exercise 4A</strong>:</p>
+<p>Extract one variable (e.g., Age or Cholesterol) and:</p>
+<ul>
+<li>Print it to see alt it’s values</li>
+<li>Calculate its mean</li>
+</ul>
+<p><strong>B</strong> Now you start doing the actual request from the email.</p>
+<p><strong>Exercise 1B</strong>:</p>
+<p>Calculate the mean and standard deviation for:</p>
+<ul>
+<li>Age</li>
+<li>Chol</li>
+<li>RestBP</li>
+<li>MaxHR</li>
+</ul>
+<p><strong>Exercise 2B</strong>:</p>
+<p>Check if there are missing values in the dataset.</p>
+<ul>
+<li>How many are there and for which variables (tip: view it or use <code>is.nan()</code>)?</li>
+<li>What happens if you try to calculate the mean when missing values are present?</li>
+</ul>
+<p><strong>Exercise 3B</strong>:</p>
+<p>List all the variable types the <code>mean()</code> function can take the mean of. There should be 5. Seek help inside RStudio.</p>
+<p><strong>C</strong></p>
+<p>You reflect on your day at work during your evening at home…</p>
+<p><strong>Exercise 1C</strong>:</p>
+<p>Consider now what you took the mean and standard deviation of in exercise 3B. How can you interpret this? What can we say from this?</p>
+<p><strong>Exercise 2C</strong>:</p>
+<p>A colleague suggested calculating the mean of Sex.</p>
+<ul>
+<li>What would that number represent?</li>
+<li>Is it meaningful? Why or why not?</li>
+</ul>
+<p><strong>Exercise 3C</strong>:</p>
+<p>Why is it important to report both mean and standard deviation, and not just the mean? Think in a clinical context.</p>
 </section>
 <section id="survey" class="level2" data-number="20.3">
 <h2 data-number="20.3" class="anchored" data-anchor-id="survey"><span class="header-section-number">20.3</span> Survey</h2>

@@ -13,32 +13,92 @@ The learning objectives for this session are:
 
 {{< include /includes/objectives/_session1.qmd >}}
 
-## Exercises
+## Exercises: “Just send a quick summary”
+
+You have been asked to prepare a quick summary of a dataset of 303 chest pain patients to support a potential clinical trial collaboration.
+“Nothing complicated—just mean and standard deviation for a few variables.”
+You open RStudio…
+
+**A**
+Let's start orienting ourselves in the dataset.
 
 **Exercise 1A**:
-What happens when you take the mean of a character string?
-e.g., `mean("hi")`?
+Import the Cleveland Heart Disease dataset into R.
+
+-	What is the name of your dataset?
+-	How many rows and columns does it have?
+-   How many variables does it have?
+-   How many participants does it have?
+-   Is there any pattern here?
+
+View the dataset `sleep_data` from the website. Import the data in your RStudio session. How many variables does it have?
 
 **Exercise 2A**:
-View the dataset `sleep_data` from the website. Import the data in your RStudio session. How many variables does it have?
+View the dataset.
+
+-	List 3 variables you think are numeric
+-	List 2 variables you think are categorical
+
+Why does this distinction matter when calculating a mean?
 
 **Exercise 3A**:
 
+What happens when you take the mean of a character string?
+e.g., `mean("hi")`?
+Why do you think this happens?
+
+**Exercise 4A**:
+
+Extract one variable (e.g., Age or Cholesterol) and:
+
+-	Print it to see alt it's values
+-	Calculate its mean
+
+
+**B**
+Now you start doing the actual request from the email.
+
 
 **Exercise 1B**:
-List all the variable types the `mean()` function can take the mean of. There should be 5. Seek help inside RStudio.
+
+Calculate the mean and standard deviation for:
+
+-	Age
+-	Chol
+-	RestBP
+-	MaxHR
 
 **Exercise 2B**:
-How many missing values does `sleepdata` have (tip: view it).
+
+Check if there are missing values in the dataset.
+
+-	How many are there and for which variables (tip: view it or use `is.nan()`)?
+-	What happens if you try to calculate the mean when missing values are present?
 
 **Exercise 3B**:
-Take the mean and standard deviation of the variables that make sense in the `sleepdata`.
+
+List all the variable types the `mean()` function can take the mean of. There should be 5. Seek help inside RStudio.
+
+**C**
+
+You reflect on your day at work during your evening at home...
 
 **Exercise 1C**:
+
 Consider now what you took the mean and standard deviation of in exercise 3B. How can you interpret this? What can we say from this?
 
 **Exercise 2C**:
-More concept and medical relevant..
+
+A colleague suggested calculating the mean of Sex.
+
+-	What would that number represent?
+-	Is it meaningful? Why or why not?
+
+**Exercise 3C**:
+
+Why is it important to report both mean and standard deviation, and not just the mean?
+Think in a clinical context.
+
 
 ## Survey
 

@@ -155,30 +155,30 @@ In this course, we will
 ## Develop statistical literacy skills
 
 ::: {.fragment}
--   Interpret results from medical studies (e.g. *p*-values, confidence intervals, effect sizes)
+Interpret results from medical studies (e.g. *p*-values, confidence intervals, effect sizes)
 :::
 
 ::: {.fragment}
--   Critically evaluate claims in clinical research and media
+Critically evaluate claims in clinical research and media
 :::
 
 ::: {.fragment}
--   Identify common statistical pitfalls and misleading conclusions
+Identify common statistical pitfalls and misleading conclusions
 :::
 
 
 ## Learn to make medical inference from statistics
 
 ::: {.fragment}
--   Translate statistical results into clinically meaningful conclusions
+Translate statistical results into clinically meaningful conclusions
 :::
 
 ::: {.fragment}
--   Understand uncertainty and variability in patient outcomes
+Understand uncertainty and variability in patient outcomes
 :::
 
 ::: {.fragment}
--   Statistical significance does not equal clinical importance — ask whether the result would actually change patient care
+Statistical significance does not equal clinical importance — ask whether the result would actually change patient care
 :::
 
 
@@ -186,15 +186,15 @@ In this course, we will
 ## Perform statistics using R
 
 ::: {.fragment}
--   Plotting data using `ggplot2` as you've already experienced
+Plotting data using `ggplot2` as you've already experienced
 :::
 
 ::: {.fragment}
--   Run statistical tests such as t-test, regression, etc.
+Run statistical tests such as t-test, regression, etc.
 :::
 
 ::: {.fragment}
--   Read and understand the `R` output
+Read and understand the `R` output
 :::
 
 
@@ -210,26 +210,26 @@ In this course, we will
 
 ## :walking::walking_woman: Do you have coding/programming experience? {.center}
 
-Never <------->
-I took a course in computer science
+<- Never
+I took a course in computer science ->
 
 
 ## :walking::walking_woman: Are you scared of statistics? {.center}
 
-Not at all <------->
-I had nightmares about this course already
+<--- Not at all
+I had nightmares about this course already --->
 
 
 ## :walking::walking_woman: How good are you right now at statistics? {.center}
 
 
-Ronald Fisher level <------->
-Who is Ronald Fisher?
+<--- Ronald Fisher level
+Who is Ronald Fisher? --->
 
 ## :walking::walking_woman: How high expectations do you have for yourself in this course? {.center}
 
-I want to learn everything <------->
-I don't mind failing 1st time
+<--- I want to learn everything
+I don't mind failing 1st time --->
 
 
 ## Please open your RStudio now {.center}
@@ -245,28 +245,23 @@ We'll start again by learning the basics of R for medical purposes
 
 # RStudio IDE
 
-::: {.absolute width=791.7px height=69.2px left=98.7px top=654.5px}
+::: {.editable}
 
 RStudio is a window that helps us navigate in R.
 
 :::
 
-![](images/rstudio-introduction.png)
+![](images/rstudio-introduction.png){.editable}
 
 ## Setup and layout {.smaller}
 
-**General RStudio Options**
-
 ::: columns
 :::: {.column width="50%"}
--   Tools >> Global Options
--   >> General Save Workspace to .RData on exit (never)
+-   Workddd
 ::::
 
 :::: {.column width="50%"}
--   Tools >> Global Options >> Code
--   >> Editing: Use native pipe operator
--   >> Saving: Automatically save when editor loses focus
+-   Sc
 ::::
 :::
 

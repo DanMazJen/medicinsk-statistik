@@ -52,6 +52,13 @@ To repeat from the [official syllabus](https://moduler.aau.dk/course/2024-2025/M
 -   Be able to critically evaluate biostatistical issues across a wide range of contexts and participate in scientific discussions on these matters
 
 
+# Case session 1: “Just send a quick summary”
+
+A cardiology department at a regional hospital has been collaborating with a pharmaceutical company developing a new diagnostic support tool for chest pain patients. Before deciding whether to include your hospital in a larger clinical trial, the company asks for a quick baseline summary of your recent patients: “Nothing complicated—just basic descriptive numbers so our statisticians can take a look.”
+
+You are given a dataset of 303 patients admitted with chest pain (age, cholesterol, blood pressure, heart rate, etc.), along with whether they were later confirmed to have coronary artery disease. Your supervisor tells you: “This is not a statistics task—we just need simple summaries like average values and variability for key variables. The statisticians will handle the rest.”
+Later that day, you receive a follow-up email: “Please report mean and standard deviation for age, cholesterol, resting blood pressure, and max heart rate, stratified by heart disease status. We need it today to decide whether your site qualifies.”
+
 ## Setting up an R project {#sec-setup-project}
 
 ::: {.callout-note collapse="true"}
@@ -266,13 +273,18 @@ value `100`, we would write:
 
 ```{r using-assignment-operator, eval=FALSE}
 weight_kilos <- 100
-weight_kilos
 ```
 
 The new object now stores the value we assigned it. We can read it like:
 
 > "`weight_kilos` contains the number 100" or "put 100 into the object
 > `weight_kilos`"
+
+In order to show the stored values, you can *print* the values in your console by typing the name of the object:
+
+```{r printing-an-object, eval=FALSE}
+weight_kilos
+```
 
 We can name our objects the way we like. There are *almost* no restrictions.
 
@@ -470,7 +482,7 @@ SUA_data |>
 
 Both yield the same result. The first is quick but can be difficult to extend or even read.
 
-The dplyr-version is easy to read and can be extended for multiple variables, and is in general much more flexible when we want to do more operations.
+The dplyr-version is easy to read and more flexible when we want to do more operations.
 
 ## Summary
 
@@ -514,9 +526,46 @@ Please complete the survey for this session:
 
 
 
+:::{.hidden}
 
+## Case intro session 1
 
+You have been tasked with the responsibility as medical expert on a clinical trial. The projects' statistician want's you to give her some information in order for her to start her work.
 
+-   Provide the mean and standard deviation of a prior study, so that she can compute power calculations.
+-   Provide variables that you believe are medically relevant, based on medical expertise and prior studies.
+
+The data is stored in `.csv` format and the company has provided you access to a GDPR-friendly and secure server where all the company data are stored. The only software installed on the server is `R` and `RStudio`.
+
+## Case intro session X
+
+Søren, 45 yours old, Male, farther of three
+
+Søren was recently diagnosed with cancer. The cancer is malignant but he's not particularly affected by it yet. The oncology team has proposed he could receive either chemotherapy, surgery, or radio therapy. He's unsure which treatment to opt in to. You read a paper in which the OR was x, y, z, the RR was x, y, z, and the AR was x, y, z.
+
+Which recommendation would you give Søren?
+
+## Case intro session Y
+
+You notice a sub-group of the patients in the ICU die after leaving the ICU, while another sub-population recover well. You plan to test the mortality between the two in order to determine wither the sub-groups really differ.
+
+Which considerations should you have?
+
+## Case example 3
+
+You work at a pharmaceutical company which is planning a clinical trial. The company wants to know how many patients to include. It turns out that your colleagues came up with different numbers between 100 and 1000. Which is correct and why did they come up with different answers?
+
+The company want to go with the lowest level of patients due to economy. How can you evaluate this?
+
+## Case example 5
+
+You have been tasked to be the medical expert on a clinical trial. The projects' statistician want's you to draft a SAP for her. You need to give the statistician some information in order for her to start her work.
+
+-   Define a clinically relevant effect.
+-   Give him the mean and standard deviation of a prior study, so that he can make power calculations.
+-   Provide variables that you believe are medically relevant, based on medical expertise and prior studies.
+
+:::
 
 
 
@@ -572,9 +621,9 @@ Text
 
 ## Exercises and learn more
 
-Everything for this session will be practiced and expanded in the [exercises](/exercises/ex01.qmd).
+Everything for this session will be practiced and expanded on in the [exercises](/exercises/ex01.qmd).
 
 Further material:
 
--   RStudio's cheat-sheet:
+-   [RStudio's cheat-sheet](https://iqss.github.io/dss-workshops/R/Rintro/base-r-cheat-sheet.pdf)
 -   ?

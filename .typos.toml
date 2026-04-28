@@ -16,6 +16,7 @@ extend-exclude = [
 # When the correction is blank, the word is never valid. When the correction is the key, the word is always valid.
 Ege = "Ege"
 fpt = "fpt"
+splitted = "splitted"
 
 [default.extend-identifiers]
 fpt = "fpt"

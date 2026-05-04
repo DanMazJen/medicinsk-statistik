@@ -1,25 +1,37 @@
-
-
 ```{r}
-library(tidyverse)
+#library(tidyverse)
 library(reticulate)
+options(
+  reticulate.conda_binary = "C:/Users/ZE18RP/AppData/Local/anaconda3/Scripts/conda.exe"
+)
+use_condaenv("base", required = TRUE) # C:\Users\ZE18RP\AppData\Local\anaconda3\python.exe
+reticulate::py_config()
+#reticulate::repl_python()
 ```
 
 ```{r}
-reticulate::use_python("/usr/local/bin/python")
+#reticulate::use_python("/usr/local/bin/python")
 # If you haven't installed Python, the line below will prompt you!
-reticulate::py_install("pillow")
+#reticulate::py_install("pillow")
 ```
 
 ```{python}
+# Note that while in Positron, we want to start the same _instance_ of python env.
+# Therefore, we run the python code using reticulate using the function: py_run_string()
+
+py_run_string("
 import numpy as np
 from PIL import Image
+")
 ```
 
 ```{python}
-# Thanks to Bart Huntley for pointing out a typo previously in this chunk!
+# Note that while in Positron, we want to start the same _instance_ of python env.
+# Therefore, we run the python code using reticulate using the function: py_run_string()
+
+py_run_string("
 im = Image.open(
-    "/images/gorilla-waving-cartoon-black-white-outline-clipart-914"
+    'C:/Users/ZE18RP/OneDrive - Aalborg Universitet/Skrivebord/courses/medicinsk-statistik/images/gorilla-waving-cartoon-black-white-outline-clipart-914.jpg'
 )  # download at https://classroomclipart.com/clipart-view/Clipart/Black_and_White_Clipart/Animals/gorilla-waving-cartoon-black-white-outline-clipart-914_jpg.htm
 pixels = np.asarray(im)
 
@@ -28,37 +40,46 @@ threshold_level = 50
 
 # Find coordinates of all pixels below threshold
 coords = np.column_stack(np.where(pixels < threshold_level))
+")
 ```
 
 ```{r}
+set.seed(28 - 4 + 2026)
+
 coords <-
-  as.data.frame(py$coords) %>%
-  sample_n(1768) %>%
-  mutate(bmi = V2 * 17 + 15, steps = 15000 - V1 * 15000 / max(V1)) %>%
-  mutate(
-    randvar = rnorm(n(), mean = 0, sd = 10),
+  as.data.frame(py$coords) |>
+  dplyr::sample_n(1768) |>
+  dplyr::mutate(
+    bmi = V2 * 17 + 15,
+    steps = 15000 - V1 * 15000 / max(V1)
+  ) |>
+  dplyr::mutate(
+    randvar = rnorm(dplyr::n(), mean = 0, sd = 10),
     randi = steps * (1 + randvar),
-    gender = case_when(randi < median(steps) ~ "Female", TRUE ~ "Male")
+    gender = dplyr::case_when(randi < median(steps) ~ "Female", TRUE ~ "Male")
   )
 ```
 
 ```{r}
-coords %>%
-  count(gender)
+#| eval: false
+coords |>
+  dplyr::count(gender)
 ```
 
 ```{r}
-coords %>%
-  ggplot(aes(x = bmi, y = steps)) +
-  geom_point() +
-  theme_void() +
-  xlim(0, 15000)
+#| eval: false
+coords |>
+  ggplot2::ggplot(ggplot2::aes(x = bmi, y = steps)) +
+  ggplot2::geom_point() +
+  ggplot2::theme_void() +
+  ggplot2::xlim(0, 15000)
 ```
 
 ```{r}
-coords %>%
-  ggplot(aes(x = bmi, y = steps, color = gender)) +
-  geom_point() +
-  theme_void() +
-  xlim(0, 15000)
+#| eval: false
+coords |>
+  ggplot2::ggplot(ggplot2::aes(x = bmi, y = steps, color = gender)) +
+  ggplot2::geom_point() +
+  ggplot2::theme_void() +
+  ggplot2::xlim(0, 15000)
 ```

@@ -7,17 +7,18 @@
 Pre-requicite for these exercises was covered within the [session](/sessions/session01.qmd) and is therefore not repeated here. The exercises build on this material.
 :::
 
-## Learning objectives
+## Exercises: "I want to see this association for myself”
 
-The learning objectives for this session are:
+At AalboR Statistical Hospital, a new exercise-based cardiac assessment protocol has recently been introduced following an initial data review suggesting that patients with lower max heart rate are more likely to have underlying heart disease. Based on this, some clinicians have started using the max heart rate during exercise as a quick indicator when evaluating chest pain patients.
 
-{{< include /includes/objectives/_session1.qmd >}}
+However, during a recent internal meeting, a cardiologist raises a concern:
 
-## Exercises: “Just send a quick summary”
+*“I’m not convinced this applies to our patients. Especially those who develop chest pain during exercise — their heart rate response might behave differently. If that’s true, we could be misinterpreting results in a subgroup of patients. I want to see this association for myself”*
 
-You have been asked to prepare a quick summary of a dataset of 303 chest pain patients to support a potential clinical trial collaboration.
-“Nothing complicated—just mean and standard deviation for a few variables.”
-You open RStudio…
+You are asked to explore the hospital’s patient data to assess whether the relationship between Age and max heart rate — and the interpretation of max heart rate more generally — appears consistent across patients, or whether it differs depending on exercise-induced angina, sex, or other patient characteristics.
+
+You are tasked with the decision:
+*Should this new assessment approach be used broadly, or are there patient groups where it may be misleading?*
 
 ### A: Let's start orienting ourselves in the dataset.
 

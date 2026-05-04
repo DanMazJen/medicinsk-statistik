@@ -52,7 +52,7 @@ To repeat from the [official syllabus](https://moduler.aau.dk/course/2024-2025/M
 -   Be able to critically evaluate biostatistical issues across a wide range of contexts and participate in scientific discussions on these matters
 
 
-# Case session 1: “Just send a quick summary”
+## Case session 1: “Just send a quick summary”
 
 A cardiology department at a regional hospital has been collaborating with a pharmaceutical company developing a new diagnostic support tool for chest pain patients. Before deciding whether to include your hospital in a larger clinical trial, the company asks for a quick baseline summary of your recent patients: “Nothing complicated—just basic descriptive numbers so our statisticians can take a look.”
 
@@ -114,7 +114,7 @@ analysis. And by managing your projects in a reproducible fashion,
 you'll not only make your science better and more rigorous, it also
 makes your life easier too!
 
-{{< text_snippet hats_up >}}
+<!--{{< text_snippet hats_up >}} -->
 
 ## RStudio and R Projects
 
@@ -344,13 +344,33 @@ mean(foo) # automatically computes the mean
 
 ## Asking for help or learning more about functions
 
+As you start to run R code, you're likely to run into problems.
+Don't worry --- it happens to everyone.
+We have all been writing R code for years, but every day we still write code that doesn't work on the first try!
+
+Start by carefully comparing the code that you're running to the code we use in the course.
+R is extremely picky, and a misplaced character can make all the difference.
+Make sure that every `(` is matched with a `)` and every `"` is paired with another `"`.
+Sometimes you'll run the code and nothing happens.
+Check the left-hand of your console: if it's a `+`, it means that R doesn't think you've typed a complete expression and it's waiting for you to finish it.
+In this case, it's usually easy to start from scratch again by pressing ESCAPE to abort processing the current command.
+
+If you're still stuck, try `?`.
 Consider the scenario where you learn about a new function or become interested in using a function for a different purpose. Let's say you want to learn more about `mean()`. You simply write a `?` before the function and RStudio will show you documentation about the function and possible suggestions of how to use it correctly in different scenarios - cool, right? Like this:
 
 ```{r mean-questionmark, eval=FALSE}
 ?mean()
 ```
 
-{{< text_snippet hats_up >}}
+You can also get help about any R function by highlighting the function name and pressing F1 in RStudio.
+Don't worry if the help doesn't seem that helpful - instead skip down to the examples and look for code that matches what you're trying to do.
+
+If that doesn't help, carefully read the error message.
+Sometimes the answer will be buried there!
+But when you're new to R, even if the answer is in the error message, you might not yet know how to understand it.
+Another great tool is Google: try googling the error message, as it's likely someone else has had the same problem, and has gotten help online.
+
+<!--{{< text_snippet hats_up >}} -->
 
 ## Standing on giants - using other peoples code
 
@@ -420,7 +440,7 @@ DATA |>
   final_operation_or_plot()
 ```
 
-![](images/pipe.png){.lightbox}
+![](../images/pipe.png){.lightbox}
 
 Basic piping:
 

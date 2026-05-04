@@ -307,7 +307,7 @@ coord_flip()
 
 We can see many things from the histogram:
 
--   The distribution looks approcimately normal
+-   The distribution looks approximately normal
 -   The mean is somewhere around 150 BPM
 -   Most data is between 100-200 BPM
 -   From the looks of it, there might be one or two outliers in our dataset.
@@ -327,10 +327,8 @@ Take a close look at the humble **boxplot**, also known as the box-and-whisker p
 knitr::include_graphics("../images/EDA-boxplot.png")
 ```
 
-```{r one-continuous-variable-plot}
+```{r box-plot-flip}
 #| filename: "docs/session4.R"
-hd_data$ExAng <- as.factor(hd_data$ExAng)
-
 hd_data |>
   ggplot(aes(x = MaxHR)) +
   geom_boxplot() +
@@ -342,12 +340,32 @@ This figure is much better at showing the mean, IQR, and outliers (defined as > 
 It is a very popular plot for comparing continuous variables between two groups.
 This is useful to us as well, so let's try plotting this stratified for patients with(out) exercise-induced angesia
 
-```{r one-continuous-variable-plot}
+```{r box-plot-error}
 #| filename: "docs/session4.R"
 hd_data |>
   ggplot(aes(x = ExAng, y = MaxHR)) +
   geom_boxplot()
 ```
+
+Wait a minute... We still only have one box plot and the value is at 0.5 - but when we inspect `hd_data$ExAng` or `View(hd_data$)`, all values are 0 or 1?!
+
+The problem, we realise, is the type - it's `numeric` (or `dbl` for double precision floating-point data type). We actually consider it a factor indicating either yes/no.
+Let's change the type as a factor using the `factor` function to correct this mistake.
+
+```{r box-plot}
+#| filename: "docs/session4.R"
+hd_data$ExAng <- factor(
+  hd_data$ExAng,
+  levels = c(0, 1),
+  labels = c("no", "yes")
+)
+
+hd_data |>
+  ggplot(aes(x = ExAng, y = MaxHR)) +
+  geom_boxplot()
+```
+
+Aha! It works. We now see the no/yes in the x-axis.
 
 ## The bar plot
 

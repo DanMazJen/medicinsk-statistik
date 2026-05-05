@@ -51,6 +51,8 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/bootstrap/bootstrap-aefc556d4da62ad8220d4afb747bc167.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/quarto-contrib/fontawesome6-1.2.0/all.min.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/fontawesome6-1.2.0/latex-fontsize.css" rel="stylesheet">
+<script src="../site_libs/quarto-contrib/kbd/kbd.js"></script>
+<link href="../site_libs/quarto-contrib/kbd/kbd.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -237,7 +239,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session04.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Describing and plotting data</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">When in doubt - plot it out</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -353,7 +355,12 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link active" data-scroll-target="#learning-objectives"><span class="header-section-number">20.1</span> Learning objectives</a></li>
-  <li><a href="#exercises-just-send-a-quick-summary" id="toc-exercises-just-send-a-quick-summary" class="nav-link" data-scroll-target="#exercises-just-send-a-quick-summary"><span class="header-section-number">20.2</span> Exercises: “Just send a quick summary”</a></li>
+  <li><a href="#exercises-just-send-a-quick-summary" id="toc-exercises-just-send-a-quick-summary" class="nav-link" data-scroll-target="#exercises-just-send-a-quick-summary"><span class="header-section-number">20.2</span> Exercises: “Just send a quick summary”</a>
+  <ul class="collapse">
+  <li><a href="#a-lets-start-orienting-ourselves-in-the-dataset." id="toc-a-lets-start-orienting-ourselves-in-the-dataset." class="nav-link" data-scroll-target="#a-lets-start-orienting-ourselves-in-the-dataset."><span class="header-section-number">20.2.1</span> A: Let’s start orienting ourselves in the dataset.</a></li>
+  <li><a href="#b-now-you-start-doing-the-actual-request-from-the-email." id="toc-b-now-you-start-doing-the-actual-request-from-the-email." class="nav-link" data-scroll-target="#b-now-you-start-doing-the-actual-request-from-the-email."><span class="header-section-number">20.2.2</span> B: Now you start doing the actual request from the email.</a></li>
+  <li><a href="#c-you-reflect-on-your-day-at-work-during-your-evening-at-home" id="toc-c-you-reflect-on-your-day-at-work-during-your-evening-at-home" class="nav-link" data-scroll-target="#c-you-reflect-on-your-day-at-work-during-your-evening-at-home"><span class="header-section-number">20.2.3</span> C: You reflect on your day at work during your evening at home…</a></li>
+  </ul></li>
   <li><a href="#survey" id="toc-survey" class="nav-link" data-scroll-target="#survey"><span class="header-section-number">20.3</span> Survey</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/DanMazJen/medicinsk-statistik/edit/main/exercises/ex01.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/blob/main/exercises/ex01.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
@@ -423,7 +430,8 @@ Warning
 <section id="exercises-just-send-a-quick-summary" class="level2" data-number="20.2">
 <h2 data-number="20.2" class="anchored" data-anchor-id="exercises-just-send-a-quick-summary"><span class="header-section-number">20.2</span> Exercises: “Just send a quick summary”</h2>
 <p>You have been asked to prepare a quick summary of a dataset of 303 chest pain patients to support a potential clinical trial collaboration. “Nothing complicated—just mean and standard deviation for a few variables.” You open RStudio…</p>
-<p><strong>A</strong> Let’s start orienting ourselves in the dataset.</p>
+<section id="a-lets-start-orienting-ourselves-in-the-dataset." class="level3" data-number="20.2.1">
+<h3 data-number="20.2.1" class="anchored" data-anchor-id="a-lets-start-orienting-ourselves-in-the-dataset."><span class="header-section-number">20.2.1</span> A: Let’s start orienting ourselves in the dataset.</h3>
 <p><strong>Exercise 1A</strong>: Import the Cleveland Heart Disease dataset into R.</p>
 <ul>
 <li>What is the name of your dataset?</li>
@@ -447,7 +455,9 @@ Warning
 <li>Print it to see alt it’s values</li>
 <li>Calculate its mean</li>
 </ul>
-<p><strong>B</strong> Now you start doing the actual request from the email.</p>
+</section>
+<section id="b-now-you-start-doing-the-actual-request-from-the-email." class="level3" data-number="20.2.2">
+<h3 data-number="20.2.2" class="anchored" data-anchor-id="b-now-you-start-doing-the-actual-request-from-the-email."><span class="header-section-number">20.2.2</span> B: Now you start doing the actual request from the email.</h3>
 <p><strong>Exercise 1B</strong>:</p>
 <p>Calculate the mean and standard deviation for:</p>
 <ul>
@@ -464,8 +474,9 @@ Warning
 </ul>
 <p><strong>Exercise 3B</strong>:</p>
 <p>List all the variable types the <code>mean()</code> function can take the mean of. There should be 5. Seek help inside RStudio.</p>
-<p><strong>C</strong></p>
-<p>You reflect on your day at work during your evening at home…</p>
+</section>
+<section id="c-you-reflect-on-your-day-at-work-during-your-evening-at-home" class="level3" data-number="20.2.3">
+<h3 data-number="20.2.3" class="anchored" data-anchor-id="c-you-reflect-on-your-day-at-work-during-your-evening-at-home"><span class="header-section-number">20.2.3</span> C: You reflect on your day at work during your evening at home…</h3>
 <p><strong>Exercise 1C</strong>:</p>
 <p>Consider now what you took the mean and standard deviation of in exercise 3B. How can you interpret this? What can we say from this?</p>
 <p><strong>Exercise 2C</strong>:</p>
@@ -476,6 +487,7 @@ Warning
 </ul>
 <p><strong>Exercise 3C</strong>:</p>
 <p>Why is it important to report both mean and standard deviation, and not just the mean? Think in a clinical context.</p>
+</section>
 </section>
 <section id="survey" class="level2" data-number="20.3">
 <h2 data-number="20.3" class="anchored" data-anchor-id="survey"><span class="header-section-number">20.3</span> Survey</h2>

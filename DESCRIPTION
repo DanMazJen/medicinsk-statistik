@@ -9,20 +9,26 @@ Suggests:
 URL: https://github.com/DanMazJen/medicinsk-statistik
 BugReports: https://github.com/DanMazJen/medicinsk-statistik/issues
 Imports:
+    car,
     downlit,
     dplyr,
+    emmeans,
     forcats,
     ggauto,
     ggplot2,
+    gt,
     haven,
     here,
     knitr,
     lubridate,
+    marginaleffects,
     pak,
     purrr,
     readr,
     rmarkdown,
     stringr,
+    survival,
+    survminer,
     tibble,
     tidyr
 Depends:

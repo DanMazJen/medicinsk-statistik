@@ -3,51 +3,50 @@ format: rostools-theme-revealjs
 search: false
 ---
 
-# Welcome to Medical Statistics
+# Expectations for Medical Statistics {.center}
 
--   :heavy_check_mark: Find a seat and check in with the persons sitting next to you
--   :heavy_check_mark: Check out the website [Medical Statistics](https://danmazjen.github.io/medicinsk-statistik/)
+-   What can you expect?
+-   What do we expect?
+-   How to perform well for the exam and get most out of the course
 
-::: notes
-Introduce teachers and helpers after welcoming everyone and getting
-them to do this.
-:::
+## Who's teaching? {.center}
 
-TODO: Add more slides as desired or needed.
+*INSERT PICTURES & EMAILS*
 
-## :raising_hand_woman: How many have read results in a paper and wondered how they <u>actually</u> did it? {.center}
-
-## :raising_hand_woman: How many have read results in a paper and wondered how they <u>actually</u> did it? {.center}
-
-## :raising_hand_woman: How many have read results in a paper and wondered how they <u>actually</u> did it? {.center}
-
-# Workshop details
-
-## Setup and layout {.smaller}
+## Course structure {.smaller}
 
 ::: columns
-::: {.column width="50%"}
--   Workshop is mix of:
-    -   "Code-alongs" (we type and explain, you type along)
-    -   Hands-on coding, discussing, and reading exercises
--   All material is online (and [openly licensed](../LICENSE.html))
--   [Further Learning](https://guides.rostools.org/learning.html) page
-    for resources
+:::: {.column width="50%"}
+**Lectures**
+-   Code-alongs
+-   lectures
+-   reading
+-   exercises
+::::
+:::: {.column width="50%"}
+**Workshops**
+-   Presentations
+-   lectures
+-   reading
+-   exercises
+::::
 :::
 
-::: {.column width="50%"}
--   Schedule listed is a *guide* only, some sessions are longer, others
-    shorter
--   Includes plenty of social activities
-    -   During lunch, try to sit beside someone you don't know
-    -   Discussion activities
-    -
-:::
-:::
+## How to study  {.smaller}
 
-::: notes
-Explain a bit more about the reading, why doing it, and that this workshop
-in particular has a lot more of it than more advanced workshops.
+::: columns
+:::: {.column width="50%"}
+**Lectures/**
+-   Read literature **before**
+-   Read lecture notes **during or after**
+-   Teacher cover 25-75% of material - **you self-study the rest**
+-   Exercises cover curriculum (aka exam-relevant)
+::::
+:::: {.column width="50%"}
+**Exercises**
+-   Group work
+-   Teacher will help with everything we can (ask all you want)
+::::
 :::
 
 ## Getting or asking for help :raising_hand_woman::raising_hand_man: {.smaller}
@@ -58,14 +57,70 @@ in particular has a lot more of it than more advanced workshops.
 -   We're all learning here!
     -   This is a supportive and safe environment
     -   Remember our Code of Conduct
+-   When you are IRL use humans
+-   When alone at home use chat models
 
-## Practice using stickies: Have you TODO: Complete this. {.center}
 
-# Activities {.center}
+## Using chat models and AI {.smaller}
 
-## :walking::walking_woman: Who has TODO: Complete this {.center}
+::: columns
+:::: {.column width="50%"}
+**Dos**
+-   Prompt to explain concept differently (the teacher said "X" - can you reformulate?)
+-   Prompt to explain code (here is some R code - ELI5 what does it do?)
+-   Prompt to probe your own knowledge ()
+::::
+:::: {.column width="50%"}
+**Don'ts**
+-   Relying on help will make you dependent (what happens when AI is not there?)
+-   Responding as "the average person on the internet" is not what you want to aim for when doing a university education
+-   Please use each other and the teachers - otherwise, your education might be ONLY chat model AI in the future...
+::::
+:::
 
-::: notes
-Go to different sides of the room for "Yes" and "No". Or a continuum
-from one end of the room to the other.
+## The exam {.smaller}
+
+::: columns
+:::: {.column width="50%"}
+**Stop-assignment**
+-   Hand-in of course work
+::::
+:::: {.column width="50%"}
+**Project**
+-   Use skills from course to do a short 1 month applied data exploration and statistical analysis
+-   Draw question based on curriculum
+::::
+:::
+
+## How to give feedback to teachers {.smaller}
+
+-   Issues on course material (Github)
+-   Google Sheets for each session
+-   Anonymous feedback for each session (Survey)
+
+
+## Code of Conduct {.smaller}
+
+-   Everyone should feel respected
+-   All questions are appreciated and will be addressed (if time allow)
+-   Be helpful to each other - you learn more this way
+-   Teachers try using appropriate tone - please call us out if we're being boomers so we can be better!
+-   We dedicate a lot of time to this course but also teach other courses - please be patient with us if we do not answer email immediately
+
+
+## How to become "good" {.smaller}
+
+::: columns
+:::: {.column width="50%"}
+**Student responsibility**
+-   Read material **in advance** of lecture
+-   Collaborate on group exercises
+-   Use AI for (deeper) learning
+::::
+:::: {.column width="50%"}
+**Teacher responsibility**
+-   Use student feedback ASAP
+-   Offer help during exercises
+-   If you actively follow the course, you will not only pass the course but also have advantage in job market.
+::::
 :::

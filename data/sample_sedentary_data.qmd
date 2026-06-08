@@ -50,36 +50,36 @@ coords <-
   as.data.frame(py$coords) |>
   dplyr::sample_n(1768) |>
   dplyr::mutate(
-    bmi = V2 * 17 + 15,
-    steps = 15000 - V1 * 15000 / max(V1)
+    age = (V2 / max(V2) * 60) + 30, # 98 - V2 * 200 / max(V2), #V2 * 17 + 15,
+    maxHR = 200 - V1 * 200 / max(V1)
   ) |>
   dplyr::mutate(
     randvar = rnorm(dplyr::n(), mean = 0, sd = 10),
-    randi = steps * (1 + randvar),
-    gender = dplyr::case_when(randi < median(steps) ~ "Female", TRUE ~ "Male")
+    randi = maxHR * (1 + randvar),
+    ExAng = dplyr::case_when(randi < median(maxHR) ~ "no", TRUE ~ "Yes")
   )
 ```
 
 ```{r}
 #| eval: false
 coords |>
-  dplyr::count(gender)
+  dplyr::count(ExAng)
 ```
 
 ```{r}
 #| eval: false
 coords |>
-  ggplot2::ggplot(ggplot2::aes(x = bmi, y = steps)) +
+  ggplot2::ggplot(ggplot2::aes(x = age, y = maxHR)) +
   ggplot2::geom_point() +
   ggplot2::theme_void() +
-  ggplot2::xlim(0, 15000)
+  ggplot2::xlim(0, 200)
 ```
 
 ```{r}
 #| eval: false
 coords |>
-  ggplot2::ggplot(ggplot2::aes(x = bmi, y = steps, color = gender)) +
+  ggplot2::ggplot(ggplot2::aes(x = age, y = maxHR, color = ExAng)) +
   ggplot2::geom_point() +
-  ggplot2::theme_void() +
-  ggplot2::xlim(0, 15000)
+  #ggplot2::theme_void() +
+  ggplot2::xlim(0, 100)
 ```

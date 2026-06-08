@@ -505,6 +505,15 @@ ggsave(filename = "subgroup-association.png")
 
 This will save your plot to your working directory (which should be the root of your project folder, if you're in your R-project (see [session 1](/sessions/session01.qmd)).
 
+## Even statistics fail at what data visualization makes obvious
+
+::: {#fig-art-bar-error-plot}
+![](../images/AnscombesQuartet_visualization.jpg){width="70%"}
+
+The infamous dataset:
+[Anscombe's Quartet](https://en.wikipedia.org/wiki/Anscombe%27s_quartet).
+:::
+
 ## Summary
 
 Pharma: Accelerating drug approvals with clear trial data.

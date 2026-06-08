@@ -6,9 +6,10 @@ extend-exclude = [
   ".quarto/*",
   "_site/*",
   "_book/*",
-  "_extensions/*",
+  "_extensions/**",
+  "_extensions/rostools/rostools-theme/_extensions/quarto-ext/fontawesome/assets/css/all.css",
   "*.bib",
-  "arrows/*",
+  "arrows/*"
 ]
 
 [default.extend-words]

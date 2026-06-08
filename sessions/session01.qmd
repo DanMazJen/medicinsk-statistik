@@ -1,6 +1,6 @@
 # Hallo Medical Statistics {#sec-introduction}
 
-> [**Introduction slides**](../slides/introduction.html)
+> [**Introduction slides**](../slides/day1.html)
 
 <div>
 
@@ -522,6 +522,18 @@ Please complete the survey for this session:
 {{< include /includes/_survey.qmd >}}
 
 
+> [**Course Expectations**](../slides/introduction.html)
+
+<div>
+
+```{=html}
+<iframe class="slide-deck" src="../slides/introduction.html"></iframe>
+```
+
+</div>
+
+
+
 
 
 
@@ -647,3 +659,9 @@ Further material:
 
 -   [RStudio's cheat-sheet](https://iqss.github.io/dss-workshops/R/Rintro/base-r-cheat-sheet.pdf)
 -   ?
+
+::: {.callout-note collapse="true"}
+## Teacher note
+
+Dedicate at least 15 minutes for this part in the end of the session
+:::

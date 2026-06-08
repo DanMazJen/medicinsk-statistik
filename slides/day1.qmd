@@ -102,7 +102,7 @@ Age and coronary heart disease?
 :::
 
 
-## Exploring the Heard Disease dataset
+## Exploring the Heart Disease dataset
 
 1)  Go to [**https://danmazjen.github.io/medicinsk-statistik**](https://danmazjen.github.io/medicinsk-statistik), exercises, and find the Cleveland Heart Disease dataset
 

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.37">
+<meta name="generator" content="quarto-1.9.38">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <title>14&nbsp; When in doubt - plot it out – Medical Statistics, MEDMS24B5_1</title>
 <style>
@@ -91,16 +91,16 @@ div.csl-indent {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-11de9ebaf3acc46bae6e6cb0e9c92b73.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-2202c5d486b5eda57934a2e5d036d4fd.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-11de9ebaf3acc46bae6e6cb0e9c92b73.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-a26eb8303659cd3e56a4df222525631d.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-30e6a2c837d31765335c9e5ddc24bf05.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-a26eb8303659cd3e56a4df222525631d.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-aefc556d4da62ad8220d4afb747bc167.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-5da255673fa09d964ff52f2d655febf3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-aefc556d4da62ad8220d4afb747bc167.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/quarto-contrib/fontawesome6-1.2.0/all.min.css" rel="stylesheet">
-<link href="../site_libs/quarto-contrib/fontawesome6-1.2.0/latex-fontsize.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-4f3ec3d811f56cb5137c8854733850f0.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-50908c9a9f74dc10e85fe7dd0c3e36cc.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-4f3ec3d811f56cb5137c8854733850f0.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/quarto-contrib/fontawesome6-6.7.2/all.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/fontawesome6-6.7.2/latex-fontsize.css" rel="stylesheet">
 <script src="../site_libs/quarto-contrib/kbd/kbd.js"></script>
 <link href="../site_libs/quarto-contrib/kbd/kbd.css" rel="stylesheet"><script id="quarto-search-options" type="application/json">{
   "location": "navbar",
@@ -129,7 +129,7 @@ div.csl-indent {
   }
 }</script>
 </head>
-<body class="nav-sidebar floating nav-fixed slimcontent quarto-light">
+<body class="nav-sidebar floating nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
@@ -407,11 +407,12 @@ div.csl-indent {
   <li><a href="#reading-task-be-careful-with-certain-plots" id="toc-reading-task-be-careful-with-certain-plots" class="nav-link" data-scroll-target="#reading-task-be-careful-with-certain-plots"><span class="header-section-number">14.12</span> <span class="emoji" data-emoji="book">📖</span> Reading task: Be careful with certain plots</a></li>
   <li><a href="#the-scatter-plot" id="toc-the-scatter-plot" class="nav-link" data-scroll-target="#the-scatter-plot"><span class="header-section-number">14.13</span> The scatter plot</a></li>
   <li><a href="#sec-ggsave" id="toc-sec-ggsave" class="nav-link" data-scroll-target="#sec-ggsave"><span class="header-section-number">14.14</span> Saving your plots</a></li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">14.15</span> Summary</a></li>
+  <li><a href="#even-statistics-fail-at-what-data-visualization-makes-obvious" id="toc-even-statistics-fail-at-what-data-visualization-makes-obvious" class="nav-link" data-scroll-target="#even-statistics-fail-at-what-data-visualization-makes-obvious"><span class="header-section-number">14.15</span> Even statistics fail at what data visualization makes obvious</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">14.16</span> Summary</a></li>
   </ul><div class="toc-actions"><ul><li><a href="https://github.com/DanMazJen/medicinsk-statistik/edit/main/sessions/session04.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/blob/main/sessions/session04.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content page-columns page-full" id="quarto-document-content"><script data-goatcounter="https://DanMazJen-medicinsk-statistik.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/session01.html">Sessions</a></li><li class="breadcrumb-item"><a href="../sessions/session04.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">When in doubt - plot it out</span></a></li></ol></nav><div class="quarto-title">
+<main class="content" id="quarto-document-content"><script data-goatcounter="https://DanMazJen-medicinsk-statistik.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/session01.html">Sessions</a></li><li class="breadcrumb-item"><a href="../sessions/session04.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">When in doubt - plot it out</span></a></li></ol></nav><div class="quarto-title">
 <h1 class="title"><span id="sec-visualization" class="quarto-section-identifier"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">When in doubt - plot it out</span></span></h1>
 </div>
 
@@ -471,23 +472,23 @@ Warning
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <p><img src="session04_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="672"></p>
 </div>
-<div id="dgzpkubpav" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#dgzpkubpav table {
+<div id="yjjdeipeav" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#yjjdeipeav table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#dgzpkubpav thead, #dgzpkubpav tbody, #dgzpkubpav tfoot, #dgzpkubpav tr, #dgzpkubpav td, #dgzpkubpav th {
+#yjjdeipeav thead, #yjjdeipeav tbody, #yjjdeipeav tfoot, #yjjdeipeav tr, #yjjdeipeav td, #yjjdeipeav th {
   border-style: none;
 }
 
-#dgzpkubpav p {
+#yjjdeipeav p {
   margin: 0;
   padding: 0;
 }
 
-#dgzpkubpav .gt_table {
+#yjjdeipeav .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -513,12 +514,12 @@ Warning
   border-left-color: #D3D3D3;
 }
 
-#dgzpkubpav .gt_caption {
+#yjjdeipeav .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#dgzpkubpav .gt_title {
+#yjjdeipeav .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -530,7 +531,7 @@ Warning
   border-bottom-width: 0;
 }
 
-#dgzpkubpav .gt_subtitle {
+#yjjdeipeav .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -542,7 +543,7 @@ Warning
   border-top-width: 0;
 }
 
-#dgzpkubpav .gt_heading {
+#yjjdeipeav .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -554,13 +555,13 @@ Warning
   border-right-color: #D3D3D3;
 }
 
-#dgzpkubpav .gt_bottom_border {
+#yjjdeipeav .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#dgzpkubpav .gt_col_headings {
+#yjjdeipeav .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -575,7 +576,7 @@ Warning
   border-right-color: #D3D3D3;
 }
 
-#dgzpkubpav .gt_col_heading {
+#yjjdeipeav .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -595,7 +596,7 @@ Warning
   overflow-x: hidden;
 }
 
-#dgzpkubpav .gt_column_spanner_outer {
+#yjjdeipeav .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -607,15 +608,15 @@ Warning
   padding-right: 4px;
 }
 
-#dgzpkubpav .gt_column_spanner_outer:first-child {
+#yjjdeipeav .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#dgzpkubpav .gt_column_spanner_outer:last-child {
+#yjjdeipeav .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#dgzpkubpav .gt_column_spanner {
+#yjjdeipeav .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -627,11 +628,11 @@ Warning
   width: 100%;
 }
 
-#dgzpkubpav .gt_spanner_row {
+#yjjdeipeav .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#dgzpkubpav .gt_group_heading {
+#yjjdeipeav .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -657,7 +658,7 @@ Warning
   text-align: left;
 }
 
-#dgzpkubpav .gt_empty_group_heading {
+#yjjdeipeav .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -672,15 +673,15 @@ Warning
   vertical-align: middle;
 }
 
-#dgzpkubpav .gt_from_md > :first-child {
+#yjjdeipeav .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#dgzpkubpav .gt_from_md > :last-child {
+#yjjdeipeav .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#dgzpkubpav .gt_row {
+#yjjdeipeav .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -699,7 +700,7 @@ Warning
   overflow-x: hidden;
 }
 
-#dgzpkubpav .gt_stub {
+#yjjdeipeav .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -712,7 +713,7 @@ Warning
   padding-right: 5px;
 }
 
-#dgzpkubpav .gt_stub_row_group {
+#yjjdeipeav .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -726,15 +727,15 @@ Warning
   vertical-align: top;
 }
 
-#dgzpkubpav .gt_row_group_first td {
+#yjjdeipeav .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#dgzpkubpav .gt_row_group_first th {
+#yjjdeipeav .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#dgzpkubpav .gt_summary_row {
+#yjjdeipeav .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -744,16 +745,16 @@ Warning
   padding-right: 5px;
 }
 
-#dgzpkubpav .gt_first_summary_row {
+#yjjdeipeav .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#dgzpkubpav .gt_first_summary_row.thick {
+#yjjdeipeav .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#dgzpkubpav .gt_last_summary_row {
+#yjjdeipeav .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -763,7 +764,7 @@ Warning
   border-bottom-color: #D3D3D3;
 }
 
-#dgzpkubpav .gt_grand_summary_row {
+#yjjdeipeav .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -773,7 +774,7 @@ Warning
   padding-right: 5px;
 }
 
-#dgzpkubpav .gt_first_grand_summary_row {
+#yjjdeipeav .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -783,7 +784,7 @@ Warning
   border-top-color: #D3D3D3;
 }
 
-#dgzpkubpav .gt_last_grand_summary_row_top {
+#yjjdeipeav .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -793,11 +794,11 @@ Warning
   border-bottom-color: #D3D3D3;
 }
 
-#dgzpkubpav .gt_striped {
+#yjjdeipeav .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#dgzpkubpav .gt_table_body {
+#yjjdeipeav .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -806,7 +807,7 @@ Warning
   border-bottom-color: #D3D3D3;
 }
 
-#dgzpkubpav .gt_footnotes {
+#yjjdeipeav .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -820,7 +821,7 @@ Warning
   border-right-color: #D3D3D3;
 }
 
-#dgzpkubpav .gt_footnote {
+#yjjdeipeav .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -829,7 +830,7 @@ Warning
   padding-right: 5px;
 }
 
-#dgzpkubpav .gt_sourcenotes {
+#yjjdeipeav .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -843,7 +844,7 @@ Warning
   border-right-color: #D3D3D3;
 }
 
-#dgzpkubpav .gt_sourcenote {
+#yjjdeipeav .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -851,72 +852,72 @@ Warning
   padding-right: 5px;
 }
 
-#dgzpkubpav .gt_left {
+#yjjdeipeav .gt_left {
   text-align: left;
 }
 
-#dgzpkubpav .gt_center {
+#yjjdeipeav .gt_center {
   text-align: center;
 }
 
-#dgzpkubpav .gt_right {
+#yjjdeipeav .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#dgzpkubpav .gt_font_normal {
+#yjjdeipeav .gt_font_normal {
   font-weight: normal;
 }
 
-#dgzpkubpav .gt_font_bold {
+#yjjdeipeav .gt_font_bold {
   font-weight: bold;
 }
 
-#dgzpkubpav .gt_font_italic {
+#yjjdeipeav .gt_font_italic {
   font-style: italic;
 }
 
-#dgzpkubpav .gt_super {
+#yjjdeipeav .gt_super {
   font-size: 65%;
 }
 
-#dgzpkubpav .gt_footnote_marks {
+#yjjdeipeav .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#dgzpkubpav .gt_asterisk {
+#yjjdeipeav .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#dgzpkubpav .gt_indent_1 {
+#yjjdeipeav .gt_indent_1 {
   text-indent: 5px;
 }
 
-#dgzpkubpav .gt_indent_2 {
+#yjjdeipeav .gt_indent_2 {
   text-indent: 10px;
 }
 
-#dgzpkubpav .gt_indent_3 {
+#yjjdeipeav .gt_indent_3 {
   text-indent: 15px;
 }
 
-#dgzpkubpav .gt_indent_4 {
+#yjjdeipeav .gt_indent_4 {
   text-indent: 20px;
 }
 
-#dgzpkubpav .gt_indent_5 {
+#yjjdeipeav .gt_indent_5 {
   text-indent: 25px;
 }
 
-#dgzpkubpav .katex-display {
+#yjjdeipeav .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#dgzpkubpav div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#yjjdeipeav div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1059,14 +1060,10 @@ Warning
 </ul></section></section><section id="the-name-of-the-game" class="level2" data-number="14.4"><h2 data-number="14.4" class="anchored" data-anchor-id="the-name-of-the-game">
 <span class="header-section-number">14.4</span> The name of the game:</h2>
 <p>Do older patients have higher or lower max heart rate than younger patients? You probably already have an answer, but try to make your answer precise. What does the relationship between age and max heart rate look like? Is it positive? Negative? Linear? Nonlinear? Does the relationship vary by the presence of exercise-induced angina in the patient? How about by the sex? Let’s create visualizations that we can use to answer these questions.</p>
-</section><section id="the-cleveland-heart-disease-data-frame" class="level2 page-columns page-full" data-number="14.5"><h2 data-number="14.5" class="anchored" data-anchor-id="the-cleveland-heart-disease-data-frame">
+</section><section id="the-cleveland-heart-disease-data-frame" class="level2" data-number="14.5"><h2 data-number="14.5" class="anchored" data-anchor-id="the-cleveland-heart-disease-data-frame">
 <span class="header-section-number">14.5</span> The Cleveland Heart Disease data frame</h2>
 <p>To make the discussion easier, let’s define some terms (we use the definition from <span class="citation" data-cites="R4DS">(<a href="../appendix/references.html#ref-R4DS" role="doc-biblioref">1</a>)</span>)</p>
-<div class="no-row-height column-margin column-container"><div id="ref-R4DS" class="csl-entry" role="listitem">
-<div class="csl-left-margin">1. </div>
-<div class="csl-right-inline">Wickham H, Çetinkaya-Rundel M, Grolemund G. R for data science [Internet]. 2nd ed. O’Reilly Media; 2023. Available from: <a href="https://r4ds.hadley.nz/">https://r4ds.hadley.nz/</a>
-</div>
-</div></div><ul>
+<ul>
 <li><p>A <strong>variable</strong> is a quantity, quality, or property that you can measure.</p></li>
 <li><p>A <strong>value</strong> is the state of a variable when you measure it. The value of a variable may change from measurement to measurement.</p></li>
 <li><p>An <strong>observation</strong> is a set of measurements made under similar conditions (you usually make all of the measurements in an observation at the same time and on the same object). An observation will contain several values, each associated with a different variable. We’ll sometimes refer to an observation as a data point.</p></li>
@@ -1136,12 +1133,12 @@ dbl (12): ...1, Age, Sex, RestBP, Chol, Fbs, RestECG, MaxHR, ExAng, ...
 </div>
 </div>
 </div>
-</section><section id="hallo-ggplot2" class="level2 page-columns page-full" data-number="14.7"><h2 data-number="14.7" class="anchored" data-anchor-id="hallo-ggplot2">
+</section><section id="hallo-ggplot2" class="level2" data-number="14.7"><h2 data-number="14.7" class="anchored" data-anchor-id="hallo-ggplot2">
 <span class="header-section-number">14.7</span> Hallo <code>{ggplot2}</code>
 </h2>
 <p>R has several systems for making graphs, but <a href="https://ggplot2.tidyverse.org">ggplot2</a> is one of the most elegant and most versatile. <a href="https://ggplot2.tidyverse.org">ggplot2</a> implements the <strong>grammar of graphics</strong>, a coherent system for describing and building graphs. With <a href="https://ggplot2.tidyverse.org">ggplot2</a>, you can do more and faster by learning one system and applying it in many places.</p>
 <p><a href="https://ggplot2.tidyverse.org">ggplot2</a> is an implementation of the <a href="https://www.springer.com/gp/book/9780387245447">“Grammar of Graphics”</a> (“gg”). This is a powerful approach to creating plots because it provides a set of structured rules (a “grammar”) that allow you to expressively describe components (or “layers”) of a graph. Since you are able to describe the components, it is easier to then implement those “descriptions” in creating a graph. According to <span class="citation" data-cites="Johnston2021">(<a href="../appendix/references.html#ref-Johnston2021" role="doc-biblioref">2</a>)</span>, there are at least four aspects to using <a href="https://ggplot2.tidyverse.org">ggplot2</a> that relate to its “grammar”:</p>
-<div class="no-row-height column-margin column-container"></div><ul>
+<ul>
 <li>Aesthetics, <code>aes()</code>: How data are mapped to the plot, including what data are put on the x and y axes, and/or whether to use a colour for a variable.</li>
 <li>Geometries, <code>geom_</code> functions: Visual representation of the data, as a layer. This tells <a href="https://ggplot2.tidyverse.org">ggplot2</a> how the aesthetics should be visualized, including whether they should be shown as points, lines, boxes, bins, or bars.</li>
 <li>Scales, <code>scale_</code> functions: Controls the visual properties of the <code>geom_</code> layers. Can be used to modify the appearance of the axes, to change the colour of dots from, e.g., red to blue, or to use a different colour palette entirely.</li>
@@ -1472,8 +1469,18 @@ Caused by error in `fun.data()`:
 <span></span>
 <span><span class="fu">ggsave</span><span class="op">(</span>filename <span class="op">=</span> <span class="st">"subgroup-association.png"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>This will save your plot to your working directory (which should be the root of your project folder, if you’re in your R-project (see <a href="../sessions/session01.html">session 1</a>).</p>
-</section><section id="summary" class="level2" data-number="14.15"><h2 data-number="14.15" class="anchored" data-anchor-id="summary">
-<span class="header-section-number">14.15</span> Summary</h2>
+</section><section id="even-statistics-fail-at-what-data-visualization-makes-obvious" class="level2" data-number="14.15"><h2 data-number="14.15" class="anchored" data-anchor-id="even-statistics-fail-at-what-data-visualization-makes-obvious">
+<span class="header-section-number">14.15</span> Even statistics fail at what data visualization makes obvious</h2>
+<div id="fig-art-bar-error-plot" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-art-bar-error-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../images/AnscombesQuartet_visualization.jpg" class="img-fluid figure-img" style="width:70.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-art-bar-error-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;14.4: The infamous dataset: <a href="https://en.wikipedia.org/wiki/Anscombe%27s_quartet">Anscombe’s Quartet</a>.
+</figcaption></figure>
+</div>
+</section><section id="summary" class="level2" data-number="14.16"><h2 data-number="14.16" class="anchored" data-anchor-id="summary">
+<span class="header-section-number">14.16</span> Summary</h2>
 <p>Pharma: Accelerating drug approvals with clear trial data. Hospitals: Improving patient outcomes through better decision-making. Industry: Convincing stakeholders (from doctors to CEOs) with evidence.</p>
 <p>Examples</p>
 <ul>
@@ -1492,22 +1499,18 @@ Caused by error in `fun.data()`:
 <li>Use <code>geom_point()</code> to create a scatterplot of two continuous variables.</li>
 <li>Use <code>geom_smooth()</code> to add a smoothing line to the scatterplot.</li>
 <li>Use <code>geom_bar()</code> to create a barplot of discrete variables.</li>
-</ul></section><div class="hidden page-columns page-full">
-<section id="reading-task-basic-principles-for-creating-graphs" class="level2 page-columns page-full" data-number="14.16"><h2 data-number="14.16" class="anchored" data-anchor-id="reading-task-basic-principles-for-creating-graphs">
-<span class="header-section-number">14.16</span> <span class="emoji" data-emoji="book">📖</span> Reading task: Basic principles for creating graphs</h2>
+</ul></section><div class="hidden">
+<section id="reading-task-basic-principles-for-creating-graphs" class="level2" data-number="14.17"><h2 data-number="14.17" class="anchored" data-anchor-id="reading-task-basic-principles-for-creating-graphs">
+<span class="header-section-number">14.17</span> <span class="emoji" data-emoji="book">📖</span> Reading task: Basic principles for creating graphs</h2>
 <p><span class="citation" data-cites="Johnston2021">(<a href="../appendix/references.html#ref-Johnston2021" role="doc-biblioref">2</a>)</span> Making graphs in R is relatively easy compared to other programs and can be done with very little code. Because it takes a few lines of code to create multiple types of plots, it gives you some time to consider: <em>why</em> you are making them; whether the graph you’ve selected is the <em>most appropriate</em> for your data or results; and how you can design your graphs to be as accessible and understandable as possible.</p>
-<div class="no-row-height column-margin column-container"><div id="ref-Johnston2021" class="csl-entry" role="listitem">
-<div class="csl-left-margin">2. </div>
-<div class="csl-right-inline">Johnston L, Juel H, Lengger B, Witte D, Chatwin H, Christiansen M, et al. R-cubed: Guiding the overwhelmed scientist from random wrangling to reproducible research in r. Journal of Open Source Education [Internet]. 2021;4(44):122. Available from: <a href="https://doi.org/10.21105/jose.00122">https://doi.org/10.21105/jose.00122</a>
-</div>
-</div></div><p>To start, here are some tips for making a graph:</p>
+<p>To start, here are some tips for making a graph:</p>
 <ul>
 <li>Whenever possible or reasonable, show raw data values rather than summaries (e.g.&nbsp;means).</li>
 <li>Though commonly used in scientific papers, <a href="https://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.1002128"><em>avoid barplots</em></a> with means and error bars as they greatly misrepresent the data (we’ll cover why later).</li>
 <li>Use colour to highlight and enhance your message, and make the plot visually appealing.</li>
 <li>Use a colour-blind friendly palette to make the plot more accessible to others (more on this later too).</li>
-</ul></section><section id="plotting-two-continuous-variables" class="level2" data-number="14.17"><h2 data-number="14.17" class="anchored" data-anchor-id="plotting-two-continuous-variables">
-<span class="header-section-number">14.17</span> Plotting two continuous variables</h2>
+</ul></section><section id="plotting-two-continuous-variables" class="level2" data-number="14.18"><h2 data-number="14.18" class="anchored" data-anchor-id="plotting-two-continuous-variables">
+<span class="header-section-number">14.18</span> Plotting two continuous variables</h2>
 <p>There are many more types of “geoms” to use when plotting two variables. Your choice of which one to use depends on what you are trying to show or communicate, and the nature of the data. Usually, the variable that you “control or influence” (the independent variable) in an experimental setting goes on the x-axis, and the variable that “responds” (the dependent variable) goes on the y-axis.</p>
 <p>For now, let’s focus on plotting continuous data, since our data has a lot of continuous data and often in research we work with more continuous than discrete variables. When you have <em>two continuous</em> variables, some geoms to use are:</p>
 <ul>
@@ -1532,15 +1535,26 @@ Caused by error in `fun.data()`:
 <p>Run this code chunk with <kbd title="Ctrl-Enter" aria-hidden="true">Ctrl-Enter</kbd><span class="visually-hidden">Ctrl-Enter</span>. You’ll see a scatterplot of BMI and the area under the curve for glucose. Notice how there is a bit of an increase in glucose as BMI increases? Because <a href="https://ggplot2.tidyverse.org">ggplot2</a> works in layers, we can add another layer to the plot by adding a <code>+</code> after the <code>geom_point()</code> function. Let’s add a smoothing line to the plot to see if there is a general trend between BMI and glucose by using <code>geom_smooth()</code>.</p>
 <p>Run this code chunk with <kbd title="Ctrl-Enter" aria-hidden="true">Ctrl-Enter</kbd><span class="visually-hidden">Ctrl-Enter</span> and we’ll see a scatterplot of age and the max heart rate with a smoothing line on top of the points. The colors represent the sub-groups: exercises-induced angesio (yes/no).</p>
 <p>This makes a nice smoothing line through the data and gives us an idea of general trends or relationships between the two variables.</p>
-</section><section id="survey" class="level2" data-number="14.18"><h2 data-number="14.18" class="anchored" data-anchor-id="survey">
-<span class="header-section-number">14.18</span> Survey</h2>
+</section><section id="survey" class="level2" data-number="14.19"><h2 data-number="14.19" class="anchored" data-anchor-id="survey">
+<span class="header-section-number">14.19</span> Survey</h2>
 <p>Please complete the survey for this session:</p>
 <p><a href="https://docs.google.com/forms/d/e/1FAIpQLSejsgArWYbCpTjKoxdCArtAVJrtBZQCINIEUj1TqppYrd3n8g/viewform?usp=publish-editor" class="btn btn-primary" role="button">Feedback survey! <span class="emoji" data-emoji="tada">🎉</span></a></p>
 </section>
 </div>
 
 
-
+<div id="refs" class="references csl-bib-body" role="list" style="display: none">
+<div id="ref-R4DS" class="csl-entry" role="listitem">
+<div class="csl-left-margin">1. </div>
+<div class="csl-right-inline">Wickham H, Çetinkaya-Rundel M, Grolemund G. R for data science [Internet]. 2nd ed. O’Reilly Media; 2023. Available from: <a href="https://r4ds.hadley.nz/">https://r4ds.hadley.nz/</a>
+</div>
+</div>
+<div id="ref-Johnston2021" class="csl-entry" role="listitem">
+<div class="csl-left-margin">2. </div>
+<div class="csl-right-inline">Johnston L, Juel H, Lengger B, Witte D, Chatwin H, Christiansen M, et al. R-cubed: Guiding the overwhelmed scientist from random wrangling to reproducible research in r. Journal of Open Source Education [Internet]. 2021;4(44):122. Available from: <a href="https://doi.org/10.21105/jose.00122">https://doi.org/10.21105/jose.00122</a>
+</div>
+</div>
+</div>
 
 <script async="" src="https://scripts.simpleanalyticscdn.com/latest.js"></script></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {

@@ -1,0 +1,389 @@
+# Conditioning and polynomial madness {#sec-interaction}
+
+> "x." --- John Doe
+
+```{r}
+#| label: setup
+#| include: false
+
+#library(tidyverse)
+#ddagit782594dalibrary(tidyverse)
+library(ggplot2)
+library(dplyr)
+library(readr)
+
+hd_data <- readr::read_csv(
+  "https://raw.githubusercontent.com/DanMazJen/medicinsk-statistik/main/data/hd_data.csv"
+)
+```
+
+## Pree-class Literature
+
+- [s](s)
+
+## Case session 11: ""
+
+At AalboR Statistical Hospital, a new exercise-based cardiac assessment protocol
+has recently been introduced following an initial data review suggesting that
+patients with lower max heart rate are more likely to have underlying heart
+disease. Based on this, some clinicians have started using the max heart rate
+during exercise as a quick indicator when evaluating chest pain patients.
+
+However, during a recent internal meeting, a cardiologist raises a concern:
+
+> *"I'm not convinced this applies to our patients. Especially those who develop
+> chest pain during exercise --- their heart rate response might behave
+> differently. If that's true, we could be misinterpreting results in a subgroup
+> of patients. I want to see this association for myself"*
+
+You are asked to explore the hospital's patient data to assess whether the
+relationship between Age and max heart rate --- and the interpretation of max
+heart rate more generally --- appears consistent across patients, or whether it
+differs depending on exercise-induced angina, sex, or other patient
+characteristics.
+
+You are tasked with the decision: *Should this new assessment approach be used
+broadly, or are there patient groups where it may be misleading?*
+
+```{r}
+hd_data <- hd_data |>
+    mutate(
+        ExAng = factor(ExAng,
+            levels = c(0, 1),
+            labels = c("no", "yes")
+        ),
+        HD = factor(HD,
+            levels = c("No", "Yes"),
+            labels = c("no", "yes")
+        ),
+        ChestPain = factor(ChestPain),
+        Thal = factor(Thal),
+        fasting_blood_glucose = factor(Fbs,
+            levels = c(0, 1),
+            labels = c("normal", "high")
+        )
+    )
+
+hd_data |>
+  ggplot(ggplot2::aes(Age, MaxHR, color = HD)) +
+  geom_point() +
+  geom_smooth(method = "lm")
+```
+
+## Reading Task: Conditional manatees?
+
+...
+
+## Adding the variable to a regression model is not enough
+
+```{r}
+model_additive <-
+    lm(MaxHR ~ Age + HD,
+    data = hd_data)
+
+library(marginaleffects)
+
+plot_predictions(
+    model_additive,
+    condition = c("Age", "HD")
+)
+
+model_additive |>
+    avg_slopes()
+```
+
+## Adding an interaction
+
+```{r}
+model_interact <-
+    lm(MaxHR ~ Age + HD + Age:HD,
+    data = hd_data)
+
+plot_predictions(
+    model_interact,
+    condition = c("Age", "HD")
+)
+```
+
+## Interpreting an interaction estimate
+
+```{r}
+model_interact |>
+    summary()
+```
+
+```{r}
+model_params <- model_interact |>
+    parameters::model_parameters()
+```
+
+$$
+Y^=213.93−1.06(age)−53.84(hd)+0.689(age×hd)
+$$
+
+where:
+
+- age = age in years -
+- hd = 0 (no heart disease) or 1 (heart disease)
+
+```{r}
+model_params <-
+    data.frame(
+        intercept_est = model_params[1,2],
+        age_est = model_params[2,2],
+        hd_est = model_params[3,2],
+        age_hd_interact_est = model_params[4,2]
+    )
+
+model_params
+```
+
+### Step 1:
+
+Step 1: Write separate equations for each group No heart disease (hd = 0)
+
+Substitute hd = 0:
+
+$ ⁄bar{Y} = 213.93−1.06(age) $
+
+Interpretation:
+
+For people without heart disease, each additional year of age is associated with
+about 1.06 units lower predicted outcome. Heart disease (hd = 1)
+
+Substitute hd = 1:
+
+$ Y^ =213.93−1.06(age)−53.84+0.689(age) $
+
+Combine terms:
+
+$Y^=160.09−0.368(age)$
+
+Interpretation:
+
+For people with heart disease, each additional year of age is associated with
+only about 0.37 units lower predicted outcome. The age effect is less negative
+because of the positive interaction term.
+
+### Step 2: Plug in specific ages
+
+**Age = 40**
+
+*No heart disease:* 213.93−1.06(40)=171.67
+
+*Heart disease:* 160.09−0.368(40)=145.37
+
+*Difference:* 145.37−171.67=−26.30
+
+> At age 40, heart disease is associated with about 26 units lower predicted
+> outcome.
+
+**Age = 70**
+
+*No heart disease:* 213.93−1.06(70)=140.00
+
+*Heart disease:* 160.09−0.368(70)=134.34
+
+*Difference:* 134.34−140.00=−5.66
+
+> At age 70, heart disease is associated with only about 6 units lower predicted
+> outcome.
+
+### Step 3: Interpret the interaction
+
+The interaction coefficient is: **0.689**
+
+This means that the effect of heart disease becomes 0.689 units less negative
+for every additional year of age.
+
+In other words: The difference between the heart disease and no-heart-disease
+groups shrinks by about 0.689 units for each additional year of age.
+
+We can again plug the values in to examine this:
+
+```r
+Age HD=0    HD=1    Difference (HD−No HD)
+40  171.67  145.37  -26.30
+50  161.11  141.69  -19.41
+60  150.54  138.01  -12.53
+70  139.98  134.32  -5.66
+```
+
+Students often find the table easier than interpreting the interaction
+coefficient directly because they can see how the gap between groups changes
+with age.
+
+```{r}
+plot_slopes(model_interact, variables = "HD", condition = "Age") +
+    geom_hline(yintercept = 0, linetype = "dotted") +
+    labs(
+        y = "expected difference (MaxHR | HD)"
+    )
+
+slopes(model_interact,
+  variables = "HD",
+  newdata = datagrid(Age = range))
+
+slopes(model_interact,
+  variables = "HD",
+  newdata = datagrid(Age = range),
+  hypothesis = "b2 - b1 = 0"
+)
+```
+
+# Symmetry of the linear interaction
+
+Consider for example the GDP and terrain ruggedness problem. The interaction
+there has two equally valid phrasings.
+
+How much does the influence of ruggedness (on GDP) depend upon whether the
+nation is in Africa? How much does the influence of being in Africa (on GDP)
+depend upon ruggedness?
+
+## Symmetry of the Linear Interaction
+
+Consider McElreath's GDP and terrain ruggedness example.
+
+One might ask:
+
+1. How much does the effect of terrain ruggedness on GDP depend on whether a
+   nation is in Africa?
+2. How much does the effect of being in Africa on GDP depend on terrain
+   ruggedness?
+
+These sound like different questions, but in a linear model they are
+mathematically identical.
+
+The original model is
+
+$$
+\log(\text{GDP}_i) \sim \text{Normal}(\mu_i,\sigma)
+$$
+
+with
+
+$$
+\mu_i = \alpha + \gamma_i \,\text{rugged}_i + \beta_2 \,\text{Africa}_i
+$$
+
+and
+
+$$
+\gamma_i = \beta_1 + \beta_3 \,\text{Africa}_i.
+$$
+
+Substituting the second equation into the first gives
+
+$$
+\mu_i = \alpha + (\beta_1 + \beta_3 \,\text{Africa}_i)\,\text{rugged}_i + \beta_2 \,\text{Africa}_i.
+$$
+
+Expanding:
+
+$$
+\mu_i = \alpha + \beta_1 \,\text{rugged}_i + \beta_3 \,\text{rugged}_i \times \text{Africa}_i + \beta_2 \,\text{Africa}_i.
+$$
+
+Now collect the terms containing $\text{Africa}_i$:
+
+$$
+\mu_i = \alpha + \beta_1 \,\text{rugged}_i + (\beta_2 + \beta_3 \,\text{rugged}_i)\,\text{Africa}_i.
+$$
+
+Define
+
+$$
+G_i = \beta_2 + \beta_3 \,\text{rugged}_i.
+$$
+
+Then
+
+$$
+\mu_i = \alpha + \beta_1 \,\text{rugged}_i + G_i\,\text{Africa}_i.
+$$
+
+The quantity $G_i$ plays the same role for the Africa effect that $\gamma_i$
+played for the ruggedness effect.
+
+### Key takeaway
+
+The interaction coefficient $\beta_3$ simultaneously describes
+
+- how the effect of ruggedness changes across Africa/non-Africa, and
+- how the effect of Africa changes across levels of ruggedness.
+
+In a linear model, interactions are symmetric. The choice of which variable is
+called the "predictor" and which is called the "moderator" is often a matter of
+interpretation rather than mathematics.
+
+# Continuous interactions
+
+```{r}
+library(sjPlot)
+data(efc)
+
+m <- lm(
+  neg_c_7 ~ c12hour + sex + c12hour:sex,
+  data = efc
+)
+
+# fit model with 3-way-interaction
+fit <- lm(neg_c_7 ~ c12hour * barthtot * c161sex, data = efc)
+
+# select only levels 30, 50 and 70 from continuous variable Barthel-Index
+sjPlot::plot_model(fit, type = "pred", terms = c("c12hour", "barthtot [30,50,70]", "c161sex"))
+```
+
+where:
+
+neg_c_7 = caregiver burden (outcome) c12hour = hours of care provided sex =
+caregiver sex
+
+Then ask the two interaction questions:
+
+How much does the association between caregiving hours and burden depend on
+caregiver sex?
+
+and
+
+How much does the difference between male and female caregivers depend on
+caregiving hours?
+
+Students usually perceive these as different questions, but the interaction
+coefficient is the same parameter in both cases.
+
+```{r}
+library(marginaleffects)
+
+marginaleffects::slopes(
+  fit,
+  variables = "c12hour",
+  by = "c161sex"
+)
+
+marginaleffects::avg_slopes(
+  fit,
+  variables = "c12hour",
+  by = list("c12hour", "barthtot" = c(30,50,70))
+)
+
+marginaleffects::plot_slopes(
+  fit,
+  variables = "c12hour",
+  condition = list("c12hour", "barthtot" = c(30,50,70))
+)
+
+marginaleffects::plot_predictions(
+  fit,
+  variables = "c12hour",
+  condition = list("c12hour", "barthtot" = c(30,50,70))
+)
+```
+
+```{r}
+marginaleffects::comparisons(
+  fit,
+  variables = "c161sex",
+  by = "c12hour"
+)
+```

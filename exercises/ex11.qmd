@@ -1,0 +1,54 @@
+# Exercises: Conditional variables {#sec-ex-interaction}
+
+::: {.callout-tip collapse="false"}
+## Conditional variables
+
+Pre-requicite for these exercises was covered within the
+[session](/sessions/session11.qmd) and is therefore not repeated here. The
+exercises build on this material.
+:::
+
+## Learning objectives
+
+The learning objectives for this session are:
+
+{{< include /includes/objectives/_session1.qmd >}}
+
+## Exercises: "Just send a quick summary"
+
+You have been asked to prepare a quick summary of a dataset of 303 chest pain
+patients to support a potential clinical trial collaboration. "Nothing
+complicated---just mean and standard deviation for a few variables." You open
+RStudio...
+
+### A: Let's start practicing by finding interactions from written text.
+
+**Exercise 1A**: For each of the causal relationships below, name a hypothetical
+third variable that would lead to an interaction effect:
+
+1) x
+2) y
+3) z
+
+**Exercise 2A**: Which of the following explanations invokes an interaction:
+
+1) a
+2) b
+3) c
+4) d
+
+**Exercise 3A**: For each of the explanations in **2A**, write a linear model
+that expresses the stated relationship.
+
+1) a
+2) b
+3) c
+4) d
+
+### B: You start working through the data you have been assigned to analyse:
+
+**Exercise 1B**:
+
+### C: How can we write up a clincal report for our clinical colleagues:
+
+**Exercise 1C**:

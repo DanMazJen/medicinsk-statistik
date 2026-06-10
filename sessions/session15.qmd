@@ -1,0 +1,20 @@
+# Marginalizing the problem {#sec-marginal-effects}
+
+> "x." --- John Doe
+
+```{r}
+#| label: setup
+#| include: false
+
+#library(tidyverse)
+#ddagit782594dalibrary(tidyverse)
+library(ggplot2)
+library(dplyr)
+library(readr)
+
+hd_data <- readr::read_csv(
+  "https://raw.githubusercontent.com/DanMazJen/medicinsk-statistik/main/data/hd_data.csv"
+)
+```
+
+## Pree-class Literature

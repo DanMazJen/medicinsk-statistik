@@ -14,41 +14,408 @@ The learning objectives for this session are:
 
 {{< include /includes/objectives/_session1.qmd >}}
 
-## Exercises: "Just send a quick summary"
+## Exercises: "name-of-exercises"
 
-You have been asked to prepare a quick summary of a dataset of 303 chest pain
-patients to support a potential clinical trial collaboration. "Nothing
-complicated---just mean and standard deviation for a few variables." You open
-RStudio...
+Does the association between uric acid and blood glucose differ across patient
+groups?
+
+A research team in Zhejiang Province is interested in whether elevated serum
+uric acid (UA) is associated with fasting blood glucose (FBG). Previous studies
+suggest that this relationship may not be identical for all patients. For
+example, hormonal differences, obesity, and hypertension may alter the
+biological pathways linking uric acid metabolism and glucose regulation.
+
+The investigators therefore suspect that the effect of UA on FBG may depend on
+other patient characteristics.
 
 ### A: Let's start practicing by finding interactions from written text.
 
-**Exercise 1A**: For each of the causal relationships below, name a hypothetical
-third variable that would lead to an interaction effect:
+**Exercise 1A**:
 
-1) x
-2) y
-3) z
+For each of the causal relationships below, name a hypothetical third variable
+that would lead to an interaction effect:
 
-**Exercise 2A**: Which of the following explanations invokes an interaction:
+1) Higher serum uric acid is associated with higher fasting blood glucose.
+2) Higher BMI is associated with higher fasting blood glucose.
+3) Reduced kidney function (lower GFR) is associated with higher serum uric
+   acid.
 
-1) a
-2) b
-3) c
-4) d
+Hint: Think of a variable that could make the relationship stronger in some
+patients and weaker in others.
 
-**Exercise 3A**: For each of the explanations in **2A**, write a linear model
-that expresses the stated relationship.
+**Exercise 2A**:
 
-1) a
-2) b
-3) c
-4) d
+Which of the following explanations invokes an interaction:
+
+1) Men tend to have higher uric acid levels than women.
+2) Older participants tend to have higher blood pressure.
+3) The association between uric acid and fasting blood glucose is stronger among
+   participants with obesity than among participants without obesity.
+4) Participants with hypertension have higher average fasting blood glucose than
+   participants without hypertension.
+
+**Exercise 3A**:
+
+For each of the explanations in **2A**, write a linear model that expresses the
+stated relationship.
+
+Assume:
+
+- FBG = fasting blood glucose
+- UA = uric acid
+- BMI = body mass index
+- Age = age
+- HTN = hypertension status
+
+1) Men tend to have higher uric acid levels than women.
+2) Older participants tend to have higher blood pressure.
+3) The association between uric acid and fasting blood glucose is stronger among
+   participants with obesity.
+4) Participants with hypertension have higher average fasting blood glucose.
+
+Which model contains an interaction term?
 
 ### B: You start working through the data you have been assigned to analyse:
 
+The research team asks you to investigate whether the relationship between uric
+acid and fasting blood glucose differs between men and women.
+
+Import the dataset by typing:
+
+```{r}
+SUA_data <- readr::read_csv("https://zenodo.org/records/8292712/files/SUA_CVDs_risk_factors.csv")
+
+SUA_data <- SUA_data |>
+    mutate(
+        sex = factor(sex,
+            levels = c(1, 2),
+            labels = c("male", "female")
+        ),
+        hyperglycemia = factor(hyperglycemia,
+            levels = c(1, 2),
+            labels = c("not hypoglycemic", "hypoglycemic")
+        ),
+    ) |>
+    dplyr::filter(
+        Times == 3
+    )
+```
+
+**NOTE** that we only use observation 3 (the latest follow-up all participants
+completed). Had we used all observations, we would not adhered to the *iid*
+assumption of linear regression, which would make overconfident variance
+estimates. To correct for this, we could have used other models that would be
+more appropriate for this type of data (*ask an instructor if interested*).
+However, for this lecture, we're satisfied with only looking at a subset of the
+dataset.
+
 **Exercise 1B**:
+
+Fit the following model:
+
+```r
+model1 <- lm(
+  FBG ~ UA + sex + UA:sex,
+  data = SUA_data
+)
+```
+
+1) What is the outcome variable?
+2) Write up the mathematical definition of the model.
+3) Which coefficient represents the interaction?
+4) In plain language, what question does the interaction term answer?
+5) What is the effect of UA? (hint: `summarize()`)
+6) What is the effect of sex?
+
+(*5 & 6 can be deceiving - try as best as you can and return to this question if
+you learn something new*)
+
+### Exercise 2B
+
+Create predicted values from the model.
+
+```r
+library(marginaleffects)
+
+plot_predictions(
+    model1,
+    condition = c("UA", "sex")
+)
+```
+
+1) What does each line represent?
+2) If the lines are parallel, what does that suggest about the interaction?
+3) If the lines diverge as UA increases, what does that suggest?
+4) Which sex appears to have the stronger association between UA and FBG?
+
+**Exercise 3B**
+
+Suppose the fitted model produced:
+
+  | Term             | Estimate |
+  | ---------------- | -------: |
+  | UA               |    0.004 |
+  | Sex(Female)      |    -0.20 |
+  | UA × Sex(Female) |    0.003 |
+
+1) What is the expected effect of a 100-unit increase in UA among males?
+2) What is the expected effect of a 100-unit increase in UA among females?
+3) Which group shows the stronger association?
+
+Hint: The slope for females is the sum of the UA coefficient and the interaction
+coefficient.
+
+**Exercise 4B**
+
+A colleague says:
+
+> "The interaction coefficient is small, so the interaction is not clinically
+> important."
+
+Why is this statement incomplete?
+
+What additional information would you want to examine before deciding whether
+the interaction is clinically meaningful?
+
+The same colleague argues that: > "as UA is not significant, it doesn't have any
+effect."
+
+Is it valid to say there is no effect? How would you respond?
+
+**Exercise 5B**
+
+Interactions are symmetric.
+
+Consider the model:
+
+$$
+FBG = β_0 + β_1UI + β_2sex + β_3(sexUI) + ε
+$$
+
+1) If the effect of UA depends on sex, what can we also say about the effect of
+   sex?
+2) Why does this symmetry occur mathematically?
+3) How would you explain this idea to a clinical colleague?
+
+**Exercise 6B**
+
+Use `{marginaleffects}` to estimate how the effect of UA changes across groups.
+
+```r
+plot_slopes(
+  model1,
+  variables = "UA",
+  condition = "sex"
+) +
+  geom_hline(yintercept = 0, linetype = "dotted")
+```
+
+1) What quantity is plotted on the y-axis?
+2) How is this plot different from the prediction plot in **2B**?
+3) Which visualization would you show a clinical audience? Why?
 
 ### C: How can we write up a clincal report for our clinical colleagues:
 
 **Exercise 1C**:
+
+The fitted model produced the following results:
+
+  | Term             | Estimate | 95% CI         |
+  | ---------------- | -------: | -------------- |
+  | UA               |    0.004 | (0.002, 0.006) |
+  | Sex(Female)      |    -0.20 | (-0.35, -0.05) |
+  | UA × Sex(Female) |    0.003 | (0.001, 0.005) |
+
+Write a short results paragraph suitable for the Results section of a clinical
+paper. Avoid statistical jargon where possible.
+
+**Exercise 2C**
+
+The figure below shows predicted fasting blood glucose values across uric acid
+levels for men and women.
+
+*TODO: (Insert prediction plot here.)*
+
+```{r}
+#| echo: false
+#| fig-cap: "TODO"
+
+library(marginaleffects)
+library(ggplot2)
+
+plot_predictions(
+    model1,
+    condition = c("sex", "UA")
+) +
+    ylab("Predicted fasting blood glucose")
+
+```
+
+Write:
+
+1) A one-sentence figure caption.
+2) A two-sentence explanation suitable for clinicians.
+
+**Exercise 3C**
+
+Continuous × Continuous Interaction
+
+A nephrologist suggests that the association between serum uric acid (UA) and
+fasting blood glucose (FBG) may become stronger as kidney function declines.
+
+You fit:
+
+```r
+model_cc <- lm(
+  FBG ~ UA + GFR + UA:GFR,
+  data = SUA_data
+)
+```
+
+1) What clinical question does the interaction term address?
+2) If the interaction coefficient is negative, what does that imply about the
+   relationship between UA and FBG as GFR increases?
+3) Which effect(s) are significant and how do we interpret the UA and GFR
+   coefficients?
+4) Use {marginaleffects} to create a plot that shows how the slope of UA changes
+   across the observed range of GFR.
+6) Is there a case in which GFR doesn't affect FBG, independent of UA?
+
+```r
+#| code-fold: true
+#| code-summary: '**Click for the solution**'
+plot_predictions(
+    model_cc,
+    condition = c("GFR", "UA")
+ ) +
+    ylab("Predicted fasting blood glucose")
+```
+
+**Exercise 4C**
+
+Continuous × Continuous Interaction
+
+Researchers suspect that BMI and hyperglycemia reinforce one another
+biologically. They decide to investigate whether the association between BMI and
+fasting blood glucose differs according to age.
+
+You fit:
+
+```r
+model3 <- lm(
+    FBG ~ BMI + Age + BMI:Age,
+    data = SUA_data
+)
+```
+
+1) What would a positive interaction coefficient imply clinically?
+2) Plot the predicted FBG as a function of Age conditioned on BMI
+3) If two patients differ by 5 BMI units, would you expect the difference in FBG
+   to be the same at age 45 and age 80? Explain.
+
+A colleague states:
+
+> "BMI has an effect of 0.06 mmol/L on FBG."
+
+Why is this statement incomplete in the presence of an interaction?
+
+```r
+#| code-fold: true
+#| code-summary: '**Click for the solution**'
+plot_predictions(
+    model3,
+    condition = list(
+        "Age",
+        "BMI" = c(15, 20, 25, 30, 35)
+        )
+ ) +
+    ylab("Predicted fasting blood glucose")
+```
+
+**Exercise 5C**
+
+Three-Way Interaction
+
+A diabetes researcher hypothesizes that the relationship between uric acid (UA)
+and fasting blood glucose (FBG) may depend on both sex and BMI.
+
+You fit:
+
+```r
+model_3way <- lm(
+  FBG ~ UA * sex * hyperglycemia,
+  data = SUA_data
+)
+```
+
+*(Note: Hyperglycemia is coded 0/1 after recoding.)*
+
+1) Expand the model formula into all main effects, two-way interactions, and the
+   three-way interaction.
+2) What clinical question is addressed by the three-way interaction term?
+3) Suppose the three-way interaction coefficient is positive. What would this
+   imply?
+4) Why is interpreting individual coefficients difficult in this model?
+5) Use {marginaleffects} to generate predicted values of FBG across UA
+   separately for: males without hyperglycemia females without hyperglycemia
+   males with hyperglycemia females with hyperglycemia
+6) What visual pattern would suggest evidence for a three-way interaction?
+7) Explain the meaning of the three-way interaction to a clinician without using
+   the word "interaction."
+
+```r
+#| code-fold: true
+#| code-summary: '**Click for the solution**'
+plot_predictions(
+    model3,
+    condition = list(
+        "UA",
+        "sex",
+        "hyperglycemia"
+        )
+ ) +
+    ylab("Predicted fasting blood glucose")
+```
+
+**Exercise 6C**
+
+Logistic Regression Interaction
+
+The outcome is now whether a participant has hyperglycemia.
+
+You fit a logistic regression model:
+
+```r
+model_logit <- glm(
+  hyperglycemia ~ UA * sex,
+  family = binomial,
+  data = SUA_data
+)
+```
+
+1) What quantity is being modeled by this regression?
+2) What does the interaction term test?
+3) What is the interpretation of the interaction coefficient? (hint: *the next
+   plot will help*)
+4) Use {marginaleffects} to plot predicted probabilities of hyperglycemia across
+   UA separately for men and women.
+
+```r
+plot_predictions(
+    model_logit,
+    condition = c("UA", "sex"),
+    type = "response" # response scale (i.e., predicted probabilities between 0 and 1)
+)
+```
+
+Suppose the predicted probabilities are:
+
+  | UA  | Male | Female |
+  | --- | ---- | ------ |
+  | 200 | 0.10 | 0.08   |
+  | 600 | 0.03 | 0.25   |
+
+What evidence do these values provide regarding interaction?
+
+Explain why interaction effects on the log-odds scale and interaction effects on
+the probability scale are not the same thing.

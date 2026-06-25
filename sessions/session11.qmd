@@ -21,6 +21,25 @@ hd_data <- readr::read_csv(
 
 - [s](s)
 
+# Slides
+
+> [**Session 11 slides**](../slides/day11.html)
+
+<div>
+
+```{=html}
+<iframe class="slide-deck" src="../slides/day11.html"></iframe>
+```
+
+</div>
+
+::: {.callout-note collapse="true"}
+## Teacher note
+
+The slides contain speaking notes that you can view by pressing 'S' on the
+keyboard.
+:::
+
 ## Case session 11: ""
 
 At AalboR Statistical Hospital, a new exercise-based cardiac assessment protocol
@@ -118,7 +137,7 @@ model_params <- model_interact |>
 ```
 
 $$
-Y^=213.93−1.06(age)−53.84(hd)+0.689(age×hd)
+  Y^=213.93−1.06(age)−53.84(hd)+0.689(age×hd)
 $$
 
 where:
@@ -257,49 +276,49 @@ mathematically identical.
 The original model is
 
 $$
-\log(\text{GDP}_i) \sim \text{Normal}(\mu_i,\sigma)
+  \log(\text{GDP}_i) \sim \text{Normal}(\mu_i,\sigma)
 $$
 
 with
 
 $$
-\mu_i = \alpha + \gamma_i \,\text{rugged}_i + \beta_2 \,\text{Africa}_i
+  \mu_i = \alpha + \gamma_i \,\text{rugged}_i + \beta_2 \,\text{Africa}_i
 $$
 
 and
 
 $$
-\gamma_i = \beta_1 + \beta_3 \,\text{Africa}_i.
+  \gamma_i = \beta_1 + \beta_3 \,\text{Africa}_i.
 $$
 
 Substituting the second equation into the first gives
 
 $$
-\mu_i = \alpha + (\beta_1 + \beta_3 \,\text{Africa}_i)\,\text{rugged}_i + \beta_2 \,\text{Africa}_i.
+  \mu_i = \alpha + (\beta_1 + \beta_3 \,\text{Africa}_i)\,\text{rugged}_i + \beta_2 \,\text{Africa}_i.
 $$
 
 Expanding:
 
 $$
-\mu_i = \alpha + \beta_1 \,\text{rugged}_i + \beta_3 \,\text{rugged}_i \times \text{Africa}_i + \beta_2 \,\text{Africa}_i.
+  \mu_i = \alpha + \beta_1 \,\text{rugged}_i + \beta_3 \,\text{rugged}_i \times \text{Africa}_i + \beta_2 \,\text{Africa}_i.
 $$
 
 Now collect the terms containing $\text{Africa}_i$:
 
 $$
-\mu_i = \alpha + \beta_1 \,\text{rugged}_i + (\beta_2 + \beta_3 \,\text{rugged}_i)\,\text{Africa}_i.
+  \mu_i = \alpha + \beta_1 \,\text{rugged}_i + (\beta_2 + \beta_3 \,\text{rugged}_i)\,\text{Africa}_i.
 $$
 
 Define
 
 $$
-G_i = \beta_2 + \beta_3 \,\text{rugged}_i.
+  G_i = \beta_2 + \beta_3 \,\text{rugged}_i.
 $$
 
 Then
 
 $$
-\mu_i = \alpha + \beta_1 \,\text{rugged}_i + G_i\,\text{Africa}_i.
+  \mu_i = \alpha + \beta_1 \,\text{rugged}_i + G_i\,\text{Africa}_i.
 $$
 
 The quantity $G_i$ plays the same role for the Africa effect that $\gamma_i$
@@ -323,15 +342,15 @@ library(sjPlot)
 data(efc)
 
 m <- lm(
-  neg_c_7 ~ c12hour + sex + c12hour:sex,
+  neg_c_7 ~ c12hour + e16sex + c12hour:e16sex,
   data = efc
 )
 
 # fit model with 3-way-interaction
-fit <- lm(neg_c_7 ~ c12hour * barthtot * c161sex, data = efc)
+fit <- lm(neg_c_7 ~ c12hour * barthtot * e16sex, data = efc)
 
 # select only levels 30, 50 and 70 from continuous variable Barthel-Index
-sjPlot::plot_model(fit, type = "pred", terms = c("c12hour", "barthtot [30,50,70]", "c161sex"))
+sjPlot::plot_model(fit, type = "pred", terms = c("c12hour", "barthtot [30,50,70]", "e16sex"))
 ```
 
 where:
@@ -353,19 +372,21 @@ Students usually perceive these as different questions, but the interaction
 coefficient is the same parameter in both cases.
 
 ```{r}
+#| label: continuous
+
 library(marginaleffects)
 
 marginaleffects::slopes(
   fit,
   variables = "c12hour",
-  by = "c161sex"
+  by = "e16sex"
 )
 
-marginaleffects::avg_slopes(
-  fit,
-  variables = "c12hour",
-  by = list("c12hour", "barthtot" = c(30,50,70))
-)
+#marginaleffects::avg_slopes(
+#  fit,
+#  variables = "c12hour",
+#  by = list("c12hour", "barthtot" = c(30,50,70))
+#)
 
 marginaleffects::plot_slopes(
   fit,
@@ -383,7 +404,7 @@ marginaleffects::plot_predictions(
 ```{r}
 marginaleffects::comparisons(
   fit,
-  variables = "c161sex",
+  variables = "e16sex",
   by = "c12hour"
 )
 ```

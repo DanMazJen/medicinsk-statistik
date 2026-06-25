@@ -1,0 +1,555 @@
+---
+format: rostools-theme-revealjs
+search: false
+---
+
+# Marginalizing the problem
+
+<!--
+Image of planes and manetees...
+-->
+
+::: notes
+Manetees in florida Abraham Wald WWII
+:::
+
+<!--
+### Editable in yaml
+revealjs-plugins:
+  - editable
+filters:
+  - editable
+-->
+
+```{r}
+#| label: setup
+#| echo: false
+
+library(ggplot2)
+library(dplyr)
+library(readr)
+library(marginaleffects)
+
+
+hd_data <- readr::read_csv(
+  "https://raw.githubusercontent.com/DanMazJen/medicinsk-statistik/main/data/hd_data.csv"
+)
+hd_data <- hd_data |>
+    mutate(
+        ExAng = factor(ExAng,
+            levels = c(0, 1),
+            labels = c("no exercise-induced angesia", "yes, exercise-induced angesia")
+        ),
+        HD = factor(HD,
+            levels = c("No", "Yes"),
+            labels = c("no heart disease", "yes, heart disease")
+        ),
+        ChestPain = factor(ChestPain),
+        Thal = factor(Thal),
+        fasting_blood_glucose = factor(Fbs,
+            levels = c(0, 1),
+            labels = c("normal fasting blood glucose", "high fasting blood glucose")
+        )
+    )
+```
+
+## Case 15: "?" {.smaller .scrollable}
+
+## Manetees and bombers
+
+- *conditioning*: Dependence on state
+- everything is conditional
+  - on data
+  - on model
+- *Interaction*: Influence of predictor conditional on other predictor
+
+## x's effect on y - simple
+
+Sometimes, we just want to investigate one variable's effect on an outcome *the
+estimand = smoking on lung cancer*
+
+```{mermaid}
+%%| label: lin-reg
+
+flowchart LR
+    X[X] --> Y[Y]
+```
+
+$y ~ x$
+
+::: {.fragment}
+::::: {.callout-important}
+But we know this model is biased! There are known confounding
+:::::
+:::
+
+## So we add variables we know are confounded... {.smaller .scrollable}
+
+::: {.columns}
+::::: {.column}
+```{mermaid}
+%%| label: lin-reg2
+
+flowchart LR
+    X[X] --> Y[Y]
+
+    C1[Age] --> Y
+    C2[Income] --> Y
+    C3[Education] --> Y
+    C4[Region] --> Y
+    C5[...] --> Y
+```
+:::::
+::::: {.column}
+$$
+  Y = β_0 + β_1Age + β_2Income + β_3Education + β_4Region + β_n... + ε
+$$
+:::::
+:::
+
+## Still, we only care about x! {.smaller .scrollable}
+
+```{mermaid}
+%%| label: lin-reg3
+
+flowchart LR
+    X((X)) --> Y[Y]
+
+    C1[Age] --> Y
+    C2[Income] --> Y
+    C3[Education] --> Y
+    C4[Region] --> Y
+    C5[...] --> Y
+
+    style X stroke:#d62728,stroke-width:4px
+```
+
+No problem! We simply interpret the coefficient of X, keeping all other
+variables at 0.
+
+::: {.fragment}
+::::: {.callout-important}
+What if we add interactions? 😨🫠
+:::::
+:::
+
+## In session 11, we learned...
+
+```{r}
+model_interact <-
+    lm(MaxHR ~ Age + HD + Age:HD,
+    data = hd_data)
+
+plot_predictions(
+    model_interact,
+    condition = c("Age", "HD")
+) +
+    ylab("Predicted max heart rate")
+```
+
+We cannot say `age` have and effect on `HD`, as this effect is strong in younger
+age; but the effect dies off at older age.
+
+## The truth is complicated - we need a simple answer!
+
+Often, we don't care about *every possible* value of age. We might be interested
+in a specific age group, or we might be interested in the average effect of all
+age groups.
+
+::: {.fragment}
+::::: {.callout-important}
+This is where marginal effects comes to the rescue 🎉🥳
+:::::
+:::
+
+## Marginalizing the problem
+
+```{mermaid}
+flowchart LR
+
+    X((X)) --> Y[Y]
+
+    subgraph Marginalized covariates
+        C1[Age]
+        C2[Income]
+        C3[Education]
+        C4[Region]
+        C5[...]
+    end
+
+    C1 --> Y
+    C2 --> Y
+    C3 --> Y
+    C4 --> Y
+    C5 --> Y
+
+    style X stroke:#d62728,stroke-width:4px
+```
+
+## How might we do that?
+
+**Three good way of doing this:**
+
+1. predicting the effect at a specific age
+2. predicting the average effect of all participants' age in the current study
+3. predicting the average effect of any individual's, considering we want to
+   generalize to the population
+
+# Predicting the effect at a specific age
+
+## Predicting the effect at age 50 {.smaller .scrollable}
+
+We already learned this for linear regression: What is the predicted max heart
+rate for:
+
+- a 80 year old with heart disease?
+- a 36 year old without heart disease?
+
+```{r}
+#| label: params-model-interact
+
+parameters::parameters(model_interact) |>
+    knitr::kable()
+```
+
+```{r}
+#| output: true
+#| label: using-predictions-one-age
+
+age2use <- 50
+
+age50_HD_true <- as.numeric(
+    coef(model_interact)[1] +
+        coef(model_interact)[2]*age2use +
+        coef(model_interact)[3]*1 +
+        coef(model_interact)[4]*age2use
+    )
+
+age50_HD_false <- as.numeric(
+    coef(model_interact)[1] +
+        coef(model_interact)[2]*age2use +
+        coef(model_interact)[3]*0 +
+        coef(model_interact)[4]*0
+        )
+```
+
+::: {.fragment}
+```{r}
+#| output: true
+#| label: using-predictions-one-age-answers
+
+paste(glue::glue("age50_HD_true = {round(age50_HD_true,1)}"))
+paste(glue::glue("age50_HD_false = {round(age50_HD_false,1)}"))
+```
+:::
+
+## Predicting the effect of HD on maxHR at age 50 {.smaller .scrollable}
+
+```{r}
+#| label: plt-repel-pred
+
+# Annotation data.frame
+ann <- tibble(
+  Age = c(age2use, age2use),
+  HD = factor(c(0, 1)),  # adjust if HD is logical/character
+  pred = c(age50_HD_false, age50_HD_true),
+  label = c(
+    paste0("Age=50\nHD=0\n", round(age50_HD_false, 1)),
+    paste0("Age=50\nHD=1\n", round(age50_HD_true, 1))
+  )
+)
+
+
+plot_predictions(
+    model_interact,
+    condition = c("Age", "HD")
+) +
+  geom_point(
+    data = ann,
+    aes(x = Age, y = pred),
+    size = 3
+  ) +
+  ggrepel::geom_label_repel(
+    data = ann,
+    aes(x = Age, y = pred, label = label),
+    seed = 123,
+    box.padding = 0.5,
+    point.padding = 0.3
+  ) +
+  ylab("Predicted max heart rate")
+```
+
+## How?
+
+```{r}
+#| echo: true
+#| eval: false
+#| label: how-predictions-one-age
+
+age2use <- 50
+
+age50_HD_true <- as.numeric(
+    coef(model_interact)[1] +               # intercept
+        coef(model_interact)[2]*age2use +   # age
+        coef(model_interact)[3]*1 +         # HD = true
+        coef(model_interact)[4]*1*age2use   # HD = true and age
+    )
+
+age50_HD_false <- as.numeric(
+    coef(model_interact)[1] +               # intercept
+        coef(model_interact)[2]*age2use +   # age
+        coef(model_interact)[3]*0 +         # HD = false
+        coef(model_interact)[4]*0*age2use   # HD = false
+        )
+```
+
+## Using {marginaleffects}
+
+```{r}
+#| label: how-predictions-one-age-margeff
+#| code-line-numbers: 2|3|4|
+#| echo: true
+
+model_interact |>
+    marginaleffects::predictions(
+        newdata = datagrid(Age = 50),
+        variables = "HD"
+        )
+```
+
+2. `predictions()` will compute predictions
+3. `newdata` to make a new dataset with `datagrid`
+6. `variables` takes the variable we examine
+
+::: {.fragment}
+*But is this significantly different?*
+$E(Y∣HD = yes,Age=50)−E(Y∣HD = no,Age=50)$
+:::
+
+## Hypothesis test on the effect of HD at age 50
+
+```{r}
+#| label: hypothesis-fifty-margeff
+
+model_interact |>
+    marginaleffects::comparisons(
+    newdata = datagrid(Age = 50),
+    variables = list(
+            HD = c("no heart disease", "yes, heart disease")
+            )
+)
+```
+
+$E(Y∣HD = yes,Age=50)−E(Y∣HD = no,Age=50)$
+
+::: {.callout-important}
+We need the covariance between the two predicted values to get the correct
+standard error and p-value. That's why we should use `comparisons()` or
+`hypotheses()` rather than trying to test it from the two confidence intervals.
+:::
+
+## Uncertainty
+
+```{r}
+#| label: delta-method
+
+b <- coef(model_interact)
+b[2] - b[3] # which coefficients to diff
+
+V <- vcov(model_interact)
+
+J <- matrix(c(0,1,-1,0), ncol = 1) # which covar to include
+
+variance <- t(J) %*% V %*% J
+sqrt(variance)
+```
+
+Suppose your model is
+
+$η=β0​+β1​Age+β2​HD+β3​(Age×HD)$
+
+and you're interested in the difference in predictions at Age = 50:
+
+$g(β)=y^​(HD=1,Age=50)−y^​(HD=0,Age=50)$
+
+The delta method says:
+
+$Var(g(β^))≈∇g(β^)TVar(β^)∇g(β^)$
+
+The trick is finding the gradient $∇g$
+
+The variance is: $Var(g)=L⊤VL$
+
+```{r}
+#| label: delta-method-full
+
+x0 <- c(1, 50, 0, 0)     # intercept, 50yo, HD = 0, interaction
+x1 <- c(1, 50, 1, 50)    # intercept, 50yo, HD = 1, interaction
+L  <- x1 - x0
+
+V <- vcov(model_interact)
+
+est <- drop(L %*% coef(model_interact)) # drop for matrix[1,1] to scalar
+se  <- sqrt(drop(t(L) %*% V %*% L)) # go from var to se using sqrt
+z   <- est / se
+```
+
+# Predicting the average effect of HD for all specific age levels for the study participants
+
+## Imagine...
+
+We do this for all combinations of age and HD we have in our data set?
+
+We'd get *the average effect of all participants' age on HD in the current
+study*
+
+*Ready for a lot of homework?*
+
+## {marginaleffects} to the rescue
+
+```{r}
+head(hd_data) |>
+    select(Age,HD) # MaxHR
+```
+
+```{r}
+library(marginaleffects)
+library(tinytable)
+
+pred <- model_interact |>
+  predictions(
+    newdata = hd_data[1:5, ],
+    variables = list(
+      HD = c("no heart disease", "yes, heart disease")
+    )
+  )
+
+#pred |>
+#  select(rowid, Age, HD, estimate) |>
+#  tt()
+
+pred |>
+  select(rowidcf, Age, HD, estimate) |>
+  tidyr::pivot_wider(          # rowid = row in the expanded counterfactual dataset (1:10)
+    id_cols = c(rowidcf, Age), #rowidcf = original observation being counterfactually modified (1:5)
+    names_from = HD,
+    values_from = estimate
+  ) |>
+  tt()
+```
+
+## It's easy!
+
+```{r}
+#| echo: true
+
+model_interact |>
+  predictions(
+    newdata = hd_data, # can be left alone
+    variables = list(
+      HD = c("no heart disease", "yes, heart disease")
+    )
+  )
+```
+
+## Now, we average all HD = 1 and HD = 0 separately
+
+```{r}
+model_interact |>
+  avg_predictions(
+    newdata = hd_data, # can be left alone
+    variables = list(
+      HD = c("no heart disease", "yes, heart disease")
+    )
+  )
+```
+
+## Counterfactuals
+
+This is the *counterfactual* estimate, where we *predict* the maxHR for all
+participants, had we observed them with and without HD.
+
+# Predicting the average effect, considering we want to generalize to a population
+
+## How does our sample look?
+
+```{r}
+#| label: looking-at-cohort
+
+hd_data |>
+    group_by(HD) |>
+    summarize(
+        n = n()
+    )
+
+hd_data |>
+    ggplot(aes(Age)) +
+    geom_histogram()
+```
+
+## How would we like our target population to be?
+
+We could consider
+
+::: {.columns}
+::::: {.column}
+Making equal number of patients with HD
+
+- samples with highly unbalanced design (rare diseases)
+- weights can be meaningful, but can also be desieving
+:::::
+::::: {.column}
+Making age more informative
+
+- focus on 50-70
+- clinically relevant
+- most of our data anyway
+:::::
+:::
+
+## {marginaleffects} can predict the target population
+
+```{r}
+target_pop <- tidyr::expand_grid(
+         Age = c(50:70),
+         HD = c("no heart disease", "yes, heart disease")
+     )
+
+model_interact |>
+  avg_predictions(
+    newdata = target_pop,
+    variables = list(
+      HD = c("no heart disease", "yes, heart disease")
+    )
+  )
+```
+
+## Hypothesis testing on the target population
+
+```{r}
+model_interact |>
+  avg_predictions(
+    newdata = target_pop,
+    variables = list(
+      HD = c("no heart disease", "yes, heart disease")
+    ),
+    hypothesis = "b1 = b2"
+  )
+```
+
+So this model
+
+- estimates a 12.5 difference in maxHR between HD and no-HD in the age group
+  50-70 years old
+- the estimate has a SE of 2.63 and 95%CI[7.37, 17.7]
+- the *z*-statistic is 4.76 and the *p*-value is < 0,001
+
+so we reject the null that HD has no effect on maxHR given the average effect of
+an age group between 50-70.
+
+::: {.fragment}
+**However** - *is this a clinically meaningful difference?*
+
+How much functional gain/loss does going from 138 to 151 BMI really mean in this
+age group?
+:::

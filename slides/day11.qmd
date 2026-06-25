@@ -82,11 +82,11 @@ hd_data |>
 ```
 
 $$
-y_i = Normal(μ_i, σ)
+  y_i = Normal(μ_i, σ)
 $$
 
 $$
-μ_i = α + β_AAge_i
+  μ_i = α + β_AAge_i
 $$
 
 ## The value of age {.smaller}
@@ -128,11 +128,11 @@ plot_predictions(
 ```
 
 $$
-y_i = Normal(μ_i, σ)
+  y_i = Normal(μ_i, σ)
 $$
 
 $$
-μ_i = α + β_AAge_i + β_HH_i
+  μ_i = α + β_AAge_i + β_HH_i
 $$
 
 *Only adjust intercept!*
@@ -144,7 +144,7 @@ $$
 Need to allow effect of age to dependt on heart disease status
 
 $$
-μ_i = α + β_AAge_i + β_HH_i
+  μ_i = α + β_AAge_i + β_HH_i
 $$
 
 Need to allow effect of age to dependt on heart disease status
@@ -152,11 +152,11 @@ Need to allow effect of age to dependt on heart disease status
 ## Interaction {auto-animate="true"}
 
 $$
-μ_i = α + γ_iA_i + β_HH_i
+  μ_i = α + γ_iA_i + β_HH_i
 $$
 
 $$
-γ_i = β_A + β_{HA}H_i
+  γ_i = β_A + β_{HA}H_i
 $$
 
 - old direct effect of Age
@@ -165,11 +165,11 @@ $$
 ## Interaction {auto-animate="true"}
 
 $$
-μ_i = α + γ_iA_i + β_HH_i = α + β_A + β_{HA}A_iH_i + β_HH_i
+  μ_i = α + γ_iA_i + β_HH_i = α + β_A + β_{HA}A_iH_i + β_HH_i
 $$
 
 $$
-γ_i = β_A + β_{HA}H_i
+  γ_i = β_A + β_{HA}H_i
 $$
 
 - old direct effect of Age
@@ -192,15 +192,16 @@ model_interact <-
 plot_predictions(
     model_interact,
     condition = c("Age", "HD")
-)
+) +
+    ylab("Predicted max heart rate")
 ```
 
 $$
-y_i = Normal(μ_i, σ)
+  y_i = Normal(μ_i, σ)
 $$
 
 $$
-μ_i = α + β_AAge_i + β_HH_i + β_AAge_iβ_HH_i
+  μ_i = α + β_AAge_i + β_HH_i + β_AAge_iβ_HH_i
 $$
 
 ## Adding an interaction in R
@@ -239,19 +240,19 @@ In the context of maxHR:
 
 ::: {.fragment}
 $$
-μ_i = α + {\color{purple}{(β_A + β_AAge_iβ_HH_i)Age_i}} + β_HH_i
+  μ_i = α + {\color{purple}{(β_A + β_AAge_iβ_HH_i)Age_i}} + β_HH_i
 $$
 :::
 
 ::: {.fragment}
 $$
-= α + β_AAge_i + β_AAge_iβ_HH_i + β_HH_i
+  = α + β_AAge_i + β_AAge_iβ_HH_i + β_HH_i
 $$
 :::
 
 ::: {.fragment}
 $$
-= α + β_AAge_i + {\color{magenta}{(β_AAge_iβ_HH_i + β_H)H_i}}
+  = α + β_AAge_i + {\color{magenta}{(β_AAge_iβ_HH_i + β_H)H_i}}
 $$
 :::
 
@@ -341,7 +342,7 @@ TODO: present data
 ## What if we have two continuous variables we allow to interact? {.smaller}
 
 $$
-μ_i = α + β_xx_i + β_zz_i + β_{xz}x_iz_i
+  μ_i = α + β_xx_i + β_zz_i + β_{xz}x_iz_i
 $$
 
 ::: {.columns}
@@ -349,14 +350,14 @@ $$
 *Change in Y per unit change in x*
 
 $$
-\frac{\partial μ}{\partial x} = β_x + β_{xz}x
+  \frac{\partial μ}{\partial x} = β_x + β_{xz}x
 $$
 :::::
 ::::: {.column}
 *Change in Y per unit change in x*
 
 $$
-\frac{\partial μ}{\partial z} = β_z + β_{xz}z
+  \frac{\partial μ}{\partial z} = β_z + β_{xz}z
 $$
 :::::
 :::

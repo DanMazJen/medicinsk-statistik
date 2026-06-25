@@ -3,7 +3,7 @@
 ::: {.callout-tip collapse="false"}
 ## Conditional variables
 
-Pre-requicite for these exercises was covered within the
+Prerequisite for these exercises was covered within the
 [session](/sessions/session11.qmd) and is therefore not repeated here. The
 exercises build on this material.
 :::
@@ -14,10 +14,10 @@ The learning objectives for this session are:
 
 {{< include /includes/objectives/_session1.qmd >}}
 
-## Exercises: "name-of-exercises"
+## Exercises: The Zhejiang diabites experiment
 
-Does the association between uric acid and blood glucose differ across patient
-groups?
+> Does the association between uric acid and blood glucose differ across patient
+> groups?
 
 A research team in Zhejiang Province is interested in whether elevated serum
 uric acid (UA) is associated with fasting blood glucose (FBG). Previous studies
@@ -28,6 +28,9 @@ biological pathways linking uric acid metabolism and glucose regulation.
 The investigators therefore suspect that the effect of UA on FBG may depend on
 other patient characteristics.
 
+You are working as a junior clinical scientist at Niels Steensen Diabetes Center
+and have been asked to help analyse the Zhejiang diabites experiment.
+
 ### A: Let's start practicing by finding interactions from written text.
 
 **Exercise 1A**:
@@ -35,45 +38,64 @@ other patient characteristics.
 For each of the causal relationships below, name a hypothetical third variable
 that would lead to an interaction effect:
 
-1) Higher serum uric acid is associated with higher fasting blood glucose.
-2) Higher BMI is associated with higher fasting blood glucose.
-3) Reduced kidney function (lower GFR) is associated with higher serum uric
-   acid.
+1) Physical activity impacts body mass index (BMI).
+2) Smoking on risk of lung cancer.
+3) Antihypertensive treatment on systolic blood pressure.
+4) Alcohol consumption on risk of liver disease
 
 Hint: Think of a variable that could make the relationship stronger in some
 patients and weaker in others.
 
+<details>
+<summary>**Click for the solution**</summary>
+There are many potential answer, non of which can be confirmed in this session using statistics.
+Therefore, I provide no answers - but feel free to explore the literature on these topics!
+
+One example:
+1) You could do all the physical activity you want, but if you consume more calories than you burn,
+the physical activity does not impact BMI. However, if you do not consume enogugh calories, physical
+activity will impact BMI a lot. Therefore, calorie consumption would lead to interaction - mediating the
+effects - of physical activity on BMI.
+</details>
+
 **Exercise 2A**:
 
-Which of the following explanations invokes an interaction:
+Which of the following hypotheses contain an interaction:
 
-1) Men tend to have higher uric acid levels than women.
-2) Older participants tend to have higher blood pressure.
-3) The association between uric acid and fasting blood glucose is stronger among
-   participants with obesity than among participants without obesity.
-4) Participants with hypertension have higher average fasting blood glucose than
-   participants without hypertension.
+1) The association between smoking and lung cancer is stronger among individuals
+   with a family history of lung cancer.
+2) Older individuals are either more likely to have hypertension than younger
+   individuals or have hypercholesterolemia.
+3) The effect of exercise on BMI is greater in men than in women and in younger
+   than in older individuals.
+4) Patients with severe hypertension are more likely to receive antihypertensive
+   medication but not antipsychotic medication.
+5) The association between alcohol consumption and liver disease is stronger
+   among individuals with hepatitis infection but not among individuals with
+   diabetes.
+
+<details>
+<summary>**Click for the solution**</summary>
+1) Interaction
+2) No interaction
+3) Interaction
+4) No interaction
+5) No interaction
+</details>
 
 **Exercise 3A**:
 
 For each of the explanations in **2A**, write a linear model that expresses the
 stated relationship.
 
-Assume:
-
-- FBG = fasting blood glucose
-- UA = uric acid
-- BMI = body mass index
-- Age = age
-- HTN = hypertension status
-
-1) Men tend to have higher uric acid levels than women.
-2) Older participants tend to have higher blood pressure.
-3) The association between uric acid and fasting blood glucose is stronger among
-   participants with obesity.
-4) Participants with hypertension have higher average fasting blood glucose.
-
-Which model contains an interaction term?
+<details>
+<summary>**Click for the solution**</summary>
+1. $LungCancer = \beta_0 + \beta_1 \text{Smoking} + \beta_2 \text{FamilyHistory} + \beta_3 (\text{Smoking} \times \text{FamilyHistory})$
+2. $hypertension = \beta_0 + \beta_1 \text{Age}$ or $hypertension = \beta_0 + \beta_1 \text{Age} + \beta_2 \text{Hypercholesterolemia}$
+3. $BMI = \beta_0 + \beta_1 \text{Exercise} + \beta_2 \text{Sex} + \beta_3 \text{Age} + \beta_4 (\text{Exercise} \times \text{Sex}) + \beta_5 (\text{Exercise} \times \text{Age})$
+4. $hypertension = \beta_0 + \beta_1 \text{HypertensionSeverity} + \beta_2 \text{antipsychoticMedicine}$
+5. $liverDisease = \beta_0 + \beta_1 \text{Alcohol} + \beta_2 \text{Hepatitis} + \beta_3 \text{Diabetes} + \beta_4 (\text{Alcohol} \times \text{Hepatitis})$
+</details>
 
 ### B: You start working through the data you have been assigned to analyse:
 
@@ -83,10 +105,13 @@ acid and fasting blood glucose differs between men and women.
 Import the dataset by typing:
 
 ```{r}
+#| label: import-SUA-data
+#| warning: false
+
 SUA_data <- readr::read_csv("https://zenodo.org/records/8292712/files/SUA_CVDs_risk_factors.csv")
 
 SUA_data <- SUA_data |>
-    mutate(
+    dplyr::mutate(
         sex = factor(sex,
             levels = c(1, 2),
             labels = c("male", "female")
@@ -113,7 +138,9 @@ dataset.
 
 Fit the following model:
 
-```r
+```{r}
+#| label: 1B-model
+
 model1 <- lm(
   FBG ~ UA + sex + UA:sex,
   data = SUA_data
@@ -124,11 +151,27 @@ model1 <- lm(
 2) Write up the mathematical definition of the model.
 3) Which coefficient represents the interaction?
 4) In plain language, what question does the interaction term answer?
-5) What is the effect of UA? (hint: `summarize()`)
-6) What is the effect of sex?
+5) What is the regression coefficient of UA and sex? (hint: `summary()`)
+6) Are the coefficients telling us we have significant effects of UA? (hint: be
+   careful here)
 
-(*5 & 6 can be deceiving - try as best as you can and return to this question if
-you learn something new*)
+(\* Question 6 can be deceiving - try as best as you can and return to this
+question if you learn something new\*)
+
+```{r}
+#| code-fold: true
+#| code-summary: "**Click for the solution**"
+#| eval: false
+#| label: 1B-exercise
+
+# 1) FBG
+# 2) FBG ~ β0 + β1UA + β2sex + β3(UA*sex)
+# 3) UA:sex
+# 4)
+summary(model1)
+coef(model1)
+# 6) It depends on the the sex and the UA level.
+```
 
 ### Exercise 2B
 
@@ -148,6 +191,14 @@ plot_predictions(
 3) If the lines diverge as UA increases, what does that suggest?
 4) Which sex appears to have the stronger association between UA and FBG?
 
+<details>
+<summary>**Click for the solution**</summary>
+1. Sex (male/female)
+2. No interaction
+3. Interaction
+4. Females
+</details>
+
 **Exercise 3B**
 
 Suppose the fitted model produced:
@@ -165,37 +216,56 @@ Suppose the fitted model produced:
 Hint: The slope for females is the sum of the UA coefficient and the interaction
 coefficient.
 
+<details>
+<summary>**Click for the solution**</summary>
+1. An expected increase of 0.40 units of FBG.
+2. An expected increase of 0.70 units of FBG
+3. males. The increase in FBG per 100-unit increase in UA is 0.70 among females versus 0.40 among males.
+</details>
+
 **Exercise 4B**
 
-A colleague says:
+You show the interaction coefficient `r coef(model1)[4]` to your colleague, who
+responds:
 
 > "The interaction coefficient is small, so the interaction is not clinically
 > important."
 
-Why is this statement incomplete?
+1. Why is this statement incomplete?
 
 What additional information would you want to examine before deciding whether
 the interaction is clinically meaningful?
 
-The same colleague argues that: > "as UA is not significant, it doesn't have any
-effect."
+The same colleague argues that:
 
-Is it valid to say there is no effect? How would you respond?
+> "as UA is not significant, it doesn't have any effect."
+
+2. Is it valid to say there is no effect? How would you respond?
+
+<details>
+<summary>**Click for the solution**</summary>
+1. The coefficient is dependent on the unit of measurement. The coefficient is expressing the effect at 0.
+2. The insignificant effect UA is at unit 0 - it might, however, be significant at another levels of UA and sex (due to the significant interaction).
+</details>
 
 **Exercise 5B**
-
-Interactions are symmetric.
 
 Consider the model:
 
 $$
-FBG = β_0 + β_1UI + β_2sex + β_3(sexUI) + ε
+  FBG = β_0 + β_1UA + β_2sex + β_3(sex*UA) + ε
 $$
 
-1) If the effect of UA depends on sex, what can we also say about the effect of
-   sex?
-2) Why does this symmetry occur mathematically?
-3) How would you explain this idea to a clinical colleague?
+1. We hypotesize that it is Sex that affects the association between UA and FBG.
+   You find a significant affect. Can you confirm this hypothesis as a causal
+   relationship?
+2. How would you explain this idea to a clinical colleague?
+
+<details>
+<summary>**Click for the solution**</summary>
+1. No, it is associational. It could be the other way -> the level of UA affects the association between FBG and sex.
+2. Correlation does not equal causation + interactions are symmetric!
+</details>
 
 **Exercise 6B**
 
@@ -214,6 +284,14 @@ plot_slopes(
 2) How is this plot different from the prediction plot in **2B**?
 3) Which visualization would you show a clinical audience? Why?
 
+<details>
+<summary>**Click for the solution**</summary>
+1. The slope aka $β_3(sex*UA)$
+2. It quantifies the FBG ~ UA effect in one metric and plots it for each level of sex. We loose some detail but gain some interpretability.
+3. No correct answer... But the new plot (6B code) is easier to digest when talking about the sex differences hypothesis.
+The 2B code is better for the bigger picture of the model, considering different UA levels as well.
+</details>
+
 ### C: How can we write up a clincal report for our clinical colleagues:
 
 **Exercise 1C**:
@@ -231,14 +309,13 @@ paper. Avoid statistical jargon where possible.
 
 **Exercise 2C**
 
-The figure below shows predicted fasting blood glucose values across uric acid
+The figure below shows predicted fasting blood glucose values across 5 uric acid
 levels for men and women.
-
-*TODO: (Insert prediction plot here.)*
 
 ```{r}
 #| echo: false
 #| fig-cap: "TODO"
+#| label: ex-2C
 
 library(marginaleffects)
 library(ggplot2)
@@ -253,8 +330,14 @@ plot_predictions(
 
 Write:
 
-1) A one-sentence figure caption.
-2) A two-sentence explanation suitable for clinicians.
+1. A one-sentence figure caption.
+2. A two-sentence explanation suitable for clinicians.
+
+<details>
+<summary>**Click for the solution**</summary>
+1. Fasting blood glocuse levels over 5 representative values of uric acid for males and females
+2. While males show stable FBG across UA levels, women do not. At the extreme low or high levels of UA, women show positive correlation with FBG.
+</details>
 
 **Exercise 3C**
 
@@ -265,7 +348,7 @@ fasting blood glucose (FBG) may become stronger as kidney function declines.
 
 You fit:
 
-```r
+```{r}
 model_cc <- lm(
   FBG ~ UA + GFR + UA:GFR,
   data = SUA_data
@@ -281,15 +364,24 @@ model_cc <- lm(
    across the observed range of GFR.
 6) Is there a case in which GFR doesn't affect FBG, independent of UA?
 
-```r
-#| code-fold: true
-#| code-summary: '**Click for the solution**'
+<details>
+<summary>**Click for the solution**</summary>
+1. When UA levels change, does the effect of GFR on FBG change= Or the reverse: When GFR levels change, does the effect of UA on FBG change?
+2. Higher GFR weakens the association between UA and FBG - but this is a tough one! Always plot!
+3. The main-effect coefficients describe effects when the interacting variable equals 0. The interaction allows us to vary the GFR and UA values to more interesting levels.
+4. Here:
+
+```{r}
 plot_predictions(
     model_cc,
     condition = c("GFR", "UA")
  ) +
     ylab("Predicted fasting blood glucose")
 ```
+
+5. Yes, at low GFR levels. Can be computed by hand from the coefficients or seen
+   from the plot in 3C-4.
+</details>
 
 **Exercise 4C**
 
@@ -301,27 +393,32 @@ fasting blood glucose differs according to age.
 
 You fit:
 
-```r
+```{r}
 model3 <- lm(
     FBG ~ BMI + Age + BMI:Age,
     data = SUA_data
 )
 ```
 
-1) What would a positive interaction coefficient imply clinically?
-2) Plot the predicted FBG as a function of Age conditioned on BMI
-3) If two patients differ by 5 BMI units, would you expect the difference in FBG
+1. What would a positive interaction coefficient imply clinically?
+2. Plot the predicted FBG as a function of Age conditioned on BMI
+3. If two patients differ by 5 BMI units, would you expect the difference in FBG
    to be the same at age 45 and age 80? Explain.
 
 A colleague states:
 
 > "BMI has an effect of 0.06 mmol/L on FBG."
 
-Why is this statement incomplete in the presence of an interaction?
+4. Is this statement incomplete in the present model?
 
-```r
-#| code-fold: true
-#| code-summary: '**Click for the solution**'
+<details>
+<summary>**Click for the solution**</summary>
+
+1. A positive interaction coefficient implies that the association between BMI and FBG becomes stronger as age increases.
+Clinically, this would suggest that a given increase in BMI is associated with a larger increase in FBG among older individuals than among younger individuals.
+2. Here:
+
+```{r}
 plot_predictions(
     model3,
     condition = list(
@@ -332,6 +429,10 @@ plot_predictions(
     ylab("Predicted fasting blood glucose")
 ```
 
+3. Generally no, but here, you would! With an interaction term, the effect of BMI depends on age: $\beta_{BMI} + \beta_{BMI}\cdot Age$ Note, however, that there is not effect on age in this model.
+4. No. The model found no evidence for an age interaction. So the BMI coefficient is sufficient to report here: `r coef(model3)[2]`
+</details>
+
 **Exercise 5C**
 
 Three-Way Interaction
@@ -341,7 +442,7 @@ and fasting blood glucose (FBG) may depend on both sex and BMI.
 
 You fit:
 
-```r
+```{r}
 model_3way <- lm(
   FBG ~ UA * sex * hyperglycemia,
   data = SUA_data
@@ -352,9 +453,10 @@ model_3way <- lm(
 
 1) Expand the model formula into all main effects, two-way interactions, and the
    three-way interaction.
-2) What clinical question is addressed by the three-way interaction term?
+2) What clinical question is addressed by the three-way interaction term? (hint:
+   *very* difficult task - see answer or skip to 4)
 3) Suppose the three-way interaction coefficient is positive. What would this
-   imply?
+   imply? (hint: *very* difficult task - see answer or skip to 4)
 4) Why is interpreting individual coefficients difficult in this model?
 5) Use {marginaleffects} to generate predicted values of FBG across UA
    separately for: males without hyperglycemia females without hyperglycemia
@@ -363,11 +465,28 @@ model_3way <- lm(
 7) Explain the meaning of the three-way interaction to a clinician without using
    the word "interaction."
 
-```r
-#| code-fold: true
-#| code-summary: '**Click for the solution**'
+<details>
+<summary>**Click for the solution**</summary>
+
+1. $FBG=β0 + β1UA + β2sex + β3hyperglycemia + β4(UA×sex) + β5(UA×hyperglycemia) + β6(sex×hyperglycemia) + β7(UA×sex×hyperglycemia) + ε Includes$
+
+- Main effects:
+  - UA, sex, hyperglycemia
+- Two-way interactions:
+  - UA×sex
+  - UA×hyperglycemia
+  - sex×hyperglycemia
+- Three-way interaction:
+  - UA×sex×hyperglycemia
+
+2. *THIS IS HORRICIFLY DIFFICULT - I know (:* Does the association between uric acid and fasting blood glucose differ by sex, and is that sex difference itself different between people with and without hyperglycemia?
+3. *this took me ages to write...* A positive coefficient implies that the sex-specific difference in the UA–FBG slope is larger in the hyperglycemic group than in the non-hyperglycemic group.
+Equivalently, the modification of the UA effect by sex becomes more positive when hyperglycemia is present.
+4. Besides main effects, all coefficients are too cluttered in each other. So many conditional statements (depending on other variables).
+5. Here:
+```{r}
 plot_predictions(
-    model3,
+    model_3way,
     condition = list(
         "UA",
         "sex",
@@ -377,6 +496,13 @@ plot_predictions(
     ylab("Predicted fasting blood glucose")
 ```
 
+6. For example:
+In non-hyperglycemic subjects, male and female lines are nearly parallel.
+In hyperglycemic subjects, male and female lines diverge or cross.
+Formally, the sex difference in the UA–FBG relationship is not constant across hyperglycemia groups.
+7. The relationship between uric acid and fasting blood glucose is not the same for men and women, and this difference depends on whether a patient has hyperglycemia. In other words, the way uric acid relates to glucose levels varies across sex, but the size and direction of that variation changes between hyperglycemic and non-hyperglycemic patients.
+</details>
+
 **Exercise 6C**
 
 Logistic Regression Interaction
@@ -385,7 +511,7 @@ The outcome is now whether a participant has hyperglycemia.
 
 You fit a logistic regression model:
 
-```r
+```{r}
 model_logit <- glm(
   hyperglycemia ~ UA * sex,
   family = binomial,
@@ -393,20 +519,22 @@ model_logit <- glm(
 )
 ```
 
-1) What quantity is being modeled by this regression?
-2) What does the interaction term test?
-3) What is the interpretation of the interaction coefficient? (hint: *the next
+1. What quantity is being modeled by this regression?
+2. What does the interaction term test?
+3. What is the interpretation of the interaction coefficient? (hint: *the next
    plot will help*)
-4) Use {marginaleffects} to plot predicted probabilities of hyperglycemia across
+4. Use {marginaleffects} to plot predicted probabilities of hyperglycemia across
    UA separately for men and women.
 
-```r
+```{r}
 plot_predictions(
     model_logit,
     condition = c("UA", "sex"),
     type = "response" # response scale (i.e., predicted probabilities between 0 and 1)
 )
 ```
+
+*is this a leftover?*
 
 Suppose the predicted probabilities are:
 

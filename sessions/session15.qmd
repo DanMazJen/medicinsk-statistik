@@ -18,3 +18,57 @@ hd_data <- readr::read_csv(
 ```
 
 ## Pree-class Literature
+
+- [Marginal effects chatpter 5
+  ](https://marginaleffects.com/chapters/predictions.html)
+  - read
+
+# Slides
+
+> [**Session 15 slides**](../slides/day15.html)
+
+<div>
+
+```{=html}
+<iframe class="slide-deck" src="../slides/day15.html"></iframe>
+```
+
+</div>
+
+::: {.callout-note collapse="true"}
+## Teacher note
+
+The slides contain speaking notes that you can view by pressing 'S' on the
+keyboard.
+:::
+
+## Case session 14: ""
+
+```{r}
+hd_data <- hd_data |>
+    mutate(
+        ExAng = factor(ExAng,
+            levels = c(0, 1),
+            labels = c("no", "yes")
+        ),
+        HD = factor(HD,
+            levels = c("No", "Yes"),
+            labels = c("no", "yes")
+        ),
+        ChestPain = factor(ChestPain),
+        Thal = factor(Thal),
+        fasting_blood_glucose = factor(Fbs,
+            levels = c(0, 1),
+            labels = c("normal", "high")
+        )
+    )
+
+hd_data |>
+  ggplot(ggplot2::aes(Age, MaxHR, color = HD)) +
+  geom_point() +
+  geom_smooth(method = "lm")
+```
+
+## Reading Task: Investigating one variable at a time
+
+...

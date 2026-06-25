@@ -1,0 +1,21 @@
+# Exercises: Conditional variables {#sec-ex-interaction}
+
+::: {.callout-tip collapse="false"}
+## Conditional variables
+
+Prerequisite for these exercises was covered within the
+[session](/sessions/session11.qmd) and is therefore not repeated here. The
+exercises build on this material.
+:::
+
+## Learning objectives
+
+The learning objectives for this session are:
+
+{{< include /includes/objectives/_session1.qmd >}}
+
+## Exercises:
+
+### A: Let's start practicing by finding interactions from written text.
+
+**Exercise 1A**:

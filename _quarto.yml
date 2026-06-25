@@ -44,12 +44,17 @@ book:
         - sessions/session06.qmd
         - sessions/session07.qmd
         - sessions/session08.qmd
+        - sessions/session11.qmd
+        - sessions/session15.qmd
         #- sessions/conclusion.qmd
     - part: "Exercises"
       chapters:
         - exercises/data.qmd
         - exercises/ex01.qmd
         - exercises/ex02.qmd
+        - exercises/ex04.qmd
+        - exercises/ex11.qmd
+        - exercises/ex15.qmd
   appendices:
     - appendix/for-teachers.qmd
     - appendix/references.qmd

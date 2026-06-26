@@ -337,7 +337,7 @@ interpretation rather than mathematics.
 
 # Continuous interactions
 
-```{r}
+```r
 library(sjPlot)
 data(efc)
 

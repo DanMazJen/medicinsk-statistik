@@ -29,6 +29,7 @@ Imports:
     purrr,
     readr,
     rmarkdown,
+    sjPlot,
     stringr,
     survival,
     survminer,

@@ -302,6 +302,18 @@ div.csl-indent {
  <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Data wrangling using R</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/session11.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Conditioning and polynomial madness</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/session15.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Marginalizing the problem</span></span></a>
+  </div>
+</li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -316,19 +328,37 @@ div.csl-indent {
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Data for Medical Statistics</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Data for Medical Statistics</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/ex01.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Exercises: Hallo Medical Statistics</span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Exercises: Hallo Medical Statistics</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/ex02.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Exercises: Probability and stochastic variables</span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Exercises: Probability and stochastic variables</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../exercises/ex04.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Exercises: Hallo Medical Statistics</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../exercises/ex11.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Exercises: Conditional variables</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../exercises/ex15.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Exercises: Conditional variables</span></span></a>
   </div>
 </li>
       </ul>
@@ -472,23 +502,23 @@ Warning
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <p><img src="session04_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="672"></p>
 </div>
-<div id="owjmfmgbnu" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#owjmfmgbnu table {
+<div id="nrulzzieke" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#nrulzzieke table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#owjmfmgbnu thead, #owjmfmgbnu tbody, #owjmfmgbnu tfoot, #owjmfmgbnu tr, #owjmfmgbnu td, #owjmfmgbnu th {
+#nrulzzieke thead, #nrulzzieke tbody, #nrulzzieke tfoot, #nrulzzieke tr, #nrulzzieke td, #nrulzzieke th {
   border-style: none;
 }
 
-#owjmfmgbnu p {
+#nrulzzieke p {
   margin: 0;
   padding: 0;
 }
 
-#owjmfmgbnu .gt_table {
+#nrulzzieke .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -514,12 +544,12 @@ Warning
   border-left-color: #D3D3D3;
 }
 
-#owjmfmgbnu .gt_caption {
+#nrulzzieke .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#owjmfmgbnu .gt_title {
+#nrulzzieke .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -531,7 +561,7 @@ Warning
   border-bottom-width: 0;
 }
 
-#owjmfmgbnu .gt_subtitle {
+#nrulzzieke .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -543,7 +573,7 @@ Warning
   border-top-width: 0;
 }
 
-#owjmfmgbnu .gt_heading {
+#nrulzzieke .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -555,13 +585,13 @@ Warning
   border-right-color: #D3D3D3;
 }
 
-#owjmfmgbnu .gt_bottom_border {
+#nrulzzieke .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#owjmfmgbnu .gt_col_headings {
+#nrulzzieke .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -576,7 +606,7 @@ Warning
   border-right-color: #D3D3D3;
 }
 
-#owjmfmgbnu .gt_col_heading {
+#nrulzzieke .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -596,7 +626,7 @@ Warning
   overflow-x: hidden;
 }
 
-#owjmfmgbnu .gt_column_spanner_outer {
+#nrulzzieke .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -608,15 +638,15 @@ Warning
   padding-right: 4px;
 }
 
-#owjmfmgbnu .gt_column_spanner_outer:first-child {
+#nrulzzieke .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#owjmfmgbnu .gt_column_spanner_outer:last-child {
+#nrulzzieke .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#owjmfmgbnu .gt_column_spanner {
+#nrulzzieke .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -628,11 +658,11 @@ Warning
   width: 100%;
 }
 
-#owjmfmgbnu .gt_spanner_row {
+#nrulzzieke .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#owjmfmgbnu .gt_group_heading {
+#nrulzzieke .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -658,7 +688,7 @@ Warning
   text-align: left;
 }
 
-#owjmfmgbnu .gt_empty_group_heading {
+#nrulzzieke .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -673,15 +703,15 @@ Warning
   vertical-align: middle;
 }
 
-#owjmfmgbnu .gt_from_md > :first-child {
+#nrulzzieke .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#owjmfmgbnu .gt_from_md > :last-child {
+#nrulzzieke .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#owjmfmgbnu .gt_row {
+#nrulzzieke .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -700,7 +730,7 @@ Warning
   overflow-x: hidden;
 }
 
-#owjmfmgbnu .gt_stub {
+#nrulzzieke .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -713,7 +743,7 @@ Warning
   padding-right: 5px;
 }
 
-#owjmfmgbnu .gt_stub_row_group {
+#nrulzzieke .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -727,15 +757,15 @@ Warning
   vertical-align: top;
 }
 
-#owjmfmgbnu .gt_row_group_first td {
+#nrulzzieke .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#owjmfmgbnu .gt_row_group_first th {
+#nrulzzieke .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#owjmfmgbnu .gt_summary_row {
+#nrulzzieke .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -745,16 +775,16 @@ Warning
   padding-right: 5px;
 }
 
-#owjmfmgbnu .gt_first_summary_row {
+#nrulzzieke .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#owjmfmgbnu .gt_first_summary_row.thick {
+#nrulzzieke .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#owjmfmgbnu .gt_last_summary_row {
+#nrulzzieke .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -764,7 +794,7 @@ Warning
   border-bottom-color: #D3D3D3;
 }
 
-#owjmfmgbnu .gt_grand_summary_row {
+#nrulzzieke .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -774,7 +804,7 @@ Warning
   padding-right: 5px;
 }
 
-#owjmfmgbnu .gt_first_grand_summary_row {
+#nrulzzieke .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -784,7 +814,7 @@ Warning
   border-top-color: #D3D3D3;
 }
 
-#owjmfmgbnu .gt_last_grand_summary_row_top {
+#nrulzzieke .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -794,11 +824,11 @@ Warning
   border-bottom-color: #D3D3D3;
 }
 
-#owjmfmgbnu .gt_striped {
+#nrulzzieke .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#owjmfmgbnu .gt_table_body {
+#nrulzzieke .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -807,7 +837,7 @@ Warning
   border-bottom-color: #D3D3D3;
 }
 
-#owjmfmgbnu .gt_footnotes {
+#nrulzzieke .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -821,7 +851,7 @@ Warning
   border-right-color: #D3D3D3;
 }
 
-#owjmfmgbnu .gt_footnote {
+#nrulzzieke .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -830,7 +860,7 @@ Warning
   padding-right: 5px;
 }
 
-#owjmfmgbnu .gt_sourcenotes {
+#nrulzzieke .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -844,7 +874,7 @@ Warning
   border-right-color: #D3D3D3;
 }
 
-#owjmfmgbnu .gt_sourcenote {
+#nrulzzieke .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -852,72 +882,72 @@ Warning
   padding-right: 5px;
 }
 
-#owjmfmgbnu .gt_left {
+#nrulzzieke .gt_left {
   text-align: left;
 }
 
-#owjmfmgbnu .gt_center {
+#nrulzzieke .gt_center {
   text-align: center;
 }
 
-#owjmfmgbnu .gt_right {
+#nrulzzieke .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#owjmfmgbnu .gt_font_normal {
+#nrulzzieke .gt_font_normal {
   font-weight: normal;
 }
 
-#owjmfmgbnu .gt_font_bold {
+#nrulzzieke .gt_font_bold {
   font-weight: bold;
 }
 
-#owjmfmgbnu .gt_font_italic {
+#nrulzzieke .gt_font_italic {
   font-style: italic;
 }
 
-#owjmfmgbnu .gt_super {
+#nrulzzieke .gt_super {
   font-size: 65%;
 }
 
-#owjmfmgbnu .gt_footnote_marks {
+#nrulzzieke .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#owjmfmgbnu .gt_asterisk {
+#nrulzzieke .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#owjmfmgbnu .gt_indent_1 {
+#nrulzzieke .gt_indent_1 {
   text-indent: 5px;
 }
 
-#owjmfmgbnu .gt_indent_2 {
+#nrulzzieke .gt_indent_2 {
   text-indent: 10px;
 }
 
-#owjmfmgbnu .gt_indent_3 {
+#nrulzzieke .gt_indent_3 {
   text-indent: 15px;
 }
 
-#owjmfmgbnu .gt_indent_4 {
+#nrulzzieke .gt_indent_4 {
   text-indent: 20px;
 }
 
-#owjmfmgbnu .gt_indent_5 {
+#nrulzzieke .gt_indent_5 {
   text-indent: 25px;
 }
 
-#owjmfmgbnu .katex-display {
+#nrulzzieke .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#owjmfmgbnu div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#nrulzzieke div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>

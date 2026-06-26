@@ -12,10 +12,12 @@ Imports:
     car,
     downlit,
     dplyr,
+    easystats,
     emmeans,
     forcats,
     ggauto,
     ggplot2,
+    glue,
     gt,
     haven,
     here,
@@ -23,6 +25,7 @@ Imports:
     lubridate,
     marginaleffects,
     pak,
+    parameters,
     purrr,
     readr,
     rmarkdown,
@@ -30,6 +33,7 @@ Imports:
     survival,
     survminer,
     tibble,
-    tidyr
+    tidyr,
+    tinytable
 Depends:
     tidyverse

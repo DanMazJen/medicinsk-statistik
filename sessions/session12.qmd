@@ -1,0 +1,1150 @@
+# A Poissonous counting trick {#sec-poisson}
+
+> "Choose to be optimistic, it feels better." --- Dalai Lama
+
+> "Choose to model positive outcomes, it feels better for count outcomes." ---
+> Daniel Skak Mazhari-Jensen
+
+```{r}
+#| label: setup
+#| include: false
+
+#library(tidyverse)
+#ddagit782594dalibrary(tidyverse)
+library(ggplot2)
+library(dplyr)
+library(readr)
+library(tidyr)
+library(broom)
+library(marginaleffects)
+
+hd_data <- readr::read_csv(
+  "https://raw.githubusercontent.com/DanMazJen/medicinsk-statistik/main/data/hd_data.csv"
+)
+```
+
+## Pree-class Literature
+
+- [Today's dataset](s)
+- [Compendium](s)
+- [GLM](s)
+
+# Slides
+
+> [**Session 12 slides**](../slides/day12.html)
+
+<div>
+
+```{=html}
+<iframe class="slide-deck" src="../slides/day12.html"></iframe>
+```
+
+</div>
+
+::: {.callout-note collapse="true"}
+## Teacher note
+
+The slides contain speaking notes that you can view by pressing 'S' on the
+keyboard.
+:::
+
+## Case session 12: ""
+
+## Review of Logistic regression
+
+See session 9 on logistic regression by Carsten.
+
+- We use the binomial distribution with logit link to model probabilities
+- These are discrete counts, but we are interested in the overall probability of
+  getting outcome 0/1
+- Only two outcomes: 0 or 1 (heads or tails, dead or alive, left or right)
+- The logit link transform our outcome variable to a linear space called
+  log-odds
+- The logistic function transform out data back to the outcome space
+  (probabilities)
+
+## Reading Task: When the odds are low, go Poisson!
+
+While the binomail distribution is great when *N* is known (trial count), there
+exists studies where you don't know the upper limit (counting fish, selling a
+product, etc.) --- what is the upper bound of fish in a lake we haven't fully
+accounted for?
+
+> If we don't know *N*, we cannot use the binomial!
+
+Luckily, there's a trick for this. When N becomes huge and *p* becomes really
+small, the binomial distribution takes a special shape --- the Poisson
+distribution.
+
+Explained mathematically:
+
+The expected value of a binomial distribution is just *Np* (probability scale),
+and its variance $Np(1-p)$. But when *N* is very large and *p* is very small,
+the variance and expected value is the same.
+
+E.g., you have 1 in 1000 probability of getting a price.
+
+```{r}
+#| label: binom-to-poisson
+
+y <- rbinom(1e5, 1000, 1/1000)
+c( mean(y), var(y))
+```
+
+As a result, the distribution only has one parameter, λ.
+
+$$
+  y_i \sim Poisson(λ)
+$$
+
+This solves several issues:
+
+- We can now model counts and probabilities (actually, *rates*, but more on this
+  later) without being in control of the experiment and knowing the finite trial
+  count
+- We can model events with extremely low probability in counts per sample
+  instead of probability per trial
+- We only need one parameter for both the mean and the variance, effectively
+  saving a degree of freedom.
+
+But how can we do this in practice?
+
+### Which link?
+
+As a link function, we often use log.
+
+$$
+  y_i \sim Poisson(λ_i) \\
+  log(λ_i) = α + β(x_i - \bar{x})
+$$
+Why log?
+
+```{r}
+#| label: why-log
+
+# Poisson regression:
+# log(mu) = beta0 + beta1*x
+
+dat <- data.frame(
+  x = seq(-5, 5, length.out = 200)
+) %>%
+  mutate(
+    log_mu = -1 + 0.5*x,       # can be negative
+    mu = exp(log_mu),           # always positive
+  ) %>%
+  pivot_longer(
+    cols = c(log_mu, mu),
+    names_to = "scale",
+    values_to = "value"
+  ) %>%
+  mutate(
+    scale = recode(
+      scale,
+      log_mu = "Log-linear (Poisson) scale:\nlog(E(Y))",
+      mu = "Outcome scale:\nE(Y)"
+    )
+  )
+
+ggplot(dat, aes(x = x, y = value)) +
+  geom_line(
+    linewidth = 1.3,
+    color = "#2166AC"
+  ) +
+  geom_hline(
+    yintercept = 0,
+    linetype = "dashed",
+    color = "grey40"
+  ) +
+  facet_wrap(~scale, scales = "free_y") +
+  theme_minimal(base_size = 14) +
+  labs(
+    title = "Why Use a Log Link in Poisson Regression?",
+    subtitle = "Negative values are allowed on the log scale, but exponentiation guarantees positive counts",
+    x = "Predictor (x)",
+    y = "Outcome (y)"
+  ) #+
+ # annotate(
+ #   "text",
+ #   x = -2.5,
+ #   y = -2.8,
+ #   label = "log(μ) can be negative\n(no restriction)",
+ #   size = 5,
+ #   color = "black"
+ # ) +
+ # annotate(
+ #   "text",
+ #   x = 2,
+ #   y = 0.25,
+ #   label = "μ = exp(log(μ))\n> 0 always",
+ #   size = 5,
+ #   color = "black"
+ # ) +
+ # annotate(
+ #   "segment",
+ #   x = -1,
+ #   xend = 1,
+ #   y = -1.5,
+ #   yend = 0.2,
+ #   arrow = arrow(length = unit(0.2, "cm")),
+ #   color = "firebrick"
+ # ) +
+ # annotate(
+ #   "segment",
+ #   x = 0,
+ #   xend = 1,
+ #   y = 0.4,
+ #   yend = 1.5,
+ #   arrow = arrow(length = unit(0.2, "cm")),
+ #   color = "firebrick"
+ # )
+```
+
+Note that the log-link has the same flaws and benefits from the binomial
+distribution.
+
+Pros:
+
+- ensures positive values (for prediction)
+
+Cons:
+
+- implies exponential relationship with predictors
+  - Grow very rapidly --- therefore, very sensitive to range
+  - it cannot keep being exponential!
+
+## Data Example
+
+Epilepsy seizure count or survival of graduate students in different faculty?
+
+Or maybe hispital length of stay data?
+
+$$
+  Seizures_i \sim Poisson(λ_i) \\
+  log(λ_i) = α * β_1 predrugseizures + β_2 drug  \\
+$$
+
+Heres a DAG:
+<!-- panache-ignore-format-start -->
+          Age
+           │
+           ▼
+Baseline seizures ─────► Outcome (Seizures)
+        │                  ▲
+        │                  │
+        ▼                  │
+   Treatment ──────────────┘
+        ▲
+        │
+ Unmeasured severity
+<!-- panache-ignore-format-end -->
+```{r}
+#| label: dag
+
+dagitty::dagitty("
+dag {
+
+Age -> base
+
+Age -> y
+
+base -> y
+
+trt -> y
+
+severity -> base
+
+severity -> y
+
+}
+") |>
+    ggdag::tidy_dagitty() |>
+    ggdag::ggdag()
+```
+
+Let's explore the dataset a bit --- but before we do, I'll do some tidying of
+the dataset using `{dplyr}` for wrangling. I'm not gonna explain this bit, as
+you can go back to session 8 by Rasmus for working with `{dplyr}` for wrangling.
+
+```{r}
+#| label: pre-wrangle
+
+data(epil)
+
+epil <- epil |>
+    rename(
+        seizure_count = y,
+        drug = trt,
+        baseline_seizures = base,
+        trial_end = V4,
+        log_base = lbase,
+        log_age = lage
+  ) |>
+    #filter(period < 2 | period > 3) |>
+    filter(period > 3) |>
+    mutate(
+        seizure_count = as.integer(seizure_count),
+        period = factor(period,
+            levels = c(4),
+            labels = c("week_4")
+            )
+    )
+
+```
+
+```{r}
+#| label: just-looking
+
+epil |>
+    tibble::as.tibble()
+
+epil |>
+    count(drug)
+```
+
+```{r}
+#| label: explore1
+
+library(patchwork)
+library(MASS)
+
+lims <- range(c(epil$baseline_seizures, epil$seizure_count))
+
+baseline_data_plot <- epil |>
+    ggplot() +
+    geom_histogram(aes(x=baseline_seizures)) +
+  coord_cartesian(xlim = lims)
+
+posttrial_data_plot <- epil |>
+    ggplot() +
+    geom_histogram(aes(x=seizure_count)) +
+  coord_cartesian(xlim = lims)
+
+baseline_data_plot + posttrial_data_plot
+```
+
+```{r}
+#| label: test
+
+epil |>
+    ggplot(aes(x=y)) +
+    geom_histogram() +
+    facet_grid(~ V4)
+
+fit <- glm(y ~ trt * base, V4, # + lage
+    family = poisson,
+    data = epil
+)
+
+predict(fit) |>
+    data.frame(
+        mu_hat = _,
+        mu_obs = epil$y
+    ) |>
+    ggplot(aes(x=exp(mu_hat))) +
+    geom_histogram()
+
+predict(fit, type = "response") == exp(predict(fit))
+
+epil |>
+  mutate(
+    predicted = predict(fit, type = "response")
+  ) |>
+  ggplot(aes(predicted, y)) +
+  geom_point(alpha = 0.6) +
+  geom_abline(intercept = 0, slope = 1, linetype = 2, colour = "red") +
+  labs(
+    x = "Predicted count",
+    y = "Observed count"
+  ) +
+  theme_bw()
+```
+
+```{r}
+#| label: exploration
+
+epil |>
+    count(trt)
+
+epil |>
+    ggplot(aes(seizure_count)) +
+    geom_histogram(binwidth = 2,
+                   fill="steelblue",
+                   color="white") +
+    theme_bw()
+
+epil |>
+    ggplot(aes(baseline_seizures,seizure_count,color=drug)) +
+    geom_point(alpha=0.6) +
+    geom_smooth(method="loess",se=FALSE) +
+    theme_bw()
+```
+
+```{r}
+#| label: model-fit
+
+m1 <- glm(
+    seizure_count ~ drug * baseline_seizures * age,
+    family = poisson(link="log"),
+    data = epil
+)
+
+summary(m1)
+```
+
+Yeah, we did it! But... What does the coefficients actually mean? Did we come
+any closer to answering our medical question: did the drug reduce epilepsy?
+
+## GLMs are notoriously difficult to interpret
+
+- like a classification problem of predicting tides --- many small-world
+  continuous processes that build up when all stars align to give either GO or
+  NO-GO!
+
+Binomial regression
+
+- counts of two possible with known *n* (outcome often in per cent)
+- dead/alive, heads/tails, accept/reject, left/right,
+
+Poisson regression
+
+- counts of unknown max value (no theoretical upper limit) aka with unknown n
+  (outcome in counts)
+- elephants in Kenya, applicants for a grant, reported *p*-values in a paper,
+  etc.
+
+```{r}
+#| label: inference
+
+broom::tidy(m1,
+     exponentiate = TRUE,
+     conf.int = TRUE)
+```
+
+## Reporting odds-ratios or counts
+
+From an absolute perspective, the musquito is the most dangerous animal in the
+world! It causes most deaths a year. However, if I were to battle a musquito or
+a shark, I would bet my life on the musquito and not the shark! It is relatively
+much more dangerous! However, conditional on being in the real-life situation of
+facing a musquito or a shark, the former is much more probable.
+
+```{r}
+#| label: predictions
+
+epil$pred <- predict(
+    m1,
+    type="response"
+)
+
+ggplot(epil,
+       aes(pred,seizure_count))+
+    geom_point()+
+    geom_abline(slope=1,
+                intercept=0,
+                color="red")+
+    theme_bw()
+```
+
+```{r}
+#| label: counterfactuals
+
+library(marginaleffects)
+
+m1 |>
+    plot_predictions(
+    condition="baseline_seizures"
+    ) +
+    labs(
+    y="Predicted seizures"
+)
+
+cf <- bind_rows(
+#
+    predictions(
+    m1,
+    newdata=transform(epil,
+    drug="placebo")) |>
+    mutate(group="Placebo"),
+#
+    predictions(
+    m1,
+    newdata=transform(epil,
+    drug="progabide")) %>%
+    mutate(group="Treatment")
+)
+
+cf |>
+    ggplot(aes(estimate,fill=group))+
+    geom_density(alpha=0.4)+
+    theme_bw()
+
+cmp <- comparisons(
+    m1,
+    variables="drug"
+)
+
+# Each bar is the estimated reduction in seizures if that patient switched treatments.
+cmp |>
+    ggplot(aes(estimate))+
+    geom_histogram(
+    bins=30,
+    fill="steelblue")+
+    theme_bw()
+
+
+m2 <- glm(y ~ trt * base + age + V4,
+    family=poisson,
+    data=epil
+)
+
+plot_predictions(
+    m2,
+    condition=c("base","trt")
+)
+```
+
+```{r}
+#| label: cut-off-of-when-to-use
+
+placebo <- predictions(
+    m1,
+    newdata = transform(epil, drug = "placebo")
+)
+
+treated <- predictions(
+    m1,
+    newdata = transform(epil, drug = "progabide")
+)
+
+epil$placebo <- placebo$estimate
+epil$treated  <- treated$estimate
+
+epil$benefit <- epil$placebo - epil$treated
+
+epil |>
+    filter(benefit >= 3)
+
+grid <- datagrid(
+    model=m1,
+    baseline_seizures = seq(0, 100, by = 1),
+    age = mean(epil$age), #28 yo
+    #V4 = 1, # follow-up
+    drug = c("placebo", "progabide")
+)
+
+pred <- marginaleffects::predictions(m1, newdata = grid)
+
+cutoff <- pred |>
+    select(baseline_seizures, drug, estimate) |>
+    tidyr::pivot_wider(
+        names_from = drug,
+        values_from = estimate) |>
+    mutate(
+        reduction = placebo - progabide
+    )
+
+ggplot(cutoff,
+       aes(baseline_seizures, reduction)) +
+    geom_line(size = 1.2) +
+    geom_hline(yintercept = -3,
+               linetype = 2,
+               colour = "red") +
+    labs(
+        x = "Baseline seizures",
+        y = "Expected reduction",
+        title = "Expected treatment benefit"
+    ) +
+    theme_bw() +
+    geom_label(
+        data = cutoff_pt,
+        aes(
+            label = paste0(
+            "Baseline = ", baseline_seizures,
+            "\nReduction = ", round(reduction, 2))
+        ),
+  nudge_y = -30
+)
+
+cutoff_pt <- cutoff |>
+  slice_min(abs(reduction - (-3)), n = 1)
+
+```
+
+manual predictions:
+
+```{r}
+#| label: manual-predict
+
+x_seq <- seq(min(epil$base), max(epil$base), length.out = 100)
+
+b <- coef(fit)
+
+mu_hat <- exp(
+  b[1] +
+  b["base"] * x_seq +
+  b["trtprogabide"] * 0       # reference treatment
+  #b["base"] * mean(epil$lbase)
+)
+
+
+
+plot(x_seq, mu_hat, type = "l")
+
+# placebo
+newdata <- data.frame(
+  base = x_seq,
+  trt = "placebo"
+)
+newdata$mu_hat <- predict(
+  fit,
+  newdata = newdata,
+  type = "response"
+)
+
+# progabide
+newdata2 <- data.frame(
+    base = x_seq,
+    trt = "progabide"
+)
+predict(fit, newdata2, type = "response")
+
+mu_prog <- exp(
+    b["(Intercept)"] +
+    b["trtprogabide"] +
+    (b["base"] + b["trtprogabide:base"]) * x_seq
+)
+data.frame(x=x_seq,y=mu_prog) |>
+    ggplot(aes(x=x,y=y)) +
+    geom_line()
+
+#X <- model.matrix(~ trt + base + `trtprogabide:base`, newdata)
+#X <- model.matrix(~ trt * base, newdata)
+tt <- delete.response(terms(fit))
+
+X <- model.matrix(
+  tt,
+  newdata,
+  xlev = fit$xlevels
+)
+
+newdata$mu_hat <- exp(X %*% coef(fit))
+```
+
+This last expression,
+
+`exp(X %*% coef(fit))`
+
+is essentially what predict.glm(type = "response") computes internally. It's the
+most general way to think about GLM predictions: construct the design matrix X,
+multiply by the coefficient vector β to get the linear predictor η=Xβ, then
+apply the inverse link function. For a Poisson model with the log link, the
+inverse link is simply exp().
+
+The predicted values in a generalized linear model are obtained using **matrix
+multiplication** of the design matrix and the estimated coefficient vector.
+
+Let the design matrix be
+
+$$
+  X =
+  \begin{bmatrix}
+  1 & 0 & 6.0 & 0\\
+  1 & 0 & 7.46 & 0\\
+  \vdots & \vdots & \vdots & \vdots\\
+  1 & 0 & 151 & 0
+  \end{bmatrix},
+$$
+
+and let the estimated regression coefficients be
+
+$$
+  \hat{\beta} =
+  \begin{bmatrix}
+  1.29584\\
+  -0.24923\\
+  0.02145\\
+  0.00042
+  \end{bmatrix}.
+$$
+
+The linear predictor is obtained by matrix multiplication:
+
+$$
+  \eta = X\hat{\beta}.
+$$
+
+In R, this is computed as
+
+```r
+eta <- X %*% coef(fit)
+```
+
+Here,
+
+- $X$ is a $100 \times 4$ design matrix,
+- $\hat{\beta}$ is a $4 \times 1$ coefficient vector,
+- $\eta$ is a $100 \times 1$ vector of linear predictors.
+
+For the first observation, the linear predictor is computed as the product of
+the first row of $X$ and the coefficient vector:
+
+$$
+  \eta_1
+  =
+  \begin{bmatrix}
+  1 & 0 & 6 & 0
+  \end{bmatrix}
+  \begin{bmatrix}
+  1.29584\\
+  -0.24923\\
+  0.02145\\
+  0.00042
+  \end{bmatrix}
+  =
+  1(1.29584)
+  +0(-0.24923)
+  +6(0.02145)
+  +0(0.00042)
+  =
+  1.42453.
+$$
+
+This row-by-column multiplication is an **inner product**, also called a **dot
+product**, between the first row of the design matrix and the coefficient
+vector.
+
+Thus,
+
+- The overall computation,
+  $$
+  \eta = X\hat{\beta},
+  $$
+  is **matrix multiplication**.
+
+- Each individual fitted value,
+  $$
+  \eta_i = x_i^\top \hat{\beta},
+  $$
+  is an **inner product (dot product)**.
+
+Since this is a Poisson generalized linear model with a log link, the predicted
+mean response is obtained by applying the inverse link function:
+
+$$
+  \hat{\mu} = \exp(\eta).
+$$
+
+In R:
+
+```r
+eta <- X %*% coef(fit)   # matrix multiplication
+mu  <- exp(eta)          # inverse log link
+```
+
+A **cross product** is **not** being computed here. In vector algebra, the cross
+product is defined only for three-dimensional vectors and produces another
+vector. Although R has a function named `crossprod()`, it computes
+
+$$
+  X^\top Y,
+$$
+
+which is a matrix product, not the geometric cross product.
+
+### Exposure and the offset
+
+The parameter λ is the expected value of a Poisson model --- but also commonly
+interpreted as a *rate*.
+
+The rate interpretation is nice for allowing varying expoure time.
+
+Implizitly, λ is equal to an expected number of events, μ, per unit time or
+distance, τ. This implies that λ = μ/τ, which lets us redefine the link:
+
+$$
+  y_i \sim Poisson(λ_i) \\
+  log λ_i = log \frac{μ_i}{τ_i} = α + βx_i
+$$
+
+Since the logarithm of a ratio is the same as the difference of logarithms:
+
+$$
+  log λ_i = log μ_i - log τ_i = α + βx_i
+$$
+
+These τ are the "exposures". If different observations *i* have different
+exposures, the expected value on row *i* is given by
+
+$$
+  log μ_i = log τ_i + α + βx_i
+$$
+
+When τ_i = 1, then logτ_i = 0 and we're back to standard Poisson!
+
+But when the exposure is not 1, τ does effectively *scales* the expected number
+of events for each case *i* in the unit x = 1 (1 day, year, whatever...).
+Therefore, we write:
+
+$$
+  y_i \sim Poisson(μ_i) \\
+  log μ_i = log τ_i + α + βx_i
+$$
+
+Where τ is a column in the data. It's just like adding a predictor (taking its
+log) without adding a parameter for it!
+
+If you put a parameter in front of τ, you're able to model the hypothesis that
+the rate is not constant with time.
+
+*Remember:* When the length of observations, area of sampling, or intensity of
+sampling varies, the counts we observe also naturally vary! Poisson assumes
+stationarity (time/space) --- here, we add an offset! That is --- the logarithm
+of the exposure unit.
+
+Think of days of monitoring a patient...
+
+```{r}
+#| label: offset-example
+
+set.seed(636961739)
+num_days <- 30 # days of the experiment
+
+hospital1 <- rpois (num_days, 1.5) # 1.5 events per day
+
+num_weeks <- 4 # weeks of the experiment
+
+hospital2 <- rpois(num_weeks, 0.5*7) # events * lowst unit (i.e., days)
+
+events <- c(hospital1, hospital2)
+exposure <- c(rep(1,30), rep(7,4))
+hospital_id <- c(rep(0,30), rep(1,4))
+hospital_data <- data.frame(
+  events=events,
+  days=exposure,
+  hospital_id=hospital_id
+)
+
+hospital_data$log_days = log(hospital_data$days)
+
+sim_m1 <- glm( events ~ 1 + hospital_id,
+    family = poisson,
+    offset = log_days,
+    data = hospital_data
+)
+
+broom::tidy(sim_m1,exponentiate = TRUE)
+# We simulated 1.5 for hospital1 (intercept) and 0.5 (a third or 33%) for hospital2. So OR of .31
+```
+
+### Negative binomial (gamma-Poisson) models
+
+Poisson models often have a lot of unexplained variance, mainly from ignoring
+*rate heterogeneity*.
+
+The gamma-Poisson is a mixture of different Poisson distributions (similar to
+how Student-t is a mixture of Gaussians).
+
+```{r}
+#| label: assumptions
+
+performance::check_overdispersion(m1)
+
+performance::check_model(m1)
+
+fit <- MASS::glm.nb(y ~ trt * base, V4,
+    data = epil
+)
+
+performance::check_model(fit)
+
+fit <- glm(y ~ trt * base, V4,
+    family = poisson,
+    data = epil
+)
+```
+
+# Other dataset
+
+https://search.r-project.org/CRAN/refmans/dobson/html/doctors.html?utm_source=chatgpt.com
+https://search.r-project.org/CRAN/refmans/ACSWR/html/bs1.html?utm_source=chatgpt.com
+https://github.com/agbarnett/dobson/tree/main/data
+
+```{r}
+url <- "https://raw.githubusercontent.com/agbarnett/dobson/main/data/doctors.rda"
+load(url(url))
+doctors
+
+glm(
+  deaths ~ age + smoking,
+  family = poisson(),
+  offset = log(personyears),
+  data = doctors
+)
+
+doctors2 <- doctors |>
+  mutate(
+    age_group = factor(
+      age,
+      levels = 1:5,
+      labels = c("35–44", "45–54", "55–64", "65–74", "75–84")
+    ),
+    rate = deaths / personyears,
+    rate_1000 = 1000 * rate,
+    offsets = log(personyears)
+  ) |>
+  select(age_group, smoking, deaths, personyears, rate, rate_1000, offsets)
+
+doctors2
+```
+
+```{r}
+ggplot(doctors2,
+       aes(age_group, rate_1000,
+           colour = smoking,
+           group = smoking)) +
+  geom_point(size = 3) +
+  geom_line(linewidth = 1) +
+  labs(
+    x = "Age group",
+    y = "Deaths per 1,000 person-years",
+    colour = "Smoking"
+  ) +
+  theme_bw()
+
+ggplot(doctors2,
+       aes(personyears, deaths,
+           colour = smoking)) +
+  geom_point(size = 3) +
+  scale_x_log10() +
+  theme_bw()
+
+ggplot(doctors2,
+       aes(age_group,
+           log(rate),
+           colour = smoking,
+           group = smoking)) +
+  geom_point(size = 3) +
+  geom_line() +
+  labs(y = "Log mortality rate")
+```
+
+```{r}
+m1 <- glm(
+  deaths ~ offset(offsets) + smoking + age_group,
+  #offset = offsets,
+  family = poisson(),
+  data = doctors2
+)
+
+summary(m1)
+```
+
+```{r}
+avg_predictions(
+    m1,
+    variables = "smoking",
+    type = "response"
+)
+
+cf <- bind_rows(
+
+    mutate(doctors2,
+           smoking = "smoker",
+           scenario = "Everyone smokes"),
+
+    mutate(doctors2,
+           smoking = "non-smoker",
+           scenario = "Nobody smokes")
+
+)
+
+pred <- predictions(
+    m1,
+    newdata = datagrid(
+        age_group = levels(doctors2$age_group),
+        smoking = levels(doctors2$smoking),
+        personyears = 1000
+    )
+)
+
+ggplot(pred,
+       aes(age_group,
+           estimate,
+           colour = smoking,
+           group = smoking)) +
+    geom_line() +
+    geom_point(size = 3) +
+    ylab("Predicted deaths per 1,000 person-years")
+
+avg_comparisons(
+    m1,
+    variables = "smoking",
+    comparison = "ratio"
+)
+```
+
+## Exploratory analysis and modelling strategy
+
+The outcome is the number of graduates who survived, while the total number of
+graduates represents the population at risk. The analysis therefore focuses on
+modelling survival *rates* rather than raw counts by including the log of the
+total number of graduates as an offset in Poisson regression. This estimates
+multiplicative effects on the survival rate while accounting for differences in
+cohort size.
+
+The exploratory analysis first examines temporal patterns, differences between
+faculties, and differences by sex to assess whether systematic trends or effect
+modification are plausible. Two Poisson models are then compared: a main-effects
+model and a model allowing the temporal trend to differ by faculty. Because
+Poisson models assume equality of the mean and variance, overdispersion is
+assessed before interpreting results. Finally, marginal effects summarize
+adjusted contrasts, while counterfactual predictions visualize model-implied
+survival rates under hypothetical scenarios across years and demographic groups.
+
+```{r}
+# https://github.com/agbarnett/dobson/blob/main/data/chronic.rda
+url <- "https://raw.githubusercontent.com/agbarnett/dobson/main/data/graduates.rda"
+load(url(url))
+doctors
+
+#load("/Users/ze18rp/Downloads/chronic.rda")
+#chronic
+
+load("/Users/ze18rp/Downloads/graduates.rda")
+graduates
+
+library(tidyverse)
+library(performance)
+library(marginaleffects)
+
+graduates2 <- graduates |>
+  mutate(
+    survive = as.integer(survive),
+    total = as.integer(total),
+    year_c = year - min(year),
+    faculty = as.factor(faculty)
+  )
+
+## -------------------------------------------------
+## EDA
+## -------------------------------------------------
+
+# 1. Survival rate over time
+ggplot(graduates2,
+       aes(year, survive / total,
+           colour = faculty,
+           group = interaction(faculty, sex),
+           shape = sex)
+        ) +
+  geom_line(alpha = 0.7) +
+  geom_point() +
+  labs(
+    y = "Survival rate",
+    x = "Year"
+  ) +
+  theme_bw()
+
+# 2. Distribution of survival rates by faculty and sex
+ggplot(graduates2,
+       aes(faculty, survive / total, fill = sex)) +
+  geom_boxplot() +
+  labs(y = "Survival rate") +
+  theme_bw()
+
+# 3. Cohort sizes over time
+ggplot(graduates2,
+       aes(year, total,
+           colour = faculty,
+           shape = sex)) +
+  geom_point(size = 2) +
+  geom_line(aes(group = interaction(faculty, sex))) +
+  labs(y = "Total graduates") +
+  theme_bw()
+
+## -------------------------------------------------
+## Poisson GLMs
+## -------------------------------------------------
+
+m1 <- glm(
+  survive ~ year_c + faculty + sex + offset(log(total)),
+  family = poisson,
+  data = graduates2
+)
+
+m2 <- glm(
+  survive ~ year_c * faculty + sex + offset(log(total)),
+  family = poisson,
+  data = graduates2
+)
+
+summary(m1)
+summary(m2)
+
+# Check Poisson assumption
+performance::check_overdispersion(m1)
+performance::check_overdispersion(m2)
+
+## -------------------------------------------------
+## Marginal effects
+## -------------------------------------------------
+
+# Average adjusted comparison between faculties
+avg_comparisons(m2, variables = "faculty")
+avg_comparisons(
+  m2,
+  variables = list(faculty = "pairwise")
+)
+nd <- datagrid(
+  year_c = mean(graduates2$year_c),
+  sex = levels(factor(graduates2$sex)),
+  faculty = levels(graduates2$faculty),
+  total = 100
+)
+avg_comparisons(
+  m2,
+  variables = list(faculty = "pairwise"),
+  newdata = datagrid(
+    year_c = mean(graduates2$year_c),
+    sex = unique,
+    faculty = unique,
+    total = 100
+  )
+)
+
+# Average slope for year
+avg_slopes(m2, variables = "year_c")
+
+## -------------------------------------------------
+## Counterfactual predictions
+## -------------------------------------------------
+
+# Predicted survival rate over time by faculty
+plot_predictions(
+  m2,
+  condition = c("year_c", "faculty"),
+  newdata = datagrid(
+    year_c = seq(min(graduates2$year_c),
+                 max(graduates2$year_c),
+                 length.out = 100),
+    faculty = unique(graduates2$faculty),
+    sex = "men",
+    total = 100
+  ),
+  type = "response"
+)
+
+# Predicted survival rate by year and sex
+plot_predictions(
+  m2,
+  condition = c("year_c", "sex"),
+  newdata = datagrid(
+    year_c = seq(min(graduates2$year_c),
+                 max(graduates2$year_c),
+                 length.out = 100),
+    faculty = "medicine",
+    sex = unique(graduates2$sex),
+    total = 100
+  ),
+  type = "response"
+)
+```

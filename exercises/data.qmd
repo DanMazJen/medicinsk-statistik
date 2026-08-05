@@ -1,134 +1,169 @@
 # Data for Medical Statistics
 
-You can run the most advanced regression model, calculate the fanciest p-values, and produce the prettiest graphs—but if your data is garbage, your results are just beautiful garbage. Statistics is not a magic spell that turns messy, biased, incomplete, or poorly structured data into truth. It only amplifies what’s already there.
+You can run the most advanced regression model, calculate the fanciest p-values,
+and produce the prettiest graphs---but if your data is garbage, your results are
+just beautiful garbage. Statistics is not a magic spell that turns messy,
+biased, incomplete, or poorly structured data into truth. It only amplifies
+what's already there.
 
-In medical research, data quality is everything. If diagnoses are miscoded, if measurements are inconsistent, if inclusion criteria are unclear, or if missing values are ignored, your conclusions can be dangerously wrong. A flawed dataset can make a harmful treatment look effective or hide real side effects. No confidence interval can fix systematic bias. No machine learning model can compensate for a broken study design.
+In medical research, data quality is everything. If diagnoses are miscoded, if
+measurements are inconsistent, if inclusion criteria are unclear, or if missing
+values are ignored, your conclusions can be dangerously wrong. A flawed dataset
+can make a harmful treatment look effective or hide real side effects. No
+confidence interval can fix systematic bias. No machine learning model can
+compensate for a broken study design.
 
-And structure matters. A dataset without clear variables, units, metadata, and consistent formats is a nightmare to analyze and easy to misunderstand. Garbage in, garbage out—except in medicine, “garbage out” can influence clinical decisions and patient care.
+And structure matters. A dataset without clear variables, units, metadata, and
+consistent formats is a nightmare to analyze and easy to misunderstand. Garbage
+in, garbage out---except in medicine, "garbage out" can influence clinical
+decisions and patient care.
 
-So before you worship statistical methods, worship your data pipeline. Clean data. Well-defined variables. Thoughtful study design. Documentation. Because statistics is a microscope, not a disinfectant. It reveals reality—it does not repair it.
+So before you worship statistical methods, worship your data pipeline. Clean
+data. Well-defined variables. Thoughtful study design. Documentation. Because
+statistics is a microscope, not a disinfectant. It reveals reality---it does not
+repair it.
 
 ::: callout-note
-
 ## Open source data:
 
-Data can be made publicly available. This is often not a problem, despite GDPR regulations. Datasets are often made available on websites such as [Zenodo](https://zenodo.org/communities/eu/collections/subjects/mhealth?q=&f=resource_type%3Adataset&f=file_type%3Acsv&l=list&p=1&s=10&sort=newest).
+Data can be made publicly available. This is often not a problem, despite GDPR
+regulations. Datasets are often made available on websites such as
+[Zenodo](https://zenodo.org/communities/eu/collections/subjects/mhealth?q=&f=resource_type%3Adataset&f=file_type%3Acsv&l=list&p=1&s=10&sort=newest).
 
-Open science is a movement that encourages transparency and quality over productivity. In a world where
-we produce more data than we are capable of analysing ourselves, it is meaningful and highly encouraged
-to provide data using the [FAIR principles](https://www.go-fair.org/fair-principles/).
-
+Open science is a movement that encourages transparency and quality over
+productivity. In a world where we produce more data than we are capable of
+analysing ourselves, it is meaningful and highly encouraged to provide data
+using the [FAIR principles](https://www.go-fair.org/fair-principles/).
 :::
 
 ## Datasets we use
 
 In this course, we use the following datasets:
 
-(@)   [AlzheimerDisease (AppliedPredictiveModeling)](#sec-AlzheimerDisease-data)
-(@)   [Cleveland Heart Disease (ISLR)](#sec-HeartDisease-data)
-(@)   [Medical Expenditure Panel Survey (heckmanGE)](#sec-MEPS-data)
-(@)   [Mayo Clinic Primary Biliary Cholangitis Data (Survival)](#sec-survival-data)
-(@)   [Sleep Study (lme4)](#sec-sleep-data)
-(@)   [Diabetes study](#sec-diabetes-data)
-(@)   [Cognitive weight loss RCT](#sec-weight-data)
-(@)   [FEV1 COPD simulation data](#sec-fev1-data)
-(@)   [Messidor diabetic retinopathy](#sec-retinopathy-data)
-(@)   [The Framingham Heart Disease Cohort study](#sec-framingham2-data)
+(@) [AlzheimerDisease (AppliedPredictiveModeling)](#sec-AlzheimerDisease-data)
+(@) [Cleveland Heart Disease (ISLR)](#sec-HeartDisease-data)
+(@) [Medical Expenditure Panel Survey (heckmanGE)](#sec-MEPS-data)
+(@) [Mayo Clinic Primary Biliary Cholangitis Data
+    (Survival)](#sec-survival-data)
+(@) [Sleep Study (lme4)](#sec-sleep-data)
+(@) [Diabetes study](#sec-diabetes-data)
+(@) [Cognitive weight loss RCT](#sec-weight-data)
+(@) [FEV1 COPD simulation data](#sec-fev1-data)
+(@) [Messidor diabetic retinopathy](#sec-retinopathy-data)
+(@) [The Framingham Heart Disease Cohort study](#sec-framingham2-data)
 
-
-Here, we provide some context and meta-data about the datasets. Please take the time to carefully read this section before jumping in and wrangling data without knowing the design or variables collected.
+Here, we provide some context and meta-data about the datasets. Please take the
+time to carefully read this section before jumping in and wrangling data without
+knowing the design or variables collected.
 
 ## AlzheimerDisease (AppliedPredictiveModeling) {#sec-AlzheimerDisease-data}
 
 **Description:**
 
-Washington University conducted a clinical study to determine if biological measurements made from cerebrospinal fluid (CSF) can be used to diagnose or predict Alzheimer's disease ([Craig-Schapiro et al. 2011](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0018850)). These data are a modified version of the values used for the publication.
+Washington University conducted a clinical study to determine if biological
+measurements made from cerebrospinal fluid (CSF) can be used to diagnose or
+predict Alzheimer's disease ([Craig-Schapiro et al.
+2011](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0018850)).
+These data are a modified version of the values used for the publication.
 
-The R factor vector diagnosis contains the outcome data for 333 of the subjects. The demographic and laboratory results are collected in the data frame predictors.
+The R factor vector diagnosis contains the outcome data for 333 of the subjects.
+The demographic and laboratory results are collected in the data frame
+predictors.
 
-One important indicator of Alzheimer's disease is the genetic background of a subject. In particular, what versions of the Apolipoprotein E gene inherited from one's parents has an association with the disease. There are three variants of the gene: E2, E3 and E4. Since a child inherits a version of the gene from each parent, there are six possible combinations (e.g. E2/E2, E2/E3, and so on). This data is contained in the predictor column named Genotype.
+One important indicator of Alzheimer's disease is the genetic background of a
+subject. In particular, what versions of the Apolipoprotein E gene inherited
+from one's parents has an association with the disease. There are three variants
+of the gene: E2, E3 and E4. Since a child inherits a version of the gene from
+each parent, there are six possible combinations (e.g. E2/E2, E2/E3, and so on).
+This data is contained in the predictor column named Genotype.
 
-**Source:**
-Craig-Schapiro, R., Kuhn, M., Xiong, C., Pickering, E. H., Liu, J., Misko, T. P., Perrin, R. J., et al. (2011). Multiplexed Immunoassay Panel Identifies Novel CSF Biomarkers for Alzheimer's Disease Diagnosis and Prognosis. PLoS ONE, 6(4), e18850.
+**Source:** Craig-Schapiro, R., Kuhn, M., Xiong, C., Pickering, E. H., Liu, J.,
+Misko, T. P., Perrin, R. J., et al. (2011). Multiplexed Immunoassay Panel
+Identifies Novel CSF Biomarkers for Alzheimer's Disease Diagnosis and Prognosis.
+PLoS ONE, 6(4), e18850.
 
 ### Accessing the AlzheimerDisease dataset
 
 In order to access the dataset, we suggest using:
 
-```{.r filename="my-report.qmd"}
+```r {filename="my-report.qmd"}
 ad_data <- readr::read_csv("https://raw.githubusercontent.com/DanMazJen/medicinsk-statistik/main/data/ad_data.csv")
 
 ad_data |>
     tibble::tibble(ad_data)
 ```
 
-:::{.hidden}
+::: {.hidden}
 https://github.com/cran/AppliedPredictiveModeling/blob/master/data/AlzheimerDisease.RData
-data_url <- "https://raw.githubusercontent.com/cran/AppliedPredictiveModeling/master/data/AlzheimerDisease.RData"
+data_url <-
+"https://raw.githubusercontent.com/cran/AppliedPredictiveModeling/master/data/AlzheimerDisease.RData"
 load(url(data_url))
 :::
-
 
 ## Cleveland Heart Disease {#sec-HeartDisease-data}
 
 **Description**
 
-This dataset contains clinical and test measurements for 303 patients with chest pain.
-The outcome variable indicates whether angiographically confirmed heart disease is present.
+This dataset contains clinical and test measurements for 303 patients with chest
+pain. The outcome variable indicates whether angiographically confirmed heart
+disease is present.
 
 **Outcome Variable**
 
--   HD – Heart Disease Status (Confirmed coronary artery disease based on angiography (gold standard)).
-    -   Yes = heart disease present
-    -   No = no heart disease
+- HD -- Heart Disease Status (Confirmed coronary artery disease based on
+  angiography (gold standard)).
+  - Yes = heart disease present
+  - No = no heart disease
 
 **Predictor Variables**
 
--   Age:
-    -    Patient age in years.
--   Sex:
-    -   1 = male
-    -   0 = female
--   ChestPain:
-    -   typical = typical angina (classic cardiac chest pain)
-    -   atypical = atypical angina
-    -   nonanginal = chest pain not due to heart
-    -   asymptomatic = no chest pain symptoms
--   RestBP – Resting Blood Pressure (mm Hg measured at rest)
--   Chol – Serum Cholesterol/Blood cholesterol level (mg/dL)
--   Fbs – Fasting Blood Sugar
-    -   1 = fasting glucose > 120 mg/dL
-    -   0 = normal
--   RestECG – Resting ECG Result
-    -   0 = normal
-    -   1 = ST-T wave abnormality
-    -   2 = left ventricular hypertrophy (LVH)
--   MaxHR – Maximum Heart Rate
-    -   Highest heart rate during exercise test (beats/min).
--   ExAng – Exercise-Induced Angina
-    -   1 = chest pain during exercise
-    -   0 = no chest pain
--   Oldpeak – ST Depression
-    -   Numeric measure of ECG change during exercise vs rest. Larger values suggest ischemia.
--   Slope – ST Segment Slope During Exercise (Flat/downsloping are more concerning)
-    -   1 = upsloping
-    -   2 = flat
-    -   3 = downsloping
--   Ca – Number of Major Coronary Vessels
-    -   Values: 0–3
-    -   Number of vessels with visible disease on angiography.
--   Thal – Thallium Stress Test Result
-    -   normal = normal blood flow
-    -   fixed = fixed defect (old infarct/scar)
-    -   reversible = reversible defect (ischemia under stress)
+- Age:
+  - Patient age in years.
+- Sex:
+  - 1 = male
+  - 0 = female
+- ChestPain:
+  - typical = typical angina (classic cardiac chest pain)
+  - atypical = atypical angina
+  - nonanginal = chest pain not due to heart
+  - asymptomatic = no chest pain symptoms
+- RestBP -- Resting Blood Pressure (mm Hg measured at rest)
+- Chol -- Serum Cholesterol/Blood cholesterol level (mg/dL)
+- Fbs -- Fasting Blood Sugar
+  - 1 = fasting glucose > 120 mg/dL
+  - 0 = normal
+- RestECG -- Resting ECG Result
+  - 0 = normal
+  - 1 = ST-T wave abnormality
+  - 2 = left ventricular hypertrophy (LVH)
+- MaxHR -- Maximum Heart Rate
+  - Highest heart rate during exercise test (beats/min).
+- ExAng -- Exercise-Induced Angina
+  - 1 = chest pain during exercise
+  - 0 = no chest pain
+- Oldpeak -- ST Depression
+  - Numeric measure of ECG change during exercise vs rest. Larger values suggest
+    ischemia.
+- Slope -- ST Segment Slope During Exercise (Flat/downsloping are more
+  concerning)
+  - 1 = upsloping
+  - 2 = flat
+  - 3 = downsloping
+- Ca -- Number of Major Coronary Vessels
+  - Values: 0--3
+  - Number of vessels with visible disease on angiography.
+- Thal -- Thallium Stress Test Result
+  - normal = normal blood flow
+  - fixed = fixed defect (old infarct/scar)
+  - reversible = reversible defect (ischemia under stress)
 
 ### Accessing the Cleveland Heart Disease dataset
 
-```{.r filename="my-report.qmd"}
+```r {filename="my-report.qmd"}
 hd_data <- readr::read_csv("https://raw.githubusercontent.com/DanMazJen/medicinsk-statistik/main/data/hd_data.csv")
 ```
 
-:::{.hidden}
+::: {.hidden}
 hd_data <- readr::read_csv("https://www.statlearning.com/s/Heart.csv")
 :::
 
@@ -136,93 +171,113 @@ hd_data <- readr::read_csv("https://www.statlearning.com/s/Heart.csv")
 
 **Description**
 
-This dataset is an extract from the 2001 Medical Expenditure Panel Survey (MEPS), providing information on ambulatory expenditures and various demographic and health-related variables. It has been used for illustrative examples by Cameron and Trivedi (2009, Chapter 16).
+This dataset is an extract from the 2001 Medical Expenditure Panel Survey
+(MEPS), providing information on ambulatory expenditures and various demographic
+and health-related variables. It has been used for illustrative examples by
+Cameron and Trivedi (2009, Chapter 16).
 
 **Format**
 
 A data frame with 3,328 observations on the following 22 variables.
 
--   educ: Education status
--   age: Age
--   income: Income
--   female: Gender
--   vgood: Self-reported health status, very good
--   good: Self-reported health status, good
--   hospexp: Hospital expenditures
--   totchr: Total number of chronic diseases
--   ffs: Family support
--   dhospexp: Dummy variable for hospital expenditures
--   age2: Age squared
--   agefem: Interaction between age and gender
--   fairpoor: Self-reported health status, fair or poor
--   year01: Year of survey
--   instype: Type of insurance
--   ambexp: Ambulatory expenditures
--   lambexp: Log of ambulatory expenditures
--    blhisp: Ethnicity
--   instype_s1: Insurance type, version 1
--   dambexp: Dummy variable for ambulatory expenditures
--   lnambx: Log-transformed ambulatory expenditures
--   ins: Insurance status
+- educ: Education status
+- age: Age
+- income: Income
+- female: Gender
+- vgood: Self-reported health status, very good
+- good: Self-reported health status, good
+- hospexp: Hospital expenditures
+- totchr: Total number of chronic diseases
+- ffs: Family support
+- dhospexp: Dummy variable for hospital expenditures
+- age2: Age squared
+- agefem: Interaction between age and gender
+- fairpoor: Self-reported health status, fair or poor
+- year01: Year of survey
+- instype: Type of insurance
+- ambexp: Ambulatory expenditures
+- lambexp: Log of ambulatory expenditures
+- blhisp: Ethnicity
+- instype_s1: Insurance type, version 1
+- dambexp: Dummy variable for ambulatory expenditures
+- lnambx: Log-transformed ambulatory expenditures
+- ins: Insurance status
 
 **Source**
 
-2001 Medical Expenditure Panel Survey by the Agency for Healthcare Research and Quality.
+2001 Medical Expenditure Panel Survey by the Agency for Healthcare Research and
+Quality.
 
 ### Accessing the Medical Expenditure Panel Survey dataset
 
-```{.r filename="my-report.qmd"}
+```r {filename="my-report.qmd"}
 meps2001 <- readr::read_csv("https://raw.githubusercontent.com/DanMazJen/medicinsk-statistik/main/data/meps2001.csv")
 ```
 
-:::{.hidden}
-https://github.com/cran/heckmanGE/blob/master/data/MEPS2001.rda
-data_url <- "https://raw.githubusercontent.com/cran/heckmanGE/master/data/MEPS2001.rda"
-load(url(data_url))
-meps2001 <- tibble::tibble(MEPS2001)
-rm(MEPS2001)
+::: {.hidden}
+https://github.com/cran/heckmanGE/blob/master/data/MEPS2001.rda data_url <-
+"https://raw.githubusercontent.com/cran/heckmanGE/master/data/MEPS2001.rda"
+load(url(data_url)) meps2001 <- tibble::tibble(MEPS2001) rm(MEPS2001)
 :::
 
 ## Mayo Clinic Primary Biliary Cholangitis Data {#sec-survival-data}
 
 **Description**
 
-Primary biliary cholangitis is an autoimmune disease leading to destruction of the small bile ducts in the liver. Progression is slow but inexhortable, eventually leading to cirrhosis and liver decompensation. The condition has been recognised since at least 1851 and was named "primary biliary cirrhosis" in 1949. Because cirrhosis is a feature only of advanced disease, a change of its name to "primary biliary cholangitis" was proposed by patient advocacy groups in 2014.
+Primary biliary cholangitis is an autoimmune disease leading to destruction of
+the small bile ducts in the liver. Progression is slow but inexhortable,
+eventually leading to cirrhosis and liver decompensation. The condition has been
+recognised since at least 1851 and was named "primary biliary cirrhosis" in
+1949. Because cirrhosis is a feature only of advanced disease, a change of its
+name to "primary biliary cholangitis" was proposed by patient advocacy groups in
+2014.
 
-This data is from the Mayo Clinic trial in PBC conducted between 1974 and 1984. A total of 424 PBC patients, referred to Mayo Clinic during that ten-year interval, met eligibility criteria for the randomized placebo controlled trial of the drug D-penicillamine. The first 312 cases in the data set participated in the randomized trial and contain largely complete data. The additional 112 cases did not participate in the clinical trial, but consented to have basic measurements recorded and to be followed for survival. Six of those cases were lost to follow-up shortly after diagnosis, so the data here are on an additional 106 cases as well as the 312 randomized participants.
+This data is from the Mayo Clinic trial in PBC conducted between 1974 and 1984.
+A total of 424 PBC patients, referred to Mayo Clinic during that ten-year
+interval, met eligibility criteria for the randomized placebo controlled trial
+of the drug D-penicillamine. The first 312 cases in the data set participated in
+the randomized trial and contain largely complete data. The additional 112 cases
+did not participate in the clinical trial, but consented to have basic
+measurements recorded and to be followed for survival. Six of those cases were
+lost to follow-up shortly after diagnosis, so the data here are on an additional
+106 cases as well as the 312 randomized participants.
 
-A nearly identical data set found in appendix D of Fleming and Harrington; this version has fewer missing values.
+A nearly identical data set found in appendix D of Fleming and Harrington; this
+version has fewer missing values.
 
 **Format**
 
--   age:	in years
--   albumin:	serum albumin (g/dl)
--   alk.phos:	alkaline phosphotase (U/liter)
--   ascites:	presence of ascites
--   ast:	aspartate aminotransferase, once called SGOT (U/ml)
--   bili:	serum bilirunbin (mg/dl)
--   chol:	serum cholesterol (mg/dl)
--   copper:	urine copper (ug/day)
--   edema:	0 no edema, 0.5 untreated or successfully treated, and 1 edema despite diuretic therapy
--   hepato:	presence of hepatomegaly or enlarged liver
--   id:	case number
--   platelet: platelet count
--   protime: standardised blood clotting time
--   sex: m/f
--   spiders: blood vessel malformations in the skin
--   stage: histologic stage of disease (needs biopsy)
--   status: status at endpoint, 0/1/2 for censored, transplant, dead
--   time: number of days between registration and the earlier of death, transplantion, or study analysis in July, 1986
--   trt: 1/2/NA for D-penicillmain, placebo, not randomised
--   trig: triglycerides (mg/dl)
+- age: in years
+- albumin: serum albumin (g/dl)
+- alk.phos: alkaline phosphotase (U/liter)
+- ascites: presence of ascites
+- ast: aspartate aminotransferase, once called SGOT (U/ml)
+- bili: serum bilirunbin (mg/dl)
+- chol: serum cholesterol (mg/dl)
+- copper: urine copper (ug/day)
+- edema: 0 no edema, 0.5 untreated or successfully treated, and 1 edema despite
+  diuretic therapy
+- hepato: presence of hepatomegaly or enlarged liver
+- id: case number
+- platelet: platelet count
+- protime: standardised blood clotting time
+- sex: m/f
+- spiders: blood vessel malformations in the skin
+- stage: histologic stage of disease (needs biopsy)
+- status: status at endpoint, 0/1/2 for censored, transplant, dead
+- time: number of days between registration and the earlier of death,
+  transplantion, or study analysis in July, 1986
+- trt: 1/2/NA for D-penicillmain, placebo, not randomised
+- trig: triglycerides (mg/dl)
 
 **Source**
 
-T Therneau and P Grambsch (2000), Modeling Survival Data: Extending the Cox Model, Springer-Verlag, New York. ISBN: 0-387-98784-3.
+T Therneau and P Grambsch (2000), Modeling Survival Data: Extending the Cox
+Model, Springer-Verlag, New York. ISBN: 0-387-98784-3.
 
 ### Accessing the Mayo Clinic Primary Biliary Cholangitis dataset
 
-```{.r filename="my-report.qmd"}
+```r {filename="my-report.qmd"}
 data(pbc, package="survival")
 pbc |>
     tibble::as.tibble()
@@ -232,106 +287,131 @@ pbc |>
 
 **Description**
 
-These data are from the study described in Belenky et al. (2003), for the most sleep-deprived group (3 hours time-in-bed) and for the first 10 days of the study, up to the recovery period. The original study analyzed speed (1/(reaction time)) and treated day as a categorical rather than a continuous predictor.
+These data are from the study described in Belenky et al. (2003), for the most
+sleep-deprived group (3 hours time-in-bed) and for the first 10 days of the
+study, up to the recovery period. The original study analyzed speed (1/(reaction
+time)) and treated day as a categorical rather than a continuous predictor.
 
-The average reaction time per day (in milliseconds) for subjects in a sleep deprivation study.
+The average reaction time per day (in milliseconds) for subjects in a sleep
+deprivation study.
 
-Days 0-1 were adaptation and training (T1/T2), day 2 was baseline (B); sleep deprivation started after day 2.
+Days 0-1 were adaptation and training (T1/T2), day 2 was baseline (B); sleep
+deprivation started after day 2.
 
 **Format**
 
 A data frame with 180 observations on the following 3 variables.
 
--   Reaction: Average reaction time (ms)
--   Days: Number of days of sleep deprivation
--   Subject: Subject number on which the observation was made.
+- Reaction: Average reaction time (ms)
+- Days: Number of days of sleep deprivation
+- Subject: Subject number on which the observation was made.
 
 **Source**
 
-Gregory Belenky, Nancy J. Wesensten, David R. Thorne, Maria L. Thomas, Helen C. Sing, Daniel P. Redmond, Michael B. Russo and Thomas J. Balkin (2003) Patterns of performance degradation and restoration during sleep restriction and subsequent recovery: a sleep dose-response study. Journal of Sleep Research 12, 1–12.
+Gregory Belenky, Nancy J. Wesensten, David R. Thorne, Maria L. Thomas, Helen C.
+Sing, Daniel P. Redmond, Michael B. Russo and Thomas J. Balkin (2003) Patterns
+of performance degradation and restoration during sleep restriction and
+subsequent recovery: a sleep dose-response study. Journal of Sleep Research 12,
+1--12.
 
 ### Accessing the Sleep study dataset
 
 In order to access the dataset, we suggest using:
 
-```{.r filename="my-report.qmd"}
+```r {filename="my-report.qmd"}
 sleepstudy <- readr::read_csv("https://raw.githubusercontent.com/DanMazJen/medicinsk-statistik/main/data/sleepstudy.csv")
 ```
 
-:::{.hidden}
-data_url <- "https://raw.githubusercontent.com/cran/lme4/master/data/sleepstudy.rda"
-load(url(data_url))
-head(sleepstudy)
+::: {.hidden}
+data_url <-
+"https://raw.githubusercontent.com/cran/lme4/master/data/sleepstudy.rda"
+load(url(data_url)) head(sleepstudy)
 :::
 
 ## Diabetes {#sec-diabetes-data}
 
 **Description**
 
-This dataset provides information on serum uric acid levels and cardiovascular disease risk factors, as well as basic demographic information.
-High blood concentrations of uric acid can lead to gout and are associated with other medical conditions, including diabetes and the formation of ammonium acid urate kidney stones.
-It was a retrospective cohort study conducted every two years from 2010 to 2018 in Hangzhou, Zhejiang Province, Southeastern China.
-6119 participants aged 40 years and above who underwent at least three times of physical examinations were enrolled.
-
+This dataset provides information on serum uric acid levels and cardiovascular
+disease risk factors, as well as basic demographic information. High blood
+concentrations of uric acid can lead to gout and are associated with other
+medical conditions, including diabetes and the formation of ammonium acid urate
+kidney stones. It was a retrospective cohort study conducted every two years
+from 2010 to 2018 in Hangzhou, Zhejiang Province, Southeastern China. 6119
+participants aged 40 years and above who underwent at least three times of
+physical examinations were enrolled.
 
 **Format**
 
--   ID: Unique identifier for each participant
--   Age: Age of the participant in years
--   Sex: Gender of the participant (1.Male /2.Female)
--   BMI: Body Mass Index of the participant
--   SBP/DBP: Blood pressure readings of the participant (Systolic/Diastolic)
--   FBG: Fasting blood glucose of the participants
--   TC: Cholesterol level of the participant
--   Cr: Serum creatinine of the participants
--   GFR: Glomerular filtration rate of participants
--   UA: Measurement of serum uric acid level in the participant's blood
--   Times: Number of medical follow-up visits for participants
--   Hypertension: Participants with or without hypertension (1.No/2.Yes)
--   Hyperglycemia: Participants with or without hyperglycemia (1.No/2.Yes)
--   Dyslipidemia: Participants with or without dyslipidemia (1.No/2.Yes)
+- ID: Unique identifier for each participant
+- Age: Age of the participant in years
+- Sex: Gender of the participant (1.Male /2.Female)
+- BMI: Body Mass Index of the participant
+- SBP/DBP: Blood pressure readings of the participant (Systolic/Diastolic)
+- FBG: Fasting blood glucose of the participants
+- TC: Cholesterol level of the participant
+- Cr: Serum creatinine of the participants
+- GFR: Glomerular filtration rate of participants
+- UA: Measurement of serum uric acid level in the participant's blood
+- Times: Number of medical follow-up visits for participants
+- Hypertension: Participants with or without hypertension (1.No/2.Yes)
+- Hyperglycemia: Participants with or without hyperglycemia (1.No/2.Yes)
+- Dyslipidemia: Participants with or without dyslipidemia (1.No/2.Yes)
 
 **Source**
 
 https://zenodo.org/records/8292712/files/SUA_CVDs_risk_factors.csv
 
-Luo, Y., Wu, Q., Meng, R., Lian, F., Jiang, C., Hu, M., Wang, Y., & Ma, H. (2023). Associations of serum uric acid with cardiovascular disease risk factors: a retrospective cohort study in Southeastern China [Data set]. Zenodo. https://doi.org/10.5061/dryad.z08kprrk1
+Luo, Y., Wu, Q., Meng, R., Lian, F., Jiang, C., Hu, M., Wang, Y., & Ma, H.
+(2023). Associations of serum uric acid with cardiovascular disease risk
+factors: a retrospective cohort study in Southeastern China [Data set]. Zenodo.
+https://doi.org/10.5061/dryad.z08kprrk1
 
-See the Zenodo record [https://zenodo.org/records/8292712](https://zenodo.org/records/8292712)
+See the Zenodo record
+[https://zenodo.org/records/8292712](https://zenodo.org/records/8292712)
 
 ### Accessing the diabetes2 dataset
 
 In order to access the dataset, we suggest using:
 
-```{.r filename="my-report.qmd"}
+```r {filename="my-report.qmd"}
 SUA_data <- readr::read_csv("https://zenodo.org/records/8292712/files/SUA_CVDs_risk_factors.csv")
 ```
 
-##  Cognitive weight loss intervention {#sec-weight-data}
+## Cognitive weight loss intervention {#sec-weight-data}
 
-**Description**
-Horan and Johnson randomly assigned 80 women who were between “20 per cent and 30 per cent overweight” into four groups for weight loss. In the horan1971 data, these four groups are differentiated in the treatment column, which is coded
+**Description** Horan and Johnson randomly assigned 80 women who were between
+"20 per cent and 30 per cent overweight" into four groups for weight loss. In
+the horan1971 data, these four groups are differentiated in the treatment
+column, which is coded
 
--   delayed, a “delayed treatment control” (i.e., wait-list control), the members of which received an active treatment after the study;
--   placebo, a minimalist intervention where participants were given basic information about nutrition and weight-loss strategies;
--   scheduled, an active treatment that added a cognitive element to the information from the placebo group; and
--   experimental, which added a full behavioral element (based on the Premack principle) to the placebo intervention.
+- delayed, a "delayed treatment control" (i.e., wait-list control), the members
+  of which received an active treatment after the study;
+- placebo, a minimalist intervention where participants were given basic
+  information about nutrition and weight-loss strategies;
+- scheduled, an active treatment that added a cognitive element to the
+  information from the placebo group; and
+- experimental, which added a full behavioral element (based on the Premack
+  principle) to the placebo intervention.
 
 **Format**
 
--   sl: subject as a letter ID
--   sn: subject as a number ID
--   treatment: delayed", "placebo", "scheduled", "experimental
--   pre: weight before intervention, measured in pounds
--   post: weight after intervention, measured in pounds
+- sl: subject as a letter ID
+- sn: subject as a number ID
+- treatment: delayed", "placebo", "scheduled", "experimental
+- pre: weight before intervention, measured in pounds
+- post: weight after intervention, measured in pounds
 
 **Source**
 
-Horan, J. J., & Johnson, R. G. (1971). Coverant conditioning through a self-management application of the Premack principle: Its effect on weight reduction. Journal of Behavior Therapy and Experimental Psychiatry, 2(4), 243–249. [link](https://doi.org/10.1016/0005-7916(71)90040-1)
+Horan, J. J., & Johnson, R. G. (1971). Coverant conditioning through a
+self-management application of the Premack principle: Its effect on weight
+reduction. Journal of Behavior Therapy and Experimental Psychiatry, 2(4),
+243--249. [link](https://doi.org/10.1016/0005-7916(71)90040-1)
 
 ### Accessing the Cognitive weight loss intervention dataset
 
-```{.r filename="my-report.qmd"}
+```r {filename="my-report.qmd"}
 # Constructing the data yourself using `tibble`:
 horan1971 <- tibble::tibble(
   sl = c(letters[1:22], letters[1:20], letters[1:19], letters[1:19]),
@@ -348,37 +428,42 @@ horan1971 <- tibble::tibble(
   dplyr::mutate(treatment = factor(treatment, labels = c("delayed", "placebo", "scheduled", "experimental")))
 ```
 
-
 ## FEV1 data {#sec-fev1-data}
 
 **Description**
 
-It is an artificial (simulated) dataset of a clinical trial investigating the effect of an active treatment on FEV1 (forced expired volume in one second), compared to placebo. FEV1 is a measure of how quickly the lungs can be emptied and low levels may indicate chronic obstructive pulmonary disease (COPD).
-
+It is an artificial (simulated) dataset of a clinical trial investigating the
+effect of an active treatment on FEV1 (forced expired volume in one second),
+compared to placebo. FEV1 is a measure of how quickly the lungs can be emptied
+and low levels may indicate chronic obstructive pulmonary disease (COPD).
 
 **Format**
 
 The dataset is a tibble with 800 rows and the following notable variables:
 
--   USUBJID (subject ID)
--   AVISIT (visit number, factor)
--   VISITN (visit number, numeric)
--   ARMCD (treatment, TRT or PBO)
--   RACE (3-category race)
--   SEX (female or male)
--   FEV1_BL (FEV1 at baseline, %)
--   FEV1 (FEV1 at study visits)
--   WEIGHT (weighting variable, z-scored?)
+- USUBJID (subject ID)
+- AVISIT (visit number, factor)
+- VISITN (visit number, numeric)
+- ARMCD (treatment, TRT or PBO)
+- RACE (3-category race)
+- SEX (female or male)
+- FEV1_BL (FEV1 at baseline, %)
+- FEV1 (FEV1 at study visits)
+- WEIGHT (weighting variable, z-scored?)
 
-The primary endpoint for the analysis is change from baseline in FEV1, which we derive ourselves and denote FEV1_CHG.
+The primary endpoint for the analysis is change from baseline in FEV1, which we
+derive ourselves and denote FEV1_CHG.
 
 **Source**
 
-This is an artificial dataset made within a collaboration by people from major pharmaceutical companies, such as Eli Lilly and Company, Boehringer Ingelheim Pharma GmbH & Co, Gilead Sciences, Inc., F. Hoffmann-La Roche AG, Merck Sharp & Dohme, Inc., AstraZeneca plc, and inferential.biostatistics GmbH.
+This is an artificial dataset made within a collaboration by people from major
+pharmaceutical companies, such as Eli Lilly and Company, Boehringer Ingelheim
+Pharma GmbH & Co, Gilead Sciences, Inc., F. Hoffmann-La Roche AG, Merck Sharp &
+Dohme, Inc., AstraZeneca plc, and inferential.biostatistics GmbH.
 
 ### Accessing the FEV1 dataset
 
-```{.r filename="my-report.qmd"}
+```r {filename="my-report.qmd"}
 # Importing the data:
 fev_data <- readr::read_csv("https://raw.githubusercontent.com/DanMazJen/medicinsk-statistik/main/data/fev_data.csv")
 # Make it a tibble:
@@ -386,44 +471,57 @@ fev_data |>
     tibble::tibble()
 ```
 
-:::{.hidden}
-https://github.com/openpharma/mmrm/blob/main/data/fev_data.rda
-data_url <- "https://raw.githubusercontent.com/openpharma/mmrm/main/data/fev_data.rda"
-load(url(data_url))
-fev_data |> tibble::tibble()
+::: {.hidden}
+https://github.com/openpharma/mmrm/blob/main/data/fev_data.rda data_url <-
+"https://raw.githubusercontent.com/openpharma/mmrm/main/data/fev_data.rda"
+load(url(data_url)) fev_data \|> tibble::tibble()
 :::
-
-
 
 ## Messidor diabetic retinopathy {#sec-retinopathy-data}
 
 **Description**
 
-This dataset contains features extracted from the Messidor image set to predict whether an image contains signs of diabetic retinopathy or not.
+This dataset contains features extracted from the Messidor image set to predict
+whether an image contains signs of diabetic retinopathy or not.
 
-The Messidor image set is available at [http://messidor.crihan.fr/index-en.php](http://messidor.crihan.fr/index-en.php).
-
+The Messidor image set is available at
+[http://messidor.crihan.fr/index-en.php](http://messidor.crihan.fr/index-en.php).
 
 **Format**
 
--   quality: The binary result of quality assessment. 0 = bad quality 1 = sufficient quality.
--   pre_screening: The binary result of pre-screening, where 1 indicates severe retinal abnormality and 0 its lack.
--   ma1 through ma6: contain the results of MA detection. Each feature value stand for the number of MAs found at the confidence levels alpha = 0.5, . . . , 1, respectively.
--   exudate1 through exudate8: contain the same information as ma1 through ma6 for exudates. However, as exudates are represented by a set of points rather than the number of pixels constructing the lesions, these features are normalized by dividing the number of lesions with the diameter of the ROI to compensate different image sizes.
--   macula_opticdisc_distance: The euclidean distance of the center of the macula and the center of the optic disc to provide important information regarding the patient's condition. This feature is also normalized with the diameter of the ROI.
--   opticdisc_diameter: The diameter of the optic disc.
--   am_fm_classification: The binary result of the AM/FM-based classification.
--   Class: label. 1 = contains signs of diabetic retinopathy (Accumulative label for the Messidor classes 1, 2, 3), 0 = no signs of diabetic retinopathy.
+- quality: The binary result of quality assessment. 0 = bad quality 1 =
+  sufficient quality.
+- pre_screening: The binary result of pre-screening, where 1 indicates severe
+  retinal abnormality and 0 its lack.
+- ma1 through ma6: contain the results of MA detection. Each feature value stand
+  for the number of MAs found at the confidence levels alpha = 0.5, . . . , 1,
+  respectively.
+- exudate1 through exudate8: contain the same information as ma1 through ma6 for
+  exudates. However, as exudates are represented by a set of points rather than
+  the number of pixels constructing the lesions, these features are normalized
+  by dividing the number of lesions with the diameter of the ROI to compensate
+  different image sizes.
+- macula_opticdisc_distance: The euclidean distance of the center of the macula
+  and the center of the optic disc to provide important information regarding
+  the patient's condition. This feature is also normalized with the diameter of
+  the ROI.
+- opticdisc_diameter: The diameter of the optic disc.
+- am_fm_classification: The binary result of the AM/FM-based classification.
+- Class: label. 1 = contains signs of diabetic retinopathy (Accumulative label
+  for the Messidor classes 1, 2, 3), 0 = no signs of diabetic retinopathy.
 
 **Source**
 
-Antal, B., & Hajdu, A. (2014). An ensemble-based system for automatic screening of diabetic retinopathy. Knowledge-based systems, 60, 20-27. [link](https://dl.acm.org/doi/abs/10.1016/j.knosys.2013.12.023)
+Antal, B., & Hajdu, A. (2014). An ensemble-based system for automatic screening
+of diabetic retinopathy. Knowledge-based systems, 60, 20-27.
+[link](https://dl.acm.org/doi/abs/10.1016/j.knosys.2013.12.023)
 
-DOI of the dataset: [10.24432/C5XP4P](10.24432/C5XP4P) and [link](https://archive.ics.uci.edu/dataset/329/diabetic+retinopathy+debrecen)
+DOI of the dataset: [10.24432/C5XP4P](10.24432/C5XP4P) and
+[link](https://archive.ics.uci.edu/dataset/329/diabetic+retinopathy+debrecen)
 
 ### Accessing the Messidor diabetic retinopathy dataset
 
-```{.r filename="my-report.qmd"}
+```r {filename="my-report.qmd"}
 # Importing the data:
 messidor <- readr::read_csv("https://raw.githubusercontent.com/DanMazJen/medicinsk-statistik/main/data/messidor.csv")
 # Make it a tibble:
@@ -435,80 +533,108 @@ messidor |>
 
 **Description**
 
-The framingham heart study began in 1948 for regular surveillance of clinical examinations and heart health outcomes of patients in Framingham, Massechusettes. The dataset we host contains laboratory and clinical data on a subset of the study from 1956-1968.
+The framingham heart study began in 1948 for regular surveillance of clinical
+examinations and heart health outcomes of patients in Framingham,
+Massechusettes. The dataset we host contains laboratory and clinical data on a
+subset of the study from 1956-1968.
 
-The data is provided in Longitudinal form. Each participant has 1 to 3 observations depending
-on the number of exams the subject attended, and as a result there are 11,627 observations on
-the 4,434 participants. Event data for each participant has been added without regard for
-prevalent disease status or when examination data was collected. For example, consider the
-following participant:
+The data is provided in Longitudinal form. Each participant has 1 to 3
+observations depending on the number of exams the subject attended, and as a
+result there are 11,627 observations on the 4,434 participants. Event data for
+each participant has been added without regard for prevalent disease status or
+when examination data was collected. For example, consider the following
+participant:
 
-|RANDID | age | SEX |time  | period | prevchd | mi_fchd | timemifc |
-|95148  | 52  | 2   | 0    | 1      | 0       | 1       | 3607     |
-|95148  | 58  | 2   | 2128 | 2      | 0       | 1       | 3607     |
-|95148  | 64  | 2   | 4192 | 3      | 1       | 1       | 3607     |
+\|RANDID \| age \| SEX \|time \| period \| prevchd \| mi_fchd \| timemifc \|
+\|95148 \| 52 \| 2 \| 0 \| 1 \| 0 \| 1 \| 3607 \| \|95148 \| 58 \| 2 \| 2128 \|
+2 \| 0 \| 1 \| 3607 \| \|95148 \| 64 \| 2 \| 4192 \| 3 \| 1 \| 1 \| 3607 \|
 
-Participant `95148` entered the study (`time`=0 or `period`=1) free of prevalent coronary heart
-disease (`prevchd`=0 at `period`=1); however, during followup, an MI event occurred at day 3607
-following the baseline examination. The MI occurred after the second exam the subject attended
-(`period`=2 or `time`=2128 days), but before the third attended exam (`period`=3 or `time`=4192
-days). Since the event occurred prior to the third exam, the subject was prevalent for CHD
-(`prevchd`=1) at the third examination. Note that the event data (`mi_fchd`, `timemifc`) covers the
-entire followup period and does not change according to exam.
+Participant `95148` entered the study (`time`=0 or `period`=1) free of prevalent
+coronary heart disease (`prevchd`=0 at `period`=1); however, during followup, an
+MI event occurred at day 3607 following the baseline examination. The MI
+occurred after the second exam the subject attended (`period`=2 or `time`=2128
+days), but before the third attended exam (`period`=3 or `time`=4192 days).
+Since the event occurred prior to the third exam, the subject was prevalent for
+CHD (`prevchd`=1) at the third examination. Note that the event data (`mi_fchd`,
+`timemifc`) covers the entire followup period and does not change according to
+exam.
 
 **Format**
 
--   RANDID: Unique identification number for each participant
--   SEX Participant sex 1=Men 2=Women
--   PERIOD Examination Cycle 1=Period 1 2=Period 2 3=Period 3
--   TIME Number of days since baseline exam
--   AGE Age at exam (years)
--   SYSBP Systolic Blood Pressure (mean of last two of three measurements) (mmHg)
--   DIABP Diastolic Blood Pressure (mean of last two of three measurements) (mmHg)
--   BPMEDS Use of Anti-hypertensive medication at exam 0=Not currently used 1=Current Use
--   CURSMOKE Current cigarette smoking at exam 0=Not current smoker 1=Current smoker
--   CIGPDAY Number of cigarettes smoked each day 0=Not current smoker 1-90 cigarettes per day
--   EDUC Attained Education 1=0-11 years 2=High School Diploma, GED 3=Some College, Vocational School 4=College (BSc, BArt) degree or more
--   TOTCHOL Serum Total Cholesterol (mg/dL)
--   HDLC High Density Lipoprotein Cholesterol (mg/dL) available for period 3 only
--   LDLC Low Density Lipoprotein Cholesterol (mg/dL) available for period 3 only
--   BMI Body Mass Index, weight in kilograms/height meters squared
--   LUCOSE Casual serum glucose (mg/dL)
--   DIABETES Diabetic according to criteria of first exam treated or first exam with casual glucose of 200 mg/dL or more 0=Not a diabetic 1=Diabetic
--   HEARTRTE Heart rate (Ventricular rate) in beats/min
--   PREVAP Prevalent Angina Pectoris at exam 0=Free of disease 1=Prevalent disease
--   PREVCHD Prevalent Coronary Heart Disease defined as pre-existing Angina Pectoris, Myocardial Infarction (hospitalized, silent or unrecognized), or Coronary Insufficiency (unstable angina) 0=Free of disease 1=Prevalent disease
--   PREVMI Prevalent Myocardial Infarction 0=Free of disease 1=Prevalent disease
--   PREVSTRK Prevalent Stroke 0=Free of disease 1=Prevalent disease
--   PREVHYP Prevalent Hypertensive. Subject was defined as hypertensive if treated or if second exam at which mean systolic was >=140 mmHg or mean Diastolic >=90 mmHg 0=Free of disease 1=Prevalent disease
--   ANGINA Angina Pectoris HOSPMI Hospitalized Myocardial Infarction
--   MI_FCHD Hospitalized Myocardial Infarction or Fatal Coronary Heart Disease
--   ANYCHD Angina Pectoris, Myocardial infarction (Hospitalized and silent or unrecognized), Coronary Insufficiency (Unstable Angina), or Fatal Coronary Heart Disease
--   STROKE Atherothrombotic infarction, Cerebral Embolism, Intracerebral Hemorrhage, or Subarachnoid Hemorrhage or Fatal Cerebrovascular Disease
--   CVD Myocardial infarction (Hospitalized and silent or unrecognized), Fatal Coronary Heart Disease, Atherothrombotic infarction, Cerebral Embolism, Intracerebral Hemorrhage, or Subarachnoid Hemorrhage or Fatal Cerebrovascular Disease
--   HYPERTEN Hypertensive. Defined as the first exam treated for high blood pressure or second exam in which either Systolic is >= 140 mmHg or Diastolic <= 90mmHg
--   DEATH Death from any cause
--   TIMEAP Number of days from Baseline exam to first Angina during the followup or Number of days from Baseline to censor date. Censor date may be end of followup, death or last known contact date if subject is lost to followup
--   TIMEMI Defined as above for the first
--   HOSPMI event during followup
--   TIMEMIFC Defined as above for the first
--   MI_FCHD event during followup
--   TIMECHD Defined as above for the first
--   ANYCHD event during followup
--   TIMESTRK Defined as above for the first STROKE event during followup
--   TIMECVD Defined as above for the first CVD event during followup
--   TIMEHYP Defined as above for the first HYPERTEN event during followup
--   TIMEDTH Number of days from Baseline exam to death if occurring during followup or Number of days from Baseline to censor date. Censor date may be end of followup, or last known contact date if subject is lost to followup
+- RANDID: Unique identification number for each participant
+- SEX Participant sex 1=Men 2=Women
+- PERIOD Examination Cycle 1=Period 1 2=Period 2 3=Period 3
+- TIME Number of days since baseline exam
+- AGE Age at exam (years)
+- SYSBP Systolic Blood Pressure (mean of last two of three measurements) (mmHg)
+- DIABP Diastolic Blood Pressure (mean of last two of three measurements) (mmHg)
+- BPMEDS Use of Anti-hypertensive medication at exam 0=Not currently used
+  1=Current Use
+- CURSMOKE Current cigarette smoking at exam 0=Not current smoker 1=Current
+  smoker
+- CIGPDAY Number of cigarettes smoked each day 0=Not current smoker 1-90
+  cigarettes per day
+- EDUC Attained Education 1=0-11 years 2=High School Diploma, GED 3=Some
+  College, Vocational School 4=College (BSc, BArt) degree or more
+- TOTCHOL Serum Total Cholesterol (mg/dL)
+- HDLC High Density Lipoprotein Cholesterol (mg/dL) available for period 3 only
+- LDLC Low Density Lipoprotein Cholesterol (mg/dL) available for period 3 only
+- BMI Body Mass Index, weight in kilograms/height meters squared
+- LUCOSE Casual serum glucose (mg/dL)
+- DIABETES Diabetic according to criteria of first exam treated or first exam
+  with casual glucose of 200 mg/dL or more 0=Not a diabetic 1=Diabetic
+- HEARTRTE Heart rate (Ventricular rate) in beats/min
+- PREVAP Prevalent Angina Pectoris at exam 0=Free of disease 1=Prevalent disease
+- PREVCHD Prevalent Coronary Heart Disease defined as pre-existing Angina
+  Pectoris, Myocardial Infarction (hospitalized, silent or unrecognized), or
+  Coronary Insufficiency (unstable angina) 0=Free of disease 1=Prevalent disease
+- PREVMI Prevalent Myocardial Infarction 0=Free of disease 1=Prevalent disease
+- PREVSTRK Prevalent Stroke 0=Free of disease 1=Prevalent disease
+- PREVHYP Prevalent Hypertensive. Subject was defined as hypertensive if treated
+  or if second exam at which mean systolic was >=140 mmHg or mean Diastolic >=90
+  mmHg 0=Free of disease 1=Prevalent disease
+- ANGINA Angina Pectoris HOSPMI Hospitalized Myocardial Infarction
+- MI_FCHD Hospitalized Myocardial Infarction or Fatal Coronary Heart Disease
+- ANYCHD Angina Pectoris, Myocardial infarction (Hospitalized and silent or
+  unrecognized), Coronary Insufficiency (Unstable Angina), or Fatal Coronary
+  Heart Disease
+- STROKE Atherothrombotic infarction, Cerebral Embolism, Intracerebral
+  Hemorrhage, or Subarachnoid Hemorrhage or Fatal Cerebrovascular Disease
+- CVD Myocardial infarction (Hospitalized and silent or unrecognized), Fatal
+  Coronary Heart Disease, Atherothrombotic infarction, Cerebral Embolism,
+  Intracerebral Hemorrhage, or Subarachnoid Hemorrhage or Fatal Cerebrovascular
+  Disease
+- HYPERTEN Hypertensive. Defined as the first exam treated for high blood
+  pressure or second exam in which either Systolic is >= 140 mmHg or Diastolic
+  <= 90mmHg
+- DEATH Death from any cause
+- TIMEAP Number of days from Baseline exam to first Angina during the followup
+  or Number of days from Baseline to censor date. Censor date may be end of
+  followup, death or last known contact date if subject is lost to followup
+- TIMEMI Defined as above for the first
+- HOSPMI event during followup
+- TIMEMIFC Defined as above for the first
+- MI_FCHD event during followup
+- TIMECHD Defined as above for the first
+- ANYCHD event during followup
+- TIMESTRK Defined as above for the first STROKE event during followup
+- TIMECVD Defined as above for the first CVD event during followup
+- TIMEHYP Defined as above for the first HYPERTEN event during followup
+- TIMEDTH Number of days from Baseline exam to death if occurring during
+  followup or Number of days from Baseline to censor date. Censor date may be
+  end of followup, or last known contact date if subject is lost to followup
 
 **Source**
 
 https://www.framinghamheartstudy.org/
 
-This dataset is the teaching dataset from the Framingham Heart Study (No. N01-HC-25195), provided with permission from #' the National Heart, Lung, and Blood Institute (NHLBI).
+This dataset is the teaching dataset from the Framingham Heart Study (No.
+N01-HC-25195), provided with permission from #' the National Heart, Lung, and
+Blood Institute (NHLBI).
 
 ### Accessing the Framingham Heart Disease dataset
 
-```{.r filename="my-report.qmd"}
+```r {filename="my-report.qmd"}
 # Importing the data:
 framingham2 <- readr::read_csv("https://raw.githubusercontent.com/DanMazJen/medicinsk-statistik/main/data/framingham2.csv")
 # Make it a tibble:
@@ -516,76 +642,94 @@ framingham2 |>
     tibble::tibble()
 ```
 
+## Epilepsy Clinical Trial {#sec-Epilepsy-data}
 
+**Description**
 
+This dataset contains seizure counts from a randomized clinical trial involving
+59 patients with epilepsy. Before treatment, each patient's seizures were
+recorded over an 8-week baseline period to assess disease severity. Patients
+were then randomly assigned to receive either progabide or placebo, and seizure
+counts were subsequently recorded during **four consecutive 2-week follow-up
+periods** (8 weeks total).
 
+The objective is to evaluate whether progabide reduces seizure frequency
+compared with placebo.
 
+**Outcome Variable**
 
+- `seizure_count` -- Number of Seizures in 8 weeks
 
+**Predictor Variables**
 
+- `drug` --- random assignment of `progabide` or `placebo`
+- `baseline_seizures` --- Total number of seizures recorded during the **8-week
+  baseline period** before treatment.
+- `age` --- Patient age in years.
+- `period` --- Four consecutive 2-week periods following randomization.
+- `subject` --- Unique patient identifier.
 
+**Reference**
+
+Thall, P. F., & Vail, S. C. (1990). *Some covariance models for longitudinal
+count data with overdispersion.* Biometrics.
 
 ::: {.hidden}
 ##################################################################################
-#########################################  NOTE USED!!!!!!!  #########################################
+######################################### NOTE USED!!!!!!!
+#########################################
 ##################################################################################
-
 
 Not incl.
 
--   Diabetes study1
--   Framingham Heart Study
--   ???NHANES (National Health and Nutrition Examination Survey)
-
+- Diabetes study1
+- Framingham Heart Study
+- ???NHANES (National Health and Nutrition Examination Survey)
 
 ## Diabetes1
 
 https://zenodo.org/records/4989220
 
-**Study context**
-This dataset comes from a physiological study of early (cephalic) insulin secretion in humans.
-Participants were 31 individuals with or without a family history of type 2 diabetes (FDR) and with varying glucose tolerance status.
+**Study context** This dataset comes from a physiological study of early
+(cephalic) insulin secretion in humans. Participants were 31 individuals with or
+without a family history of type 2 diabetes (FDR) and with varying glucose
+tolerance status.
 
-The study measured glucose, insulin, and C-peptide repeatedly during an oral glucose tolerance test (OGTT), including very early time points (before blood glucose rises).
+The study measured glucose, insulin, and C-peptide repeatedly during an oral
+glucose tolerance test (OGTT), including very early time points (before blood
+glucose rises).
 
-**Study Design**
-Subjects: 31 healthy individuals
+**Study Design** Subjects: 31 healthy individuals
 
-Groups:
-Controls (no family history of diabetes)
-FDR (first-degree relatives of T2D patients)
+Groups: Controls (no family history of diabetes) FDR (first-degree relatives of
+T2D patients)
 
-Procedure:
-Fasting blood samples
-Oral glucose tolerance test (OGTT)
-Very frequent sampling in the first minutes to capture cephalic phase insulin secretion
+Procedure: Fasting blood samples Oral glucose tolerance test (OGTT) Very
+frequent sampling in the first minutes to capture cephalic phase insulin
+secretion
 
-Core Physiological Concepts
-Cephalic Phase Insulin Secretion
+Core Physiological Concepts Cephalic Phase Insulin Secretion
 
 Early insulin release before glucose rises
 
 Triggered by taste, smell, and neural signals
 
-Occurs in the first 5–10 minutes of eating
+Occurs in the first 5--10 minutes of eating
 
 Post-absorptive Phase
 
-Insulin release after glucose enters bloodstream (30–120 min)
+Insulin release after glucose enters bloodstream (30--120 min)
 
-**Variable Groups and Meaning**
-Subject Identifiers and Grouping
--   OFS.ID / id - Subject identifier.
--   Group
-    -   FDR = first-degree relative of type 2 diabetes patient
-    -   CTRL (or similar) = control subject
--   glykemi
-    -   Glucose tolerance category (e.g., normal vs impaired fasting glucose / impaired glucose tolerance).
+**Variable Groups and Meaning** Subject Identifiers and Grouping - OFS.ID / id -
+Subject identifier. - Group - FDR = first-degree relative of type 2 diabetes
+patient - CTRL (or similar) = control subject - glykemi - Glucose tolerance
+category (e.g., normal vs impaired fasting glucose / impaired glucose
+tolerance).
 
 Anthropometry and Body Composition
 
--   Age in years.
--   BMI: Body mass index (kg/m²).
+- Age in years.
+- BMI: Body mass index (kg/m²).
 
 Length
 
@@ -621,8 +765,7 @@ FS.Insulin.screen
 
 Fasting serum insulin (pmol/L or mU/L depending on lab).
 
-OGTT Glucose Measurements
-Plasma glucose during OGTT (mmol/L)
+OGTT Glucose Measurements Plasma glucose during OGTT (mmol/L)
 
 P.Glucose.0.OGTT
 
@@ -632,35 +775,33 @@ P.Glucose.30, 60, 90, 120.OGTT
 
 Glucose at 30, 60, 90, 120 minutes after glucose load.
 
-PG.5, PG.10, PG.15, … PG.120
+PG.5, PG.10, PG.15, ... PG.120
 
 High-frequency glucose measurements (minutes).
 
 Used to detect very early glucose dynamics.
 
-OGTT Insulin Measurements
-Serum insulin during OGTT (pmol/L or mU/L)
+OGTT Insulin Measurements Serum insulin during OGTT (pmol/L or mU/L)
 
 Insulin.0, 30, 60, 90, 120.OGTT
 
 Standard OGTT insulin time points.
 
-Insulin.5, Insulin.10, Insulin.15, … Insulin.120
+Insulin.5, Insulin.10, Insulin.15, ... Insulin.120
 
 High-frequency insulin measurements.
 
-Critical for cephalic phase detection (0–10 min).
+Critical for cephalic phase detection (0--10 min).
 
 C-Peptide Measurements
 
-CP.5, CP.10, CP.15, … CP.120
+CP.5, CP.10, CP.15, ... CP.120
 
 C-peptide concentrations over time.
 
 Reflect endogenous insulin secretion (not affected by hepatic extraction).
 
-Derived Kinetic and Summary Variables
-Area Under the Curve (AUC)
+Derived Kinetic and Summary Variables Area Under the Curve (AUC)
 
 auc_pg, auc_ins, auc_cp
 
@@ -676,7 +817,7 @@ Early (Cephalic Phase) AUC
 
 iauc_pg_e, iauc_ins_e, iauc_cp_e
 
-Incremental AUC in early phase (e.g., 0–10 or 0–15 min).
+Incremental AUC in early phase (e.g., 0--10 or 0--15 min).
 
 Used to quantify cephalic insulin secretion.
 
@@ -686,16 +827,15 @@ kef_glu, kef_ins, kef_cp
 
 Model-based parameters describing dynamic response rates (study-specific).
 
-
-**Source:**
-Eliasson, Björn et al. (2017), Cephalic phase of insulin secretion in response to a meal is unrelated to family history of type 2 diabetes, PLOS ONE, Article-journal, https://doi.org/10.1371/journal.pone.0173654
-
+**Source:** Eliasson, Björn et al. (2017), Cephalic phase of insulin secretion
+in response to a meal is unrelated to family history of type 2 diabetes, PLOS
+ONE, Article-journal, https://doi.org/10.1371/journal.pone.0173654
 
 ### Accessing the Diabetes1 dataset
 
 In order to access the dataset, we suggest using:
 
-```{.r filename="my-report.qmd"}
+```r {filename="my-report.qmd"}
 # https://datadryad.org/dataset/doi:10.5061/dryad.96320
 # https://zenodo.org/records/4989220
 post_meal_insulin <- readr::read_csv2("https://zenodo.org/records/4989220/files/Eliasson_data2.csv?download=1")

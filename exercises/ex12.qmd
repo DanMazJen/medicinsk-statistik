@@ -4,7 +4,7 @@
 ## Conditional variables
 
 Prerequisite for these exercises was covered within the
-[session](/sessions/session15.qmd) and is therefore not repeated here. The
+[session](/sessions/session12.qmd) and is therefore not repeated here. The
 exercises build on this material.
 :::
 

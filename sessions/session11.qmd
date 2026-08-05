@@ -19,7 +19,9 @@ hd_data <- readr::read_csv(
 
 ## Pree-class Literature
 
-- [s](s)
+- Chapter 3.3.2 (pages 87----93) in [Introduction to statistical learning with R
+  2nd edition](https://www.statlearning.com/) (click ["Download ISL with
+  R"](https://hastie.su.domains/ISLR2/ISLRv2_corrected_June_2023.pdf.download.html))
 
 # Slides
 

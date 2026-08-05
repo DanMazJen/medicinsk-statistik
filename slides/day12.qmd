@@ -1,0 +1,66 @@
+---
+format: rostools-theme-revealjs
+search: false
+---
+
+```{r}
+#| label: setup
+#| echo: false
+
+library(ggplot2)
+library(dplyr)
+library(readr)
+library(marginaleffects)
+
+
+hd_data <- readr::read_csv(
+  "https://raw.githubusercontent.com/DanMazJen/medicinsk-statistik/main/data/hd_data.csv"
+)
+hd_data <- hd_data |>
+    mutate(
+        ExAng = factor(ExAng,
+            levels = c(0, 1),
+            labels = c("no exercise-induced angesia", "yes, exercise-induced angesia")
+        ),
+        HD = factor(HD,
+            levels = c("No", "Yes"),
+            labels = c("no heart disease", "yes, heart disease")
+        ),
+        ChestPain = factor(ChestPain),
+        Thal = factor(Thal),
+        fasting_blood_glucose = factor(Fbs,
+            levels = c(0, 1),
+            labels = c("normal fasting blood glucose", "high fasting blood glucose")
+        )
+    )
+```
+
+<!--
+### Editable in yaml
+revealjs-plugins:
+  - editable
+filters:
+  - editable
+-->
+
+# Conditional manetees {.smaller}
+
+<!--
+Image of planes and manetees...
+-->
+
+![](images/rstudio-introduction.png)
+
+::: notes
+Manetees in florida Abraham Wald WWII
+:::
+
+## Case 12: "Epilepsy Trial" {.smaller .scrollable}
+
+## d
+
+d
+
+## Coffee - sugar and sturring
+
+TODO ...

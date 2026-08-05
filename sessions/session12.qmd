@@ -12,22 +12,35 @@
 #library(tidyverse)
 #ddagit782594dalibrary(tidyverse)
 library(ggplot2)
-library(dplyr)
+library(MASS)
 library(readr)
 library(tidyr)
 library(broom)
 library(marginaleffects)
+library(patchwork)
+library(performance)
+library(dplyr)
 
-hd_data <- readr::read_csv(
-  "https://raw.githubusercontent.com/DanMazJen/medicinsk-statistik/main/data/hd_data.csv"
+#hd_data <- readr::read_csv(
+#  "https://raw.githubusercontent.com/DanMazJen/medicinsk-statistik/main/data/hd_data.csv"
+#)
+
+# https://arelbundock.com/posts/quarto_figures/
+knitr::opts_chunk$set(
+    out.width = "70%", # enough room to breath
+    fig.width = 6,     # reasonable size
+    fig.asp = 0.618,   # golden ratio
+    fig.align = "center" # mostly what I want
 )
 ```
 
 ## Pree-class Literature
 
-- [Today's dataset](s)
-- [Compendium](s)
-- [GLM](s)
+- [Todays dataset (Epilepsy Clinical Trial)](../exercises/data.qmd)
+- [Compendium]()
+- Chapter 4.6 (pages 164----171) in [Introduction to statistical learning with R
+  2nd edition](https://www.statlearning.com/) (click ["Download ISL with
+  R"](https://hastie.su.domains/ISLR2/ISLRv2_corrected_June_2023.pdf.download.html))
 
 # Slides
 
@@ -50,18 +63,92 @@ keyboard.
 
 ## Case session 12: ""
 
+At PhaRmacy Inc., excitement is growing over a new anti-seizure medication,
+progabide. A randomized clinical trial has just finished, and the lead
+investigator walks into the weekly research meeting with a smile.
+
+"The treatment group had fewer seizures."
+
+The room goes quiet.
+
+A statistician leans forward.
+
+"Fewer... according to what model?"
+
+Looking at the raw data raises more questions than answers. Some patients
+experienced only a handful of seizures during the study, while others had
+dozens. A few seem very different from the rest. The distribution certainly
+doesn't look like the outcomes you're used to analyzing.
+
+Your task is to help the research team answer a deceptively simple question:
+
+How should seizure counts be analyzed, and what can we conclude about the effect
+of progabide after accounting for differences in patients' baseline seizure
+frequency and age?
+
+As you work through the analysis, consider whether the data behave the way your
+chosen model expects---and what you would do if they don't.
+
+<!--
+At PhaRmacy Inc., a new anti-seizure medication, *progabide*, has been
+introduced as a potential treatment for patients with refractory epilepsy. Early
+results from the clinical trial appear promising, and some neurologists have
+suggested that the drug should become part of routine care because patients
+receiving progabide seem to experience fewer seizures than those receiving
+placebo.
+
+However, during a recent clinical meeting, an epileptologist raises a concern:
+
+> "I'm not convinced that looking at the average reduction tells the whole
+> story. Our patients begin treatment with very different seizure burdens.
+> Reducing three seizures could be life-changing for one patient but barely
+> noticeable for another. Before recommending this drug, I want to know which
+> patients are actually likely to benefit."
+
+The clinicians agree that a reduction of at least three seizures during the
+four-week follow-up represents the minimum clinically meaningful improvement. At
+the same time, they recognize that seizure counts have unusual statistical
+properties:
+
+1. First of all, patients cannot experience "*negative seizures*", so negative
+   values are not meaningful,
+2. Many patients have relatively few seizures, while others experience dozens
+   during the same period,
+3. There is no obvious upper limit for seizure counts, so it doesn't make sense
+   to talk about probabilities of seizures for a day or month.
+
+You are asked to analyze the trial data to investigate how seizure frequency is
+associated with treatment (progabide vs. placebo) while accounting for each
+patient's baseline seizure frequency and age. Your goal is to determine whether
+progabide provides a clinically meaningful reduction in seizures and whether
+some patients are expected to benefit more than others.
+
+You are tasked with the decision: Should progabide be recommended broadly for
+patients with epilepsy, or should treatment decisions depend on each patient's
+baseline seizure burden and expected reduction in seizure frequency?
+-->
+
 ## Review of Logistic regression
 
-See session 9 on logistic regression by Carsten.
+See session 10 on logistic regression by Carsten.
 
-- We use the binomial distribution with logit link to model probabilities
+Logistic regression uses the binomial distribution:
+
+$$
+  outcome \sim Binomial(N,p)
+$$
+where *N* is the trial count and *p* is the probability, which we are interested
+in estimating with out model.
+
+- We use the binomial distribution with *logit link* to model the outcome as the
+  probability of event A.
 - These are discrete counts, but we are interested in the overall probability of
-  getting outcome 0/1
+  getting outcome A.
 - Only two outcomes: 0 or 1 (heads or tails, dead or alive, left or right)
 - The logit link transform our outcome variable to a linear space called
-  log-odds
-- The logistic function transform out data back to the outcome space
-  (probabilities)
+  log-odds that goes from $-\infty$ to $\infty$.
+- The logistic function transforms our data back to the outcome space
+  (probabilities that goes from 0---1).
 
 ## Reading Task: When the odds are low, go Poisson!
 
@@ -91,7 +178,7 @@ y <- rbinom(1e5, 1000, 1/1000)
 c( mean(y), var(y))
 ```
 
-As a result, the distribution only has one parameter, λ.
+As a result, the distribution only has one parameter, λ (pronounced *lambda*).
 
 $$
   y_i \sim Poisson(λ)
@@ -121,6 +208,13 @@ Why log?
 
 ```{r}
 #| label: why-log
+#| echo: false
+#| fig-subcap:
+#|   - "While the log-linear scale can take any real value, the ouctome scale is only positive real numbers."
+
+# fig-cap: "Charts"
+#   - "Second"
+
 
 # Poisson regression:
 # log(mu) = beta0 + beta1*x
@@ -214,17 +308,8 @@ Cons:
 
 ## Data Example
 
-Epilepsy seizure count or survival of graduate students in different faculty?
-
-Or maybe hispital length of stay data?
-
-$$
-  Seizures_i \sim Poisson(λ_i) \\
-  log(λ_i) = α * β_1 predrugseizures + β_2 drug  \\
-$$
-
-Heres a DAG:
 <!-- panache-ignore-format-start -->
+<!-- Heres a DAG:
           Age
            │
            ▼
@@ -236,30 +321,62 @@ Baseline seizures ─────► Outcome (Seizures)
         ▲
         │
  Unmeasured severity
+-->
 <!-- panache-ignore-format-end -->
+
+Before doing *anything* with statistics and code, we should try imagining how
+the data was generated.
+
+### Exercise: Discuss the causal mechanisms of progabide
+
+Discuss how progabide might work and how `baseline_seizures` might tie into
+this.
+
+<details>
+<summary>**Click for a potential solution**</summary>
+
 ```{r}
 #| label: dag
+#| echo: false
 
-dagitty::dagitty("
+dag <- dagitty::dagitty("
 dag {
 
-Age -> base
+severity -> gaba
+severity -> baseline
 
-Age -> y
+gaba -> seizures
+gaba -> baseline
 
-base -> y
-
-trt -> y
-
-severity -> base
-
-severity -> y
+baseline -> seizures
+drug -> gaba
 
 }
-") |>
+")
+
+dag |>
     ggdag::tidy_dagitty() |>
-    ggdag::ggdag()
+    ggdag::ggdag(text = FALSE) +
+    ggdag::geom_dag_text(size = 2.5) +
+    theme_void()
+
+dagitty::adjustmentSets(dag,
+    exposure = "drug",
+    outcome = "seizures",
+    effect="total"
+)
 ```
+
+While baseline is not a coufounding, we'll condition on it anyway to:
+
+- increases precision (reduces residual variance)
+- account for chance imbalance at baseline (since this is a small sample size)
+- improve power
+
+*This is called precision adjustment or covariate adjustment, not confounding
+adjustment.*
+
+</details>
 
 Let's explore the dataset a bit --- but before we do, I'll do some tidying of
 the dataset using `{dplyr}` for wrangling. I'm not gonna explain this bit, as
@@ -288,47 +405,116 @@ epil <- epil |>
             labels = c("week_4")
             )
     )
-
 ```
+
+And let's looks at what we have:
 
 ```{r}
 #| label: just-looking
 
 epil |>
-    tibble::as.tibble()
+    tibble::as_tibble()
 
 epil |>
     count(drug)
 ```
 
+So 59 patients in total with pretty balanced groups.
+
+Now, let's look at a histogram of the `baseline_seizures` and `seizure_count`:
+
 ```{r}
 #| label: explore1
 
-library(patchwork)
-library(MASS)
-
-lims <- range(c(epil$baseline_seizures, epil$seizure_count))
+seizure_lims <- range(c(epil$baseline_seizures, epil$seizure_count))
 
 baseline_data_plot <- epil |>
     ggplot() +
-    geom_histogram(aes(x=baseline_seizures)) +
-  coord_cartesian(xlim = lims)
+    geom_histogram(
+        aes(x=baseline_seizures),
+        bins=30
+    ) +
+    coord_cartesian(xlim = seizure_lims)
 
 posttrial_data_plot <- epil |>
     ggplot() +
-    geom_histogram(aes(x=seizure_count)) +
-  coord_cartesian(xlim = lims)
+    geom_histogram(
+        aes(x=seizure_count),
+        bins=30
+    ) +
+    coord_cartesian(xlim = seizure_lims)
 
 baseline_data_plot + posttrial_data_plot
 ```
 
+By looking at the data, it's deficult to really see whether the average
+`seizure_count` decreases, but some of the extreme cases do seem to shrink.
+
+We should also consider the relationship between `baseline_seizures` and
+`seizure_count`:
+
 ```{r}
-#| label: test
+#| label: exploration
 
 epil |>
-    ggplot(aes(x=y)) +
-    geom_histogram() +
-    facet_grid(~ V4)
+    ggplot(aes(baseline_seizures,seizure_count,color=drug)) +
+    geom_point(alpha=0.6) +
+    geom_smooth(method="loess",se=FALSE) +
+    theme_bw()
+```
+
+It definitely looks like there's an association between `baseline_seizures` and
+`seizure_count`, so in accordance with our *medical scientific model*, we better
+include this in the *statistical model* to account for the variance.
+
+## Discussion task: Gaussian vs Poisson for seizure counts:
+
+Discussion the following facts with your neighbor:
+
+If we model the mean and variance of the seizure count, we would expect that
+taking the mean and variance of the dataset and feeding it into a distribution
+would closely resemble the data. Let's try that with Gaussian distribution and a
+Poisson distribution:
+
+```{r}
+#| label: gauss-vs-poisson
+
+mu <- mean(epil$seizure_count) # 7.305085
+sigma <- sd(epil$seizure_count) # 9.649467
+
+set.seed(363461174)
+dist_draws <- data.frame(
+    gaussian = rnorm(1000,mu,sigma),
+    poisson = rpois(1000,mu),
+    negbin   = rnbinom(1000, mu = mu, size = mu^2 / (sigma^2 - mu)) # Variance = mu + mu^2/size - solve for size!
+    ) |>
+    tidyr::pivot_longer(
+        cols = c("gaussian","poisson","negbin"),
+        names_to = "dist",
+        values_to = "value"
+    )
+
+dist_draws |>
+    ggplot() +
+    geom_histogram(
+        aes(x=value),
+        bins=30
+    ) +
+    facet_wrap(~dist) +
+    labs(x="seizures")
+```
+
+What do you notice? Compare the plots to the observed data we plotted just
+above.
+
+- Which best captures the data?
+- Which makes the worst fit?
+- What else do you notice?
+
+<!--
+```{r}
+#| label: test
+#| eval: false
 
 fit <- glm(y ~ trt * base, V4, # + lage
     family = poisson,
@@ -341,7 +527,7 @@ predict(fit) |>
         mu_obs = epil$y
     ) |>
     ggplot(aes(x=exp(mu_hat))) +
-    geom_histogram()
+    geom_histogram(bins = 30)
 
 predict(fit, type = "response") == exp(predict(fit))
 
@@ -358,37 +544,45 @@ epil |>
   ) +
   theme_bw()
 ```
+-->
+
+## Proposing a model
+
+First, we should propose a model. Looking at out
+
+$$
+  seizure\_count_i \sim Poisson(λ_i) \\
+  log(λ_i) = α + β_1 baseline\_seizures + β_2 drug + β_3 baseline\_seizures*drug \\
+$$
+
+1. The model says that we believe `seizure_count` is Poisson distributed
+2. We use a log link function
+3. We expect an intercept, α
+4. A covariate `baseline_seizures`
+5. An effect of `drug`
+6. An interaction between `baseline_seizures` and `baseline_seizures`
+
+## Fitting a model
+
+Let's try fitting a simple model first: an intercept-only model.
 
 ```{r}
-#| label: exploration
+#| label: intercept-only-fit
 
-epil |>
-    count(trt)
-
-epil |>
-    ggplot(aes(seizure_count)) +
-    geom_histogram(binwidth = 2,
-                   fill="steelblue",
-                   color="white") +
-    theme_bw()
-
-epil |>
-    ggplot(aes(baseline_seizures,seizure_count,color=drug)) +
-    geom_point(alpha=0.6) +
-    geom_smooth(method="loess",se=FALSE) +
-    theme_bw()
-```
-
-```{r}
-#| label: model-fit
-
-m1 <- glm(
-    seizure_count ~ drug * baseline_seizures * age,
+m1_intercept <- glm(
+    seizure_count ~ drug,
     family = poisson(link="log"),
     data = epil
 )
 
-summary(m1)
+```
+
+Great! Now, let's explore the content of it.
+
+```{r}
+#| label: intercept-only-fit-interp
+
+summary(m1_intercept)
 ```
 
 Yeah, we did it! But... What does the coefficients actually mean? Did we come
@@ -396,29 +590,57 @@ any closer to answering our medical question: did the drug reduce epilepsy?
 
 ## GLMs are notoriously difficult to interpret
 
-- like a classification problem of predicting tides --- many small-world
-  continuous processes that build up when all stars align to give either GO or
-  NO-GO!
+Let's have a look at the coefficients:
 
-Binomial regression
+```{r}
+#| label: IO-coef
 
-- counts of two possible with known *n* (outcome often in per cent)
-- dead/alive, heads/tails, accept/reject, left/right,
+coef(m1_intercept)
+```
 
-Poisson regression
+What does it mean?
 
-- counts of unknown max value (no theoretical upper limit) aka with unknown n
-  (outcome in counts)
-- elephants in Kenya, applicants for a grant, reported *p*-values in a paper,
-  etc.
+Unless you're a chatbot, I'm not sure you can read anything major from these
+coefficients. It's because they're still in log-link space!
+
+Let's convert them back from log-ratios to a simple odds-ratio. We do this by
+exponentiating the value:
+
+$$
+  e^{cefficients}
+$$
 
 ```{r}
 #| label: inference
 
-broom::tidy(m1,
+broom::tidy(m1_intercept,
      exponentiate = TRUE,
      conf.int = TRUE)
 ```
+
+Now, it's more like it.
+
+The intercept reads `r exp(m1_intercept$coefficients[1])`, which is the expected
+`seizure_count` for the placebo group (and the average as we would expect!)
+Confirm this for yourself using the following code:
+`mean(subset(epil,drug=="placebo")$seizure_count)`.
+
+Next, it's the `β1drug` `r exp(m1_intercept$coefficients[2])`, which is the
+expected rate ratio in `seizure_count` when being on progabide for 8 weeks,
+compared to placebo. Since it's less than 1, the expected seizure count is
+lower.
+
+In fact, `r round((1 - exp(m1_intercept$coefficients[2])) * 100, 1)`% lower on
+average. That's much easier to interpret than a coefficient on the log scale.
+
+Now, it's more like it.
+
+The intercept reads `r m1_intercept$coefficients[1]` which is the expected
+`seizure_count` (and close to the average!)
+
+Next, it's the `β1drug` `r m1_intercept$coefficients[2]` which is the expected
+odds-ratio in `seizure_count` when being on progabide for 8 weeks. Since it's
+less than 1, the odds are lower.
 
 ## Reporting odds-ratios or counts
 
@@ -445,18 +667,44 @@ ggplot(epil,
     theme_bw()
 ```
 
+## Fitting a multiple Poisson regression
+
+But wait - we also wanted to condition on `baseline_seizures`. Let's to that:
+
+```{r}
+#| label: model-fit
+
+m2_baseline <- glm(
+    seizure_count ~ drug * baseline_seizures,
+    family = poisson(link="log"),
+    data = epil
+)
+
+m3_full <- glm(
+    seizure_count ~ drug * baseline_seizures * age,
+    family = poisson(link="log"),
+    data = epil
+)
+
+m1 <- m2_baseline
+
+broom::tidy(m1)
+```
+
+## Marginal effects and counterfactuals:
+
 ```{r}
 #| label: counterfactuals
 
-library(marginaleffects)
+# library(marginaleffects)
 
 m1 |>
     plot_predictions(
-    condition="baseline_seizures"
+    condition=c("baseline_seizures","drug"),
     ) +
     labs(
     y="Predicted seizures"
-)
+) + coord_cartesian(c(-5,150),c(-5,150))
 
 cf <- bind_rows(
 #
@@ -487,20 +735,10 @@ cmp <- comparisons(
 cmp |>
     ggplot(aes(estimate))+
     geom_histogram(
-    bins=30,
-    fill="steelblue")+
+        bins=30,
+        fill="steelblue"
+    )+
     theme_bw()
-
-
-m2 <- glm(y ~ trt * base + age + V4,
-    family=poisson,
-    data=epil
-)
-
-plot_predictions(
-    m2,
-    condition=c("base","trt")
-)
 ```
 
 ```{r}
@@ -535,7 +773,7 @@ grid <- datagrid(
 pred <- marginaleffects::predictions(m1, newdata = grid)
 
 cutoff <- pred |>
-    select(baseline_seizures, drug, estimate) |>
+    dplyr::select(baseline_seizures, drug, estimate) |>
     tidyr::pivot_wider(
         names_from = drug,
         values_from = estimate) |>
@@ -543,10 +781,16 @@ cutoff <- pred |>
         reduction = placebo - progabide
     )
 
+cutoff_pt <- cutoff |>
+  slice_min(abs(reduction - (3)), n = 1)
+
+worsening <- cutoff |>
+  slice_min(abs(reduction - (0)), n = 1)
+
 ggplot(cutoff,
        aes(baseline_seizures, reduction)) +
     geom_line(size = 1.2) +
-    geom_hline(yintercept = -3,
+    geom_hline(yintercept = 3,
                linetype = 2,
                colour = "red") +
     labs(
@@ -562,12 +806,12 @@ ggplot(cutoff,
             "Baseline = ", baseline_seizures,
             "\nReduction = ", round(reduction, 2))
         ),
-  nudge_y = -30
-)
-
-cutoff_pt <- cutoff |>
-  slice_min(abs(reduction - (-3)), n = 1)
-
+        nudge_y = -1.5
+    ) +
+    geom_point(aes(baseline_seizures,reduction),
+        cutoff_pt,
+        colour = "steelblue",
+        size = 3)
 ```
 
 manual predictions:
@@ -577,12 +821,12 @@ manual predictions:
 
 x_seq <- seq(min(epil$base), max(epil$base), length.out = 100)
 
-b <- coef(fit)
+b <- coef(m2_baseline)
 
 mu_hat <- exp(
   b[1] +
-  b["base"] * x_seq +
-  b["trtprogabide"] * 0       # reference treatment
+  b["baseline_seizures"] * x_seq +
+  b["drugprogabide"] * 0       # reference treatment
   #b["base"] * mean(epil$lbase)
 )
 
@@ -592,26 +836,26 @@ plot(x_seq, mu_hat, type = "l")
 
 # placebo
 newdata <- data.frame(
-  base = x_seq,
-  trt = "placebo"
+  baseline_seizures = x_seq,
+  drug = "placebo"
 )
 newdata$mu_hat <- predict(
-  fit,
+  m2_baseline,
   newdata = newdata,
   type = "response"
 )
 
 # progabide
 newdata2 <- data.frame(
-    base = x_seq,
-    trt = "progabide"
+    baseline_seizures = x_seq,
+    drug = "progabide"
 )
-predict(fit, newdata2, type = "response")
+predict(m2_baseline, newdata2, type = "response")
 
 mu_prog <- exp(
     b["(Intercept)"] +
-    b["trtprogabide"] +
-    (b["base"] + b["trtprogabide:base"]) * x_seq
+    b["drugprogabide"] +
+    (b["baseline_seizures"] + b["drugprogabide:baseline_seizures"]) * x_seq
 )
 data.frame(x=x_seq,y=mu_prog) |>
     ggplot(aes(x=x,y=y)) +
@@ -619,15 +863,15 @@ data.frame(x=x_seq,y=mu_prog) |>
 
 #X <- model.matrix(~ trt + base + `trtprogabide:base`, newdata)
 #X <- model.matrix(~ trt * base, newdata)
-tt <- delete.response(terms(fit))
+tt <- delete.response(terms(m2_baseline))
 
 X <- model.matrix(
   tt,
   newdata,
-  xlev = fit$xlevels
+  xlev = m2_baseline$xlevels
 )
 
-newdata$mu_hat <- exp(X %*% coef(fit))
+newdata$mu_hat <- exp(X %*% coef(m2_baseline))
 ```
 
 This last expression,
@@ -847,20 +1091,15 @@ how Student-t is a mixture of Gaussians).
 ```{r}
 #| label: assumptions
 
-performance::check_overdispersion(m1)
+performance::check_overdispersion(m2_baseline)
 
-performance::check_model(m1)
+performance::check_model(m2_baseline)
 
-fit <- MASS::glm.nb(y ~ trt * base, V4,
+m3_nb <- MASS::glm.nb(seizure_count ~ drug * baseline_seizures,
     data = epil
 )
 
-performance::check_model(fit)
-
-fit <- glm(y ~ trt * base, V4,
-    family = poisson,
-    data = epil
-)
+performance::check_model(m3_nb)
 ```
 
 # Other dataset
@@ -870,6 +1109,10 @@ https://search.r-project.org/CRAN/refmans/ACSWR/html/bs1.html?utm_source=chatgpt
 https://github.com/agbarnett/dobson/tree/main/data
 
 ```{r}
+#| eval: false
+#| include: false
+#| echo: false
+
 url <- "https://raw.githubusercontent.com/agbarnett/dobson/main/data/doctors.rda"
 load(url(url))
 doctors
@@ -898,6 +1141,10 @@ doctors2
 ```
 
 ```{r}
+#| eval: false
+#| include: false
+#| echo: false
+
 ggplot(doctors2,
        aes(age_group, rate_1000,
            colour = smoking,
@@ -929,6 +1176,10 @@ ggplot(doctors2,
 ```
 
 ```{r}
+#| eval: false
+#| include: false
+#| echo: false
+
 m1 <- glm(
   deaths ~ offset(offsets) + smoking + age_group,
   #offset = offsets,
@@ -940,6 +1191,10 @@ summary(m1)
 ```
 
 ```{r}
+#| eval: false
+#| include: false
+#| echo: false
+
 avg_predictions(
     m1,
     variables = "smoking",
@@ -1002,6 +1257,10 @@ adjusted contrasts, while counterfactual predictions visualize model-implied
 survival rates under hypothetical scenarios across years and demographic groups.
 
 ```{r}
+#| eval: false
+#| include: false
+#| echo: false
+
 # https://github.com/agbarnett/dobson/blob/main/data/chronic.rda
 url <- "https://raw.githubusercontent.com/agbarnett/dobson/main/data/graduates.rda"
 load(url(url))
@@ -1013,9 +1272,9 @@ doctors
 load("/Users/ze18rp/Downloads/graduates.rda")
 graduates
 
-library(tidyverse)
-library(performance)
-library(marginaleffects)
+#library(tidyverse)
+#library(performance)
+#library(marginaleffects)
 
 graduates2 <- graduates |>
   mutate(

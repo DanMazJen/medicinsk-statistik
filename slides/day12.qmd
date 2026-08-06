@@ -3,47 +3,7 @@ format: rostools-theme-revealjs
 search: false
 ---
 
-```{r}
-#| label: setup
-#| echo: false
-
-library(ggplot2)
-library(dplyr)
-library(readr)
-library(marginaleffects)
-
-
-hd_data <- readr::read_csv(
-  "https://raw.githubusercontent.com/DanMazJen/medicinsk-statistik/main/data/hd_data.csv"
-)
-hd_data <- hd_data |>
-    mutate(
-        ExAng = factor(ExAng,
-            levels = c(0, 1),
-            labels = c("no exercise-induced angesia", "yes, exercise-induced angesia")
-        ),
-        HD = factor(HD,
-            levels = c("No", "Yes"),
-            labels = c("no heart disease", "yes, heart disease")
-        ),
-        ChestPain = factor(ChestPain),
-        Thal = factor(Thal),
-        fasting_blood_glucose = factor(Fbs,
-            levels = c(0, 1),
-            labels = c("normal fasting blood glucose", "high fasting blood glucose")
-        )
-    )
-```
-
-<!--
-### Editable in yaml
-revealjs-plugins:
-  - editable
-filters:
-  - editable
--->
-
-# Conditional manetees {.smaller}
+# A Poissonous counting trick {.smaller}
 
 <!--
 Image of planes and manetees...
@@ -55,12 +15,526 @@ Image of planes and manetees...
 Manetees in florida Abraham Wald WWII
 :::
 
-## Case 12: "Epilepsy Trial" {.smaller .scrollable}
+```{r}
+#| label: setup
+#| echo: false
 
-## d
+library(ggplot2)
+library(MASS)
+library(readr)
+library(tidyr)
+library(broom)
+library(marginaleffects)
+library(patchwork)
+library(performance)
+library(dplyr)
 
-d
+#hd_data <- readr::read_csv(
+#  "https://raw.githubusercontent.com/DanMazJen/medicinsk-statistik/main/data/hd_data.csv"
+#)
 
-## Coffee - sugar and sturring
+data(epil)
 
-TODO ...
+epil <- epil |>
+    rename(
+        seizure_count = y,
+        drug = trt,
+        baseline_seizures = base,
+        trial_end = V4,
+        log_base = lbase,
+        log_age = lage
+  ) |>
+    #filter(period < 2 | period > 3) |>
+    filter(period > 3) |>
+    mutate(
+        seizure_count = as.integer(seizure_count),
+        period = factor(period,
+            levels = c(4),
+            labels = c("week_8")
+            )
+)
+
+# https://arelbundock.com/posts/quarto_figures/
+knitr::opts_chunk$set(
+    out.width = "70%", # enough room to breath
+    fig.width = 6,     # reasonable size
+    fig.asp = 0.618,   # golden ratio
+    fig.align = "center" # mostly what I want
+)
+```
+
+<!--
+### Editable in yaml
+revealjs-plugins:
+  - editable
+filters:
+  - editable
+-->
+
+## Case Session 12: "Why are seizure data always right-skewed?" {.smaller .scrollable}
+
+::: {.fragment}
+At PhaRmacy Inc., excitement is growing over a new anti-seizure medication,
+progabide. A randomized clinical trial has just finished, and the lead
+investigator reports:
+
+> "The treatment group had fewer seizures."
+
+Everyone celebrates, but one brave person asks:
+
+> "Fewer... according to what model?"
+:::
+
+::: {.fragment}
+- **The outcome**: Number of seizures per patient during the study.
+- **Distribution**: Highly right-skewed (not normal or binary).
+- **Goal**: Analyze using an appropriate model and interpret progabide's
+  effectiveness.
+:::
+
+## Data Example
+::: {.columns}
+::::: {.column}
+**Causal Mechanisms**:
+
+Discuss how progabide works and the role of `baseline_seizures`.
+
+**DAG**:
+
+Imagine the data-generating process before diving into statistics.
+
+::::::: {.fragment}
+**Note**:
+
+Baseline is not a confounder but is conditioned on to:
+
+- Increase precision -Account for chance imbalance Improve power
+:::::::
+:::::
+::::: {.column}
+```{r}
+#| label: dag
+#| echo: false
+#| warning: false
+
+dag <- dagitty::dagitty("dag { severity -> gaba; severity -> baseline; gaba -> seizures; gaba -> baseline; baseline -> seizures; drug -> gaba }")
+dag |> ggdag::tidy_dagitty() |> ggdag::ggdag(text = FALSE) + ggdag::geom_dag_text(size = 2.5) + theme_void()
+```
+:::::
+:::
+
+# Exploring the Data
+
+- **Dataset**: epil (59 patients, balanced groups).
+
+- **Variables**: `seizure_count`, `drug`, `baseline_seizures`, `trial_end`,
+  `log_base`, `log_age`.
+
+::: {.columns}
+::::: {.column}
+```{r}
+#| label: explore1
+
+seizure_lims <- range(c(epil$baseline_seizures, epil$seizure_count))
+
+baseline_data_plot <- epil |>
+    ggplot() +
+    geom_histogram(aes(x=baseline_seizures), bins=30) +
+    coord_cartesian(xlim = seizure_lims)
+
+posttrial_data_plot <- epil |>
+    ggplot() +
+    geom_histogram(aes(x=seizure_count), bins=30) +
+    coord_cartesian(xlim = seizure_lims)
+
+baseline_data_plot + posttrial_data_plot
+```
+:::::
+::::: {.column}
+```{r}
+#| label: explore2
+
+epil |>
+    ggplot(aes(baseline_seizures, seizure_count,color=drug)) +
+    geom_point(alpha=0.6) +
+    geom_smooth(method="loess", se=FALSE,formula = y ~ x) +
+    theme_bw()
+```
+:::::
+:::
+
+::: {.fragment}
+**Observation**: Strong association between `baseline_seizures` and
+`seizure_count`.
+:::
+
+## Can We Use Logistic Regression?
+::: {.fragment}
+**Recap**:
+
+Logistic regression models probabilities using the binomial distribution:
+
+$$
+  outcome \sim Binomial(N, p)
+$$
+**Limitations**:
+
+- Requires known trial count (N).
+- Only two outcomes (0 or 1).
+- Not suitable for count data (e.g., seizures).
+:::
+
+## Reading Task: When the Odds Are Low, Go Poisson! {.smaller .scrollable}
+
+::: {.fragment}
+**Binomial Distribution**:
+
+Great when N (trial count) is known. Poisson **Distribution**:
+
+For unknown N (e.g., counting fish, seizures).
+:::
+
+::: {.fragment}
+**Mathematical Insight**:
+
+Binomial: Mean = Np, Variance = Np(1-p). When N is large and p is small, mean ≈
+variance ≈ Np. Poisson: Single parameter, λ (lambda), where mean = variance = λ.
+
+```{r}
+#| label: binom-to-poisson
+
+y <- rbinom(1e5, 1000, 1/1000)
+
+c(mean(y), var(y))
+```
+:::
+
+## Why Use a Log Link in Poisson Regression?
+
+::: {.columns}
+::::: {.column}
+**Log Link**: Ensures positive predictions (counts cannot be negative).
+
+Model Form:
+$$
+  y_i \sim Poisson(λ_i) \\
+  log(λ_i) = α + β(x_i - \bar{x})
+$$
+:::::
+::::: {.column}
+```{r}
+#| label: why-log
+#| echo: false
+#| fig-cap: "Why Use a Log Link in Poisson Regression?"
+
+dat <- data.frame(x = seq(-5, 5, length.out = 200)) |>
+  mutate(
+    log_mu = -1 + 0.5*x,
+    mu = exp(log_mu)
+  ) |>
+  pivot_longer(cols = c(log_mu, mu), names_to = "scale", values_to = "value") |>
+  mutate(scale = recode(scale, log_mu = "Log-linear (Poisson) scale:\nlog(E(Y))", mu = "Outcome scale:\nE(Y)"))
+
+ggplot(dat, aes(x = x, y = value)) +
+  geom_line(linewidth = 1.3, color = "#2166AC") +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "grey40") +
+  facet_wrap(~scale, scales = "free_y") +
+  theme_minimal(base_size = 14) +
+  labs(title = "Why Use a Log Link in Poisson Regression?", subtitle = "Negative values are allowed on the log scale, but exponentiation guarantees positive counts", x = "Predictor (x)", y = "Outcome (y)")
+```
+:::::
+:::
+
+## Discussion Task: Gaussian vs. Poisson for Seizure Counts
+
+Compare the Fit:
+
+```{r}
+#| label: gauss-vs-poisson
+
+mu <- mean(epil$seizure_count)
+sigma <- sd(epil$seizure_count)
+set.seed(363461174)
+dist_draws <- data.frame(
+    gaussian = rnorm(1000, mu, sigma),
+    poisson = rpois(1000, mu)
+) |>
+    tidyr::pivot_longer(cols = c("gaussian", "poisson"), names_to = "dist", values_to = "value")
+
+dist_draws |>
+    ggplot() +
+    geom_histogram(aes(x=value), bins=30) +
+    facet_wrap(~dist) +
+    labs(x="seizures")
+```
+
+**Questions**:
+
+- Which distribution best captures the data?
+- Which makes the worst fit?
+
+## Proposing a Model
+
+::: {.fragment}
+**Model Formulation**:
+
+$$
+  seizure\_count_i \sim Poisson(λ_i) \\
+  log(λ_i) = α + β_1 baseline\_seizures + β_2 drug + β_3 baseline\_seizures \times drug
+$$
+:::
+
+::: {.fragment}
+**Interpretation:**
+
+- seizure_count is Poisson-distributed.
+- Log link function.
+- Intercept (α), covariate (baseline_seizures), effect of drug, and interaction.
+:::
+
+## Fitting a Model
+
+::: {.fragment}
+**Intercept-Only Model**:
+
+```{r}
+#| label: intercept-only-fit
+
+m1_intercept <- glm(seizure_count ~ drug, family = poisson(link="log"), data = epil)
+summary(m1_intercept)
+```
+:::
+
+**Interpretation**:
+
+::: {.fragment}
+- What does this mean!? 👀
+:::
+
+## GLMs Are Notoriously Difficult to Interpret
+
+Exponentiate Coefficients:
+
+$$
+  e^{coefficients}
+$$
+
+```{r}
+#| label: inference
+
+broom::tidy(m1_intercept, exponentiate = TRUE, conf.int = TRUE)
+```
+
+::: {.fragment}
+**Interpretation**:
+
+- Intercept: Expected `seizure_count` for the placebo group.
+- drug Coefficient: Incidence rate ratio (IRR) for progabide vs. placebo.
+:::
+
+## Reading Task: Reporting Incidence Rate Ratio or Counts
+
+::: {.fragment}
+**Question**: Should we report the incidence rate ratio or the counts for each
+group?
+
+- Absolute Perspective: Mosquitoes cause the most deaths annually.
+- Relative Perspective: Shark attacks are rarer but more dangerous per
+  encounter.
+:::
+
+**Tip**: Condition on `baseline_seizures`.
+
+## Fitting a Multiple Poisson Regression
+
+**Model with Baseline:**
+
+```{r}
+#| label: model-fit
+
+m2_baseline <- glm(seizure_count ~ drug * baseline_seizures, family = poisson(link="log"), data = epil)
+broom::tidy(m2_baseline, exponentiate = TRUE, conf.int = TRUE)
+```
+
+## Model Comparison:
+
+```{r}
+#| label: comparing-models
+
+coef_df <- bind_rows(
+  tidy(m1_intercept, conf.int = TRUE, exponentiate = TRUE) |> mutate(model = "Model 1 - intercept"),
+  tidy(m2_baseline, conf.int = TRUE, exponentiate = TRUE) |> mutate(model = "Model 2 - baseline")
+)
+
+ggplot(coef_df, aes(x = estimate, y = model)) +
+  geom_vline(xintercept = 1, linetype = "dashed", colour = "grey50") +
+  geom_point(size = 2) +
+  geom_errorbar(
+    aes(xmin = conf.low, xmax = conf.high),
+    width = 0.2
+  ) +
+  facet_wrap(~term, scales = "free_x") +
+  labs(
+    x = "Coefficient estimate (95% CI)",
+    y = NULL
+  ) +
+  theme_minimal()
+```
+
+## Marginal Effects and Counterfactuals
+
+**Model Expectations**:
+
+- **Intercept Model**: Assumes the same mean for all.
+- **Baseline Model**: Differentiates by pre-drug seizures.
+
+::: {.fragment}
+```{r}
+#| label: predictions
+#| echo: false
+#| fig-cap: "Model expectations"
+#| layout-ncol: 2
+#| fig-subcap:
+#|   - "Intercept model assumes the mean."
+#|   - "Baseline model also differentiates by pre-drug seizures"
+
+epil$pred <- predict(
+    m1_intercept,
+    type="response"
+)
+
+plot_intercept_pred <- ggplot(epil,
+       aes(pred,seizure_count,color=baseline_seizures))+
+    geom_point()+
+    geom_abline(slope=1,
+                intercept=0,
+                color="red") +
+    theme_bw() +
+    scale_color_viridis_b()
+
+epil$pred <- predict(
+    m2_baseline,
+    type="response"
+)
+
+plot_baseline_pred <- ggplot(epil,
+       aes(pred,seizure_count,color=baseline_seizures))+
+    geom_point()+
+    geom_abline(slope=1,
+                intercept=0,
+                color="red") +
+    theme_bw() +
+    scale_color_viridis_b()
+
+plot_intercept_pred
+plot_baseline_pred
+```
+:::
+
+## Making Sense of Poisson Coefficients
+
+**Marginal Plots**:
+
+```{r}
+#| label: counterfactuals
+
+m2_baseline |>
+    plot_predictions(
+    condition=c("baseline_seizures","drug"),
+    ) +
+    labs(
+    y="Predicted seizures"
+) + coord_cartesian(c(-5,150),c(-5,150))
+```
+
+## Telling Your Model That People Respond Differently
+
+**Overdispersion:**
+
+Poisson assumes mean = variance. Real-world data often has extra variability
+(overdispersion). Solution: Negative Binomial Model (Gamma-Poisson mixture).
+
+::: {.fragment}
+**Negative Binomial Model**:
+
+$$
+  Y_i \| λ_i \sim
+  Poisson(λ_i)Yi​∣λi​∼Poisson(λi​) λi∼Gamma(α,β)λ_i \sim Gamma(α, β)λi​∼Gamma(α,β)
+$$
+:::
+
+::: {.fragment}
+**Variance:**
+
+$$
+  Var(Y_i) = μ_i + \frac{μ_i^2}{θ}
+$$
+:::
+
+## Fair Game: Normalizing the Exposure Time
+
+Offset for Exposure Time:
+
+λ: Rate (events per unit time). **Model**:
+$$
+  y_i \sim Poisson(μ_i) \\
+  log μ_i = log τ_i + α + βx_i
+$$
+**Offset**:
+
+$$
+  log(τ_i) (e.g., log of exposure time).
+$$
+
+## Offset example:
+
+- Hospital 1: Daily events (30 observations).
+- Hospital 2: Weekly events (4 observations). text Copy
+
+```{r}
+#| label: offset-example
+
+set.seed(636961739)
+num_days <- 30
+hospital1 <- rpois (num_days, 1.5)
+num_weeks <- 4
+hospital2 <- rpois(num_weeks, 0.5*7)
+
+events <- c(hospital1, hospital2)
+exposure <- c(rep(1,30), rep(7,4))
+hospital_id <- c(rep(0,30), rep(1,4))
+hospital_data <- data.frame(
+  events=events,
+  days=exposure,
+  hospital_id=hospital_id
+)
+
+hospital_data$log_days = log(hospital_data$days)
+
+sim_m1 <- glm( events ~ 1 + hospital_id,
+    family = poisson,
+    data = hospital_data
+)
+
+broom::tidy(sim_m1,exponentiate = TRUE)
+
+sim_m2 <- glm( events ~ 1 + hospital_id,
+    family = poisson,
+    offset = log_days,
+    data = hospital_data
+)
+
+broom::tidy(sim_m2,exponentiate = TRUE)
+```
+
+## Summary
+
+::: {.fragment}
+Key Takeaways:
+
+- **Poisson Regression**: For count data with unknown trial counts.
+- **Log Link**: Ensures positive predictions. Interpretation:
+- Exponentiate coefficients to get **incidence rate ratios** (IRR).
+- **Overdispersion**: Use Negative Binomial if variance > mean.
+- **Offset**: Adjust for varying exposure times.
+:::

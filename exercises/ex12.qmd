@@ -18,4 +18,133 @@ The learning objectives for this session are:
 
 ### A: Let's start practicing by finding interactions from written text.
 
-**Exercise 1A**:
+**Exercise 1A**: Poisson vs. Binomial vs. Gaussian
+
+**Scenario**: You are designing a study to analyze the number of hospital
+readmissions for heart failure patients within 30 days of discharge.
+
+**Question 1**: Should you use a Poisson, Binomial, or Gaussian model? Justify
+your choice.
+
+**Question 2**: What are the key assumptions of the distribution you chose? How
+would you check them?
+
+**Question 3:** If the outcome were the probability of readmission (yes/no),
+which model would you use? Why?
+
+-Question 4: If the outcome were the length of stay (in days), which model would
+you use? Why?
+
+-Question 5: Design a Poisson regression study to investigate the effect of a
+new drug on the number of seizures. Include predictors, outcome, and the model
+equation.
+
+## Association Between Corticosteroid Therapy and Hospital-Acquired Infections in an Intensive Care Unit
+
+**Background**
+
+Researchers conducted a retrospective cohort study of 612 patients admitted to
+an intensive care unit (ICU). The outcome was the number of hospital-acquired
+infections each patient experienced during their ICU stay. Patients contributed
+different lengths of follow-up because some were discharged early while others
+remained hospitalized for several weeks.
+
+The investigators collected the following variables:
+
+- Number of hospital-acquired infections (count outcome)
+- Corticosteroid treatment (Yes/No) Age (years)
+- Diabetes (Yes/No)
+- Length of ICU stay (days)
+
+A Poisson regression model was fitted.
+
+**Statistical Methods**
+
+Poisson regression was used to estimate the association between corticosteroid
+therapy and infection occurrence. Age was included as the offset variable to
+account for differences in patient risk over time. The model included
+corticosteroid treatment and diabetes as explanatory variables.
+
+The fitted model was
+
+$$
+  log(λi​)=β0​+β1​(Steroid)+β2​(Diabetes)+offset(Age)
+$$
+
+**results**
+
+  | Variable               | Coefficient | Standard Error | p-value |
+  | ---------------------- | ----------: | -------------: | ------: |
+  | Intercept              |       -2.31 |           0.28 |  <0.001 |
+  | Corticosteroid therapy |        0.47 |           0.11 |  <0.001 |
+  | Diabetes               |        0.29 |           0.10 |   0.004 |
+
+Patients receiving corticosteroids had 0.47 times higher odds of developing
+hospital-acquired infections compared with patients who did not receive
+corticosteroids (p < 0.001). Likewise, patients with diabetes had 0.29 higher
+odds of infection than patients without diabetes.
+
+These findings indicate that corticosteroid therapy substantially increases the
+odds of hospital-acquired infection after adjustment for age.
+
+**Discussion**
+
+After adjusting for age using an offset variable, corticosteroid therapy
+remained an independent predictor of hospital-acquired infection. The regression
+coefficient of 0.47 suggests a clinically meaningful increase in infection risk.
+Diabetes also demonstrated a moderate increase in the odds of infection.
+
+These results support careful monitoring of patients receiving corticosteroids
+in the ICU.
+
+<details>
+<summary>**Click for the solution**</summary>
+
+1. Wrong offset
+  - The model uses Age as the offset.
+  - In Poisson regression, the offset should represent the logarithm of exposure or person-time (e.g., log(length of ICU stay)), not a patient characteristic.
+  - Age should be included as a regular covariate if adjustment is desired.
+2. Wrong interpretation
+  - The text interprets the results as odds ("0.47 times higher odds").
+  - Standard Poisson regression estimates incidence rate ratios (IRRs) or rate ratios, not odds ratios.
+3. Coefficients not exponentiated
+  - The table reports coefficients (0.47 and 0.29), but the narrative treats them as effect sizes.
+  - The correct interpretation requires exponentiation:
+    - exp(0.47) = 1.60, meaning a 60% higher infection rate.
+    - exp(0.29) = 1.34, meaning a 34% higher infection rate.
+</details>
+
+## Section B: Analyzing the Doctors Dataset (Smoking and Mortality)
+
+Task: The following R code contains 3 intentional mistakes (offset, rate ratio
+vs. odds ratio, un-exponentiated coefficient). Identify and fix them:
+
+```{r}
+#| label: mistakes
+
+# Mistake 1: Missing offset for exposure time (e.g., person-years)
+model_mistake <- glm(mortality ~ smoker + age,
+                     family = poisson(link = "log"),
+                     data = doctors)
+
+# Mistake 2: Interpreting the coefficient as odds ratio
+summary(model_mistake)  # Student claims: "The odds of death are 1.5x higher for smokers."
+
+# Mistake 3: Not exponentiating the coefficient
+coef(model_mistake)     # Student claims: "The coefficient for smoker is 0.4, so smokers have 0.4 more deaths."
+```
+
+Question: Explain why each mistake is wrong and how to correct it.
+
+## Section C: Writing a Clinical Report
+
+Exercise 3A: Structuring the Report
+
+Question 1: What are the 5 key sections of a clinical report for a Poisson
+regression analysis? Question 2: How would you explain the incidence rate ratio
+(IRR) to a clinician who is not familiar with statistics? Question 3: Write a
+1-paragraph summary of the findings from your Poisson model (from Exercise 2A)
+for a clinical audience. Question 4: How would you visually present the effect
+of smoking on mortality in a figure for the report? Describe the plot. Question
+5: A clinician asks: "Does this mean smokers are 50% more likely to die?" How do
+you respond?

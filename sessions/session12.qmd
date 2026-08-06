@@ -61,8 +61,41 @@ The slides contain speaking notes that you can view by pressing 'S' on the
 keyboard.
 :::
 
-## Case session 12: ""
+# Case session 12: "Why are seizure data always right-skewed?"
 
+At PhaRmacy Inc., excitement is growing over a new anti-seizure medication,
+progabide. A randomized clinical trial has just finished, and the lead
+investigator walks into the weekly research meeting with a smile and says:
+
+> "The treatment group had fewer seizures."
+
+Everyone celebrates but one brave person leans forward and asks:
+
+> "Fewer... according to what model?"
+
+The lead investigator acknowledges the questions and provides the available
+data.
+
+Looking at the raw data raises more questions than answers. The outcome is the
+number of seizures each patient experienced during the study. Some patients had
+only a handful of seizures, while others had dozens, and a few appear very
+different from the rest. The distribution is highly skewed and doesn't resemble
+the continuous, normally distributed outcomes you're used to analyzing. At the
+same time, the outcome is clearly not binary, so a logistic regression model
+would not be appropriate either.
+
+As a member of the clinical development team, you have been asked to review the
+trial results before they are presented to management. Your role is to work with
+the biostatistics group to ensure that the data are analyzed using an
+appropriate model and that the conclusions about progabide's effectiveness are
+scientifically sound.
+
+At the upcoming project meeting, you'll need to explain why some familiar
+regression models are not suitable for these data, recommend a more appropriate
+approach, and interpret what the analysis tells the team about the effect of
+progabide after accounting for patients' baseline seizure frequency.
+
+<!--
 At PhaRmacy Inc., excitement is growing over a new anti-seizure medication,
 progabide. A randomized clinical trial has just finished, and the lead
 investigator walks into the weekly research meeting with a smile.
@@ -89,7 +122,7 @@ frequency and age?
 As you work through the analysis, consider whether the data behave the way your
 chosen model expects---and what you would do if they don't.
 
-<!--
+-------
 At PhaRmacy Inc., a new anti-seizure medication, *progabide*, has been
 introduced as a potential treatment for patients with refractory epilepsy. Early
 results from the clinical trial appear promising, and some neurologists have
@@ -128,9 +161,183 @@ patients with epilepsy, or should treatment decisions depend on each patient's
 baseline seizure burden and expected reduction in seizure frequency?
 -->
 
-## Review of Logistic regression
+## Data Example
 
-See session 10 on logistic regression by Carsten.
+<!-- panache-ignore-format-start -->
+<!-- Heres a DAG:
+          Age
+           │
+           ▼
+Baseline seizures ─────► Outcome (Seizures)
+        │                  ▲
+        │                  │
+        ▼                  │
+   Treatment ──────────────┘
+        ▲
+        │
+ Unmeasured severity
+-->
+<!-- panache-ignore-format-end -->
+
+Before doing *anything* with statistics and code, we should try imagining how
+the data was generated.
+
+### Exercise: Discuss the causal mechanisms of progabide
+
+Discuss how progabide might work and how baseline seizure frequency might tie
+into this. You may look at the wikipidia page for progabide, but don't
+overcomplicate your model.
+
+<details>
+<summary>**Click for a potential solution**</summary>
+
+```{r}
+#| label: dag
+#| echo: false
+#| warning: false
+
+dag <- dagitty::dagitty("
+dag {
+
+severity -> gaba
+severity -> baseline
+
+gaba -> seizures
+gaba -> baseline
+
+baseline -> seizures
+drug -> gaba
+
+}
+")
+
+dag |>
+    ggdag::tidy_dagitty() |>
+    ggdag::ggdag(text = FALSE) +
+    ggdag::geom_dag_text(size = 2.5) +
+    theme_void()
+
+need_to_adjust_for <- dagitty::adjustmentSets(dag,
+    exposure = "drug",
+    outcome = "seizures",
+    effect="total"
+)
+```
+
+While baseline is not a coufounding, we'll condition on it anyway to:
+
+- increases precision (reduces residual variance)
+- account for chance imbalance at baseline (since this is a small sample size)
+- improve power
+
+*This is called precision adjustment or covariate adjustment, not confounding
+adjustment.*
+
+</details>
+
+### Exploring the data for familiarization
+
+Let's explore the dataset a bit --- but before we do, I'll do some tidying of
+the dataset using `{dplyr}` for wrangling. I'm not gonna explain this bit, as
+you can go back to session 8 by Rasmus for working with `{dplyr}` for wrangling.
+
+```{r}
+#| label: pre-wrangle
+
+data(epil)
+
+epil <- epil |>
+    rename(
+        seizure_count = y,
+        drug = trt,
+        baseline_seizures = base,
+        trial_end = V4,
+        log_base = lbase,
+        log_age = lage
+  ) |>
+    #filter(period < 2 | period > 3) |>
+    filter(period > 3) |>
+    mutate(
+        seizure_count = as.integer(seizure_count),
+        period = factor(period,
+            levels = c(4),
+            labels = c("week_8")
+            )
+    )
+```
+
+And let's looks at what we have:
+
+```{r}
+#| label: just-looking
+
+epil |>
+    tibble::as_tibble()
+
+epil |>
+    count(drug)
+```
+
+So 59 patients in total with pretty balanced groups.
+
+Now, let's look at a histogram of the `baseline_seizures` and `seizure_count`:
+
+```{r}
+#| label: explore1
+
+seizure_lims <- range(c(epil$baseline_seizures, epil$seizure_count))
+
+baseline_data_plot <- epil |>
+    ggplot() +
+    geom_histogram(
+        aes(x=baseline_seizures),
+        bins=30
+    ) +
+    coord_cartesian(xlim = seizure_lims)
+
+posttrial_data_plot <- epil |>
+    ggplot() +
+    geom_histogram(
+        aes(x=seizure_count),
+        bins=30
+    ) +
+    coord_cartesian(xlim = seizure_lims)
+
+baseline_data_plot + posttrial_data_plot
+```
+
+By looking at the data, it's deficult to really see whether the average
+`seizure_count` decreases, but some of the extreme cases do seem to shrink.
+
+We should also consider the relationship between `baseline_seizures` and
+`seizure_count`:
+
+```{r}
+#| label: explore2
+
+epil |>
+    ggplot(aes(baseline_seizures,seizure_count,color=drug)) +
+    geom_point(alpha=0.6) +
+    geom_smooth(
+        method="loess",
+        se=FALSE,
+        formula = y ~ x) +
+    theme_bw()
+```
+
+It definitely looks like there's an association between `baseline_seizures` and
+`seizure_count`, so in accordance with our *medical scientific model*, we better
+include this in the *statistical model* to account for the variance.
+
+Recall the case:
+
+> We want to know the difference in probability (i.e., incidence rate) of
+> getting seizures.
+
+## Can we use Logistic regression?
+
+This is a ultra quick recap of logistic regression. See session 10 on logistic
+regression by Carsten for a comprehensive recap.
 
 Logistic regression uses the binomial distribution:
 
@@ -151,6 +358,11 @@ in estimating with out model.
   (probabilities that goes from 0---1).
 
 ## Reading Task: When the odds are low, go Poisson!
+
+As the case states, we did not manipulate how many seizures the patients were
+able to get in the trial period. While we could assume that the baseline was the
+maximum, it would completely break the logistic regression if we got more
+seizures after --- a < 100% probability 😅
 
 While the binomail distribution is great when *N* is known (trial count), there
 exists studies where you don't know the upper limit (counting fish, selling a
@@ -306,168 +518,10 @@ Cons:
   - Grow very rapidly --- therefore, very sensitive to range
   - it cannot keep being exponential!
 
-## Data Example
-
-<!-- panache-ignore-format-start -->
-<!-- Heres a DAG:
-          Age
-           │
-           ▼
-Baseline seizures ─────► Outcome (Seizures)
-        │                  ▲
-        │                  │
-        ▼                  │
-   Treatment ──────────────┘
-        ▲
-        │
- Unmeasured severity
--->
-<!-- panache-ignore-format-end -->
-
-Before doing *anything* with statistics and code, we should try imagining how
-the data was generated.
-
-### Exercise: Discuss the causal mechanisms of progabide
-
-Discuss how progabide might work and how `baseline_seizures` might tie into
-this.
-
-<details>
-<summary>**Click for a potential solution**</summary>
-
-```{r}
-#| label: dag
-#| echo: false
-
-dag <- dagitty::dagitty("
-dag {
-
-severity -> gaba
-severity -> baseline
-
-gaba -> seizures
-gaba -> baseline
-
-baseline -> seizures
-drug -> gaba
-
-}
-")
-
-dag |>
-    ggdag::tidy_dagitty() |>
-    ggdag::ggdag(text = FALSE) +
-    ggdag::geom_dag_text(size = 2.5) +
-    theme_void()
-
-dagitty::adjustmentSets(dag,
-    exposure = "drug",
-    outcome = "seizures",
-    effect="total"
-)
-```
-
-While baseline is not a coufounding, we'll condition on it anyway to:
-
-- increases precision (reduces residual variance)
-- account for chance imbalance at baseline (since this is a small sample size)
-- improve power
-
-*This is called precision adjustment or covariate adjustment, not confounding
-adjustment.*
-
-</details>
-
-Let's explore the dataset a bit --- but before we do, I'll do some tidying of
-the dataset using `{dplyr}` for wrangling. I'm not gonna explain this bit, as
-you can go back to session 8 by Rasmus for working with `{dplyr}` for wrangling.
-
-```{r}
-#| label: pre-wrangle
-
-data(epil)
-
-epil <- epil |>
-    rename(
-        seizure_count = y,
-        drug = trt,
-        baseline_seizures = base,
-        trial_end = V4,
-        log_base = lbase,
-        log_age = lage
-  ) |>
-    #filter(period < 2 | period > 3) |>
-    filter(period > 3) |>
-    mutate(
-        seizure_count = as.integer(seizure_count),
-        period = factor(period,
-            levels = c(4),
-            labels = c("week_4")
-            )
-    )
-```
-
-And let's looks at what we have:
-
-```{r}
-#| label: just-looking
-
-epil |>
-    tibble::as_tibble()
-
-epil |>
-    count(drug)
-```
-
-So 59 patients in total with pretty balanced groups.
-
-Now, let's look at a histogram of the `baseline_seizures` and `seizure_count`:
-
-```{r}
-#| label: explore1
-
-seizure_lims <- range(c(epil$baseline_seizures, epil$seizure_count))
-
-baseline_data_plot <- epil |>
-    ggplot() +
-    geom_histogram(
-        aes(x=baseline_seizures),
-        bins=30
-    ) +
-    coord_cartesian(xlim = seizure_lims)
-
-posttrial_data_plot <- epil |>
-    ggplot() +
-    geom_histogram(
-        aes(x=seizure_count),
-        bins=30
-    ) +
-    coord_cartesian(xlim = seizure_lims)
-
-baseline_data_plot + posttrial_data_plot
-```
-
-By looking at the data, it's deficult to really see whether the average
-`seizure_count` decreases, but some of the extreme cases do seem to shrink.
-
-We should also consider the relationship between `baseline_seizures` and
-`seizure_count`:
-
-```{r}
-#| label: exploration
-
-epil |>
-    ggplot(aes(baseline_seizures,seizure_count,color=drug)) +
-    geom_point(alpha=0.6) +
-    geom_smooth(method="loess",se=FALSE) +
-    theme_bw()
-```
-
-It definitely looks like there's an association between `baseline_seizures` and
-`seizure_count`, so in accordance with our *medical scientific model*, we better
-include this in the *statistical model* to account for the variance.
-
 ## Discussion task: Gaussian vs Poisson for seizure counts:
+
+So we can use the good-old Gaussian linear regression or this new thing: Poisson
+regression.
 
 Discussion the following facts with your neighbor:
 
@@ -485,11 +539,10 @@ sigma <- sd(epil$seizure_count) # 9.649467
 set.seed(363461174)
 dist_draws <- data.frame(
     gaussian = rnorm(1000,mu,sigma),
-    poisson = rpois(1000,mu),
-    negbin   = rnbinom(1000, mu = mu, size = mu^2 / (sigma^2 - mu)) # Variance = mu + mu^2/size - solve for size!
+    poisson = rpois(1000,mu)
     ) |>
     tidyr::pivot_longer(
-        cols = c("gaussian","poisson","negbin"),
+        cols = c("gaussian","poisson"),
         names_to = "dist",
         values_to = "value"
     )
@@ -548,7 +601,8 @@ epil |>
 
 ## Proposing a model
 
-First, we should propose a model. Looking at out
+First, we should propose a model. Looking at our causal medical model and the
+data-generating distributions, we're going to go with the folowing formulation:
 
 $$
   seizure\_count_i \sim Poisson(λ_i) \\
@@ -588,7 +642,7 @@ summary(m1_intercept)
 Yeah, we did it! But... What does the coefficients actually mean? Did we come
 any closer to answering our medical question: did the drug reduce epilepsy?
 
-## GLMs are notoriously difficult to interpret
+## GLMs are notoriously difficult to interpret {#sec-poisson-interp}
 
 Let's have a look at the coefficients:
 
@@ -600,10 +654,18 @@ coef(m1_intercept)
 
 What does it mean?
 
-Unless you're a chatbot, I'm not sure you can read anything major from these
+Unless you're a chatbot, I'm not sure you can't read anything major from these
 coefficients. It's because they're still in log-link space!
 
-Let's convert them back from log-ratios to a simple odds-ratio. We do this by
+So what do we do? Feed them to the chat model?
+
+Similar to the logistic regression, we have to apply the opposite transformation
+we did in the first place to make the model linear. In statistical terminology,
+the function that can transform the model pack to it's outcome unit is called
+the *inverse link function*. And the "opposite" mathematical operation to log is
+exponentiation.
+
+Let's convert them back from log-ratios to a incidence rate-ratio. We do this by
 exponentiating the value:
 
 $$
@@ -618,7 +680,7 @@ broom::tidy(m1_intercept,
      conf.int = TRUE)
 ```
 
-Now, it's more like it.
+That's more like it!
 
 The intercept reads `r exp(m1_intercept$coefficients[1])`, which is the expected
 `seizure_count` for the placebo group (and the average as we would expect!)
@@ -627,22 +689,24 @@ Confirm this for yourself using the following code:
 
 Next, it's the `β1drug` `r exp(m1_intercept$coefficients[2])`, which is the
 expected rate ratio in `seizure_count` when being on progabide for 8 weeks,
-compared to placebo. Since it's less than 1, the expected seizure count is
-lower.
+compared to placebo. Since the incidence rate-ratio less than 1, the expected
+seizure count is lower.
 
 In fact, `r round((1 - exp(m1_intercept$coefficients[2])) * 100, 1)`% lower on
-average. That's much easier to interpret than a coefficient on the log scale.
+average. To confirm this for yourself, run the following code:
+`mean(subset(epil,drug=="progabide")$seizure_count)` and see the average count
+for the treatment group. Finally, prove to yourself that this is what the two
+coefficients mean in relation to each other by this code:
+`exp(m1_intercept$coefficients[2])*mean(subset(epil,drug=="placebo")$seizure_count)`.
+So the average effect of being on progabide for 8 weeks was a reduction of
+`r (1-exp(m1_intercept$coefficients[2]))*mean(subset(epil,drug=="placebo")$seizure_count)`
+seizures during 8 weeks in this small sample.
 
-Now, it's more like it.
+## Reading task: Reporting incidence rate ratio or counts
 
-The intercept reads `r m1_intercept$coefficients[1]` which is the expected
-`seizure_count` (and close to the average!)
+> Should we report the incidence rate ratio or the counts for each group?
 
-Next, it's the `β1drug` `r m1_intercept$coefficients[2]` which is the expected
-odds-ratio in `seizure_count` when being on progabide for 8 weeks. Since it's
-less than 1, the odds are lower.
-
-## Reporting odds-ratios or counts
+What would you prefer and why?
 
 From an absolute perspective, the musquito is the most dangerous animal in the
 world! It causes most deaths a year. However, if I were to battle a musquito or
@@ -650,26 +714,37 @@ a shark, I would bet my life on the musquito and not the shark! It is relatively
 much more dangerous! However, conditional on being in the real-life situation of
 facing a musquito or a shark, the former is much more probable.
 
-```{r}
-#| label: predictions
+Now, consider the interpretation of the coefficients and model we just made in
+@sec-poisson-interp. How would you inform a patient or a clinican about the
+results?
 
-epil$pred <- predict(
-    m1,
-    type="response"
-)
+<details>
+ <summary>**Click for a tip**</summary>
 
-ggplot(epil,
-       aes(pred,seizure_count))+
-    geom_point()+
-    geom_abline(slope=1,
-                intercept=0,
-                color="red")+
-    theme_bw()
-```
+*Tip*: consider conditioning on `baseline_seizures`.
+
+Is `r round((1 - exp(m1_intercept$coefficients[2])) * 100, 1)`% lower the same
+when you have 1 seizure every 8 weeks?
+What about 100? Would it be a meaningful unit to make national policies?
+
+Now, what if we take the average absolute change:
+`r (1-exp(m1_intercept$coefficients[2]))*mean(subset(epil,drug=="placebo")$seizure_count)`
+when you have 1 seizure every 8 weeks? What about 100? Would it be a meaningful
+unit to make national policies?.
+
+ </details>
 
 ## Fitting a multiple Poisson regression
 
-But wait - we also wanted to condition on `baseline_seizures`. Let's to that:
+While the model we've been using so far is not wrong, per se, it's also rather
+simple. Until now, we have estimated the average change in seizure count, not
+taking into account how many seizures patients had before taking the drug.
+
+Adding the baseline covariate will increase the precision of the model and
+provide better predictions for different patients, depending on their disease
+severity.
+
+So we want to condition on `baseline_seizures`. Let's to that:
 
 ```{r}
 #| label: model-fit
@@ -680,97 +755,132 @@ m2_baseline <- glm(
     data = epil
 )
 
-m3_full <- glm(
-    seizure_count ~ drug * baseline_seizures * age,
-    family = poisson(link="log"),
-    data = epil
+broom::tidy(m2_baseline,
+    exponentiate = TRUE,
+     conf.int = TRUE
 )
-
-m1 <- m2_baseline
-
-broom::tidy(m1)
 ```
 
+let's compare the models:
+
+```{r}
+#| label: comparing-models
+
+coef_df <- bind_rows(
+  tidy(m1_intercept, conf.int = TRUE, exponentiate = TRUE) |> mutate(model = "Model 1 - intercept"),
+  tidy(m2_baseline, conf.int = TRUE, exponentiate = TRUE) |> mutate(model = "Model 2 - baseline")
+)
+
+ggplot(coef_df, aes(x = estimate, y = model)) +
+  geom_vline(xintercept = 1, linetype = "dashed", colour = "grey50") +
+  geom_point(size = 2) +
+  geom_errorbar(
+    aes(xmin = conf.low, xmax = conf.high),
+    width = 0.2
+  ) +
+  facet_wrap(~term, scales = "free_x") +
+  labs(
+    x = "Coefficient estimate (95% CI)",
+    y = NULL
+  ) +
+  theme_minimal()
+```
+
+The intercept model does not provide a statistically significant average effect
+of progabide. However, the new model adjusting for `baseline_seizures` does.
+
+But how do we interpret this model?
+
 ## Marginal effects and counterfactuals:
+
+### Discussion: How each model represent the data:
+
+The two models have very different ways of estimating the expected
+`seizure_count`. Explain to your neighbour the model does it using these plots:
+
+```{r}
+#| label: predictions
+#| echo: false
+#| fig-cap: "Model expectations"
+#| layout-ncol: 2
+#| fig-subcap:
+#|   - "Intercept model assumes the mean."
+#|   - "baseline model also differentiates by pre-drug seizures"
+
+epil$pred <- predict(
+    m1_intercept,
+    type="response"
+)
+
+plot_intercept_pred <- ggplot(epil,
+       aes(pred,seizure_count,color=baseline_seizures))+
+    geom_point()+
+    geom_abline(slope=1,
+                intercept=0,
+                color="red") +
+    theme_bw() +
+    scale_color_viridis_b()
+
+epil$pred <- predict(
+    m2_baseline,
+    type="response"
+)
+
+plot_baseline_pred <- ggplot(epil,
+       aes(pred,seizure_count,color=baseline_seizures))+
+    geom_point()+
+    geom_abline(slope=1,
+                intercept=0,
+                color="red") +
+    theme_bw() +
+    scale_color_viridis_b()
+
+plot_intercept_pred
+plot_baseline_pred
+```
+
+### Making sense of Poisson coefficients
+
+The easies way to understand the model coefficients is to make marginal plots.
+We'll use the {marginaleffects} package for this.
 
 ```{r}
 #| label: counterfactuals
 
 # library(marginaleffects)
 
-m1 |>
+m2_baseline |>
     plot_predictions(
     condition=c("baseline_seizures","drug"),
     ) +
     labs(
     y="Predicted seizures"
 ) + coord_cartesian(c(-5,150),c(-5,150))
-
-cf <- bind_rows(
-#
-    predictions(
-    m1,
-    newdata=transform(epil,
-    drug="placebo")) |>
-    mutate(group="Placebo"),
-#
-    predictions(
-    m1,
-    newdata=transform(epil,
-    drug="progabide")) %>%
-    mutate(group="Treatment")
-)
-
-cf |>
-    ggplot(aes(estimate,fill=group))+
-    geom_density(alpha=0.4)+
-    theme_bw()
-
-cmp <- comparisons(
-    m1,
-    variables="drug"
-)
-
-# Each bar is the estimated reduction in seizures if that patient switched treatments.
-cmp |>
-    ggplot(aes(estimate))+
-    geom_histogram(
-        bins=30,
-        fill="steelblue"
-    )+
-    theme_bw()
 ```
+
+This is more like it! Now, we can appreciate how the model expects the average
+effect of `seizure_count` as a function of `baseline_seizures` and whether the
+patient took progabide for 8 weeks.
+
+### Extra madness - counterfactuals for clinical inference
+
+This is an extra part (not curriculum material).
+
+Suppose you wanted to know a cutoff for when the drug prevents *at least* three
+seizures:
 
 ```{r}
 #| label: cut-off-of-when-to-use
 
-placebo <- predictions(
-    m1,
-    newdata = transform(epil, drug = "placebo")
-)
-
-treated <- predictions(
-    m1,
-    newdata = transform(epil, drug = "progabide")
-)
-
-epil$placebo <- placebo$estimate
-epil$treated  <- treated$estimate
-
-epil$benefit <- epil$placebo - epil$treated
-
-epil |>
-    filter(benefit >= 3)
-
 grid <- datagrid(
-    model=m1,
+    model=m2_baseline,
     baseline_seizures = seq(0, 100, by = 1),
     age = mean(epil$age), #28 yo
     #V4 = 1, # follow-up
     drug = c("placebo", "progabide")
 )
 
-pred <- marginaleffects::predictions(m1, newdata = grid)
+pred <- marginaleffects::predictions(m2_baseline, newdata = grid)
 
 cutoff <- pred |>
     dplyr::select(baseline_seizures, drug, estimate) |>
@@ -789,7 +899,7 @@ worsening <- cutoff |>
 
 ggplot(cutoff,
        aes(baseline_seizures, reduction)) +
-    geom_line(size = 1.2) +
+    geom_line(linewidth = 1) +
     geom_hline(yintercept = 3,
                linetype = 2,
                colour = "red") +
@@ -814,6 +924,319 @@ ggplot(cutoff,
         size = 3)
 ```
 
+Ask the teacher if you're curious...
+
+## Telling your model that people respond differently
+
+<!--
+Poisson models often have a lot of unexplained variance, mainly from ignoring
+*rate heterogeneity*.
+
+The gamma-Poisson is a mixture of different Poisson distributions (similar to
+how Student-t is a mixture of Gaussians).
+-->
+
+What a cool model we have! But wait... Did we check for any assumptions yet? And
+what are the assumptions specific to Poisson regression?
+
+### The theory
+
+Our Poisson model assumes that the number of seizures follows a Poisson
+distribution,
+
+$$
+  Y_i \sim \text{Poisson}(\mu_i),
+$$
+
+where the expected seizure count is modeled using a log link,
+
+$$
+  \log(\mu_i) = \beta_0 + \beta_1\text{drug}_i +
+  \beta_2\text{baseline}_i +
+  \beta_3(\text{drug}_i \times \text{baseline}_i).
+$$
+
+A key assumption of the Poisson distribution is that the mean and variance are
+equal,
+
+$$
+  \mathbb{E}[Y_i] = \mathrm{Var}(Y_i) = \mu_i.
+$$
+
+In medical data, this assumption is often unrealistic. Some patients are
+inherently more prone to seizures than others because of unmeasured factors such
+as disease severity, genetics, medication adherence, or other clinical
+characteristics. Consequently, the observed variability is often much larger
+than the Poisson model expects. This phenomenon is termed **overdispersion**.
+
+The DAG (from the beginning of the session) illustrates one possible explanation
+for this extra variability. Patients differ in their underlying disease
+severity, which influences both baseline seizure counts and GABA activity.
+Although treatment affects GABA, there may still be patient-to-patient
+differences that are not fully captured by the measured baseline seizure count.
+These unobserved differences create **rate heterogeneity** --- each patient has
+their own underlying seizure rate rather than sharing one common rate.
+
+Rather than assuming a single Poisson rate for every individual, the negative
+binomial model assumes that each patient has their own Poisson rate,
+
+$$
+  Y_i \mid \lambda_i \sim \text{Poisson}(\lambda_i),
+$$
+
+where these individual rates themselves follow a Gamma distribution,
+
+$$
+  \lambda_i \sim \text{Gamma}(\alpha,\beta).
+$$
+
+Integrating over this distribution of rates produces the **negative binomial
+distribution**. For this reason, the model is often called the **gamma-Poisson
+model**.
+
+This idea is similar to the Student's $t$ distribution. A Gaussian distribution
+assumes one common variance, whereas the Student's $t$ can be viewed as a
+mixture of Gaussian distributions with different variances. Likewise, the
+negative binomial is a mixture of Poisson distributions with different event
+rates.
+
+The consequence is that the variance is no longer constrained to equal the mean.
+Instead,
+
+$$
+  \mathrm{Var}(Y_i) =
+  \mu_i +
+  \frac{\mu_i^2}{\theta},
+$$
+
+where $\theta$ is the dispersion parameter estimated from the data.
+
+As $\theta \rightarrow \infty$,
+
+$$
+  \mathrm{Var}(Y_i) \rightarrow \mu_i,
+$$
+
+so the negative binomial model reduces to the ordinary Poisson model.
+
+### The practice
+
+Before fitting a negative binomial model, it is useful to check whether the
+Poisson assumptions appear reasonable. The `performance::check_overdispersion()`
+function compares the observed variability with the variability expected under
+the fitted Poisson model. Evidence of substantial overdispersion suggests that
+the Poisson model is likely underestimating uncertainty.
+
+The `performance::check_model()` function provides additional diagnostic plots
+for evaluating the adequacy of the fitted model. If overdispersion is present,
+we can fit a negative binomial model using `MASS::glm.nb()`. The interpretation
+of the regression coefficients remains unchanged: exponentiating a coefficient
+gives the multiplicative change in the expected seizure rate, just as in the
+Poisson model. The only difference is that the negative binomial model
+explicitly allows for unexplained patient-to-patient variability.
+
+```{r}
+#| label: assumptions
+
+performance::check_overdispersion(m2_baseline)
+
+performance::check_model(m2_baseline)
+
+m3_nb <- MASS::glm.nb(seizure_count ~ drug * baseline_seizures,
+    data = epil
+)
+
+performance::check_model(m3_nb)
+```
+
+To illustrate the difference between these distributions, the figure below
+simulates data using the observed mean and standard deviation of the epilepsy
+data. The Gaussian distribution allows impossible negative seizure counts, while
+the Poisson distribution is restricted to non-negative integers but produces too
+little variability because its variance equals its mean. The negative binomial
+distribution remains discrete and non-negative while accommodating the larger
+variance observed in the data, making it a much more realistic model for seizure
+counts.
+
+```{r}
+#| label: draws-nb
+
+mu <- mean(epil$seizure_count) # 7.305085
+sigma <- sd(epil$seizure_count) # 9.649467
+set.seed(363461174)
+dist_draws <- data.frame(
+    gaussian = rnorm(1000,mu,sigma),
+    poisson = rpois(1000,mu),
+    negbin = rnbinom(1000, mu = mu, size = mu^2 / (sigma^2 - mu)) # Variance = mu + mu^2/size - solve for size!
+) |>
+tidyr::pivot_longer(
+    cols = c("gaussian","poisson","negbin"),
+    names_to = "dist",
+    values_to = "value" )
+
+dist_draws |> ggplot() +
+    geom_histogram(
+        aes(x=value), bins=30
+    ) +
+    facet_wrap(~dist) +
+    labs(x="seizures")
+```
+
+This time, what do you notice? Compare the plots to the observed data we plotted
+juin the beginning of the session.
+
+- Which best captures the data?
+- Which makes the worst fit?
+- What else do you notice?
+
+## Fair game - normalizing the exposure time
+
+The parameter λ is commonly interpreted as a *rate*.
+
+The rate interpretation is nice for allowing varying expoure time.
+
+Implizitly, λ is equal to an expected number of events, μ, per unit time or
+distance, τ. This implies that $λ = μ/τ$, which lets us redefine the link:
+
+$$
+  y_i \sim Poisson(λ_i) \\
+  log λ_i = log \frac{μ_i}{τ_i} = α + βx_i
+$$
+
+Since the logarithm of a ratio is the same as the difference of logarithms:
+
+$$
+  log λ_i = log μ_i - log τ_i = α + βx_i
+$$
+
+These τ are the "exposures". If different observations *i* have different
+exposures, the expected value on row *i* is given by
+
+$$
+  log μ_i = log τ_i + α + βx_i
+$$
+
+When $τ_i = 1$, then $logτ_i = 0$ and we're back to standard Poisson!
+
+But when the exposure is not 1, τ does effectively *scales* the expected number
+of events for each case *i* in the unit $x = 1$ (1 day, year, whatever...).
+Therefore, we write:
+
+$$
+  y_i \sim Poisson(μ_i) \\
+  log μ_i = log τ_i + α + βx_i
+$$
+
+Where τ is a column in the data. It's just like adding a predictor (taking its
+log) without adding a parameter for it!
+
+If you put a parameter in front of τ, you're able to model the hypothesis that
+the rate is not constant with time.
+
+*Remember:* When the length of observations, area of sampling, or intensity of
+sampling varies, the counts we observe also naturally vary! Poisson assumes
+stationarity (time/space) --- here, we add an offset! That is --- the logarithm
+of the exposure unit.
+
+### Simulating an example:
+
+Consider the case of reporting events (e.g., death) at two hospitals. Hospital 1
+records daily events (30 observations of one day each), while Hospital 2 records
+weekly events (4 observations, each representing seven days).
+
+If we simply modeled the raw event counts, Hospital 2 would naturally tend to
+have larger counts because each observation covers a longer period of time.
+
+```{r}
+#| label: offset-example
+
+set.seed(636961739)
+num_days <- 30 # days of the experiment
+
+hospital1 <- rpois (num_days, 1.5) # 1.5 events per day
+
+num_weeks <- 4 # weeks of the experiment
+
+hospital2 <- rpois(num_weeks, 0.5*7) # events * lowst unit (i.e., days)
+
+events <- c(hospital1, hospital2)
+exposure <- c(rep(1,30), rep(7,4))
+hospital_id <- c(rep(0,30), rep(1,4))
+hospital_data <- data.frame(
+  events=events,
+  days=exposure,
+  hospital_id=hospital_id
+)
+
+hospital_data$log_days = log(hospital_data$days)
+
+sim_m1 <- glm( events ~ 1 + hospital_id,
+    family = poisson,
+    data = hospital_data
+)
+
+broom::tidy(sim_m1,exponentiate = TRUE)
+
+sim_m2 <- glm( events ~ 1 + hospital_id,
+    family = poisson,
+    offset = log_days, # here we added the expoure time as an offset.
+    data = hospital_data
+)
+
+broom::tidy(sim_m2,exponentiate = TRUE)
+```
+
+#### Expectations:
+
+In this simulation, Hospital 1 was generated with an average rate of 1.5 events
+per day, while Hospital 2 was generated with an average rate of 0.5 events per
+day. Therefore, we expect a correct fitted model to recover:
+
+- An intercept corresponding to approximately 1.5 events per day
+
+- An exponentiated coefficient for hospital_id of approximately
+
+  $$
+    \frac{0.50}{1.5}≈0.33.
+  $$
+
+This means Hospital 2 has about one-third the event rate of Hospital 1
+(equivalently, about a 67% lower event rate). Since we are fitting a Poisson
+model, this exponentiated coefficient is interpreted as an incidence rate ratio
+(IRR). Note: *Small differences between the estimated and true values are
+expected because the data are randomly simulated*.
+
+#### Observations:
+
+Notice that when we simply model the raw event counts, Hospital 2 will naturally
+have larger counts because each observation covers a longer period of time. This
+is in contrast to our expectation.
+
+The offset corrects for this by incorporating the amount of exposure into the
+model. Specifically, we include the logarithm of the exposure `log_days` as an
+offset:
+
+$$
+  log μ_i = log (days_i) + α + β1hospital_i
+$$
+Because the offset has a coefficient fixed at 1, the model estimates event rates
+(events per day) rather than raw counts. This allows observations with different
+exposure times to be compared on the same scale. The estimates are much closer
+to our expectation this time.
+
+# Summary:
+
+This session introduced the Poisson distribution and how to use it in regression
+(within the GLM framework). We covered it's relationship to logistic regression
+and why it's necessary in favor of the gaussian linear regression. We also
+covered how the coefficients are interpreted (incidence rate-ratio), and how we
+invert the coefficients (taking it's exponential). Finally, we covered the
+assumptions (dispersion) and how to adjust different exposure times (including
+an offset).
+
+::: {.hidden}
+Hidden material on prediction
+
 manual predictions:
 
 ```{r}
@@ -829,8 +1252,6 @@ mu_hat <- exp(
   b["drugprogabide"] * 0       # reference treatment
   #b["base"] * mean(epil$lbase)
 )
-
-
 
 plot(x_seq, mu_hat, type = "l")
 
@@ -872,6 +1293,12 @@ X <- model.matrix(
 )
 
 newdata$mu_hat <- exp(X %*% coef(m2_baseline))
+
+exp(X %*% coef(m2_baseline)) == predict(
+  m2_baseline,
+  newdata = newdata,
+  type = "response"
+)
 ```
 
 This last expression,
@@ -994,112 +1421,71 @@ $$
 $$
 
 which is a matrix product, not the geometric cross product.
+:::
 
-### Exposure and the offset
+<!--  These are just notes for other datasets....
 
-The parameter λ is the expected value of a Poisson model --- but also commonly
-interpreted as a *rate*.
-
-The rate interpretation is nice for allowing varying expoure time.
-
-Implizitly, λ is equal to an expected number of events, μ, per unit time or
-distance, τ. This implies that λ = μ/τ, which lets us redefine the link:
-
-$$
-  y_i \sim Poisson(λ_i) \\
-  log λ_i = log \frac{μ_i}{τ_i} = α + βx_i
-$$
-
-Since the logarithm of a ratio is the same as the difference of logarithms:
-
-$$
-  log λ_i = log μ_i - log τ_i = α + βx_i
-$$
-
-These τ are the "exposures". If different observations *i* have different
-exposures, the expected value on row *i* is given by
-
-$$
-  log μ_i = log τ_i + α + βx_i
-$$
-
-When τ_i = 1, then logτ_i = 0 and we're back to standard Poisson!
-
-But when the exposure is not 1, τ does effectively *scales* the expected number
-of events for each case *i* in the unit x = 1 (1 day, year, whatever...).
-Therefore, we write:
-
-$$
-  y_i \sim Poisson(μ_i) \\
-  log μ_i = log τ_i + α + βx_i
-$$
-
-Where τ is a column in the data. It's just like adding a predictor (taking its
-log) without adding a parameter for it!
-
-If you put a parameter in front of τ, you're able to model the hypothesis that
-the rate is not constant with time.
-
-*Remember:* When the length of observations, area of sampling, or intensity of
-sampling varies, the counts we observe also naturally vary! Poisson assumes
-stationarity (time/space) --- here, we add an offset! That is --- the logarithm
-of the exposure unit.
-
-Think of days of monitoring a patient...
-
-```{r}
-#| label: offset-example
-
-set.seed(636961739)
-num_days <- 30 # days of the experiment
-
-hospital1 <- rpois (num_days, 1.5) # 1.5 events per day
-
-num_weeks <- 4 # weeks of the experiment
-
-hospital2 <- rpois(num_weeks, 0.5*7) # events * lowst unit (i.e., days)
-
-events <- c(hospital1, hospital2)
-exposure <- c(rep(1,30), rep(7,4))
-hospital_id <- c(rep(0,30), rep(1,4))
-hospital_data <- data.frame(
-  events=events,
-  days=exposure,
-  hospital_id=hospital_id
+```{r extra-counterfactuals}
+cf <- bind_rows(
+#
+    predictions(
+    m2_baseline,
+    newdata=transform(epil,
+    drug="placebo")) |>
+    mutate(group="Placebo"),
+#
+    predictions(
+    m2_baseline,
+    newdata=transform(epil,
+    drug="progabide")) %>%
+    mutate(group="Treatment")
 )
 
-hospital_data$log_days = log(hospital_data$days)
+cf |>
+    ggplot(aes(estimate,fill=group))+
+    geom_density(alpha=0.4)+
+    theme_bw()
 
-sim_m1 <- glm( events ~ 1 + hospital_id,
-    family = poisson,
-    offset = log_days,
-    data = hospital_data
+cmp <- comparisons(
+    m2_baseline,
+    variables="drug"
 )
 
-broom::tidy(sim_m1,exponentiate = TRUE)
-# We simulated 1.5 for hospital1 (intercept) and 0.5 (a third or 33%) for hospital2. So OR of .31
+# Each bar is the estimated reduction in seizures if that patient switched treatments.
+cmp |>
+    ggplot(aes(estimate))+
+    geom_histogram(
+        bins=30,
+        fill="steelblue"
+    )+
+    theme_bw()
 ```
 
-### Negative binomial (gamma-Poisson) models
-
-Poisson models often have a lot of unexplained variance, mainly from ignoring
-*rate heterogeneity*.
-
-The gamma-Poisson is a mixture of different Poisson distributions (similar to
-how Student-t is a mixture of Gaussians).
-
 ```{r}
-#| label: assumptions
+#| label: cut-off-of-when-to-use-ekstra
 
-performance::check_overdispersion(m2_baseline)
-
-performance::check_model(m2_baseline)
-
-m3_nb <- MASS::glm.nb(seizure_count ~ drug * baseline_seizures,
-    data = epil
+placebo <- predictions(
+    m2_baseline,
+    newdata = transform(epil, drug = "placebo")
 )
 
-performance::check_model(m3_nb)
+treated <- predictions(
+    m2_baseline,
+    newdata = transform(epil, drug = "progabide")
+)
+
+epil$placebo <- placebo$estimate
+epil$treated  <- treated$estimate
+
+epil$benefit <- epil$placebo - epil$treated
+
+grid <- datagrid(
+    model=m2_baseline,
+    baseline_seizures = seq(0, 100, by = 1),
+    age = mean(epil$age), #28 yo
+    #V4 = 1, # follow-up
+    drug = c("placebo", "progabide")
+)
 ```
 
 # Other dataset
@@ -1407,3 +1793,4 @@ plot_predictions(
   type = "response"
 )
 ```
+-->

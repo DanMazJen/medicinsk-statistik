@@ -1,4 +1,4 @@
-# Exercises: Conditional variables {#sec-ex-interaction}
+# Exercises: Poissonous counting trick {#sec-ex-poisson}
 
 ::: {.callout-tip collapse="false"}
 ## Conditional variables

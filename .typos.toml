@@ -9,7 +9,7 @@ extend-exclude = [
   "_extensions/**",
   "_extensions/rostools/rostools-theme/_extensions/quarto-ext/fontawesome/assets/css/all.css",
   "*.bib",
-  "arrows/*"
+  "arrows/*",
 ]
 
 [default.extend-words]
@@ -18,6 +18,9 @@ extend-exclude = [
 Ege = "Ege"
 fpt = "fpt"
 splitted = "splitted"
+nd = "nd"
+lage = "lage"
+
 
 [default.extend-identifiers]
 fpt = "fpt"

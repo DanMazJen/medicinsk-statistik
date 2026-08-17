@@ -2,79 +2,64 @@
 
 ```{r}
 #| include: false
+
 library(downlit)
 ```
 
-In order to participate in this course, you must complete everything
-in this section and finish with **completing the
-[survey](/pre-course/survey.qmd)** at the end. These tasks are
-meant to provide everyone with the necessary setup and a shared
-foundation for the course.
+In order to participate in this course, you must complete everything in this
+section and finish with **completing the [survey](/pre-course/survey.qmd)** at
+the end. These tasks are meant to provide everyone with the necessary setup and
+a shared foundation for the course.
 
-Depending on your prior knowledge and skills, these tasks could take
-between **TIME hrs to finish**, so we suggest planning some time to
-complete them. While many of the tasks are mostly readings, they are
-important in making sure you get the most out of the course.
+Depending on your prior knowledge and skills, these tasks could take between
+**TIME hrs to finish**, so we suggest planning some time to complete them. While
+many of the tasks are mostly readings, they are important in making sure you get
+the most out of the course.
 
 ## Summary of tasks
 
-Here's a quick overview of the tasks you need to do. Specific details
-about them are found as you work through the tasks. Most of the time
-spent on the tasks is on the reading tasks. We include these reading
-tasks to have you as aware and as well-prepared as we can before the
-course, so that we have a smoother start and so that you benefit more
-from the improved learning from the earlier and repeated exposure.
+Here's a quick overview of the tasks you need to do. Specific details about them
+are found as you work through the tasks. Most of the time spent on the tasks is
+on the reading tasks. We include these reading tasks to have you as aware and as
+well-prepared as we can before the course, so that we have a smoother start and
+so that you benefit more from the improved learning from the earlier and
+repeated exposure.
 
-If you haven't already, go through the course overview section,
-including the [Syllabus](/overview/syllabus.qmd), [Is this for
-you?](/overview/is-this-for-you.qmd), and [Learning
-design](/overview/learning-design.qmd) to get an overview of what this
-course contains and the learning design behind the course material.
+If you haven't already, go through the course overview section, including the
+[Syllabus](/overview/syllabus.qmd) and [Learning
+design](/overview/learning-design.qmd) to get an overview of what this course
+contains and the learning design behind the course material.
 
-After that, please go through the the pre-course tasks designed to
-establish a shared foundation for the start of the course. This
-includes:
+After that, please go through the the pre-course tasks designed to establish a
+shared foundation for the start of the course. This includes:
 
-1.  Read the learning objectives in
-    @sec-pre-course-learning-objectives for the pre-course tasks
-    (below on this page).
-2.  Read about how to read this website in @sec-reading-website (below
-    on this page).
-3.  Do some reading tasks in @sec-pre-reading.
-4.  Install the necessary programs and the right versions of those
-    programs in @sec-install-programs. As mentioned in the callout block
-    above, depending on your institution, this task can take the
-    **longest amount of time** because you have to contact your IT to
-    install these packages.
-5.  Read about and navigate R and RStudio in @sec-r-and-rstudio.
-6.  Install necessary R packages in @sec-installing-r-packages. This may
-    also require IT approval, so start early.
-7.  Read some of the course sections on Git, configure Git on your
-    computer, and create a GitHub account in @sec-setup-git-and-github
-    as well as run some checks to make sure everything is working.
-    You'll need to paste this output into the survey later on.
-8.  Read through the Code of Conduct in @sec-code-of-conduct.
-9.  Complete the pre-course [survey](survey.qmd) in @sec-survey. This
-    survey is pretty quick, maybe \~10 minutes. There will be some bits
-    from the tasks that you will need to paste into this survey.
+1. Read the learning objectives in the
+   [Studieordning](https://moduler.aau.dk/course/2024-2025/MEDMS24B5_1).
+2. Read about how to read this website in @sec-reading-website (below on this
+   page).
+3. Do some reading tasks in @sec-pre-reading.
+4. Install the necessary programs and the right versions of those programs in
+   @sec-install-programs. As mentioned in the callout block above, depending on
+   your institution, this task can take the **longest amount of time** because
+   you have to contact your IT to install these packages.
+5. Read about and navigate R and RStudio in @sec-r-and-rstudio.
+6. Install necessary R packages in @sec-installing-r-packages. This may be a bit
+   technical for you, so start early.
+7. Read through the Code of Conduct in @sec-code-of-conduct.
+8. Complete the pre-course [survey](survey.qmd) in @sec-survey. This survey is
+   pretty quick, maybe \~10 minutes. There will be some bits from the tasks that
+   you will need to paste into this survey.
 
-## Learning objective {#sec-pre-course-learning-objectives}
+In general, these pre-course tasks are meant to help prepare you for the course
+and make sure everything is setup properly so the first session runs smoothly.
+While most of these pre-course tasks are meant to prepare you for the course,
+some of them are also designed for learning purposes
 
-Most of the description of the course is in the syllabus that is found
-in @sec-syllabus. While you may have signed up to this course to learn
-more about R, you should know that conducting reproducible research goes
-beyond R and RStudio. Which means we will be spending time using other
-tools that you will use with R so that you can improve the
-reproducibility of your research. This course is designed to introduce
-you to doing reproducible research while using R.
-
-In general, these pre-course tasks are meant to help prepare you for
-the course and make sure everything is setup properly so the first
-session runs smoothly. While most of these pre-course tasks are meant
-to prepare you for the course, some of them are also designed for
-learning purposes to enable you to:
+::: {.hidden}
+to enable you to:
 
 {{< include /includes/objectives/_pre-course.qmd >}}
+:::
 
 ## How to read this website {#sec-reading-website}
 
@@ -83,21 +68,19 @@ learning purposes to enable you to:
 {{< text_snippet faq_text >}}
 
 ::: callout-tip
-You will be taken through the pre-course tasks in order by clicking
-the arrow at the bottom of each page :arrow_right:
+You will be taken through the pre-course tasks in order by clicking the arrow at
+the bottom of each page :arrow_right:
 :::
 
-:::{.hidden}
-1.  Install a version of R and RStudio that is as updated
-    as possible.
-2.  Install necessary R packages.
-3.  TODO: Add more tasks
-4.  Read the syllabus (@sec-syllabus).
-5.  Read the [Code of
-    Conduct](https://guides.rostools.org/conduct.html).
-6.  Complete the pre-course [survey](survey.qmd): This survey is pretty quick,
-    maybe \~10 minutes. There will be some bits from the tasks that you
-    will need to paste into this survey.
+::: {.hidden}
+1. Install a version of R and RStudio that is as updated as possible.
+2. Install necessary R packages.
+3. TODO: Add more tasks
+4. Read the syllabus (@sec-syllabus).
+5. Read the [Code of Conduct](https://guides.rostools.org/conduct.html).
+6. Complete the pre-course [survey](survey.qmd): This survey is pretty quick,
+   maybe \~10 minutes. There will be some bits from the tasks that you will need
+   to paste into this survey.
 
 Check each section for exact details on completing these tasks.
 :::

@@ -173,7 +173,7 @@ coef(model1)
 # 6) It depends on the the sex and the UA level.
 ```
 
-### Exercise 2B
+**Exercise 2B**
 
 Create predicted values from the model.
 

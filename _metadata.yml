@@ -16,5 +16,5 @@ surveys:
 # Use `r3::get_allowed_r_versions()` and `r3::get_allowed_rstudio_versions()`
 # to get a list of the allowed R and RStudio versions.
 versions:
-  r: "4.5.1"
-  rstudio: "v2025.05.1+513"
+  r: "4.6.0"
+  rstudio: "v2026.08.0"

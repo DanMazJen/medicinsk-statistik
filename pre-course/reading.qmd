@@ -1,11 +1,11 @@
 # Pre-reading {#sec-pre-reading}
 
 If you haven't already, go through the course overview section. Read the
-syllabus in @sec-syllabus, especially the part about what the course will cover
-and what we expect you to learn at the end of it. Then read the learning design
-section in @sec-learning-design to get an overview of what types of activities
-we will do during the course as well as the reasons for them in relation to
-learning.
+[syllabus](https://moduler.aau.dk/course/2024-2025/MEDMS24B5_1), especially the
+part about what the course will cover and what we expect you to learn at the end
+of it. Then read the learning design section in @sec-learning-design and
+@sec-schedule to get an overview of what types of activities we will do during
+the course as well as the reasons for them in relation to learning.
 
 Related to the learning design, an important component of learning is repeated
 exposure to a concept or skill. We want you to read through specific sections of
@@ -17,36 +17,33 @@ During the course, you will read these sections again and we will explain them
 verbally as well, to further reinforce the concepts.
 
 Because our main learning outcome is **statistical litteracy**, we will use
-tools like R that is the foundation for most modern statistical workflows .
-Without a way to easily and quickly share code, your research *cannot* be
-*independently* reproducible. Using R is the most common way to write
-statistical analyses within the health sciences.
+tools like R that is the foundation for most modern statistical workflows.
+Without a way to easily and quickly reproduce analyses, statistical work becomes
+daunting and inefficient. Using R is the most common way to write statistical
+analyses within the health sciences.
 
-So, please read about R and the tidyverse in @sec-what-is-version-control,
-@sec-what-is-git, and @sec-basics-of-git. R and its associated computer code
-will be the main topic for the course. However, all exercises and
-implementations of the statistical concepts and usecases of the material we
-cover will only be achievable through R and code. Learning how to program
-requires a change in how you see and interact with your projects and computer in
-big ways. Try not to underestimate R and what it can do for you in order to
-learn quicker or even slower during this course.
+So, please read about R and how to set it up in @sec-install-programs,
+@sec-r-and-rstudio, and @sec-installing-r-packages. R and its associated
+computer code will be the main tool for the course. Learning how to program
+requires a change in how you see and interact with your computer in profound
+ways. Try not to underestimate R and what it can do for you in order to learn
+quicker during this course.
 
 Lastly, briefly read through the group project work section in @sec-project-work
 so you are familiar with what you will do at the end of the course. You'll have
 time during the project work session to read through it again, but we've found
-that participants prefer and want to be aware beforehand on what is expected of
-them during the project work.
+that students prefer and want to be aware beforehand on what is expected of them
+during the project work.
 
 ::: callout-tip
 To keep track of which sections to read, here is a list:
 
 1. @sec-syllabus
-2. @sec-is-this-for-you
-3. @sec-learning-design
-4. @sec-what-is-version-control
-5. @sec-what-is-git
-6. @sec-basics-of-git
-7. @sec-project-work
+2. @sec-learning-design
+3. @sec-install-programs,
+4. @sec-r-and-rstudio,
+5. @sec-installing-r-packages,
+6. @sec-project-work
 :::
 
 ## Cheatsheets
@@ -65,4 +62,55 @@ course, especially for when you do the exercises and team project work:
 
 ## Using AI
 
-<!-- TODO: Write text here -->
+I provide solutions to the exercises---but a solved exercise is not the goal.
+Learning is.
+
+Use ChatGPT and other chat models responsibly. They can help you understand,
+question, and explore, but they can also give you convincing nonsense.
+
+**Do not outsource your thinking.**
+
+The time to make mistakes, struggle, and learn from them is now---not when you
+are responsible for patients, colleagues, or decisions in the workplace.
+
+### Examples:
+
+Legitimate use cases
+
+- Ask for an explanation of a statistical concept you do not understand.
+- Ask for a hint when you are stuck rather than asking for the answer.
+- Make it explain errors in R instead of generating the code.
+- Compare your own solution with a suggested solution and identify where they
+  differ.
+- Ask the model to challenge your interpretation of a result or point out
+  assumptions you may have missed.
+- Use it after attempting an exercise to clarify mistakes and deepen your
+  understanding.
+
+Poor use cases
+
+- Copying the solution without first attempting the exercise.
+- Asking the model to solve an exercise so you can submit or reproduce the
+  answer.
+- Using a model's statistical reasoning without checking whether it is correct.
+- Letting the model choose a statistical method you cannot explain yourself.
+
+**Further resources on responsible use of AI**
+
+- [AAU: Generative AI for
+  students](https://www.en.aub.aau.dk/students/generative-ai) --- guidance on
+  academic practice, privacy, evaluating AI, useful scenarios, prompting, and
+  avoiding over-reliance on AI.
+- [AAU: Rules for use of generative
+  AI](https://www.studerende.aau.dk/regler-og-praktisk/regler/regler-for-brug-af-generativ-ai) ---
+  know the rules that apply to your studies and exams.
+- [AAU: Scenarios for using generative
+  AI](https://www.en.aub.aau.dk/students/generative-ai/scenarios-for-use) ---
+  examples of appropriate uses of AI for studying, understanding difficult
+  material, and exam preparation.
+- [UNESCO: Guidance for generative AI in education and
+  research](https://www.unesco.org/en/articles/guidance-generative-ai-education-and-research) ---
+  a broader perspective on human-centred and responsible use of generative AI in
+  education.
+
+*You are responsible for what you submit --- and for what you learn.*

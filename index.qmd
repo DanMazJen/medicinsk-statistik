@@ -1,15 +1,39 @@
 # Welcome! {.unnumbered}
 
-Welcome to the **Medical Statistics** course repository.
-This repo contains all teaching materials, exercises, datasets, and project resources used in the course.
+Welcome to the **Medical Statistics** course repository. This archive contains
+much of the teaching material, exercises, datasets, and project resources used
+in the course. It is a supplement to Moodle and should be regarded as a archive
+of artifacts for students enrolled in the course and not the general public.
 
-The course focuses on **clinical data analysis, biostatistics, and data-driven clinical decision-making** through hands-on learning and real-world case studies. For the academic regulations of the course, see [Medical Statistics](https://moduler.aau.dk/course/2024-2025/MEDMS24B5_1).
+The course focuses on **clinical data analysis, biostatistics, and data-driven
+clinical decision-making** through hands-on learning and real-world case
+studies. For the academic regulations of the course, see [Medical
+Statistics](https://moduler.aau.dk/course/2024-2025/MEDMS24B5_1).
 
 ## Course Overview
 
-Learn to turn clinical data into robust evidence that informs real clinical and research decisions. Healthcare generates enormous amounts of data, yet many decisions are still based on studies with limited statistical rigor, misinterpreted results, or insufficient consideration of uncertainty, bias, and reproducibility. Clinicians and researchers increasingly need the skills to critically appraise the literature and understand how evidence is generated, interpreted, and communicated in scientific work. To address this, you need strong statistical reasoning, practical data analysis skills, and the ability to translate quantitative results into clinically meaningful insight. In this course, you will learn how to use R for data analysis; understand probability, uncertainty, and stochastic processes; apply regression and generalized linear models; design and validate prediction models; evaluate bias, confounding, and reproducibility; perform power and sample size calculations; analyze time-to-event and repeated-measures data; and connect statistical findings to clinical decision-making and meta-analysis.
+Learn to turn clinical data into robust evidence that informs real clinical and
+research decisions. Healthcare generates enormous amounts of data, yet many
+decisions are still based on studies with limited statistical rigor,
+misinterpreted results, or insufficient consideration of uncertainty, bias, and
+reproducibility. Clinicians and researchers increasingly need the skills to
+critically appraise the literature and understand how evidence is generated,
+interpreted, and communicated in scientific work. To address this, you need
+strong statistical reasoning, practical data analysis skills, and the ability to
+translate quantitative results into clinically meaningful insight. In this
+course, you will learn how to use R for data analysis; understand probability,
+uncertainty, and stochastic processes; apply regression and generalized linear
+models; design and validate prediction models; evaluate bias, confounding, and
+reproducibility; perform power and sample size calculations; analyze
+time-to-event and repeated-measures data; and connect statistical findings to
+clinical decision-making and meta-analysis.
 
-By the end of the course, you will be able to engage confidently with scientific research, communicate quantitative findings clearly, and contribute to high-quality evidence generation. These skills will empower you to participate fully in modern clinical and translational research, collaborate effectively with statisticians and data scientists, and strengthen the scientific basis of your clinical and research practice.
+By the end of the course, you will be able to engage confidently with scientific
+research, communicate quantitative findings clearly, and contribute to
+high-quality evidence generation. These skills will empower you to participate
+fully in modern clinical and translational research, collaborate effectively
+with statisticians and data scientists, and strengthen the scientific basis of
+your clinical and research practice.
 
 The purpose of this module is to provide students with fundamental skills in:
 
@@ -20,15 +44,19 @@ The purpose of this module is to provide students with fundamental skills in:
 
 ## This website
 
-This website contains all materials for the course Medical Statistics at Aalborg University, Faculty of Health as a collaboration between the Department of Health Science & Technology and the Department of Clinical Medicine. The course is currently offered for the education Medicine with Industrial Specialization at the 5th semester.
+This website contains most of the material for the course *Medical Statistics*
+at Aalborg University within the Faculty of Health as a collaboration between
+the Department of Health Science & Technology and the Department of Clinical
+Medicine. The course is currently offered for the education *Medicine with
+Industrial Specialization* at the 5th semester.
 
 Check out the overview section of the course, starting with the
 [Syllabus](/overview/syllabus.qmd).
 
 If you plan on attending the course, please make sure to complete the
-[Pre-course tasks](/pre-course/overview.qmd) to get set up and ready
-for the course. The pre-course tasks include a survey that you need
-to fill out before the course starts.
+[Pre-course tasks](/pre-course/overview.qmd) to get set up and ready for the
+course. The pre-course tasks include a survey that you need to fill out before
+the course starts.
 
 {{< include /includes/_star-us.qmd >}}
 
@@ -36,16 +64,17 @@ to fill out before the course starts.
 
 This website and its content are targeted to three groups:
 
-1.  For the **learners** to use during the course, both to follow
-    along and also to use as a reference during the project or even after the course ends. A more detailed description of who the learner is can be found in [Is this
-    for you?](/overview/is-this-for-you.qmd)
-2.  For the **teachers** to use as a guide for teaching the course and for the exercise
-    material.
-3.  For the **project supervisors** to use as a reference on what to expect during the
-    projects work and references for R code help.
-4.  For those who are **interested in teaching**, who may not have much
-    experience or may not know where to start, to use this website as a
-    guide to running and teaching their own courses.
+1. For the **learners** to use during the course, both to follow along and also
+   to use as a reference during the project or even after the course ends. A
+   more detailed description of who the learner is can be found in [Is this for
+   you?](/overview/is-this-for-you.qmd)
+2. For the **teachers** to use as a guide for teaching the course and for the
+   exercise material.
+3. For the **project supervisors** to use as a reference on what to expect
+   during the projects work and references for R code help.
+4. For those who are **interested in teaching**, who may not have much
+   experience or may not know where to start, to use this website as a guide to
+   running and teaching their own courses.
 
 ## Re-use and licensing
 
@@ -58,17 +87,16 @@ this material for teaching.
 ## Contributing
 
 Want to contribute to this course? Look through our
-[CONTRIBUTING](CONTRIBUTING.md) page for contribution guidelines on how to
-get started.
+[CONTRIBUTING](CONTRIBUTING.md) page for contribution guidelines on how to get
+started.
 
 ## How the website is made
 
-The course material is created using [Quarto](https://quarto.org) to
-write the material and create the book format,
-[GitHub](https://github.com/) to host the [Git](https://git-scm.com/)
-repository of the material, and [GitHub
+The course material is created using [Quarto](https://quarto.org) to write the
+material and create the book format, [GitHub](https://github.com/) to host the
+[Git](https://git-scm.com/) repository of the material, and [GitHub
 Actions](https://github.com/features/actions) with
-[Netlify](https://www.netlify.com/) to build and host the website. The
-original source material for this course is found on the
+[Netlify](https://www.netlify.com/) to build and host the website. The original
+source material for this course is found on the
 [`{{< meta gh.repo >}}`](https://github.com/{{< meta gh.org >}}/{{< meta gh.repo >}})
 GitHub repository.

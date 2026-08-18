@@ -2,17 +2,20 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.38">
+<meta name="generator" content="quarto-1.10.18">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>19&nbsp; Conditioning and polynomial madness – Medical Statistics, MEDMS24B5_1</title>
+<title>13&nbsp; Conditioning and polynomial madness – Medical Statistics, MEDMS24B5_1</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
 */
-code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -63,8 +66,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../sessions/session15.html" rel="next">
-<link href="../sessions/session08.html" rel="prev">
+<link href="../sessions/session12.html" rel="next">
+<link href="../sessions/session04.html" rel="prev">
 <link href="../site_libs/quarto-contrib/quarto-project/rostools/rostools-theme/favicon.ico" rel="icon">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -72,14 +75,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-a26eb8303659cd3e56a4df222525631d.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-30e6a2c837d31765335c9e5ddc24bf05.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-a26eb8303659cd3e56a4df222525631d.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-f2f3720d61c840f4a81557a72cafc3fb.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-b3a0ae3d575e4a0a28d8790bf29525bf.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-f2f3720d61c840f4a81557a72cafc3fb.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-3e9453848423e76c8373c33b06ef5187.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-e753f34555c28b66633e945198972a28.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-3e9453848423e76c8373c33b06ef5187.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-bd539a4bd325924d58cdeed552045633.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-8b270897fe75296330c4467c087bf150.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-bd539a4bd325924d58cdeed552045633.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/quarto-contrib/fontawesome6-6.7.2/all.min.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/fontawesome6-6.7.2/latex-fontsize.css" rel="stylesheet">
 <script src="../site_libs/quarto-contrib/kbd/kbd.js"></script>
@@ -108,7 +111,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script><script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><script type="text/javascript">
+}</script><script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script><script type="text/javascript">
 const typesetMath = (el) => {
   if (window.MathJax) {
     // MathJax Typeset
@@ -155,7 +158,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/session01.html">Sessions</a></li><li class="breadcrumb-item"><a href="../sessions/session11.html"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Conditioning and polynomial madness</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/session01.html">Sessions</a></li><li class="breadcrumb-item"><a href="../sessions/session11.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Conditioning and polynomial madness</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -268,56 +271,26 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/session02.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Probability and stochastic variables</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/session03.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Effect measurements</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../sessions/session04.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">When in doubt - plot it out</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/session05.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Statistical Analysis Plan (SAP)</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/session06.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Central Limit Theorem, uncertainty, and Monte Carlo sampling</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/session07.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Hypothesis testing, confounding, and reproducibility</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/session08.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Data wrangling using R</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">When in doubt - plot it out</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session11.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Conditioning and polynomial madness</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Conditioning and polynomial madness</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/session12.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">A Poissonous counting trick</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session15.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Marginalizing the problem</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Marginalizing the problem</span></span></a>
   </div>
 </li>
       </ul>
@@ -334,37 +307,37 @@ window.Quarto = {
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Data for Medical Statistics</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Data for Medical Statistics</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/ex01.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Exercises: Hallo Medical Statistics</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../exercises/ex02.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Exercises: Probability and stochastic variables</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Exercises: Hallo Medical Statistics</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/ex04.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Exercises: Hallo Medical Statistics</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Exercises: When in doubt, plot it out</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/ex11.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Exercises: Conditional variables</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Exercises: Conditional and polynomial madness</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../exercises/ex12.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Exercises: A Poissonous counting trick</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/ex15.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Exercises: Conditional variables</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Exercises: Marginalizing the problem</span></span></a>
   </div>
 </li>
       </ul>
@@ -424,41 +397,39 @@ window.Quarto = {
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-<li><a href="#pree-class-literature" id="toc-pree-class-literature" class="nav-link active" data-scroll-target="#pree-class-literature"><span class="header-section-number">19.1</span> Pree-class Literature</a></li>
+<li><a href="#pree-class-literature" id="toc-pree-class-literature" class="nav-link active" data-scroll-target="#pree-class-literature"><span class="header-section-number">13.1</span> Pree-class Literature</a></li>
+  <li><a href="#slides" id="toc-slides" class="nav-link" data-scroll-target="#slides"><span class="header-section-number">13.2</span> Slides</a></li>
   <li>
-<a href="#slides" id="toc-slides" class="nav-link" data-scroll-target="#slides"><span class="header-section-number">20</span> Slides</a>
+<a href="#case-session-11" id="toc-case-session-11" class="nav-link" data-scroll-target="#case-session-11"><span class="header-section-number">13.3</span> Case session 11: “”</a>
   <ul class="collapse">
-<li><a href="#case-session-11" id="toc-case-session-11" class="nav-link" data-scroll-target="#case-session-11"><span class="header-section-number">20.1</span> Case session 11: “”</a></li>
-  <li><a href="#reading-task-conditional-manatees" id="toc-reading-task-conditional-manatees" class="nav-link" data-scroll-target="#reading-task-conditional-manatees"><span class="header-section-number">20.2</span> Reading Task: Conditional manatees?</a></li>
-  <li><a href="#adding-the-variable-to-a-regression-model-is-not-enough" id="toc-adding-the-variable-to-a-regression-model-is-not-enough" class="nav-link" data-scroll-target="#adding-the-variable-to-a-regression-model-is-not-enough"><span class="header-section-number">20.3</span> Adding the variable to a regression model is not enough</a></li>
-  <li><a href="#adding-an-interaction" id="toc-adding-an-interaction" class="nav-link" data-scroll-target="#adding-an-interaction"><span class="header-section-number">20.4</span> Adding an interaction</a></li>
-  <li>
-<a href="#interpreting-an-interaction-estimate" id="toc-interpreting-an-interaction-estimate" class="nav-link" data-scroll-target="#interpreting-an-interaction-estimate"><span class="header-section-number">20.5</span> Interpreting an interaction estimate</a>
-  <ul class="collapse">
-<li><a href="#step-1" id="toc-step-1" class="nav-link" data-scroll-target="#step-1"><span class="header-section-number">20.5.1</span> Step 1:</a></li>
-  <li><a href="#step-2-plug-in-specific-ages" id="toc-step-2-plug-in-specific-ages" class="nav-link" data-scroll-target="#step-2-plug-in-specific-ages"><span class="header-section-number">20.5.2</span> Step 2: Plug in specific ages</a></li>
-  <li><a href="#step-3-interpret-the-interaction" id="toc-step-3-interpret-the-interaction" class="nav-link" data-scroll-target="#step-3-interpret-the-interaction"><span class="header-section-number">20.5.3</span> Step 3: Interpret the interaction</a></li>
-  </ul>
-</li>
+<li><a href="#reading-task-conditional-venom" id="toc-reading-task-conditional-venom" class="nav-link" data-scroll-target="#reading-task-conditional-venom"><span class="header-section-number">13.3.1</span> Reading Task: Conditional venom?</a></li>
   </ul>
 </li>
   <li>
-<a href="#symmetry-of-the-linear-interaction" id="toc-symmetry-of-the-linear-interaction" class="nav-link" data-scroll-target="#symmetry-of-the-linear-interaction"><span class="header-section-number">21</span> Symmetry of the linear interaction</a>
+<a href="#the-additive-and-linear-assumption" id="toc-the-additive-and-linear-assumption" class="nav-link" data-scroll-target="#the-additive-and-linear-assumption"><span class="header-section-number">13.4</span> The additive and linear assumption</a>
   <ul class="collapse">
-<li>
-<a href="#symmetry-of-the-linear-interaction-1" id="toc-symmetry-of-the-linear-interaction-1" class="nav-link" data-scroll-target="#symmetry-of-the-linear-interaction-1"><span class="header-section-number">21.1</span> Symmetry of the Linear Interaction</a>
-  <ul class="collapse">
-<li><a href="#key-takeaway" id="toc-key-takeaway" class="nav-link" data-scroll-target="#key-takeaway"><span class="header-section-number">21.1.1</span> Key takeaway</a></li>
+<li><a href="#adding-the-variable-to-a-regression-model-is-not-enough" id="toc-adding-the-variable-to-a-regression-model-is-not-enough" class="nav-link" data-scroll-target="#adding-the-variable-to-a-regression-model-is-not-enough"><span class="header-section-number">13.4.1</span> Adding the variable to a regression model is not enough</a></li>
+  <li><a href="#making-non-linear-terms-in-linear-models" id="toc-making-non-linear-terms-in-linear-models" class="nav-link" data-scroll-target="#making-non-linear-terms-in-linear-models"><span class="header-section-number">13.4.2</span> Making non-linear terms in linear models</a></li>
+  <li><a href="#adding-an-interaction" id="toc-adding-an-interaction" class="nav-link" data-scroll-target="#adding-an-interaction"><span class="header-section-number">13.4.3</span> Adding an interaction</a></li>
+  <li><a href="#interpreting-an-interaction-estimate" id="toc-interpreting-an-interaction-estimate" class="nav-link" data-scroll-target="#interpreting-an-interaction-estimate"><span class="header-section-number">13.4.4</span> Interpreting an interaction estimate</a></li>
   </ul>
 </li>
+  <li>
+<a href="#symmetry-of-the-linear-interaction" id="toc-symmetry-of-the-linear-interaction" class="nav-link" data-scroll-target="#symmetry-of-the-linear-interaction"><span class="header-section-number">13.5</span> Symmetry of the linear interaction</a>
+  <ul class="collapse">
+<li><a href="#key-takeaway" id="toc-key-takeaway" class="nav-link" data-scroll-target="#key-takeaway"><span class="header-section-number">13.5.1</span> Key takeaway</a></li>
   </ul>
 </li>
-  <li><a href="#continuous-interactions" id="toc-continuous-interactions" class="nav-link" data-scroll-target="#continuous-interactions"><span class="header-section-number">22</span> Continuous interactions</a></li>
+  <li><a href="#continuous-interactions" id="toc-continuous-interactions" class="nav-link" data-scroll-target="#continuous-interactions"><span class="header-section-number">13.6</span> Continuous interactions</a></li>
+  <li><a href="#polynomials" id="toc-polynomials" class="nav-link" data-scroll-target="#polynomials"><span class="header-section-number">13.7</span> Polynomials</a></li>
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"><span class="header-section-number">13.8</span> </a></li>
+  <li><a href="#intution-of-polynomials" id="toc-intution-of-polynomials" class="nav-link" data-scroll-target="#intution-of-polynomials"><span class="header-section-number">13.9</span> Intution of polynomials</a></li>
+  <li><a href="#the-danger-of" id="toc-the-danger-of" class="nav-link" data-scroll-target="#the-danger-of"><span class="header-section-number">13.10</span> The danger of</a></li>
   </ul><div class="toc-actions"><ul><li><a href="https://github.com/DanMazJen/medicinsk-statistik/edit/main/sessions/session11.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/blob/main/sessions/session11.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><script data-goatcounter="https://DanMazJen-medicinsk-statistik.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/session01.html">Sessions</a></li><li class="breadcrumb-item"><a href="../sessions/session11.html"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Conditioning and polynomial madness</span></a></li></ol></nav><div class="quarto-title">
-<h1 class="title"><span id="sec-interaction" class="quarto-section-identifier"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Conditioning and polynomial madness</span></span></h1>
+<main class="content" id="quarto-document-content"><script data-goatcounter="https://DanMazJen-medicinsk-statistik.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/session01.html">Sessions</a></li><li class="breadcrumb-item"><a href="../sessions/session11.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Conditioning and polynomial madness</span></a></li></ol></nav><div class="quarto-title">
+<h1 class="title"><span id="sec-interaction" class="quarto-section-identifier"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Conditioning and polynomial madness</span></span></h1>
 </div>
 
 
@@ -487,12 +458,12 @@ Warning
 </div><blockquote class="blockquote">
 <p>“x.” — John Doe</p>
 </blockquote>
-<section id="pree-class-literature" class="level2" data-number="19.1"><h2 data-number="19.1" class="anchored" data-anchor-id="pree-class-literature">
-<span class="header-section-number">19.1</span> Pree-class Literature</h2>
+<section id="pree-class-literature" class="level2" data-number="13.1"><h2 data-number="13.1" class="anchored" data-anchor-id="pree-class-literature">
+<span class="header-section-number">13.1</span> Pree-class Literature</h2>
 <ul>
-<li><a href="s">s</a></li>
-</ul></section><section id="slides" class="level1" data-number="20"><h1 data-number="20">
-<span class="header-section-number">20</span> Slides</h1>
+<li>Chapter 3.3.2 (pages 87—-93) in <a href="https://www.statlearning.com/">Introduction to statistical learning with R 2nd edition</a> (click <a href="https://hastie.su.domains/ISLR2/ISLRv2_corrected_June_2023.pdf.download.html">“Download ISL with R”</a>)</li>
+</ul></section><section id="slides" class="level2" data-number="13.2"><h2 data-number="13.2" class="anchored" data-anchor-id="slides">
+<span class="header-section-number">13.2</span> Slides</h2>
 <blockquote class="blockquote">
 <p><a href="../slides/day11.html"><strong>Session 11 slides</strong></a></p>
 </blockquote>
@@ -515,8 +486,8 @@ Warning
 </div>
 </div>
 </div>
-<section id="case-session-11" class="level2" data-number="20.1"><h2 data-number="20.1" class="anchored" data-anchor-id="case-session-11">
-<span class="header-section-number">20.1</span> Case session 11: “”</h2>
+</section><section id="case-session-11" class="level2" data-number="13.3"><h2 data-number="13.3" class="anchored" data-anchor-id="case-session-11">
+<span class="header-section-number">13.3</span> Case session 11: “”</h2>
 <p>At AalboR Statistical Hospital, a new exercise-based cardiac assessment protocol has recently been introduced following an initial data review suggesting that patients with lower max heart rate are more likely to have underlying heart disease. Based on this, some clinicians have started using the max heart rate during exercise as a quick indicator when evaluating chest pain patients.</p>
 <p>However, during a recent internal meeting, a cardiologist raises a concern:</p>
 <blockquote class="blockquote">
@@ -546,10 +517,7 @@ Warning
 <span><span class="va">hd_data</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">Age</span>, <span class="va">MaxHR</span>, color <span class="op">=</span> <span class="va">HD</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_smooth</span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
-</div>
+<span>  <span class="fu">geom_smooth</span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span>, formula <span class="op">=</span> <span class="va">y</span> <span class="op">~</span> <span class="va">x</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure"><p><img src="session11_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
@@ -557,13 +525,28 @@ Warning
 </div>
 </div>
 </div>
-</section><section id="reading-task-conditional-manatees" class="level2" data-number="20.2"><h2 data-number="20.2" class="anchored" data-anchor-id="reading-task-conditional-manatees">
-<span class="header-section-number">20.2</span> Reading Task: Conditional manatees?</h2>
-<p>…</p>
-</section><section id="adding-the-variable-to-a-regression-model-is-not-enough" class="level2" data-number="20.3"><h2 data-number="20.3" class="anchored" data-anchor-id="adding-the-variable-to-a-regression-model-is-not-enough">
-<span class="header-section-number">20.3</span> Adding the variable to a regression model is not enough</h2>
+<section id="reading-task-conditional-venom" class="level3" data-number="13.3.1"><h3 data-number="13.3.1" class="anchored" data-anchor-id="reading-task-conditional-venom">
+<span class="header-section-number">13.3.1</span> Reading Task: Conditional venom?</h3>
+<p>Read [this Australian Geographics blog] (https://www.australiangeographic.com.au/blogs/creatura-with-bec-crew/2025/09/funnel-web-spiders-are-australias-deadliest-not-for-our-pets/) on the Funnel-web spider.</p>
+</section></section><section id="the-additive-and-linear-assumption" class="level2" data-number="13.4"><h2 data-number="13.4" class="anchored" data-anchor-id="the-additive-and-linear-assumption">
+<span class="header-section-number">13.4</span> The additive and linear assumption</h2>
+<p>In a standard linear regression model, we make two important assumptions about how the predictors X relate to the response Y:</p>
+<ol type="1">
+<li>Additivity assumption</li>
+</ol>
+<p>Each predictor affects Y independently of the other predictors. In other words, the effect of <span class="math inline">\(X_j\)</span> ​</p>
+<p>does not depend on the values of the other X’s.</p>
+<p>Example: Suppose we predict salary using years of experience and education. The additivity assumption says that the effect of one additional year of experience is the same regardless of a person’s education level.</p>
+<ol start="2" type="1">
+<li>Linearity assumption</li>
+</ol>
+<p>The effect of a predictor on Y is constant across its range. A one-unit increase in <span class="math inline">\(X_j\)</span> is assumed to produce the same change in Y, no matter what the current value of <span class="math inline">\(X_j\)</span> is.</p>
+<p>Example: If each additional year of experience increases salary by €2,000, the model assumes this €2,000 increase is the same for someone with 2 years of experience and someone with 20 years.</p>
+<p>We need to bend these assumptions in order to produce an interaction effect. You will see how we routinely do this using simple tricks of multiplication and squaring the predictor variables.</p>
+<section id="adding-the-variable-to-a-regression-model-is-not-enough" class="level3" data-number="13.4.1"><h3 data-number="13.4.1" class="anchored" data-anchor-id="adding-the-variable-to-a-regression-model-is-not-enough">
+<span class="header-section-number">13.4.1</span> Adding the variable to a regression model is not enough</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">model_additive</span> <span class="op">&lt;-</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">model_additive</span> <span class="op">&lt;-</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">MaxHR</span> <span class="op">~</span> <span class="va">Age</span> <span class="op">+</span> <span class="va">HD</span>,</span>
 <span>    data <span class="op">=</span> <span class="va">hd_data</span><span class="op">)</span></span>
 <span></span>
@@ -575,11 +558,11 @@ Warning
 <span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="session11_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+<figure class="figure"><p><img src="session11_files/figure-html/addition-not-enough-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">model_additive</span> <span class="op">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">model_additive</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/slopes.html">avg_slopes</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -590,33 +573,178 @@ Warning
 Type: response</code></pre>
 </div>
 </div>
-</section><section id="adding-an-interaction" class="level2" data-number="20.4"><h2 data-number="20.4" class="anchored" data-anchor-id="adding-an-interaction">
-<span class="header-section-number">20.4</span> Adding an interaction</h2>
+<p>Wait — the lines are completely parallel?!</p>
+<p>This is exactly the additive and linear assumption: the same effect is constant for heart disease and for age. We need to allow some flexibility in our model to consider whether the slopes might change dependent on heart disease.</p>
+</section><section id="making-non-linear-terms-in-linear-models" class="level3" data-number="13.4.2"><h3 data-number="13.4.2" class="anchored" data-anchor-id="making-non-linear-terms-in-linear-models">
+<span class="header-section-number">13.4.2</span> Making non-linear terms in linear models</h3>
+<p>multiplying two variables does not make the regression model “non-linear” in the statistical sense. Instead, it gives the model extra flexibility to capture relationships that are not additive.</p>
+<p>Let’s start with the basic idea.</p>
+<p>Suppose we want to predict salary using two variables:</p>
+<ul>
+<li>(X_1) = years of experience</li>
+<li>(X_2) = education level</li>
+</ul>
+<p>We might first think:</p>
+<p>More experience → higher salary. More education → higher salary.</p>
+<p>But there is another possibility:</p>
+<ul>
+<li>The value of experience might matter differently depending on education.</li>
+</ul>
+<p>That is an interaction.</p>
+<section id="what-does-multiplication-mean-intuitively" class="level4" data-number="13.4.2.1"><h4 data-number="13.4.2.1" class="anchored" data-anchor-id="what-does-multiplication-mean-intuitively">
+<span class="header-section-number">13.4.2.1</span> 1. What does multiplication mean intuitively?</h4>
+<p>Think about ordinary multiplication first.</p>
+<p>If you have:</p>
+<p><span class="math display">\[
+  2 \times 3 = 6
+\]</span></p>
+<p>and increase 2 to 4:</p>
+<p><span class="math display">\[
+  4 \times 3 = 12.
+\]</span></p>
+<p>The result depends on <em>both numbers</em>.</p>
+<p>Now imagine:</p>
+<p><span class="math display">\[
+  X_1 \times X_2.
+\]</span></p>
+<p>If (X_1) changes, the product changes — but <em>how much it changes depends on (X_2)</em>.</p>
+<p>For example:</p>
+<table class="caption-top table">
+<thead><tr class="header">
+<th style="text-align: right;">Experience (X_1)</th>
+<th style="text-align: right;">Education (X_2)</th>
+<th style="text-align: right;">(X_1X_2)</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">6</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">9</td>
+</tr>
+</tbody>
+</table>
+<p>Notice what happens when experience increases from 2 to 3:</p>
+<ul>
+<li>If education = 1, the product increases by <strong>1</strong>.</li>
+<li>If education = 3, the product increases by <strong>3</strong>.</li>
+</ul>
+<p>So multiplication naturally creates a situation where:</p>
+<blockquote class="blockquote">
+<p><strong>The effect of one variable depends on the value of the other variable.</strong></p>
+</blockquote>
+<p>That is exactly what we mean by an <strong>interaction</strong>.</p>
+<p>To allow this, we create a new variable:</p>
+<p><span class="math display">\[
+  X_1X_2
+\]</span> which simply means <em>multiply the two variables together</em>.</p>
+<blockquote class="blockquote">
+<p>Notice that multiplication is non-linear now!</p>
+</blockquote>
+<p>When we say <em>linear regression</em>, “linear” does <em>not</em> mean that we are forbidden from multiplying variables.</p>
+<p>Instead, it means that the model is linear in the <em>coefficients</em> — the numbers that the regression estimates.</p>
+<p>We can think of (X_1X_2) as simply creating a <em>new predictor</em>.</p>
+<p>Instead of thinking:</p>
+<blockquote class="blockquote">
+<p>“I am multiplying two predictors inside the regression.”</p>
+</blockquote>
+<p>Think:</p>
+<blockquote class="blockquote">
+<p>“I have created a new variable called interaction, whose value is (X_1 X_2).”</p>
+</blockquote>
+<p>The regression can then use this new variable just like any other predictor.</p>
+<p>There are therefore two different ideas:</p>
+<ul>
+<li>Additive models: Where the effect of one predictor does not depend on the other predictor.</li>
+<li>Interaction models: Where he effect of one predictor can depend on the other predictor.</li>
+</ul>
+<p>Multiplication is useful because it naturally creates this dependency.</p>
+</section></section><section id="adding-an-interaction" class="level3" data-number="13.4.3"><h3 data-number="13.4.3" class="anchored" data-anchor-id="adding-an-interaction">
+<span class="header-section-number">13.4.3</span> Adding an interaction</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">model_interact</span> <span class="op">&lt;-</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">model_interact_manual</span> <span class="op">&lt;-</span> <span class="va">hd_data</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu">mutate</span><span class="op">(</span></span>
+<span>        HD_num <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">HD</span> <span class="op">==</span> <span class="st">"yes"</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span>,</span>
+<span>        age_by_hd <span class="op">=</span> <span class="va">Age</span> <span class="op">*</span> <span class="va">HD_num</span></span>
+<span>    <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">MaxHR</span> <span class="op">~</span> <span class="va">Age</span> <span class="op">+</span> <span class="va">HD</span> <span class="op">+</span> <span class="va">age_by_hd</span>,</span>
+<span>    data <span class="op">=</span> <span class="va">_</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">model_interact_manual</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(Intercept)         Age       HDyes   age_by_hd 
+213.9282010  -1.0563804 -53.8425770   0.6885871 </code></pre>
+</div>
+</div>
+<p>However, this is such a common routine in R that we don’t need to make the new variable. Instead, we can indicate this multiplication by using the following notation:</p>
+<p><code>Age:HD</code></p>
+<p>We will wait with interpreting the coefficients till the next section. For now, confirm that these numbers are identical to the model below.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">model_interact</span> <span class="op">&lt;-</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">MaxHR</span> <span class="op">~</span> <span class="va">Age</span> <span class="op">+</span> <span class="va">HD</span> <span class="op">+</span> <span class="va">Age</span><span class="op">:</span><span class="va">HD</span>,</span>
 <span>    data <span class="op">=</span> <span class="va">hd_data</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/plot_predictions.html">plot_predictions</a></span><span class="op">(</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">model_interact</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(Intercept)         Age       HDyes   Age:HDyes 
+213.9282010  -1.0563804 -53.8425770   0.6885871 </code></pre>
+</div>
+</div>
+<p>Finally, let’s take a look at the interaction plot:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/plot_predictions.html">plot_predictions</a></span><span class="op">(</span></span>
 <span>    <span class="va">model_interact</span>,</span>
 <span>    condition <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Age"</span>, <span class="st">"HD"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="session11_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+<figure class="figure"><p><img src="session11_files/figure-html/plot-interaction-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-</section><section id="interpreting-an-interaction-estimate" class="level2" data-number="20.5"><h2 data-number="20.5" class="anchored" data-anchor-id="interpreting-an-interaction-estimate">
-<span class="header-section-number">20.5</span> Interpreting an interaction estimate</h2>
+<p>Cool! Now, the lines are definitely <em>not</em> parallel! This is in fact a trick for spotting interactions in plots.</p>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Caution</span>Many ways of doing the same thing
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You will also see other people using this notation <code>Age * HD</code>. This expands to <code>Age + HD + Age:HD</code>. However, we recommend using the <code>Age:HD</code>, as adding more variables and <code>*</code> notation quickly explodes.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">model_interact</span> <span class="op">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">model_interact</span> <span class="op">&lt;-</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">MaxHR</span> <span class="op">~</span> <span class="va">Age</span> <span class="op">*</span> <span class="va">HD</span>,</span>
+<span>    data <span class="op">=</span> <span class="va">hd_data</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+</section><section id="interpreting-an-interaction-estimate" class="level3" data-number="13.4.4"><h3 data-number="13.4.4" class="anchored" data-anchor-id="interpreting-an-interaction-estimate">
+<span class="header-section-number">13.4.4</span> Interpreting an interaction estimate</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">model_interact</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
-lm(formula = MaxHR ~ Age + HD + Age:HD, data = hd_data)
+lm(formula = MaxHR ~ Age * HD, data = hd_data)
 
 Residuals:
     Min      1Q  Median      3Q     Max 
@@ -637,19 +765,30 @@ F-statistic: 39.85 on 3 and 299 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">model_params</span> <span class="op">&lt;-</span> <span class="va">model_interact</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu">parameters</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/parameters/reference/model_parameters.html">model_parameters</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">model_params</span> <span class="op">&lt;-</span> <span class="va">model_interact</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu">parameters</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/parameters/reference/model_parameters.html">model_parameters</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">model_params</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 9
+  Parameter   Coefficient     SE    CI  CI_low CI_high     t df_error
+  &lt;chr&gt;             &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;    &lt;int&gt;
+1 (Intercept)     214.     8.55   0.95 197.    231.    25.0       299
+2 Age              -1.06   0.160  0.95  -1.37   -0.742 -6.60      299
+3 HDyes           -53.8   14.7    0.95 -82.7   -25.0   -3.67      299
+4 Age:HDyes         0.689  0.263  0.95   0.172   1.21   2.62      299
+# ℹ 1 more variable: p &lt;dbl&gt;</code></pre>
+</div>
 </div>
 <p><span class="math display">\[
-  Y^=213.93−1.06(age)−53.84(hd)+0.689(age×hd)
+  \bar{Y} = 213.93 − 1.06*age − 53.84*hd + 0.689 * age×hd)
 \]</span></p>
 <p>where:</p>
 <ul>
-<li>age = age in years -</li>
+<li>age = age in years</li>
 <li>hd = 0 (no heart disease) or 1 (heart disease)</li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">model_params</span> <span class="op">&lt;-</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">model_params</span> <span class="op">&lt;-</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
 <span>        intercept_est <span class="op">=</span> <span class="va">model_params</span><span class="op">[</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">]</span>,</span>
 <span>        age_est <span class="op">=</span> <span class="va">model_params</span><span class="op">[</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">]</span>,</span>
@@ -665,21 +804,23 @@ F-statistic: 39.85 on 3 and 299 DF,  p-value: &lt; 2.2e-16</code></pre>
 1          214.   -1.06  -53.8               0.689</code></pre>
 </div>
 </div>
-<section id="step-1" class="level3" data-number="20.5.1"><h3 data-number="20.5.1" class="anchored" data-anchor-id="step-1">
-<span class="header-section-number">20.5.1</span> Step 1:</h3>
-<p>Step 1: Write separate equations for each group No heart disease (hd = 0)</p>
-<p>Substitute hd = 0:</p>
-<p>$ ⁄bar{Y} = 213.93−1.06(age) $</p>
-<p>Interpretation:</p>
+<section id="step-1-write-separate-equations-for-each-group" class="level4" data-number="13.4.4.1"><h4 data-number="13.4.4.1" class="anchored" data-anchor-id="step-1-write-separate-equations-for-each-group">
+<span class="header-section-number">13.4.4.1</span> Step 1: Write separate equations for each group</h4>
+<ul>
+<li>No heart disease (hd = 0)</li>
+<li>Substitute hd = 0:</li>
+</ul>
+<p>$ {Y} = 213.93 − 1.06(age) $</p>
+<p><strong>Interpretation:</strong></p>
 <p>For people without heart disease, each additional year of age is associated with about 1.06 units lower predicted outcome. Heart disease (hd = 1)</p>
 <p>Substitute hd = 1:</p>
-<p>$ Y^ =213.93−1.06(age)−53.84+0.689(age) $</p>
+<p>$ {Y} = 213.93 − 1.06(age) − 53.84 + 0.689(age) $</p>
 <p>Combine terms:</p>
-<p><span class="math inline">\(Y^=160.09−0.368(age)\)</span></p>
-<p>Interpretation:</p>
+<p><span class="math inline">\(\bar{Y} = 160.09 − 0.368(age)\)</span></p>
+<p><strong>Interpretation:</strong></p>
 <p>For people with heart disease, each additional year of age is associated with only about 0.37 units lower predicted outcome. The age effect is less negative because of the positive interaction term.</p>
-</section><section id="step-2-plug-in-specific-ages" class="level3" data-number="20.5.2"><h3 data-number="20.5.2" class="anchored" data-anchor-id="step-2-plug-in-specific-ages">
-<span class="header-section-number">20.5.2</span> Step 2: Plug in specific ages</h3>
+</section><section id="step-2-plug-in-specific-ages" class="level4" data-number="13.4.4.2"><h4 data-number="13.4.4.2" class="anchored" data-anchor-id="step-2-plug-in-specific-ages">
+<span class="header-section-number">13.4.4.2</span> Step 2: Plug in specific ages</h4>
 <p><strong>Age = 40</strong></p>
 <p><em>No heart disease:</em> 213.93−1.06(40)=171.67</p>
 <p><em>Heart disease:</em> 160.09−0.368(40)=145.37</p>
@@ -694,31 +835,31 @@ F-statistic: 39.85 on 3 and 299 DF,  p-value: &lt; 2.2e-16</code></pre>
 <blockquote class="blockquote">
 <p>At age 70, heart disease is associated with only about 6 units lower predicted outcome.</p>
 </blockquote>
-</section><section id="step-3-interpret-the-interaction" class="level3" data-number="20.5.3"><h3 data-number="20.5.3" class="anchored" data-anchor-id="step-3-interpret-the-interaction">
-<span class="header-section-number">20.5.3</span> Step 3: Interpret the interaction</h3>
+</section><section id="step-3-interpret-the-interaction" class="level4" data-number="13.4.4.3"><h4 data-number="13.4.4.3" class="anchored" data-anchor-id="step-3-interpret-the-interaction">
+<span class="header-section-number">13.4.4.3</span> Step 3: Interpret the interaction</h4>
 <p>The interaction coefficient is: <strong>0.689</strong></p>
 <p>This means that the effect of heart disease becomes 0.689 units less negative for every additional year of age.</p>
 <p>In other words: The difference between the heart disease and no-heart-disease groups shrinks by about 0.689 units for each additional year of age.</p>
 <p>We can again plug the values in to examine this:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>Age HD<span class="ot">=</span><span class="dv">0</span>    HD<span class="ot">=</span><span class="dv">1</span>    <span class="fu">Difference</span> (HD−No HD)</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="dv">40</span>  <span class="fl">171.67</span>  <span class="fl">145.37</span>  <span class="sc">-</span><span class="fl">26.30</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="dv">50</span>  <span class="fl">161.11</span>  <span class="fl">141.69</span>  <span class="sc">-</span><span class="fl">19.41</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="dv">60</span>  <span class="fl">150.54</span>  <span class="fl">138.01</span>  <span class="sc">-</span><span class="fl">12.53</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="dv">70</span>  <span class="fl">139.98</span>  <span class="fl">134.32</span>  <span class="sc">-</span><span class="fl">5.66</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Students often find the table easier than interpreting the interaction coefficient directly because they can see how the gap between groups changes with age.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>Age HD<span class="ot">=</span><span class="dv">0</span>    HD<span class="ot">=</span><span class="dv">1</span>    <span class="fu">Difference</span> (HD−No HD)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="dv">40</span>  <span class="fl">171.67</span>  <span class="fl">145.37</span>  <span class="sc">-</span><span class="fl">26.30</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="dv">50</span>  <span class="fl">161.11</span>  <span class="fl">141.69</span>  <span class="sc">-</span><span class="fl">19.41</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="dv">60</span>  <span class="fl">150.54</span>  <span class="fl">138.01</span>  <span class="sc">-</span><span class="fl">12.53</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="dv">70</span>  <span class="fl">139.98</span>  <span class="fl">134.32</span>  <span class="sc">-</span><span class="fl">5.66</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Often, graphics are easier to interpret than than tables or coefficients. Let’s try to visualize the difference between max heart rate and having a heart disease when it change across age.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/plot_slopes.html">plot_slopes</a></span><span class="op">(</span><span class="va">model_interact</span>, variables <span class="op">=</span> <span class="st">"HD"</span>, condition <span class="op">=</span> <span class="st">"Age"</span><span class="op">)</span> <span class="op">+</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/plot_slopes.html">plot_slopes</a></span><span class="op">(</span><span class="va">model_interact</span>, variables <span class="op">=</span> <span class="st">"HD"</span>, condition <span class="op">=</span> <span class="st">"Age"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">geom_hline</span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fl">0</span>, linetype <span class="op">=</span> <span class="st">"dotted"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">labs</span><span class="op">(</span></span>
 <span>        y <span class="op">=</span> <span class="st">"expected difference (MaxHR | HD)"</span></span>
 <span>    <span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="session11_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+<figure class="figure"><p><img src="session11_files/figure-html/delta-hr-of-hd-across-age-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/slopes.html">slopes</a></span><span class="op">(</span><span class="va">model_interact</span>,</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/slopes.html">slopes</a></span><span class="op">(</span><span class="va">model_interact</span>,</span>
 <span>  variables <span class="op">=</span> <span class="st">"HD"</span>,</span>
 <span>  newdata <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/datagrid.html">datagrid</a></span><span class="op">(</span>Age <span class="op">=</span> <span class="va">range</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -731,31 +872,11 @@ Term: HD
 Type: response
 Comparison: yes - no</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/slopes.html">slopes</a></span><span class="op">(</span><span class="va">model_interact</span>,</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/slopes.html">slopes</a></span><span class="op">(</span><span class="va">model_interact</span>,</span>
 <span>  variables <span class="op">=</span> <span class="st">"HD"</span>,</span>
 <span>  newdata <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/datagrid.html">datagrid</a></span><span class="op">(</span>Age <span class="op">=</span> <span class="va">range</span><span class="op">)</span>,</span>
 <span>  hypothesis <span class="op">=</span> <span class="st">"b2 - b1 = 0"</span></span>
 <span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: 
-It is essential to check the order of estimates when specifying hypothesis tests using positional indices like b1, b2, etc. The indices of estimates can change depending on the order of rows in the original dataset, user-supplied arguments, model-fitting package, and version of `marginaleffects`.
-
-It is also good practice to use assertions that ensure the order of estimates is consistent across different runs of the same code. Example:
-
-```r
-mod &lt;- lm(mpg ~ am * carb, data = mtcars)
-
-# assertion for safety
-p &lt;- avg_predictions(mod, by = 'carb')
-stopifnot(p$carb[1] == 1, p$carb[2] == 2)
-
-# hypothesis test
-avg_predictions(mod, by = 'carb', hypothesis = 'b1 - b2 = 0')
-```
-
-Disable this warning with: `options(marginaleffects_safe = FALSE)`
- This warning appears once per session.</code></pre>
-</div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
  Hypothesis Estimate Std. Error    z Pr(&gt;|z|)   S 2.5 % 97.5 %
@@ -764,64 +885,140 @@ Disable this warning with: `options(marginaleffects_safe = FALSE)`
 Type: response</code></pre>
 </div>
 </div>
-</section></section></section><section id="symmetry-of-the-linear-interaction" class="level1" data-number="21"><h1 data-number="21">
-<span class="header-section-number">21</span> Symmetry of the linear interaction</h1>
-<p>Consider for example the GDP and terrain ruggedness problem. The interaction there has two equally valid phrasings.</p>
-<p>How much does the influence of ruggedness (on GDP) depend upon whether the nation is in Africa? How much does the influence of being in Africa (on GDP) depend upon ruggedness?</p>
-<section id="symmetry-of-the-linear-interaction-1" class="level2" data-number="21.1"><h2 data-number="21.1" class="anchored" data-anchor-id="symmetry-of-the-linear-interaction-1">
-<span class="header-section-number">21.1</span> Symmetry of the Linear Interaction</h2>
-<p>Consider McElreath’s GDP and terrain ruggedness example.</p>
-<p>One might ask:</p>
-<ol type="1">
-<li>How much does the effect of terrain ruggedness on GDP depend on whether a nation is in Africa?</li>
-<li>How much does the effect of being in Africa on GDP depend on terrain ruggedness?</li>
-</ol>
+</section></section></section><section id="symmetry-of-the-linear-interaction" class="level2" data-number="13.5"><h2 data-number="13.5" class="anchored" data-anchor-id="symmetry-of-the-linear-interaction">
+<span class="header-section-number">13.5</span> Symmetry of the linear interaction</h2>
+<p>Consider for example the max heart rate and age problem. The interaction there has two equally valid phrasings.</p>
+<ul>
+<li>How much does the influence of age (on max heart rate) depend on whether the patient has a heart disease?</li>
+<li>How much does the influence of having a heart disease (on max heart rate) depend on age?</li>
+</ul>
 <p>These sound like different questions, but in a linear model they are mathematically identical.</p>
 <p>The original model is</p>
 <p><span class="math display">\[
-  \log(\text{GDP}_i) \sim \text{Normal}(\mu_i,\sigma)
+  \text{max heart rate}_i \sim  α + β_1age + β_2HD + β_3age × HD + ε\\
 \]</span></p>
-<p>with</p>
+<p>For now, let’s make the model more compressed at the expense of nesting some parameters within a new variable γ. We will not consider the noise, ε, so we will only deal with the expected value, μ.</p>
 <p><span class="math display">\[
-  \mu_i = \alpha + \gamma_i \,\text{rugged}_i + \beta_2 \,\text{Africa}_i
+  \mu_i = \alpha + \gamma_i \,\text{age}_i + \beta_2 \,\text{HD}_i
 \]</span></p>
-<p>and</p>
+<p>where</p>
 <p><span class="math display">\[
-  \gamma_i = \beta_1 + \beta_3 \,\text{Africa}_i.
+  \gamma_i = \beta_1 + \beta_3 \,\text{HD}_i.
 \]</span></p>
+<p>Here, <span class="math inline">\(\gamma_i\)</span> is the effect of age for a patient with a given heart-disease status. The interaction allows this effect to differ between patients with and without heart disease.</p>
 <p>Substituting the second equation into the first gives</p>
 <p><span class="math display">\[
-  \mu_i = \alpha + (\beta_1 + \beta_3 \,\text{Africa}_i)\,\text{rugged}_i + \beta_2 \,\text{Africa}_i.
+  \mu_i = \alpha + (\beta_1 + \beta_3 \,\text{HD}_i)\,\text{age}_i + \beta_2 \,\text{HD}_i.
 \]</span></p>
+<p>The substitution makes explicit where the interaction enters the model.</p>
 <p>Expanding:</p>
 <p><span class="math display">\[
-  \mu_i = \alpha + \beta_1 \,\text{rugged}_i + \beta_3 \,\text{rugged}_i \times \text{Africa}_i + \beta_2 \,\text{Africa}_i.
+  \mu_i = \alpha + \beta_1 \,\text{age}_i + \beta_3 \,\text{age}_i \times \text{HD}_i + \beta_2 \,\text{HD}_i.
 \]</span></p>
-<p>Now collect the terms containing <span class="math inline">\(\text{Africa}_i\)</span>:</p>
+<p>The interaction term is the same regardless of which variable we initially treated as the predictor.</p>
+<p>Now collect the terms containing <span class="math inline">\(\text{HD}_i\)</span>:</p>
 <p><span class="math display">\[
-  \mu_i = \alpha + \beta_1 \,\text{rugged}_i + (\beta_2 + \beta_3 \,\text{rugged}_i)\,\text{Africa}_i.
+  \mu_i = \alpha + \beta_1 \,\text{age}_i + (\beta_2 + \beta_3 \,\text{age}_i)\,\text{HD}_i.
 \]</span></p>
+<p>This is the same model, but now the coefficient of <span class="math inline">\(\text{HD}_i\)</span> is allowed to depend on age.</p>
 <p>Define</p>
 <p><span class="math display">\[
-  G_i = \beta_2 + \beta_3 \,\text{rugged}_i.
+  G_i = \beta_2 + \beta_3 \,\text{age}_i.
 \]</span></p>
 <p>Then</p>
 <p><span class="math display">\[
-  \mu_i = \alpha + \beta_1 \,\text{rugged}_i + G_i\,\text{Africa}_i.
+  \mu_i = \alpha + \beta_1 \,\text{age}_i + G_i\,\text{HD}_i.
 \]</span></p>
-<p>The quantity <span class="math inline">\(G_i\)</span> plays the same role for the Africa effect that <span class="math inline">\(\gamma_i\)</span> played for the ruggedness effect.</p>
-<section id="key-takeaway" class="level3" data-number="21.1.1"><h3 data-number="21.1.1" class="anchored" data-anchor-id="key-takeaway">
-<span class="header-section-number">21.1.1</span> Key takeaway</h3>
+<p>The quantity <span class="math inline">\(G_i\)</span> plays the same role for the heart-disease effect that <span class="math inline">\(\gamma_i\)</span> played for the age effect.</p>
+<section id="key-takeaway" class="level3" data-number="13.5.1"><h3 data-number="13.5.1" class="anchored" data-anchor-id="key-takeaway">
+<span class="header-section-number">13.5.1</span> Key takeaway</h3>
 <p>The interaction coefficient <span class="math inline">\(\beta_3\)</span> simultaneously describes</p>
 <ul>
-<li>how the effect of ruggedness changes across Africa/non-Africa, and</li>
-<li>how the effect of Africa changes across levels of ruggedness.</li>
+<li>how the effect of age changes across HD/non-HD, and</li>
+<li>how the effect of HD changes across levels of age.</li>
 </ul>
 <p>In a linear model, interactions are symmetric. The choice of which variable is called the “predictor” and which is called the “moderator” is often a matter of interpretation rather than mathematics.</p>
-</section></section></section><section id="continuous-interactions" class="level1" data-number="22"><h1 data-number="22">
-<span class="header-section-number">22</span> Continuous interactions</h1>
+</section></section><section id="continuous-interactions" class="level2" data-number="13.6"><h2 data-number="13.6" class="anchored" data-anchor-id="continuous-interactions">
+<span class="header-section-number">13.6</span> Continuous interactions</h2>
+<p>Until now, we’ve use one continuous and one dichotomous variable.</p>
+<blockquote class="blockquote">
+<p>What if we have two continuous variables that interaction?</p>
+</blockquote>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://strengejacke.github.io/sjPlot/">sjPlot</a></span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">pain_data</span> <span class="op">&lt;-</span> <span class="fu">expand_grid</span><span class="op">(</span></span>
+<span>  dose <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">10</span>,</span>
+<span>  pain <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span></span>
+<span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">mutate</span><span class="op">(</span></span>
+<span>    relief <span class="op">=</span> <span class="fl">1.6</span> <span class="op">+</span> <span class="fl">0.4</span><span class="op">*</span><span class="va">dose</span> <span class="op">+</span> <span class="fl">0.4</span><span class="op">*</span><span class="va">pain</span> <span class="op">+</span> <span class="fl">0.9</span><span class="op">*</span><span class="va">dose</span><span class="op">*</span><span class="va">pain</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fu">n</span><span class="op">(</span><span class="op">)</span>, <span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span></span>
+<span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">relief</span> <span class="op">~</span> <span class="va">dose</span> <span class="op">*</span> <span class="va">pain</span>, data <span class="op">=</span> <span class="va">pain_data</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = relief ~ dose * pain, data = pain_data)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-1.77731 -0.61863 -0.00827  0.66789  2.62699 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  1.26894    0.54703   2.320   0.0276 *  
+dose         0.41927    0.09246   4.534 9.23e-05 ***
+pain         0.77326    0.42372   1.825   0.0783 .  
+dose:pain    0.87671    0.07162  12.241 5.58e-13 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 1.062 on 29 degrees of freedom
+Multiple R-squared:  0.9756,    Adjusted R-squared:  0.9731 
+F-statistic: 386.5 on 3 and 29 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">pain_data</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">mutate</span><span class="op">(</span>pain_group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">pain</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">dose</span>, <span class="va">relief</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_smooth</span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span>, se <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">facet_wrap</span><span class="op">(</span></span>
+<span>    <span class="op">~</span> <span class="va">pain_group</span>,</span>
+<span>    labeller <span class="op">=</span> <span class="fu">as_labeller</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
+<span>      `0` <span class="op">=</span> <span class="st">"No pain"</span>,</span>
+<span>      `1` <span class="op">=</span> <span class="st">"Mild pain"</span>,</span>
+<span>      `2` <span class="op">=</span> <span class="st">"Severe pain"</span></span>
+<span>    <span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">labs</span><span class="op">(</span></span>
+<span>        x <span class="op">=</span> <span class="st">"Dose (mg)"</span>,</span>
+<span>        y <span class="op">=</span> <span class="st">"Subjective relief (0 - 25)"</span></span>
+<span>    <span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="session11_files/figure-html/triptic-plot-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section><section id="polynomials" class="level2" data-number="13.7"><h2 data-number="13.7" class="anchored" data-anchor-id="polynomials">
+<span class="header-section-number">13.7</span> Polynomials</h2>
+</section><section id="section" class="level2" data-number="13.8"><h2 data-number="13.8" class="anchored" data-anchor-id="section">
+<span class="header-section-number">13.8</span> </h2>
+</section><section id="intution-of-polynomials" class="level2" data-number="13.9"><h2 data-number="13.9" class="anchored" data-anchor-id="intution-of-polynomials">
+<span class="header-section-number">13.9</span> Intution of polynomials</h2>
+<p><code>shiny::runApp("apps/polynomial-app/app.R")</code></p>
+</section><section id="the-danger-of" class="level2" data-number="13.10"><h2 data-number="13.10" class="anchored" data-anchor-id="the-danger-of">
+<span class="header-section-number">13.10</span> The danger of</h2>
+<div class="{hidden}">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://strengejacke.github.io/sjPlot/">sjPlot</a></span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>
 Attaching package: 'sjPlot'</code></pre>
@@ -831,9 +1028,11 @@ Attaching package: 'sjPlot'</code></pre>
 
     set_theme</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">efc</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">efc</span>, <span class="st">"sjPlot"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in data(efc, "sjPlot"): data set 'sjPlot' not found</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span></span>
 <span>  <span class="va">neg_c_7</span> <span class="op">~</span> <span class="va">c12hour</span> <span class="op">+</span> <span class="va">e16sex</span> <span class="op">+</span> <span class="va">c12hour</span><span class="op">:</span><span class="va">e16sex</span>,</span>
 <span>  data <span class="op">=</span> <span class="va">efc</span></span>
 <span><span class="op">)</span></span>
@@ -845,7 +1044,7 @@ Attaching package: 'sjPlot'</code></pre>
 <span><span class="fu">sjPlot</span><span class="fu">::</span><span class="fu"><a href="https://strengejacke.github.io/sjPlot/reference/plot_model.html">plot_model</a></span><span class="op">(</span><span class="va">fit</span>, type <span class="op">=</span> <span class="st">"pred"</span>, terms <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"c12hour"</span>, <span class="st">"barthtot [30,50,70]"</span>, <span class="st">"e16sex"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="session11_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+<figure class="figure"><p><img src="session11_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -858,7 +1057,7 @@ Attaching package: 'sjPlot'</code></pre>
 <p>How much does the difference between male and female caregivers depend on caregiving hours?</p>
 <p>Students usually perceive these as different questions, but the interaction coefficient is the same parameter in both cases.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://marginaleffects.com/">marginaleffects</a></span><span class="op">)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://marginaleffects.com/">marginaleffects</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">marginaleffects</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/slopes.html">slopes</a></span><span class="op">(</span></span>
 <span>  <span class="va">fit</span>,</span>
@@ -875,7 +1074,7 @@ Term: c12hour
 Type: response
 Comparison: dY/dX</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#marginaleffects::avg_slopes(</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#marginaleffects::avg_slopes(</span></span>
 <span><span class="co">#  fit,</span></span>
 <span><span class="co">#  variables = "c12hour",</span></span>
 <span><span class="co">#  by = list("c12hour", "barthtot" = c(30,50,70))</span></span>
@@ -892,7 +1091,7 @@ Comparison: dY/dX</code></pre>
 </figure>
 </div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">marginaleffects</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/plot_predictions.html">plot_predictions</a></span><span class="op">(</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">marginaleffects</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/plot_predictions.html">plot_predictions</a></span><span class="op">(</span></span>
 <span>  <span class="va">fit</span>,</span>
 <span>  variables <span class="op">=</span> <span class="st">"c12hour"</span>,</span>
 <span>  condition <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"c12hour"</span>, <span class="st">"barthtot"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">30</span>,<span class="fl">50</span>,<span class="fl">70</span><span class="op">)</span><span class="op">)</span></span>
@@ -905,7 +1104,7 @@ Comparison: dY/dX</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">marginaleffects</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/comparisons.html">comparisons</a></span><span class="op">(</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">marginaleffects</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/comparisons.html">comparisons</a></span><span class="op">(</span></span>
 <span>  <span class="va">fit</span>,</span>
 <span>  variables <span class="op">=</span> <span class="st">"e16sex"</span>,</span>
 <span>  by <span class="op">=</span> <span class="st">"c12hour"</span></span>
@@ -927,6 +1126,117 @@ Comparison: dY/dX</code></pre>
 Term: e16sex
 Type: response
 Comparison: +1</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">drug_data</span> <span class="op">&lt;-</span> <span class="fu">expand_grid</span><span class="op">(</span></span>
+<span>  dose <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">10</span>,</span>
+<span>  receptor <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">10</span>, by <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">mutate</span><span class="op">(</span>effect <span class="op">=</span> <span class="fl">.2</span><span class="op">*</span><span class="va">dose</span> <span class="op">+</span> <span class="fl">.1</span><span class="op">*</span><span class="va">receptor</span> <span class="op">+</span></span>
+<span>         <span class="fl">.10</span><span class="op">*</span><span class="va">dose</span><span class="op">*</span><span class="va">receptor</span> <span class="op">+</span></span>
+<span>         <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fu">n</span><span class="op">(</span><span class="op">)</span>, <span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">effect</span> <span class="op">~</span> <span class="va">dose</span> <span class="op">*</span> <span class="va">receptor</span>, data <span class="op">=</span> <span class="va">drug_data</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = effect ~ dose * receptor, data = drug_data)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-2.30766 -0.63712  0.00076  0.58052  2.32423 
+
+Coefficients:
+              Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)   0.082426   0.351218   0.235  0.81490    
+dose          0.196889   0.059367   3.316  0.00125 ** 
+receptor      0.101370   0.056604   1.791  0.07617 .  
+dose:receptor 0.102043   0.009568  10.665  &lt; 2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.9115 on 106 degrees of freedom
+Multiple R-squared:  0.9237,    Adjusted R-squared:  0.9215 
+F-statistic: 427.8 on 3 and 106 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb41"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">drug_data</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">mutate</span><span class="op">(</span>receptor_group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cut.html">cut</a></span><span class="op">(</span><span class="va">receptor</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">dose</span>, <span class="va">effect</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_smooth</span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span>, se <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">facet_wrap</span><span class="op">(</span><span class="op">~</span> <span class="va">receptor_group</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="session11_files/figure-html/hidden-stuff-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb43"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#########</span></span>
+<span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu">expand_grid</span><span class="op">(</span></span>
+<span>  frailty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>,</span>
+<span>  dose    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>,</span>
+<span>  id      <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">9</span></span>
+<span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">mutate</span><span class="op">(</span></span>
+<span>    change_pf <span class="op">=</span> <span class="fl">35</span> <span class="op">+</span></span>
+<span>      <span class="fl">25</span> <span class="op">*</span> <span class="va">dose</span> <span class="op">-</span></span>
+<span>      <span class="fl">18</span> <span class="op">*</span> <span class="va">dose</span><span class="op">^</span><span class="fl">2</span> <span class="op">-</span></span>
+<span>      <span class="fl">8</span>  <span class="op">*</span> <span class="va">frailty</span> <span class="op">+</span></span>
+<span>      <span class="fl">5</span>  <span class="op">*</span> <span class="va">dose</span> <span class="op">*</span> <span class="va">frailty</span> <span class="op">-</span></span>
+<span>      <span class="fl">7</span>  <span class="op">*</span> <span class="va">dose</span><span class="op">^</span><span class="fl">2</span> <span class="op">*</span> <span class="va">frailty</span> <span class="op">+</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fu">n</span><span class="op">(</span><span class="op">)</span>, <span class="fl">0</span>, <span class="fl">7</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Fitted curves at -1, 0, +1 SD frailty</span></span>
+<span><span class="va">pred</span> <span class="op">&lt;-</span> <span class="fu">expand_grid</span><span class="op">(</span></span>
+<span>  dose <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1.5</span>, <span class="fl">1.5</span>, length.out <span class="op">=</span> <span class="fl">100</span><span class="op">)</span>,</span>
+<span>  frailty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">mutate</span><span class="op">(</span></span>
+<span>    change_pf <span class="op">=</span> <span class="fl">35</span> <span class="op">+</span></span>
+<span>      <span class="fl">25</span> <span class="op">*</span> <span class="va">dose</span> <span class="op">-</span></span>
+<span>      <span class="fl">18</span> <span class="op">*</span> <span class="va">dose</span><span class="op">^</span><span class="fl">2</span> <span class="op">-</span></span>
+<span>      <span class="fl">8</span>  <span class="op">*</span> <span class="va">frailty</span> <span class="op">+</span></span>
+<span>      <span class="fl">5</span>  <span class="op">*</span> <span class="va">dose</span> <span class="op">*</span> <span class="va">frailty</span> <span class="op">-</span></span>
+<span>      <span class="fl">7</span>  <span class="op">*</span> <span class="va">dose</span><span class="op">^</span><span class="fl">2</span> <span class="op">*</span> <span class="va">frailty</span>,</span>
+<span>    frailty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span></span>
+<span>      <span class="va">frailty</span>,</span>
+<span>      levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>,</span>
+<span>      labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Low frailty"</span>, <span class="st">"Mean frailty"</span>, <span class="st">"High frailty"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="fu">ggplot</span><span class="op">(</span><span class="va">dat</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">dose</span>, <span class="va">change_pf</span>, colour <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">frailty</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_point</span><span class="op">(</span>size <span class="op">=</span> <span class="fl">2.5</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_line</span><span class="op">(</span></span>
+<span>    data <span class="op">=</span> <span class="va">pred</span>,</span>
+<span>    <span class="fu">aes</span><span class="op">(</span><span class="va">dose</span>, <span class="va">change_pf</span>, colour <span class="op">=</span> <span class="va">frailty</span><span class="op">)</span>,</span>
+<span>    linewidth <span class="op">=</span> <span class="fl">1.2</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">labs</span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="st">"Chemotherapy dose intensity (SD)"</span>,</span>
+<span>    y <span class="op">=</span> <span class="st">"Change in physical functioning"</span>,</span>
+<span>    colour <span class="op">=</span> <span class="st">"Frailty"</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">theme_minimal</span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">13</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="session11_files/figure-html/hidden-stuff-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
 </div>
 </div>
 
@@ -1331,13 +1641,13 @@ Comparison: +1</code></pre>
     }
   });
   </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
-      <a href="../sessions/session08.html" class="pagination-link" aria-label="Data wrangling using R">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Data wrangling using R</span></span>
+      <a href="../sessions/session04.html" class="pagination-link" aria-label="When in doubt - plot it out">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">When in doubt - plot it out</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../sessions/session15.html" class="pagination-link" aria-label="Marginalizing the problem">
-        <span class="nav-page-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Marginalizing the problem</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../sessions/session12.html" class="pagination-link" aria-label="A Poissonous counting trick">
+        <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">A Poissonous counting trick</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

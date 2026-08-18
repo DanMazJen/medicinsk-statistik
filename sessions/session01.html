@@ -2,17 +2,20 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.38">
+<meta name="generator" content="quarto-1.10.18">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <title>11&nbsp; Hallo Medical Statistics – Medical Statistics, MEDMS24B5_1</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
 */
-code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -63,7 +66,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../sessions/session02.html" rel="next">
+<link href="../sessions/session04.html" rel="next">
 <link href="../pre-course/survey.html" rel="prev">
 <link href="../site_libs/quarto-contrib/quarto-project/rostools/rostools-theme/favicon.ico" rel="icon">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
@@ -72,14 +75,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-a26eb8303659cd3e56a4df222525631d.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-30e6a2c837d31765335c9e5ddc24bf05.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-a26eb8303659cd3e56a4df222525631d.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-f2f3720d61c840f4a81557a72cafc3fb.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-b3a0ae3d575e4a0a28d8790bf29525bf.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-f2f3720d61c840f4a81557a72cafc3fb.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-3e9453848423e76c8373c33b06ef5187.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-e753f34555c28b66633e945198972a28.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-3e9453848423e76c8373c33b06ef5187.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-bd539a4bd325924d58cdeed552045633.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-8b270897fe75296330c4467c087bf150.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-bd539a4bd325924d58cdeed552045633.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/quarto-contrib/fontawesome6-6.7.2/all.min.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/fontawesome6-6.7.2/latex-fontsize.css" rel="stylesheet">
 <script src="../site_libs/quarto-contrib/kbd/kbd.js"></script>
@@ -246,56 +249,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/session02.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Probability and stochastic variables</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/session03.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Effect measurements</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../sessions/session04.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">When in doubt - plot it out</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/session05.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Statistical Analysis Plan (SAP)</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/session06.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Central Limit Theorem, uncertainty, and Monte Carlo sampling</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/session07.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Hypothesis testing, confounding, and reproducibility</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/session08.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Data wrangling using R</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">When in doubt - plot it out</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session11.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Conditioning and polynomial madness</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Conditioning and polynomial madness</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/session12.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">A Poissonous counting trick</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session15.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Marginalizing the problem</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Marginalizing the problem</span></span></a>
   </div>
 </li>
       </ul>
@@ -312,37 +285,37 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Data for Medical Statistics</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Data for Medical Statistics</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/ex01.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Exercises: Hallo Medical Statistics</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../exercises/ex02.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Exercises: Probability and stochastic variables</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Exercises: Hallo Medical Statistics</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/ex04.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Exercises: Hallo Medical Statistics</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Exercises: When in doubt, plot it out</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/ex11.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Exercises: Conditional variables</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Exercises: Conditional and polynomial madness</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../exercises/ex12.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Exercises: A Poissonous counting trick</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/ex15.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Exercises: Conditional variables</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Exercises: Marginalizing the problem</span></span></a>
   </div>
 </li>
       </ul>
@@ -604,7 +577,7 @@ Tip
 </ol></section><section id="rstudio-layout-and-usage" class="level2" data-number="11.6"><h2 data-number="11.6" class="anchored" data-anchor-id="rstudio-layout-and-usage">
 <span class="header-section-number">11.6</span> RStudio layout and usage</h2>
 <p>You’ve already gotten a bit familiar with RStudio in the pre-course tasks, but if you want more details, RStudio has a great <a href="https://www.rstudio.com/resources/cheatsheets/#ide">cheat sheet</a> on how to use RStudio. The items to know right now are the “Console”, “Files”/“Help”, and “Source” tabs.</p>
-<p>Code is written in the “Source” tab, where it saves the code and text as a file. You can send selected code to the Console from the opened file by typing <kbd title="Ctrl-Enter" aria-hidden="true">Ctrl-Enter</kbd><span class="visually-hidden">Ctrl-Enter</span> (or clicking the “Run” button). In the “Source” tab (where R scripts and Quarto files are shown), there is a “Document Outline” button (top right beside the “Run” button) that shows you the headers or “Sections” (more on that later). To open it you can either click the button, use the keybinding <kbd title="Ctrl-Shift-O" aria-hidden="true">Ctrl-Shift-O</kbd><span class="visually-hidden">Ctrl-Shift-O</span> or with the Palette (<kbd title="Ctrl-Shift-P" aria-hidden="true">Ctrl-Shift-P</kbd><span class="visually-hidden">Ctrl-Shift-P</span>, then type “outline”), go through the menu to <code>Code -&gt; Show Document Outline</code>. The Command Palette is a very useful tool to learn, since you can easily access almost all features and options inside RStudio through it. Because of this reason, we will be using it a lot throughout the course. Open it up with <kbd title="Ctrl-Shift-P" aria-hidden="true">Ctrl-Shift-P</kbd><span class="visually-hidden">Ctrl-Shift-P</span> and then in the pop-up search bar, type out “document outline”. The first item should be the one we want, so hit <code>Enter</code> to activate the Outline.</p>
+<p>Code is written in the “Source” tab, where it saves the code and text as a file. You can send selected code to the Console from the opened file by typing <kbd title="mac=Command-Enter" aria-hidden="true">mac=Command-Enter</kbd><span class="visually-hidden">mac=Command-Enter</span> (or clicking the “Run” button). In the “Source” tab (where R scripts and Quarto files are shown), there is a “Document Outline” button (top right beside the “Run” button) that shows you the headers or “Sections” (more on that later). To open it you can either click the button, use the keybinding <kbd title="mac=Command-Shift-O" aria-hidden="true">mac=Command-Shift-O</kbd><span class="visually-hidden">mac=Command-Shift-O</span> or with the Palette (<kbd title="mac=Command-Shift-P" aria-hidden="true">mac=Command-Shift-P</kbd><span class="visually-hidden">mac=Command-Shift-P</span>, then type “outline”), go through the menu to <code>Code -&gt; Show Document Outline</code>. The Command Palette is a very useful tool to learn, since you can easily access almost all features and options inside RStudio through it. Because of this reason, we will be using it a lot throughout the course. Open it up with <kbd title="mac=Command-Shift-P" aria-hidden="true">mac=Command-Shift-P</kbd><span class="visually-hidden">mac=Command-Shift-P</span> and then in the pop-up search bar, type out “document outline”. The first item should be the one we want, so hit <code>Enter</code> to activate the Outline.</p>
 <p>If you can’t remember a specific keybinding in RStudio, check out the help for it by going to the menu item <code>Help -&gt; Keyboard Shortcuts Help</code>.</p>
 </section><section id="reading-task-basics-of-r" class="level2" data-number="11.7"><h2 data-number="11.7" class="anchored" data-anchor-id="reading-task-basics-of-r">
 <span class="header-section-number">11.7</span> <span class="emoji" data-emoji="book">📖</span> Reading task: Basics of R</h2>
@@ -701,7 +674,7 @@ Tip
 <p>One of the major strengths of R, and many other programming languages, is in its ability for other people to create packages that simplify doing complex tasks. For example, if you need to use mixed effects models for your data analysis, you can use the <a href="https://github.com/lme4/lme4/">lme4</a> package. Or if you want to create figures you can use the <a href="https://ggplot2.tidyverse.org">ggplot2</a> package. As you experienced from the pre-course tasks, installing packages is easy by using <code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages()</a></code>. Whenever we work with R, we very rarely work only with the base R functions. We usually use a lot of functions from many other packages, because that is one of the easiest ways for you to simplify your work! No need to re-invent the wheel <span class="emoji" data-emoji="grin">😁</span></p>
 <p>One “meta-package” we will use throughout the course is called <a href="https://tidyverse.tidyverse.org">tidyverse</a>. So let’s load the package up so we can use the functions from inside it.</p>
 <p>The way you load a package and get access to the functions inside is by using the <code><a href="https://rdrr.io/r/base/library.html">library()</a></code> function. So let’s load the <a href="https://dplyr.tidyverse.org">dplyr</a> package by writing <code><a href="https://dplyr.tidyverse.org">library(dplyr)</a></code>.</p>
-<p>Let’s run this code by placing the cursor over the code and using <kbd title="Ctrl-Enter" aria-hidden="true">Ctrl-Enter</kbd><span class="visually-hidden">Ctrl-Enter</span>. After you run the code, you should see some text that might look something like this:</p>
+<p>Let’s run this code by placing the cursor over the code and using <kbd title="mac=Command-Enter" aria-hidden="true">mac=Command-Enter</kbd><span class="visually-hidden">mac=Command-Enter</span>. After you run the code, you should see some text that might look something like this:</p>
 <div class="cell">
 <div class="cell-output cell-output-stderr">
 <pre><code>
@@ -925,7 +898,8 @@ dbl (15): ID, sex, Age, BMI, SBP, DBP, FBG, TC, Cr, GFR, UA, Times, ...
 <p>Further material:</p>
 <ul>
 <li><a href="https://iqss.github.io/dss-workshops/R/Rintro/base-r-cheat-sheet.pdf">RStudio’s cheat-sheet</a></li>
-<li>?</li>
+<li>
+<a href="https://www.youtube.com/watch?v=mAtAHwiP204">this video at YouTube</a> by Prof. Rubak.</li>
 </ul>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
@@ -1350,8 +1324,8 @@ dbl (15): ID, sex, Age, BMI, SBP, DBP, FBG, TC, Cr, GFR, UA, Times, ...
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../sessions/session02.html" class="pagination-link" aria-label="Probability and stochastic variables">
-        <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Probability and stochastic variables</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../sessions/session04.html" class="pagination-link" aria-label="When in doubt - plot it out">
+        <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">When in doubt - plot it out</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

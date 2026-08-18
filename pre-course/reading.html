@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.38">
+<meta name="generator" content="quarto-1.10.18">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -12,10 +12,13 @@
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
 */
-code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -41,14 +44,14 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-a26eb8303659cd3e56a4df222525631d.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-30e6a2c837d31765335c9e5ddc24bf05.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-a26eb8303659cd3e56a4df222525631d.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-f2f3720d61c840f4a81557a72cafc3fb.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-b3a0ae3d575e4a0a28d8790bf29525bf.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-f2f3720d61c840f4a81557a72cafc3fb.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-3e9453848423e76c8373c33b06ef5187.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-e753f34555c28b66633e945198972a28.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-3e9453848423e76c8373c33b06ef5187.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-bd539a4bd325924d58cdeed552045633.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-8b270897fe75296330c4467c087bf150.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-bd539a4bd325924d58cdeed552045633.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/quarto-contrib/fontawesome6-6.7.2/all.min.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/fontawesome6-6.7.2/latex-fontsize.css" rel="stylesheet">
 <script src="../site_libs/quarto-contrib/kbd/kbd.js"></script>
@@ -226,56 +229,26 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/session02.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Probability and stochastic variables</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/session03.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Effect measurements</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../sessions/session04.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">When in doubt - plot it out</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/session05.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Statistical Analysis Plan (SAP)</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/session06.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Central Limit Theorem, uncertainty, and Monte Carlo sampling</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/session07.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Hypothesis testing, confounding, and reproducibility</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/session08.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Data wrangling using R</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">When in doubt - plot it out</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session11.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Conditioning and polynomial madness</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Conditioning and polynomial madness</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/session12.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">A Poissonous counting trick</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session15.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Marginalizing the problem</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Marginalizing the problem</span></span></a>
   </div>
 </li>
       </ul>
@@ -292,37 +265,37 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Data for Medical Statistics</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Data for Medical Statistics</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/ex01.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Exercises: Hallo Medical Statistics</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../exercises/ex02.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Exercises: Probability and stochastic variables</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Exercises: Hallo Medical Statistics</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/ex04.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Exercises: Hallo Medical Statistics</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Exercises: When in doubt, plot it out</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/ex11.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Exercises: Conditional variables</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Exercises: Conditional and polynomial madness</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../exercises/ex12.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Exercises: A Poissonous counting trick</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/ex15.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Exercises: Conditional variables</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Exercises: Marginalizing the problem</span></span></a>
   </div>
 </li>
       </ul>
@@ -385,6 +358,10 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#cheatsheets" id="toc-cheatsheets" class="nav-link active" data-scroll-target="#cheatsheets"><span class="header-section-number">5.1</span> Cheatsheets</a></li>
+  <li><a href="#using-ai" id="toc-using-ai" class="nav-link" data-scroll-target="#using-ai"><span class="header-section-number">5.2</span> Using AI</a>
+  <ul class="collapse">
+  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples"><span class="header-section-number">5.2.1</span> Examples:</a></li>
+  </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/DanMazJen/medicinsk-statistik/edit/main/pre-course/reading.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/blob/main/pre-course/reading.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
     </div>
@@ -423,11 +400,11 @@ Warning
 <p>🚧 This section is being actively worked on. 🚧</p>
 </div>
 </div>
-<p>If you haven’t already, go through the course overview section. Read the syllabus in <a href="../overview/syllabus.html" class="quarto-xref"><span>Chapter 1</span></a>, especially the part about what the course will cover and what we expect you to learn at the end of it. Then read the learning design section in <a href="../overview/learning-design.html" class="quarto-xref"><span>Chapter 3</span></a> to get an overview of what types of activities we will do during the course as well as the reasons for them in relation to learning.</p>
+<p>If you haven’t already, go through the course overview section. Read the <a href="https://moduler.aau.dk/course/2024-2025/MEDMS24B5_1">syllabus</a>, especially the part about what the course will cover and what we expect you to learn at the end of it. Then read the learning design section in <a href="../overview/learning-design.html" class="quarto-xref"><span>Chapter 3</span></a> and <a href="../overview/schedule.html" class="quarto-xref"><span>Chapter 2</span></a> to get an overview of what types of activities we will do during the course as well as the reasons for them in relation to learning.</p>
 <p>Related to the learning design, an important component of learning is repeated exposure to a concept or skill. We want you to read through specific sections of the material beforehand as we’ve found that these particular topics are often more difficult to grasp and understand for beginners. Reading it beforehand will give your brain some time to start processing the information, so that when you see it again during the course, it will be easier to understand and learn. During the course, you will read these sections again and we will explain them verbally as well, to further reinforce the concepts.</p>
-<p>Because our main learning outcome is <strong>statistical litteracy</strong>, we will use tools like R that is the foundation for most modern statistical workflows . Without a way to easily and quickly share code, your research <em>cannot</em> be <em>independently</em> reproducible. Using R is the most common way to write statistical analyses within the health sciences.</p>
-<p>So, please read about R and the tidyverse in <span class="quarto-unresolved-ref">?sec-what-is-version-control</span>, <span class="quarto-unresolved-ref">?sec-what-is-git</span>, and <span class="quarto-unresolved-ref">?sec-basics-of-git</span>. R and its associated computer code will be the main topic for the course. However, all exercises and implementations of the statistical concepts and usecases of the material we cover will only be achievable through R and code. Learning how to program requires a change in how you see and interact with your projects and computer in big ways. Try not to underestimate R and what it can do for you in order to learn quicker or even slower during this course.</p>
-<p>Lastly, briefly read through the group project work section in <span class="quarto-unresolved-ref">?sec-project-work</span> so you are familiar with what you will do at the end of the course. You’ll have time during the project work session to read through it again, but we’ve found that participants prefer and want to be aware beforehand on what is expected of them during the project work.</p>
+<p>Because our main learning outcome is <strong>statistical litteracy</strong>, we will use tools like R that is the foundation for most modern statistical workflows. Without a way to easily and quickly reproduce analyses, statistical work becomes daunting and inefficient. Using R is the most common way to write statistical analyses within the health sciences.</p>
+<p>So, please read about R and how to set it up in <a href="installing-programs-r.html" class="quarto-xref"><span>Chapter 6</span></a>, <a href="r-and-rstudio.html" class="quarto-xref"><span>Chapter 7</span></a>, and <a href="installing-r-packages.html" class="quarto-xref"><span>Chapter 8</span></a>. R and its associated computer code will be the main tool for the course. Learning how to program requires a change in how you see and interact with your computer in profound ways. Try not to underestimate R and what it can do for you in order to learn quicker during this course.</p>
+<p>Lastly, briefly read through the group project work section in <span class="quarto-unresolved-ref">?sec-project-work</span> so you are familiar with what you will do at the end of the course. You’ll have time during the project work session to read through it again, but we’ve found that students prefer and want to be aware beforehand on what is expected of them during the project work.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -441,11 +418,10 @@ Tip
 <p>To keep track of which sections to read, here is a list:</p>
 <ol type="1">
 <li><a href="../overview/syllabus.html" class="quarto-xref"><span>Chapter 1</span></a></li>
-<li><span class="quarto-unresolved-ref">?sec-is-this-for-you</span></li>
 <li><a href="../overview/learning-design.html" class="quarto-xref"><span>Chapter 3</span></a></li>
-<li><span class="quarto-unresolved-ref">?sec-what-is-version-control</span></li>
-<li><span class="quarto-unresolved-ref">?sec-what-is-git</span></li>
-<li><span class="quarto-unresolved-ref">?sec-basics-of-git</span></li>
+<li><a href="installing-programs-r.html" class="quarto-xref"><span>Chapter 6</span></a>,</li>
+<li><a href="r-and-rstudio.html" class="quarto-xref"><span>Chapter 7</span></a>,</li>
+<li><a href="installing-r-packages.html" class="quarto-xref"><span>Chapter 8</span></a>,</li>
 <li><span class="quarto-unresolved-ref">?sec-project-work</span></li>
 </ol>
 </div>
@@ -459,8 +435,42 @@ Tip
 <li><a href="https://rstudio.github.io/cheatsheets/data-transformation.pdf">dplyr</a></li>
 <li><a href="https://rstudio.github.io/cheatsheets/data-visualization.pdf">ggplot2</a></li>
 </ul>
+</section>
+<section id="using-ai" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="using-ai"><span class="header-section-number">5.2</span> Using AI</h2>
+<p>I provide solutions to the exercises—but a solved exercise is not the goal. Learning is.</p>
+<p>Use ChatGPT and other chat models responsibly. They can help you understand, question, and explore, but they can also give you convincing nonsense.</p>
+<p><strong>Do not outsource your thinking.</strong></p>
+<p>The time to make mistakes, struggle, and learn from them is now—not when you are responsible for patients, colleagues, or decisions in the workplace.</p>
+<section id="examples" class="level3" data-number="5.2.1">
+<h3 data-number="5.2.1" class="anchored" data-anchor-id="examples"><span class="header-section-number">5.2.1</span> Examples:</h3>
+<p>Legitimate use cases</p>
+<ul>
+<li>Ask for an explanation of a statistical concept you do not understand.</li>
+<li>Ask for a hint when you are stuck rather than asking for the answer.</li>
+<li>Make it explain errors in R instead of generating the code.</li>
+<li>Compare your own solution with a suggested solution and identify where they differ.</li>
+<li>Ask the model to challenge your interpretation of a result or point out assumptions you may have missed.</li>
+<li>Use it after attempting an exercise to clarify mistakes and deepen your understanding.</li>
+</ul>
+<p>Poor use cases</p>
+<ul>
+<li>Copying the solution without first attempting the exercise.</li>
+<li>Asking the model to solve an exercise so you can submit or reproduce the answer.</li>
+<li>Using a model’s statistical reasoning without checking whether it is correct.</li>
+<li>Letting the model choose a statistical method you cannot explain yourself.</li>
+</ul>
+<p><strong>Further resources on responsible use of AI</strong></p>
+<ul>
+<li><a href="https://www.en.aub.aau.dk/students/generative-ai">AAU: Generative AI for students</a> — guidance on academic practice, privacy, evaluating AI, useful scenarios, prompting, and avoiding over-reliance on AI.</li>
+<li><a href="https://www.studerende.aau.dk/regler-og-praktisk/regler/regler-for-brug-af-generativ-ai">AAU: Rules for use of generative AI</a> — know the rules that apply to your studies and exams.</li>
+<li><a href="https://www.en.aub.aau.dk/students/generative-ai/scenarios-for-use">AAU: Scenarios for using generative AI</a> — examples of appropriate uses of AI for studying, understanding difficult material, and exam preparation.</li>
+<li><a href="https://www.unesco.org/en/articles/guidance-generative-ai-education-and-research">UNESCO: Guidance for generative AI in education and research</a> — a broader perspective on human-centred and responsible use of generative AI in education.</li>
+</ul>
+<p><em>You are responsible for what you submit — and for what you learn.</em></p>
 
 
+</section>
 </section>
 
 <script async="" src="https://scripts.simpleanalyticscdn.com/latest.js"></script></main> <!-- /main -->

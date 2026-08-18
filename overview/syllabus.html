@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.38">
+<meta name="generator" content="quarto-1.10.18">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -12,10 +12,13 @@
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
 */
-code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -41,14 +44,14 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-a26eb8303659cd3e56a4df222525631d.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-30e6a2c837d31765335c9e5ddc24bf05.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-a26eb8303659cd3e56a4df222525631d.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-f2f3720d61c840f4a81557a72cafc3fb.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-b3a0ae3d575e4a0a28d8790bf29525bf.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-f2f3720d61c840f4a81557a72cafc3fb.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-3e9453848423e76c8373c33b06ef5187.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-e753f34555c28b66633e945198972a28.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-3e9453848423e76c8373c33b06ef5187.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-bd539a4bd325924d58cdeed552045633.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-8b270897fe75296330c4467c087bf150.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-bd539a4bd325924d58cdeed552045633.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/quarto-contrib/fontawesome6-6.7.2/all.min.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/fontawesome6-6.7.2/latex-fontsize.css" rel="stylesheet">
 <script src="../site_libs/quarto-contrib/kbd/kbd.js"></script>
@@ -226,56 +229,26 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/session02.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Probability and stochastic variables</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/session03.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Effect measurements</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../sessions/session04.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">When in doubt - plot it out</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/session05.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Statistical Analysis Plan (SAP)</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/session06.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Central Limit Theorem, uncertainty, and Monte Carlo sampling</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/session07.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Hypothesis testing, confounding, and reproducibility</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/session08.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Data wrangling using R</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">When in doubt - plot it out</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session11.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Conditioning and polynomial madness</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Conditioning and polynomial madness</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/session12.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">A Poissonous counting trick</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session15.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Marginalizing the problem</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Marginalizing the problem</span></span></a>
   </div>
 </li>
       </ul>
@@ -292,37 +265,37 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Data for Medical Statistics</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Data for Medical Statistics</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/ex01.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Exercises: Hallo Medical Statistics</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../exercises/ex02.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Exercises: Probability and stochastic variables</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Exercises: Hallo Medical Statistics</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/ex04.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Exercises: Hallo Medical Statistics</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Exercises: When in doubt, plot it out</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/ex11.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Exercises: Conditional variables</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Exercises: Conditional and polynomial madness</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../exercises/ex12.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Exercises: A Poissonous counting trick</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/ex15.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Exercises: Conditional variables</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Exercises: Marginalizing the problem</span></span></a>
   </div>
 </li>
       </ul>
@@ -428,31 +401,72 @@ Warning
 <p>🚧 This section is being actively worked on. 🚧</p>
 </div>
 </div>
-<p>Learn to turn clinical data into robust evidence that informs real clinical and research decisions. Healthcare generates enormous amounts of data, yet many decisions are still based on studies with limited statistical rigor, misinterpreted results, or insufficient consideration of uncertainty, bias, and reproducibility. Clinicians and researchers increasingly need the skills to critically appraise the literature and understand how evidence is generated, interpreted, and communicated in scientific work. To address this, you need strong statistical reasoning, practical data analysis skills, and the ability to translate quantitative results into clinically meaningful insight. In this course, you will learn how to use R for data analysis; understand probability, uncertainty, and stochastic processes; apply regression and generalized linear models; design and validate prediction models; evaluate bias, confounding, and reproducibility; perform power and sample size calculations; analyze time-to-event and repeated-measures data; and connect statistical findings to clinical decision-making and meta-analysis.</p>
-<p>By the end of the course, you will be able to engage confidently with scientific research, communicate quantitative findings clearly, and contribute to high-quality evidence generation. These skills will empower you to participate fully in modern clinical and translational research, collaborate effectively with statisticians and data scientists, and strengthen the scientific basis of your clinical and research practice.</p>
-<p>This course spans four months and is split into the following sessions, listed in the <a href="../overview/schedule.html">schedule</a>, which will be covered in order:</p>
+<p>This course spans from late september to december and is split into the following sessions, listed in the <a href="../overview/schedule.html">schedule</a>, which will be covered in order:</p>
 <ul>
+<li><ol type="1">
 <li><a href="../sessions/session01.html">Introduction to R</a></li>
-<li><a href="../sessions/session02.html">Probability and stochastic variables</a></li>
-<li><a href="../sessions/session03.html">Outcome types and measuring effects</a></li>
+</ol></li>
+<li><ol start="2" type="1">
+<li>Probability and stochastic variables</li>
+</ol></li>
+<li><ol start="3" type="1">
+<li>Outcome types and measuring effects</li>
+</ol></li>
+<li><ol start="4" type="1">
 <li><a href="../sessions/session04.html">Describing and plotting data</a></li>
-<li><a href="../sessions/session05.html">Formulating a research question</a></li>
-<li><a href="../sessions/session06.html">Law of Large Numbers</a></li>
-<li><a href="../sessions/session07.html">hypothesis testing</a></li>
-<li><a href="../sessions/session08.html">Data manipulation</a></li>
-<li><a href="../sessions/session08.html">Linear regression</a></li>
-<li><a href="../sessions/session08.html">Logistic regression</a></li>
-<li><a href="../sessions/session08.html">Interaction</a></li>
-<li><a href="../sessions/session08.html">Generalized linear regression</a></li>
-<li><a href="../sessions/session08.html">Time-to-event analysis</a></li>
-<li><a href="../sessions/session08.html">Repeated measures</a></li>
-<li><a href="../sessions/session08.html">Margins analysis</a></li>
-<li><a href="../sessions/session08.html">Power calculations</a></li>
-<li><a href="../sessions/session08.html">Workshop: Prediction vs.&nbsp;explanatory models</a></li>
-<li><a href="../sessions/session08.html">Validation of binary prediction models</a></li>
-<li><a href="../sessions/session08.html">Validation of continuous prediction models</a></li>
-<li><a href="../sessions/session08.html">Workshop: From statistical analysis to clinical decision-making</a></li>
-<li><a href="../sessions/session08.html">Introduction to meta-analysis</a></li>
+</ol></li>
+<li><ol start="5" type="1">
+<li>Law of Large Numbers<br>
+</li>
+</ol></li>
+<li><ol start="6" type="1">
+<li>Data wrangling</li>
+</ol></li>
+<li><ol start="7" type="1">
+<li>Workshop: Formulating a research question</li>
+</ol></li>
+<li><ol start="8" type="1">
+<li>hypothesis testing</li>
+</ol></li>
+<li><ol start="9" type="1">
+<li>Linear regression</li>
+</ol></li>
+<li><ol start="10" type="1">
+<li>Logistic regression</li>
+</ol></li>
+<li><ol start="11" type="1">
+<li><a href="../sessions/session11.html">Interaction</a></li>
+</ol></li>
+<li><ol start="12" type="1">
+<li><a href="../sessions/session12.html">Poisson</a></li>
+</ol></li>
+<li><ol start="13" type="1">
+<li>Time-to-event analysis</li>
+</ol></li>
+<li><ol start="14" type="1">
+<li>Repeated measures</li>
+</ol></li>
+<li><ol start="15" type="1">
+<li><a href="../sessions/session15.html">Marginal effects</a></li>
+</ol></li>
+<li><ol start="16" type="1">
+<li>Power calculations</li>
+</ol></li>
+<li><ol start="17" type="1">
+<li>Workshop: Prediction vs.&nbsp;explanatory models</li>
+</ol></li>
+<li><ol start="18" type="1">
+<li>Validation of binary prediction models</li>
+</ol></li>
+<li><ol start="19" type="1">
+<li>Validation of continuous prediction models</li>
+</ol></li>
+<li><ol start="20" type="1">
+<li>Workshop: From statistical analysis to clinical decision-making</li>
+</ol></li>
+<li><ol start="21" type="1">
+<li>Introduction to meta-analysis</li>
+</ol></li>
 </ul>
 <section id="learning-outcome-and-objectives" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="learning-outcome-and-objectives"><span class="header-section-number">1.1</span> Learning outcome and objectives</h2>

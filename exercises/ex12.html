@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.38">
-
+<meta name="generator" content="quarto-1.10.18">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
-
-<title>23&nbsp; Exercises: Probability and stochastic variables – Medical Statistics, MEDMS24B5_1</title>
+<title>20&nbsp; Exercises: A Poissonous counting trick – Medical Statistics, MEDMS24B5_1</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
 */
-code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -23,8 +23,42 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
-
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
@@ -32,8 +66,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../exercises/ex04.html" rel="next">
-<link href="../exercises/ex01.html" rel="prev">
+<link href="../exercises/ex15.html" rel="next">
+<link href="../exercises/ex11.html" rel="prev">
 <link href="../site_libs/quarto-contrib/quarto-project/rostools/rostools-theme/favicon.ico" rel="icon">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -41,19 +75,18 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-a26eb8303659cd3e56a4df222525631d.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-30e6a2c837d31765335c9e5ddc24bf05.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-a26eb8303659cd3e56a4df222525631d.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-f2f3720d61c840f4a81557a72cafc3fb.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-b3a0ae3d575e4a0a28d8790bf29525bf.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-f2f3720d61c840f4a81557a72cafc3fb.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-3e9453848423e76c8373c33b06ef5187.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-e753f34555c28b66633e945198972a28.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-3e9453848423e76c8373c33b06ef5187.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-bd539a4bd325924d58cdeed552045633.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-8b270897fe75296330c4467c087bf150.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-bd539a4bd325924d58cdeed552045633.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/quarto-contrib/fontawesome6-6.7.2/all.min.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/fontawesome6-6.7.2/latex-fontsize.css" rel="stylesheet">
 <script src="../site_libs/quarto-contrib/kbd/kbd.js"></script>
-<link href="../site_libs/quarto-contrib/kbd/kbd.css" rel="stylesheet">
-<script id="quarto-search-options" type="application/json">{
+<link href="../site_libs/quarto-contrib/kbd/kbd.css" rel="stylesheet"><script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
@@ -78,22 +111,40 @@ ul.task-list li input[type="checkbox"] {
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script>
-
-
+}</script><script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script><script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 </head>
-
 <body class="nav-sidebar floating nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
-      <div class="navbar-container container-fluid">
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a href="../index.html" class="navbar-brand navbar-brand-logo">
-    <img src="../site_libs/quarto-contrib/quarto-project/rostools/rostools-theme/favicon.ico" alt="Graphic of a medical pill with a scatter plot and a regression line inside it." class="navbar-logo light-content">
-    <img src="../site_libs/quarto-contrib/quarto-project/rostools/rostools-theme/favicon.ico" alt="Graphic of a medical pill with a scatter plot and a regression line inside it." class="navbar-logo dark-content">
-    </a>
+    <img src="../site_libs/quarto-contrib/quarto-project/rostools/rostools-theme/favicon.ico" alt="Graphic of a medical pill with a scatter plot and a regression line inside it." class="navbar-logo light-content"><img src="../site_libs/quarto-contrib/quarto-project/rostools/rostools-theme/favicon.ico" alt="Graphic of a medical pill with a scatter plot and a regression line inside it." class="navbar-logo dark-content"></a>
     <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Medical Statistics, MEDMS24B5_1</span>
     </a>
@@ -103,25 +154,19 @@ ul.task-list li input[type="checkbox"] {
 </div>
           <div id="quarto-search" class="" title="Search"></div>
       </div> <!-- /container-fluid -->
-    </nav>
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
+    </nav><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../exercises/data.html">Exercises</a></li><li class="breadcrumb-item"><a href="../exercises/ex02.html"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Exercises: Probability and stochastic variables</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../exercises/data.html">Exercises</a></li><li class="breadcrumb-item"><a href="../exercises/ex12.html"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Exercises: A Poissonous counting trick</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
-  </nav>
-</header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="sidebar-menu-container"> 
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Welcome!</span></a>
@@ -135,8 +180,8 @@ ul.task-list li input[type="checkbox"] {
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../overview/syllabus.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Syllabus</span></span></a>
@@ -155,7 +200,7 @@ ul.task-list li input[type="checkbox"] {
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
@@ -164,8 +209,8 @@ ul.task-list li input[type="checkbox"] {
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../pre-course/overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Overview</span></span></a>
@@ -208,7 +253,7 @@ ul.task-list li input[type="checkbox"] {
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
@@ -217,8 +262,8 @@ ul.task-list li input[type="checkbox"] {
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session01.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Hallo Medical Statistics</span></span></a>
@@ -226,60 +271,30 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/session02.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Probability and stochastic variables</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/session03.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Effect measurements</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../sessions/session04.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">When in doubt - plot it out</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/session05.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Statistical Analysis Plan (SAP)</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/session06.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Central Limit Theorem, uncertainty, and Monte Carlo sampling</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/session07.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Hypothesis testing, confounding, and reproducibility</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sessions/session08.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Data wrangling using R</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">When in doubt - plot it out</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session11.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Conditioning and polynomial madness</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Conditioning and polynomial madness</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/session12.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">A Poissonous counting trick</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session15.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Marginalizing the problem</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Marginalizing the problem</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
@@ -288,45 +303,45 @@ ul.task-list li input[type="checkbox"] {
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Data for Medical Statistics</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Data for Medical Statistics</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/ex01.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Exercises: Hallo Medical Statistics</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../exercises/ex02.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Exercises: Probability and stochastic variables</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Exercises: Hallo Medical Statistics</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/ex04.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Exercises: Hallo Medical Statistics</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Exercises: When in doubt, plot it out</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/ex11.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Exercises: Conditional variables</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Exercises: Conditional and polynomial madness</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../exercises/ex12.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Exercises: A Poissonous counting trick</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/ex15.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Exercises: Conditional variables</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Exercises: Marginalizing the problem</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
@@ -335,8 +350,8 @@ ul.task-list li input[type="checkbox"] {
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../appendix/for-teachers.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">For teachers</span></span></a>
@@ -373,31 +388,29 @@ ul.task-list li input[type="checkbox"] {
   </div>
 </li>
       </ul>
-  </li>
+</li>
     </ul>
-    </div>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link active" data-scroll-target="#learning-objectives"><span class="header-section-number">23.1</span> Learning objectives</a></li>
-  <li><a href="#exercise-title" id="toc-exercise-title" class="nav-link" data-scroll-target="#exercise-title"><span class="header-section-number">23.2</span> <span class="emoji" data-emoji="technologist">🧑‍💻</span> Exercise: Title</a></li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">23.3</span> Summary</a></li>
-  <li><a href="#survey" id="toc-survey" class="nav-link" data-scroll-target="#survey"><span class="header-section-number">23.4</span> Survey</a></li>
+<li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link active" data-scroll-target="#learning-objectives"><span class="header-section-number">20.1</span> Learning objectives</a></li>
+  <li>
+<a href="#exercises-revisiting-smoking-regulations" id="toc-exercises-revisiting-smoking-regulations" class="nav-link" data-scroll-target="#exercises-revisiting-smoking-regulations"><span class="header-section-number">20.2</span> Exercises: Revisiting smoking regulations</a>
+  <ul class="collapse">
+<li><a href="#a-lets-start-off-by-considering-when-in-general-to-use-poisson-logistic-or-normal-regression." id="toc-a-lets-start-off-by-considering-when-in-general-to-use-poisson-logistic-or-normal-regression." class="nav-link" data-scroll-target="#a-lets-start-off-by-considering-when-in-general-to-use-poisson-logistic-or-normal-regression."><span class="header-section-number">20.2.1</span> A: Let’s start off by considering when in general to use Poisson, logistic or normal regression.</a></li>
+  <li><a href="#b-analyzing-the-historic-doctors-dataset" id="toc-b-analyzing-the-historic-doctors-dataset" class="nav-link" data-scroll-target="#b-analyzing-the-historic-doctors-dataset"><span class="header-section-number">20.2.2</span> B: Analyzing the historic “Doctors” dataset</a></li>
+  <li><a href="#c-writing-a-clinical-report" id="toc-c-writing-a-clinical-report" class="nav-link" data-scroll-target="#c-writing-a-clinical-report"><span class="header-section-number">20.2.3</span> C: Writing a Clinical Report</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/DanMazJen/medicinsk-statistik/edit/main/exercises/ex02.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/blob/main/exercises/ex02.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
+</li>
+  </ul><div class="toc-actions"><ul><li><a href="https://github.com/DanMazJen/medicinsk-statistik/edit/main/exercises/ex12.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/blob/main/exercises/ex12.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-<script data-goatcounter="https://DanMazJen-medicinsk-statistik.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script>
-
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../exercises/data.html">Exercises</a></li><li class="breadcrumb-item"><a href="../exercises/ex02.html"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Exercises: Probability and stochastic variables</span></a></li></ol></nav>
-<div class="quarto-title">
-<h1 class="title"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Exercises: Probability and stochastic variables</span></h1>
+<main class="content" id="quarto-document-content"><script data-goatcounter="https://DanMazJen-medicinsk-statistik.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../exercises/data.html">Exercises</a></li><li class="breadcrumb-item"><a href="../exercises/ex12.html"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Exercises: A Poissonous counting trick</span></a></li></ol></nav><div class="quarto-title">
+<h1 class="title"><span id="sec-ex-poisson" class="quarto-section-identifier"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Exercises: A Poissonous counting trick</span></span></h1>
 </div>
 
 
@@ -411,9 +424,7 @@ ul.task-list li input[type="checkbox"] {
   
 
 
-</header>
-
-<div class="callout callout-style-default callout-warning callout-titled">
+</header><div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
@@ -425,10 +436,24 @@ Warning
 <div class="callout-body-container callout-body">
 <p>🚧 This section is being actively worked on. 🚧</p>
 </div>
+</div><div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-<!-- TODO: Add an introduction here -->
-<section id="learning-objectives" class="level2" data-number="23.1">
-<h2 data-number="23.1" class="anchored" data-anchor-id="learning-objectives"><span class="header-section-number">23.1</span> Learning objectives</h2>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Conditional variables
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>Prerequisite for these exercises was covered within the <a href="../sessions/session12.html">session</a> and is therefore not repeated here. The exercises build on this material.</p>
+</div>
+</div>
+</div>
+<section id="learning-objectives" class="level2" data-number="20.1"><h2 data-number="20.1" class="anchored" data-anchor-id="learning-objectives">
+<span class="header-section-number">20.1</span> Learning objectives</h2>
 <p>The learning objectives for this session are:</p>
 <ul>
 <li>Udvise forståelse for usikkerheds- og sandsynlighedsbegrebet samt grundliggende begreber indenfor biostatistik</li>
@@ -436,28 +461,140 @@ Warning
 <li>Redegøre for forskellige typer af tilfældig og ikke tilfældig variation</li>
 <li>Udvise forståelse for statistiske værktøjers begrænsninger og muligheder</li>
 <li>Forstå statistiske problemstillinger, der er centrale for medicin med industrial specialisering og forstå, hvordan de biostatistiske værktøjer kan appliceres på disse problemstillinger</li>
-</ul>
-</section>
-<section id="exercise-title" class="level2" data-number="23.2">
-<h2 data-number="23.2" class="anchored" data-anchor-id="exercise-title"><span class="header-section-number">23.2</span> <span class="emoji" data-emoji="technologist">🧑‍💻</span> Exercise: Title</h2>
-<p><strong>Time: ~NUM minutes.</strong></p>
-<p>Text</p>
-</section>
-<section id="summary" class="level2" data-number="23.3">
-<h2 data-number="23.3" class="anchored" data-anchor-id="summary"><span class="header-section-number">23.3</span> Summary</h2>
+</ul></section><section id="exercises-revisiting-smoking-regulations" class="level2" data-number="20.2"><h2 data-number="20.2" class="anchored" data-anchor-id="exercises-revisiting-smoking-regulations">
+<span class="header-section-number">20.2</span> Exercises: Revisiting smoking regulations</h2>
+<p>You’re working for the Medical Regulations department. You’re tasksed to revisit some of the data that causally linked smoking to cancer.</p>
+<section id="a-lets-start-off-by-considering-when-in-general-to-use-poisson-logistic-or-normal-regression." class="level3" data-number="20.2.1"><h3 data-number="20.2.1" class="anchored" data-anchor-id="a-lets-start-off-by-considering-when-in-general-to-use-poisson-logistic-or-normal-regression.">
+<span class="header-section-number">20.2.1</span> A: Let’s start off by considering when in general to use Poisson, logistic or normal regression.</h3>
+<p><strong>Exercise 1A</strong>: Poisson vs.&nbsp;Binomial vs.&nbsp;Gaussian</p>
+<p>You are designing a study to analyze the number of hospital readmissions for heart failure patients within 30 days of discharge.</p>
 <ul>
-<li>TODO: List of summary items</li>
+<li>1: Should you use a Poisson, Binomial, or Gaussian model? Justify your choice.</li>
+<li>2: What are the key assumptions of the distribution you chose? How would you check them?</li>
+<li>3: If the outcome were the probability of readmission (yes/no), which model would you use? Why?</li>
+<li>4: If the outcome were the length of stay (in days), which model would you use? Why?</li>
 </ul>
-</section>
-<section id="survey" class="level2" data-number="23.4">
-<h2 data-number="23.4" class="anchored" data-anchor-id="survey"><span class="header-section-number">23.4</span> Survey</h2>
-<p><a href="https://docs.google.com/forms/d/e/1FAIpQLSejsgArWYbCpTjKoxdCArtAVJrtBZQCINIEUj1TqppYrd3n8g/viewform?usp=publish-editor" class="btn btn-primary" role="button">Feedback survey! <span class="emoji" data-emoji="tada">🎉</span></a></p>
+<details><summary><strong>Click for the solution</strong>
+</summary><ol type="1">
+<li>Poisson.</li>
+<li>Positive real numbers. Exponential. Mean and variance is the same.</li>
+<li>Logistic regression.</li>
+<li>Poisson.</li>
+</ol></details><p><strong>Exercise 1B</strong>: Reviewing a colleagues paper.</p>
+<p>You’re assigned as a internal peer reviewer for study titled:</p>
+<blockquote class="blockquote">
+<p>Association Between Corticosteroid Therapy and Hospital-Acquired Infections in an Intensive Care Unit</p>
+</blockquote>
+<p>Here is the paper extract:</p>
+<p><strong>Background</strong></p>
+<p>Researchers conducted a retrospective cohort study of 612 patients admitted to an intensive care unit (ICU). The outcome was the number of hospital-acquired infections each patient experienced during their ICU stay. Patients contributed different lengths of follow-up because some were discharged early while others remained hospitalized for several weeks.</p>
+<p>The investigators collected the following variables:</p>
+<ul>
+<li>Number of hospital-acquired infections (instances from electronic journal)</li>
+<li>Corticosteroid treatment (Yes/No)</li>
+<li>Age (years)</li>
+<li>Diabetes (Yes/No)</li>
+<li>Length of ICU stay (days)</li>
+</ul>
+<p>A Poisson regression model was fitted.</p>
+<p><strong>Statistical Methods</strong></p>
+<p>Poisson regression was used to estimate the association between corticosteroid therapy and infection occurrence. Age was included as the offset variable to account for differences in patient risk over time. The model included corticosteroid treatment and diabetes as explanatory variables.</p>
+<p>The fitted model was</p>
+<p><span class="math display">\[
+  log(λi​)=β0​+β1​(Steroid)+β2​(Diabetes)+offset(Age)
+\]</span></p>
+<p><strong>results</strong></p>
+<table class="caption-top table">
+<thead><tr class="header">
+<th>Variable</th>
+<th style="text-align: right;">Coefficient</th>
+<th style="text-align: right;">Standard Error</th>
+<th style="text-align: right;">p-value</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Intercept</td>
+<td style="text-align: right;">-2.31</td>
+<td style="text-align: right;">0.28</td>
+<td style="text-align: right;">&lt;0.001</td>
+</tr>
+<tr class="even">
+<td>Corticosteroid therapy</td>
+<td style="text-align: right;">0.47</td>
+<td style="text-align: right;">0.11</td>
+<td style="text-align: right;">&lt;0.001</td>
+</tr>
+<tr class="odd">
+<td>Diabetes</td>
+<td style="text-align: right;">0.29</td>
+<td style="text-align: right;">0.10</td>
+<td style="text-align: right;">0.004</td>
+</tr>
+</tbody>
+</table>
+<p>Raw coeffivients can be seen from the table above.</p>
+<p>Patients receiving corticosteroids had 0.47 times higher odds of developing hospital-acquired infections compared with patients who did not receive corticosteroids (p &lt; 0.001). Likewise, patients with diabetes had 0.29 higher odds of infection than patients without diabetes.</p>
+<p>These findings indicate that corticosteroid therapy substantially increases the odds of hospital-acquired infection after adjustment for age.</p>
+<p><strong>Discussion</strong></p>
+<p>After adjusting for age using an offset variable, corticosteroid therapy remained an independent predictor of hospital-acquired infection. The regression coefficient of 0.47 suggests a clinically meaningful increase in infection risk.</p>
+<p>These results support careful monitoring of patients receiving corticosteroids in the ICU.</p>
+<details><summary><strong>Click for the solution</strong>
+</summary><ol type="1">
+<li>Wrong offset</li>
+</ol>
+<ul>
+<li>The model uses Age as the offset.</li>
+<li>In Poisson regression, the offset should represent the logarithm of exposure or person-time (e.g., log(length of ICU stay)), not a patient characteristic.</li>
+<li>Age should be included as a regular covariate if adjustment is desired.</li>
+</ul>
+<ol start="2" type="1">
+<li>Wrong interpretation</li>
+</ol>
+<ul>
+<li>The text interprets the results as odds (“0.47 times higher odds”).</li>
+<li>Standard Poisson regression estimates incidence rate ratios (IRRs) or rate ratios, not odds ratios.</li>
+</ul>
+<ol start="3" type="1">
+<li>Coefficients not exponentiated</li>
+</ol>
+<ul>
+<li>The table reports coefficients (0.47 and 0.29), but the narrative treats them as effect sizes.</li>
+<li>The correct interpretation requires exponentiation:
+<ul>
+<li>exp(0.47) = 1.60, meaning a 60% higher infection rate.</li>
+<li>exp(0.29) = 1.34, meaning a 34% higher infection rate.</li>
+</ul>
+</li>
+</ul></details></section><section id="b-analyzing-the-historic-doctors-dataset" class="level3" data-number="20.2.2"><h3 data-number="20.2.2" class="anchored" data-anchor-id="b-analyzing-the-historic-doctors-dataset">
+<span class="header-section-number">20.2.2</span> B: Analyzing the historic “Doctors” dataset</h3>
+<p>The following R code contains 3 intentional mistakes. Identify and fix them:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Mistake 1: Missing offset for exposure time (e.g., person-years)</span></span>
+<span><span class="co">#model_mistake &lt;- glm(mortality ~ smoker + age,</span></span>
+<span><span class="co">#                     family = poisson(link = "log"),</span></span>
+<span><span class="co">#                     data = doctors)</span></span>
+<span></span>
+<span><span class="co"># Mistake 2: Interpreting the coefficient as odds ratio</span></span>
+<span><span class="co">#summary(model_mistake)  # Student claims: "The odds of death are 1.5x higher for smokers."</span></span>
+<span></span>
+<span><span class="co"># Mistake 3: Not exponentiating the coefficient</span></span>
+<span><span class="co">#coef(model_mistake)     # Student claims: "The coefficient for smoker is 0.4, so smokers have 0.4 more deaths."</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Question: Explain why each mistake is wrong and how to correct it.</p>
+</section><section id="c-writing-a-clinical-report" class="level3" data-number="20.2.3"><h3 data-number="20.2.3" class="anchored" data-anchor-id="c-writing-a-clinical-report">
+<span class="header-section-number">20.2.3</span> C: Writing a Clinical Report</h3>
+<p><strong>Exercise 3A:</strong></p>
+<p>Structuring the Report</p>
+<ul>
+<li>1: How would you explain the incidence rate ratio (IRR) to a clinician who is not familiar with statistics?</li>
+<li>2: Write a 1-paragraph summary of the findings from your Poisson model (from Exercise 2A) for a clinical audience.</li>
+<li>3: How would you visually present the effect of smoking on mortality in a figure for the report? Describe the plot.</li>
+<li>4: Now implement the plot using {ggplot2}.</li>
+<li>5: Make a legend to the plot so that others can read it with the intention you had.</li>
+</ul>
 
 
-</section>
-
-<script async="" src="https://scripts.simpleanalyticscdn.com/latest.js"></script></main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
+</section></section><script async="" src="https://scripts.simpleanalyticscdn.com/latest.js"></script></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
     const anchorJS = new window.AnchorJS();
@@ -856,28 +993,25 @@ Warning
       }
     }
   });
-  </script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
-      <a href="../exercises/ex01.html" class="pagination-link" aria-label="Exercises: Hallo Medical Statistics">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Exercises: Hallo Medical Statistics</span></span>
+  </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="../exercises/ex11.html" class="pagination-link" aria-label="Exercises: Conditional and polynomial madness">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Exercises: Conditional and polynomial madness</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../exercises/ex04.html" class="pagination-link" aria-label="Exercises: Hallo Medical Statistics">
-        <span class="nav-page-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Exercises: Hallo Medical Statistics</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../exercises/ex15.html" class="pagination-link" aria-label="Exercises: Marginalizing the problem">
+        <span class="nav-page-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Exercises: Marginalizing the problem</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
 </div> <!-- /content -->
-<footer class="footer">
-  <div class="nav-footer">
+<footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">
       &nbsp;
     </div>   
     <div class="nav-footer-center">
       <ul class="footer-items list-unstyled">
-    <li class="nav-item">
+<li class="nav-item">
     <a class="nav-link active" href="../LICENSE.html" aria-current="page">
 <p>License: CC BY 4.0 <i class="fa-brands fa-creative-commons" aria-label="creative-commons"></i> <i class="fa-brands fa-creative-commons-by" aria-label="creative-commons-by"></i></p>
 </a>
@@ -888,14 +1022,12 @@ Warning
 </a>
   </li>  
 </ul>
-    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/DanMazJen/medicinsk-statistik/edit/main/exercises/ex02.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/blob/main/exercises/ex02.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/DanMazJen/medicinsk-statistik/edit/main/exercises/ex12.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/blob/main/exercises/ex12.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>
   </div>
 </footer>
-
-
 
 
 </body></html>

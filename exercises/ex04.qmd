@@ -1,4 +1,4 @@
-# Exercises: Hallo Medical Statistics {#sec-ex-intro}
+# Exercises: When in doubt, plot it out {#sec-ex-ggplot2}
 
 ::: {.callout-tip collapse="false"}
 ## Hallo Medical Statistics

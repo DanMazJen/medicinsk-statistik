@@ -41,7 +41,7 @@ book:
         #- sessions/session03.qmd
         - sessions/session04.qmd
         #- sessions/session05.qmd
-        - sessions/session06.qmd
+        #- sessions/session06.qmd
         #- sessions/session07.qmd
         #- sessions/session08.qmd
         - sessions/session11.qmd

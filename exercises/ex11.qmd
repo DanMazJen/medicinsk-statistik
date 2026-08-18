@@ -1,4 +1,4 @@
-# Exercises: Conditional variables {#sec-ex-interaction}
+# Exercises: Conditional and polynomial madness {#sec-ex-interaction}
 
 ::: {.callout-tip collapse="false"}
 ## Conditional variables

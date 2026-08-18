@@ -1,4 +1,4 @@
-# Exercises: Conditional variables {#sec-ex-interaction}
+# Exercises: Marginalizing the problem {#sec-ex-marginal}
 
 ::: {.callout-tip collapse="false"}
 ## Conditional variables

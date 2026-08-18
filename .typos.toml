@@ -20,6 +20,8 @@ fpt = "fpt"
 splitted = "splitted"
 nd = "nd"
 lage = "lage"
+iz = "iz"
+yhat = "yhat"
 
 
 [default.extend-identifiers]

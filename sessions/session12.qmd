@@ -602,7 +602,7 @@ epil |>
 ## Proposing a model
 
 First, we should propose a model. Looking at our causal medical model and the
-data-generating distributions, we're going to go with the folowing formulation:
+data-generating distributions, we're going to go with the following formulation:
 
 $$
   seizure\_count_i \sim Poisson(λ_i) \\

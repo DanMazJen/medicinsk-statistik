@@ -595,9 +595,9 @@ polynomials.
 #| fig-cap: "Demographic data from Kalahari !Kung San people collected by Nancy Howell "
 #| echo: false
 
-data(Howell1,package="rethinking")
+data(height_data, package="medisr")
 
-Howell1 |>
+height_data |>
     ggplot(aes(age,height)) +
     geom_point()
 ```
@@ -611,17 +611,17 @@ Howell1 |>
 #|   - "Cubed model"
 #|   #| echo: false
 
-Howell1 |>
+height_data |>
     ggplot(aes(age,height)) +
     geom_point() +
     geom_smooth(method = "lm")
 
-Howell1 |>
+height_data |>
     ggplot(aes(age,height)) +
     geom_point() +
     geom_smooth(method = "lm", formula = y ~ x + I(x^2)) # I is function for "as-is" to make math operation as is.
 
-Howell1 |>
+height_data |>
     ggplot(aes(age,height)) +
     geom_point() +
     geom_smooth(method = "lm", formula = y ~ x + I(x^2) + I(x^3)) # I is function for "as-is" to make math operation as is.

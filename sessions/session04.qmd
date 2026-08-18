@@ -1,9 +1,12 @@
 # When in doubt - plot it out {#sec-visualization}
 
-> "The simple graph has brought more information to the data analyst's mind than any other device." --- John Tukey
+> "The simple graph has brought more information to the data analyst's mind than
+> any other device." --- John Tukey
 
-```{r setup}
+```{r}
+#| label: setup
 #| include: false
+
 #library(tidyverse)
 #ddagit782594dalibrary(tidyverse)
 library(ggplot2)
@@ -13,31 +16,53 @@ library(readr)
 #hd_data <- readr::read_csv(
 #  "https://raw.githubusercontent.com/DanMazJen/medicinsk-statistik/main/data/hd_data.csv"
 #)
+data(hd_data, package = "medisr")
 ```
 
 ## Pree-class Literature
 
--   [weissgerber et al 2015 plos biology](https://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.1002128)
--   [data viz guide of the Royal StatisticalS ociety](https://royal-statistical-society.github.io/datavisguide/)
-    -   Chapters 1-4: Why we visualise data; Principles and elements of visualisations; Choosing a visualisation type; Styling for accessibility
--   [astrazeneca blog post](https://www.astrazeneca.com/what-science-can-do/topics/clinical-innovation/data-visualisation-turning-science-into-stories.html)
--   [data.europa.eu blog post on Honest Charts](https://data.europa.eu/en/publications/datastories/honest-charts-ethics-and-integrity-data-visualisation)
+- [weissgerber et al 2015 plos
+  biology](https://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.1002128)
+- [data viz guide of the Royal StatisticalS
+  ociety](https://royal-statistical-society.github.io/datavisguide/)
+  - Chapters 1-4: Why we visualise data; Principles and elements of
+    visualisations; Choosing a visualisation type; Styling for accessibility
+- [astrazeneca blog
+  post](https://www.astrazeneca.com/what-science-can-do/topics/clinical-innovation/data-visualisation-turning-science-into-stories.html)
+- [data.europa.eu blog post on Honest
+  Charts](https://data.europa.eu/en/publications/datastories/honest-charts-ethics-and-integrity-data-visualisation)
 
-## Case session 4: "I want to see this association for myself”
+## Case session 4: "I want to see this association for myself"
 
-At AalboR Statistical Hospital, a new exercise-based cardiac assessment protocol has recently been introduced following an initial data review suggesting that patients with lower max heart rate are more likely to have underlying heart disease. Based on this, some clinicians have started using the max heart rate during exercise as a quick indicator when evaluating chest pain patients.
+At AalboR Statistical Hospital, a new exercise-based cardiac assessment protocol
+has recently been introduced following an initial data review suggesting that
+patients with lower max heart rate are more likely to have underlying heart
+disease. Based on this, some clinicians have started using the max heart rate
+during exercise as a quick indicator when evaluating chest pain patients.
 
 However, during a recent internal meeting, a cardiologist raises a concern:
 
-> *“I’m not convinced this applies to our patients. Especially those who develop chest pain during exercise — their heart rate response might behave differently. If that’s true, we could be misinterpreting results in a subgroup of patients. I want to see this association for myself”*
+> *"I'm not convinced this applies to our patients. Especially those who develop
+> chest pain during exercise --- their heart rate response might behave
+> differently. If that's true, we could be misinterpreting results in a subgroup
+> of patients. I want to see this association for myself"*
 
-You are asked to explore the hospital’s patient data to assess whether the relationship between Age and max heart rate — and the interpretation of max heart rate more generally — appears consistent across patients, or whether it differs depending on exercise-induced angina, sex, or other patient characteristics.
+You are asked to explore the hospital's patient data to assess whether the
+relationship between Age and max heart rate --- and the interpretation of max
+heart rate more generally --- appears consistent across patients, or whether it
+differs depending on exercise-induced angina, sex, or other patient
+characteristics.
 
-You are tasked with the decision:
-*Should this new assessment approach be used broadly, or are there patient groups where it may be misleading?*
+You are tasked with the decision: *Should this new assessment approach be used
+broadly, or are there patient groups where it may be misleading?*
 
 ## Reading Task: Why Visualize Data?
-In medicine, pharmaceuticals, and healthcare, data is everywhere — patient records, clinical trials, drug efficacy studies, hospital operations, and more. But raw numbers alone don’t tell the full story. Data visualization turns complex information into clear, actionable insights which effectively aids you (and your future colleagues) make faster, smarter decisions.
+
+In medicine, pharmaceuticals, and healthcare, data is everywhere --- patient
+records, clinical trials, drug efficacy studies, hospital operations, and more.
+But raw numbers alone don't tell the full story. Data visualization turns
+complex information into clear, actionable insights which effectively aids you
+(and your future colleagues) make faster, smarter decisions.
 
 Which of these are easiest to draw information from:
 
@@ -45,6 +70,7 @@ Which of these are easiest to draw information from:
 #| echo: false
 #| warning: false
 #| layout-ncol: 2
+
 x <- seq(0, 2 * pi, length.out = 20)
 y <- round(sin(x) * 10, 1)
 
@@ -60,241 +86,274 @@ dat |>
 
 Good visualizations help you:
 
--   Spot patterns (e.g., a sudden spike in adverse drug reactions)
--   Communicate findings (e.g., convincing a hospital board to adopt a new protocol)
--   Avoid mistakes (e.g., misreading a critical lab value in a dense table)
+- Spot patterns (e.g., a sudden spike in adverse drug reactions)
+- Communicate findings (e.g., convincing a hospital board to adopt a new
+  protocol)
+- Avoid mistakes (e.g., misreading a critical lab value in a dense table)
 
-[The Royal Statistical Society](https://royal-statistical-society.github.io/datavisguide/docs/why-visualise.html) propose five key reasons to visualize data
+[The Royal Statistical
+Society](https://royal-statistical-society.github.io/datavisguide/docs/why-visualise.html)
+propose five key reasons to visualize data
 
-(1)   Grab Attention
+(1) Grab Attention
 
-> A dashboard with a red alert trendline for rising post-op infections will get noticed faster than a 10-page report.
-Example: A heatmap showing regional disease outbreaks helps public health teams act quickly.
+> A dashboard with a red alert trendline for rising post-op infections will get
+> noticed faster than a 10-page report. Example: A heatmap showing regional
+> disease outbreaks helps public health teams act quickly.
 
-(2)   Improve access to information
+(2) Improve access to information
 
-> Text: "The Phase III trial showed a 12% reduction in mortality (p<0.05) with Drug X vs. placebo, but subgroup analysis revealed no benefit in patients over 65."
-Visual: A forest plot or bar chart shows this in seconds—no PhD in stats required.
-Why it matters: Doctors, nurses, and executives don’t have time to parse dense tables.
+> Text: "The Phase III trial showed a 12% reduction in mortality (p<0.05) with
+> Drug X vs. placebo, but subgroup analysis revealed no benefit in patients over
+> 65." Visual: A forest plot or bar chart shows this in seconds---no PhD in
+> stats required. Why it matters: Doctors, nurses, and executives don't have
+> time to parse dense tables.
 
-(3)   Increase precision
+(3) Increase precision
 
 > Misreading a table could lead to:
--   Wrong doses prescribed.
--   Flawed trial conclusions (e.g., missing a safety signal).
+
+> - Wrong doses prescribed.
+> - Flawed trial conclusions (e.g., missing a safety signal).
 
 A clear scatter plot or box plot reduces ambiguity.
 
-(4)   Bolster credibility
+(4) Bolster credibility
 
-> Claim: "Our new drug reduces symptoms by 30%!"
-Without visualization: Skepticism ("Where’s the proof?").
-With visualization: A Kaplan-Meier curve or before/after comparison lets stakeholders see the evidence.
-Real-world impact: Regulators and investors demand transparency—visuals provide it.
+> Claim: "Our new drug reduces symptoms by 30%!" Without visualization:
+> Skepticism ("Where's the proof?"). With visualization: A Kaplan-Meier curve or
+> before/after comparison lets stakeholders see the evidence. Real-world impact:
+> Regulators and investors demand transparency---visuals provide it.
 
-(5)   Summarise content
+(5) Summarise content
 
-> A single infographic can replace pages of text in:
-Patient education (e.g., "How this vaccine works").
-Boardroom presentations (e.g., "Why we should expand this clinic").
-Example: A Sankey diagram showing patient flow in a hospital highlights bottlenecks at a glance.
+> A single infographic can replace pages of text in: Patient education (e.g.,
+> "How this vaccine works"). Boardroom presentations (e.g., "Why we should
+> expand this clinic"). Example: A Sankey diagram showing patient flow in a
+> hospital highlights bottlenecks at a glance.
 
-Data visualization isn’t just about "making things look nice". It’s a critical skill for being able to evaluate any scientific claim.
-Through this class, we'll dive into how to choose the right visualization for a given data structure and how to avoid common mistakes.
+Data visualization isn't just about "making things look nice". It's a critical
+skill for being able to evaluate any scientific claim. Through this class, we'll
+dive into how to choose the right visualization for a given data structure and
+how to avoid common mistakes.
 
 ### Discussion activity: Your experience with data visualization:
--   Where do you see data visualization "in the wild"?
--   What makes you trust a figure/graph? What could make you distrust it?
--   What’s one type of data you’ve seen in your studies/clinical rotations that was able to provide a lot of (valuable) information using a visualization?
+
+- Where do you see data visualization "in the wild"?
+- What makes you trust a figure/graph? What could make you distrust it?
+- What's one type of data you've seen in your studies/clinical rotations that
+  was able to provide a lot of (valuable) information using a visualization?
 
 ## The name of the game:
 
-Do older patients have higher or lower max heart rate than younger patients?
-You probably already have an answer, but try to make your answer precise.
-What does the relationship between age and max heart rate look like?
-Is it positive?
-Negative?
-Linear?
-Nonlinear?
-Does the relationship vary by the presence of exercise-induced angina in the patient?
-How about by the sex?
-Let's create visualizations that we can use to answer these questions.
+Do older patients have higher or lower max heart rate than younger patients? You
+probably already have an answer, but try to make your answer precise. What does
+the relationship between age and max heart rate look like? Is it positive?
+Negative? Linear? Nonlinear? Does the relationship vary by the presence of
+exercise-induced angina in the patient? How about by the sex? Let's create
+visualizations that we can use to answer these questions.
 
 ## The Cleveland Heart Disease data frame
 
-To make the discussion easier, let's define some terms (we use the definition from [@R4DS])
+To make the discussion easier, let's define some terms (we use the definition
+from [@R4DS])
 
--   A **variable** is a quantity, quality, or property that you can measure.
+- A **variable** is a quantity, quality, or property that you can measure.
 
--   A **value** is the state of a variable when you measure it.
-    The value of a variable may change from measurement to measurement.
+- A **value** is the state of a variable when you measure it. The value of a
+  variable may change from measurement to measurement.
 
--   An **observation** is a set of measurements made under similar conditions (you usually make all of the measurements in an observation at the same time and on the same object).
-    An observation will contain several values, each associated with a different variable.
-    We'll sometimes refer to an observation as a data point.
+- An **observation** is a set of measurements made under similar conditions (you
+  usually make all of the measurements in an observation at the same time and on
+  the same object). An observation will contain several values, each associated
+  with a different variable. We'll sometimes refer to an observation as a data
+  point.
 
--   **Tabular data** is a set of values, each associated with a variable and an observation.
-    Tabular data is *tidy* if each value is placed in its own "cell", each variable in its own column, and each observation in its own row.
+- **Tabular data** is a set of values, each associated with a variable and an
+  observation. Tabular data is *tidy* if each value is placed in its own "cell",
+  each variable in its own column, and each observation in its own row.
 
-In this context, a variable refers to an attribute of all the patients, and an observation refers to all the attributes of a single patient.
+In this context, a variable refers to an attribute of all the patients, and an
+observation refers to all the attributes of a single patient.
 
-Load the data and type the name of the data frame in the console and R will print a preview of its contents.
+Load the data and type the name of the data frame in the console and R will
+print a preview of its contents.
 
 ```{r}
-hd_data <- readr::read_csv(
-  "https://raw.githubusercontent.com/DanMazJen/medicinsk-statistik/main/data/hd_data.csv"
-)
+#| label: read-data
+#| output: false
+
+data(hd_data, package = "medisr")
+```
+
+```{r}
+#| label: see-data
 
 hd_data
 ```
 
-Among the variables in `penguins` are:
+Among the variables in `hd_data` are:
 
-1.  `ExAng `: a penguin's species (Adelie, Chinstrap, or Gentoo).
+1. `ExAng `: a penguin's species (Adelie, Chinstrap, or Gentoo).
 
-2.  `Age`: length of a penguin's flipper, in millimeters.
+2. `Age`: length of a penguin's flipper, in millimeters.
 
-3.  `MaxHR`: body mass of a penguin, in grams.
+3. `MaxHR`: body mass of a penguin, in grams.
 
 ## Ultimate goal {#sec-ultimate-goal}
-Our ultimate goal in this chapter is to recreate the following visualization displaying the relationship between flipper lengths and body masses of these penguins, taking into consideration the species of the penguin.
+
+Our ultimate goal in this chapter is to recreate the following visualization
+displaying the relationship between max heart rate vs. age of patients with and
+without exercise-induced angesia.
 
 ```{r}
+#| label: ultimate-goal
 #| echo: false
 #| warning: false
 #| fig-alt: |
-#|   A scatterplot of body mass vs. flipper length of penguins, with a
-#|   best fit line of the relationship between these two variables
-#|   overlaid. The plot displays a positive, fairly linear, and relatively
-#|   strong relationship between these two variables. Species (Adelie,
-#|   Chinstrap, and Gentoo) are represented with different colors and
-#|   shapes. The relationship between body mass and flipper length is
-#|   roughly the same for these three species, and Gentoo penguins are
-#|   larger than penguins from the other two species.
+#|   A scatterplot of max heart rate vs. age of patients with and without exercise-induced angesia, with a
+#|   line of the relationship between these two variables
+#|   overlaid. The plot displays a negative, fairly linear, and relatively
+#|   strong relationship between these two variables. exercise-induced angesia (yes/no) is represented with different colors.
+#|   The relationship between body mass and flipper length is
+#|   roughly steeper for the patient group without exercise-induced angesia (0).
+
 hd_data |>
+  dplyr::mutate(
+    ExAng=factor(
+        ExAng,levels=c(0,1),
+        labels=c("No", "Yes")
+        )
+  ) |>
   ggplot2::ggplot(ggplot2::aes(Age, MaxHR, color = ExAng)) +
   ggplot2::geom_point() +
-  ggplot2::geom_smooth(method = "lm")
+  ggplot2::geom_smooth(method = "loess")
 
 # and
-hd_data |>
-  ggplot2::ggplot(ggplot2::aes(as.factor(ExAng), MaxHR)) +
-  ggplot2::geom_boxplot()
+#hd_data |>
+#  ggplot2::ggplot(ggplot2::aes(as.factor(ExAng), MaxHR)) +
+#  ggplot2::geom_boxplot()
 
 # and
 
-hd_data |>
-  ggplot2::ggplot(ggplot2::aes(as.factor(ExAng), MaxHR)) +
-  ggplot2::stat_summary(geom = "col", fun = mean) +
-  ggplot2::stat_summary(
-    fun.data = "mean_cl_boot", # The 95% confidence interval of the mean     # "mean_cl_normal" # mean_sdl
-    geom = "errorbar",
-    width = .15
-  )
+#hd_data |>
+#  ggplot2::ggplot(ggplot2::aes(as.factor(ExAng), MaxHR)) +
+#  ggplot2::stat_summary(geom = "col", fun = mean) +
+#  ggplot2::stat_summary(
+#    fun.data = "mean_cl_boot", # The 95% confidence interval of the mean     # "mean_cl_normal" # mean_sdl
+#    geom = "errorbar",
+#    width = 0.15
+#  )
 ```
 
 ## Hallo `{ggplot2}`
 
-R has several systems for making graphs, but `{ggplot2}`  is one of the most elegant and most versatile. `{ggplot2}` implements the **grammar of graphics**, a coherent system for describing and building graphs. With `{ggplot2}`, you can do more and faster by learning one system and applying it in many places.
+R has several systems for making graphs, but `{ggplot2}` is one of the most
+elegant and most versatile. `{ggplot2}` implements the **grammar of graphics**,
+a coherent system for describing and building graphs. With `{ggplot2}`, you can
+do more and faster by learning one system and applying it in many places.
 
 `{ggplot2}` is an implementation of the ["Grammar of
-Graphics"](https://www.springer.com/gp/book/9780387245447) ("gg"). This
-is a powerful approach to creating plots because it provides a set of
-structured rules (a "grammar") that allow you to expressively describe
-components (or "layers") of a graph. Since you are able to describe the
-components, it is easier to then implement those "descriptions" in
-creating a graph. According to [@Johnston2021], there are at least four aspects to using `{ggplot2}`
-that relate to its "grammar":
+Graphics"](https://www.springer.com/gp/book/9780387245447) ("gg"). This is a
+powerful approach to creating plots because it provides a set of structured
+rules (a "grammar") that allow you to expressively describe components (or
+"layers") of a graph. Since you are able to describe the components, it is
+easier to then implement those "descriptions" in creating a graph. According to
+[@Johnston2021], there are at least four aspects to using `{ggplot2}` that
+relate to its "grammar":
 
--   Aesthetics, `aes()`: How data are mapped to the plot, including what
-    data are put on the x and y axes, and/or whether to use a colour for
-    a variable.
--   Geometries, `geom_` functions: Visual representation of the data, as
-    a layer. This tells `{ggplot2}` how the aesthetics should be
-    visualized, including whether they should be shown as points, lines,
-    boxes, bins, or bars.
--   Scales, `scale_` functions: Controls the visual properties of the
-    `geom_` layers. Can be used to modify the appearance of the axes, to
-    change the colour of dots from, e.g., red to blue, or to use a
-    different colour palette entirely.
--   Themes, `theme_` functions or `theme()`: Directly controls all other
-    aspects of the plot, such as the size, font, and angle of axis text,
-    and the thickness or colour of the axis lines.
+- Aesthetics, `aes()`: How data are mapped to the plot, including what data are
+  put on the x and y axes, and/or whether to use a colour for a variable.
+- Geometries, `geom_` functions: Visual representation of the data, as a layer.
+  This tells `{ggplot2}` how the aesthetics should be visualized, including
+  whether they should be shown as points, lines, boxes, bins, or bars.
+- Scales, `scale_` functions: Controls the visual properties of the `geom_`
+  layers. Can be used to modify the appearance of the axes, to change the colour
+  of dots from, e.g., red to blue, or to use a different colour palette
+  entirely.
+- Themes, `theme_` functions or `theme()`: Directly controls all other aspects
+  of the plot, such as the size, font, and angle of axis text, and the thickness
+  or colour of the axis lines.
 
-There is a massive amount of features in `{ggplot2}`. Thankfully,
-`{ggplot2}` was specifically designed to make it easy to find and use
-its functions and settings using tab auto-completion. To demonstrate
-this feature, try typing out `geom_` and you'll start seeing a menu
-pop-up with a list of functions that start with `geom_`. You can then
-use the arrow keys to move up and down the list and then hit either
-`Enter` or `Tab` to select the function. You can use this with `scale_`
-or the options inside `theme()`, for instance try typing out
-`theme(axis.` to see all options for the axis a list of theme settings
-related to the axis will pop up.
-
+There is a massive amount of features in `{ggplot2}`. Thankfully, `{ggplot2}`
+was specifically designed to make it easy to find and use its functions and
+settings using tab auto-completion. To demonstrate this feature, try typing out
+`geom_` and you'll start seeing a menu pop-up with a list of functions that
+start with `geom_`. You can then use the arrow keys to move up and down the list
+and then hit either `Enter` or `Tab` to select the function. You can use this
+with `scale_` or the options inside `theme()`, for instance try typing out
+`theme(axis.` to see all options for the axis a list of theme settings related
+to the axis will pop up.
 
 ## Plot one continuous variable
 
-Since low max heart rate has been proposed as a risk factor for heart disease, let's check out the
-distribution of max heart rate among the patients. There are two good geoms for
-examining distributions for continuous variables: `geom_density()` and
-`geom_histogram()`. Before we can make a plot, we need to tell
-`{ggplot2}` what data we are using and which variable to put in which
-axis or dimension. For that we use the `ggplot()` function with the
-`aes()` function used inside of it.
+Since low max heart rate has been proposed as a risk factor for heart disease,
+let's check out the distribution of max heart rate among the patients. There are
+two good geoms for examining distributions for continuous variables:
+`geom_density()` and `geom_histogram()`. Before we can make a plot, we need to
+tell `{ggplot2}` what data we are using and which variable to put in which axis
+or dimension. For that we use the `ggplot()` function with the `aes()` function
+used inside of it.
 
-```{r just-ggplot}
+```{r}
+#| label: just-ggplot
 #| filename: "docs/session4.R"
+
 hd_data |>
   ggplot(aes(x = MaxHR))
 ```
 
-Run this code by using {{< var keybind.run-code >}}. You'll get a blank
-plot. That's because we haven't told `{ggplot2}` what kind of plot we
-want to make, which needs a `geom_` function.
+Run this code by using {{< var keybind.run-code >}}. You'll get a blank plot.
+That's because we haven't told `{ggplot2}` what kind of plot we want to make,
+which needs a `geom_` function.
 
-We'll start with creating a histogram, which is a useful way of
-visualizing the distribution of a continuous variable. We do that with
-`geom_histogram()`, but you can easily replace the code with
-`geom_density()` to make a density plot. Note that it is good practice
-to always create a new line after the `+`.
+We'll start with creating a histogram, which is a useful way of visualizing the
+distribution of a continuous variable. We do that with `geom_histogram()`, but
+you can easily replace the code with `geom_density()` to make a density plot.
+Note that it is good practice to always create a new line after the `+`.
 
-```{r one-continuous-variable-plot}
+```{r}
+#| label: one-continuous-variable-plot
 #| filename: "docs/session4.R"
+
 ggplot(hd_data, aes(x = MaxHR)) +
   geom_histogram()
 ```
 
 ::: callout-tip
-If your data has missing values, `{ggplot2}` gives us a warning about
-dropping the missing values. Like many functions in R, especially the
-summary statistic functions like `mean()`, you can set the argument
-`na.rm = TRUE` in the `geom_histogram()` function, as well as in other
-`geom_*` functions.
+If your data has missing values, `{ggplot2}` gives us a warning about dropping
+the missing values. Like many functions in R, especially the summary statistic
+functions like `mean()`, you can set the argument `na.rm = TRUE` in the
+`geom_histogram()` function, as well as in other `geom_*` functions.
 :::
 
-Our plot shows that, for the most part, there is a even distribution
-with MaxHR.
+Our plot shows that, for the most part, there is a even distribution with MaxHR.
 
 ## :technologist: Exercise: Rotate the axis of a plot
 
-For several reasons, switching the x and y axis can be very helpful for some data visualization purposes. But how do we define x and y in the previous plot - we only set the x-variable!?
+For several reasons, switching the x and y axis can be very helpful for some
+data visualization purposes. But how do we define x and y in the previous plot -
+we only set the x-variable!?
 
-Luckily, `{ggplot2}` has a need function for this purpose, named `coord_flip()`. Try flipping the coordinates of the histogram of the max heart rate.
+Luckily, `{ggplot2}` has a need function for this purpose, named `coord_flip()`.
+Try flipping the coordinates of the histogram of the max heart rate.
 
-
-```{.r}
+```r
 hd_data |>
     ggplot(___(___ = ___)) +
     geom_histogram() +
     coord_flip()
 ```
 
-```{r solution-discrete-variables}
+```{r}
+#| label: solution-discrete-variables
 #| echo: fenced
 #| eval: false
 #| code-fold: true
-#| code-summary: '**Click for the solution**. Only click if you are struggling instead of using Chat models.'
+#| code-summary: >-
+#|   **Click for the solution**. Only click if you are struggling instead of
+#|   using Chat models.
+
 # This is a potential solution
 hd_data |>
   ggplot(hd_data, aes(x = MaxHR)) +
@@ -302,19 +361,20 @@ hd_data |>
 coord_flip()
 ```
 
-
 ## The box plot
 
 We can see many things from the histogram:
 
--   The distribution looks approximately normal
--   The mean is somewhere around 150 BPM
--   Most data is between 100-200 BPM
--   From the looks of it, there might be one or two outliers in our dataset.
+- The distribution looks approximately normal
+- The mean is somewhere around 150 BPM
+- Most data is between 100-200 BPM
+- From the looks of it, there might be one or two outliers in our dataset.
 
-But can we help the reader identify these information using data visualization? Yes - yes, we can.
+But can we help the reader identify these information using data visualization?
+Yes - yes, we can.
 
-Take a close look at the humble **boxplot**, also known as the box-and-whisker plot:
+Take a close look at the humble **boxplot**, also known as the box-and-whisker
+plot:
 
 ```{r}
 #| label: fig-eda-boxplot
@@ -324,36 +384,50 @@ Take a close look at the humble **boxplot**, also known as the box-and-whisker p
 #| fig-alt: |
 #|   A diagram depicting how a boxplot is created following the steps outlined
 #|   above.
+
 knitr::include_graphics("../images/EDA-boxplot.png")
 ```
 
-```{r box-plot-flip}
+```{r}
+#| label: box-plot-flip
 #| filename: "docs/session4.R"
+
 hd_data |>
   ggplot(aes(x = MaxHR)) +
   geom_boxplot() +
   coord_flip()
 ```
 
-This figure is much better at showing the mean, IQR, and outliers (defined as > 1.5 IQR away from the 1st and 3rd quantiles). However, it leaves out the information on count (how msuch data?) and spikes (any values particularly popular?)
+This figure is much better at showing the mean, IQR, and outliers (defined as >
+1.5 IQR away from the 1st and 3rd quantiles). However, it leaves out the
+information on count (how msuch data?) and spikes (any values particularly
+popular?)
 
 It is a very popular plot for comparing continuous variables between two groups.
-This is useful to us as well, so let's try plotting this stratified for patients with(out) exercise-induced angesia
+This is useful to us as well, so let's try plotting this stratified for patients
+with(out) exercise-induced angesia
 
-```{r box-plot-error}
+```{r}
+#| label: box-plot-error
 #| filename: "docs/session4.R"
+
 hd_data |>
   ggplot(aes(x = ExAng, y = MaxHR)) +
   geom_boxplot()
 ```
 
-Wait a minute... We still only have one box plot and the value is at 0.5 - but when we inspect `hd_data$ExAng` or `View(hd_data$)`, all values are 0 or 1?!
+Wait a minute... We still only have one box plot and the value is at 0.5 - but
+when we inspect `hd_data$ExAng` or `View(hd_data$)`, all values are 0 or 1?!
 
-The problem, we realise, is the type - it's `numeric` (or `dbl` for double precision floating-point data type). We actually consider it a factor indicating either yes/no.
-Let's change the type as a factor using the `factor` function to correct this mistake.
+The problem, we realise, is the type - it's `numeric` (or `dbl` for double
+precision floating-point data type). We actually consider it a factor indicating
+either yes/no. Let's change the type as a factor using the `factor` function to
+correct this mistake.
 
-```{r box-plot}
+```{r}
+#| label: box-plot
 #| filename: "docs/session4.R"
+
 hd_data$ExAng <- factor(
   hd_data$ExAng,
   levels = c(0, 1),
@@ -370,16 +444,23 @@ Aha! It works. We now see the no/yes in the x-axis.
 ## The bar plot
 
 ```{r}
+#| label: bar-plot
+
 hd_data |>
   ggplot(ggplot2::aes(ExAng, MaxHR)) +
   geom_col()
 ```
 
-Hmm... I've never seen a human being with a max heart rate of +30.000 - this must be a mistake!
+Hmm... I've never seen a human being with a max heart rate of +30.000 - this
+must be a mistake!
 
-It turns out that the geom_col takes the `sum` of all observations. We wanted the mean!
+It turns out that the geom_col takes the `sum` of all observations. We wanted
+the mean!
 
 ```{r}
+#| label: sum-in-ggplot
+#| filename: "docs/session4.R"
+
 hd_data |>
   ggplot(ggplot2::aes(ExAng, MaxHR)) +
   stat_summary(geom = "col", fun = mean)
@@ -387,43 +468,40 @@ hd_data |>
 
 This looks much better!
 
-
 ## :book: Reading task: Be careful with certain plots
 
 ::: {.callout-note appearance="minimal" collapse="true"}
 ## Instructor note
 
-For this section on the bar-with-standard-error plots, make sure to go
-over and emphasize the problems and major flaws with using this type of
-plot. Really try to reinforce the concept here.
+For this section on the bar-with-standard-error plots, make sure to go over and
+emphasize the problems and major flaws with using this type of plot. Really try
+to reinforce the concept here.
 :::
 
 **Time: \~5 minutes**
 
-Before continuing with plotting, let's take a minute to talk about a
-commonly used barplots with mean and error bars. In all cases, barplots
-should **only** be used for discrete (categorical) data where you want
-to show counts or proportions. As a general rule, they should **not** be
-used for continuous data. This is because the commonly used "bar plot of
-means with error bars" actually hides the underlying distribution of the
-data. To have a better explanation of this, you can read the article on
-why to [avoid
+Before continuing with plotting, let's take a minute to talk about a commonly
+used barplots with mean and error bars. In all cases, barplots should **only**
+be used for discrete (categorical) data where you want to show counts or
+proportions. As a general rule, they should **not** be used for continuous data.
+This is because the commonly used "bar plot of means with error bars" actually
+hides the underlying distribution of the data. To have a better explanation of
+this, you can read the article on why to [avoid
 barplots](https://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.1002128)
-after the workshop. The image below was taken from that paper, and
-briefly demonstrates why this plot type is not useful.
+after the workshop. The image below was taken from that paper, and briefly
+demonstrates why this plot type is not useful.
 
 ::: {#fig-barplots-deceive}
 ![](../images/barplots-deceive.png){width="100%"}
 
-Bars deceive what the data actually look like. Image sourced from a
-[PLoS Biology
+Bars deceive what the data actually look like. Image sourced from a [PLoS
+Biology
 article](https://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.1002128).
 :::
 
 If you *do* want to create a barplot, you'll quickly find out that it is
-actually quite hard to do in `{ggplot2}`. The reason it is difficult to
-create in `{ggplot2}` is by design: it's a bad plot to use, so use
-something else.
+actually quite hard to do in `{ggplot2}`. The reason it is difficult to create
+in `{ggplot2}` is by design: it's a bad plot to use, so use something else.
 
 ::: {#fig-art-bar-error-plot}
 ![](../images/art-bar-error-plot.png){width="70%"}
@@ -433,68 +511,99 @@ Barplots hide interesting results. Artwork by
 :::
 
 ```{r}
+#| label: bar-in-ggplot2
+#| filename: "docs/session4.R"
+
 hd_data |>
   ggplot(ggplot2::aes(ExAng, MaxHR)) +
   stat_summary(geom = "col", fun = mean) +
   geom_jitter()
 ```
 
-
 ::: {.callout-note appearance="minimal" collapse="true"}
 It is also possible to compute error bars using `{ggplot2}`.
 
 ```{r}
+#| label: error-bar
+#| filename: "docs/session4.R"
+
 hd_data |>
   ggplot2::ggplot(ggplot2::aes(ExAng, MaxHR)) +
   ggplot2::stat_summary(geom = "col", fun = mean) +
   ggplot2::stat_summary(
     fun.data = "mean_cl_boot", # The 95% confidence interval of the mean     # "mean_cl_normal" # mean_sdl
     geom = "errorbar",
-    width = .15
+    width = 0.15
   )
 ```
 
-However, it's much safer and better practice computing the standard deviation, standard error, or confidence interval using `{dplyr}` first.
-You'll learn how to do this in a [later class](/..sessions/session08.qmd).
+However, it's much safer and better practice computing the standard deviation,
+standard error, or confidence interval using `{dplyr}` first. You'll learn how
+to do this in a [later class](/..sessions/session08.qmd).
 :::
 
-At least, consider adding the points too. It's as simple as adding another `ggplot`-layer
-
+At least, consider adding the points too. It's as simple as adding another
+`ggplot`-layer
 
 ## The scatter plot
 
+Now we have learned how to do a simple bar plot --- and why not to use it --- we
+proceed with the scatter plot. It is as easy as `geom_point()`:
+
 ```{r}
+#| label: geom-point
+#| filename: "docs/session4.R"
+
 hd_data |>
   ggplot(aes(Age, MaxHR)) +
   geom_point()
 ```
 
-
-Let's add color
+Great! Now we have a great looking scatter of the max hear rate as a function of
+age. But how do we now visually separate the patient groups based on
+exercises-induced angesia? A common solution would be to color the points
+belonging to each group a different color! Let's try this:
 
 ```{r}
+#| label: color-scatter
+#| filename: "docs/session4.R"
+
 hd_data |>
   ggplot(ggplot2::aes(Age, MaxHR, color = ExAng)) +
   geom_point()
 ```
 
+That did it! Now, recall we were interested in whether the two groups differ in
+their trend.
 
-Do they follow similar trends?
+We want to ask:
+
+> Do they follow similar trends?
+
+We can try to imagine a line passing through the points but this is somewhat a
+subjective guessing tasks. Luckily, `{ggplot2}` has another trick up it's
+sleave:
 
 ```{r}
+#| label: treng-line
+#| filename: "docs/session4.R"
+
 hd_data |>
   ggplot(ggplot2::aes(Age, MaxHR, color = ExAng)) +
   geom_point() +
   geom_smooth()
 ```
 
+The `geom_smooth` adds a line for each group! That is exactly what we wanted!
+Now, we can report back to the clinicians what we found.
 
 ## Saving your plots {#sec-ggsave}
 
-Once you've made a plot, you might want to get it out of R by saving it as an image that you can use elsewhere.
-That's the job of `ggsave()`, which will save the plot most recently created to disk:
+Once you've made a plot, you might want to get it out of R by saving it as an
+image that you can use elsewhere. That's the job of `ggsave()`, which will save
+the plot most recently created to disk:
 
-```{.r}
+```r
 hd_data |>
   ggplot(ggplot2::aes(Age, MaxHR, color = ExAng)) +
   geom_point() +
@@ -503,173 +612,171 @@ hd_data |>
 ggsave(filename = "subgroup-association.png")
 ```
 
-This will save your plot to your working directory (which should be the root of your project folder, if you're in your R-project (see [session 1](/sessions/session01.qmd)).
+This will save your plot to your working directory (which should be the root of
+your project folder, if you're in your R-project (see [session
+1](/sessions/session01.qmd)).
 
 ## Even statistics fail at what data visualization makes obvious
 
-::: {#fig-art-bar-error-plot}
-![](../images/AnscombesQuartet_visualization.jpg){width="70%"}
+```{r}
+#| label: anscombes-quartet-in-r
+#| echo: false
 
-The infamous dataset:
-[Anscombe's Quartet](https://en.wikipedia.org/wiki/Anscombe%27s_quartet).
+dat <- anscombe |>
+  pivot_longer(
+    everything(),
+    names_to = c(".value", "set"),
+    names_pattern = "([xy])([1-4])"
+  )
+
+stats <- dat |>
+  summarise(
+    x_mean = mean(x),
+    x_sd = sd(x),
+    y_mean = mean(y),
+    y_sd = sd(y),
+    r = cor(x, y),
+    .by = set
+  )
+
+stats |>
+  tinytable::tt(digits = 2)
+```
+
+::: {#anscombes-quartet}
+<!--
+![](../images/AnscombesQuartet_visualization.jpg){width="70%"}
+-->
+
+```{r}
+#| label: plot-anscombes-quartet
+
+ggplot(dat, aes(x, y)) +
+  geom_point(size = 2, colour = "#3366AA") +
+  geom_smooth(method = "lm", se = FALSE, colour = "#CC4444") +
+  facet_wrap(~set) +
+  theme_minimal(base_size = 13) +
+  labs(
+    title = "Anscombe's quartet",
+    subtitle = "Nearly identical summary statistics, very different relationships",
+    x = "x",
+    y = "y"
+  )
+```
+The infamous dataset: [Anscombe's
+Quartet](https://en.wikipedia.org/wiki/Anscombe%27s_quartet).
 :::
 
 ## Summary
 
-Pharma: Accelerating drug approvals with clear trial data.
-Hospitals: Improving patient outcomes through better decision-making.
-Industry: Convincing stakeholders (from doctors to CEOs) with evidence.
+Pharma: Accelerating drug approvals with clear trial data. Hospitals: Improving
+patient outcomes through better decision-making. Industry: Convincing
+stakeholders (from doctors to CEOs) with evidence.
 
 Examples
 
--   Present clinical trial results to regulators (e.g., FDA, EMA) or investors.
--   Monitor hospital performance (e.g., infection rates, patient wait times).
--   Compare drug efficacy across demographics in pharma R&D.
--   Explain risks/benefits to non-experts (patients, policymakers, or even journalists).
+- Present clinical trial results to regulators (e.g., FDA, EMA) or investors.
+- Monitor hospital performance (e.g., infection rates, patient wait times).
+- Compare drug efficacy across demographics in pharma R&D.
+- Explain risks/benefits to non-experts (patients, policymakers, or even
+  journalists).
 
-A well-designed chart can mean the difference between confusion and clarity — between a rejected proposal and an approved drug.
+A well-designed chart can mean the difference between confusion and clarity ---
+between a rejected proposal and an approved drug.
 
+- Use the "Grammar of Graphics" approach together with the `{ggplot2}` package
+  within `{tidyverse}` to plot your data.
+- Prioritize plotting raw data instead of summaries whenever possible.
+- `{ggplot2}` has 4 levels of grammar: `aes()` to say which data to plot and
+  how, `geom_` to set the kind of plot to use, `scale_` to make the plot
+  prettier, and `theme()` to control the specifics of the plot. We covered the
+  `aes()` and `geom_` layers.
+- Only use barplots for discrete values. If applying them on continuous
+  variables, it hides the distribution of the data.
+- Use `geom_point()` to create a scatterplot of two continuous variables.
+- Use `geom_smooth()` to add a smoothing line to the scatterplot.
+- Use `geom_bar()` to create a barplot of discrete variables.
 
--   Use the "Grammar of Graphics" approach together with the `{ggplot2}`
-    package within `{tidyverse}` to plot your data.
--   Prioritize plotting raw data instead of summaries whenever possible.
--   `{ggplot2}` has 4 levels of grammar: `aes()` to say which data to
-    plot and how, `geom_` to set the kind of plot to use, `scale_` to
-    make the plot prettier, and `theme()` to control the specifics of
-    the plot. We covered the `aes()` and `geom_` layers.
--   Only use barplots for discrete values. If applying them on
-    continuous variables, it hides the distribution of the data.
--   Use `geom_point()` to create a scatterplot of two continuous
-    variables.
--   Use `geom_smooth()` to add a smoothing line to the scatterplot.
--   Use `geom_bar()` to create a barplot of discrete variables.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-:::{.hidden}
-
+::: {.hidden}
 ## :book: Reading task: Basic principles for creating graphs
 
-
-[@Johnston2021]
-Making graphs in R is relatively easy compared to other programs and can
-be done with very little code. Because it takes a few lines of code to
-create multiple types of plots, it gives you some time to consider:
-*why* you are making them; whether the graph you've selected is the
-*most appropriate* for your data or results; and how you can design your
-graphs to be as accessible and understandable as possible.
+[@Johnston2021] Making graphs in R is relatively easy compared to other programs
+and can be done with very little code. Because it takes a few lines of code to
+create multiple types of plots, it gives you some time to consider: *why* you
+are making them; whether the graph you've selected is the *most appropriate* for
+your data or results; and how you can design your graphs to be as accessible and
+understandable as possible.
 
 To start, here are some tips for making a graph:
 
--   Whenever possible or reasonable, show raw data values rather than
-    summaries (e.g. means).
--   Though commonly used in scientific papers, [*avoid
-    barplots*](https://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.1002128)
-    with means and error bars as they greatly misrepresent the data
-    (we'll cover why later).
--   Use colour to highlight and enhance your message, and make the plot
-    visually appealing.
--   Use a colour-blind friendly palette to make the plot more accessible
-    to others (more on this later too).
-
-
-
-
-
-
-
-
-
+- Whenever possible or reasonable, show raw data values rather than summaries
+  (e.g. means).
+- Though commonly used in scientific papers, [*avoid
+  barplots*](https://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.1002128)
+  with means and error bars as they greatly misrepresent the data (we'll cover
+  why later).
+- Use colour to highlight and enhance your message, and make the plot visually
+  appealing.
+- Use a colour-blind friendly palette to make the plot more accessible to others
+  (more on this later too).
 
 ## Plotting two continuous variables
 
-There are many more types of "geoms" to use when plotting two variables.
-Your choice of which one to use depends on what you are trying to show
-or communicate, and the nature of the data. Usually, the variable that
-you "control or influence" (the independent variable) in an experimental
-setting goes on the x-axis, and the variable that "responds" (the
-dependent variable) goes on the y-axis.
+There are many more types of "geoms" to use when plotting two variables. Your
+choice of which one to use depends on what you are trying to show or
+communicate, and the nature of the data. Usually, the variable that you "control
+or influence" (the independent variable) in an experimental setting goes on the
+x-axis, and the variable that "responds" (the dependent variable) goes on the
+y-axis.
 
-For now, let's focus on plotting continuous data, since our data has a
-lot of continuous data and often in research we work with more
-continuous than discrete variables. When you have *two continuous*
-variables, some geoms to use are:
+For now, let's focus on plotting continuous data, since our data has a lot of
+continuous data and often in research we work with more continuous than discrete
+variables. When you have *two continuous* variables, some geoms to use are:
 
--   `geom_point()`, which is used to create a standard scatterplot.
-    Since it is so commonly used, we'll use this one.
--   `geom_hex()`, which is used to replace `geom_point()` when your data
-    are *massive* and creating points for each value takes too long to
-    plot.
--   `geom_smooth()`, which applies a "regression-type" line to the data.
+- `geom_point()`, which is used to create a standard scatterplot. Since it is so
+  commonly used, we'll use this one.
+- `geom_hex()`, which is used to replace `geom_point()` when your data are
+  *massive* and creating points for each value takes too long to plot.
+- `geom_smooth()`, which applies a "regression-type" line to the data.
 
-Let's check out how BMI may influence the area under the curve for blood
-glucose after the meal using a point plot. The area under the curve of
-glucose is a measure of how much glucose is present in the blood over a
-fixed period of time. A higher area under the curve for glucose usually
-suggests that the body has a harder time handling glucose. But, like
-everything in biology, it's more complex than that. But we won't cover
-that complexity in this workshop.
+Let's check out how BMI may influence the area under the curve for blood glucose
+after the meal using a point plot. The area under the curve of glucose is a
+measure of how much glucose is present in the blood over a fixed period of time.
+A higher area under the curve for glucose usually suggests that the body has a
+harder time handling glucose. But, like everything in biology, it's more complex
+than that. But we won't cover that complexity in this workshop.
 
+Like with the previous plot we created using `BMI`, we'll put BMI on the x axis
+in the `aes()` function, since we are assuming that BMI "causes" or contributes
+to higher glucose in the blood after a meal. Then we put the area under the
+curve for glucose (`auc_pg`) on the y axis, since it will be "responding to" or
+"caused by" BMI.
 
-Like with the previous plot we created using `BMI`, we'll put BMI on the
-x axis in the `aes()` function, since we are assuming that BMI "causes"
-or contributes to higher glucose in the blood after a meal. Then we put
-the area under the curve for glucose (`auc_pg`) on the y axis, since it
-will be "responding to" or "caused by" BMI.
-
-```{r 2-continuous-variables}
+```{r}
+#| label: 2-continuous-variables
 #| filename: "docs/learning.qmd"
+
 #ggplot(post_meal_data, aes(x = BMI, y = auc_pg)) +
 #  geom_point()
 ```
 
-Run this code chunk with {{< var keybind.run-code >}}. You'll see a
-scatterplot of BMI and the area under the curve for glucose. Notice how
-there is a bit of an increase in glucose as BMI increases? Because
-`{ggplot2}` works in layers, we can add another layer to the plot by
-adding a `+` after the `geom_point()` function. Let's add a smoothing
-line to the plot to see if there is a general trend between BMI and
-glucose by using `geom_smooth()`.
-
+Run this code chunk with {{< var keybind.run-code >}}. You'll see a scatterplot
+of BMI and the area under the curve for glucose. Notice how there is a bit of an
+increase in glucose as BMI increases? Because `{ggplot2}` works in layers, we
+can add another layer to the plot by adding a `+` after the `geom_point()`
+function. Let's add a smoothing line to the plot to see if there is a general
+trend between BMI and glucose by using `geom_smooth()`.
 
 Run this code chunk with {{< var keybind.run-code >}} and we'll see a
-scatterplot of age and the max heart rate with a
-smoothing line on top of the points. The colors represent the sub-groups: exercises-induced angesio (yes/no).
+scatterplot of age and the max heart rate with a smoothing line on top of the
+points. The colors represent the sub-groups: exercises-induced angesio (yes/no).
 
-This makes a nice smoothing line through the data and gives us
-an idea of general trends or relationships between the two variables.
-
+This makes a nice smoothing line through the data and gives us an idea of
+general trends or relationships between the two variables.
 
 ## Survey
 
 Please complete the survey for this session:
 
 {{< include /includes/_survey.qmd >}}
-
 :::

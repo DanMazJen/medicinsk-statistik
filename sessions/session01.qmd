@@ -721,7 +721,8 @@ Further material:
 
 - [RStudio's
   cheat-sheet](https://iqss.github.io/dss-workshops/R/Rintro/base-r-cheat-sheet.pdf)
-- ?
+- [this video at YouTube](https://www.youtube.com/watch?v=mAtAHwiP204) by Prof.
+  Rubak.
 
 ::: {.callout-note collapse="true"}
 ## Teacher note

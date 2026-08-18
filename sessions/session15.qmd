@@ -12,9 +12,10 @@ library(ggplot2)
 library(dplyr)
 library(readr)
 
-hd_data <- readr::read_csv(
-  "https://raw.githubusercontent.com/DanMazJen/medicinsk-statistik/main/data/hd_data.csv"
-)
+#hd_data <- readr::read_csv(
+#  "https://raw.githubusercontent.com/DanMazJen/medicinsk-statistik/main/data/hd_data.csv"
+#)
+data(hd_data, package = "medisr")
 ```
 
 ## Pree-class Literature

@@ -85,6 +85,10 @@ to the course 30 minutes earlier to get help.
 To see whether everything is set up okay, see [this video at
 YouTube](https://www.youtube.com/watch?v=mAtAHwiP204) by Prof. Rubak.
 
+Note that it takes **21.25** minutes but is very much work your time! Please
+make sure to watch the video as we expect you to do all these things in the
+first session (of course with our support).
+
 <!--- cSpell:enable --->
 If you're unable to complete the setup procedure due to unfixable technical
 issues, you can use Posit Cloud (to use RStudio on the cloud) as a final

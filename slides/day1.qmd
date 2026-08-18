@@ -66,9 +66,7 @@ Medical science and clinical practice relies on statistics
 
 # output-location: slide
 
-hd_data <- readr::read_csv(
-  "https://raw.githubusercontent.com/DanMazJen/medicinsk-statistik/main/data/hd_data.csv"
-)
+data(hd_data, package = "medisr")
 
 hd_data |>
   ggauto::ggauto(
@@ -90,9 +88,7 @@ hd_data |>
 
 # output-location: slide
 
-hd_data <- readr::read_csv(
-  "https://raw.githubusercontent.com/DanMazJen/medicinsk-statistik/main/data/hd_data.csv"
-)
+data(hd_data, package = "medisr")
 
 hd_data |>
   ggauto::ggauto(
@@ -129,7 +125,7 @@ Age and coronary heart disease?
 2) Copy the following code:
 
 ```r
-hd_data <- readr::read_csv("https://raw.githubusercontent.com/DanMazJen/medicinsk-statistik/main/data/hd_data.csv")
+data(hd_data, package = "medisr")
 ```
 
 3) Past it into your R console and check if you see the data in your `variable`

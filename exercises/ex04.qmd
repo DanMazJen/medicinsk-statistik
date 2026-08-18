@@ -1,101 +1,62 @@
 # Exercises: Hallo Medical Statistics {#sec-ex-intro}
 
-
 ::: {.callout-tip collapse="false"}
 ## Hallo Medical Statistics
 
-Pre-requicite for these exercises was covered within the [session](/sessions/session01.qmd) and is therefore not repeated here. The exercises build on this material.
+Pre-requicite for these exercises was covered within the
+[session](/sessions/session01.qmd) and is therefore not repeated here. The
+exercises build on this material.
 :::
 
-## Exercises: "I want to see this association for myself”
+## Exercises: "I want to see this association for myself"
 
-At AalboR Statistical Hospital, a new exercise-based cardiac assessment protocol has recently been introduced following an initial data review suggesting that patients with lower max heart rate are more likely to have underlying heart disease. Based on this, some clinicians have started using the max heart rate during exercise as a quick indicator when evaluating chest pain patients.
+At AalboR Statistical Hospital, a new exercise-based cardiac assessment protocol
+has recently been introduced following an initial data review suggesting that
+patients with lower max heart rate are more likely to have underlying heart
+disease. Based on this, some clinicians have started using the max heart rate
+during exercise as a quick indicator when evaluating chest pain patients.
 
 However, during a recent internal meeting, a cardiologist raises a concern:
 
-*“I’m not convinced this applies to our patients. Especially those who develop chest pain during exercise — their heart rate response might behave differently. If that’s true, we could be misinterpreting results in a subgroup of patients. I want to see this association for myself”*
+*"I'm not convinced this applies to our patients. Especially those who develop
+chest pain during exercise --- their heart rate response might behave
+differently. If that's true, we could be misinterpreting results in a subgroup
+of patients. I want to see this association for myself"*
 
-You are asked to explore the hospital’s patient data to assess whether the relationship between Age and max heart rate — and the interpretation of max heart rate more generally — appears consistent across patients, or whether it differs depending on exercise-induced angina, sex, or other patient characteristics.
+You are asked to explore the hospital's patient data to assess whether the
+relationship between Age and max heart rate --- and the interpretation of max
+heart rate more generally --- appears consistent across patients, or whether it
+differs depending on exercise-induced angina, sex, or other patient
+characteristics.
 
-You are tasked with the decision:
-*Should this new assessment approach be used broadly, or are there patient groups where it may be misleading?*
+You are tasked with the decision: *Should this new assessment approach be used
+broadly, or are there patient groups where it may be misleading?*
 
 ### A: Let's start orienting ourselves in the dataset.
 
-**Exercise 1A**:
-Import the Cleveland Heart Disease dataset into R.
+**Exercise 1A**: Import the Cleveland Heart Disease dataset into R.
 
--	What is the name of your dataset?
--	How many rows and columns does it have?
--   How many variables does it have?
--   How many participants does it have?
--   Is there any pattern here?
-
-View the dataset `sleep_data` from the website. Import the data in your RStudio session. How many variables does it have?
-
-**Exercise 2A**:
-View the dataset.
-
--	List 3 variables you think are numeric
--	List 2 variables you think are categorical
-
-Why does this distinction matter when calculating a mean?
+**Exercise 2A**: View the dataset.
 
 **Exercise 3A**:
 
-What happens when you take the mean of a character string?
-e.g., `mean("hi")`?
-Why do you think this happens?
-
 **Exercise 4A**:
-
-Extract one variable (e.g., Age or Cholesterol) and:
-
--	Print it to see alt it's values
--	Calculate its mean
-
 
 ### B: Now you start doing the actual request from the email.
 
-
 **Exercise 1B**:
-
-Calculate the mean and standard deviation for:
-
--	Age
--	Chol
--	RestBP
--	MaxHR
 
 **Exercise 2B**:
 
-Check if there are missing values in the dataset.
-
--	How many are there and for which variables (tip: view it or use `is.nan()`)?
--	What happens if you try to calculate the mean when missing values are present?
-
 **Exercise 3B**:
-
-List all the variable types the `mean()` function can take the mean of. There should be 5. Seek help inside RStudio.
 
 ### C: You reflect on your day at work during your evening at home...
 
 **Exercise 1C**:
 
-Consider now what you took the mean and standard deviation of in exercise 3B. How can you interpret this? What can we say from this?
-
 **Exercise 2C**:
 
-A colleague suggested calculating the mean of Sex.
-
--	What would that number represent?
--	Is it meaningful? Why or why not?
-
 **Exercise 3C**:
-
-Why is it important to report both mean and standard deviation, and not just the mean?
-Think in a clinical context.
-
 
 ## Survey
 

@@ -9,30 +9,46 @@ filters:
 
 # Welcome to Medical Statistics {.smaller}
 
--   :heavy_check_mark: Find a seat and check in with the persons sitting next to you
--   :heavy_check_mark: If you haven't prepared R and RStudio, find somebody who did that you can sit next to.
--   :heavy_check_mark: Check out the website [https://danmazjen.github.io/medicinsk-statistik/](https://danmazjen.github.io/medicinsk-statistik/)
+- :heavy_check_mark: Find a seat and check in with the persons sitting next to
+  you
+- :heavy_check_mark: If you haven't prepared R and RStudio, find somebody who
+  did that you can sit next to.
+- :heavy_check_mark: Check out the website
+  [https://danmazjen.github.io/medicinsk-statistik/](https://danmazjen.github.io/medicinsk-statistik/)
 
 ::: notes
-Introduce teachers and helpers after welcoming everyone and getting
-them to do this.
+Introduce teachers and helpers after welcoming everyone and getting them to do
+this.
 :::
 
+## Case 1: "Just send a quick summary" {.smaller .scrollable}
 
-## Case 1: “Just send a quick summary” {.smaller .scrollable}
+A cardiology department at a regional hospital has been collaborating with a
+pharmaceutical company developing a new diagnostic support tool for chest pain
+patients. Before deciding whether to include your hospital in a larger clinical
+trial, the company asks for a quick baseline summary of your recent patients:
+"Nothing complicated---just basic descriptive numbers so our statisticians can
+take a look."
 
-A cardiology department at a regional hospital has been collaborating with a pharmaceutical company developing a new diagnostic support tool for chest pain patients. Before deciding whether to include your hospital in a larger clinical trial, the company asks for a quick baseline summary of your recent patients: “Nothing complicated—just basic descriptive numbers so our statisticians can take a look.”
+You are given a dataset of 303 patients admitted with chest pain (age,
+cholesterol, blood pressure, heart rate, etc.), along with whether they were
+later confirmed to have coronary artery disease. Your supervisor tells you:
+"This is not a statistics task---we just need simple summaries like average
+values and variability for key variables. The statisticians will handle the
+rest." Later that day, you receive a follow-up email: "Please report mean and
+standard deviation for age, cholesterol, resting blood pressure, and max heart
+rate, stratified by heart disease status. We need it today to decide whether
+your site qualifies."
 
-You are given a dataset of 303 patients admitted with chest pain (age, cholesterol, blood pressure, heart rate, etc.), along with whether they were later confirmed to have coronary artery disease. Your supervisor tells you: “This is not a statistics task—we just need simple summaries like average values and variability for key variables. The statisticians will handle the rest.”
-Later that day, you receive a follow-up email: “Please report mean and standard deviation for age, cholesterol, resting blood pressure, and max heart rate, stratified by heart disease status. We need it today to decide whether your site qualifies.”
+The data is stored in `.csv` format and the company has provided you access to a
+GDPR-friendly and secure server where all the company data are stored. The only
+software installed on the server is `R` and `RStudio`.
 
-The data is stored in `.csv` format and the company has provided you access to a GDPR-friendly and secure server where all the company data are stored. The only software installed on the server is `R` and `RStudio`.
-
-## {auto-animate=true}
+## {auto-animate="true"}
 
 Medical science and clinical practice relies on statistics
 
-## {auto-animate=true}
+## {auto-animate="true"}
 
 Medical statistics relies on clinical knowledge and patient data
 
@@ -40,13 +56,13 @@ Medical science and clinical practice relies on statistics
 
 ## What do you make of this plot?
 
-```{r first-plot}
+```{r}
+#| label: first-plot
 #| echo: false
+
 # output-location: slide
 
-hd_data <- readr::read_csv(
-  "https://raw.githubusercontent.com/DanMazJen/medicinsk-statistik/main/data/hd_data.csv"
-)
+data(hd_data, package = "medisr")
 
 hd_data |>
   ggauto::ggauto(
@@ -60,16 +76,15 @@ hd_data |>
   )
 ```
 
-
 ## What about this one?
 
-```{r second-plot}
+```{r}
+#| label: second-plot
 #| echo: false
+
 # output-location: slide
 
-hd_data <- readr::read_csv(
-  "https://raw.githubusercontent.com/DanMazJen/medicinsk-statistik/main/data/hd_data.csv"
-)
+data(hd_data, package = "medisr")
 
 hd_data |>
   ggauto::ggauto(
@@ -97,21 +112,22 @@ Max heart rate and age...
 Age and coronary heart disease?
 :::
 
-
 ## Exploring the Heard Disease dataset
 
-1)  Go to [**https://danmazjen.github.io/medicinsk-statistik**](https://danmazjen.github.io/medicinsk-statistik), exercises, and find the Cleveland Heart Disease dataset
+1) Go to
+   [**https://danmazjen.github.io/medicinsk-statistik**](https://danmazjen.github.io/medicinsk-statistik),
+   exercises, and find the Cleveland Heart Disease dataset
 
-2)  Copy the following code:
+2) Copy the following code:
 
 ```r
-hd_data <- readr::read_csv("https://raw.githubusercontent.com/DanMazJen/medicinsk-statistik/main/data/hd_data.csv")
+data(hd_data, package = "medisr")
 ```
 
-3)  Past it into your R console and check if you see the data in your `variable` pane.
+3) Past it into your R console and check if you see the data in your `variable`
+   pane.
 
-
-## Code-along {auto-animate=true}
+## Code-along {auto-animate="true"}
 
 ```r
 library(ggplot2)                                # <1>
@@ -122,8 +138,7 @@ hd_data                                       # <2>
 1. Tell R you will be using the `ggplot2` package
 2. Take `hd_data`, and then,
 
-
-## Code-along {auto-animate=true}
+## Code-along {auto-animate="true"}
 
 ```r
 library(ggplot2)                                # <1>
@@ -142,20 +157,19 @@ hd_data |>                                      # <2>
 5. End the ggplot function that has a parenthesis open. Add `+` more...
 6. Specify the type of plot you want `ggplot` to do with the skeleton
 
-
-
 # Medical Statistics
 
 In this course, we will
 
--   develop statistical literacy skills
--   Learn to make medical inference from statistics
--   Perform statistics using R
+- develop statistical literacy skills
+- Learn to make medical inference from statistics
+- Perform statistics using R
 
 ## Develop statistical literacy skills
 
 ::: {.fragment}
-Interpret results from medical studies (e.g. *p*-values, confidence intervals, effect sizes)
+Interpret results from medical studies (e.g. *p*-values, confidence intervals,
+effect sizes)
 :::
 
 ::: {.fragment}
@@ -165,7 +179,6 @@ Critically evaluate claims in clinical research and media
 ::: {.fragment}
 Identify common statistical pitfalls and misleading conclusions
 :::
-
 
 ## Learn to make medical inference from statistics
 
@@ -178,10 +191,9 @@ Understand uncertainty and variability in patient outcomes
 :::
 
 ::: {.fragment}
-Statistical significance does not equal clinical importance — ask whether the result would actually change patient care
+Statistical significance does not equal clinical importance --- ask whether the
+result would actually change patient care
 :::
-
-
 
 ## Perform statistics using R
 
@@ -197,7 +209,6 @@ Run statistical tests such as t-test, regression, etc.
 Read and understand the `R` output
 :::
 
-
 ## :raising_hand_woman: How many have read results in a paper and wondered what the numbers <u>actually</u> mean? {.center}
 
 ## :raising_hand_woman: How many have wondered how scientists make <u>predictions</u> for future disease probabilities? {.center}
@@ -206,49 +217,35 @@ Read and understand the `R` output
 
 ## This course is for you :tada: {.center}
 
-
-
 ## :walking::walking_woman: Do you have coding/programming experience? {.center}
 
-<- Never
-I took a course in computer science ->
-
+<- Never I took a course in computer science ->
 
 ## :walking::walking_woman: Are you scared of statistics? {.center}
 
-<--- Not at all
-I had nightmares about this course already --->
-
+<--- Not at all I had nightmares about this course already --->
 
 ## :walking::walking_woman: How good are you right now at statistics? {.center}
 
-
-<--- Ronald Fisher level
-Who is Ronald Fisher? --->
+<--- Ronald Fisher level Who is Ronald Fisher? --->
 
 ## :walking::walking_woman: How high expectations do you have for yourself in this course? {.center}
 
-<--- I want to learn everything
-I don't mind failing 1st time --->
-
+<--- I want to learn everything I don't mind failing 1st time --->
 
 ## Please open your RStudio now {.center}
-
 
 ## 5 minutes break
 
 We'll start again by learning the basics of R for medical purposes
 
--   If you don't have R installed yet - no break for you, sorry...
--   If you need help, grab hold of a teacher
-
+- If you don't have R installed yet - no break for you, sorry...
+- If you need help, grab hold of a teacher
 
 # RStudio IDE
 
 ::: {.editable}
-
 RStudio is a window that helps us navigate in R.
-
 :::
 
 ![](images/rstudio-introduction.png){.editable}
@@ -256,21 +253,20 @@ RStudio is a window that helps us navigate in R.
 ## Setup and layout {.smaller}
 
 ::: columns
-:::: {.column width="50%"}
--   Workddd
-::::
+::::: {.column width="50%"}
+- Workddd
+:::::
 
-:::: {.column width="50%"}
--   Sc
-::::
+::::: {.column width="50%"}
+- Sc
+:::::
 :::
-
 
 ## Getting or asking for help :raising_hand_woman::raising_hand_man: {.smaller}
 
--   Put the red origami hat on your laptop to get help
--   We are 2-3 teachers eager to help
--   Table mates, try to help out too
--   We're all learning here!
-    -   This is a supportive and safe environment
-    -   Remember our Code of Conduct
+- Put the red origami hat on your laptop to get help
+- We are 2-3 teachers eager to help
+- Table mates, try to help out too
+- We're all learning here!
+  - This is a supportive and safe environment
+  - Remember our Code of Conduct

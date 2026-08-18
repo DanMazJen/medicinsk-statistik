@@ -37,7 +37,9 @@ session. How many variables does it have?
 ```{r}
 #| eval: false
 #| code-fold: true
-#| code-summary: "**Click for the solution**. Only click if you are struggling or are out of time."
+#| code-summary: >-
+#|   **Click for the solution**. Only click if you are struggling or are out of
+#|   time.
 
 View(sleep_data)
 ```
@@ -52,7 +54,9 @@ Why does this distinction matter when calculating a mean?
 ```{r}
 #| eval: false
 #| code-fold: true
-#| code-summary: "**Click for the solution**. Only click if you are struggling or are out of time."
+#| code-summary: >-
+#|   **Click for the solution**. Only click if you are struggling or are out of
+#|   time.
 
 numeric_vars <- c(1,2,3)
 categorical_vars <- c(4,5,6)

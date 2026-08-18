@@ -21,9 +21,11 @@ Imports:
     gt,
     haven,
     here,
+    Hmisc,
     knitr,
     lubridate,
     marginaleffects,
+    medisr (>= 0.0.0.9000),
     pak,
     parameters,
     purrr,
@@ -38,3 +40,5 @@ Imports:
     tinytable
 Depends:
     tidyverse
+Remotes:  
+    danmazjen/medisr

@@ -11,36 +11,64 @@ search: false
 
 ## Who's teaching? {.center}
 
-*INSERT PICTURES & EMAILS*
+::: {#fig-elephants layout-ncol=4}
+![Jan](images/JanBrinkValentin.jpg){#fig-jan}
+
+![Carsten](images/CarstenDahlMoerch.jpg){#fig-carsten}
+
+![Daniel](images/DanielSkakMazhariJensen.jpg){#fig-daniel}
+
+![Kristian](images/KKP_2023.webp){#fig-kristian}
+
+Lecturers and course responsibles
+
+<!--
+https://vbn.aau.dk/da/persons/daskmaje/
+
+https://vbn.aau.dk/da/persons/kkp/
+
+https://vbn.aau.dk/da/persons/jvalentin/
+
+https://vbn.aau.dk/da/persons/cdahl/
+-->
+:::
 
 ## Course structure {.smaller}
 
-::: columns
-::::: {.column width="50%"}
-**Lectures** - Code-alongs - lectures - reading - exercises
-:::::
-::::: {.column width="50%"}
-**Workshops** - Presentations - lectures - reading - exercises
-:::::
-:::
+**Lectures**
+
+- Teacher presentations
+- Literature
+- Exercises in R
+
+**Workshops**
+
+- Teacher and student presentations\
+- Literature
+- assignments in R
+
+**Group project**
+
+- assignment in R
+- Supervision
 
 ## How to study {.smaller}
 
-::: columns
-::::: {.column width="50%"}
-**Lectures/** - Read literature **before** - Read lecture notes **during or
-after** - Teacher cover 25-75% of material - **you self-study the rest** -
-Exercises cover curriculum (aka exam-relevant)
-:::::
-::::: {.column width="50%"}
-**Exercises** - Group work - Teacher will help with everything we can (ask all
-you want)
-:::::
-:::
+**Lectures**
+
+- Read literature **before**
+- Read lecture notes **before or after**
+- Teacher cover 50-75% of reading material (the most deficult part)
+- **you self-study the rest**
+- Exercises cover curriculum (aka exam-relevant)
+
+**Exercises**
+
+- Group work in class
+- Teacher will help with everything we can (ask all you want)
 
 ## Getting or asking for help :raising_hand_woman::raising_hand_man: {.smaller}
 
-- Put the sticky on your laptop to get help
 - There are lots of helpers
 - Table mates, try to help out too
 - We're all learning here!
@@ -53,20 +81,32 @@ you want)
 
 ::: columns
 ::::: {.column width="50%"}
-**Do** - Prompt to explain concept differently (the teacher said "X" - can you
-reformulate?) - Prompt to explain code (here is some R code - ELI5 what does it
-do?) - Prompt to probe your own knowledge () - Become the expert that can see
-through what is wrong and what could be right
+**Do**
+
+- Prompt to explain concept differently (the teacher said "X" - can you
+  reformulate?)
+- Prompt to explain code (here is some R code - ELI5 what does it do?)
+- Prompt to probe your own knowledge (give me more assignments on "X")
+- Use AI to challenge your understanding: "What assumptions am I making?"
+- Ask for hints when you are stuck --- before asking for the solution.
 :::::
 ::::: {.column width="50%"}
-**Don't** - Relying on help will make you dependent (what happens when AI is not
-there?) - Responding as "the average person on the internet" is not what you
-want to aim for when doing a university education - Please use each other and
-the teachers - otherwise, your education might be ONLY chat model AI in the
-future... - Don't try to teach an LLM medical statistics - it's already average
-at it and don't need your help
+**Don't**
+
+- Relying on help will make you dependent (what happens when AI is not there?)
+- Trust any answer. A fluent and confident answer is not necessarily a correct
+  answer. **you are responsible** for using any code or information.
+- Please use each other and the teachers - otherwise, your education might be
+  ONLY chat model AI in the future...
+- Don't ask AI to simply solve every exercise. The solved exercise is not the
+  goal. Learning is.
+- Don't try to teach an LLM medical statistics. It already has plenty of
+  opinions --- your job is to develop your own statistical reasoning.
 :::::
 :::
+
+> The time to make mistakes, struggle, and learn is now --- not when you are
+> responsible for patients, colleagues, or decisions in the workplace.
 
 <!-- TODO: Insert picture analogy -->
 
@@ -74,19 +114,24 @@ at it and don't need your help
 
 ::: columns
 ::::: {.column width="50%"}
-**Stop-assignment** - Hand-in of course work
+**Stop-assignment**
+
+- Hand-in of course work
 :::::
 ::::: {.column width="50%"}
-**Project** - Use skills from course to do a short 1 month applied data
-exploration and statistical analysis - Draw question based on curriculum
+**Project**
+
+- Use skills from course to do a short 1 month applied data exploration and
+  statistical analysis
+- Draw question based on curriculum
 :::::
 :::
 
 ## How to give feedback to teachers {.smaller}
 
-- Issues on course material (Github)
-- Google Sheets for each session
-- Anonymous feedback for each session (Survey)
+- Course evaluation at the end (as always - changes for next year)
+- Github issues on course material (immediate change)
+- Anonymous survey after session (depends)
 
 ## Code of Conduct {.smaller}
 
@@ -98,16 +143,22 @@ exploration and statistical analysis - Draw question based on curriculum
 - We dedicate a lot of time to this course but also teach other courses - please
   be patient with us if we do not answer email immediately
 
-## How to become "good" {.smaller}
+## Responsibility {.smaller}
 
 ::: columns
 ::::: {.column width="50%"}
-**Student responsibility** - Read material **in advance** of lecture -
-Collaborate on group exercises - Use AI for (deeper) learning
+**Student responsibility**
+
+- Read material **in advance** of lecture
+- Collaborate on group exercises
+- Use AI for (deeper) learning
 :::::
 ::::: {.column width="50%"}
-**Teacher responsibility** - Use student feedback ASAP - Offer help during
-exercises - If you actively follow the course, you will not only pass the course
-but also have advantage in job market.
+**Teacher responsibility**
+
+- Use student feedback ASAP
+- Offer help during exercises
+- If you actively follow the course, you will not only pass the course but also
+  have advantage in job market.
 :::::
 :::

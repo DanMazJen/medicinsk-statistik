@@ -11,10 +11,12 @@
 library(ggplot2)
 library(dplyr)
 library(readr)
+library(medisr)
 
-hd_data <- readr::read_csv(
-  "https://raw.githubusercontent.com/DanMazJen/medicinsk-statistik/main/data/hd_data.csv"
-)
+#hd_data <- readr::read_csv(
+#  "https://raw.githubusercontent.com/DanMazJen/medicinsk-statistik/main/data/hd_data.csv"
+#)
+data(hd_data, package = "medisr")
 ```
 
 ## Pree-class Literature
@@ -23,7 +25,7 @@ hd_data <- readr::read_csv(
   2nd edition](https://www.statlearning.com/) (click ["Download ISL with
   R"](https://hastie.su.domains/ISLR2/ISLRv2_corrected_June_2023.pdf.download.html))
 
-# Slides
+## Slides
 
 > [**Session 11 slides**](../slides/day11.html)
 
@@ -88,16 +90,50 @@ hd_data <- hd_data |>
 hd_data |>
   ggplot(ggplot2::aes(Age, MaxHR, color = HD)) +
   geom_point() +
-  geom_smooth(method = "lm")
+  geom_smooth(method = "lm", formula = y ~ x)
 ```
 
-## Reading Task: Conditional manatees?
+### Reading Task: Conditional venom?
 
-...
+Read [this Australian Geographics blog]
+(https://www.australiangeographic.com.au/blogs/creatura-with-bec-crew/2025/09/funnel-web-spiders-are-australias-deadliest-not-for-our-pets/)
+on the Funnel-web spider.
 
-## Adding the variable to a regression model is not enough
+## The additive and linear assumption
+
+In a standard linear regression model, we make two important assumptions about
+how the predictors X relate to the response Y:
+
+1. Additivity assumption
+
+Each predictor affects Y independently of the other predictors. In other words,
+the effect of $X_j$ ​
+
+does not depend on the values of the other X's.
+
+Example: Suppose we predict salary using years of experience and education. The
+additivity assumption says that the effect of one additional year of experience
+is the same regardless of a person's education level.
+
+2. Linearity assumption
+
+The effect of a predictor on Y is constant across its range. A one-unit increase
+in $X_j$ is assumed to produce the same change in Y, no matter what the current
+value of $X_j$ is.
+
+Example: If each additional year of experience increases salary by €2,000, the
+model assumes this €2,000 increase is the same for someone with 2 years of
+experience and someone with 20 years.
+
+We need to bend these assumptions in order to produce an interaction effect. You
+will see how we routinely do this using simple tricks of multiplication and
+squaring the predictor variables.
+
+### Adding the variable to a regression model is not enough
 
 ```{r}
+#| label: addition-not-enough
+
 model_additive <-
     lm(MaxHR ~ Age + HD,
     data = hd_data)
@@ -113,12 +149,158 @@ model_additive |>
     avg_slopes()
 ```
 
-## Adding an interaction
+Wait --- the lines are completely parallel?!
+
+This is exactly the additive and linear assumption: the same effect is constant
+for heart disease and for age. We need to allow some flexibility in our model to
+consider whether the slopes might change dependent on heart disease.
+
+### Making non-linear terms in linear models
+
+multiplying two variables does not make the regression model "non-linear" in the
+statistical sense. Instead, it gives the model extra flexibility to capture
+relationships that are not additive.
+
+Let's start with the basic idea.
+
+Suppose we want to predict salary using two variables:
+
+- (X_1) = years of experience
+- (X_2) = education level
+
+We might first think:
+
+More experience → higher salary. More education → higher salary.
+
+But there is another possibility:
+
+- The value of experience might matter differently depending on education.
+
+That is an interaction.
+
+#### 1. What does multiplication mean intuitively?
+
+Think about ordinary multiplication first.
+
+If you have:
+
+$$
+  2 \times 3 = 6
+$$
+
+and increase 2 to 4:
+
+$$
+  4 \times 3 = 12.
+$$
+
+The result depends on *both numbers*.
+
+Now imagine:
+
+$$
+  X_1 \times X_2.
+$$
+
+If (X_1) changes, the product changes --- but *how much it changes depends on
+(X_2)*.
+
+For example:
+
+  | Experience (X_1) | Education (X_2) | (X_1X_2) |
+  | ---------------: | --------------: | -------: |
+  |                2 |               1 |        2 |
+  |                3 |               1 |        3 |
+  |                2 |               3 |        6 |
+  |                3 |               3 |        9 |
+
+Notice what happens when experience increases from 2 to 3:
+
+- If education = 1, the product increases by **1**.
+- If education = 3, the product increases by **3**.
+
+So multiplication naturally creates a situation where:
+
+> **The effect of one variable depends on the value of the other variable.**
+
+That is exactly what we mean by an **interaction**.
+
+To allow this, we create a new variable:
+
+$$
+  X_1X_2
+$$
+which simply means *multiply the two variables together*.
+
+> Notice that multiplication is non-linear now!
+
+When we say *linear regression*, "linear" does *not* mean that we are forbidden
+from multiplying variables.
+
+Instead, it means that the model is linear in the *coefficients* --- the numbers
+that the regression estimates.
+
+We can think of (X_1X_2) as simply creating a *new predictor*.
+
+Instead of thinking:
+
+> "I am multiplying two predictors inside the regression."
+
+Think:
+
+> "I have created a new variable called interaction, whose value is (X_1 \times
+> X_2)."
+
+The regression can then use this new variable just like any other predictor.
+
+There are therefore two different ideas:
+
+- Additive models: Where the effect of one predictor does not depend on the
+  other predictor.
+- Interaction models: Where he effect of one predictor can depend on the other
+  predictor.
+
+Multiplication is useful because it naturally creates this dependency.
+
+### Adding an interaction
 
 ```{r}
+#| label: interaction1
+
+model_interact_manual <- hd_data |>
+    mutate(
+        HD_num = ifelse(HD == "yes", 1, 0),
+        age_by_hd = Age * HD_num
+    ) |>
+    lm(MaxHR ~ Age + HD + age_by_hd,
+    data = _)
+
+coef(model_interact_manual)
+```
+
+However, this is such a common routine in R that we don't need to make the new
+variable. Instead, we can indicate this multiplication by using the following
+notation:
+
+`Age:HD`
+
+We will wait with interpreting the coefficients till the next section. For now,
+confirm that these numbers are identical to the model below.
+
+```{r}
+#| label: interaction1-r-trick
+
 model_interact <-
     lm(MaxHR ~ Age + HD + Age:HD,
     data = hd_data)
+
+coef(model_interact)
+```
+
+Finally, let's take a look at the interaction plot:
+
+```{r}
+#| label: plot-interaction
 
 plot_predictions(
     model_interact,
@@ -126,28 +308,54 @@ plot_predictions(
 )
 ```
 
-## Interpreting an interaction estimate
+Cool! Now, the lines are definitely *not* parallel! This is in fact a trick for
+spotting interactions in plots.
+
+::: {.callout-caution}
+## Many ways of doing the same thing
+
+You will also see other people using this notation `Age * HD`. This expands to
+`Age + HD + Age:HD`. However, we recommend using the `Age:HD`, as adding more
+variables and `*` notation quickly explodes.
 
 ```{r}
+#| label: interaction1-r-trick2
+
+model_interact <-
+    lm(MaxHR ~ Age * HD,
+    data = hd_data)
+```
+:::
+
+### Interpreting an interaction estimate
+
+```{r}
+#| label: summary-int1
+
 model_interact |>
     summary()
 ```
 
 ```{r}
+#| label: params
+
 model_params <- model_interact |>
     parameters::model_parameters()
+model_params
 ```
 
 $$
-  Y^=213.93−1.06(age)−53.84(hd)+0.689(age×hd)
+  \bar{Y} = 213.93 − 1.06*age − 53.84*hd + 0.689 * age×hd)
 $$
 
 where:
 
-- age = age in years -
+- age = age in years
 - hd = 0 (no heart disease) or 1 (heart disease)
 
 ```{r}
+#| label: model-coeff-interp
+
 model_params <-
     data.frame(
         intercept_est = model_params[1,2],
@@ -159,34 +367,33 @@ model_params <-
 model_params
 ```
 
-### Step 1:
+#### Step 1: Write separate equations for each group
 
-Step 1: Write separate equations for each group No heart disease (hd = 0)
+- No heart disease (hd = 0)
+- Substitute hd = 0:
 
-Substitute hd = 0:
+$ \bar{Y} = 213.93 − 1.06(age) $
 
-$ ⁄bar{Y} = 213.93−1.06(age) $
-
-Interpretation:
+**Interpretation:**
 
 For people without heart disease, each additional year of age is associated with
 about 1.06 units lower predicted outcome. Heart disease (hd = 1)
 
 Substitute hd = 1:
 
-$ Y^ =213.93−1.06(age)−53.84+0.689(age) $
+$ \bar{Y} = 213.93 − 1.06(age) − 53.84 + 0.689(age) $
 
 Combine terms:
 
-$Y^=160.09−0.368(age)$
+$\bar{Y} = 160.09 − 0.368(age)$
 
-Interpretation:
+**Interpretation:**
 
 For people with heart disease, each additional year of age is associated with
 only about 0.37 units lower predicted outcome. The age effect is less negative
 because of the positive interaction term.
 
-### Step 2: Plug in specific ages
+#### Step 2: Plug in specific ages
 
 **Age = 40**
 
@@ -210,7 +417,7 @@ because of the positive interaction term.
 > At age 70, heart disease is associated with only about 6 units lower predicted
 > outcome.
 
-### Step 3: Interpret the interaction
+#### Step 3: Interpret the interaction
 
 The interaction coefficient is: **0.689**
 
@@ -230,11 +437,14 @@ Age HD=0    HD=1    Difference (HD−No HD)
 70  139.98  134.32  -5.66
 ```
 
-Students often find the table easier than interpreting the interaction
-coefficient directly because they can see how the gap between groups changes
-with age.
+Often, graphics are easier to interpret than than tables or coefficients. Let's
+try to visualize the difference between max heart rate and having a heart
+disease when it change across age.
 
 ```{r}
+#| label: delta-hr-of-hd-across-age
+#| warning: false
+
 plot_slopes(model_interact, variables = "HD", condition = "Age") +
     geom_hline(yintercept = 0, linetype = "dotted") +
     labs(
@@ -252,25 +462,15 @@ slopes(model_interact,
 )
 ```
 
-# Symmetry of the linear interaction
+## Symmetry of the linear interaction
 
-Consider for example the GDP and terrain ruggedness problem. The interaction
-there has two equally valid phrasings.
+Consider for example the max heart rate and age problem. The interaction there
+has two equally valid phrasings.
 
-How much does the influence of ruggedness (on GDP) depend upon whether the
-nation is in Africa? How much does the influence of being in Africa (on GDP)
-depend upon ruggedness?
-
-## Symmetry of the Linear Interaction
-
-Consider McElreath's GDP and terrain ruggedness example.
-
-One might ask:
-
-1. How much does the effect of terrain ruggedness on GDP depend on whether a
-   nation is in Africa?
-2. How much does the effect of being in Africa on GDP depend on terrain
-   ruggedness?
+- How much does the influence of age (on max heart rate) depend on whether the
+  patient has a heart disease?
+- How much does the influence of having a heart disease (on max heart rate)
+  depend on age?
 
 These sound like different questions, but in a linear model they are
 mathematically identical.
@@ -278,70 +478,137 @@ mathematically identical.
 The original model is
 
 $$
-  \log(\text{GDP}_i) \sim \text{Normal}(\mu_i,\sigma)
+  \text{max heart rate}_i \sim  α + β_1age + β_2HD + β_3age × HD + ε\\
 $$
 
-with
+For now, let's make the model more compressed at the expense of nesting some
+parameters within a new variable γ. We will not consider the noise, ε, so we
+will only deal with the expected value, μ.
 
 $$
-  \mu_i = \alpha + \gamma_i \,\text{rugged}_i + \beta_2 \,\text{Africa}_i
+  \mu_i = \alpha + \gamma_i \,\text{age}_i + \beta_2 \,\text{HD}_i
 $$
 
-and
+where
 
 $$
-  \gamma_i = \beta_1 + \beta_3 \,\text{Africa}_i.
+  \gamma_i = \beta_1 + \beta_3 \,\text{HD}_i.
 $$
+
+Here, $\gamma_i$ is the effect of age for a patient with a given heart-disease
+status. The interaction allows this effect to differ between patients with and
+without heart disease.
 
 Substituting the second equation into the first gives
 
 $$
-  \mu_i = \alpha + (\beta_1 + \beta_3 \,\text{Africa}_i)\,\text{rugged}_i + \beta_2 \,\text{Africa}_i.
+  \mu_i = \alpha + (\beta_1 + \beta_3 \,\text{HD}_i)\,\text{age}_i + \beta_2 \,\text{HD}_i.
 $$
+
+The substitution makes explicit where the interaction enters the model.
 
 Expanding:
 
 $$
-  \mu_i = \alpha + \beta_1 \,\text{rugged}_i + \beta_3 \,\text{rugged}_i \times \text{Africa}_i + \beta_2 \,\text{Africa}_i.
+  \mu_i = \alpha + \beta_1 \,\text{age}_i + \beta_3 \,\text{age}_i \times \text{HD}_i + \beta_2 \,\text{HD}_i.
 $$
 
-Now collect the terms containing $\text{Africa}_i$:
+The interaction term is the same regardless of which variable we initially
+treated as the predictor.
+
+Now collect the terms containing $\text{HD}_i$:
 
 $$
-  \mu_i = \alpha + \beta_1 \,\text{rugged}_i + (\beta_2 + \beta_3 \,\text{rugged}_i)\,\text{Africa}_i.
+  \mu_i = \alpha + \beta_1 \,\text{age}_i + (\beta_2 + \beta_3 \,\text{age}_i)\,\text{HD}_i.
 $$
+
+This is the same model, but now the coefficient of $\text{HD}_i$ is allowed to
+depend on age.
 
 Define
 
 $$
-  G_i = \beta_2 + \beta_3 \,\text{rugged}_i.
+  G_i = \beta_2 + \beta_3 \,\text{age}_i.
 $$
 
 Then
 
 $$
-  \mu_i = \alpha + \beta_1 \,\text{rugged}_i + G_i\,\text{Africa}_i.
+  \mu_i = \alpha + \beta_1 \,\text{age}_i + G_i\,\text{HD}_i.
 $$
 
-The quantity $G_i$ plays the same role for the Africa effect that $\gamma_i$
-played for the ruggedness effect.
+The quantity $G_i$ plays the same role for the heart-disease effect that
+$\gamma_i$ played for the age effect.
 
 ### Key takeaway
 
 The interaction coefficient $\beta_3$ simultaneously describes
 
-- how the effect of ruggedness changes across Africa/non-Africa, and
-- how the effect of Africa changes across levels of ruggedness.
+- how the effect of age changes across HD/non-HD, and
+- how the effect of HD changes across levels of age.
 
 In a linear model, interactions are symmetric. The choice of which variable is
 called the "predictor" and which is called the "moderator" is often a matter of
 interpretation rather than mathematics.
 
-# Continuous interactions
+## Continuous interactions
+
+Until now, we've use one continuous and one dichotomous variable.
+
+> What if we have two continuous variables that interaction?
 
 ```{r}
+#| label: cont-interaction
+
+pain_data <- expand_grid(
+  dose = 0:10,
+  pain = c(0,1,2)
+) |>
+  mutate(
+    relief = 1.6 + 0.4*dose + 0.4*pain + 0.9*dose*pain + rnorm(n(), 0,1)
+    )
+
+m <- lm(relief ~ dose * pain, data = pain_data)
+
+summary(m)
+```
+
+```{r}
+#| label: triptic-plot
+
+pain_data |>
+  mutate(pain_group = factor(pain)) |>
+  ggplot(aes(dose, relief)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  facet_wrap(
+    ~ pain_group,
+    labeller = as_labeller(c(
+      `0` = "No pain",
+      `1` = "Mild pain",
+      `2` = "Severe pain"
+    ))
+  ) +
+    labs(
+        x = "Dose (mg)",
+        y = "Subjective relief (0 - 25)"
+    )
+```
+
+## Polynomials
+
+##
+
+## Intution of polynomials
+
+`shiny::runApp("apps/polynomial-app/app.R")`
+
+## The danger of
+
+::: {hidden}
+```{r}
 library(sjPlot)
-data(efc)
+data(efc, "sjPlot")
 
 m <- lm(
   neg_c_7 ~ c12hour + e16sex + c12hour:e16sex,
@@ -410,3 +677,82 @@ marginaleffects::comparisons(
   by = "c12hour"
 )
 ```
+
+```{r}
+#| label: hidden-stuff
+
+set.seed(1)
+
+drug_data <- expand_grid(
+  dose = 0:10,
+  receptor = seq(1, 10, by = 1)
+) |>
+  mutate(effect = .2*dose + .1*receptor +
+         .10*dose*receptor +
+         rnorm(n(), 0, 1))
+
+m <- lm(effect ~ dose * receptor, data = drug_data)
+
+summary(m)
+
+drug_data |>
+  mutate(receptor_group = cut(receptor, 3)) |>
+  ggplot(aes(dose, effect)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  facet_wrap(~ receptor_group)
+
+#########
+
+
+set.seed(123)
+
+dat <- expand_grid(
+  frailty = c(-1, 0, 1),
+  dose    = c(-1, 0, 1),
+  id      = 1:9
+) %>%
+  mutate(
+    change_pf = 35 +
+      25 * dose -
+      18 * dose^2 -
+      8  * frailty +
+      5  * dose * frailty -
+      7  * dose^2 * frailty +
+      rnorm(n(), 0, 7)
+  )
+
+# Fitted curves at -1, 0, +1 SD frailty
+pred <- expand_grid(
+  dose = seq(-1.5, 1.5, length.out = 100),
+  frailty = c(-1, 0, 1)
+) %>%
+  mutate(
+    change_pf = 35 +
+      25 * dose -
+      18 * dose^2 -
+      8  * frailty +
+      5  * dose * frailty -
+      7  * dose^2 * frailty,
+    frailty = factor(
+      frailty,
+      levels = c(-1, 0, 1),
+      labels = c("Low frailty", "Mean frailty", "High frailty")
+    )
+  )
+
+ggplot(dat, aes(dose, change_pf, colour = factor(frailty))) +
+  geom_point(size = 2.5) +
+  geom_line(
+    data = pred,
+    aes(dose, change_pf, colour = frailty),
+    linewidth = 1.2
+  ) +
+  labs(
+    x = "Chemotherapy dose intensity (SD)",
+    y = "Change in physical functioning",
+    colour = "Frailty"
+  ) +
+  theme_minimal(base_size = 13)
+```
+:::

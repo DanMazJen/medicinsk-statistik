@@ -15,7 +15,7 @@ Please stay updated on Moodle if a lecture may be canceled or moved.
 | 2/11 | Data manipulation |  |
 | 4/11 | Linear regression and likelihood theory (estimand, estimator, estimate) |  |
 | 5/11 | Logistic regression and likelihood theory |  |
-| 10/11 | Scatter plots, best fit, and interaction |   |
+| 10/11 | Interaction and polynomials |   |
 | 11/11 | Generalized linear regression |  |
 | 13/11 | Time-to-event analysis |  |
 | 16/11 | ANOVA, repeated measures, difference-in-difference |  |

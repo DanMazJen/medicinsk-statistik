@@ -12,6 +12,7 @@
 library(ggplot2)
 library(dplyr)
 library(readr)
+library(tidyr)
 
 #hd_data <- readr::read_csv(
 #  "https://raw.githubusercontent.com/DanMazJen/medicinsk-statistik/main/data/hd_data.csv"

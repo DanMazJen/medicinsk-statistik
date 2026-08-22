@@ -32,6 +32,7 @@ Imports:
     pak,
     parameters,
     performance,
+    probably,
     purrr,
     readr,
     rmarkdown,
@@ -42,7 +43,8 @@ Imports:
     survminer,
     tibble,
     tidyr,
-    tinytable
+    tinytable,
+    yardstick
 Depends:
     tidyverse
 Remotes: 

@@ -1,0 +1,293 @@
+# Evaluating a crystal ball - part 1 {#sec-classification}
+
+> The future is now
+
+```{r}
+#| label: setup
+#| include: false
+
+#library(tidyverse)
+#ddagit782594dalibrary(tidyverse)
+library(dplyr)
+library(ggplot2)
+library(yardstick)
+library(probably)
+
+#hd_data <- readr::read_csv(
+#  "https://raw.githubusercontent.com/DanMazJen/medicinsk-statistik/main/data/hd_data.csv"
+#)
+data(hd_data, package = "medisr")
+```
+
+## Pree-class Literature
+
+- [Marginal effects chatpter 5
+  ](https://marginaleffects.com/chapters/predictions.html)
+  - read
+
+# Slides
+
+> [**Session 15 slides**](../slides/day15.html)
+
+<div>
+
+```{=html}
+<iframe class="slide-deck" src="../slides/day15.html"></iframe>
+```
+
+</div>
+
+::: {.callout-note collapse="true"}
+## Teacher note
+
+The slides contain speaking notes that you can view by pressing 'S' on the
+keyboard.
+:::
+
+## Case session 19: ""
+
+## Content (still being worked on)
+
+The established ABCD framework is
+
+- A = calibration-in-the-large,
+- B = calibration slope,
+- C = discrimination/C-statistic,
+- D = clinical usefulness/decision-curve analysis.
+
+[see framework here](https://pmc.ncbi.nlm.nih.gov/articles/PMC4155437/)
+
+The `segment_logistic` data are particularly convenient because they already
+contain observed classes and out-of-sample predicted probabilities from a
+logistic regression model.
+
+### Evaluating a Prediction Model Evaluating a Prediction Model
+
+A prediction model can be evaluated from two things:
+
+- what actually happened;
+- and what the model predicted.
+
+Here we use predictions from a logistic regression model. The model has already
+been trained, so we do not fit a model. We simply evaluate its predictions.
+
+```{r}
+#| label: get-data
+
+data(segment_logistic)
+```
+
+Class is the observed outcome. `.pred_good` is the model's predicted probability
+that the outcome is "good".
+
+```{r}
+#| label: looking-at-data
+
+segment_logistic
+```
+
+### Accuracy
+
+Accuracy answers a simple question:
+
+> How often does the model get the class right?
+
+To calculate accuracy, we first turn probabilities into classes. Here we use 0.5
+as the threshold.
+
+```{r}
+#| label: accuracy
+
+predictions <- segment_logistic |>
+    mutate(
+        .pred_class = probably::make_two_class_pred(
+            .pred_good,
+            levels(Class),
+            threshold = 0.5 )
+        )
+
+accuracy(predictions, Class, .pred_class)
+```
+
+Accuracy is easy to understand, but it depends on the threshold and can be
+misleading when the classes are unbalanced.
+
+### Specificity
+
+Specificity asks:
+
+Among people who are not "good", how many does the model correctly identify?
+
+```{r}
+#| label: specificity
+
+specificity(predictions, Class, .pred_class)
+```
+
+A highly specific model produces few false positives.
+
+### Sensitivity
+
+Sensitivity asks:
+
+Among people who are "good", how many does the model correctly identify?
+
+```{r}
+#| label: sensitivity
+
+sensitivity(predictions, Class, .pred_class)
+```
+
+A highly sensitive model produces few false negatives.
+
+Sensitivity and specificity depend on the chosen probability threshold. There is
+nothing special about 0.5 in clinical practice: the useful threshold depends on
+the consequences of making each type of error.
+
+### ROC and AUC
+
+Instead of choosing one threshold, we can look at model discrimination across
+all possible thresholds.
+
+The ROC curve shows sensitivity against 1 − specificity.
+
+```{r}
+#| label: roc
+
+roc_curve( segment_logistic, Class, .pred_good, event_level = "first" ) |>
+    autoplot()
+```
+
+The area under this curve is the AUC.
+
+```{r}
+#| label: auc
+
+roc_auc( segment_logistic, Class, .pred_good)
+```
+
+AUC can be interpreted as the probability that the model assigns a higher
+predicted probability to a randomly chosen "good" observation than to a randomly
+chosen non-"good" observation.
+
+AUC measures discrimination. It does not tell us whether the predicted
+probabilities themselves are accurate.
+
+### Calibration
+
+Calibration asks a different question:
+
+When the model says 70%, does the event happen about 70% of the time?
+
+A simple calibration plot compares predicted probability with the observed
+proportion.
+
+The probably package provides this directly:
+
+```{r}
+#| label: calibration
+
+cal_plot_breaks( segment_logistic, Class, .pred_good )
+```
+
+A well-calibrated model follows the diagonal line.
+
+We can also fit a smooth calibration curve:
+
+```{r}
+#| label: cal-smooth
+
+cal_plot_logistic( segment_logistic, Class, .pred_good, smooth = FALSE )
+```
+
+Calibration is about the accuracy of the probabilities. A model can have
+excellent discrimination and poor calibration.
+
+### ABCD of model validation
+
+A useful way to remember prediction-model evaluation is the ABCD framework:
+
+- A --- Calibration-in-the-large: are predictions systematically too high or too
+  low?
+- B --- Calibration slope: are predictions too extreme or not extreme enough?
+- C --- C-statistic: how well does the model discriminate between outcomes?
+- D --- Decision curve: does using the model improve clinical decisions?
+
+[This framework](https://pmc.ncbi.nlm.nih.gov/articles/PMC4155437/) separates
+statistical performance from clinical usefulness.
+
+For example, the calibration model can be written very simply as:
+
+```{r}
+#| label: cal-model
+
+calibration_model <- segment_logistic |>
+    mutate(
+        outcome = Class == "good",
+        logit_p = log(.pred_good / (1 - .pred_good))
+    ) |>
+        glm(outcome ~ logit_p, data = _, family = binomial)
+
+broom::tidy(calibration_model)
+```
+
+The intercept is related to calibration-in-the-large (A) and the coefficient of
+`logit_p` is the calibration slope (B).
+
+Ideally, we'd see that the calibration-in-the-large is (close to) 0 and that the
+calibration slope is (close to) 1.
+
+This is called the **C-statistic** of the AUC.
+
+**D**
+
+The D component asks whether the predictions are useful for making decisions.
+That requires specifying a clinical action and the range of probability
+thresholds at which that action would be taken.
+
+### Effect size estimation
+
+Prediction performance and effect estimation are different questions.
+
+A logistic regression coefficient describes the association between a predictor
+and the outcome. For example:
+
+How much does the odds of "good" change for a one-unit increase in age?
+
+The dataset used here contains only the predictions, not the original
+predictors. Therefore, we cannot recover the original regression coefficients or
+their odds ratios from `segment_logistic`.
+
+What we can estimate is the association between the model's predicted risk and
+the observed outcome. The calibration slope above is one such measure.
+
+This distinction is important:
+
+Prediction asks: How accurately can we predict what will happen?
+
+Effect estimation asks: How does changing a particular variable relate to what
+happens?
+
+A model can be excellent for prediction without giving an unbiased estimate of a
+causal effect.
+
+### Putting it all together
+
+A simple evaluation therefore looks like this:
+
+<!-- panache-ignore-format-start -->
+|Question |  Measure|
+|---------|---------|
+|Does the model classify correctly at this threshold?	|Accuracy|
+|Does it avoid false positives?	                        |Specificity|
+|Does it avoid false negatives?	                        |Sensitivity|
+|Can it distinguish the two outcomes?	                |ROC / AUC|
+|Are the probabilities accurate?	                    |Calibration|
+|Does it improve clinical decisions?	                |Decision curve|
+|What is the effect of a predictor?	                    |Effect estimate|
+<!-- panache-ignore-format-end -->
+
+The key idea is that no single metric evaluates a prediction model completely.
+
+A useful model should discriminate well, produce sensible probabilities, and ---
+most importantly --- lead to better decisions.

@@ -47,6 +47,7 @@ book:
         - sessions/session11.qmd
         - sessions/session12.qmd
         - sessions/session15.qmd
+        - sessions/session19.qmd
         #- sessions/conclusion.qmd
     - part: "Exercises"
       chapters:

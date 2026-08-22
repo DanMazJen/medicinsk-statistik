@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.10.18">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>19&nbsp; Exercises: Conditional and polynomial madness – Medical Statistics, MEDMS24B5_1</title>
+<title>20&nbsp; Exercises: Conditional and polynomial madness – Medical Statistics, MEDMS24B5_1</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -158,7 +158,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../exercises/data.html">Exercises</a></li><li class="breadcrumb-item"><a href="../exercises/ex11.html"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Exercises: Conditional and polynomial madness</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../exercises/data.html">Exercises</a></li><li class="breadcrumb-item"><a href="../exercises/ex11.html"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Exercises: Conditional and polynomial madness</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -293,6 +293,12 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Marginalizing the problem</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/session19.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Evaluating a crystal ball - part 1</span></span></a>
+  </div>
+</li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -307,37 +313,37 @@ window.Quarto = {
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Data for Medical Statistics</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Data for Medical Statistics</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/ex01.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Exercises: Hallo Medical Statistics</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Exercises: Hallo Medical Statistics</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/ex04.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Exercises: When in doubt, plot it out</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Exercises: When in doubt, plot it out</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/ex11.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Exercises: Conditional and polynomial madness</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Exercises: Conditional and polynomial madness</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/ex12.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Exercises: A Poissonous counting trick</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Exercises: A Poissonous counting trick</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/ex15.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Exercises: Marginalizing the problem</span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Exercises: Marginalizing the problem</span></span></a>
   </div>
 </li>
       </ul>
@@ -397,20 +403,20 @@ window.Quarto = {
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-<li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link active" data-scroll-target="#learning-objectives"><span class="header-section-number">19.1</span> Learning objectives</a></li>
+<li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link active" data-scroll-target="#learning-objectives"><span class="header-section-number">20.1</span> Learning objectives</a></li>
   <li>
-<a href="#exercises-the-zhejiang-diabites-experiment" id="toc-exercises-the-zhejiang-diabites-experiment" class="nav-link" data-scroll-target="#exercises-the-zhejiang-diabites-experiment"><span class="header-section-number">19.2</span> Exercises: The Zhejiang diabites experiment</a>
+<a href="#exercises-the-zhejiang-diabites-experiment" id="toc-exercises-the-zhejiang-diabites-experiment" class="nav-link" data-scroll-target="#exercises-the-zhejiang-diabites-experiment"><span class="header-section-number">20.2</span> Exercises: The Zhejiang diabites experiment</a>
   <ul class="collapse">
-<li><a href="#a-lets-start-practicing-by-finding-interactions-from-written-text." id="toc-a-lets-start-practicing-by-finding-interactions-from-written-text." class="nav-link" data-scroll-target="#a-lets-start-practicing-by-finding-interactions-from-written-text."><span class="header-section-number">19.2.1</span> A: Let’s start practicing by finding interactions from written text.</a></li>
-  <li><a href="#b-you-start-working-through-the-data-you-have-been-assigned-to-analyse" id="toc-b-you-start-working-through-the-data-you-have-been-assigned-to-analyse" class="nav-link" data-scroll-target="#b-you-start-working-through-the-data-you-have-been-assigned-to-analyse"><span class="header-section-number">19.2.2</span> B: You start working through the data you have been assigned to analyse:</a></li>
-  <li><a href="#c-how-can-we-write-up-a-clincal-report-for-our-clinical-colleagues" id="toc-c-how-can-we-write-up-a-clincal-report-for-our-clinical-colleagues" class="nav-link" data-scroll-target="#c-how-can-we-write-up-a-clincal-report-for-our-clinical-colleagues"><span class="header-section-number">19.2.3</span> C: How can we write up a clincal report for our clinical colleagues:</a></li>
+<li><a href="#a-lets-start-practicing-by-finding-interactions-from-written-text." id="toc-a-lets-start-practicing-by-finding-interactions-from-written-text." class="nav-link" data-scroll-target="#a-lets-start-practicing-by-finding-interactions-from-written-text."><span class="header-section-number">20.2.1</span> A: Let’s start practicing by finding interactions from written text.</a></li>
+  <li><a href="#b-you-start-working-through-the-data-you-have-been-assigned-to-analyse" id="toc-b-you-start-working-through-the-data-you-have-been-assigned-to-analyse" class="nav-link" data-scroll-target="#b-you-start-working-through-the-data-you-have-been-assigned-to-analyse"><span class="header-section-number">20.2.2</span> B: You start working through the data you have been assigned to analyse:</a></li>
+  <li><a href="#c-how-can-we-write-up-a-clincal-report-for-our-clinical-colleagues" id="toc-c-how-can-we-write-up-a-clincal-report-for-our-clinical-colleagues" class="nav-link" data-scroll-target="#c-how-can-we-write-up-a-clincal-report-for-our-clinical-colleagues"><span class="header-section-number">20.2.3</span> C: How can we write up a clincal report for our clinical colleagues:</a></li>
   </ul>
 </li>
   </ul><div class="toc-actions"><ul><li><a href="https://github.com/DanMazJen/medicinsk-statistik/edit/main/exercises/ex11.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/blob/main/exercises/ex11.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><script data-goatcounter="https://DanMazJen-medicinsk-statistik.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../exercises/data.html">Exercises</a></li><li class="breadcrumb-item"><a href="../exercises/ex11.html"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Exercises: Conditional and polynomial madness</span></a></li></ol></nav><div class="quarto-title">
-<h1 class="title"><span id="sec-ex-interaction" class="quarto-section-identifier"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Exercises: Conditional and polynomial madness</span></span></h1>
+<main class="content" id="quarto-document-content"><script data-goatcounter="https://DanMazJen-medicinsk-statistik.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../exercises/data.html">Exercises</a></li><li class="breadcrumb-item"><a href="../exercises/ex11.html"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Exercises: Conditional and polynomial madness</span></a></li></ol></nav><div class="quarto-title">
+<h1 class="title"><span id="sec-ex-interaction" class="quarto-section-identifier"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Exercises: Conditional and polynomial madness</span></span></h1>
 </div>
 
 
@@ -452,8 +458,8 @@ Warning
 </div>
 </div>
 </div>
-<section id="learning-objectives" class="level2" data-number="19.1"><h2 data-number="19.1" class="anchored" data-anchor-id="learning-objectives">
-<span class="header-section-number">19.1</span> Learning objectives</h2>
+<section id="learning-objectives" class="level2" data-number="20.1"><h2 data-number="20.1" class="anchored" data-anchor-id="learning-objectives">
+<span class="header-section-number">20.1</span> Learning objectives</h2>
 <p>The learning objectives for this session are:</p>
 <ul>
 <li>Udvise forståelse for usikkerheds- og sandsynlighedsbegrebet samt grundliggende begreber indenfor biostatistik</li>
@@ -461,16 +467,16 @@ Warning
 <li>Redegøre for forskellige typer af tilfældig og ikke tilfældig variation</li>
 <li>Udvise forståelse for statistiske værktøjers begrænsninger og muligheder</li>
 <li>Forstå statistiske problemstillinger, der er centrale for medicin med industrial specialisering og forstå, hvordan de biostatistiske værktøjer kan appliceres på disse problemstillinger</li>
-</ul></section><section id="exercises-the-zhejiang-diabites-experiment" class="level2" data-number="19.2"><h2 data-number="19.2" class="anchored" data-anchor-id="exercises-the-zhejiang-diabites-experiment">
-<span class="header-section-number">19.2</span> Exercises: The Zhejiang diabites experiment</h2>
+</ul></section><section id="exercises-the-zhejiang-diabites-experiment" class="level2" data-number="20.2"><h2 data-number="20.2" class="anchored" data-anchor-id="exercises-the-zhejiang-diabites-experiment">
+<span class="header-section-number">20.2</span> Exercises: The Zhejiang diabites experiment</h2>
 <blockquote class="blockquote">
 <p>Does the association between uric acid and blood glucose differ across patient groups?</p>
 </blockquote>
 <p>A research team in Zhejiang Province is interested in whether elevated serum uric acid (UA) is associated with fasting blood glucose (FBG). Previous studies suggest that this relationship may not be identical for all patients. For example, hormonal differences, obesity, and hypertension may alter the biological pathways linking uric acid metabolism and glucose regulation.</p>
 <p>The investigators therefore suspect that the effect of UA on FBG may depend on other patient characteristics.</p>
 <p>You are working as a junior clinical scientist at Niels Steensen Diabetes Center and have been asked to help analyse the Zhejiang diabites experiment.</p>
-<section id="a-lets-start-practicing-by-finding-interactions-from-written-text." class="level3" data-number="19.2.1"><h3 data-number="19.2.1" class="anchored" data-anchor-id="a-lets-start-practicing-by-finding-interactions-from-written-text.">
-<span class="header-section-number">19.2.1</span> A: Let’s start practicing by finding interactions from written text.</h3>
+<section id="a-lets-start-practicing-by-finding-interactions-from-written-text." class="level3" data-number="20.2.1"><h3 data-number="20.2.1" class="anchored" data-anchor-id="a-lets-start-practicing-by-finding-interactions-from-written-text.">
+<span class="header-section-number">20.2.1</span> A: Let’s start practicing by finding interactions from written text.</h3>
 <p><strong>Exercise 1A</strong>:</p>
 <p>For each of the causal relationships below, name a hypothetical third variable that would lead to an interaction effect:</p>
 <ol type="1">
@@ -510,8 +516,8 @@ One example: 1) You could do all the physical activity you want, but if you cons
 <li><span class="math inline">\(BMI = \beta_0 + \beta_1 \text{Exercise} + \beta_2 \text{Sex} + \beta_3 \text{Age} + \beta_4 (\text{Exercise} \times \text{Sex}) + \beta_5 (\text{Exercise} \times \text{Age})\)</span></li>
 <li><span class="math inline">\(hypertension = \beta_0 + \beta_1 \text{HypertensionSeverity} + \beta_2 \text{antipsychoticMedicine}\)</span></li>
 <li><span class="math inline">\(liverDisease = \beta_0 + \beta_1 \text{Alcohol} + \beta_2 \text{Hepatitis} + \beta_3 \text{Diabetes} + \beta_4 (\text{Alcohol} \times \text{Hepatitis})\)</span></li>
-</ol></details></section><section id="b-you-start-working-through-the-data-you-have-been-assigned-to-analyse" class="level3" data-number="19.2.2"><h3 data-number="19.2.2" class="anchored" data-anchor-id="b-you-start-working-through-the-data-you-have-been-assigned-to-analyse">
-<span class="header-section-number">19.2.2</span> B: You start working through the data you have been assigned to analyse:</h3>
+</ol></details></section><section id="b-you-start-working-through-the-data-you-have-been-assigned-to-analyse" class="level3" data-number="20.2.2"><h3 data-number="20.2.2" class="anchored" data-anchor-id="b-you-start-working-through-the-data-you-have-been-assigned-to-analyse">
+<span class="header-section-number">20.2.2</span> B: You start working through the data you have been assigned to analyse:</h3>
 <p>The research team asks you to investigate whether the relationship between uric acid and fasting blood glucose differs between men and women.</p>
 <p>Import the dataset by typing:</p>
 <div class="cell">
@@ -665,8 +671,8 @@ One example: 1) You could do all the physical activity you want, but if you cons
 </li>
 <li>It quantifies the FBG ~ UA effect in one metric and plots it for each level of sex. We loose some detail but gain some interpretability.</li>
 <li>No correct answer… But the new plot (6B code) is easier to digest when talking about the sex differences hypothesis. The 2B code is better for the bigger picture of the model, considering different UA levels as well.</li>
-</ol></details></section><section id="c-how-can-we-write-up-a-clincal-report-for-our-clinical-colleagues" class="level3" data-number="19.2.3"><h3 data-number="19.2.3" class="anchored" data-anchor-id="c-how-can-we-write-up-a-clincal-report-for-our-clinical-colleagues">
-<span class="header-section-number">19.2.3</span> C: How can we write up a clincal report for our clinical colleagues:</h3>
+</ol></details></section><section id="c-how-can-we-write-up-a-clincal-report-for-our-clinical-colleagues" class="level3" data-number="20.2.3"><h3 data-number="20.2.3" class="anchored" data-anchor-id="c-how-can-we-write-up-a-clincal-report-for-our-clinical-colleagues">
+<span class="header-section-number">20.2.3</span> C: How can we write up a clincal report for our clinical colleagues:</h3>
 <p><strong>Exercise 1C</strong>:</p>
 <p>The fitted model produced the following results:</p>
 <table class="caption-top table">
@@ -1325,12 +1331,12 @@ One example: 1) You could do all the physical activity you want, but if you cons
   });
   </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
       <a href="../exercises/ex04.html" class="pagination-link" aria-label="Exercises: When in doubt, plot it out">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Exercises: When in doubt, plot it out</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Exercises: When in doubt, plot it out</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="../exercises/ex12.html" class="pagination-link" aria-label="Exercises: A Poissonous counting trick">
-        <span class="nav-page-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Exercises: A Poissonous counting trick</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Exercises: A Poissonous counting trick</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

@@ -12,7 +12,7 @@ library(dplyr)
 library(ggplot2)
 library(yardstick)
 library(probably)
-
+library(tidyr)
 #hd_data <- readr::read_csv(
 #  "https://raw.githubusercontent.com/DanMazJen/medicinsk-statistik/main/data/hd_data.csv"
 #)
@@ -57,11 +57,157 @@ The established ABCD framework is
 
 [see framework here](https://pmc.ncbi.nlm.nih.gov/articles/PMC4155437/)
 
-The `segment_logistic` data are particularly convenient because they already
-contain observed classes and out-of-sample predicted probabilities from a
-logistic regression model.
+The `ad_validation_logistic` data are particularly convenient because they
+already contain observed classes and out-of-sample predicted probabilities from
+a logistic regression model.
 
-### Evaluating a Prediction Model Evaluating a Prediction Model
+### Dataset context:
+
+```{r}
+#| label: prep-dataset
+#| echo: false
+#| output: false
+
+#ad_data <- medisr::ad_data
+ad_data <- medisr::ad_data
+
+ad_data$diagnosis <- factor(ad_data$diagnosis,
+  levels = c("Impaired", "Control"),
+  labels = c("impaired", "control"),
+)
+
+ad_data$Genotype <- factor(ad_data$Genotype,
+  levels = c("E3E3", "E3E4", "E4E4", "E2E3", "E2E4", "E2E2"),
+  labels = c("E2E2", "E2E3", "E3E3", "E3E4", "E2E4", "E4E4")
+)
+
+# Create genotype dummy variables
+# Currently not used!
+#ad_data$E2 <- ifelse(grepl("2", ad_data$Genotype), 1, 0)
+#ad_data$E3 <- ifelse(grepl("3", ad_data$Genotype), 1, 0)
+#ad_data$E4 <- ifelse(grepl("4", ad_data$Genotype), 1, 0)
+
+# Split data: every second observation
+test <- ad_data[seq(1, nrow(ad_data), by = 2), ]
+train  <- ad_data[seq(2, nrow(ad_data), by = 2), ]
+```
+
+The dataset was made based on the following logistic regression classifier:
+
+```r
+# Logistic regression
+model <- glm(
+  impairment ~ age + male + tau + p_tau + Ab_42 + Genotype,
+  data = train,
+  family = binomial
+)
+```
+
+So
+
+$$
+  impairment_i \sim age + male + tau + p\_tau + Ab\_42 + genotype
+$$
+where:
+
+- `age`: Normalized unit
+- `male`: Reported sex was male
+- `tau`: Tau protein stabilizes microtubules in axons. They can form insoluble
+  neurofibrillary tangles when floating around freely. Here, the concentration
+  was measured in the cerebrospinal fluid via lumbar puncture.
+- `p_tau`: Phosphorylated tau neurofibrillary tangles in the cerebrospinal
+  fluid. Here, the concentration was measured in the cerebrospinal fluid via
+  lumbar puncture.
+- `Ab_42`: Amyloid beta 42 (Aβ42) is a 42-amino-acid peptide derived from the
+  amyloid precursor protein that forms the plaques found in the brains of people
+  with Alzheimer's disease.
+- `genotype`: The APOE allele pair. Can be E2E2, E2E3, E3E3, E3E4, E2E4, or
+  E4E4. .
+
+We want to predict patients with cognitive impairment defined by a gold-standard
+neurophyschological test (such as the Wechsler's Adult Intelligence Score).
+
+```{r}
+#| label: see-data
+
+test |>
+    select(diagnosis,age,male,tau,p_tau,Ab_42,Genotype)
+```
+
+```{r}
+#| label: data-plt1
+
+p1 <- ggplot(test, aes(tau, p_tau, colour = diagnosis)) +
+  geom_point(
+    aes(alpha = factor(male)),
+    size = 2.4,
+    position = position_jitter(width = 0.03, height = 0.03)
+  ) +
+  facet_wrap(~ Genotype) +
+  scale_alpha_manual(
+    values = c(`0` = 0.55, `1` = 0.9),
+    name = "Male"
+  ) +
+  labs(
+    x = "Tau",
+    y = "p-tau",
+    colour = "Diagnosis"
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(
+    panel.grid.minor = element_blank(),
+    legend.position = "bottom"
+  )
+
+p1
+```
+
+```{r}
+#| label: data-plt2
+
+biomarkers <- test |>
+  pivot_longer(
+    cols = c(tau, p_tau, Ab_42),
+    names_to = "biomarker",
+    values_to = "value"
+  )
+
+p2 <- ggplot(
+  biomarkers,
+  aes(diagnosis, value, fill = diagnosis)
+) +
+  geom_violin(
+    alpha = 0.25,
+    colour = NA,
+    trim = FALSE
+  ) +
+  geom_boxplot(
+    width = 0.18,
+    outlier.shape = NA,
+    alpha = 0.65
+  ) +
+  geom_jitter(
+    width = 0.08,
+    height = 0,
+    size = 1.4,
+    alpha = 0.55
+  ) +
+  facet_wrap(~ biomarker, scales = "free_y") +
+  labs(
+    x = NULL,
+    y = NULL,
+    fill = "Diagnosis"
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(
+    panel.grid.minor = element_blank(),
+    legend.position = "bottom"
+  )
+
+p2
+```
+
+### Evaluating a Prediction Model
 
 A prediction model can be evaluated from two things:
 
@@ -74,17 +220,62 @@ been trained, so we do not fit a model. We simply evaluate its predictions.
 ```{r}
 #| label: get-data
 
-data(segment_logistic)
+ad_validation_logistic <- medisr::ad_validation_logistic
 ```
 
-Class is the observed outcome. `.pred_good` is the model's predicted probability
-that the outcome is "good".
+Class is the observed outcome. `.pred_impaired` is the model's predicted
+probability that the patient will show cognitive impairment.
 
 ```{r}
 #| label: looking-at-data
 
-segment_logistic
+ad_validation_logistic
 ```
+
+### A gentle overview
+
+How many was correctly classified?
+
+We can make a **confusion matrix** --- a table that shows how many observations
+were classified correctly and how many were assigned to the wrong class.
+
+```{r}
+#| label: conf-mat
+
+conf_mat(
+  predictions,
+  truth = Class,
+  estimate = .pred_class
+)
+```
+
+A confusion matrix is useful because it lets us see what kinds of mistakes the
+model is making, rather than giving us just one summary number.
+
+We spot an interesting pattern:
+
+- There are many more control participants than cognitively impaired
+  participants.
+- labeling the cognitive impairment was not a success --- only 25 out of 44 were
+  labeled correctly!
+- labeling the control participants much better --- 109 out of 123 were labeled
+  correctly!
+
+We can quickly calculate that `r 109/123`% of the controls were labeled
+correctly while only `r 25/44`% of the cognitively impaired were labeled
+correctly.
+
+This seems like a reasonable way to evaluate the model. But there is a problem:
+these percentages answer a slightly different question for each class, and they
+can be strongly affected by how common each class is.
+
+In particular, there are many more controls than cognitively impaired
+participants. A model can therefore appear to perform well simply by being good
+at predicting the more common class.
+
+So rather than looking only at the percentage of observations classified
+correctly, we can use metrics that explicitly describe different types of
+classification errors.
 
 ### Accuracy
 
@@ -92,16 +283,26 @@ Accuracy answers a simple question:
 
 > How often does the model get the class right?
 
+Accuracy is the proportion of all observations that were classified correctly:
+
+$$ Accuracy = \frac{TP + TN}{TP + TN + FP + FN}
+
+$$
+
+Here, TP means true positives, TN means true negatives, FP means false
+positives, and FN means false negatives.
+
 To calculate accuracy, we first turn probabilities into classes. Here we use 0.5
-as the threshold.
+as the threshold: if the predicted probability of impairment is at least 0.5, we
+classify the participant as impaired; otherwise, we classify them as a control.
 
 ```{r}
 #| label: accuracy
 
-predictions <- segment_logistic |>
+predictions <- ad_validation_logistic |>
     mutate(
         .pred_class = probably::make_two_class_pred(
-            .pred_good,
+            .pred_impaired,
             levels(Class),
             threshold = 0.5 )
         )
@@ -109,14 +310,36 @@ predictions <- segment_logistic |>
 accuracy(predictions, Class, .pred_class)
 ```
 
-Accuracy is easy to understand, but it depends on the threshold and can be
-misleading when the classes are unbalanced.
+The accuracy was 0.802. This means that about 80.2% of all participants were
+classified correctly.
+
+Accuracy is easy to understand, but it has an important limitation: it does not
+tell us which class the model gets wrong. It can also be misleading when the
+classes are unbalanced.
+
+For example, imagine that 95% of participants were controls. A model that always
+predicted "control" would have 95% accuracy, despite completely failing to
+identify anyone with cognitive impairment.
+
+This is why it is useful to look separately at the model's performance for the
+different classes.
 
 ### Specificity
 
 Specificity asks:
 
-Among people who are not "good", how many does the model correctly identify?
+> Among people who are not "impaired", how many does the model correctly
+> identify?
+
+Specificity measures how well the model identifies the negative class --- here,
+the control participants.
+
+In other words, specificity is the proportion of actual controls that the model
+correctly labels as controls.
+
+$$
+  Sensitivity = \frac{TP}{TP + FN}
+$$
 
 ```{r}
 #| label: specificity
@@ -124,13 +347,31 @@ Among people who are not "good", how many does the model correctly identify?
 specificity(predictions, Class, .pred_class)
 ```
 
-A highly specific model produces few false positives.
+The specificity was 0.886. This means that 88.6% of the participants who were
+actually controls were correctly identified as controls.
+
+A highly specific model produces few false positives: it rarely labels a control
+participant as cognitively impaired.
+
+Specificity is therefore particularly useful when false positives are costly or
+problematic. For example, in a screening context, a false positive might lead to
+unnecessary further testing or concern.
 
 ### Sensitivity
 
 Sensitivity asks:
 
-Among people who are "good", how many does the model correctly identify?
+> Among people who are "impaired", how many does the model correctly identify?
+
+Sensitivity measures how well the model identifies the positive class --- here,
+cognitively impaired participants.
+
+$$
+  Specificity = \frac{TN}{TN + FP}
+$$
+
+In other words, sensitivity is the proportion of participants who are actually
+impaired that the model correctly identifies as impaired.
 
 ```{r}
 #| label: sensitivity
@@ -138,11 +379,49 @@ Among people who are "good", how many does the model correctly identify?
 sensitivity(predictions, Class, .pred_class)
 ```
 
-A highly sensitive model produces few false negatives.
+The sensitivity was 0.568. This means that 56.8% of the participants who were
+actually cognitively impaired were correctly identified by the model.
 
-Sensitivity and specificity depend on the chosen probability threshold. There is
-nothing special about 0.5 in clinical practice: the useful threshold depends on
-the consequences of making each type of error.
+A highly sensitive model produces few false negatives: it rarely misses a
+participant who is actually impaired.
+
+This distinction between sensitivity and specificity is important. A model can
+have high specificity while having relatively low sensitivity, as we see here.
+Our model is quite good at recognizing controls, but it misses a substantial
+proportion of participants with cognitive impairment.
+
+### Discussion task: Setting a proability threshold
+
+Sensitivity and specificity depend on the chosen probability threshold. We used
+0.5 above, but there is nothing inherently special about 0.5.
+
+Changing the threshold changes the balance between false positives and false
+negatives. A lower threshold makes the model more willing to classify someone as
+impaired. This will generally increase sensitivity, because fewer impaired
+participants are missed, but it can also decrease specificity, because more
+controls may be incorrectly labeled as impaired.
+
+Conversely, a higher threshold makes the model more conservative about calling
+someone impaired. This can increase specificity but may reduce sensitivity.
+
+In a clinical application, the useful threshold should therefore be chosen based
+on the consequences of the two types of errors, rather than simply because 0.5
+is a convenient number.
+
+This is one reason why reporting accuracy alone is often not enough: two models
+can have similar accuracy while having very different sensitivity and
+specificity, and those differences can matter a great deal in practice.
+
+**Discucss with your neighbor:**
+
+- which diagnosis would you prefer a lower probability? Why?
+- which diagnosis would you prefer a higher probability? Why?
+
+Consider consequences of the diagnosis, like:
+
+- Cost of treatment
+- Side-effects
+- Effectiveness of treatment
 
 ### ROC and AUC
 
@@ -154,7 +433,7 @@ The ROC curve shows sensitivity against 1 − specificity.
 ```{r}
 #| label: roc
 
-roc_curve( segment_logistic, Class, .pred_good, event_level = "first" ) |>
+roc_curve(ad_validation_logistic, Class, .pred_impaired, event_level = "first" ) |>
     autoplot()
 ```
 
@@ -163,12 +442,12 @@ The area under this curve is the AUC.
 ```{r}
 #| label: auc
 
-roc_auc( segment_logistic, Class, .pred_good)
+roc_auc(ad_validation_logistic, Class, .pred_impaired)
 ```
 
 AUC can be interpreted as the probability that the model assigns a higher
-predicted probability to a randomly chosen "good" observation than to a randomly
-chosen non-"good" observation.
+predicted probability to a randomly chosen "impaired" observation than to a
+randomly chosen "control" observation.
 
 AUC measures discrimination. It does not tell us whether the predicted
 probabilities themselves are accurate.
@@ -187,7 +466,7 @@ The probably package provides this directly:
 ```{r}
 #| label: calibration
 
-cal_plot_breaks( segment_logistic, Class, .pred_good )
+cal_plot_breaks(ad_validation_logistic, Class, .pred_impaired)
 ```
 
 A well-calibrated model follows the diagonal line.
@@ -197,7 +476,7 @@ We can also fit a smooth calibration curve:
 ```{r}
 #| label: cal-smooth
 
-cal_plot_logistic( segment_logistic, Class, .pred_good, smooth = FALSE )
+cal_plot_logistic(ad_validation_logistic, Class, .pred_impaired, smooth = FALSE)
 ```
 
 Calibration is about the accuracy of the probabilities. A model can have
@@ -221,10 +500,10 @@ For example, the calibration model can be written very simply as:
 ```{r}
 #| label: cal-model
 
-calibration_model <- segment_logistic |>
+calibration_model <- ad_validation_logistic |>
     mutate(
-        outcome = Class == "good",
-        logit_p = log(.pred_good / (1 - .pred_good))
+        outcome = Class == "impaired",
+        logit_p = log(.pred_impaired / (1 - .pred_impaired))
     ) |>
         glm(outcome ~ logit_p, data = _, family = binomial)
 
@@ -252,11 +531,11 @@ Prediction performance and effect estimation are different questions.
 A logistic regression coefficient describes the association between a predictor
 and the outcome. For example:
 
-How much does the odds of "good" change for a one-unit increase in age?
+How much does the odds of "impaired" change for a one-unit increase in age?
 
 The dataset used here contains only the predictions, not the original
 predictors. Therefore, we cannot recover the original regression coefficients or
-their odds ratios from `segment_logistic`.
+their odds ratios from `ad_validation_logistic`.
 
 What we can estimate is the association between the model's predicted risk and
 the observed outcome. The calibration slope above is one such measure.

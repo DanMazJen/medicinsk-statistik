@@ -126,7 +126,7 @@ the necessary packages with this code:
 install.packages(
     c("tidyverse", "broom", "survival", "parameters",
         "yardstick", "probably", "marginaleffects", "shiny",
-        "survminer", "tinytable"
+        "survminer", "tinytable", "prodigenr"
     )
 )
 ```

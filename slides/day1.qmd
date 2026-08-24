@@ -25,28 +25,116 @@ Introduce teachers and helpers after welcoming everyone and getting them to do
 this.
 :::
 
+## Why Medical statistics {.r-fit-text}
+
+## {auto-animate="true"}
+
+```{mermaid}
+%%| label: stat-med
+
+flowchart LR
+    clinical["Medical science<br/>and clinical practice"]
+    stats["Medical statistics"]
+
+    clinical -->|depends on| stats
+```
+
+## {auto-animate="true"}
+
+```{mermaid}
+%%| label: stat-med-stat
+
+flowchart LR
+    clinical["Medical science<br/>and clinical practice"]
+    stats["Medical statistics"]
+
+    clinical -->|depends on| stats
+    stats -->|informed by| clinical
+```
+
+## Jobs that emphasize statistical literacy{. scrollable}
+
+<!--panache-ignore-start-->
+| Branch | Job | Statistical literacy needed? |
+|---|---|---|
+| 🧬 **Biomedicine** | Research Scientist | **High** |
+| | Biomedical Researcher | **High** |
+| | Biomarker Scientist | **High** |
+| | Clinical/Preclinical Researcher | **High** |
+| | Bioinformatics Scientist | **Very high** |
+| | Diagnostics Development Scientist | **Moderate–high** |
+| | Laboratory Scientist | **Moderate** |
+| | Quality Control Specialist | **Moderate** |
+| | Quality Assurance Specialist | **Moderate** |
+| | Laboratory Operations Coordinator | **Low** |
+| 💊 **Translational Medicine** | Clinical Research Scientist | **High** |
+| | Clinical Research Associate (CRA) | **Moderate** |
+| | Clinical Trial Coordinator | **High** |
+| | Clinical Data Scientist | **Very high** |
+| | Drug Development Scientist | **High** |
+| | Pharmacovigilance Scientist | **High** |
+| | Medical Researcher | **Very-High** |
+| | Regulatory Affairs Specialist | **Moderate-High** |
+| | Clinical Operations Specialist | **Low–moderate** |
+| | Clinical Project Coordinator | **Moderate** |
+| | Medical Affairs | **Low–moderate** |
+| | Quality/Compliance | **Low** |
+| 📊 **Medical Market Access** | Health Economist | **Very high** |
+| | Health Economics Analyst | **Very high** |
+| | HTA Analyst | **Very High** |
+| | Market Access Analyst | **Very High** |
+| | Pricing & Reimbursement Specialist | **High** |
+| | Market Research Analyst | **High** |
+| | Healthcare Data Analyst | **Very high** |
+| | Market Access Manager | **Moderate** |
+| | Healthcare Consultant | **Moderate** |
+| | Procurement/Tender Specialist | **Low–moderate** |
+| | Public Affairs/Stakeholder Relations | **Low** |
+| | Business Development | **Low–moderate** |
+
+<!--panache-ignore-end-->
+
+## Jobs that emphasize statistical literacy {.r-stretch}
+
+<!-- TODO: meme here -->
+
+## Stats is fun 🎉
+
+<!-- TODO: meme here -->
+
 ## Case 1: "Just send a quick summary" {.smaller .scrollable}
 
 A cardiology department at a regional hospital has been collaborating with a
 pharmaceutical company developing a new diagnostic support tool for chest pain
 patients. Before deciding whether to include your hospital in a larger clinical
 trial, the company asks for a quick baseline summary of your recent patients:
-"Nothing complicated---just basic descriptive numbers so our statisticians can
-take a look."
+
+> "Nothing complicated --- just basic descriptive numbers so our statisticians
+> can take a look."
 
 You are given a dataset of 303 patients admitted with chest pain (age,
 cholesterol, blood pressure, heart rate, etc.), along with whether they were
 later confirmed to have coronary artery disease. Your supervisor tells you:
-"This is not a statistics task---we just need simple summaries like average
-values and variability for key variables. The statisticians will handle the
-rest." Later that day, you receive a follow-up email: "Please report mean and
-standard deviation for age, cholesterol, resting blood pressure, and max heart
-rate, stratified by heart disease status. We need it today to decide whether
-your site qualifies."
+
+> "This is not a statistics task --- we just need simple summaries like average
+> values and variability for key variables. The statisticians will handle the
+> rest."
+
+Later that day, you receive a follow-up email:
+
+> "Please report mean and standard deviation for age, cholesterol, resting blood
+> pressure, and max heart rate, stratified by heart disease status. We need it
+> today to decide whether your site qualifies."
 
 The data is stored in `.csv` format and the company has provided you access to a
 GDPR-friendly and secure server where all the company data are stored. The only
 software installed on the server is `R` and `RStudio`.
+
+## Case 1: "Just send a quick summary" {.center}
+
+- Any questions about words?
+- Is the task clear?
+- What skills will you need to master in order to do it?
 
 ## {auto-animate="true"}
 
@@ -102,7 +190,7 @@ hd_data |>
   )
 ```
 
-## Can we spot heart disease from simple data?
+## What can we learn from data? {.r-stretch .r-fit-text}
 
 ::: {.fragment}
 Max heart rate and coronary heart disease...
@@ -113,7 +201,7 @@ Max heart rate and age...
 :::
 
 ::: {.fragment}
-Age and coronary heart disease?
+Now, what about age and coronary heart disease? **You'll do that now!**
 :::
 
 ## Exploring the Heart Disease dataset
@@ -161,13 +249,28 @@ hd_data |>                                      # <2>
 5. End the ggplot function that has a parenthesis open. Add `+` more...
 6. Specify the type of plot you want `ggplot` to do with the skeleton
 
+## You made your first plot with R code! 🎉🥳
+
+```{r}
+#| label: first-plot-celebrate
+#| echo: false
+
+library(ggplot2)                                # <1>
+
+hd_data |>                                      # <2>
+  ggplot(                                        # <3>
+    aes(x = HD, y = Age)                    # <4>
+    ) +                                          # <5>
+  geom_boxplot()                                 # <6>
+```
+
 # Medical Statistics
 
 In this course, we will
 
 - develop statistical literacy skills
 - Learn to make medical inference from statistics
-- Perform statistics using R
+- Perform statistics with the help of **R**
 
 ## Develop statistical literacy skills
 
@@ -261,19 +364,18 @@ RStudio is a window that helps us navigate in R.
 ::: columns
 ::::: {.column width="50%"}
 - Tools >> Global Options
-
-- > > General Save Workspace to .RData on exit (never)
+  - > General Save Workspace to .RData on exit (never)
 :::::
 
 ::::: {.column width="50%"}
 - Tools >> Global Options >> Code
+  - > Editing: Use native pipe operator
 
-- > > Editing: Use native pipe operator
-
-- > > Saving: Automatically save when editor loses focus
+  - > Saving: Automatically save when editor loses focus
 :::::
 :::
 
+::: {.hidden}
 ## Getting or asking for help :raising_hand_woman::raising_hand_man: {.smaller}
 
 - Put the red origami hat on your laptop to get help
@@ -282,3 +384,11 @@ RStudio is a window that helps us navigate in R.
 - We're all learning here!
   - This is a supportive and safe environment
   - Remember our Code of Conduct
+:::
+
+## Rest of session {.center}
+
+See the website chapter
+[11.3](https://danmazjen.github.io/medicinsk-statistik/sessions/session01.html#sec-setup-project)
+
+The rest of the day is an introduction to **R**

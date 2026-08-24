@@ -76,18 +76,27 @@ A cardiology department at a regional hospital has been collaborating with a
 pharmaceutical company developing a new diagnostic support tool for chest pain
 patients. Before deciding whether to include your hospital in a larger clinical
 trial, the company asks for a quick baseline summary of your recent patients:
-"Nothing complicated---just basic descriptive numbers so our statisticians can
-take a look."
+
+> "Nothing complicated --- just basic descriptive numbers so our statisticians
+> can take a look."
 
 You are given a dataset of 303 patients admitted with chest pain (age,
 cholesterol, blood pressure, heart rate, etc.), along with whether they were
 later confirmed to have coronary artery disease. Your supervisor tells you:
-"This is not a statistics task---we just need simple summaries like average
-values and variability for key variables. The statisticians will handle the
-rest." Later that day, you receive a follow-up email: "Please report mean and
-standard deviation for age, cholesterol, resting blood pressure, and max heart
-rate, stratified by heart disease status. We need it today to decide whether
-your site qualifies."
+
+> "This is not a statistics task --- we just need simple summaries like average
+> values and variability for key variables. The statisticians will handle the
+> rest."
+
+Later that day, you receive a follow-up email:
+
+> "Please report mean and standard deviation for age, cholesterol, resting blood
+> pressure, and max heart rate, stratified by heart disease status. We need it
+> today to decide whether your site qualifies."
+
+The data is stored in `.csv` format and the company has provided you access to a
+GDPR-friendly and secure server where all the company data are stored. The only
+software installed on the server is `R` and `RStudio`.
 
 ## Setting up an R project {#sec-setup-project}
 
@@ -140,7 +149,9 @@ your science better and more rigorous, it also makes your life easier too!
 
 <!--{{< text_snippet hats_up >}} -->
 
-## RStudio and R Projects
+This part is heavily inspired from @Johnston2021.
+
+## Code-along: RStudio and R Projects
 
 RStudio helps us with managing projects by making use of [R
 Projects](https://docs.posit.co/ide/user/ide/guide/code/projects.html#working-with-projects).
@@ -165,7 +176,7 @@ this session.
 #| filename: "Console"
 #| eval: false
 
-prodigenr::setup_project("~/Desktop/medical-statistics")
+prodigenr::setup_project("~/Desktop/medicinsk-statistik-session1")
 ```
 :::
 
@@ -229,27 +240,31 @@ that explain a bit about what should be placed there. Briefly:
    `data-raw/` for the raw data. We'll explain this more later.
 3. All `.R` files (called scripts) and code should be in the `R/` directory.
 
-## RStudio layout and usage
+## :book: Reading task: RStudio layout and usage
 
-You've already gotten a bit familiar with RStudio in the pre-course tasks, but
-if you want more details, RStudio has a great [cheat
+You've already gotten a bit familiar with RStudio in the pre-course tasks
+@sec-r-and-rstudio, but if you want more details, RStudio has a great [cheat
 sheet](https://www.rstudio.com/resources/cheatsheets/#ide) on how to use
 RStudio. The items to know right now are the "Console", "Files"/"Help", and
 "Source" tabs.
 
+Recall @fig-rstudio-introduction from the pre-course tasks.
+
 Code is written in the "Source" tab, where it saves the code and text as a file.
 You can send selected code to the Console from the opened file by typing
-{{< var keybind.run-code >}} (or clicking the "Run" button). In the "Source" tab
-(where R scripts and Quarto files are shown), there is a "Document Outline"
-button (top right beside the "Run" button) that shows you the headers or
-"Sections" (more on that later). To open it you can either click the button, use
-the keybinding {{< var keybind.outline >}}, go through the menu to
-`Code -> Show Document Outline`. The Command Palette is a very useful tool to
-learn, since you can easily access almost all features and options inside
-RStudio through it. Because of this reason, we will be using it a lot throughout
-the course. Open it up with {{< var keybind.palette >}} and then in the pop-up
-search bar, type out "document outline". The first item should be the one we
-want, so hit `Enter` to activate the Outline.
+{{< var keybind.run-code >}} (or clicking the "Run" button).
+
+In the "Source" tab (where R scripts and Quarto files are shown), there is a
+"Document Outline" button (top right beside the "Run" button) that shows you the
+headers or "Sections" (more on that later). To open it you can either click the
+button, use the keybinding {{< var keybind.outline >}}, go through the menu to
+`Code -> Show Document Outline`.
+
+The Command Palette is a very useful tool to learn, since you can easily access
+almost all features and options inside RStudio through it. Open it up with
+{{< var keybind.palette >}} and then in the pop-up search bar, type out
+"document outline". The first item should be the one we want, so hit `Enter` to
+activate the Outline.
 
 If you can't remember a specific keybinding in RStudio, check out the help for
 it by going to the menu item `Help -> Keyboard Shortcuts Help`.
@@ -378,6 +393,25 @@ foo = c(31, 3, 94)
 mean(foo) # automatically computes the mean
 ```
 
+## Mini exercise task: Basics of R
+
+Make a new file `medicinsk-statistic/R/my-calculations.R`
+<!-- TODO: write about making a new file! -->
+
+In R, calculate:
+
+- 5 plus 7
+- 12 minus 4
+- 6 times 3
+- 20 divided by 5
+- 2 plus 3 multiplied by 4
+- 2 plus 3 and multiplying the sum with 4
+- make a variable `age` with your age
+- add `age` with 1
+- comment that this value is your age next year at the same time as now
+- make a variable called `my_age`and `neighbors_age` and take the mean
+- calculate the squareroot of your age (*difficult - you might solve it later*)
+
 ## Asking for help or learning more about functions
 
 As you start to run R code, you're likely to run into problems. Don't worry ---
@@ -420,7 +454,7 @@ the same problem, and has gotten help online.
 
 <!--{{< text_snippet hats_up >}} -->
 
-## Standing on giants - using other peoples code
+## :book: Reading task: Standing on giants - using other peoples code
 
 One of the major strengths of R, and many other programming languages, is in its
 ability for other people to create packages that simplify doing complex tasks.
@@ -451,7 +485,7 @@ that might look something like this:
 library(dplyr)
 ```
 
-## ceci n'est pas une pipe `|>`
+## :book: Reading task - ceci n'est pas une pipe `|>`
 
 The pipe, `|>` or `%>%`, is a handy way to write multiple lines of R code.
 
@@ -500,14 +534,31 @@ DATA |>
 
 ![](../images/pipe.png){.lightbox}
 
-Basic piping:
+**Basic piping:**
 
-`x |> f()` is equivalent to `f(x)` `x |> f(y)` is equivalent to `f(x, y)`
-`x |> f() |> g() |> h()` is equivalent to `h(g(f(x)))`
+- `x |> f()` is equivalent to
+- `f(x)`
+- `x |> f(y)` is equivalent to `f(x, y)`
+- `x |> f() |> g() |> h()` is equivalent to `h(g(f(x)))` 👀
+
+This make look like nonsense now, but you'll come to love this later.
 
 ## Reading and writing data
 
 You have already tried reading in data. The command was:
+
+```{r}
+#| label: read-medisr-data
+
+data(hd_data)
+```
+
+This function `data()` will find the dataset we need and load it in. However, it
+is relying on the fact that we made the dataset available in the `{medisr}`
+package.
+
+If that was not possible, you could use the `{readr}` package's `read_csv()`
+function and provide for example a website:
 
 ```{r}
 #| label: read-data

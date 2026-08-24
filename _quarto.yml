@@ -58,6 +58,7 @@ book:
         - exercises/ex11.qmd
         - exercises/ex12.qmd
         - exercises/ex15.qmd
+        - exercises/ex18.qmd
   appendices:
     - appendix/for-teachers.qmd
     - appendix/references.qmd

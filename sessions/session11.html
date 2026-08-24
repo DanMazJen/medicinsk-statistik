@@ -295,7 +295,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/session19.html" class="sidebar-item-text sidebar-link">
+  <a href="../sessions/session18.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Evaluating a crystal ball - part 1</span></span></a>
   </div>
 </li>
@@ -344,6 +344,12 @@ window.Quarto = {
   <div class="sidebar-item-container"> 
   <a href="../exercises/ex15.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Exercises: Marginalizing the problem</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../exercises/ex18.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Exercises: Evaluating a crystal ball</span></span></a>
   </div>
 </li>
       </ul>
@@ -969,20 +975,20 @@ lm(formula = relief ~ dose * pain, data = pain_data)
 
 Residuals:
      Min       1Q   Median       3Q      Max 
--1.70956 -0.80375  0.00937  0.57713  1.71052 
+-1.78609 -0.41833 -0.08783  0.45148  1.25511 
 
 Coefficients:
             Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)  2.16822    0.53753   4.034 0.000365 ***
-dose         0.34861    0.09086   3.837 0.000622 ***
-pain         0.20722    0.41637   0.498 0.622466    
-dose:pain    0.89260    0.07038  12.683 2.33e-13 ***
+(Intercept)  2.06653    0.38369   5.386 8.68e-06 ***
+dose         0.32316    0.06485   4.983 2.66e-05 ***
+pain         0.30811    0.29720   1.037    0.308    
+dose:pain    0.94965    0.05024  18.904  &lt; 2e-16 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 1.044 on 29 degrees of freedom
-Multiple R-squared:  0.9736,    Adjusted R-squared:  0.9708 
-F-statistic: 355.9 on 3 and 29 DF,  p-value: &lt; 2.2e-16</code></pre>
+Residual standard error: 0.7451 on 29 degrees of freedom
+Multiple R-squared:  0.9877,    Adjusted R-squared:  0.9865 
+F-statistic: 777.8 on 3 and 29 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -1073,8 +1079,8 @@ Attaching package: 'sjPlot'</code></pre>
 <div class="cell-output cell-output-stdout">
 <pre><code>
  e16sex Estimate Std. Error    z Pr(&gt;|z|)   S     2.5 % 97.5 %
-      1  0.01153    0.00448 2.57   0.0101 6.6  0.002741 0.0203
-      2  0.00748    0.00411 1.82   0.0688 3.9 -0.000576 0.0155
+      1  0.01153    0.00448 2.57   0.0101 6.6  0.002740 0.0203
+      2  0.00748    0.00411 1.82   0.0687 3.9 -0.000575 0.0155
 
 Term: c12hour
 Type: response

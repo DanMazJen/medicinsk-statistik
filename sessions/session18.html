@@ -111,7 +111,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script>
+}</script><script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script><script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 </head>
 <body class="nav-sidebar floating nav-fixed quarto-light">
 
@@ -133,7 +158,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/session01.html">Sessions</a></li><li class="breadcrumb-item"><a href="../sessions/session19.html"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Evaluating a crystal ball - part 1</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/session01.html">Sessions</a></li><li class="breadcrumb-item"><a href="../sessions/session18.html"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Evaluating a crystal ball - part 1</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -270,7 +295,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/session19.html" class="sidebar-item-text sidebar-link active">
+  <a href="../sessions/session18.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Evaluating a crystal ball - part 1</span></span></a>
   </div>
 </li>
@@ -319,6 +344,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../exercises/ex15.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Exercises: Marginalizing the problem</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../exercises/ex18.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Exercises: Evaluating a crystal ball</span></span></a>
   </div>
 </li>
       </ul>
@@ -382,27 +413,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li>
 <a href="#slides" id="toc-slides" class="nav-link" data-scroll-target="#slides"><span class="header-section-number">17</span> Slides</a>
   <ul class="collapse">
-<li><a href="#case-session-19" id="toc-case-session-19" class="nav-link" data-scroll-target="#case-session-19"><span class="header-section-number">17.1</span> Case session 19: “”</a></li>
+<li><a href="#case-session-18" id="toc-case-session-18" class="nav-link" data-scroll-target="#case-session-18"><span class="header-section-number">17.1</span> Case session 18: “”</a></li>
   <li>
 <a href="#content-still-being-worked-on" id="toc-content-still-being-worked-on" class="nav-link" data-scroll-target="#content-still-being-worked-on"><span class="header-section-number">17.2</span> Content (still being worked on)</a>
   <ul class="collapse">
-<li><a href="#evaluating-a-prediction-model-evaluating-a-prediction-model" id="toc-evaluating-a-prediction-model-evaluating-a-prediction-model" class="nav-link" data-scroll-target="#evaluating-a-prediction-model-evaluating-a-prediction-model"><span class="header-section-number">17.2.1</span> Evaluating a Prediction Model Evaluating a Prediction Model</a></li>
-  <li><a href="#accuracy" id="toc-accuracy" class="nav-link" data-scroll-target="#accuracy"><span class="header-section-number">17.2.2</span> Accuracy</a></li>
-  <li><a href="#specificity" id="toc-specificity" class="nav-link" data-scroll-target="#specificity"><span class="header-section-number">17.2.3</span> Specificity</a></li>
-  <li><a href="#sensitivity" id="toc-sensitivity" class="nav-link" data-scroll-target="#sensitivity"><span class="header-section-number">17.2.4</span> Sensitivity</a></li>
-  <li><a href="#roc-and-auc" id="toc-roc-and-auc" class="nav-link" data-scroll-target="#roc-and-auc"><span class="header-section-number">17.2.5</span> ROC and AUC</a></li>
-  <li><a href="#calibration" id="toc-calibration" class="nav-link" data-scroll-target="#calibration"><span class="header-section-number">17.2.6</span> Calibration</a></li>
-  <li><a href="#abcd-of-model-validation" id="toc-abcd-of-model-validation" class="nav-link" data-scroll-target="#abcd-of-model-validation"><span class="header-section-number">17.2.7</span> ABCD of model validation</a></li>
-  <li><a href="#effect-size-estimation" id="toc-effect-size-estimation" class="nav-link" data-scroll-target="#effect-size-estimation"><span class="header-section-number">17.2.8</span> Effect size estimation</a></li>
-  <li><a href="#putting-it-all-together" id="toc-putting-it-all-together" class="nav-link" data-scroll-target="#putting-it-all-together"><span class="header-section-number">17.2.9</span> Putting it all together</a></li>
+<li><a href="#dataset-context" id="toc-dataset-context" class="nav-link" data-scroll-target="#dataset-context"><span class="header-section-number">17.2.1</span> Dataset context:</a></li>
+  <li><a href="#evaluating-a-prediction-model" id="toc-evaluating-a-prediction-model" class="nav-link" data-scroll-target="#evaluating-a-prediction-model"><span class="header-section-number">17.2.2</span> Evaluating a Prediction Model</a></li>
+  <li><a href="#preparing-the-data" id="toc-preparing-the-data" class="nav-link" data-scroll-target="#preparing-the-data"><span class="header-section-number">17.2.3</span> Preparing the data</a></li>
+  <li><a href="#a-gentle-overview" id="toc-a-gentle-overview" class="nav-link" data-scroll-target="#a-gentle-overview"><span class="header-section-number">17.2.4</span> A gentle overview</a></li>
+  <li><a href="#accuracy" id="toc-accuracy" class="nav-link" data-scroll-target="#accuracy"><span class="header-section-number">17.2.5</span> Accuracy</a></li>
+  <li><a href="#specificity" id="toc-specificity" class="nav-link" data-scroll-target="#specificity"><span class="header-section-number">17.2.6</span> Specificity</a></li>
+  <li><a href="#sensitivity" id="toc-sensitivity" class="nav-link" data-scroll-target="#sensitivity"><span class="header-section-number">17.2.7</span> Sensitivity</a></li>
+  <li><a href="#discussion-task-setting-a-proability-threshold" id="toc-discussion-task-setting-a-proability-threshold" class="nav-link" data-scroll-target="#discussion-task-setting-a-proability-threshold"><span class="header-section-number">17.2.8</span> Discussion task: Setting a proability threshold</a></li>
+  <li><a href="#roc-and-auc" id="toc-roc-and-auc" class="nav-link" data-scroll-target="#roc-and-auc"><span class="header-section-number">17.2.9</span> ROC and AUC</a></li>
+  <li><a href="#calibration" id="toc-calibration" class="nav-link" data-scroll-target="#calibration"><span class="header-section-number">17.2.10</span> Calibration</a></li>
+  <li><a href="#abcd-of-model-validation" id="toc-abcd-of-model-validation" class="nav-link" data-scroll-target="#abcd-of-model-validation"><span class="header-section-number">17.2.11</span> ABCD of model validation</a></li>
+  <li><a href="#effect-size-estimation" id="toc-effect-size-estimation" class="nav-link" data-scroll-target="#effect-size-estimation"><span class="header-section-number">17.2.12</span> Effect size estimation</a></li>
+  <li><a href="#putting-it-all-together" id="toc-putting-it-all-together" class="nav-link" data-scroll-target="#putting-it-all-together"><span class="header-section-number">17.2.13</span> Putting it all together</a></li>
   </ul>
 </li>
   </ul>
 </li>
-  </ul><div class="toc-actions"><ul><li><a href="https://github.com/DanMazJen/medicinsk-statistik/edit/main/sessions/session19.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/blob/main/sessions/session19.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
+  </ul><div class="toc-actions"><ul><li><a href="https://github.com/DanMazJen/medicinsk-statistik/edit/main/sessions/session18.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/blob/main/sessions/session18.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><script data-goatcounter="https://DanMazJen-medicinsk-statistik.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/session01.html">Sessions</a></li><li class="breadcrumb-item"><a href="../sessions/session19.html"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Evaluating a crystal ball - part 1</span></a></li></ol></nav><div class="quarto-title">
+<main class="content" id="quarto-document-content"><script data-goatcounter="https://DanMazJen-medicinsk-statistik.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/session01.html">Sessions</a></li><li class="breadcrumb-item"><a href="../sessions/session18.html"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Evaluating a crystal ball - part 1</span></a></li></ol></nav><div class="quarto-title">
 <h1 class="title"><span id="sec-classification" class="quarto-section-identifier"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Evaluating a crystal ball - part 1</span></span></h1>
 </div>
 
@@ -444,10 +479,10 @@ Warning
 </ul></section><section id="slides" class="level1" data-number="17"><h1 data-number="17">
 <span class="header-section-number">17</span> Slides</h1>
 <blockquote class="blockquote">
-<p><a href="../slides/day15.html"><strong>Session 15 slides</strong></a></p>
+<p><a href="../slides/day18.html"><strong>Session 18 slides</strong></a></p>
 </blockquote>
 <div>
-<iframe class="slide-deck" src="../slides/day15.html"></iframe>
+<iframe class="slide-deck" src="../slides/day18.html"></iframe>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
@@ -465,8 +500,8 @@ Warning
 </div>
 </div>
 </div>
-<section id="case-session-19" class="level2" data-number="17.1"><h2 data-number="17.1" class="anchored" data-anchor-id="case-session-19">
-<span class="header-section-number">17.1</span> Case session 19: “”</h2>
+<section id="case-session-18" class="level2" data-number="17.1"><h2 data-number="17.1" class="anchored" data-anchor-id="case-session-18">
+<span class="header-section-number">17.1</span> Case session 18: “”</h2>
 </section><section id="content-still-being-worked-on" class="level2" data-number="17.2"><h2 data-number="17.2" class="anchored" data-anchor-id="content-still-being-worked-on">
 <span class="header-section-number">17.2</span> Content (still being worked on)</h2>
 <p>The established ABCD framework is</p>
@@ -477,9 +512,136 @@ Warning
 <li>D = clinical usefulness/decision-curve analysis.</li>
 </ul>
 <p><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC4155437/">see framework here</a></p>
-<p>The <code>segment_logistic</code> data are particularly convenient because they already contain observed classes and out-of-sample predicted probabilities from a logistic regression model.</p>
-<section id="evaluating-a-prediction-model-evaluating-a-prediction-model" class="level3" data-number="17.2.1"><h3 data-number="17.2.1" class="anchored" data-anchor-id="evaluating-a-prediction-model-evaluating-a-prediction-model">
-<span class="header-section-number">17.2.1</span> Evaluating a Prediction Model Evaluating a Prediction Model</h3>
+<p>The <code>ad_validation_logistic</code> data are particularly convenient because they already contain observed classes and out-of-sample predicted probabilities from a logistic regression model.</p>
+<section id="dataset-context" class="level3" data-number="17.2.1"><h3 data-number="17.2.1" class="anchored" data-anchor-id="dataset-context">
+<span class="header-section-number">17.2.1</span> Dataset context:</h3>
+<p>The dataset was made based on the following logistic regression classifier:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Logistic regression</span></span>
+<span><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span></span>
+<span>  <span class="va">impairment</span> <span class="op">~</span> <span class="va">age</span> <span class="op">+</span> <span class="va">male</span> <span class="op">+</span> <span class="va">tau</span> <span class="op">+</span> <span class="va">p_tau</span> <span class="op">+</span> <span class="va">Ab_42</span> <span class="op">+</span> <span class="va">Genotype</span>,</span>
+<span>  data <span class="op">=</span> <span class="va">train</span>,</span>
+<span>  family <span class="op">=</span> <span class="va">binomial</span></span>
+<span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>So</p>
+<p><span class="math display">\[
+  impairment_i \sim age + male + tau + p\_tau + Ab\_42 + genotype
+\]</span> where:</p>
+<ul>
+<li>
+<code>age</code>: Normalized unit</li>
+<li>
+<code>male</code>: Reported sex was male</li>
+<li>
+<code>tau</code>: Tau protein stabilizes microtubules in axons. They can form insoluble neurofibrillary tangles when floating around freely. Here, the concentration was measured in the cerebrospinal fluid via lumbar puncture.</li>
+<li>
+<code>p_tau</code>: Phosphorylated tau neurofibrillary tangles in the cerebrospinal fluid. Here, the concentration was measured in the cerebrospinal fluid via lumbar puncture.</li>
+<li>
+<code>Ab_42</code>: Amyloid beta 42 (Aβ42) is a 42-amino-acid peptide derived from the amyloid precursor protein that forms the plaques found in the brains of people with Alzheimer’s disease.</li>
+<li>
+<code>genotype</code>: The APOE allele pair. Can be E2E2, E2E3, E3E3, E3E4, E2E4, or E4E4. .</li>
+</ul>
+<p>We want to predict patients with cognitive impairment defined by a gold-standard neurophyschological test (such as the Wechsler’s Adult Intelligence Score).</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">test</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu">select</span><span class="op">(</span><span class="va">diagnosis</span>,<span class="va">age</span>,<span class="va">male</span>,<span class="va">tau</span>,<span class="va">p_tau</span>,<span class="va">Ab_42</span>,<span class="va">Genotype</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 167 × 7
+   diagnosis   age  male   tau p_tau Ab_42 Genotype
+   &lt;fct&gt;     &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt;   
+ 1 control   0.988     0  6.30  4.35 12.0  E2E2    
+ 2 control   0.987     1  6.27  4.40 12.3  E2E3    
+ 3 control   0.987     0  6.62  4.52 11.0  E2E2    
+ 4 control   0.985     1  5.74  3.75 14.3  E3E4    
+ 5 control   0.984     0  4.98  3.46 13.7  E2E2    
+ 6 impaired  0.986     0  6.16  4.43  9.76 E2E3    
+ 7 impaired  0.984     1  5.06  3.29 11.3  E2E2    
+ 8 control   0.988     0  6.25  4.52 12.2  E2E2    
+ 9 impaired  0.986     1  5.99  4.13 11.9  E2E2    
+10 control   0.988     0  4.77  3.33 11.3  E2E2    
+# ℹ 157 more rows</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span><span class="va">test</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">tau</span>, <span class="va">p_tau</span>, colour <span class="op">=</span> <span class="va">diagnosis</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_point</span><span class="op">(</span></span>
+<span>    <span class="fu">aes</span><span class="op">(</span>alpha <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">male</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    size <span class="op">=</span> <span class="fl">2.4</span>,</span>
+<span>    position <span class="op">=</span> <span class="fu">position_jitter</span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.03</span>, height <span class="op">=</span> <span class="fl">0.03</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">facet_wrap</span><span class="op">(</span><span class="op">~</span> <span class="va">Genotype</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">scale_alpha_manual</span><span class="op">(</span></span>
+<span>    values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>`0` <span class="op">=</span> <span class="fl">0.55</span>, `1` <span class="op">=</span> <span class="fl">0.9</span><span class="op">)</span>,</span>
+<span>    name <span class="op">=</span> <span class="st">"Male"</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">labs</span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="st">"Tau"</span>,</span>
+<span>    y <span class="op">=</span> <span class="st">"p-tau"</span>,</span>
+<span>    colour <span class="op">=</span> <span class="st">"Diagnosis"</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">theme_minimal</span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">12</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">theme</span><span class="op">(</span></span>
+<span>    panel.grid.minor <span class="op">=</span> <span class="fu">element_blank</span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    legend.position <span class="op">=</span> <span class="st">"bottom"</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="va">p1</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="session18_files/figure-html/data-plt1-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">biomarkers</span> <span class="op">&lt;-</span> <span class="va">test</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">pivot_longer</span><span class="op">(</span></span>
+<span>    cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">tau</span>, <span class="va">p_tau</span>, <span class="va">Ab_42</span><span class="op">)</span>,</span>
+<span>    names_to <span class="op">=</span> <span class="st">"biomarker"</span>,</span>
+<span>    values_to <span class="op">=</span> <span class="st">"value"</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span></span>
+<span>  <span class="va">biomarkers</span>,</span>
+<span>  <span class="fu">aes</span><span class="op">(</span><span class="va">diagnosis</span>, <span class="va">value</span>, fill <span class="op">=</span> <span class="va">diagnosis</span><span class="op">)</span></span>
+<span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_violin</span><span class="op">(</span></span>
+<span>    alpha <span class="op">=</span> <span class="fl">0.25</span>,</span>
+<span>    colour <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>    trim <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_boxplot</span><span class="op">(</span></span>
+<span>    width <span class="op">=</span> <span class="fl">0.18</span>,</span>
+<span>    outlier.shape <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>    alpha <span class="op">=</span> <span class="fl">0.65</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_jitter</span><span class="op">(</span></span>
+<span>    width <span class="op">=</span> <span class="fl">0.08</span>,</span>
+<span>    height <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>    size <span class="op">=</span> <span class="fl">1.4</span>,</span>
+<span>    alpha <span class="op">=</span> <span class="fl">0.55</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">facet_wrap</span><span class="op">(</span><span class="op">~</span> <span class="va">biomarker</span>, scales <span class="op">=</span> <span class="st">"free_y"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">labs</span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>    y <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>    fill <span class="op">=</span> <span class="st">"Diagnosis"</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">theme_minimal</span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">12</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">theme</span><span class="op">(</span></span>
+<span>    panel.grid.minor <span class="op">=</span> <span class="fu">element_blank</span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    legend.position <span class="op">=</span> <span class="st">"bottom"</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="va">p2</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="session18_files/figure-html/data-plt2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section><section id="evaluating-a-prediction-model" class="level3" data-number="17.2.2"><h3 data-number="17.2.2" class="anchored" data-anchor-id="evaluating-a-prediction-model">
+<span class="header-section-number">17.2.2</span> Evaluating a Prediction Model</h3>
 <p>A prediction model can be evaluated from two things:</p>
 <ul>
 <li>what actually happened;</li>
@@ -487,119 +649,191 @@ Warning
 </ul>
 <p>Here we use predictions from a logistic regression model. The model has already been trained, so we do not fit a model. We simply evaluate its predictions.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">segment_logistic</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ad_validation_logistic</span> <span class="op">&lt;-</span> <span class="fu">medisr</span><span class="fu">::</span><span class="va"><a href="https://danmazjen.github.io/medisr/reference/ad_validation_logistic.html">ad_validation_logistic</a></span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>Class is the observed outcome. <code>.pred_good</code> is the model’s predicted probability that the outcome is “good”.</p>
+<p>Class is the observed outcome. <code>.pred_impaired</code> is the model’s predicted probability that the patient will show cognitive impairment.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">segment_logistic</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ad_validation_logistic</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1,010 × 3
-   .pred_poor .pred_good Class
-        &lt;dbl&gt;      &lt;dbl&gt; &lt;fct&gt;
- 1    0.986      0.0142  poor 
- 2    0.897      0.103   poor 
- 3    0.118      0.882   good 
- 4    0.102      0.898   good 
- 5    0.991      0.00914 poor 
- 6    0.633      0.367   good 
- 7    0.770      0.230   good 
- 8    0.00842    0.992   good 
- 9    0.995      0.00458 poor 
-10    0.765      0.235   poor 
-# ℹ 1,000 more rows</code></pre>
+<pre><code># A tibble: 167 × 3
+   .pred_impaired .pred_control Class   
+            &lt;dbl&gt;         &lt;dbl&gt; &lt;fct&gt;   
+ 1         0.403          0.597 control 
+ 2         0.665          0.335 control 
+ 3         0.712          0.288 control 
+ 4         0.293          0.707 control 
+ 5         0.0143         0.986 control 
+ 6         0.565          0.435 impaired
+ 7         0.178          0.822 impaired
+ 8         0.229          0.771 control 
+ 9         0.443          0.557 impaired
+10         0.0225         0.977 control 
+# ℹ 157 more rows</code></pre>
 </div>
 </div>
-</section><section id="accuracy" class="level3" data-number="17.2.2"><h3 data-number="17.2.2" class="anchored" data-anchor-id="accuracy">
-<span class="header-section-number">17.2.2</span> Accuracy</h3>
+</section><section id="preparing-the-data" class="level3" data-number="17.2.3"><h3 data-number="17.2.3" class="anchored" data-anchor-id="preparing-the-data">
+<span class="header-section-number">17.2.3</span> Preparing the data</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">predictions</span> <span class="op">&lt;-</span> <span class="va">ad_validation_logistic</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu">mutate</span><span class="op">(</span></span>
+<span>        .pred_class <span class="op">=</span> <span class="fu">probably</span><span class="fu">::</span><span class="fu"><a href="https://probably.tidymodels.org/reference/make_class_pred.html">make_two_class_pred</a></span><span class="op">(</span></span>
+<span>            <span class="va">.pred_impaired</span>,</span>
+<span>            <span class="fu"><a href="https://rdrr.io/r/base/levels.html">levels</a></span><span class="op">(</span><span class="va">Class</span><span class="op">)</span>,</span>
+<span>            threshold <span class="op">=</span> <span class="fl">0.5</span> <span class="op">)</span></span>
+<span>        <span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section><section id="a-gentle-overview" class="level3" data-number="17.2.4"><h3 data-number="17.2.4" class="anchored" data-anchor-id="a-gentle-overview">
+<span class="header-section-number">17.2.4</span> A gentle overview</h3>
+<p>How many was correctly classified?</p>
+<p>We can make a <strong>confusion matrix</strong> — a table that shows how many observations were classified correctly and how many were assigned to the wrong class.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">conf_mat</span><span class="op">(</span></span>
+<span>  <span class="va">predictions</span>,</span>
+<span>  truth <span class="op">=</span> <span class="va">Class</span>,</span>
+<span>  estimate <span class="op">=</span> <span class="va">.pred_class</span></span>
+<span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          Truth
+Prediction impaired control
+  impaired       25      14
+  control        19     109</code></pre>
+</div>
+</div>
+<p>A confusion matrix is useful because it lets us see what kinds of mistakes the model is making, rather than giving us just one summary number.</p>
+<p>We spot an interesting pattern:</p>
+<ul>
+<li>There are many more control participants than cognitively impaired participants.</li>
+<li>labeling the cognitive impairment was not a success — only 25 out of 44 were labeled correctly!</li>
+<li>labeling the control participants much better — 109 out of 123 were labeled correctly!</li>
+</ul>
+<p>We can quickly calculate that 0.8861789% of the controls were labeled correctly while only 0.5681818% of the cognitively impaired were labeled correctly.</p>
+<p>This seems like a reasonable way to evaluate the model. But there is a problem: these percentages answer a slightly different question for each class, and they can be strongly affected by how common each class is.</p>
+<p>In particular, there are many more controls than cognitively impaired participants. A model can therefore appear to perform well simply by being good at predicting the more common class.</p>
+<p>So rather than looking only at the percentage of observations classified correctly, we can use metrics that explicitly describe different types of classification errors.</p>
+</section><section id="accuracy" class="level3" data-number="17.2.5"><h3 data-number="17.2.5" class="anchored" data-anchor-id="accuracy">
+<span class="header-section-number">17.2.5</span> Accuracy</h3>
 <p>Accuracy answers a simple question:</p>
 <blockquote class="blockquote">
 <p>How often does the model get the class right?</p>
 </blockquote>
-<p>To calculate accuracy, we first turn probabilities into classes. Here we use 0.5 as the threshold.</p>
+<p>Accuracy is the proportion of all observations that were classified correctly:</p>
+<p>$$ Accuracy = </p>
+<p>$$</p>
+<p>Here, TP means true positives, TN means true negatives, FP means false positives, and FN means false negatives.</p>
+<p>To calculate accuracy, we first turn probabilities into classes. Here we use 0.5 as the threshold: if the predicted probability of impairment is at least 0.5, we classify the participant as impaired; otherwise, we classify them as a control.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">predictions</span> <span class="op">&lt;-</span> <span class="va">segment_logistic</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu">mutate</span><span class="op">(</span></span>
-<span>        .pred_class <span class="op">=</span> <span class="fu">probably</span><span class="fu">::</span><span class="fu"><a href="https://probably.tidymodels.org/reference/make_class_pred.html">make_two_class_pred</a></span><span class="op">(</span></span>
-<span>            <span class="va">.pred_good</span>,</span>
-<span>            <span class="fu"><a href="https://rdrr.io/r/base/levels.html">levels</a></span><span class="op">(</span><span class="va">Class</span><span class="op">)</span>,</span>
-<span>            threshold <span class="op">=</span> <span class="fl">0.5</span> <span class="op">)</span></span>
-<span>        <span class="op">)</span></span>
-<span></span>
-<span><span class="fu">accuracy</span><span class="op">(</span><span class="va">predictions</span>, <span class="va">Class</span>, <span class="va">.pred_class</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">accuracy</span><span class="op">(</span><span class="va">predictions</span>, <span class="va">Class</span>, <span class="va">.pred_class</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 3
   .metric  .estimator .estimate
   &lt;chr&gt;    &lt;chr&gt;          &lt;dbl&gt;
-1 accuracy binary         0.787</code></pre>
+1 accuracy binary         0.802</code></pre>
 </div>
 </div>
-<p>Accuracy is easy to understand, but it depends on the threshold and can be misleading when the classes are unbalanced.</p>
-</section><section id="specificity" class="level3" data-number="17.2.3"><h3 data-number="17.2.3" class="anchored" data-anchor-id="specificity">
-<span class="header-section-number">17.2.3</span> Specificity</h3>
+<p>The accuracy was 0.802. This means that about 80.2% of all participants were classified correctly.</p>
+<p>Accuracy is easy to understand, but it has an important limitation: it does not tell us which class the model gets wrong. It can also be misleading when the classes are unbalanced.</p>
+<p>For example, imagine that 95% of participants were controls. A model that always predicted “control” would have 95% accuracy, despite completely failing to identify anyone with cognitive impairment.</p>
+<p>This is why it is useful to look separately at the model’s performance for the different classes.</p>
+</section><section id="specificity" class="level3" data-number="17.2.6"><h3 data-number="17.2.6" class="anchored" data-anchor-id="specificity">
+<span class="header-section-number">17.2.6</span> Specificity</h3>
 <p>Specificity asks:</p>
-<p>Among people who are not “good”, how many does the model correctly identify?</p>
+<blockquote class="blockquote">
+<p>Among people who are not “impaired”, how many does the model correctly identify?</p>
+</blockquote>
+<p>Specificity measures how well the model identifies the negative class — here, the control participants.</p>
+<p>In other words, specificity is the proportion of actual controls that the model correctly labels as controls.</p>
+<p><span class="math display">\[
+  Sensitivity = \frac{TP}{TP + FN}
+\]</span></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">specificity</span><span class="op">(</span><span class="va">predictions</span>, <span class="va">Class</span>, <span class="va">.pred_class</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">specificity</span><span class="op">(</span><span class="va">predictions</span>, <span class="va">Class</span>, <span class="va">.pred_class</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 3
   .metric     .estimator .estimate
   &lt;chr&gt;       &lt;chr&gt;          &lt;dbl&gt;
-1 specificity binary         0.825</code></pre>
+1 specificity binary         0.886</code></pre>
 </div>
 </div>
-<p>A highly specific model produces few false positives.</p>
-</section><section id="sensitivity" class="level3" data-number="17.2.4"><h3 data-number="17.2.4" class="anchored" data-anchor-id="sensitivity">
-<span class="header-section-number">17.2.4</span> Sensitivity</h3>
+<p>The specificity was 0.886. This means that 88.6% of the participants who were actually controls were correctly identified as controls.</p>
+<p>A highly specific model produces few false positives: it rarely labels a control participant as cognitively impaired.</p>
+<p>Specificity is therefore particularly useful when false positives are costly or problematic. For example, in a screening context, a false positive might lead to unnecessary further testing or concern.</p>
+</section><section id="sensitivity" class="level3" data-number="17.2.7"><h3 data-number="17.2.7" class="anchored" data-anchor-id="sensitivity">
+<span class="header-section-number">17.2.7</span> Sensitivity</h3>
 <p>Sensitivity asks:</p>
-<p>Among people who are “good”, how many does the model correctly identify?</p>
+<blockquote class="blockquote">
+<p>Among people who are “impaired”, how many does the model correctly identify?</p>
+</blockquote>
+<p>Sensitivity measures how well the model identifies the positive class — here, cognitively impaired participants.</p>
+<p><span class="math display">\[
+  Specificity = \frac{TN}{TN + FP}
+\]</span></p>
+<p>In other words, sensitivity is the proportion of participants who are actually impaired that the model correctly identifies as impaired.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">sensitivity</span><span class="op">(</span><span class="va">predictions</span>, <span class="va">Class</span>, <span class="va">.pred_class</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">sensitivity</span><span class="op">(</span><span class="va">predictions</span>, <span class="va">Class</span>, <span class="va">.pred_class</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 3
   .metric     .estimator .estimate
   &lt;chr&gt;       &lt;chr&gt;          &lt;dbl&gt;
-1 sensitivity binary         0.714</code></pre>
+1 sensitivity binary         0.568</code></pre>
 </div>
 </div>
-<p>A highly sensitive model produces few false negatives.</p>
-<p>Sensitivity and specificity depend on the chosen probability threshold. There is nothing special about 0.5 in clinical practice: the useful threshold depends on the consequences of making each type of error.</p>
-</section><section id="roc-and-auc" class="level3" data-number="17.2.5"><h3 data-number="17.2.5" class="anchored" data-anchor-id="roc-and-auc">
-<span class="header-section-number">17.2.5</span> ROC and AUC</h3>
+<p>The sensitivity was 0.568. This means that 56.8% of the participants who were actually cognitively impaired were correctly identified by the model.</p>
+<p>A highly sensitive model produces few false negatives: it rarely misses a participant who is actually impaired.</p>
+<p>This distinction between sensitivity and specificity is important. A model can have high specificity while having relatively low sensitivity, as we see here. Our model is quite good at recognizing controls, but it misses a substantial proportion of participants with cognitive impairment.</p>
+</section><section id="discussion-task-setting-a-proability-threshold" class="level3" data-number="17.2.8"><h3 data-number="17.2.8" class="anchored" data-anchor-id="discussion-task-setting-a-proability-threshold">
+<span class="header-section-number">17.2.8</span> Discussion task: Setting a proability threshold</h3>
+<p>Sensitivity and specificity depend on the chosen probability threshold. We used 0.5 above, but there is nothing inherently special about 0.5.</p>
+<p>Changing the threshold changes the balance between false positives and false negatives. A lower threshold makes the model more willing to classify someone as impaired. This will generally increase sensitivity, because fewer impaired participants are missed, but it can also decrease specificity, because more controls may be incorrectly labeled as impaired.</p>
+<p>Conversely, a higher threshold makes the model more conservative about calling someone impaired. This can increase specificity but may reduce sensitivity.</p>
+<p>In a clinical application, the useful threshold should therefore be chosen based on the consequences of the two types of errors, rather than simply because 0.5 is a convenient number.</p>
+<p>This is one reason why reporting accuracy alone is often not enough: two models can have similar accuracy while having very different sensitivity and specificity, and those differences can matter a great deal in practice.</p>
+<p><strong>Discucss with your neighbor:</strong></p>
+<ul>
+<li>which diagnosis would you prefer a lower probability? Why?</li>
+<li>which diagnosis would you prefer a higher probability? Why?</li>
+</ul>
+<p>Consider consequences of the diagnosis, like:</p>
+<ul>
+<li>Cost of treatment</li>
+<li>Side-effects</li>
+<li>Effectiveness of treatment</li>
+</ul></section><section id="roc-and-auc" class="level3" data-number="17.2.9"><h3 data-number="17.2.9" class="anchored" data-anchor-id="roc-and-auc">
+<span class="header-section-number">17.2.9</span> ROC and AUC</h3>
 <p>Instead of choosing one threshold, we can look at model discrimination across all possible thresholds.</p>
 <p>The ROC curve shows sensitivity against 1 − specificity.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">roc_curve</span><span class="op">(</span> <span class="va">segment_logistic</span>, <span class="va">Class</span>, <span class="va">.pred_good</span>, event_level <span class="op">=</span> <span class="st">"first"</span> <span class="op">)</span> <span class="op">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">roc_curve</span><span class="op">(</span><span class="va">ad_validation_logistic</span>, <span class="va">Class</span>, <span class="va">.pred_impaired</span>, event_level <span class="op">=</span> <span class="st">"first"</span> <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu">autoplot</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="session19_files/figure-html/roc-1.png" class="img-fluid figure-img" width="672"></p>
+<figure class="figure"><p><img src="session18_files/figure-html/roc-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>The area under this curve is the AUC.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">roc_auc</span><span class="op">(</span> <span class="va">segment_logistic</span>, <span class="va">Class</span>, <span class="va">.pred_good</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">roc_auc</span><span class="op">(</span><span class="va">ad_validation_logistic</span>, <span class="va">Class</span>, <span class="va">.pred_impaired</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 3
   .metric .estimator .estimate
   &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;
-1 roc_auc binary         0.873</code></pre>
+1 roc_auc binary         0.840</code></pre>
 </div>
 </div>
-<p>AUC can be interpreted as the probability that the model assigns a higher predicted probability to a randomly chosen “good” observation than to a randomly chosen non-“good” observation.</p>
+<p>AUC can be interpreted as the probability that the model assigns a higher predicted probability to a randomly chosen “impaired” observation than to a randomly chosen “control” observation.</p>
 <p>AUC measures discrimination. It does not tell us whether the predicted probabilities themselves are accurate.</p>
-</section><section id="calibration" class="level3" data-number="17.2.6"><h3 data-number="17.2.6" class="anchored" data-anchor-id="calibration">
-<span class="header-section-number">17.2.6</span> Calibration</h3>
+</section><section id="calibration" class="level3" data-number="17.2.10"><h3 data-number="17.2.10" class="anchored" data-anchor-id="calibration">
+<span class="header-section-number">17.2.10</span> Calibration</h3>
 <p>Calibration asks a different question:</p>
 <p>When the model says 70%, does the event happen about 70% of the time?</p>
 <p>A simple calibration plot compares predicted probability with the observed proportion.</p>
 <p>The probably package provides this directly:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">cal_plot_breaks</span><span class="op">(</span> <span class="va">segment_logistic</span>, <span class="va">Class</span>, <span class="va">.pred_good</span> <span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">cal_plot_breaks</span><span class="op">(</span><span class="va">ad_validation_logistic</span>, <span class="va">Class</span>, <span class="va">.pred_impaired</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="session19_files/figure-html/calibration-1.png" class="img-fluid figure-img" width="672"></p>
+<figure class="figure"><p><img src="session18_files/figure-html/calibration-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -607,17 +841,17 @@ Warning
 <p>A well-calibrated model follows the diagonal line.</p>
 <p>We can also fit a smooth calibration curve:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">cal_plot_logistic</span><span class="op">(</span> <span class="va">segment_logistic</span>, <span class="va">Class</span>, <span class="va">.pred_good</span>, smooth <span class="op">=</span> <span class="cn">FALSE</span> <span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">cal_plot_logistic</span><span class="op">(</span><span class="va">ad_validation_logistic</span>, <span class="va">Class</span>, <span class="va">.pred_impaired</span>, smooth <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="session19_files/figure-html/cal-smooth-1.png" class="img-fluid figure-img" width="672"></p>
+<figure class="figure"><p><img src="session18_files/figure-html/cal-smooth-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>Calibration is about the accuracy of the probabilities. A model can have excellent discrimination and poor calibration.</p>
-</section><section id="abcd-of-model-validation" class="level3" data-number="17.2.7"><h3 data-number="17.2.7" class="anchored" data-anchor-id="abcd-of-model-validation">
-<span class="header-section-number">17.2.7</span> ABCD of model validation</h3>
+</section><section id="abcd-of-model-validation" class="level3" data-number="17.2.11"><h3 data-number="17.2.11" class="anchored" data-anchor-id="abcd-of-model-validation">
+<span class="header-section-number">17.2.11</span> ABCD of model validation</h3>
 <p>A useful way to remember prediction-model evaluation is the ABCD framework:</p>
 <ul>
 <li>A — Calibration-in-the-large: are predictions systematically too high or too low?</li>
@@ -628,20 +862,20 @@ Warning
 <p><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC4155437/">This framework</a> separates statistical performance from clinical usefulness.</p>
 <p>For example, the calibration model can be written very simply as:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">calibration_model</span> <span class="op">&lt;-</span> <span class="va">segment_logistic</span> <span class="op">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">calibration_model</span> <span class="op">&lt;-</span> <span class="va">ad_validation_logistic</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu">mutate</span><span class="op">(</span></span>
-<span>        outcome <span class="op">=</span> <span class="va">Class</span> <span class="op">==</span> <span class="st">"good"</span>,</span>
-<span>        logit_p <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="va">.pred_good</span> <span class="op">/</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="va">.pred_good</span><span class="op">)</span><span class="op">)</span></span>
+<span>        outcome <span class="op">=</span> <span class="va">Class</span> <span class="op">==</span> <span class="st">"impaired"</span>,</span>
+<span>        logit_p <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="va">.pred_impaired</span> <span class="op">/</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="va">.pred_impaired</span><span class="op">)</span><span class="op">)</span></span>
 <span>    <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>        <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span><span class="va">outcome</span> <span class="op">~</span> <span class="va">logit_p</span>, data <span class="op">=</span> <span class="va">_</span>, family <span class="op">=</span> <span class="va">binomial</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">calibration_model</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 5
-  term        estimate std.error statistic  p.value
-  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
-1 (Intercept)   -0.285    0.0848     -3.35 7.94e- 4
-2 logit_p        0.779    0.0507     15.4  3.07e-53</code></pre>
+  term        estimate std.error statistic     p.value
+  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;
+1 (Intercept)   -0.402     0.214     -1.88 0.0603     
+2 logit_p        0.639     0.124      5.17 0.000000231</code></pre>
 </div>
 </div>
 <p>The intercept is related to calibration-in-the-large (A) and the coefficient of <code>logit_p</code> is the calibration slope (B).</p>
@@ -649,19 +883,19 @@ Warning
 <p>This is called the <strong>C-statistic</strong> of the AUC.</p>
 <p><strong>D</strong></p>
 <p>The D component asks whether the predictions are useful for making decisions. That requires specifying a clinical action and the range of probability thresholds at which that action would be taken.</p>
-</section><section id="effect-size-estimation" class="level3" data-number="17.2.8"><h3 data-number="17.2.8" class="anchored" data-anchor-id="effect-size-estimation">
-<span class="header-section-number">17.2.8</span> Effect size estimation</h3>
+</section><section id="effect-size-estimation" class="level3" data-number="17.2.12"><h3 data-number="17.2.12" class="anchored" data-anchor-id="effect-size-estimation">
+<span class="header-section-number">17.2.12</span> Effect size estimation</h3>
 <p>Prediction performance and effect estimation are different questions.</p>
 <p>A logistic regression coefficient describes the association between a predictor and the outcome. For example:</p>
-<p>How much does the odds of “good” change for a one-unit increase in age?</p>
-<p>The dataset used here contains only the predictions, not the original predictors. Therefore, we cannot recover the original regression coefficients or their odds ratios from <code>segment_logistic</code>.</p>
+<p>How much does the odds of “impaired” change for a one-unit increase in age?</p>
+<p>The dataset used here contains only the predictions, not the original predictors. Therefore, we cannot recover the original regression coefficients or their odds ratios from <code>ad_validation_logistic</code>.</p>
 <p>What we can estimate is the association between the model’s predicted risk and the observed outcome. The calibration slope above is one such measure.</p>
 <p>This distinction is important:</p>
 <p>Prediction asks: How accurately can we predict what will happen?</p>
 <p>Effect estimation asks: How does changing a particular variable relate to what happens?</p>
 <p>A model can be excellent for prediction without giving an unbiased estimate of a causal effect.</p>
-</section><section id="putting-it-all-together" class="level3" data-number="17.2.9"><h3 data-number="17.2.9" class="anchored" data-anchor-id="putting-it-all-together">
-<span class="header-section-number">17.2.9</span> Putting it all together</h3>
+</section><section id="putting-it-all-together" class="level3" data-number="17.2.13"><h3 data-number="17.2.13" class="anchored" data-anchor-id="putting-it-all-together">
+<span class="header-section-number">17.2.13</span> Putting it all together</h3>
 <p>A simple evaluation therefore looks like this:</p>
 <!-- panache-ignore-format-start -->
 <table class="caption-top table">
@@ -1136,7 +1370,7 @@ Warning
 </a>
   </li>  
 </ul>
-<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/DanMazJen/medicinsk-statistik/edit/main/sessions/session19.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/blob/main/sessions/session19.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/DanMazJen/medicinsk-statistik/edit/main/sessions/session18.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/blob/main/sessions/session18.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>

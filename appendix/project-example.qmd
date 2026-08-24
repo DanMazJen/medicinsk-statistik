@@ -1,0 +1,125 @@
+# Project example {#sec-project-work}
+
+The following is a project example provided by the course coordinator, Kristian.
+
+Please note that this project is *not* the officialt project call but serves as
+an example for supervisors proposing their own project for the course.
+
+Students of the course should also familiarize themselves with the level of a
+potential exam project at the start of the course, such that they are aware of
+the "*end goal*" of the course.
+
+## Project title:
+
+Treatment effect of NSAID and paracetamol pain in knee osteoarthritis.
+
+## Project supervisors:
+
+Kristian
+
+## Number of assigned groups:
+
+The project is open for max 3 groups.
+
+## Project description:
+
+Chronic pain is a major problem that affects 20% of the world's population. Knee
+osteoarthritis is characterized by joint degeneration, and the hallmark symptom
+is chronic pain.
+
+Inflammation is believed to be one of the main drivers for pain in knee
+osteoarthritis $^1$ and therefore Non-Steroidal Anti-Inflammatory Drugs (NSAIDs)
+are one of the clinical recommended treatment for knee osteoarthritis $^2$.
+Analgesic effects have been widely documented even though the mechanisms of
+action are not completely understood $^3$. Both NSAIDs and paracetamol inhibit
+the synthesis of prostaglandins modulated through cyclooxygenase (COX). In the
+rat, non-selective NSAIDs and paracetamol enhance the activity of the
+cannabinoid system $^4$, and studies suggest that the analgesic effect of NSAIDs
+and selective COX-2 inhibitors is dependent on an intact serotonin system 3.
+Further, COX-2 inhibitors modulate widespread hyperalgesia $^{5,6}$ suggesting
+that NSAID treatment may also modulate central pain pathways and that
+mechanistic pain profiling could identify responders to NSAID treatment. NSAIDs
+may be potentially harmful $^6$ and therefore, it is ideal to identify patients
+benefiting from NSAIDs before administrating the drug.
+
+Pro-inflammatory cytokines are known to sensitize the peripheral nerve endings
+leading to hyperalgesia $^7$, which can be assessed as lowered pressure pain
+thresholds (PPTs). A prolonged intense painful input from the periphery may
+sensitize the dorsal horn neurons leading to an increased central gain of pain
+$^8$. This phenomenon can be assessed as facilitated temporal summation of pain
+(TSP) $^9$. Widespread hyperalgesia can in part be explained by impaired
+descending pain control which is considered the net effect of pain inhibitory
+and facilitatory pathways $^{10,11}$. NSAIDs has the potential to lower the
+inflammation and thereby modulating the pain sensitivity measures. Psychological
+factors should also be considered, as approximately one-fifth of patients with
+osteoarthritis experience symptoms of anxiety and depression $^12$ and a large
+population-based study across $^17$ diverse countries found anxiety and mood
+disorders to be twice as prevalent in patients with arthritis compared to those
+without $^13$. Self-reported symptoms of depression and anxiety have previously
+been correlated to pain in osteoarthritis intensity $^{14,15}$ and are suggested
+to be predictive for treatment responses $^16$.
+
+**Assignment**
+
+In this study, you are to evaluate if a 3-weeks intervention with NSAID and
+paracetamol is effective and identify patients who are more likely to respond to
+therapy.
+
+## Data availability
+
+Data from 100 patients with data before and after therapy is available. The
+following parameters are available:
+
+table
+
+**Treatment**
+
+Patients were administered 400 mg ibuprofen three times per day and 1g
+paracetamol three times per day for a three-week duration. Patients were also
+administered 20 mg of pantoprazole once per day to prevent ulcers. All patients
+were instructed to report any adverse and severe adverse events.
+
+## References
+
+1. Felson, D. T. The sources of pain in knee osteoarthritis. Curr. Opin.
+   Rheumatol. 17, 624--628 (2005).
+2. Bannuru, R. R. et al. OARSI guidelines for the non-surgical management of
+   knee, hip, and polyarticular osteoarthritis. Osteoarthr. Cartil. 27,
+   1578--1589 (2019).
+3. Graham, G. G., Davies, M. J., Day, R. O., Mohamudally, A. & Scott, K. F. The
+   modern pharmacology of paracetamol: Therapeutic actions, mechanism of action,
+   metabolism, toxicity and recent pharmacological findings.
+   Inflammopharmacology 21, 201--232 (2013).
+4. Ahn, D. K. et al. Blockade of central cyclooxygenase (COX) pathways enhances
+   the cannabinoid-induced antinociceptive effects on inflammatory
+   temporomandibular joint (TMJ) nociception. Pain 132, 23--32 (2007).
+5. Reinold, H. et al. Spinal inflammatory hyperalgesia is mediated by
+   prostaglandin E receptors of the EP2 subtype. J. Clin. Invest. 115, 673--679
+   (2005).
+6. Malfait, A.-M. & Schnitzer, T. J. Towards a mechanism-based approach to pain
+   management in osteoarthritis. Nat. Rev. Rheumatol. 9, 654--64 (2013).
+7. Schaible, H.-G. G. Nociceptive neurons detect cytokines in arthritis.
+   Arthritis Res. Thera. 16, 470--478 (2014).
+8. Schaible, H.-G. Spinal mechanisms contributing to joint pain. Novartis Found.
+   Symp. 260, 4--22; discussion 22-7, 100--4, 277--9 (2004).
+9. Graven-Nielsen, T. & Arendt-Nielsen, L. Assessment of mechanisms in localized
+   and widespread musculoskeletal pain. Nat. Rev. Rheumatol. 6, 599--606 (2010).
+10. Yarnitsky, D. Role of endogenous pain modulation in chronic pain mechanisms
+    and treatment. Pain 156 Suppl, S24-31 (2015).
+11. Arendt-Nielsen, L. et al. Assessment and manifestation of central
+    sensitisation across different chronic pain conditions. Eur. J. Pain 22,
+    216--241 (2018).
+12. Stubbs, B., Aluko, Y., Myint, P. K. & Smith, T. O. Prevalence of depressive
+    symptoms and anxiety in osteoarthritis: a systematic review and
+    meta-analysis. Age Ageing 45, 228--235 (2016).
+13. He, Y. et al. Mental disorders among persons with arthritis: results from
+    the World Mental Health Surveys. Psychol. Med. 38, 1639 (2008).
+14. Smith, B. W. & Zautra, A. J. The Effects of Anxiety and Depression on Weekly
+    Pain in Women with Arthritis. Pain 138, 354--361 (2008).
+15. Hadlandsmyth, K. et al. Relationships among pain intensity, pain-related
+    distress, and psychological distress in pre-surgical total knee arthroplasty
+    patients: a secondary analysis. Psychol. Health Med. 22, 552--563 (2017).
+16. Wood, T. J., Gazendam, A. M., Kabali, C. B. & Group, H. A. Postoperative
+    Outcomes Following Total Hip and Knee Arthroplasty in Patients with Pain
+    Catastrophizing, Anxiety, or Depression. (2021)
+    doi:10.1016/j.arth.2021.02.018.

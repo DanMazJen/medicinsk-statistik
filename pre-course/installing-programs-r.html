@@ -288,7 +288,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/session19.html" class="sidebar-item-text sidebar-link">
+  <a href="../sessions/session18.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Evaluating a crystal ball - part 1</span></span></a>
   </div>
 </li>
@@ -337,6 +337,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../exercises/ex15.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Exercises: Marginalizing the problem</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../exercises/ex18.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Exercises: Evaluating a crystal ball</span></span></a>
   </div>
 </li>
       </ul>
@@ -442,7 +448,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><em>A note to those who use other solutions than a laptop</em>: R and RStudio will not work on an iPad or tablet. Please use your laptop for this course.</p>
+<p><em>To those who use other solutions than a laptop</em>: R and RStudio will not work on an iPad or tablet. Please use your laptop for this course.</p>
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
@@ -450,28 +456,16 @@ Note
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <ol type="1">
-<li><a href="https://cloud.r-project.org/bin/windows/base/">R</a>: Any version above 4.6.0. If you have used R before, you can confirm the version by running <code>R.version.string</code> in the Console.</li>
-<li><a href="https://www.rstudio.com/products/rstudio/download/#download">RStudio</a>: Any version above v2026.08.0. If you have installed it before, check the current version by going to the menu “Help -&gt; About RStudio”.</li>
+<li><a href="https://cloud.r-project.org/bin/windows/base/">R</a>: Version 4.6.0 or above. If you have used R before, you can confirm the version by running <code>R.version.string</code> in the Console.</li>
+<li><a href="https://www.rstudio.com/products/rstudio/download/#download">RStudio</a>: Version v2026.08.0 or above. If you have installed it before, check the current version by going to the menu “Help -&gt; About RStudio”.</li>
 <li><a href="https://cran.r-project.org/bin/windows/Rtools/">Rtools</a>: Choose the version that says “R-release”. Rtools is needed in order to build some R packages. For some computers, installing Rtools can take some time.</li>
 </ol>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
 <ol type="1">
-<li><p><a href="https://cloud.r-project.org/bin/macosx/">R</a>: Any version above 4.6.0. If you have used R before, you can confirm the version by running <code>R.version.string</code> in the Console. If you don’t use <a href="https://brew.sh/">Homebrew</a> to install software in MacOS, we strongly recommend you <a href="https://brew.sh/">install it</a>. It makes it much easier to install things, for example installing R is as easy as opening a Terminal and running:</p>
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>Terminal</strong></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> install <span class="at">--cask</span> r</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>If you don’t use Homebrew, you can download and install R as you normally would by clicking the link above.</p></li>
-<li><p><a href="https://www.rstudio.com/products/rstudio/download/#download">RStudio</a>: Any version above v2026.08.0. If you have installed it before, check the current version by going to the menu “Help -&gt; About RStudio”. Like with installing R above with Homebrew, installing RStudio can be done by opening a Terminal and writing:</p>
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>Terminal</strong></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> install <span class="at">--cask</span> rstudio</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
+<li><p><a href="https://cloud.r-project.org/bin/macosx/">R</a>: Any version above 4.6.0. If you have used R before, you can confirm the version by running <code>R.version.string</code> in the Console.</p>
+<p>You can <a href="(https://cloud.r-project.org/bin/macosx/)">download and install R manually</a> or use Homebrew (if you’re familiar with that already).</p></li>
+<li><p><a href="https://www.rstudio.com/products/rstudio/download/#download">RStudio</a>: Version v2026.08.0 or above. If you have installed it before, check the current version by going to the menu “Help -&gt; About RStudio”.</p>
 <p>If you don’t use Homebrew, you can download and install RStudio as you normally would by clicking the link above.</p></li>
 </ol>
 </div>
@@ -482,7 +476,7 @@ Note
 <div class="code-with-filename-file">
 <pre><strong>Terminal</strong></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt <span class="at">-y</span> install r-base</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt <span class="at">-y</span> install r-base</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div></li>
 <li><p><a href="https://www.rstudio.com/products/rstudio/download/#download">RStudio</a>: Any version above v2026.08.0. If you have installed it before, check the current version by going to the menu “Help -&gt; About RStudio”.</p></li>
 </ol>

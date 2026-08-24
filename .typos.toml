@@ -22,7 +22,8 @@ nd = "nd"
 lage = "lage"
 iz = "iz"
 yhat = "yhat"
-
+Stubbs = "Stubbs"
+VAS = "VAS"
 
 [default.extend-identifiers]
 fpt = "fpt"

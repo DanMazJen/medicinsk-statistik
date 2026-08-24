@@ -29,11 +29,10 @@ requires a change in how you see and interact with your computer in profound
 ways. Try not to underestimate R and what it can do for you in order to learn
 quicker during this course.
 
-Lastly, briefly read through the group project work section in @sec-project-work
-so you are familiar with what you will do at the end of the course. You'll have
-time during the project work session to read through it again, but we've found
-that students prefer and want to be aware beforehand on what is expected of them
-during the project work.
+Lastly, briefly read through the @sec-project-work so you are familiar with what
+you will do at the end of the course. You'll be formally introduced to the
+projects later, but we've found that students prefer and want to be aware
+beforehand on what is expected of them during the project work.
 
 ::: callout-tip
 To keep track of which sections to read, here is a list:
@@ -62,20 +61,20 @@ course, especially for when you do the exercises and team project work:
 
 ## Using AI
 
-I provide solutions to the exercises---but a solved exercise is not the goal.
-Learning is.
+We provide solutions to the exercises, but a solved exercise is not the goal ---
+learning is.
 
 Use ChatGPT and other chat models responsibly. They can help you understand,
 question, and explore, but they can also give you convincing nonsense.
 
 **Do not outsource your thinking.**
 
-The time to make mistakes, struggle, and learn from them is now---not when you
+The time to make mistakes, struggle, and learn from them is now --- not when you
 are responsible for patients, colleagues, or decisions in the workplace.
 
 ### Examples:
 
-Legitimate use cases
+**Legitimate use cases**
 
 - Ask for an explanation of a statistical concept you do not understand.
 - Ask for a hint when you are stuck rather than asking for the answer.
@@ -87,7 +86,7 @@ Legitimate use cases
 - Use it after attempting an exercise to clarify mistakes and deepen your
   understanding.
 
-Poor use cases
+**Poor use cases**
 
 - Copying the solution without first attempting the exercise.
 - Asking the model to solve an exercise so you can submit or reproduce the

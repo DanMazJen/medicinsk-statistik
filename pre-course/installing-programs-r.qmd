@@ -6,19 +6,20 @@ are at least the minimum versions listed below. If not, you will need to update
 them.
 
 ::: {.callout-note appearance="default"}
-*A note to those who use other solutions than a laptop*: R and RStudio will not
-work on an iPad or tablet. Please use your laptop for this course.
+*To those who use other solutions than a laptop*: R and RStudio will not work on
+an iPad or tablet. Please use your laptop for this course.
 :::
 
 ::: panel-tabset
 ### Windows
 
-1. [R](https://cloud.r-project.org/bin/windows/base/): Any version above
-   {{< meta versions.r >}}. If you have used R before, you can confirm the
-   version by running `R.version.string` in the Console.
-2. [RStudio](https://www.rstudio.com/products/rstudio/download/#download): Any
-   version above {{< meta versions.rstudio >}}. If you have installed it before,
-   check the current version by going to the menu "Help -\> About RStudio".
+1. [R](https://cloud.r-project.org/bin/windows/base/): Version
+   {{< meta versions.r >}} or above. If you have used R before, you can confirm
+   the version by running `R.version.string` in the Console.
+2. [RStudio](https://www.rstudio.com/products/rstudio/download/#download):
+   Version {{< meta versions.rstudio >}} or above. If you have installed it
+   before, check the current version by going to the menu "Help -\> About
+   RStudio".
 3. [Rtools](https://cran.r-project.org/bin/windows/Rtools/): Choose the version
    that says "R-release". Rtools is needed in order to build some R packages.
    For some computers, installing Rtools can take some time.
@@ -27,28 +28,16 @@ work on an iPad or tablet. Please use your laptop for this course.
 
 1. [R](https://cloud.r-project.org/bin/macosx/): Any version above
    {{< meta versions.r >}}. If you have used R before, you can confirm the
-   version by running `R.version.string` in the Console. If you don't use
-   [Homebrew](https://brew.sh/) to install software in MacOS, we strongly
-   recommend you [install it](https://brew.sh/). It makes it much easier to
-   install things, for example installing R is as easy as opening a Terminal and
-   running:
+   version by running `R.version.string` in the Console.
 
-   ```bash {filename="Terminal"}
-   brew install --cask r
-   ```
+   You can [download and install R
+   manually]((https://cloud.r-project.org/bin/macosx/)) or use Homebrew (if
+   you're familiar with that already).
 
-   If you don't use Homebrew, you can download and install R as you normally
-   would by clicking the link above.
-
-2. [RStudio](https://www.rstudio.com/products/rstudio/download/#download): Any
-   version above {{< meta versions.rstudio >}}. If you have installed it before,
-   check the current version by going to the menu "Help -\> About RStudio". Like
-   with installing R above with Homebrew, installing RStudio can be done by
-   opening a Terminal and writing:
-
-   ```bash {filename="Terminal"}
-   brew install --cask rstudio
-   ```
+2. [RStudio](https://www.rstudio.com/products/rstudio/download/#download):
+   Version {{< meta versions.rstudio >}} or above. If you have installed it
+   before, check the current version by going to the menu "Help -\> About
+   RStudio".
 
    If you don't use Homebrew, you can download and install RStudio as you
    normally would by clicking the link above.

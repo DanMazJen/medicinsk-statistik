@@ -1,0 +1,564 @@
+---
+format: rostools-theme-revealjs
+search: false
+slide-number: true
+smaller: true
+---
+
+## Evaluating a crystal ball - part 1
+
+# {.center}
+
+The future is now
+
+## {.center}
+
+::: {.notes}
+Session 18: Evaluating classification models for cognitive impairment
+prediction.
+
+Key dataset: ad_validation_logistic with observed classes and predicted
+probabilities.
+:::
+
+# The ABCD Framework {.center}
+
+A useful way to remember prediction-model evaluation:
+
+- **A** = Calibration-in-the-large
+- **B** = Calibration slope
+- **C** = C-statistic / Discrimination
+- **D** = Decision curve / Clinical usefulness
+
+::: {.notes}
+This framework separates statistical performance from clinical usefulness.
+
+Reference: https://pmc.ncbi.nlm.nih.gov/articles/PMC4155437/
+:::
+
+## Case Study: Cognitive Impairment Prediction
+
+We evaluate a logistic regression model predicting cognitive impairment from:
+
+- Age
+- Sex (male)
+- Tau protein
+- Phosphorylated tau
+- Amyloid beta 42
+- APOE genotype
+
+**Outcome**: Impaired vs Control (gold-standard neurophyschological test)
+
+## The Prediction Model
+
+The model was trained on a separate training set:
+
+$$
+  impairment_i \sim age + male + tau + p\_tau + Ab\_42 + genotype
+$$
+
+where predictors are measured in cerebrospinal fluid via lumbar puncture.
+
+::: {.notes}
+Tau and p_tau: biomarkers related to neurofibrillary tangles Ab_42: Amyloid beta
+42 forms plaques in Alzheimer's disease Genotype: APOE allele pairs (E2E2, E2E3,
+E3E3, E3E4, E2E4, E4E4)
+:::
+
+## Dataset Visualization {.r-stretch}
+
+```{r}
+#| label: data-plt1
+#| fig-cap: "Tau vs p-tau by genotype and diagnosis"
+
+library(dplyr)
+library(ggplot2)
+
+ad_data <- medisr::ad_data
+
+ad_data$diagnosis <- factor(ad_data$diagnosis,
+  levels = c("Impaired", "Control"),
+  labels = c("impaired", "control"),
+)
+
+ad_data$Genotype <- factor(ad_data$Genotype,
+  levels = c("E3E3", "E3E4", "E4E4", "E2E3", "E2E4", "E2E2"),
+  labels = c("E2E2", "E2E3", "E3E3", "E3E4", "E2E4", "E4E4")
+)
+
+test <- ad_data[seq(1, nrow(ad_data), by = 2), ]
+
+p1 <- ggplot(test, aes(tau, p_tau, colour = diagnosis)) +
+  geom_point(
+    aes(alpha = factor(male)),
+    size = 2.4,
+    position = position_jitter(width = 0.03, height = 0.03)
+  ) +
+  facet_wrap(~ Genotype) +
+  scale_alpha_manual(
+    values = c(`0` = 0.55, `1` = 0.9),
+    name = "Male"
+  ) +
+  labs(
+    x = "Tau",
+    y = "p-tau",
+    colour = "Diagnosis"
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(
+    panel.grid.minor = element_blank(),
+    legend.position = "bottom"
+  )
+
+p1
+```
+
+## Biomarker Distributions {.r-stretch}
+
+```{r}
+#| label: data-plt2
+#| fig-cap: "Distribution of biomarkers by diagnosis"
+
+library(tidyr)
+
+biomarkers <- test |>
+  pivot_longer(
+    cols = c(tau, p_tau, Ab_42),
+    names_to = "biomarker",
+    values_to = "value"
+  )
+
+p2 <- ggplot(
+  biomarkers,
+  aes(diagnosis, value, fill = diagnosis)
+) +
+  geom_violin(
+    alpha = 0.25,
+    colour = NA,
+    trim = FALSE
+  ) +
+  geom_boxplot(
+    width = 0.18,
+    outlier.shape = NA,
+    alpha = 0.65
+  ) +
+  geom_jitter(
+    width = 0.08,
+    height = 0,
+    size = 1.4,
+    alpha = 0.55
+  ) +
+  facet_wrap(~ biomarker, scales = "free_y") +
+  labs(
+    x = NULL,
+    y = NULL,
+    fill = "Diagnosis"
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(
+    panel.grid.minor = element_blank(),
+    legend.position = "bottom"
+  )
+
+p2
+```
+
+# Evaluating Prediction Models
+
+## What We Need
+
+A prediction model can be evaluated from two things:
+
+- What actually happened (observed outcome)
+- What the model predicted (predicted probabilities)
+
+Here we use predictions from a pre-trained logistic regression model.
+
+::: {.notes}
+We work with ad_validation_logistic which contains: - Class: the observed
+outcome - .pred_impaired: predicted probability of impairment
+
+No need to fit a model; we simply evaluate its predictions.
+:::
+
+## The Validation Data
+
+```{r}
+#| label: get-data
+#| echo: false
+
+ad_validation_logistic <- medisr::ad_validation_logistic
+```
+
+Class = observed outcome. `.pred_impaired` = predicted probability of
+impairment.
+
+```{r}
+#| label: looking-at-data
+#| echo: false
+
+head(ad_validation_logistic)
+```
+
+::: {.notes}
+The dataset contains 167 observations with: - Class: factor with levels
+"control" and "impaired" - .pred_impaired: numeric predicted probabilities
+:::
+
+## Confusion Matrix
+
+How many were correctly classified?
+
+```{r}
+#| label: conf-mat-prep
+#| echo: false
+
+library(probably)
+
+predictions <- ad_validation_logistic |>
+    mutate(
+        .pred_class = probably::make_two_class_pred(
+            .pred_impaired,
+            levels(Class),
+            threshold = 0.5 )
+        )
+```
+
+```{r}
+#| label: conf-mat
+#| fig-cap: "Confusion matrix for threshold = 0.5"
+
+library(yardstick)
+
+conf_mat(
+  predictions,
+  truth = Class,
+  estimate = .pred_class
+)
+```
+
+::: {.notes}
+Pattern observed: - Many more control participants (123) than cognitively
+impaired (44) - Only 25/44 impaired were labeled correctly (56.8%) - 109/123
+controls were labeled correctly (88.6%)
+
+The model is much better at identifying controls than impaired participants.
+:::
+
+## Accuracy: How Often Correct? {.center}
+
+> How often does the model get the class right?
+
+$$
+  Accuracy = \frac{TP + TN}{TP + TN + FP + FN}
+$$
+
+```{r}
+#| label: accuracy
+
+accuracy(predictions, Class, .pred_class)
+```
+
+**Accuracy = 0.802** (80.2% classified correctly)
+
+## The Problem with Accuracy {.center}
+
+Accuracy is easy to understand but has an important limitation.
+
+::: {.fragment}
+It does not tell us **which class** the model gets wrong.
+:::
+
+::: {.fragment}
+It can be misleading when classes are **unbalanced**.
+:::
+
+::: {.fragment}
+Example: If 95% are controls, a model that always predicts "control" has 95%
+accuracy, despite failing to identify **any** impaired participants.
+:::
+
+## Specificity: Avoiding False Positives {.center}
+
+> Among people who are **not** "impaired", how many does the model correctly
+> identify?
+
+Specificity measures how well the model identifies the **negative class**
+(controls).
+
+$$
+  Sensitivity = \frac{TP}{TP + FN}
+$$
+
+```{r}
+#| label: specificity
+
+specificity(predictions, Class, .pred_class)
+```
+
+**Specificity = 0.886** (88.6% of controls correctly identified)
+
+::: {.notes}
+A highly specific model produces few false positives: it rarely labels a control
+as impaired.
+
+Particularly useful when false positives are costly (e.g., unnecessary
+treatment, concern).
+:::
+
+## Sensitivity: Avoiding False Negatives {.center}
+
+> Among people who **are** "impaired", how many does the model correctly
+> identify?
+
+Sensitivity measures how well the model identifies the **positive class**
+(impaired).
+
+$$
+  Specificity = \frac{TN}{TN + FP}
+$$
+
+```{r}
+#| label: sensitivity
+
+sensitivity(predictions, Class, .pred_class)
+```
+
+**Sensitivity = 0.568** (56.8% of impaired correctly identified)
+
+::: {.notes}
+A highly sensitive model produces few false negatives: it rarely misses an
+impaired participant.
+
+Our model has high specificity (good at recognizing controls) but lower
+sensitivity (misses substantial proportion of impaired).
+
+This distinction is crucial for understanding model performance.
+:::
+
+## Sensitivity vs Specificity {.center .r-fit-text}
+
+::: {.columns}
+::::: {.column}
+### Specificity = 88.6%
+
+- Good at identifying controls
+- Few false positives
+- Conservative about calling impairment
+
+::::::: {.column}
+### Sensitivity = 56.8%
+
+- Misses many impaired cases
+- More false negatives
+- Not aggressive enough
+:::::::
+:::::
+:::
+
+## Discussion Task {.center}
+
+**Discuss with your neighbor:**
+
+- Which diagnosis would you prefer a **lower** probability threshold? Why?
+- Which diagnosis would you prefer a **higher** probability threshold? Why?
+
+Consider consequences: - Cost of treatment - Side-effects - Effectiveness of
+treatment
+
+::: {.notes}
+Sensitivity and specificity depend on the chosen probability threshold.
+
+Lower threshold: more willing to classify as impaired → higher sensitivity,
+lower specificity Higher threshold: more conservative → higher specificity,
+lower sensitivity
+
+The "right" threshold depends on the costs of false positives vs false
+negatives.
+:::
+
+# Discrimination
+
+## ROC and AUC
+
+Instead of choosing one threshold, we can look at model discrimination across
+**all** possible thresholds.
+
+The ROC curve shows sensitivity against 1 − specificity.
+
+```{r}
+#| label: roc
+#| fig-cap: "ROC curve for cognitive impairment prediction"
+
+roc_curve(ad_validation_logistic, Class, .pred_impaired, event_level = "first" ) |>
+    autoplot()
+```
+
+## Area Under the Curve
+
+```{r}
+#| label: auc
+
+roc_auc(ad_validation_logistic, Class, .pred_impaired)
+```
+
+**AUC** = area under the ROC curve
+
+::: {.notes}
+AUC can be interpreted as the probability that the model assigns a higher
+predicted probability to a randomly chosen "impaired" observation than to a
+randomly chosen "control" observation.
+
+AUC measures **discrimination** (how well the model distinguishes between
+classes). It does NOT tell us whether the predicted probabilities themselves are
+accurate.
+:::
+
+# Calibration
+
+## Are the Probabilities Accurate? {.center}
+
+Calibration asks a different question:
+
+> When the model says 70%, does the event happen about 70% of the time?
+
+A simple calibration plot compares predicted probability with the observed
+proportion.
+
+## Calibration Plot {.r-stretch}
+
+```{r}
+#| label: calibration
+#| fig-cap: "Calibration plot with breaks"
+
+library(probably)
+
+cal_plot_breaks(ad_validation_logistic, Class, .pred_impaired)
+```
+
+A well-calibrated model follows the diagonal line.
+
+## Smooth Calibration Curve {.r-stretch}
+
+```{r}
+#| label: cal-smooth
+#| fig-cap: "Smooth calibration curve"
+
+cal_plot_logistic(ad_validation_logistic, Class, .pred_impaired, smooth = FALSE)
+```
+
+::: {.notes}
+Calibration is about the **accuracy of the probabilities**, not just the
+rankings.
+
+A model can have excellent discrimination (high AUC) and poor calibration
+(probabilities don't match observed frequencies).
+
+The calibration model can be written as a logistic regression of the outcome on
+the logit of the predicted probability.
+:::
+
+# ABCD Framework in Detail
+
+## A: Calibration-in-the-large
+
+Are predictions systematically too high or too low?
+
+## B: Calibration Slope
+
+Are predictions too extreme or not extreme enough?
+
+## C: C-statistic
+
+How well does the model discriminate between outcomes? (AUC)
+
+## D: Decision Curve
+
+Does using the model improve clinical decisions?
+
+```{r}
+#| label: cal-model
+#| echo: false
+
+calibration_model <- ad_validation_logistic |>
+    mutate(
+        outcome = Class == "impaired",
+        logit_p = log(.pred_impaired / (1 - .pred_impaired))
+    ) |>
+        glm(outcome ~ logit_p, data = _, family = binomial)
+
+broom::tidy(calibration_model)
+```
+
+::: {.notes}
+The intercept is related to calibration-in-the-large (A) and the coefficient of
+logit_p is the calibration slope (B).
+
+Ideally: calibration-in-the-large ≈ 0 and calibration slope ≈ 1.
+
+This is called the C-statistic of the AUC.
+:::
+
+# Prediction vs Effect Estimation
+
+## Different Questions {.center}
+
+::: {.columns}
+::::: {.column}
+### Prediction
+
+> How accurately can we predict what will happen?
+
+- Focus: accuracy of predictions
+- Tools: accuracy, sensitivity, specificity, AUC, calibration
+:::::
+::::: {.column}
+### Effect Estimation
+
+> How does changing a variable relate to what happens?
+
+- Focus: causal associations
+- Tools: regression coefficients, odds ratios
+:::::
+:::
+
+::: {.notes}
+Important distinction:
+
+A model can be excellent for prediction without giving an unbiased estimate of a
+causal effect.
+
+The dataset ad_validation_logistic contains only predictions, not the original
+predictors, so we cannot recover the original regression coefficients.
+
+What we can estimate is the association between the model's predicted risk and
+the observed outcome (the calibration slope is one such measure).
+:::
+
+## Key Idea
+
+> No single metric evaluates a prediction model completely.
+
+A useful model should: - Discriminate well - Produce sensible probabilities -
+Lead to better decisions
+
+# Summary: Evaluation Toolkit {.smaller}
+
+  | Question                                             | Measure         |
+  | ---------------------------------------------------- | --------------- |
+  | Does the model classify correctly at this threshold? | Accuracy        |
+  | Does it avoid false positives?                       | Specificity     |
+  | Does it avoid false negatives?                       | Sensitivity     |
+  | Can it distinguish the two outcomes?                 | ROC / AUC       |
+  | Are the probabilities accurate?                      | Calibration     |
+  | Does it improve clinical decisions?                  | Decision curve  |
+  | What is the effect of a predictor?                   | Effect estimate |
+
+## {.center}
+
+::: {.callout-important appearance="simple" icon=false}
+The key idea: **No single metric tells the whole story.**
+
+A useful model discriminates well, produces accurate probabilities, and improves
+decisions.
+:::

@@ -64,14 +64,14 @@ the course starts.
 
 This website and its content are targeted to three groups:
 
-1. For the **learners** to use during the course, both to follow along and also
-   to use as a reference during the project or even after the course ends. A
-   more detailed description of who the learner is can be found in [Is this for
-   you?](/overview/is-this-for-you.qmd)
+1. For the **students** to use during the course, both to follow along and also
+   to use as a reference during the project or even after the course ends.
 2. For the **teachers** to use as a guide for teaching the course and for the
    exercise material.
 3. For the **project supervisors** to use as a reference on what to expect
-   during the projects work and references for R code help.
+   during the projects work and references for R code help. See the section [for
+   supervisors](appendix/for-teachers.qmd) and [project
+   example](appendix/project-example.qmd).
 4. For those who are **interested in teaching**, who may not have much
    experience or may not know where to start, to use this website as a guide to
    running and teaching their own courses.

@@ -21,12 +21,14 @@ be covered in order:
 - 15. [Marginal effects](/sessions/session15.qmd)
 - 16. Power calculations
 - 17. Workshop: Prediction vs. explanatory models
-- 18. Validation of binary prediction models
+- 18. [Validation of binary prediction models](/sessions/session18.qmd)
 - 19. Validation of continuous prediction models
 - 20. Workshop: From statistical analysis to clinical decision-making
 - 21. Introduction to meta-analysis
 
 ## Learning outcome and objectives
+
+See [the official AAU site](https://moduler.aau.dk/course/2024-2025/MEDMS24B5_1)
 
 ### **Knowledge**
 

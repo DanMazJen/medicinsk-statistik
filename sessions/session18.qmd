@@ -27,12 +27,12 @@ data(hd_data, package = "medisr")
 
 # Slides
 
-> [**Session 15 slides**](../slides/day15.html)
+> [**Session 18 slides**](../slides/day18.html)
 
 <div>
 
 ```{=html}
-<iframe class="slide-deck" src="../slides/day15.html"></iframe>
+<iframe class="slide-deck" src="../slides/day18.html"></iframe>
 ```
 
 </div>
@@ -44,7 +44,7 @@ The slides contain speaking notes that you can view by pressing 'S' on the
 keyboard.
 :::
 
-## Case session 19: ""
+## Case session 18: ""
 
 ## Content (still being worked on)
 
@@ -232,6 +232,20 @@ probability that the patient will show cognitive impairment.
 ad_validation_logistic
 ```
 
+### Preparing the data
+
+```{r}
+#| label: prep-validation
+
+predictions <- ad_validation_logistic |>
+    mutate(
+        .pred_class = probably::make_two_class_pred(
+            .pred_impaired,
+            levels(Class),
+            threshold = 0.5 )
+        )
+```
+
 ### A gentle overview
 
 How many was correctly classified?
@@ -298,14 +312,6 @@ classify the participant as impaired; otherwise, we classify them as a control.
 
 ```{r}
 #| label: accuracy
-
-predictions <- ad_validation_logistic |>
-    mutate(
-        .pred_class = probably::make_two_class_pred(
-            .pred_impaired,
-            levels(Class),
-            threshold = 0.5 )
-        )
 
 accuracy(predictions, Class, .pred_class)
 ```

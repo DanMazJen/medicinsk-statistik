@@ -110,6 +110,29 @@ https://vbn.aau.dk/da/persons/cdahl/
 
 <!-- TODO: Insert picture analogy -->
 
+## More on chatmodels and AI {.smaller}
+
+See the website chapter
+[5.2](https://danmazjen.github.io/medicinsk-statistik/pre-course/reading.html#using-ai)
+
+**Further resources on responsible use of AI**
+
+- [AAU: Generative AI for
+  students](https://www.en.aub.aau.dk/students/generative-ai) --- guidance on
+  academic practice, privacy, evaluating AI, useful scenarios, prompting, and
+  avoiding over-reliance on AI.
+- [AAU: Rules for use of generative
+  AI](https://www.studerende.aau.dk/regler-og-praktisk/regler/regler-for-brug-af-generativ-ai) ---
+  know the rules that apply to your studies and exams.
+- [AAU: Scenarios for using generative
+  AI](https://www.en.aub.aau.dk/students/generative-ai/scenarios-for-use) ---
+  examples of appropriate uses of AI for studying, understanding difficult
+  material, and exam preparation.
+- [UNESCO: Guidance for generative AI in education and
+  research](https://www.unesco.org/en/articles/guidance-generative-ai-education-and-research) ---
+  a broader perspective on human-centred and responsible use of generative AI in
+  education.
+
 ## The exam {.smaller}
 
 ::: columns

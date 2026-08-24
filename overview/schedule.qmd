@@ -3,27 +3,27 @@
 Please stay updated on Moodle if a lecture may be canceled or moved.
 
 <!-- panache-ignore-format-start -->
-| Date |Topic| Notes/Readings |
-| ---- | ---- | ---------------- |
-| 28/9 | Install R and RStudio, basic functions, and data types | **Install programs before!** see [Pre-course tasks](/pre-course/installing-programs-r.qmd). In general, go through all the Pre-course tasks, so that you can follow along without technical issues slowing you down |
-| 6/10 | Probability and stochastic variables, distributions and realizations |  |
-| 9/10 | Outcome types and measuring effects |  |
-| 13/10 | Descriptive data: box, violin, and bar plots |  |
-| 15/10 | **Workshop:** Operationalizing a research question (SAP examples) | Group exercises |
-| 27/10 | Law of Large Numbers, uncertainty, permutation tests, bootstrapping |  |
-| 29/10 | Systematic vs. random noise, hypothesis testing, reproducibility, confounding, selection bias |      |
-| 2/11 | Data manipulation |  |
-| 4/11 | Linear regression and likelihood theory (estimand, estimator, estimate) |  |
-| 5/11 | Logistic regression and likelihood theory |  |
-| 10/11 | Interaction and polynomials |   |
-| 11/11 | Generalized linear regression |  |
-| 13/11 | Time-to-event analysis |  |
-| 16/11 | ANOVA, repeated measures, difference-in-difference |  |
-| 17/11 | Margins analysis and margins plots |  |
-| 20/11 | Power calculations |  |
-| 23/11 | **Workshop:** Prediction vs. explanatory models (diagnostics) |  |
-| 26/11 | Validation of binary prediction models (power, calibration, ROC) | |
-| 27/11 | Validation of continuous prediction models (including power calculations) |    |
-| 30/11 | **Workshop:** From statistical analysis to clinical decision-making |   |
-| 1/12 | Introduction to meta-analysis |  |
+| Session # | Date | Topic| Notes/Readings |
+|-----| ---- | ---- | ---------------- |
+|1| 28/9 | Install R and RStudio, basic functions, and data types | **Install programs before!** see [Pre-course tasks](/pre-course/installing-programs-r.qmd). In general, go through all the Pre-course tasks, so that you can follow along without technical issues slowing you down |
+|2| 6/10 | Probability and stochastic variables, distributions and realizations |  |
+|3| 9/10 | Outcome types and measuring effects |  |
+|4| 13/10 | Descriptive data: box, violin, and bar plots |  |
+|5| 15/10 | **Workshop:** Operationalizing a research question (SAP examples) | **NB:** *We will work on tasks relevant for the course assignment* |
+|6| 27/10 | Law of Large Numbers, uncertainty, permutation tests, bootstrapping |  |
+|7| 29/10 | Systematic vs. random noise, hypothesis testing, reproducibility, confounding, selection bias |      |
+|8| 2/11 | Data manipulation |  |
+|9| 4/11 | Linear regression and likelihood theory (estimand, estimator, estimate) |  |
+|10| 5/11 | Logistic regression and likelihood theory |  |
+|11| 10/11 | Interaction and polynomials |   |
+|12| 11/11 | Generalized linear regression |  |
+|13| 13/11 | Time-to-event analysis |  |
+|14| 16/11 | ANOVA, repeated measures, difference-in-difference |  |
+|15| 17/11 | Margins analysis and margins plots |  |
+|16| 20/11 | Power calculations |  |
+|17| 23/11 | **Workshop:** Prediction vs. explanatory models (diagnostics) | **NB:** *We will work on tasks relevant for the course assignment* |
+|18| 26/11 | Validation of binary prediction models (power, calibration, ROC) | |
+|19| 27/11 | Validation of continuous prediction models (including power calculations) |    |
+|20| 30/11 | **Workshop:** From statistical analysis to clinical decision-making | **NB:** *We will work on tasks relevant for the course assignment*  |
+|21| 1/12 | Introduction to meta-analysis |  |
 <!-- panache-ignore-format-end -->

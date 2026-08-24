@@ -12,22 +12,20 @@ independent statistical projects with collaborative workshops and evaluations.
 
 ## Strategies
 
-This workshop is designed using the science of learning. Learning is when new
-content gets incorporated into long-term storage in the brain in a way that it
-can be later retrieved. Some of the best ways to enable learning is to do
-"active learning" by engaging with the material, practicing retrieving what was
-just covered, repeatedly being exposed to the content, linking the new
-information with what you already know, and explaining it to someone else.
+This course is designed using the science of learning. Some of the best ways to
+enable learning is to do "active learning" by engaging with the material,
+practicing retrieving what was just covered, repeatedly being exposed to the
+content, linking the new information with what you already know, and explaining
+it to someone else.
 
-We use a variety of activities to target the different "pathways" of learning. A
-big part of learning is being engaged in the *process* of learning, not just
-learning the content itself. So to help you be engaged in your own learning, we
-want to involve you in the reasons *why* we do the things we do during this
-workshop.
+We use a variety of activities to learn the material. A big part of learning is
+being engaged in the *process* of learning, not just learning the content
+itself. So to help you be engaged in your own learning, we want to involve you
+in the reasons *why* we do the things we do during this course.
 
-Throughout the workshop, we use these practices to support learning:
+Throughout the course, we use these practices to support learning:
 
-- We have a clear learning goal with a strong narrative throughout the workshop
+- We have a clear learning goal with a strong narrative throughout the course
   that ties back to that goal. It's much easier to learn when you have a better
   idea of where you are going, where you are at in relation to the end goal, and
   what to expect along the way.
@@ -63,24 +61,18 @@ Throughout the workshop, we use these practices to support learning:
   auditory pathway).
 :::
 
-- We include several breaks throughout the workshop to help you recharge and
-  refocus. The brain is only able to effectively focus on one thing at a time in
-  30-50 minute blocks of time. That's why we mix together code-alongs,
-  exercises, discussions, and reading to give your brain some variation. Having
-  an explicit break, even 5 minutes, is enough for the brain to better process
-  and store what was covered.
-
 - We put all the material online so that it is easy for you to go back to after
-  the workshop, which builds the repetition and retrieval practice part of
-  learning. Our brains get easily distracted, which is completely normal. So if
-  you get distracted during the workshop, you can go to the material online to
+  the lecture, which builds the repetition and retrieval practice part of
+  learning. You may get easily distracted, which is completely normal. So if you
+  get distracted during the lecture, you can go to the material online to
   quickly get caught up with where we are. We also make sure to follow the
   material on the website closely, so that it is easier for you to follow along.
 
-- Being in a safe and supportive environment puts the brain into a more relaxed
-  state that is optimal for learning. That's why we try to explicitly create
-  that space, for example with the use of our Code of Conduct.
+- Being in a safe and supportive environment puts you into a more relaxed state
+  that is optimal for learning. That's why we try to explicitly create that
+  space, for example with the use of our Code of Conduct.
 
+::: {.hidden}
 - Asking for help can feel difficult, especially when you are learning and are
   unsure about something. To make it easier and feel safer, we use origami hats
   (or stickies) to show how everyone is doing. If you need help, you put up the
@@ -90,6 +82,7 @@ Throughout the workshop, we use these practices to support learning:
   long. This simple system lets you ask for help without interrupting the
   teacher or drawing attention, so you can keep following along while you wait.
   Our goal is to make getting help easier and more comfortable.
+:::
 
 Now you know a bit more about the thoughts behind how we've designed this
 workshop to really try to support and enable your learning! :tada: :grin:

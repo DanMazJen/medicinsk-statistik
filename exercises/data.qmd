@@ -41,6 +41,7 @@ using the [FAIR principles](https://www.go-fair.org/fair-principles/).
 In this course, we use the following datasets:
 
 (@) [AlzheimerDisease (AppliedPredictiveModeling)](#sec-AlzheimerDisease-data)
+(@) [Validation of AlzheimerDisease model](#sec-classifier-data)
 (@) [Cleveland Heart Disease (ISLR)](#sec-HeartDisease-data)
 (@) [Medical Expenditure Panel Survey (heckmanGE)](#sec-MEPS-data)
 (@) [Mayo Clinic Primary Biliary Cholangitis Data
@@ -51,6 +52,7 @@ In this course, we use the following datasets:
 (@) [FEV1 COPD simulation data](#sec-fev1-data)
 (@) [Messidor diabetic retinopathy](#sec-retinopathy-data)
 (@) [The Framingham Heart Disease Cohort study](#sec-framingham2-data)
+(@) [Epilepsy Clinical Trial](#sec-Epilepsy-data)
 
 Here, we provide some context and meta-data about the datasets. Please take the
 time to carefully read this section before jumping in and wrangling data without
@@ -87,7 +89,7 @@ PLoS ONE, 6(4), e18850.
 In order to access the dataset, we suggest using:
 
 ```r {filename="my-report.qmd"}
-ad_data <- readr::read_csv("https://raw.githubusercontent.com/DanMazJen/medicinsk-statistik/main/data/ad_data.csv")
+ad_data <- medisr::ad_data
 
 ad_data |>
     tibble::tibble(ad_data)
@@ -160,12 +162,64 @@ disease is present.
 ### Accessing the Cleveland Heart Disease dataset
 
 ```r {filename="my-report.qmd"}
-hd_data <- readr::read_csv("https://raw.githubusercontent.com/DanMazJen/medicinsk-statistik/main/data/hd_data.csv")
+hd_data <- medisr::hd_data
 ```
 
 ::: {.hidden}
 hd_data <- readr::read_csv("https://www.statlearning.com/s/Heart.csv")
 :::
+
+## Validation of AlzheimerDisease model {#sec-classifier-data}
+
+**Description**
+
+Predicted Alzheimer's disease probabilities and observed diagnoses from a
+logistic regression model fitted to a training subset of the ad_data dataset.
+The model uses age, sex, cerebrospinal fluid (CSF) tau and phosphorylated tau
+concentrations, amyloid beta 42 concentration, and Apolipoprotein E (APOE)
+genotype as predictors.
+
+**Format**
+
+A data frame containing one row for each observation in the validation subset,
+with 3 columns:
+
+- `.pred_impaired` Predicted probability that the subject is cognitively
+  impaired.
+- `.pred_control` Predicted probability that the subject is a cognitive control.
+- `Class` Observed diagnosis of the subject, with levels impaired and control.
+
+**Details**
+
+The probabilities are generated from the logistic regression model:
+
+`diagnosis ~ age + male + tau + p_tau + Ab_42 + Genotype`
+
+where
+
+- age: Normalized patient age.
+- male: Indicator of reported male sex.
+- tau: Concentration of total tau protein in cerebrospinal fluid (CSF), measured
+  by lumbar puncture.
+- p_tau: Concentration of phosphorylated tau protein in CSF, measured by lumbar
+  puncture.
+- Ab_42: Concentration of amyloid beta 42 (Aβ42) in CSF. Aβ42 is a 42-amino-acid
+  peptide derived from amyloid precursor protein and is a component of the
+  amyloid plaques associated with Alzheimer's disease.
+- Genotype: APOE allele pair. Possible values are E2E2, E2E3, E3E3, E3E4, E2E4,
+  and E4E4.
+
+The original ad_data observations were split by alternating rows, with
+even-numbered observations used for model training and odd-numbered observations
+used for validation. The logistic regression model was fitted to the training
+observations, and predicted probabilities were generated for the validation
+observations.
+
+### Accessing the Validation of AlzheimerDisease model dataset
+
+```r {filename="my-report.qmd"}
+ad_validation_logistic <- medisr::ad_validation_logistic
+```
 
 ## Medical Expenditure Panel Survey 2001: Ambulatory Expenditures Data {#sec-MEPS-data}
 
@@ -364,7 +418,7 @@ https://zenodo.org/records/8292712/files/SUA_CVDs_risk_factors.csv
 
 Luo, Y., Wu, Q., Meng, R., Lian, F., Jiang, C., Hu, M., Wang, Y., & Ma, H.
 (2023). Associations of serum uric acid with cardiovascular disease risk
-factors: a retrospective cohort study in Southeastern China [Data set]. Zenodo.
+factors: a retrospective cohort study in Southeastern China *Data set*. Zenodo.
 https://doi.org/10.5061/dryad.z08kprrk1
 
 See the Zenodo record
@@ -376,6 +430,8 @@ In order to access the dataset, we suggest using:
 
 ```r {filename="my-report.qmd"}
 SUA_data <- readr::read_csv("https://zenodo.org/records/8292712/files/SUA_CVDs_risk_factors.csv")
+#or
+SUA_data <- medisr::SUA_data
 ```
 
 ## Cognitive weight loss intervention {#sec-weight-data}
@@ -673,6 +729,36 @@ compared with placebo.
 
 Thall, P. F., & Vail, S. C. (1990). *Some covariance models for longitudinal
 count data with overdispersion.* Biometrics.
+
+### Accessing the Epilepsy Clinical Trial
+
+```r {filename="my-report.qmd"}
+epil <- MASS::epil
+```
+
+## Howell !Kung Demography Data {#sec-height-data}
+
+**Description**
+
+Demographic data from Kalahari !Kung San people collected by Nancy Howell.
+
+**Format**
+
+A data frame containing demographic measurements of !Kung San individuals:
+
+- `height` Height in cm
+- `weight` Weight in kg
+- `age` Age in years
+- `male` Gender indicator
+
+**source** Downloaded from the University of Toronto TSpace repository:
+https://tspace.library.utoronto.ca/handle/1807/10395
+
+### Accessing the Howell !Kung Demography Data
+
+```r {filename="my-report.qmd"}
+height_data <- medisr::height_data
+```
 
 ::: {.hidden}
 ##################################################################################

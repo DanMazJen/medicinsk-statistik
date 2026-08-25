@@ -31,17 +31,27 @@ RStudio...
 - How many participants does it have?
 - Is there any pattern here?
 
-View the dataset `sleep_data` from the website. Import the data in your RStudio
-session. How many variables does it have?
+View the `Cleveland Heart Disease` dataset from the website. Import the data in
+your RStudio session. How many variables does it have?
+
+<details>
+<summary>**Click for the solution**</summary>
+
+ 1. Depends on your naming choice --- could be `hd_data` as on the website.
+ 2. 303 by 15
+ 3. 15
+ 4. 303
+ 5. yes... 👀
+
+ </details>
 
 ```{r}
 #| eval: false
 #| code-fold: true
 #| code-summary: >-
-#|   **Click for the solution**. Only click if you are struggling or are out of
-#|   time.
+#|   **Click for a tip**.
 
-View(sleep_data)
+View(hd_data)
 ```
 
 **Exercise 2A**: View the dataset.
@@ -51,28 +61,56 @@ View(sleep_data)
 
 Why does this distinction matter when calculating a mean?
 
-```{r}
-#| eval: false
-#| code-fold: true
-#| code-summary: >-
-#|   **Click for the solution**. Only click if you are struggling or are out of
-#|   time.
+<details>
+<summary>**Click for the solution**</summary>
 
-numeric_vars <- c(1,2,3)
-categorical_vars <- c(4,5,6)
-```
+1. Age, RestBP, Chol, MaxHR
+2. Sex, ChestPain, Fbs, RestECG, ExAng, Slope, Ca, Thal, HD
+3. 👀
+
+</details>
 
 **Exercise 3A**:
 
 What happens when you take the mean of a character string? e.g., `mean("hi")`?
 Why do you think this happens?
 
+<details>
+<summary>**Click for the solution**</summary>
+
+1. error to protect you --- don't get scared from the [red text warning]{style="color: red;"} 😄
+
+
+</details>
+
 **Exercise 4A**:
 
 Extract one variable (e.g., Age or Cholesterol) and:
 
-- Print it to see alt it's values
+- Print it to see all it's values
 - Calculate its mean
+
+<details>
+<summary>**Click for the solution**</summary>
+
+```{r A4}
+
+hd_data$Age # 1
+mean(hd_data$Age) # 2
+
+library(dplyr)
+
+# 1
+hd_data |>
+  pull(Age)
+
+# 2
+hd_data |>
+  pull(Age) |>
+  mean()
+```
+
+</details>
 
 ### B: Now you start doing the actual request from the email.
 
@@ -85,24 +123,60 @@ Calculate the mean and standard deviation for:
 - RestBP
 - MaxHR
 
+```{r}
+hd_data |>
+  pull(Age) |>
+  mean()
+
+hd_data |>
+  pull(Age) |>
+  sd()
+
+# etc....
+```
+
 **Exercise 2B**:
 
 Check if there are missing values in the dataset.
 
 - How many are there and for which variables (tip: view it or use `is.nan()`)?
 - What happens if you try to calculate the mean when missing values are present?
+- Can you find out how to fix the above issue by reading the documentation?
+
+<details>
+<summary>**Click for the solution**</summary>
+
+1. Ca and Thal has.
+2. You get `NA`--- see
+3. `na.rm` --- see `?mean` argument 3
+
+</details>
 
 **Exercise 3B**:
 
 List all the variable types the `mean()` function can take the mean of. There
 should be 5. Seek help inside RStudio.
 
+<details>
+<summary>**Click for the solution**</summary>
+
+1. type `?mean` It says that "**Currently there are methods for 1. numeric, 2. logical 2. date, 4. date-time and 5. time interval**".
+
+</details>
+
 ### C: You reflect on your day at work during your evening at home...
 
 **Exercise 1C**:
 
-Consider now what you took the mean and standard deviation of in exercise 3B.
-How can you interpret this? What can we say from this?
+Consider the age mean and standard deviation you previously calculated (in
+exercise 1B). How can you interpret this? What can we say from this?
+
+<details>
+<summary>**Click for the solution**</summary>
+
+1. mean 54.43894 sd 9.038662 - the group was between 72.5 and 36.5 years old so a good spread of adults.
+
+</details>
 
 **Exercise 2C**:
 
@@ -111,10 +185,24 @@ A colleague suggested calculating the mean of Sex.
 - What would that number represent?
 - Is it meaningful? Why or why not?
 
+<details>
+<summary>**Click for the solution**</summary>
+
+1. It is meaningful --- it's the percent of males.
+
+</details>
+
 **Exercise 3C**:
 
 Why is it important to report both mean and standard deviation, and not just the
 mean? Think in a clinical context.
+
+<details>
+<summary>**Click for the solution**</summary>
+
+1. standard deviation tells about variability in data. There could be outliers to the mean.
+
+</details>
 
 ## Survey
 

@@ -619,10 +619,10 @@ Another approach is to use the `{dplyr}` function `pull()`:
 ```{r}
 #| label: mean-tidyverse
 
-library(dplyr)
+library(dplyr) # pull is from dplyr
 
 SUA_data |>
-  pull(Age) |>
+  pull(Age) |> # this will error if you did not load the package as above!
   mean()
 ```
 

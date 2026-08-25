@@ -25,10 +25,19 @@ Introduce teachers and helpers after welcoming everyone and getting them to do
 this.
 :::
 
-## Why Medical statistics {.r-fit-text}
+## Why Medical statistics? {.r-fit-text}
+
+## Why Medical statistics? {.r-fit-text}
+
+![Reason 1](/images/declare_learning_rstats.png){.r-stretch #declaring fig-alt="Trup declaring medis needs to learn more R stats"}
+
+## Why Medical statistics? {.r-fit-text}
+
+![Reason 2](/images/medis_needs_stats.png){.r-stretch #need-stats fig-alt="Trup declaring medis needs to learn more R stats"}
 
 ## {auto-animate="true"}
 
+::: {.hidden}
 ```{mermaid}
 %%| label: stat-med
 
@@ -38,9 +47,27 @@ flowchart LR
 
     clinical -->|depends on| stats
 ```
+:::
+
+<div style="display:flex;align-items:center;justify-content:center;gap:40px;margin-top:100px;font-size:28px">
+
+<div style="border:2px solid #555;border-radius:10px;padding:25px 35px;text-align:center">
+Medical science<br>and clinical practice
+</div>
+
+<div style="text-align:center;font-size:22px">
+depends on<br>→
+</div>
+
+<div style="border:2px solid #555;border-radius:10px;padding:25px 35px;text-align:center">
+Medical statistics
+</div>
+
+</div>
 
 ## {auto-animate="true"}
 
+::: {.hidden}
 ```{mermaid}
 %%| label: stat-med-stat
 
@@ -51,8 +78,25 @@ flowchart LR
     clinical -->|depends on| stats
     stats -->|informed by| clinical
 ```
+:::
 
-## Jobs that emphasize statistical literacy{. scrollable}
+<div style="display:flex;align-items:center;justify-content:center;gap:40px;margin-top:100px;font-size:28px">
+
+<div style="border:2px solid #555;border-radius:10px;padding:25px 35px;text-align:center">
+Medical science<br>and clinical practice
+</div>
+
+<div style="text-align:center;font-size:22px">
+depends on<br>→<br>←<br>informed by
+</div>
+
+<div style="border:2px solid #555;border-radius:10px;padding:25px 35px;text-align:center">
+Medical statistics
+</div>
+
+</div>
+
+## Jobs that emphasize statistical literacy {.scrollable}
 
 <!--panache-ignore-start-->
 | Branch | Job | Statistical literacy needed? |
@@ -94,13 +138,9 @@ flowchart LR
 
 <!--panache-ignore-end-->
 
-## Jobs that emphasize statistical literacy {.r-stretch}
+## 🎉 {.center}
 
-<!-- TODO: meme here -->
-
-## Stats is fun 🎉
-
-<!-- TODO: meme here -->
+![](/images/pain_learning_rstats.png){.r-stretch #painful-learning fig-alt="hiding pain learning R-stats" fig-align="center"}
 
 ## Case 1: "Just send a quick summary" {.smaller .scrollable}
 
@@ -136,15 +176,7 @@ software installed on the server is `R` and `RStudio`.
 - Is the task clear?
 - What skills will you need to master in order to do it?
 
-## {auto-animate="true"}
-
-Medical science and clinical practice relies on statistics
-
-## {auto-animate="true"}
-
-Medical statistics relies on clinical knowledge and patient data
-
-Medical science and clinical practice relies on statistics
+## Let's practice reading some figures {.center style="text-align: center;"}
 
 ## What do you make of this plot?
 
@@ -176,8 +208,6 @@ hd_data |>
 
 # output-location: slide
 
-data(hd_data, package = "medisr")
-
 hd_data |>
   ggauto::ggauto(
     Age,
@@ -193,16 +223,22 @@ hd_data |>
 ## What can we learn from data? {.r-stretch .r-fit-text}
 
 ::: {.fragment}
-Max heart rate and coronary heart disease...
+- We saw how max heart rate vary between patients having coronary heart
+  disease...
 :::
 
 ::: {.fragment}
-Max heart rate and age...
+- We saw how max heart rate change across peoples age...
 :::
 
 ::: {.fragment}
-Now, what about age and coronary heart disease? **You'll do that now!**
+- Now, could it just be that the patients with coronary heart disease are older?
+- **Let's make a plot and check together!**
 :::
+
+## Open your Rstudio {.center}
+
+![](/images/open_rstudio.jpeg){#open-r-studio fig-alt="turtle-open-rstudio" fig-align="center"}
 
 ## Exploring the Heart Disease dataset
 
@@ -340,14 +376,16 @@ Ronald Fisher level <-------> Who is Ronald Fisher?
 
 I want to learn everything <-------> I don't mind failing 1st time
 
-## Please open your RStudio now {.center}
+## The program for today: {.r-fit-text}
 
-## 5 minutes break
+Rest of the day: *learning the basics of R for medical statistics*
 
-We'll start again by learning the basics of R for medical purposes
-
-- If you don't have R installed yet - no break for you, sorry...
+- If you don't have R installed yet - no break for you, sorry 👀
 - If you need help, grab hold of a teacher
+
+[Otherwise --- 10 minutes break now!]{.center}
+
+![](/images/friends_with_r.png){#friends-with-r fig-alt="friends-with-r" fig-align="center" .center}
 
 # RStudio IDE
 
@@ -376,7 +414,7 @@ RStudio is a window that helps us navigate in R.
 :::
 
 ::: {.hidden}
-## Getting or asking for help :raising_hand_woman::raising_hand_man: {.smaller}
+Getting or asking for help :raising_hand_woman::raising_hand_man: {.smaller}
 
 - Put the red origami hat on your laptop to get help
 - We are 2-3 teachers eager to help
@@ -386,9 +424,9 @@ RStudio is a window that helps us navigate in R.
   - Remember our Code of Conduct
 :::
 
-## Rest of session {.center}
+## Rest of session {.center style="text-align: center;"}
 
 See the website chapter
 [11.3](https://danmazjen.github.io/medicinsk-statistik/sessions/session01.html#sec-setup-project)
 
-The rest of the day is an introduction to **R**
+[A gentle introduction to **R**]{.r-stretch}

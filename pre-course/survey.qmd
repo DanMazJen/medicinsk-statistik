@@ -2,11 +2,11 @@
 
 We have a [Code of Conduct](/pre-course/code-of-conduct.qmd).
 
-If you haven't read the sections under "Course overview" and
-"Pre-course tasks", **please read them now**.
+If you haven't read the sections under "Course overview" and "Pre-course tasks",
+**please read them now**.
 
-You're almost done. Please fill out the pre-course survey to finish
-this section:
+You're almost done. Please fill out the pre-course survey to finish this
+section:
 
 [Pre-course survey
 :tada:]({{< meta surveys.pre-course >}}){.btn

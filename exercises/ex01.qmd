@@ -46,6 +46,14 @@ your RStudio session. How many variables does it have?
  </details>
 
 ```{r}
+#| label: setup
+#| echo: false
+#| output: false
+
+hd_data <- medisr::hd_data
+```
+
+```{r}
 #| eval: false
 #| code-fold: true
 #| code-summary: >-

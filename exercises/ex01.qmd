@@ -51,6 +51,7 @@ your RStudio session. How many variables does it have?
 #| code-summary: >-
 #|   **Click for a tip**.
 
+hd_data <- medisr::hd_data
 View(hd_data)
 ```
 

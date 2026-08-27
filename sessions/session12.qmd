@@ -2,9 +2,6 @@
 
 > "Choose to be optimistic, it feels better." --- Dalai Lama
 
-> "Choose to model positive outcomes, it feels better for count outcomes." ---
-> Daniel Skak Mazhari-Jensen
-
 ```{r}
 #| label: setup
 #| include: false
@@ -36,11 +33,7 @@ knitr::opts_chunk$set(
 
 ## Pree-class Literature
 
-- [Todays dataset (Epilepsy Clinical Trial)](../exercises/data.qmd)
-- [Compendium]()
-- Chapter 4.6 (pages 164----171) in [Introduction to statistical learning with R
-  2nd edition](https://www.statlearning.com/) (click ["Download ISL with
-  R"](https://hastie.su.domains/ISLR2/ISLRv2_corrected_June_2023.pdf.download.html))
+{{< include /includes/curriculum/_session12.qmd >}}
 
 # Slides
 

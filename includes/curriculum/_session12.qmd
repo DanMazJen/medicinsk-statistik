@@ -1,0 +1,5 @@
+- [Todays dataset (Epilepsy Clinical Trial)](../exercises/data.qmd)
+- [Compendium]()
+- Chapter 4.6 (pages 164----171) in [Introduction to statistical learning with R
+  2nd edition](https://www.statlearning.com/) (click ["Download ISL with
+  R"](https://hastie.su.domains/ISLR2/ISLRv2_corrected_June_2023.pdf.download.html))

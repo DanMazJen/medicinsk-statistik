@@ -1,9 +1,13 @@
 # Schedule {#sec-schedule}
 
-Please stay updated on Moodle if a lecture may be canceled or moved.
+Please [stay updated on Moodle](https://www.moodle.aau.dk/) --- if a lecture may
+be canceled or moved, or if more material is uploaded by some .
+
+See **reading material** at Moodle or in the specific sessions. All reading
+material is collected in @sec-syllabus.
 
 <!-- panache-ignore-format-start -->
-| Session # | Date | Topic| Notes/Readings |
+| Session # | Date | Topic| Notes |
 |-----| ---- | ---- | ---------------- |
 |1| 28/9 | Install R and RStudio, basic functions, and data types | **Install programs before!** see [Pre-course tasks](/pre-course/installing-programs-r.qmd). In general, go through all the Pre-course tasks, so that you can follow along without technical issues slowing you down |
 |2| 6/10 | Probability and stochastic variables, distributions and realizations |  |

@@ -21,9 +21,7 @@ data(hd_data, package = "medisr")
 
 ## Pree-class Literature
 
-- [Marginal effects chatpter 5
-  ](https://marginaleffects.com/chapters/predictions.html)
-  - read
+{{< include /includes/curriculum/_session18.qmd >}}
 
 # Slides
 

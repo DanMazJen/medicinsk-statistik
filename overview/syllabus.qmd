@@ -75,3 +75,25 @@ Tangibly, during the workshop you will:
 
 - List concrete tasks and steps
 :::
+
+## All literature for the course:
+
+**Session 1:**
+
+{{< include /includes/curriculum/_session1.qmd >}}
+
+**Session 4:**
+
+{{< include /includes/curriculum/_session4.qmd >}}
+
+**Session 11:**
+
+{{< include /includes/curriculum/_session11.qmd >}}
+
+**Session 15:**
+
+{{< include /includes/curriculum/_session15.qmd >}}
+
+**Session 18:**
+
+{{< include /includes/curriculum/_session18.qmd >}}

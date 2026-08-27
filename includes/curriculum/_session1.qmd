@@ -1,0 +1,11 @@
+*note this is not a small amount of home-work!*
+
+Read:
+
+1. @sec-pre-reading
+2. @sec-syllabus
+3. @sec-learning-design
+4. @sec-install-programs,
+5. @sec-r-and-rstudio,
+6. @sec-installing-r-packages,
+7. @sec-project-work

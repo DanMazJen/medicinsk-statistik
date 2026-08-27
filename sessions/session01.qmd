@@ -17,6 +17,10 @@ The slides contain speaking notes that you can view by pressing 'S' on the
 keyboard.
 :::
 
+## Pree-class Literature
+
+{{< include /includes/curriculum/_session1.qmd >}}
+
 ## The Big Picture
 
 To repeat from the [official

@@ -22,16 +22,7 @@ data(hd_data, package = "medisr")
 
 ## Pree-class Literature
 
-- [weissgerber et al 2015 plos
-  biology](https://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.1002128)
-- [data viz guide of the Royal StatisticalS
-  ociety](https://royal-statistical-society.github.io/datavisguide/)
-  - Chapters 1-4: Why we visualise data; Principles and elements of
-    visualisations; Choosing a visualisation type; Styling for accessibility
-- [astrazeneca blog
-  post](https://www.astrazeneca.com/what-science-can-do/topics/clinical-innovation/data-visualisation-turning-science-into-stories.html)
-- [data.europa.eu blog post on Honest
-  Charts](https://data.europa.eu/en/publications/datastories/honest-charts-ethics-and-integrity-data-visualisation)
+{{< include /includes/curriculum/_session4.qmd >}}
 
 ## Case session 4: "I want to see this association for myself"
 

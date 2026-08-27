@@ -462,9 +462,17 @@ Warning
 <li>How many participants does it have?</li>
 <li>Is there any pattern here?</li>
 </ul>
-<p>View the dataset <code>sleep_data</code> from the website. Import the data in your RStudio session. How many variables does it have?</p>
-<div class="cell">
-<details class="code-fold"><summary><strong>Click for the solution</strong>. Only click if you are struggling or are out of time.</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/View.html">View</a></span><span class="op">(</span><span class="va">sleep_data</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>View the <code>Cleveland Heart Disease</code> dataset from the website. Import the data in your RStudio session. How many variables does it have?</p>
+<details><summary><strong>Click for the solution</strong>
+</summary><ol type="1">
+<li>Depends on your naming choice — could be <code>hd_data</code> as on the website.</li>
+<li>303 by 15</li>
+<li>15</li>
+<li>303</li>
+<li>yes… 👀</li>
+</ol></details><div class="cell">
+<details class="code-fold"><summary><strong>Click for a tip</strong>.</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">hd_data</span> <span class="op">&lt;-</span> <span class="fu">medisr</span><span class="fu">::</span><span class="va"><a href="https://danmazjen.github.io/medisr/reference/hd_data.html">hd_data</a></span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/View.html">View</a></span><span class="op">(</span><span class="va">hd_data</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <p><strong>Exercise 2A</strong>: View the dataset.</p>
@@ -473,19 +481,88 @@ Warning
 <li>List 2 variables you think are categorical</li>
 </ul>
 <p>Why does this distinction matter when calculating a mean?</p>
-<div class="cell">
-<details class="code-fold"><summary><strong>Click for the solution</strong>. Only click if you are struggling or are out of time.</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">numeric_vars</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span></span>
-<span><span class="va">categorical_vars</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">5</span>,<span class="fl">6</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-</div>
-<p><strong>Exercise 3A</strong>:</p>
+<details><summary><strong>Click for the solution</strong>
+</summary><ol type="1">
+<li>Age, RestBP, Chol, MaxHR</li>
+<li>Sex, ChestPain, Fbs, RestECG, ExAng, Slope, Ca, Thal, HD</li>
+<li>👀</li>
+</ol></details><p><strong>Exercise 3A</strong>:</p>
 <p>What happens when you take the mean of a character string? e.g., <code>mean("hi")</code>? Why do you think this happens?</p>
-<p><strong>Exercise 4A</strong>:</p>
+<details><summary><strong>Click for the solution</strong>
+</summary><ol type="1">
+<li>error to protect you — don’t get scared from the <span style="color: red;">red text warning</span> 😄</li>
+</ol></details><p><strong>Exercise 4A</strong>:</p>
 <p>Extract one variable (e.g., Age or Cholesterol) and:</p>
 <ul>
-<li>Print it to see alt it’s values</li>
+<li>Print it to see all it’s values</li>
 <li>Calculate its mean</li>
-</ul></section><section id="b-now-you-start-doing-the-actual-request-from-the-email." class="level3" data-number="18.2.2"><h3 data-number="18.2.2" class="anchored" data-anchor-id="b-now-you-start-doing-the-actual-request-from-the-email.">
+</ul>
+<details><summary><strong>Click for the solution</strong>
+</summary><div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">hd_data</span><span class="op">$</span><span class="va">Age</span> <span class="co"># 1</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  [1] 63 67 67 37 41 56 62 57 63 53 57 56 56 44 52 57 48 54 48 49 64 58
+ [23] 58 58 60 50 58 66 43 40 69 60 64 59 44 42 43 57 55 61 65 40 71 59
+ [45] 61 58 51 50 65 53 41 65 44 44 60 54 50 41 54 51 51 46 58 54 54 60
+ [67] 60 54 59 46 65 67 62 65 44 65 60 51 48 58 45 53 39 68 52 44 47 53
+ [89] 53 51 66 62 62 44 63 52 59 60 52 48 45 34 57 71 49 54 59 57 61 39
+[111] 61 56 52 43 62 41 58 35 63 65 48 63 51 55 65 45 56 54 44 62 54 51
+[133] 29 51 43 55 70 62 35 51 59 59 52 64 58 47 57 41 45 60 52 42 67 55
+[155] 64 70 51 58 60 68 46 77 54 58 48 57 52 54 35 45 70 53 59 62 64 57
+[177] 52 56 43 53 48 56 42 59 60 63 42 66 54 69 50 51 43 62 68 67 69 45
+[199] 50 59 50 64 57 64 43 45 58 50 55 62 37 38 41 66 52 56 46 46 64 59
+[221] 41 54 39 53 63 34 47 67 54 66 52 55 49 74 54 54 56 46 49 42 41 41
+[243] 49 61 60 67 58 47 52 62 57 58 64 51 43 42 67 76 70 57 44 58 60 44
+[265] 61 42 52 59 40 42 61 66 46 71 59 64 66 39 57 58 57 47 55 35 61 58
+[287] 58 58 56 56 67 55 44 63 63 41 59 57 45 68 57 57 38</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">hd_data</span><span class="op">$</span><span class="va">Age</span><span class="op">)</span> <span class="co"># 2</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 54.43894</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'dplyr'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:stats':
+
+    filter, lag</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># 1</span></span>
+<span><span class="va">hd_data</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">Age</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  [1] 63 67 67 37 41 56 62 57 63 53 57 56 56 44 52 57 48 54 48 49 64 58
+ [23] 58 58 60 50 58 66 43 40 69 60 64 59 44 42 43 57 55 61 65 40 71 59
+ [45] 61 58 51 50 65 53 41 65 44 44 60 54 50 41 54 51 51 46 58 54 54 60
+ [67] 60 54 59 46 65 67 62 65 44 65 60 51 48 58 45 53 39 68 52 44 47 53
+ [89] 53 51 66 62 62 44 63 52 59 60 52 48 45 34 57 71 49 54 59 57 61 39
+[111] 61 56 52 43 62 41 58 35 63 65 48 63 51 55 65 45 56 54 44 62 54 51
+[133] 29 51 43 55 70 62 35 51 59 59 52 64 58 47 57 41 45 60 52 42 67 55
+[155] 64 70 51 58 60 68 46 77 54 58 48 57 52 54 35 45 70 53 59 62 64 57
+[177] 52 56 43 53 48 56 42 59 60 63 42 66 54 69 50 51 43 62 68 67 69 45
+[199] 50 59 50 64 57 64 43 45 58 50 55 62 37 38 41 66 52 56 46 46 64 59
+[221] 41 54 39 53 63 34 47 67 54 66 52 55 49 74 54 54 56 46 49 42 41 41
+[243] 49 61 60 67 58 47 52 62 57 58 64 51 43 42 67 76 70 57 44 58 60 44
+[265] 61 42 52 59 40 42 61 66 46 71 59 64 66 39 57 58 57 47 55 35 61 58
+[287] 58 58 56 56 67 55 44 63 63 41 59 57 45 68 57 57 38</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># 2</span></span>
+<span><span class="va">hd_data</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">Age</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 54.43894</code></pre>
+</div>
+</div>
+</details></section><section id="b-now-you-start-doing-the-actual-request-from-the-email." class="level3" data-number="18.2.2"><h3 data-number="18.2.2" class="anchored" data-anchor-id="b-now-you-start-doing-the-actual-request-from-the-email.">
 <span class="header-section-number">18.2.2</span> B: Now you start doing the actual request from the email.</h3>
 <p><strong>Exercise 1B</strong>:</p>
 <p>Calculate the mean and standard deviation for:</p>
@@ -495,27 +572,61 @@ Warning
 <li>RestBP</li>
 <li>MaxHR</li>
 </ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">hd_data</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">Age</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 54.43894</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">hd_data</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">Age</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 9.038662</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># etc....</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 <p><strong>Exercise 2B</strong>:</p>
 <p>Check if there are missing values in the dataset.</p>
 <ul>
 <li>How many are there and for which variables (tip: view it or use <code><a href="https://rdrr.io/r/base/is.finite.html">is.nan()</a></code>)?</li>
 <li>What happens if you try to calculate the mean when missing values are present?</li>
+<li>Can you find out how to fix the above issue by reading the documentation?</li>
 </ul>
-<p><strong>Exercise 3B</strong>:</p>
+<details><summary><strong>Click for the solution</strong>
+</summary><ol type="1">
+<li>Ca and Thal has.</li>
+<li>You get <code>NA</code>— see</li>
+<li>
+<code>na.rm</code> — see <code><a href="https://rdrr.io/r/base/mean.html">?mean</a></code> argument 3</li>
+</ol></details><p><strong>Exercise 3B</strong>:</p>
 <p>List all the variable types the <code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code> function can take the mean of. There should be 5. Seek help inside RStudio.</p>
-</section><section id="c-you-reflect-on-your-day-at-work-during-your-evening-at-home" class="level3" data-number="18.2.3"><h3 data-number="18.2.3" class="anchored" data-anchor-id="c-you-reflect-on-your-day-at-work-during-your-evening-at-home">
+<details><summary><strong>Click for the solution</strong>
+</summary><ol type="1">
+<li>type <code><a href="https://rdrr.io/r/base/mean.html">?mean</a></code> It says that “<strong>Currently there are methods for 1. numeric, 2. logical 2. date, 4. date-time and 5. time interval</strong>”.</li>
+</ol></details></section><section id="c-you-reflect-on-your-day-at-work-during-your-evening-at-home" class="level3" data-number="18.2.3"><h3 data-number="18.2.3" class="anchored" data-anchor-id="c-you-reflect-on-your-day-at-work-during-your-evening-at-home">
 <span class="header-section-number">18.2.3</span> C: You reflect on your day at work during your evening at home…</h3>
 <p><strong>Exercise 1C</strong>:</p>
-<p>Consider now what you took the mean and standard deviation of in exercise 3B. How can you interpret this? What can we say from this?</p>
-<p><strong>Exercise 2C</strong>:</p>
+<p>Consider the age mean and standard deviation you previously calculated (in exercise 1B). How can you interpret this? What can we say from this?</p>
+<details><summary><strong>Click for the solution</strong>
+</summary><ol type="1">
+<li>mean 54.43894 sd 9.038662 - the group was between 72.5 and 36.5 years old so a good spread of adults.</li>
+</ol></details><p><strong>Exercise 2C</strong>:</p>
 <p>A colleague suggested calculating the mean of Sex.</p>
 <ul>
 <li>What would that number represent?</li>
 <li>Is it meaningful? Why or why not?</li>
 </ul>
-<p><strong>Exercise 3C</strong>:</p>
+<details><summary><strong>Click for the solution</strong>
+</summary><ol type="1">
+<li>It is meaningful — it’s the percent of males.</li>
+</ol></details><p><strong>Exercise 3C</strong>:</p>
 <p>Why is it important to report both mean and standard deviation, and not just the mean? Think in a clinical context.</p>
-</section></section><section id="survey" class="level2" data-number="18.3"><h2 data-number="18.3" class="anchored" data-anchor-id="survey">
+<details><summary><strong>Click for the solution</strong>
+</summary><ol type="1">
+<li>standard deviation tells about variability in data. There could be outliers to the mean.</li>
+</ol></details></section></section><section id="survey" class="level2" data-number="18.3"><h2 data-number="18.3" class="anchored" data-anchor-id="survey">
 <span class="header-section-number">18.3</span> Survey</h2>
 <p><a href="https://docs.google.com/forms/d/e/1FAIpQLSejsgArWYbCpTjKoxdCArtAVJrtBZQCINIEUj1TqppYrd3n8g/viewform?usp=publish-editor" class="btn btn-primary" role="button">Feedback survey! <span class="emoji" data-emoji="tada">🎉</span></a></p>
 

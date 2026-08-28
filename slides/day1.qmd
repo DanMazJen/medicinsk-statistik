@@ -252,7 +252,7 @@ hd_data |>
 data(hd_data, package = "medisr")
 ```
 
-3) Past it into your R console and check if you see the data in your `variable`
+3) Paste it into your R console and check if you see the data in your `variable`
    pane.
 
 ## Code-along {auto-animate="true"}

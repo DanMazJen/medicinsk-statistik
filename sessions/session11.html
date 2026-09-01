@@ -509,10 +509,19 @@ Warning
 <p>At AalboR Statistical Hospital, a new exercise-based cardiac assessment protocol has recently been introduced following an initial data review suggesting that patients with lower max heart rate are more likely to have underlying heart disease. Based on this, some clinicians have started using the max heart rate during exercise as a quick indicator when evaluating chest pain patients.</p>
 <p>However, during a recent internal meeting, a cardiologist raises a concern:</p>
 <blockquote class="blockquote">
+<p><em>“I’m not convinced this applies to all patients. Especially older patients — their heart rate response already decrease. If that’s true, we could be misinterpreting results in a subgroup of patients.</em></p>
+</blockquote>
+<p>You are asked to explore the hospital’s patient data to assess whether the relationship between heart disease and max heart rate appears consistent across patients, or whether it differs depending on their age.</p>
+<p>You are tasked with the decision: <em>Should this new assessment approach be used broadly, or are there patient groups where it may be misleading?</em></p>
+<div class="hidden">
+<p>At AalboR Statistical Hospital, a new exercise-based cardiac assessment protocol has recently been introduced following an initial data review suggesting that patients with lower max heart rate are more likely to have underlying heart disease. Based on this, some clinicians have started using the max heart rate during exercise as a quick indicator when evaluating chest pain patients.</p>
+<p>However, during a recent internal meeting, a cardiologist raises a concern:</p>
+<blockquote class="blockquote">
 <p><em>“I’m not convinced this applies to our patients. Especially those who develop chest pain during exercise — their heart rate response might behave differently. If that’s true, we could be misinterpreting results in a subgroup of patients. I want to see this association for myself”</em></p>
 </blockquote>
 <p>You are asked to explore the hospital’s patient data to assess whether the relationship between Age and max heart rate — and the interpretation of max heart rate more generally — appears consistent across patients, or whether it differs depending on exercise-induced angina, sex, or other patient characteristics.</p>
 <p>You are tasked with the decision: <em>Should this new assessment approach be used broadly, or are there patient groups where it may be misleading?</em></p>
+</div>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">hd_data</span> <span class="op">&lt;-</span> <span class="va">hd_data</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu">mutate</span><span class="op">(</span></span>
@@ -980,21 +989,21 @@ Call:
 lm(formula = relief ~ dose * pain, data = pain_data)
 
 Residuals:
-    Min      1Q  Median      3Q     Max 
--1.6070 -0.4939 -0.1767  0.6161  2.0005 
+     Min       1Q   Median       3Q      Max 
+-2.26970 -0.62503 -0.09384  0.72688  1.70205 
 
 Coefficients:
             Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)  1.58620    0.45434   3.491  0.00156 ** 
-dose         0.46139    0.07680   6.008 1.56e-06 ***
-pain         0.37043    0.35193   1.053  0.30123    
-dose:pain    0.85227    0.05949  14.327 1.09e-14 ***
+(Intercept)  1.81160    0.48678   3.722 0.000847 ***
+dose         0.39515    0.08228   4.802 4.39e-05 ***
+pain         0.31969    0.37706   0.848 0.403458    
+dose:pain    0.92895    0.06373  14.575 7.03e-15 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 0.8823 on 29 degrees of freedom
-Multiple R-squared:  0.9816,    Adjusted R-squared:  0.9796 
-F-statistic: 514.3 on 3 and 29 DF,  p-value: &lt; 2.2e-16</code></pre>
+Residual standard error: 0.9453 on 29 degrees of freedom
+Multiple R-squared:  0.9806,    Adjusted R-squared:  0.9786 
+F-statistic: 488.9 on 3 and 29 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
 <div class="cell">

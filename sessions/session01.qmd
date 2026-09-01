@@ -155,7 +155,7 @@ your science better and more rigorous, it also makes your life easier too!
 
 This part is heavily inspired from @Johnston2021.
 
-## Code-along: RStudio and R Projects
+## Code-along: RStudio and R Projects {#sec-rproj}
 
 RStudio helps us with managing projects by making use of [R
 Projects](https://docs.posit.co/ide/user/ide/guide/code/projects.html#working-with-projects).

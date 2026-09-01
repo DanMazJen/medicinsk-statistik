@@ -24,29 +24,30 @@ data(hd_data, package = "medisr")
 
 {{< include /includes/curriculum/_session4.qmd >}}
 
-## Case session 4: "I want to see this association for myself"
+## Case session 4: "Let's first see what the data are telling us"
 
-At AalboR Statistical Hospital, a new exercise-based cardiac assessment protocol
-has recently been introduced following an initial data review suggesting that
-patients with lower max heart rate are more likely to have underlying heart
-disease. Based on this, some clinicians have started using the max heart rate
-during exercise as a quick indicator when evaluating chest pain patients.
+A research group at AalboR University is reviewing data collected from patients
+undergoing exercise-based cardiac assessment. The dataset contains information
+such as age, maximum heart rate reached during exercise, and whether the patient
+experienced exercise-induced angina during the assessment.
 
-However, during a recent internal meeting, a cardiologist raises a concern:
+The research team is initially interested in a fairly simple question:
 
-> *"I'm not convinced this applies to our patients. Especially those who develop
-> chest pain during exercise --- their heart rate response might behave
-> differently. If that's true, we could be misinterpreting results in a subgroup
-> of patients. I want to see this association for myself"*
+> How does maximum heart rate during exercise vary with age?
 
-You are asked to explore the hospital's patient data to assess whether the
-relationship between Age and max heart rate --- and the interpretation of max
-heart rate more generally --- appears consistent across patients, or whether it
-differs depending on exercise-induced angina, sex, or other patient
-characteristics.
+Before drawing any conclusions from the data, however, the team wants to
+understand what the relationship actually looks like in their patient
+population.
 
-You are tasked with the decision: *Should this new assessment approach be used
-broadly, or are there patient groups where it may be misleading?*
+During a research meeting, a colleague points out:
+
+> "We know that age and exercise heart rate are related, but I don't want us to
+> assume that the same pattern necessarily applies to everyone in the dataset.
+> Let's first see what the data are telling us."
+
+The Professor asks you to start by exploring the distribution of maximum heart
+rate and comparing patients with and without exercise-induced angina. Finally,
+examine how maximum heart rate changes across age.
 
 ## Reading Task: Why Visualize Data?
 
@@ -58,23 +59,35 @@ complex information into clear, actionable insights which effectively aids you
 
 Which of these are easiest to draw information from:
 
+::: panel-tabset
+### Table
+
 ```{r}
 #| echo: false
 #| warning: false
-#| layout-ncol: 2
+#| label: viz-is-powerful
 
 x <- seq(0, 2 * pi, length.out = 20)
 y <- round(sin(x) * 10, 1)
 
-dat <- data.frame(x, y)
-
-dat |>
-  ggplot2::ggplot(ggplot2::aes(x, y)) +
-  ggplot2::geom_point()
+dat <- data.frame(month = x, temperature = y)
 
 dat |>
   gt::gt()
 ```
+
+### Plot
+
+```{r}
+#| label: viz-is-powerful2
+#| echo: false
+#| warning: false
+
+dat |>
+  ggplot2::ggplot(ggplot2::aes(month, temperature)) +
+  ggplot2::geom_point()
+```
+:::
 
 Good visualizations help you:
 
@@ -89,66 +102,79 @@ propose five key reasons to visualize data
 
 (1) Grab Attention
 
-> A dashboard with a red alert trendline for rising post-op infections will get
-> noticed faster than a 10-page report. Example: A heatmap showing regional
-> disease outbreaks helps public health teams act quickly.
+> A plot with a red alert trendline for rising infections will get more
+> attention than a 10-page report.
 
 (2) Improve access to information
 
-> Text: "The Phase III trial showed a 12% reduction in mortality (p<0.05) with
-> Drug X vs. placebo, but subgroup analysis revealed no benefit in patients over
-> 65." Visual: A forest plot or bar chart shows this in seconds---no PhD in
-> stats required. Why it matters: Doctors, nurses, and executives don't have
-> time to parse dense tables.
+> Doctors, nurses, and politicians don't have time to parse dense tables.
 
 (3) Increase precision
 
-> Misreading a table could lead to:
-
-> - Wrong doses prescribed.
-> - Flawed trial conclusions (e.g., missing a safety signal).
-
-A clear scatter plot or box plot reduces ambiguity.
+> A plot can contextualize data better than any table could using the same print
+> space.
 
 (4) Bolster credibility
 
-> Claim: "Our new drug reduces symptoms by 30%!" Without visualization:
-> Skepticism ("Where's the proof?"). With visualization: A Kaplan-Meier curve or
-> before/after comparison lets stakeholders see the evidence. Real-world impact:
-> Regulators and investors demand transparency---visuals provide it.
+> Visualizations lets stakeholders *"see"* the evidence for themselves.
+> Regulators and investors demand transparency --- visuals provide it.
 
 (5) Summarise content
 
-> A single infographic can replace pages of text in: Patient education (e.g.,
-> "How this vaccine works"). Boardroom presentations (e.g., "Why we should
-> expand this clinic"). Example: A Sankey diagram showing patient flow in a
-> hospital highlights bottlenecks at a glance.
+> A single infographic can replace several pages of text.
 
 Data visualization isn't just about "making things look nice". It's a critical
 skill for being able to evaluate any scientific claim. Through this class, we'll
 dive into how to choose the right visualization for a given data structure and
 how to avoid common mistakes.
 
-### Discussion activity: Your experience with data visualization:
+## Discussion activity: Your experience with data visualization:
 
 - Where do you see data visualization "in the wild"?
 - What makes you trust a figure/graph? What could make you distrust it?
 - What's one type of data you've seen in your studies/clinical rotations that
   was able to provide a lot of (valuable) information using a visualization?
 
-## The name of the game:
+## Exercise: Conceptualization of a plot
 
 Do older patients have higher or lower max heart rate than younger patients? You
-probably already have an answer, but try to make your answer precise. What does
-the relationship between age and max heart rate look like? Is it positive?
-Negative? Linear? Nonlinear? Does the relationship vary by the presence of
-exercise-induced angina in the patient? How about by the sex? Let's create
-visualizations that we can use to answer these questions.
+probably already have an answer, but try to make your answer precise.
 
-## The Cleveland Heart Disease data frame
+What does the relationship between age and max heart rate look like? Is it
+positive? Negative? Linear? Nonlinear? Does the relationship vary by the
+presence of exercise-induced angina in the patient?
 
-To make the discussion easier, let's define some terms (we use the definition
-from [@R4DS])
+Before we create visualizations that we can use to answer these questions, try
+drawing your expectations using pen and paper.
+
+You can do it in many ways --- this is also part of the exercises!
+
+**alone**
+
+- make a plot stating your expectations about the relationship between age and
+  max haeart rate.
+- now, make a new plot adding information about exercise-induced angina-
+
+**in pairs**
+
+- can the other person interpret your plot?
+- do your plots differ --- how?
+- which is more clear and why --- which features makes it better/worse?
+
+## Setting up for success:
+
+Recall from @sec-rproj that we want a project to contain our files. In this
+session, we'll make a new project called: *plotting-data*.
+
+Recall we can use RStudio's "New Project" menu item under "File -> New
+Project...". A new pop-up window shows up. Click "New directory" and scroll down
+to "Scientific Analysis Project using prodigenr". Type out `plotting-data` as
+the directory name and save it to the `Desktop/`.
+
+### Terminology
+
+To make the communication easier, let's define some terms (we use the
+definitions from [@R4DS])
 
 - A **variable** is a quantity, quality, or property that you can measure.
 
@@ -174,27 +200,38 @@ print a preview of its contents.
 ```{r}
 #| label: read-data
 #| output: false
+#| filename: "docs/session4.R"
 
-data(hd_data, package = "medisr")
+hd_data <- medisr::hd_data
 ```
+
+Recall from @sec-introduction that you can use the **console**
+@fig-rstudio-introduction to interactively explore the data either by
+
+- pasting the dataset variable `hd_data` and pressing `Enter` directly in the
+  console, or
+- writing a line within a script `.R` file, resting the cursor on that line, and
+  typing {{< var keybind.run-code >}} --- this will directly send the code to
+  the console.
 
 ```{r}
 #| label: see-data
+#| filename: "docs/session4.R"
 
-hd_data
+hd_data # your cursor must be here!
 ```
 
 Among the variables in `hd_data` are:
 
-1. `ExAng `: a penguin's species (Adelie, Chinstrap, or Gentoo).
+1. `ExAng `: whether a patient experienced exercises-induced angina.
 
-2. `Age`: length of a penguin's flipper, in millimeters.
+2. `Age`: how old a patient was at the time of the measurement (in years).
 
-3. `MaxHR`: body mass of a penguin, in grams.
+3. `MaxHR`: the max heart rate value we measured.
 
 ## Ultimate goal {#sec-ultimate-goal}
 
-Our ultimate goal in this chapter is to recreate the following visualization
+Our ultimate goal in this session is to recreate the following visualization
 displaying the relationship between max heart rate vs. age of patients with and
 without exercise-induced angesia.
 
@@ -238,7 +275,7 @@ hd_data |>
 #  )
 ```
 
-## Hallo `{ggplot2}`
+## Reading task: Hallo `{ggplot2}`
 
 R has several systems for making graphs, but `{ggplot2}` is one of the most
 elegant and most versatile. `{ggplot2}` implements the **grammar of graphics**,
@@ -277,7 +314,7 @@ with `scale_` or the options inside `theme()`, for instance try typing out
 `theme(axis.` to see all options for the axis a list of theme settings related
 to the axis will pop up.
 
-## Plot one continuous variable
+## Code-along: Plot one continuous variable
 
 Since low max heart rate has been proposed as a risk factor for heart disease,
 let's check out the distribution of max heart rate among the patients. There are
@@ -319,7 +356,9 @@ functions like `mean()`, you can set the argument `na.rm = TRUE` in the
 `geom_histogram()` function, as well as in other `geom_*` functions.
 :::
 
-Our plot shows that, for the most part, there is a even distribution with MaxHR.
+Our plot shows that `MaxHR` is not normally distributed --- it has a wider tail
+to the left. This implies that the data might be composed of sub-groups. We'll
+explore this idea further.
 
 ## :technologist: Exercise: Rotate the axis of a plot
 
@@ -332,37 +371,40 @@ Try flipping the coordinates of the histogram of the max heart rate.
 
 ```r
 hd_data |>
-    ggplot(___(___ = ___)) +
-    geom_histogram() +
+    ggplot((___ = ___)) +
+    ____histogram() +
     coord_flip()
 ```
 
+;<details>
+<summary>**Click for the solution**</summary>
+
 ```{r}
 #| label: solution-discrete-variables
-#| echo: fenced
 #| eval: false
-#| code-fold: true
-#| code-summary: >-
-#|   **Click for the solution**. Only click if you are struggling instead of
-#|   using Chat models.
 
-# This is a potential solution
+# The solution:
 hd_data |>
-  ggplot(hd_data, aes(x = MaxHR)) +
+  ggplot(aes(x = MaxHR)) +
   geom_histogram()
 coord_flip()
 ```
 
-## The box plot
+</details>
+
+## Code-along: The box plot
 
 We can see many things from the histogram:
 
-- The distribution looks approximately normal
+- The distribution looks left skewed
 - The mean is somewhere around 150 BPM
 - Most data is between 100-200 BPM
-- From the looks of it, there might be one or two outliers in our dataset.
+- From the looks of it, there might be an observation with an unlikely value
+  (max heart rate of 45 BPM? 👀).
 
-But can we help the reader identify these information using data visualization?
+An important question is --- can we do a better job helping the reader identify
+these information using data visualization?
+
 Yes - yes, we can.
 
 Take a close look at the humble **boxplot**, also known as the box-and-whisker
@@ -380,6 +422,9 @@ plot:
 knitr::include_graphics("../images/EDA-boxplot.png")
 ```
 
+As you can see, the boxplot is designed to highlight certain features of the
+histogram. Let's try swapping out `geom_histogram` with `geom_boxplot`:
+
 ```{r}
 #| label: box-plot-flip
 #| filename: "docs/session4.R"
@@ -390,14 +435,15 @@ hd_data |>
   coord_flip()
 ```
 
-This figure is much better at showing the mean, IQR, and outliers (defined as >
-1.5 IQR away from the 1st and 3rd quantiles). However, it leaves out the
-information on count (how msuch data?) and spikes (any values particularly
-popular?)
+This figure excels at highlighting the median, quartiles, and extreme data
+points defined here as above 1.5 times the distance from the 1st and 3rd
+quantiles --- termed the *inter-quartile range* (IQR). However, it leaves out
+the information of sample size (how much data?) and data quality (e.g., spikes
+at values due to discretization or measurement error).
 
 It is a very popular plot for comparing continuous variables between two groups.
 This is useful to us as well, so let's try plotting this stratified for patients
-with(out) exercise-induced angesia
+with(out) exercise-induced angesia:
 
 ```{r}
 #| label: box-plot-error
@@ -411,10 +457,15 @@ hd_data |>
 Wait a minute... We still only have one box plot and the value is at 0.5 - but
 when we inspect `hd_data$ExAng` or `View(hd_data$)`, all values are 0 or 1?!
 
-The problem, we realise, is the type - it's `numeric` (or `dbl` for double
-precision floating-point data type). We actually consider it a factor indicating
-either yes/no. Let's change the type as a factor using the `factor` function to
-correct this mistake.
+Now, pay attention to the `warning`s we got:
+
+- "Orientation is not uniquely specified when both the x and y aesthetics are
+  continuous"
+
+Wait a minute! `ExAng` is not supposed to be continuous! The type it `numeric`
+(or `dbl` for double precision floating-point data type). But we actually
+consider it a `factor` indicating either yes/no. Let's change the type as a
+factor using the `factor` function to correct this mistake.
 
 ```{r}
 #| label: box-plot
@@ -433,28 +484,43 @@ hd_data |>
 
 Aha! It works. We now see the no/yes in the x-axis.
 
-## The bar plot
+## Code-along: The bar plot
+
+A very common plot type is the *bar plot*, also called a *column plot*.
+
+As you probably know by now, we can simply swap the `geom_` and try it out:
 
 ```{r}
 #| label: bar-plot
 
 hd_data |>
-  ggplot(ggplot2::aes(ExAng, MaxHR)) +
+  ggplot(aes(ExAng, MaxHR)) +
   geom_col()
 ```
 
 Hmm... I've never seen a human being with a max heart rate of +30.000 - this
 must be a mistake!
 
-It turns out that the geom_col takes the `sum` of all observations. We wanted
+It turns out that the `geom_col` takes the `sum` of all observations. We wanted
 the mean!
+
+But here is an important point --- **we don't have the mean in our dataset!** We
+would have to calculate it first. There are two ways of doing this:
+
+1. Calculate the mean, make a new dataset with the mean values, and plot this
+   dataset.
+2. Quickly calculate the mean using `{dplyr}` or `{ggplot2::stat_summary()}`.
+
+You will learn more about `{dplyr}` in a future session. This is actually the
+recommended approach. But for a quick demonstration, let's try using the
+`stat_summary` function:
 
 ```{r}
 #| label: sum-in-ggplot
 #| filename: "docs/session4.R"
 
 hd_data |>
-  ggplot(ggplot2::aes(ExAng, MaxHR)) +
+  ggplot(aes(ExAng, MaxHR)) +
   stat_summary(geom = "col", fun = mean)
 ```
 
@@ -502,17 +568,8 @@ Barplots hide interesting results. Artwork by
 [\@allison_horst](https://github.com/allisonhorst/stats-illustrations).
 :::
 
-```{r}
-#| label: bar-in-ggplot2
-#| filename: "docs/session4.R"
-
-hd_data |>
-  ggplot(ggplot2::aes(ExAng, MaxHR)) +
-  stat_summary(geom = "col", fun = mean) +
-  geom_jitter()
-```
-
-::: {.callout-note appearance="minimal" collapse="true"}
+::: {.hidden}
+::::: {.callout-note appearance="minimal" collapse="true"}
 It is also possible to compute error bars using `{ggplot2}`.
 
 ```{r}
@@ -520,9 +577,9 @@ It is also possible to compute error bars using `{ggplot2}`.
 #| filename: "docs/session4.R"
 
 hd_data |>
-  ggplot2::ggplot(ggplot2::aes(ExAng, MaxHR)) +
-  ggplot2::stat_summary(geom = "col", fun = mean) +
-  ggplot2::stat_summary(
+  ggplot(aes(ExAng, MaxHR)) +
+  stat_summary(geom = "col", fun = mean) +
+  stat_summary(
     fun.data = "mean_cl_boot", # The 95% confidence interval of the mean     # "mean_cl_normal" # mean_sdl
     geom = "errorbar",
     width = 0.15
@@ -532,15 +589,26 @@ hd_data |>
 However, it's much safer and better practice computing the standard deviation,
 standard error, or confidence interval using `{dplyr}` first. You'll learn how
 to do this in a [later class](/..sessions/session08.qmd).
+:::::
 :::
 
 At least, consider adding the points too. It's as simple as adding another
-`ggplot`-layer
+`geom_`-layer.
 
-## The scatter plot
+```{r}
+#| label: bar-in-ggplot2
+#| filename: "docs/session4.R"
 
-Now we have learned how to do a simple bar plot --- and why not to use it --- we
-proceed with the scatter plot. It is as easy as `geom_point()`:
+hd_data |>
+  ggplot(aes(ExAng, MaxHR)) +
+  stat_summary(geom = "col", fun = mean) +
+  geom_jitter()
+```
+
+## Code-along: The scatter plot
+
+Now that we have learned how to do a simple bar plot --- and why not to use it ---
+we proceed with the scatter plot. It is as easy as `geom_point()`:
 
 ```{r}
 #| label: geom-point
@@ -561,7 +629,7 @@ belonging to each group a different color! Let's try this:
 #| filename: "docs/session4.R"
 
 hd_data |>
-  ggplot(ggplot2::aes(Age, MaxHR, color = ExAng)) +
+  ggplot(aes(Age, MaxHR, color = ExAng)) +
   geom_point()
 ```
 
@@ -574,20 +642,52 @@ We want to ask:
 
 We can try to imagine a line passing through the points but this is somewhat a
 subjective guessing tasks. Luckily, `{ggplot2}` has another trick up it's
-sleave:
+sleeve:
 
 ```{r}
 #| label: treng-line
 #| filename: "docs/session4.R"
+#| warning: false
 
 hd_data |>
-  ggplot(ggplot2::aes(Age, MaxHR, color = ExAng)) +
+  ggplot(aes(Age, MaxHR, color = ExAng)) +
   geom_point() +
   geom_smooth()
 ```
 
 The `geom_smooth` adds a line for each group! That is exactly what we wanted!
 Now, we can report back to the clinicians what we found.
+
+## Exercises: Adding axis labels
+
+A plot must have clear axes. Otherwise, it will be impossible for others to
+read.
+
+Of course, `{ggplot2}` has a function called `labs()` that we can use. Try
+adding axis labels to the plot here:
+
+```r
+hd_data |>
+    ggplot(___(___ = ___)) +
+    geom_point() +
+    ___(x = "___", y = "___")
+```
+
+;<details>
+<summary>**Click for the solution**</summary>
+
+```{r}
+#| label: solution-axis-labs
+#| eval: false
+
+# The solution:
+hd_data |>
+    ggplot(aes(Age, MaxHR, color = ExAng)) +
+    geom_point() +
+    labs(x = "Age (years)", y = "max heart rate (BPM)")
+```
+
+</details>
 
 ## Saving your plots {#sec-ggsave}
 
@@ -597,7 +697,7 @@ the plot most recently created to disk:
 
 ```r
 hd_data |>
-  ggplot(ggplot2::aes(Age, MaxHR, color = ExAng)) +
+  ggplot(aes(Age, MaxHR, color = ExAng)) +
   geom_point() +
   geom_smooth()
 
@@ -608,7 +708,10 @@ This will save your plot to your working directory (which should be the root of
 your project folder, if you're in your R-project (see [session
 1](/sessions/session01.qmd)).
 
-## Even statistics fail at what data visualization makes obvious
+## Reading task: Statistics fail at what data visualization makes obvious
+
+Take a close look at the following four datasets. You are initially provided
+with the summary statistics.
 
 ```{r}
 #| label: anscombes-quartet-in-r
@@ -617,7 +720,7 @@ your project folder, if you're in your R-project (see [session
 dat <- anscombe |>
   pivot_longer(
     everything(),
-    names_to = c(".value", "set"),
+    names_to = c(".value", "dataset"),
     names_pattern = "([xy])([1-4])"
   )
 
@@ -628,7 +731,7 @@ stats <- dat |>
     y_mean = mean(y),
     y_sd = sd(y),
     r = cor(x, y),
-    .by = set
+    .by = dataset
   )
 
 stats |>
@@ -636,28 +739,43 @@ stats |>
 ```
 
 ::: {#anscombes-quartet}
-<!--
+<!-- # commented out here!!!
 ![](../images/AnscombesQuartet_visualization.jpg){width="70%"}
 -->
 
+As you can see, everything looks identical --- infact, all datasets have
+**exactly** the same mean, standard diviations, and correlation coefficients.
+
+But now, take a look a the plot for each dataset:
+
 ```{r}
 #| label: plot-anscombes-quartet
+#| warning: false
 
 ggplot(dat, aes(x, y)) +
-  geom_point(size = 2, colour = "#3366AA") +
-  geom_smooth(method = "lm", se = FALSE, colour = "#CC4444") +
-  facet_wrap(~set) +
+  geom_point(size = 2, colour = "black") +
+  geom_smooth(method = "lm", se = FALSE, colour = "red") +
+  facet_wrap(~dataset) +
   theme_minimal(base_size = 13) +
   labs(
-    title = "Anscombe's quartet",
-    subtitle = "Nearly identical summary statistics, very different relationships",
+    title = "Anscombe's Quartet",
+    subtitle = "Identical summary statistics - different relationships",
     x = "x",
     y = "y"
   )
 ```
+
 The infamous dataset: [Anscombe's
 Quartet](https://en.wikipedia.org/wiki/Anscombe%27s_quartet).
 :::
+
+- What do you imagine could explain the data behavior in each of the four
+  datasets?
+- Do you think the red line is a good approximation of the data in all four
+  datasets?
+
+In @sec-interaction you will learn more about how to model relationship 2 of
+Anscombe's Quartet.
 
 ## Summary
 

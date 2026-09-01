@@ -58,6 +58,8 @@ broadly, or are there patient groups where it may be misleading?*
 
 **Exercise 3C**:
 
+::: {.hidden}
 ## Survey
 
 {{< include /includes/_survey.qmd >}}
+:::

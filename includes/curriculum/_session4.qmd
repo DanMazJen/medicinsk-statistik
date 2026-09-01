@@ -1,7 +1,7 @@
 - [weissgerber et al 2015 plos
   biology](https://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.1002128)
-- [data viz guide of the Royal StatisticalS
-  ociety](https://royal-statistical-society.github.io/datavisguide/)
+- [data viz guide of the Royal Statistical
+  Society](https://royal-statistical-society.github.io/datavisguide/)
   - Chapters 1-4: Why we visualise data; Principles and elements of
     visualisations; Choosing a visualisation type; Styling for accessibility
 - [astrazeneca blog

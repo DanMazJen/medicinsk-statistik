@@ -54,6 +54,26 @@ during exercise as a quick indicator when evaluating chest pain patients.
 
 However, during a recent internal meeting, a cardiologist raises a concern:
 
+> *"I'm not convinced this applies to all patients. Especially older patients ---
+> their heart rate response already decrease. If that's true, we could be
+> misinterpreting results in a subgroup of patients.*
+
+You are asked to explore the hospital's patient data to assess whether the
+relationship between heart disease and max heart rate appears consistent across
+patients, or whether it differs depending on their age.
+
+You are tasked with the decision: *Should this new assessment approach be used
+broadly, or are there patient groups where it may be misleading?*
+
+::: {.hidden}
+At AalboR Statistical Hospital, a new exercise-based cardiac assessment protocol
+has recently been introduced following an initial data review suggesting that
+patients with lower max heart rate are more likely to have underlying heart
+disease. Based on this, some clinicians have started using the max heart rate
+during exercise as a quick indicator when evaluating chest pain patients.
+
+However, during a recent internal meeting, a cardiologist raises a concern:
+
 > *"I'm not convinced this applies to our patients. Especially those who develop
 > chest pain during exercise --- their heart rate response might behave
 > differently. If that's true, we could be misinterpreting results in a subgroup
@@ -67,6 +87,7 @@ characteristics.
 
 You are tasked with the decision: *Should this new assessment approach be used
 broadly, or are there patient groups where it may be misleading?*
+:::
 
 ```{r}
 hd_data <- hd_data |>

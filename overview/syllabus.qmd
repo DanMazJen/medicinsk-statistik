@@ -8,14 +8,14 @@ be covered in order:
 - 2. Probability and stochastic variables
 - 3. Outcome types and measuring effects
 - 4. [Describing and plotting data](/sessions/session04.qmd)
-- 5. Law of Large Numbers\
+- 5. Law of Large Numbers
 - 6. Data wrangling
 - 7. Workshop: Formulating a research question
-- 8. hypothesis testing
+- 8. Hypothesis testing
 - 9. Linear regression
 - 10. Logistic regression
-- 11. [Interaction](/sessions/session11.qmd)
-- 12. [Poisson](/sessions/session12.qmd)
+- 11. [Interaction effects](/sessions/session11.qmd)
+- 12. [Poisson regression](/sessions/session12.qmd)
 - 13. Time-to-event analysis
 - 14. Repeated measures
 - 15. [Marginal effects](/sessions/session15.qmd)

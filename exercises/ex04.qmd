@@ -8,55 +8,273 @@ Pre-requicite for these exercises was covered within the
 exercises build on this material.
 :::
 
-## Exercises: "I want to see this association for myself"
+## Exercises: "Let's first see what the data are telling us"
 
-At AalboR Statistical Hospital, a new exercise-based cardiac assessment protocol
-has recently been introduced following an initial data review suggesting that
-patients with lower max heart rate are more likely to have underlying heart
-disease. Based on this, some clinicians have started using the max heart rate
-during exercise as a quick indicator when evaluating chest pain patients.
+You are given a dataset containing demographic measurements from !Kung San
+individuals, including age, height, weight, and sex.
 
-However, during a recent internal meeting, a cardiologist raises a concern:
+The research team wants to explore a simple question:
 
-*"I'm not convinced this applies to our patients. Especially those who develop
-chest pain during exercise --- their heart rate response might behave
-differently. If that's true, we could be misinterpreting results in a subgroup
-of patients. I want to see this association for myself"*
+> How do height and weight vary with age, and do these patterns differ between
+> males and females?
 
-You are asked to explore the hospital's patient data to assess whether the
-relationship between Age and max heart rate --- and the interpretation of max
-heart rate more generally --- appears consistent across patients, or whether it
-differs depending on exercise-induced angina, sex, or other patient
-characteristics.
+Before drawing conclusions, the team wants to first understand the data
+visually. In particular, they want to examine the distributions of height and
+weight, compare males and females, and explore relationships between the
+continuous variables.
 
-You are tasked with the decision: *Should this new assessment approach be used
-broadly, or are there patient groups where it may be misleading?*
+The Professor asks you to start by asking:
+
+> Which visualization is most appropriate for each question?
+
+```{r}
+#| label: setup
+#| echo: false
+
+library(ggplot2)
+```
 
 ### A: Let's start orienting ourselves in the dataset.
 
-**Exercise 1A**: Import the Cleveland Heart Disease dataset into R.
+**Exercise 1A**:
 
-**Exercise 2A**: View the dataset.
+Import the Height dataset into R --- see @sec-height-data for more info.
+
+<details>
+<summary>**Click for the solution**</summary>
+
+```{r}
+#| label: import-data
+
+height_data <- medisr::height_data
+```
+</details>
+
+**Exercise 2A**:
+
+View the dataset.
+
+1. How many observations do we have?
+2. How many varialbes?
+3. What type are they?
+
+<details>
+<summary>**Click for the solution**</summary>
+
+```{r}
+#| label: view-data
+#| eval: false
+
+View(height_data) <- medisr::height_data
+```
+
+1. 544?
+2. 4?
+3. all numeric (`dbl` and `int`)
+
+this is easier to see if you make the dataset a `tibble`
+```{r as-tibble}
+height_data |>
+    tibble::as_tibble()
+```
+
+</details>
 
 **Exercise 3A**:
 
-**Exercise 4A**:
+Are we happy with going strait to plotting or do we need to wrangle the dataset
+a bit with `{dplyr}` first?
 
-### B: Now you start doing the actual request from the email.
+<details>
+<summary>**Click for the solution**</summary>
+male is obviously not continuous but rather a yes/no factor. So we should consider this later before comparing males and females.
+</details>
+
+### B: Now you start exploring the dataset
 
 **Exercise 1B**:
 
+The variable `male` is coded as `0` and `1`. Before plotting, convert it into a
+factor with meaningful labels:
+
+- `0` should represent `"Female"`
+- `1` should represent `"Male"`
+- Print the resulting variable to check that the transformation worked.
+
+<details>
+<summary>**Click for the solution**</summary>
+
+```{r A4}
+
+height_data <- height_data |>
+  dplyr::mutate(
+    male = factor(
+      male,
+      levels = c(0, 1),
+      labels = c("Female", "Male")
+    )
+  )
+
+height_data  |>
+  dplyr::pull(male)
+```
+
+</details>
+
 **Exercise 2B**:
 
+Create a plot that proofes to yourself that the age of males and females are
+similar within the dataset.
+
+- What will you put on the x-axis?
+- What will you put on the y-axis?
+- Any color coding?
+- Which `geom_`?
+
+**First** draw it so that the two groups have similar age in the population.
+Consider the fact that this is a demographic study with the entire population of
+the Kalahari !Kung San people (so we have a wide range of ages).
+
+**Second** implement the plot in R.
+
+<details>
+<summary>**Click for the solution**</summary>
+
+```{r A4B}
+
+height_data |>
+  ggplot(
+    aes(
+      x = male,
+      y = age,
+      color = male
+    )
+  ) +
+  geom_boxplot()
+```
+</details>
+
 **Exercise 3B**:
+
+Compare the `geom_smooth()` curves for males and females.
+
+Look at the graph and answer:
+
+- At approximately what age does height stop increasing rapidly?
+- Does height appear to reach a plateau?
+- Do males and females reach this plateau at approximately the same age?
+- Which sex appears to reach a greater adult height?
+- Are there ages where the difference between males and females appears
+  particularly large?
+
+<details>
+<summary>**Click for the solution**</summary>
+
+There is no single numerical answer to these questions. Use the smoothed curves to describe the pattern in the data.
+
+In particular, compare where each curve changes from a steep increase to a relatively flat section. Also compare the approximate height of the two curves during adulthood.
+
+The exact age at which growth "stops" cannot be determined simply by looking at the graph, but the `geom_smooth()` curves can help identify an approximate age range where height becomes relatively stable.
+
+</details>
+
+**Exercise 4B**:
+
+Investigate whether the relationship between **height and weight** appears to be
+linear.
+
+Create a scatter plot with:
+
+- `height` on the x-axis
+- `weight` on the y-axis
+- Points colored by sex
+- A separate `geom_smooth()` curve for each sex
+
+Then answer:
+
+- Does weight increase approximately linearly with height?
+- At what range of heights does the relationship appear to become less linear?
+- Does the shape of the relationship look similar for males and females?
+- Is there evidence that one sex tends to weigh more at the same height?
+
+<details>
+<summary>**Click for the solution**</summary>
+
+```{r A4D}
+
+height_data |>
+  ggplot(
+    aes(
+      x = height,
+      y = weight,
+      color = male
+    )
+  ) +
+  geom_point() +
+  geom_smooth()
+```
+</details>
 
 ### C: You reflect on your day at work during your evening at home...
 
 **Exercise 1C**:
 
+A researcher wants to investigate the following hypothesis:
+
+> **Hypothesis:** The distribution of height differs between males and females.
+
+Which visualization would be most appropriate?
+
+Explain **why** you chose this visualization and what features of the graph you
+would look at to evaluate the hypothesis.
+
+Now implement it using `{ggplot2}`.
+
+<details>
+<summary>**Click for the solution**</summary>
+
+Code depends on your plot of choice 👀
+
+</details>
+
 **Exercise 2C**:
 
+Consider the hypothesis:
+
+> **Hypothesis:** Males and females have different median body weights.
+
+Which visualization would be most appropriate?
+
+Explain your reasoning and implement the plot using `{ggplot2}`.
+
+<details>
+<summary>**Click for the solution**</summary>
+
+Did you choose box plot? 👀
+
+</details>
+
 **Exercise 3C**:
+
+Consider the hypothesis:
+
+> **Hypothesis:** The variability in body weight is greater among males than
+> among females.
+
+Which visualization would be most appropriate?
+
+<details>
+<summary>**Click for the solution**</summary>
+
+**Best choice: Box plot**
+
+Weight is continuous and sex provides two groups. A box plot makes it easy to compare the spread of weight between the groups.
+
+The size of the box and the whiskers provide information about variability.
+
+</details>
+
+**Exercise 4C**:
 
 ::: {.hidden}
 ## Survey

@@ -1,12 +1,9 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.10.18">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
-
 <title>19&nbsp; Exercises: When in doubt, plot it out – Medical Statistics, MEDMS24B5_1</title>
 <style>
 /* Default styles provided by pandoc.
@@ -26,8 +23,42 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
-
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
@@ -49,14 +80,13 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-f2f3720d61c840f4a81557a72cafc3fb.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-bd539a4bd325924d58cdeed552045633.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-8b270897fe75296330c4467c087bf150.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-bd539a4bd325924d58cdeed552045633.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-1713653279f8a8c12ff12428059da5e3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-91a60c32597e8e46859e502682359b7b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-1713653279f8a8c12ff12428059da5e3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/quarto-contrib/fontawesome6-6.7.2/all.min.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/fontawesome6-6.7.2/latex-fontsize.css" rel="stylesheet">
 <script src="../site_libs/quarto-contrib/kbd/kbd.js"></script>
-<link href="../site_libs/quarto-contrib/kbd/kbd.css" rel="stylesheet">
-<script id="quarto-search-options" type="application/json">{
+<link href="../site_libs/quarto-contrib/kbd/kbd.css" rel="stylesheet"><script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
@@ -82,21 +112,14 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-
-
 </head>
-
 <body class="nav-sidebar floating nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
-      <div class="navbar-container container-fluid">
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a href="../index.html" class="navbar-brand navbar-brand-logo">
-    <img src="../site_libs/quarto-contrib/quarto-project/rostools/rostools-theme/favicon.ico" alt="Graphic of a medical pill with a scatter plot and a regression line inside it." class="navbar-logo light-content">
-    <img src="../site_libs/quarto-contrib/quarto-project/rostools/rostools-theme/favicon.ico" alt="Graphic of a medical pill with a scatter plot and a regression line inside it." class="navbar-logo dark-content">
-    </a>
+    <img src="../site_libs/quarto-contrib/quarto-project/rostools/rostools-theme/favicon.ico" alt="Graphic of a medical pill with a scatter plot and a regression line inside it." class="navbar-logo light-content"><img src="../site_libs/quarto-contrib/quarto-project/rostools/rostools-theme/favicon.ico" alt="Graphic of a medical pill with a scatter plot and a regression line inside it." class="navbar-logo dark-content"></a>
     <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Medical Statistics, MEDMS24B5_1</span>
     </a>
@@ -106,9 +129,7 @@ ul.task-list li input[type="checkbox"] {
 </div>
           <div id="quarto-search" class="" title="Search"></div>
       </div> <!-- /container-fluid -->
-    </nav>
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
+    </nav><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
@@ -116,15 +137,11 @@ ul.task-list li input[type="checkbox"] {
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
-  </nav>
-</header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="sidebar-menu-container"> 
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Welcome!</span></a>
@@ -138,8 +155,8 @@ ul.task-list li input[type="checkbox"] {
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../overview/syllabus.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Syllabus</span></span></a>
@@ -158,7 +175,7 @@ ul.task-list li input[type="checkbox"] {
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
@@ -167,8 +184,8 @@ ul.task-list li input[type="checkbox"] {
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../pre-course/overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Overview</span></span></a>
@@ -211,7 +228,7 @@ ul.task-list li input[type="checkbox"] {
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
@@ -220,8 +237,8 @@ ul.task-list li input[type="checkbox"] {
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session01.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Hallo Medical Statistics</span></span></a>
@@ -258,7 +275,7 @@ ul.task-list li input[type="checkbox"] {
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
@@ -267,8 +284,8 @@ ul.task-list li input[type="checkbox"] {
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/data.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Data for Medical Statistics</span></span></a>
@@ -311,7 +328,7 @@ ul.task-list li input[type="checkbox"] {
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
@@ -320,8 +337,8 @@ ul.task-list li input[type="checkbox"] {
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../appendix/for-teachers.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">For teachers</span></span></a>
@@ -364,33 +381,27 @@ ul.task-list li input[type="checkbox"] {
   </div>
 </li>
       </ul>
-  </li>
+</li>
     </ul>
-    </div>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#exercises-i-want-to-see-this-association-for-myself" id="toc-exercises-i-want-to-see-this-association-for-myself" class="nav-link active" data-scroll-target="#exercises-i-want-to-see-this-association-for-myself"><span class="header-section-number">19.1</span> Exercises: “I want to see this association for myself”</a>
+<li>
+<a href="#exercises-lets-first-see-what-the-data-are-telling-us" id="toc-exercises-lets-first-see-what-the-data-are-telling-us" class="nav-link active" data-scroll-target="#exercises-lets-first-see-what-the-data-are-telling-us"><span class="header-section-number">19.1</span> Exercises: “Let’s first see what the data are telling us”</a>
   <ul class="collapse">
-  <li><a href="#a-lets-start-orienting-ourselves-in-the-dataset." id="toc-a-lets-start-orienting-ourselves-in-the-dataset." class="nav-link" data-scroll-target="#a-lets-start-orienting-ourselves-in-the-dataset."><span class="header-section-number">19.1.1</span> A: Let’s start orienting ourselves in the dataset.</a></li>
-  <li><a href="#b-now-you-start-doing-the-actual-request-from-the-email." id="toc-b-now-you-start-doing-the-actual-request-from-the-email." class="nav-link" data-scroll-target="#b-now-you-start-doing-the-actual-request-from-the-email."><span class="header-section-number">19.1.2</span> B: Now you start doing the actual request from the email.</a></li>
-  <li><a href="#c-you-reflect-on-your-day-at-work-during-your-evening-at-home" id="toc-c-you-reflect-on-your-day-at-work-during-your-evening-at-home" class="nav-link" data-scroll-target="#c-you-reflect-on-your-day-at-work-during-your-evening-at-home"><span class="header-section-number">19.1.3</span> C: You reflect on your day at work during your evening at home…</a></li>
-  </ul></li>
-  <li><a href="#survey" id="toc-survey" class="nav-link" data-scroll-target="#survey"><span class="header-section-number">19.2</span> Survey</a></li>
+<li><a href="#a-preparing-to-start-plotting" id="toc-a-preparing-to-start-plotting" class="nav-link" data-scroll-target="#a-preparing-to-start-plotting"><span class="header-section-number">19.1.1</span> A: Preparing to start plotting</a></li>
+  <li><a href="#b-exploratory-data-analysis-with-plotting" id="toc-b-exploratory-data-analysis-with-plotting" class="nav-link" data-scroll-target="#b-exploratory-data-analysis-with-plotting"><span class="header-section-number">19.1.2</span> B: Exploratory data analysis with plotting</a></li>
+  <li><a href="#c-fitting-a-hypothesis-with-a-plot-type" id="toc-c-fitting-a-hypothesis-with-a-plot-type" class="nav-link" data-scroll-target="#c-fitting-a-hypothesis-with-a-plot-type"><span class="header-section-number">19.1.3</span> C: Fitting a hypothesis with a plot type</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/DanMazJen/medicinsk-statistik/edit/main/exercises/ex04.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/blob/main/exercises/ex04.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
+</li>
+  </ul><div class="toc-actions"><ul><li><a href="https://github.com/DanMazJen/medicinsk-statistik/edit/main/exercises/ex04.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/blob/main/exercises/ex04.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-<script data-goatcounter="https://DanMazJen-medicinsk-statistik.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script>
-
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../exercises/data.html">Exercises</a></li><li class="breadcrumb-item"><a href="../exercises/ex04.html"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Exercises: When in doubt, plot it out</span></a></li></ol></nav>
-<div class="quarto-title">
+<main class="content" id="quarto-document-content"><script data-goatcounter="https://DanMazJen-medicinsk-statistik.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../exercises/data.html">Exercises</a></li><li class="breadcrumb-item"><a href="../exercises/ex04.html"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Exercises: When in doubt, plot it out</span></a></li></ol></nav><div class="quarto-title">
 <h1 class="title"><span id="sec-ex-ggplot2" class="quarto-section-identifier"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Exercises: When in doubt, plot it out</span></span></h1>
 </div>
 
@@ -405,9 +416,7 @@ ul.task-list li input[type="checkbox"] {
   
 
 
-</header>
-
-<div class="callout callout-style-default callout-warning callout-titled">
+</header><div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
@@ -419,8 +428,7 @@ Warning
 <div class="callout-body-container callout-body">
 <p>🚧 This section is being actively worked on. 🚧</p>
 </div>
-</div>
-<div class="callout callout-style-default callout-tip callout-titled">
+</div><div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
@@ -436,42 +444,344 @@ Warning
 </div>
 </div>
 </div>
-<section id="exercises-i-want-to-see-this-association-for-myself" class="level2" data-number="19.1">
-<h2 data-number="19.1" class="anchored" data-anchor-id="exercises-i-want-to-see-this-association-for-myself"><span class="header-section-number">19.1</span> Exercises: “I want to see this association for myself”</h2>
-<p>At AalboR Statistical Hospital, a new exercise-based cardiac assessment protocol has recently been introduced following an initial data review suggesting that patients with lower max heart rate are more likely to have underlying heart disease. Based on this, some clinicians have started using the max heart rate during exercise as a quick indicator when evaluating chest pain patients.</p>
-<p>However, during a recent internal meeting, a cardiologist raises a concern:</p>
-<p><em>“I’m not convinced this applies to our patients. Especially those who develop chest pain during exercise — their heart rate response might behave differently. If that’s true, we could be misinterpreting results in a subgroup of patients. I want to see this association for myself”</em></p>
-<p>You are asked to explore the hospital’s patient data to assess whether the relationship between Age and max heart rate — and the interpretation of max heart rate more generally — appears consistent across patients, or whether it differs depending on exercise-induced angina, sex, or other patient characteristics.</p>
-<p>You are tasked with the decision: <em>Should this new assessment approach be used broadly, or are there patient groups where it may be misleading?</em></p>
-<section id="a-lets-start-orienting-ourselves-in-the-dataset." class="level3" data-number="19.1.1">
-<h3 data-number="19.1.1" class="anchored" data-anchor-id="a-lets-start-orienting-ourselves-in-the-dataset."><span class="header-section-number">19.1.1</span> A: Let’s start orienting ourselves in the dataset.</h3>
-<p><strong>Exercise 1A</strong>: Import the Cleveland Heart Disease dataset into R.</p>
-<p><strong>Exercise 2A</strong>: View the dataset.</p>
-<p><strong>Exercise 3A</strong>:</p>
-<p><strong>Exercise 4A</strong>:</p>
-</section>
-<section id="b-now-you-start-doing-the-actual-request-from-the-email." class="level3" data-number="19.1.2">
-<h3 data-number="19.1.2" class="anchored" data-anchor-id="b-now-you-start-doing-the-actual-request-from-the-email."><span class="header-section-number">19.1.2</span> B: Now you start doing the actual request from the email.</h3>
+<section id="exercises-lets-first-see-what-the-data-are-telling-us" class="level2" data-number="19.1"><h2 data-number="19.1" class="anchored" data-anchor-id="exercises-lets-first-see-what-the-data-are-telling-us">
+<span class="header-section-number">19.1</span> Exercises: “Let’s first see what the data are telling us”</h2>
+<p>You are given a dataset containing demographic measurements from !Kung San individuals, including age, height, weight, and sex.</p>
+<p>The research team wants to explore a simple question:</p>
+<blockquote class="blockquote">
+<p>How do height and weight vary with age, and do these patterns differ between males and females?</p>
+</blockquote>
+<p>Before drawing conclusions, the team wants to first understand the data visually. In particular, they want to examine the distributions of height and weight, compare males and females, and explore relationships between the continuous variables.</p>
+<p>The Professor asks you to start by asking:</p>
+<blockquote class="blockquote">
+<p>Which visualization is most appropriate for each question?</p>
+</blockquote>
+<section id="a-preparing-to-start-plotting" class="level3" data-number="19.1.1"><h3 data-number="19.1.1" class="anchored" data-anchor-id="a-preparing-to-start-plotting">
+<span class="header-section-number">19.1.1</span> A: Preparing to start plotting</h3>
+<p>Before we can plot anything, we need our data and we need to know which state and format it’s in. This sections shows a common workflow to do this.</p>
+<p><strong>Exercise 1A</strong>:</p>
+<p>Import the Height dataset into R — see <a href="data.html#sec-height-data" class="quarto-xref"><span>Section 17.14</span></a> for more info.</p>
+<details><summary><strong>Click for the solution</strong>
+</summary><div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">height_data</span> <span class="op">&lt;-</span> <span class="fu">medisr</span><span class="fu">::</span><span class="va"><a href="https://danmazjen.github.io/medisr/reference/height_data.html">height_data</a></span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</details><p><strong>Exercise 2A</strong>:</p>
+<p>View the dataset.</p>
+<ol type="1">
+<li>How many observations do we have?</li>
+<li>How many variables?</li>
+<li>What type are they?</li>
+</ol>
+<details><summary><strong>Click for the solution</strong>
+</summary><div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/View.html">View</a></span><span class="op">(</span><span class="va">height_data</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu">medisr</span><span class="fu">::</span><span class="va"><a href="https://danmazjen.github.io/medisr/reference/height_data.html">height_data</a></span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ol type="1">
+<li>544</li>
+<li>4</li>
+<li>all numeric (<code>dbl</code> and <code>int</code>)</li>
+</ol>
+<p>this is easier to see if you make the dataset a <code>tibble</code></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">height_data</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 544 × 4
+   height weight   age  male
+    &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt;
+ 1   152.   47.8    63     1
+ 2   140.   36.5    63     0
+ 3   137.   31.9    65     0
+ 4   157.   53.0    41     1
+ 5   145.   41.3    51     0
+ 6   164.   63.0    35     1
+ 7   149.   38.2    32     0
+ 8   169.   55.5    27     1
+ 9   148.   34.9    19     0
+10   165.   54.5    54     1
+# ℹ 534 more rows</code></pre>
+</div>
+</div>
+</details><p><strong>Exercise 3A</strong>:</p>
+<p>Are we happy with going strait to plotting or do we need to wrangle the dataset a bit with <a href="https://dplyr.tidyverse.org">dplyr</a> first?</p>
+<details><summary><strong>Click for the solution</strong>
+</summary>
+male is obviously not continuous but rather a yes/no factor. So we should consider this later before comparing males and females.
+</details></section><section id="b-exploratory-data-analysis-with-plotting" class="level3" data-number="19.1.2"><h3 data-number="19.1.2" class="anchored" data-anchor-id="b-exploratory-data-analysis-with-plotting">
+<span class="header-section-number">19.1.2</span> B: Exploratory data analysis with plotting</h3>
+<p>It is extremely useful (and often necessary) to plot your data before you start doing any statistics or conclusions. This section covers a typical workflow.</p>
 <p><strong>Exercise 1B</strong>:</p>
-<p><strong>Exercise 2B</strong>:</p>
-<p><strong>Exercise 3B</strong>:</p>
-</section>
-<section id="c-you-reflect-on-your-day-at-work-during-your-evening-at-home" class="level3" data-number="19.1.3">
-<h3 data-number="19.1.3" class="anchored" data-anchor-id="c-you-reflect-on-your-day-at-work-during-your-evening-at-home"><span class="header-section-number">19.1.3</span> C: You reflect on your day at work during your evening at home…</h3>
+<p>The variable <code>male</code> is coded as <code>0</code> and <code>1</code>. Before plotting, convert it into a factor with meaningful labels:</p>
+<ul>
+<li>
+<code>0</code> should represent <code>"Female"</code>
+</li>
+<li>
+<code>1</code> should represent <code>"Male"</code>
+</li>
+<li>Print the resulting variable to check that the transformation worked.</li>
+</ul>
+<details><summary><strong>Click for the solution</strong>
+</summary><div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">height_data</span> <span class="op">&lt;-</span> <span class="va">height_data</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
+<span>    male <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span></span>
+<span>      <span class="va">male</span>,</span>
+<span>      levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>,</span>
+<span>      labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Female"</span>, <span class="st">"Male"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="va">height_data</span>  <span class="op">|&gt;</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">male</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  [1] Male   Female Female Male   Female Male   Female Male   Female
+ [10] Male   Female Male   Female Female Female Male   Male   Female
+ [19] Male   Female Female Male   Female Male   Female Male   Female
+ [28] Female Male   Female Male   Male   Male   Female Female Female
+ [37] Female Female Female Male   Male   Male   Male   Female Female
+ [46] Female Male   Female Female Male   Female Male   Male   Male  
+ [55] Female Female Male   Female Female Female Female Male   Female
+ [64] Male   Female Female Female Male   Male   Female Male   Female
+ [73] Male   Female Female Male   Female Male   Male   Female Female
+ [82] Female Female Male   Male   Female Male   Male   Female Female
+ [91] Male   Female Male   Male   Female Male   Female Female Male  
+[100] Female Male   Female Male   Female Female Male   Male   Female
+[109] Female Male   Male   Male   Female Female Male   Male   Male  
+[118] Female Male   Female Male   Male   Male   Male   Female Female
+[127] Male   Male   Male   Female Female Male   Male   Male   Female
+[136] Male   Female Female Male   Male   Female Male   Female Male  
+[145] Female Female Female Female Male   Male   Female Female Male  
+[154] Male   Female Female Female Male   Male   Female Male   Male  
+[163] Female Female Female Male   Female Male   Female Female Female
+[172] Female Female Female Male   Female Female Male   Male   Female
+[181] Male   Female Male   Male   Male   Female Female Male   Male  
+[190] Female Male   Female Female Female Female Female Female Male  
+[199] Female Male   Male   Female Male   Male   Female Male   Female
+[208] Male   Female Male   Female Female Female Male   Male   Female
+[217] Male   Male   Female Female Male   Male   Male   Male   Male  
+[226] Female Male   Male   Female Female Female Female Female Male  
+[235] Female Male   Female Male   Female Female Female Female Female
+[244] Male   Female Male   Male   Female Female Female Female Male  
+[253] Male   Female Male   Female Male   Male   Female Male   Female
+[262] Male   Female Female Female Female Female Male   Male   Female
+[271] Male   Male   Female Female Male   Female Male   Female Female
+[280] Female Female Female Female Male   Male   Male   Female Male  
+[289] Male   Female Female Female Male   Female Male   Female Female
+[298] Male   Female Female Female Female Male   Female Male   Female
+[307] Female Female Female Male   Female Male   Male   Male   Female
+[316] Female Male   Male   Male   Female Male   Female Female Male  
+[325] Male   Female Male   Female Female Female Female Female Male  
+[334] Female Male   Female Male   Male   Female Male   Female Male  
+[343] Female Female Female Male   Female Female Male   Male   Male  
+[352] Male   Male   Female Male   Male   Female Female Male   Female
+[361] Male   Female Female Male   Female Female Female Male   Male  
+[370] Female Female Male   Female Female Male   Male   Male   Female
+[379] Female Male   Female Female Male   Male   Female Female Female
+[388] Female Male   Female Male   Male   Female Male   Male   Female
+[397] Male   Female Male   Female Male   Male   Male   Female Male  
+[406] Male   Female Male   Male   Female Male   Male   Female Male  
+[415] Female Female Female Male   Female Female Male   Male   Female
+[424] Male   Female Male   Male   Male   Male   Male   Female Male  
+[433] Male   Male   Male   Male   Male   Male   Female Male   Female
+[442] Male   Female Female Female Male   Male   Female Male   Male  
+[451] Male   Female Female Male   Female Female Male   Male   Male  
+[460] Male   Male   Female Female Female Female Male   Female Male  
+[469] Female Female Female Female Male   Female Female Male   Male  
+[478] Female Male   Female Female Male   Female Male   Male   Female
+[487] Male   Male   Male   Female Male   Female Male   Female Female
+[496] Female Female Male   Male   Male   Male   Male   Female Male  
+[505] Female Male   Female Female Male   Male   Female Female Male  
+[514] Female Female Female Female Female Female Female Male   Male  
+[523] Female Male   Female Male   Female Female Male   Female Female
+[532] Female Male   Female Female Male   Female Female Male   Male  
+[541] Male   Female Male   Male  
+Levels: Female Male</code></pre>
+</div>
+</div>
+</details><p><strong>Exercise 2B</strong>:</p>
+<p>Create a plot that proofes to yourself that the median age of males and females are similar within the dataset.</p>
+<ul>
+<li>What will you put on the x-axis?</li>
+<li>What will you put on the y-axis?</li>
+<li>Any color coding?</li>
+<li>Which <code>geom_</code>?</li>
+</ul>
+<p><strong>First</strong> draw it so that the two groups have similar age in the population. Consider the fact that this is a demographic study with the entire population of the Kalahari !Kung San people (so we have a wide range of ages).</p>
+<p><strong>Second</strong> implement the plot in R.</p>
+<details><summary><strong>Click for the solution</strong>
+</summary><div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">height_data</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">ggplot</span><span class="op">(</span></span>
+<span>    <span class="fu">aes</span><span class="op">(</span></span>
+<span>      x <span class="op">=</span> <span class="va">male</span>,</span>
+<span>      y <span class="op">=</span> <span class="va">age</span>,</span>
+<span>      color <span class="op">=</span> <span class="va">male</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_boxplot</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="ex04_files/figure-html/A4B-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</details><p><strong>Exercise 3B</strong>:</p>
+<p>Investigate whether the relationship between <strong>height and weight</strong> appears to be linear.</p>
+<p>Create a scatter plot with:</p>
+<ul>
+<li>What will you put on the x-axis?</li>
+<li>What will you put on the y-axis?</li>
+<li>Any color coding?</li>
+<li>Which <code>geom_</code>?</li>
+</ul>
+<p>Then answer:</p>
+<ul>
+<li>Does weight increase approximately linearly with height?</li>
+<li>Does the shape of the relationship look similar for males and females?</li>
+<li>Is there evidence that one sex tends to weigh more at the same height?</li>
+</ul>
+<details><summary><strong>Click for the solution</strong>
+</summary><div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">height_data</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">ggplot</span><span class="op">(</span></span>
+<span>    <span class="fu">aes</span><span class="op">(</span></span>
+<span>      x <span class="op">=</span> <span class="va">height</span>,</span>
+<span>      y <span class="op">=</span> <span class="va">weight</span>,</span>
+<span>      color <span class="op">=</span> <span class="va">male</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_smooth</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using method = 'loess' and formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="ex04_files/figure-html/A4D-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</details></section><section id="c-fitting-a-hypothesis-with-a-plot-type" class="level3" data-number="19.1.3"><h3 data-number="19.1.3" class="anchored">
+<span class="header-section-number">19.1.3</span> C: Fitting a hypothesis with a plot type</h3>
+<p>Finally, plots often accompany hypothesis. We want to show the reader of our plot that it supports a specific conclusion. Here, you get experience fitting plot types with hypotheses.</p>
 <p><strong>Exercise 1C</strong>:</p>
-<p><strong>Exercise 2C</strong>:</p>
-<p><strong>Exercise 3C</strong>:</p>
-</section>
-</section>
-<section id="survey" class="level2 hidden" data-number="19.2">
-<h2 data-number="19.2" class="anchored" data-anchor-id="survey"><span class="header-section-number">19.2</span> Survey</h2>
+<p>A researcher wants to investigate the following hypothesis:</p>
+<blockquote class="blockquote">
+<p><strong>Hypothesis:</strong> There is more variability in male height than in female height.</p>
+</blockquote>
+<p>Which visualization would be most appropriate?</p>
+<p>Explain <strong>why</strong> you chose this visualization and what features of the graph you would look at to evaluate the hypothesis.</p>
+<p>Now implement it using <a href="https://ggplot2.tidyverse.org">ggplot2</a>.</p>
+<details><summary><strong>Click for the solution</strong>
+</summary><p>Code depends on your plot of choice 👀</p>
+<p>Example:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">height_data</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">ggplot</span><span class="op">(</span></span>
+<span>    <span class="fu">aes</span><span class="op">(</span></span>
+<span>      x <span class="op">=</span> <span class="va">height</span>,</span>
+<span>      color <span class="op">=</span> <span class="va">male</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_density</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="ex04_files/figure-html/ex-c1-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</details><p><strong>Exercise 2C</strong>:</p>
+<p>Consider the hypothesis:</p>
+<blockquote class="blockquote">
+<p><strong>Hypothesis:</strong> Males have higher body weight than females.</p>
+</blockquote>
+<p>Which visualization would be most appropriate?</p>
+<p>Explain your reasoning and implement the plot using <a href="https://ggplot2.tidyverse.org">ggplot2</a>.</p>
+<details><summary><strong>Click for the solution</strong>
+</summary><p>Did you choose box plot? 👀</p>
+<p>Example:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">height_data</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">ggplot</span><span class="op">(</span></span>
+<span>    <span class="fu">aes</span><span class="op">(</span></span>
+<span>      x <span class="op">=</span> <span class="va">male</span>,</span>
+<span>      y <span class="op">=</span> <span class="va">weight</span>,</span>
+<span>      color <span class="op">=</span> <span class="va">male</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_boxplot</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="ex04_files/figure-html/ex-c2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</details><p><strong>Exercise 3C</strong>:</p>
+<p>Consider the hypothesis:</p>
+<blockquote class="blockquote">
+<p><strong>Hypothesis:</strong> Females increase their height earlier in development than males.</p>
+</blockquote>
+<p>Which visualization would be most appropriate?</p>
+<p>Explain your reasoning and implement the plot using <a href="https://ggplot2.tidyverse.org">ggplot2</a>.</p>
+<details><summary><strong>Click for the solution</strong>
+</summary><p>example:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">height_data</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">ggplot</span><span class="op">(</span></span>
+<span>    <span class="fu">aes</span><span class="op">(</span></span>
+<span>      x <span class="op">=</span> <span class="va">age</span>,</span>
+<span>      y <span class="op">=</span> <span class="va">height</span>,</span>
+<span>      color <span class="op">=</span> <span class="va">male</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_smooth</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">xlim</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">20</span><span class="op">)</span><span class="op">)</span> <span class="co"># this line helps a lot by zooming in at the age of interest!</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using method = 'loess' and formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 331 rows containing non-finite outside the scale range
+(`stat_smooth()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 331 rows containing missing values or values outside the scale
+range (`geom_point()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="ex04_files/figure-html/ex-c3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</details><div class="hidden">
+<p><strong>Exercise 4C</strong>: Compare the <code>geom_smooth()</code> curves for males and females.</p>
+<p>Look at the graph and answer:</p>
+<ul>
+<li>At approximately what age does height stop increasing rapidly?</li>
+<li>Does height appear to reach a plateau?</li>
+<li>Do males and females reach this plateau at approximately the same age?</li>
+<li>Which sex appears to reach a greater adult height?</li>
+<li>Are there ages where the difference between males and females appears particularly large?</li>
+</ul>
+<details><summary><strong>Click for the solution</strong>
+</summary><p>There is no single numerical answer to these questions. Use the smoothed curves to describe the pattern in the data.</p>
+<p>In particular, compare where each curve changes from a steep increase to a relatively flat section. Also compare the approximate height of the two curves during adulthood.</p>
+<p>The exact age at which growth “stops” cannot be determined simply by looking at the graph, but the <code>geom_smooth()</code> curves can help identify an approximate age range where height becomes relatively stable.</p>
+</details><section id="survey" class="level2" data-number="19.2"><h2 data-number="19.2" class="anchored" data-anchor-id="survey">
+<span class="header-section-number">19.2</span> Survey</h2>
 <p><a href="https://docs.google.com/forms/d/e/1FAIpQLSejsgArWYbCpTjKoxdCArtAVJrtBZQCINIEUj1TqppYrd3n8g/viewform?usp=publish-editor" class="btn btn-primary" role="button">Feedback survey! <span class="emoji" data-emoji="tada">🎉</span></a></p>
 </section>
+</div>
 
 
-
-<script async="" src="https://scripts.simpleanalyticscdn.com/latest.js"></script></main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
+</section></section><script async="" src="https://scripts.simpleanalyticscdn.com/latest.js"></script></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
     const anchorJS = new window.AnchorJS();
@@ -870,9 +1180,7 @@ Warning
       }
     }
   });
-  </script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
+  </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
       <a href="../exercises/ex01.html" class="pagination-link" aria-label="Exercises: Hallo Medical Statistics">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Exercises: Hallo Medical Statistics</span></span>
       </a>          
@@ -884,14 +1192,13 @@ Warning
   </div>
 </nav>
 </div> <!-- /content -->
-<footer class="footer">
-  <div class="nav-footer">
+<footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">
       &nbsp;
     </div>   
     <div class="nav-footer-center">
       <ul class="footer-items list-unstyled">
-    <li class="nav-item">
+<li class="nav-item">
     <a class="nav-link active" href="../LICENSE.html" aria-current="page">
 <p>License: CC BY 4.0 <i class="fa-brands fa-creative-commons" aria-label="creative-commons"></i> <i class="fa-brands fa-creative-commons-by" aria-label="creative-commons-by"></i></p>
 </a>
@@ -902,14 +1209,12 @@ Warning
 </a>
   </li>  
 </ul>
-    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/DanMazJen/medicinsk-statistik/edit/main/exercises/ex04.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/blob/main/exercises/ex04.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/DanMazJen/medicinsk-statistik/edit/main/exercises/ex04.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/blob/main/exercises/ex04.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>
   </div>
 </footer>
-
-
 
 
 </body></html>

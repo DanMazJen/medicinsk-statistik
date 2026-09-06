@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.10.18">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
 <title>13&nbsp; Conditioning and polynomial madness – Medical Statistics, MEDMS24B5_1</title>
 <style>
 /* Default styles provided by pandoc.
@@ -79,6 +82,7 @@ div.csl-indent {
   margin-left: 2em;
 }</style>
 
+
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -105,7 +109,8 @@ div.csl-indent {
 <link href="../site_libs/quarto-contrib/fontawesome6-6.7.2/all.min.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/fontawesome6-6.7.2/latex-fontsize.css" rel="stylesheet">
 <script src="../site_libs/quarto-contrib/kbd/kbd.js"></script>
-<link href="../site_libs/quarto-contrib/kbd/kbd.css" rel="stylesheet"><script id="quarto-search-options" type="application/json">{
+<link href="../site_libs/quarto-contrib/kbd/kbd.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
@@ -130,7 +135,12 @@ div.csl-indent {
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script><script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script><script type="text/javascript">
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
 const typesetMath = (el) => {
   if (window.MathJax) {
     // MathJax Typeset
@@ -156,14 +166,20 @@ window.Quarto = {
   typesetMath
 };
 </script>
+
 </head>
+
 <body class="nav-sidebar floating nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a href="../index.html" class="navbar-brand navbar-brand-logo">
-    <img src="../site_libs/quarto-contrib/quarto-project/rostools/rostools-theme/favicon.ico" alt="Graphic of a medical pill with a scatter plot and a regression line inside it." class="navbar-logo light-content"><img src="../site_libs/quarto-contrib/quarto-project/rostools/rostools-theme/favicon.ico" alt="Graphic of a medical pill with a scatter plot and a regression line inside it." class="navbar-logo dark-content"></a>
+    <img src="../site_libs/quarto-contrib/quarto-project/rostools/rostools-theme/favicon.ico" alt="Graphic of a medical pill with a scatter plot and a regression line inside it." class="navbar-logo light-content">
+    <img src="../site_libs/quarto-contrib/quarto-project/rostools/rostools-theme/favicon.ico" alt="Graphic of a medical pill with a scatter plot and a regression line inside it." class="navbar-logo dark-content">
+    </a>
     <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Medical Statistics, MEDMS24B5_1</span>
     </a>
@@ -173,7 +189,9 @@ window.Quarto = {
 </div>
           <div id="quarto-search" class="" title="Search"></div>
       </div> <!-- /container-fluid -->
-    </nav><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
@@ -181,11 +199,15 @@ window.Quarto = {
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
-  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="sidebar-menu-container"> 
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-<li class="sidebar-item">
+        <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Welcome!</span></a>
@@ -199,8 +221,8 @@ window.Quarto = {
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
-<li class="sidebar-item">
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../overview/syllabus.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Syllabus</span></span></a>
@@ -219,7 +241,7 @@ window.Quarto = {
   </div>
 </li>
       </ul>
-</li>
+  </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
@@ -228,8 +250,8 @@ window.Quarto = {
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
-<li class="sidebar-item">
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../pre-course/overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Overview</span></span></a>
@@ -272,7 +294,7 @@ window.Quarto = {
   </div>
 </li>
       </ul>
-</li>
+  </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
@@ -281,8 +303,8 @@ window.Quarto = {
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
-<li class="sidebar-item">
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session01.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Hallo Medical Statistics</span></span></a>
@@ -319,7 +341,7 @@ window.Quarto = {
   </div>
 </li>
       </ul>
-</li>
+  </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
@@ -328,8 +350,8 @@ window.Quarto = {
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
-<li class="sidebar-item">
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/data.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Data for Medical Statistics</span></span></a>
@@ -372,7 +394,7 @@ window.Quarto = {
   </div>
 </li>
       </ul>
-</li>
+  </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
@@ -381,8 +403,8 @@ window.Quarto = {
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
-<li class="sidebar-item">
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../appendix/for-teachers.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">For teachers</span></span></a>
@@ -425,45 +447,46 @@ window.Quarto = {
   </div>
 </li>
       </ul>
-</li>
+  </li>
     </ul>
-</div>
-</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-<li><a href="#pree-class-literature" id="toc-pree-class-literature" class="nav-link active" data-scroll-target="#pree-class-literature"><span class="header-section-number">13.1</span> Pree-class Literature</a></li>
+  <li><a href="#pree-class-literature" id="toc-pree-class-literature" class="nav-link active" data-scroll-target="#pree-class-literature"><span class="header-section-number">13.1</span> Pree-class Literature</a></li>
   <li><a href="#slides" id="toc-slides" class="nav-link" data-scroll-target="#slides"><span class="header-section-number">13.2</span> Slides</a></li>
-  <li>
-<a href="#case-session-11" id="toc-case-session-11" class="nav-link" data-scroll-target="#case-session-11"><span class="header-section-number">13.3</span> Case session 11: “”</a>
+  <li><a href="#case-session-11" id="toc-case-session-11" class="nav-link" data-scroll-target="#case-session-11"><span class="header-section-number">13.3</span> Case session 11: “”</a></li>
+  <li><a href="#reading-task-conditional-cancer-risk" id="toc-reading-task-conditional-cancer-risk" class="nav-link" data-scroll-target="#reading-task-conditional-cancer-risk"><span class="header-section-number">13.4</span> Reading Task: Conditional cancer risk?</a></li>
+  <li><a href="#reading-task-the-additive-and-linear-assumption" id="toc-reading-task-the-additive-and-linear-assumption" class="nav-link" data-scroll-target="#reading-task-the-additive-and-linear-assumption"><span class="header-section-number">13.5</span> Reading task: The additive and linear assumption</a></li>
+  <li><a href="#adding-the-variable-to-a-regression-model-is-not-enough" id="toc-adding-the-variable-to-a-regression-model-is-not-enough" class="nav-link" data-scroll-target="#adding-the-variable-to-a-regression-model-is-not-enough"><span class="header-section-number">13.6</span> Adding the variable to a regression model is not enough</a></li>
+  <li><a href="#making-non-additive-terms-in-linear-models" id="toc-making-non-additive-terms-in-linear-models" class="nav-link" data-scroll-target="#making-non-additive-terms-in-linear-models"><span class="header-section-number">13.7</span> Making non-additive terms in linear models</a>
   <ul class="collapse">
-<li><a href="#reading-task-conditional-venom" id="toc-reading-task-conditional-venom" class="nav-link" data-scroll-target="#reading-task-conditional-venom"><span class="header-section-number">13.3.1</span> Reading Task: Conditional venom?</a></li>
-  </ul>
-</li>
-  <li>
-<a href="#reading-task-the-additive-and-linear-assumption" id="toc-reading-task-the-additive-and-linear-assumption" class="nav-link" data-scroll-target="#reading-task-the-additive-and-linear-assumption"><span class="header-section-number">13.4</span> Reading task: The additive and linear assumption</a>
+  <li><a href="#what-does-multiplication-mean-intuitively" id="toc-what-does-multiplication-mean-intuitively" class="nav-link" data-scroll-target="#what-does-multiplication-mean-intuitively"><span class="header-section-number">13.7.1</span> 1. What does multiplication mean intuitively?</a></li>
+  </ul></li>
+  <li><a href="#adding-an-interaction" id="toc-adding-an-interaction" class="nav-link" data-scroll-target="#adding-an-interaction"><span class="header-section-number">13.8</span> Adding an interaction</a></li>
+  <li><a href="#sec-coef-interp" id="toc-sec-coef-interp" class="nav-link" data-scroll-target="#sec-coef-interp"><span class="header-section-number">13.9</span> Interpreting an interaction estimate</a></li>
+  <li><a href="#symmetry-of-the-linear-interaction" id="toc-symmetry-of-the-linear-interaction" class="nav-link" data-scroll-target="#symmetry-of-the-linear-interaction"><span class="header-section-number">13.10</span> Symmetry of the linear interaction</a>
   <ul class="collapse">
-<li><a href="#adding-the-variable-to-a-regression-model-is-not-enough" id="toc-adding-the-variable-to-a-regression-model-is-not-enough" class="nav-link" data-scroll-target="#adding-the-variable-to-a-regression-model-is-not-enough"><span class="header-section-number">13.4.1</span> Adding the variable to a regression model is not enough</a></li>
-  <li><a href="#making-non-linear-terms-in-linear-models" id="toc-making-non-linear-terms-in-linear-models" class="nav-link" data-scroll-target="#making-non-linear-terms-in-linear-models"><span class="header-section-number">13.4.2</span> Making non-linear terms in linear models</a></li>
-  <li><a href="#adding-an-interaction" id="toc-adding-an-interaction" class="nav-link" data-scroll-target="#adding-an-interaction"><span class="header-section-number">13.4.3</span> Adding an interaction</a></li>
-  <li><a href="#sec-coef-interp" id="toc-sec-coef-interp" class="nav-link" data-scroll-target="#sec-coef-interp"><span class="header-section-number">13.4.4</span> Interpreting an interaction estimate</a></li>
+  <li><a href="#key-takeaway" id="toc-key-takeaway" class="nav-link" data-scroll-target="#key-takeaway"><span class="header-section-number">13.10.1</span> Key takeaway</a></li>
+  </ul></li>
+  <li><a href="#continuous-interactions" id="toc-continuous-interactions" class="nav-link" data-scroll-target="#continuous-interactions"><span class="header-section-number">13.11</span> Continuous interactions</a></li>
+  <li><a href="#polynomials" id="toc-polynomials" class="nav-link" data-scroll-target="#polynomials"><span class="header-section-number">13.12</span> Polynomials</a></li>
+  <li><a href="#discussion-of-polynomial-regression" id="toc-discussion-of-polynomial-regression" class="nav-link" data-scroll-target="#discussion-of-polynomial-regression"><span class="header-section-number">13.13</span> Discussion of polynomial regression</a></li>
+  <li><a href="#know-your-limits-when-you-need-marginal-effects" id="toc-know-your-limits-when-you-need-marginal-effects" class="nav-link" data-scroll-target="#know-your-limits-when-you-need-marginal-effects"><span class="header-section-number">13.14</span> Know your limits — when you need marginal effects</a></li>
   </ul>
-</li>
-  <li>
-<a href="#symmetry-of-the-linear-interaction" id="toc-symmetry-of-the-linear-interaction" class="nav-link" data-scroll-target="#symmetry-of-the-linear-interaction"><span class="header-section-number">13.5</span> Symmetry of the linear interaction</a>
-  <ul class="collapse">
-<li><a href="#key-takeaway" id="toc-key-takeaway" class="nav-link" data-scroll-target="#key-takeaway"><span class="header-section-number">13.5.1</span> Key takeaway</a></li>
-  </ul>
-</li>
-  <li><a href="#continuous-interactions" id="toc-continuous-interactions" class="nav-link" data-scroll-target="#continuous-interactions"><span class="header-section-number">13.6</span> Continuous interactions</a></li>
-  <li><a href="#polynomials" id="toc-polynomials" class="nav-link" data-scroll-target="#polynomials"><span class="header-section-number">13.7</span> Polynomials</a></li>
-  <li><a href="#the-danger-of" id="toc-the-danger-of" class="nav-link" data-scroll-target="#the-danger-of"><span class="header-section-number">13.8</span> The danger of</a></li>
-  </ul><div class="toc-actions"><ul><li><a href="https://github.com/DanMazJen/medicinsk-statistik/edit/main/sessions/session11.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/blob/main/sessions/session11.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/DanMazJen/medicinsk-statistik/edit/main/sessions/session11.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/blob/main/sessions/session11.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><script data-goatcounter="https://DanMazJen-medicinsk-statistik.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/session01.html">Sessions</a></li><li class="breadcrumb-item"><a href="../sessions/session11.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Conditioning and polynomial madness</span></a></li></ol></nav><div class="quarto-title">
+<main class="content" id="quarto-document-content">
+<script data-goatcounter="https://DanMazJen-medicinsk-statistik.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script>
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/session01.html">Sessions</a></li><li class="breadcrumb-item"><a href="../sessions/session11.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Conditioning and polynomial madness</span></a></li></ol></nav>
+<div class="quarto-title">
 <h1 class="title"><span id="sec-interaction" class="quarto-section-identifier"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Conditioning and polynomial madness</span></span></h1>
 </div>
 
@@ -478,7 +501,9 @@ window.Quarto = {
   
 
 
-</header><div class="callout callout-style-default callout-warning callout-titled">
+</header>
+
+<div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
@@ -490,15 +515,19 @@ Warning
 <div class="callout-body-container callout-body">
 <p>🚧 This section is being actively worked on. 🚧</p>
 </div>
-</div><blockquote class="blockquote">
+</div>
+<blockquote class="blockquote">
 <p>“x.” — John Doe</p>
 </blockquote>
-<section id="pree-class-literature" class="level2" data-number="13.1"><h2 data-number="13.1" class="anchored" data-anchor-id="pree-class-literature">
-<span class="header-section-number">13.1</span> Pree-class Literature</h2>
+<section id="pree-class-literature" class="level2" data-number="13.1">
+<h2 data-number="13.1" class="anchored" data-anchor-id="pree-class-literature"><span class="header-section-number">13.1</span> Pree-class Literature</h2>
 <ul>
 <li>Chapter 3.3.2 (pages 87—-93) in <a href="https://www.statlearning.com/">Introduction to statistical learning with R 2nd edition</a> (click <a href="https://hastie.su.domains/ISLR2/ISLRv2_corrected_June_2023.pdf.download.html">“Download ISL with R”</a>)</li>
-</ul></section><section id="slides" class="level2" data-number="13.2"><h2 data-number="13.2" class="anchored" data-anchor-id="slides">
-<span class="header-section-number">13.2</span> Slides</h2>
+<li><a href="../exercises/data.html#sec-HeartDisease-data" class="quarto-xref"><span>Section 17.3</span></a></li>
+</ul>
+</section>
+<section id="slides" class="level2" data-number="13.2">
+<h2 data-number="13.2" class="anchored" data-anchor-id="slides"><span class="header-section-number">13.2</span> Slides</h2>
 <blockquote class="blockquote">
 <p><a href="../slides/day11.html"><strong>Session 11 slides</strong></a></p>
 </blockquote>
@@ -521,12 +550,13 @@ Warning
 </div>
 </div>
 </div>
-</section><section id="case-session-11" class="level2" data-number="13.3"><h2 data-number="13.3" class="anchored" data-anchor-id="case-session-11">
-<span class="header-section-number">13.3</span> Case session 11: “”</h2>
-<p>At AalboR Statistical Hospital, a new exercise-based cardiac assessment protocol has recently been introduced following an initial data review suggesting that patients with lower max heart rate are more likely to have underlying heart disease. Based on this, some clinicians have started using the max heart rate during exercise as a quick indicator when evaluating chest pain patients.</p>
+</section>
+<section id="case-session-11" class="level2" data-number="13.3">
+<h2 data-number="13.3" class="anchored" data-anchor-id="case-session-11"><span class="header-section-number">13.3</span> Case session 11: “”</h2>
+<p>At AalboR Statistical Hospital, a new exercise-based cardiac assessment protocol has recently been proposed by some researchers as a screening tool for heart disease, suggesting that patients with lower max heart rate are more likely to have underlying heart disease. Based on this, some clinicians have started using the max heart rate during exercise as a quick indicator when scrrening patients.</p>
 <p>However, during a recent internal meeting, a cardiologist raises a concern:</p>
 <blockquote class="blockquote">
-<p><em>“I’m not convinced this applies to all patients. Especially older patients — their heart rate response already decrease. If that’s true, we could be misinterpreting results in a subgroup of patients.</em></p>
+<p><em>“I’m not convinced this applies to all patients. Especially older patients — their max heart rate is already very low. If that’s true, we could be biasing our screening in our older patients.</em></p>
 </blockquote>
 <p>You are asked to explore the hospital’s patient data to assess whether the relationship between heart disease and max heart rate appears consistent across patients, or whether it differs depending on their age.</p>
 <p>You are tasked with the decision: <em>Should this new assessment approach be used broadly, or are there patient groups where it may be misleading?</em></p>
@@ -539,11 +569,14 @@ Warning
 <p>You are asked to explore the hospital’s patient data to assess whether the relationship between Age and max heart rate — and the interpretation of max heart rate more generally — appears consistent across patients, or whether it differs depending on exercise-induced angina, sex, or other patient characteristics.</p>
 <p>You are tasked with the decision: <em>Should this new assessment approach be used broadly, or are there patient groups where it may be misleading?</em></p>
 </div>
-<section id="reading-task-conditional-venom" class="level3" data-number="13.3.1"><h3 data-number="13.3.1" class="anchored" data-anchor-id="reading-task-conditional-venom">
-<span class="header-section-number">13.3.1</span> Reading Task: Conditional venom?</h3>
-<p>Read <a href="https://www.australiangeographic.com.au/blogs/creatura-with-bec-crew/2025/09/funnel-web-spiders-are-australias-deadliest-not-for-our-pets/">this Australian Geographics blog</a> on the Funnel-web spider.</p>
-</section></section><section id="reading-task-the-additive-and-linear-assumption" class="level2" data-number="13.4"><h2 data-number="13.4" class="anchored" data-anchor-id="reading-task-the-additive-and-linear-assumption">
-<span class="header-section-number">13.4</span> Reading task: The additive and linear assumption</h2>
+</section>
+<section id="reading-task-conditional-cancer-risk" class="level2" data-number="13.4">
+<h2 data-number="13.4" class="anchored" data-anchor-id="reading-task-conditional-cancer-risk"><span class="header-section-number">13.4</span> Reading Task: Conditional cancer risk?</h2>
+<p>Read <a href="https://jurainfo.dk/artikel/ny-hoejesteretsdom-om-asbest-og-rygning">this jurainfo.dk article</a> on the effect of asbestos and smoking on cancer.</p>
+<p>For the interested reader, there’s another <a href="https://www.tv2nord.dk/naar-stoev-draeber/fire-gange-saa-mange-doer-af-asbest-de-siger-at-jeg-vil-doe-af-det">tv2nord post</a> on the same topic.</p>
+</section>
+<section id="reading-task-the-additive-and-linear-assumption" class="level2" data-number="13.5">
+<h2 data-number="13.5" class="anchored" data-anchor-id="reading-task-the-additive-and-linear-assumption"><span class="header-section-number">13.5</span> Reading task: The additive and linear assumption</h2>
 <p>In a standard linear regression model, we make two important assumptions about how the predictors X relate to the response Y <span class="citation" data-cites="james2021introduction">(<a href="../appendix/references.html#ref-james2021introduction" role="doc-biblioref">1</a>)</span>:</p>
 <ol type="1">
 <li>Additivity assumption</li>
@@ -551,70 +584,134 @@ Warning
 <blockquote class="blockquote">
 <p>Each predictor affects Y independently of the other predictors. In other words, the effect of <span class="math inline">\(X_j\)</span> ​does not depend on the values of the other X’s.</p>
 </blockquote>
-<p>Example: Suppose we predict salary using years of experience and education. The additivity assumption says that the effect of one additional year of experience is the same regardless of a person’s education level.</p>
+<p><strong>Example:</strong></p>
+<p>Suppose we predict the risk of lung cancer, <span class="math inline">\(Y\)</span>, using smoking status, <span class="math inline">\(X_1\)</span>, and asbestos exposure, <span class="math inline">\(X_2\)</span>. The additivity assumption says that the effect of asbestos exposure on cancer risk is exactly the same regardless of whether a person is a smoker or a non-smoker.</p>
+<div class="callout callout-style-simple callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Notice
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In our cancer example, this assumption is violated, because smoking and asbestos have a multiplicativ synergistic effect — the effect of asbestos is far more harmful to smokers than non-smokers.</p>
+</div>
+</div>
 <ol start="2" type="1">
 <li>Linearity assumption</li>
 </ol>
 <blockquote class="blockquote">
 <p>The effect of a predictor on Y is constant across its range. A one-unit increase in <span class="math inline">\(X_j\)</span> is assumed to produce the same change in Y, no matter what the current value of <span class="math inline">\(X_j\)</span> is.</p>
 </blockquote>
-<p>Example: If each additional year of experience increases salary by €2,000, the model assumes this €2,000 increase is the same for someone with 2 years of experience and someone with 20 years.</p>
+<p><strong>Example:</strong></p>
+<p>Suppose we predict the risk of lung cancer, <span class="math inline">\(Y\)</span> using the number of hours working in an asbestos-filled environment <span class="math inline">\(X_j\)</span>. The linearity assumption says that the increase in cancer risk from your 1st hour to your 2nd hour of asbestos exposure is exactly the same as the increase in risk from your 19th hour to your 20th hour of exposure.</p>
+<div class="callout callout-style-simple callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Again, notice
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In reality, this assumption is violated here, because the biological damage of asbestos accumulates and worsens over time. This means that later years of exposure or long-term accumulation cause a much steeper, non-linear spike in cancer risk compared to the very first year).</p>
+</div>
+</div>
 <p>We need to bend these assumptions in order to produce an interaction effect. You will see how we routinely do this using simple tricks of multiplication and squaring the predictor variables.</p>
-<section id="adding-the-variable-to-a-regression-model-is-not-enough" class="level3" data-number="13.4.1"><h3 data-number="13.4.1" class="anchored" data-anchor-id="adding-the-variable-to-a-regression-model-is-not-enough">
-<span class="header-section-number">13.4.1</span> Adding the variable to a regression model is not enough</h3>
-<p>We will use the <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> function for linear model and the <a href="https://marginaleffects.com/">marginaleffects</a> package to make a quick <a href="https://ggplot2.tidyverse.org">ggplot2</a> figure. While we could do this in <a href="https://ggplot2.tidyverse.org">ggplot2</a>, the <a href="https://marginaleffects.com/">marginaleffects</a> package has several tricks for making regression plots nice and simple to code and inspect.</p>
+</section>
+<section id="adding-the-variable-to-a-regression-model-is-not-enough" class="level2" data-number="13.6">
+<h2 data-number="13.6" class="anchored" data-anchor-id="adding-the-variable-to-a-regression-model-is-not-enough"><span class="header-section-number">13.6</span> Adding the variable to a regression model is not enough</h2>
+<p>Recall the data from <a href="../exercises/data.html#sec-HeartDisease-data" class="quarto-xref"><span>Section 17.3</span></a>. We have already extensive knowledge from this dataset from <a href="session04.html" class="quarto-xref"><span>Chapter 12</span></a>. I will not reintroduce the dataset here.</p>
+<p>We will use the <code>lm()</code> function for linear model and the <code>{marginaleffects}</code> package to make a quick <code>{ggplot2}</code> figure. While we could do this in <code>{ggplot2}</code>, the <code>{marginaleffects}</code> package has several tricks for making regression plots nice and simple to code and inspect.</p>
+<p>Let’s go ahead and load the data, make a linear model and add our two variables of interest: age and heart disease.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">model_additive</span> <span class="op">&lt;-</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">MaxHR</span> <span class="op">~</span> <span class="va">Age</span> <span class="op">+</span> <span class="va">HD</span>,</span>
-<span>    data <span class="op">=</span> <span class="va">hd_data</span><span class="op">)</span></span>
-<span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://marginaleffects.com/">marginaleffects</a></span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/plot_predictions.html">plot_predictions</a></span><span class="op">(</span></span>
-<span>    <span class="va">model_additive</span>,</span>
-<span>    condition <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Age"</span>, <span class="st">"HD"</span><span class="op">)</span></span>
-<span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="annotated-cell-1"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-1-1" class="code-annotation-target"><a href="#annotated-cell-1-1" aria-hidden="true" tabindex="-1"></a>hd_data <span class="ot">&lt;-</span> medisr<span class="sc">::</span>hd_data</span>
+<span id="annotated-cell-1-2"><a href="#annotated-cell-1-2" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-1-3" class="code-annotation-target"><a href="#annotated-cell-1-3" aria-hidden="true" tabindex="-1"></a>model_additive <span class="ot">&lt;-</span></span>
+<span id="annotated-cell-1-4"><a href="#annotated-cell-1-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lm</span>(MaxHR <span class="sc">~</span> Age <span class="sc">+</span> HD,</span>
+<span id="annotated-cell-1-5"><a href="#annotated-cell-1-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> hd_data)</span>
+<span id="annotated-cell-1-6"><a href="#annotated-cell-1-6" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-1-7" class="code-annotation-target"><a href="#annotated-cell-1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(marginaleffects)</span>
+<span id="annotated-cell-1-8"><a href="#annotated-cell-1-8" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-1-9" class="code-annotation-target"><a href="#annotated-cell-1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_predictions</span>(</span>
+<span id="annotated-cell-1-10"><a href="#annotated-cell-1-10" aria-hidden="true" tabindex="-1"></a>    model_additive,</span>
+<span id="annotated-cell-1-11"><a href="#annotated-cell-1-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">condition =</span> <span class="fu">c</span>(<span class="st">"Age"</span>, <span class="st">"HD"</span>)</span>
+<span id="annotated-cell-1-12"><a href="#annotated-cell-1-12" aria-hidden="true" tabindex="-1"></a>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-1" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="1" data-code-annotation="1">first, we load in the dataset.</span>
+</dd>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="3,4,5" data-code-annotation="2">Next, we make a simple linear model adding the two variables of interest.</span>
+</dd>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="7" data-code-annotation="3">Here, we load the <code>{marginaleffects}</code> package</span>
+</dd>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="4">4</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="9,10,11" data-code-annotation="4">We plot how the model predicts the max heart rate based on age for both patients with and without heart disease. Note how we add the model variable and give a string vector to the argument <code>condition</code>.</span>
+</dd>
+</dl>
+</div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="session11_files/figure-html/addition-not-enough-1.png" class="img-fluid figure-img" width="672"></p>
+<figure class="figure">
+<p><img src="session11_files/figure-html/addition-not-enough-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">model_additive</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/slopes.html">avg_slopes</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
- Term Contrast Estimate Std. Error     z Pr(&gt;|z|)    S  2.5 % 97.5 %
-  Age dY/dX      -0.801      0.128 -6.25   &lt;0.001 31.2  -1.05  -0.55
-  HD  yes - no  -15.883      2.321 -6.84   &lt;0.001 36.9 -20.43 -11.33
-
-Type: response</code></pre>
-</div>
 </div>
 <p>Wait — the lines are completely parallel?!</p>
-<p>This is exactly the additive and linear assumption: the same effect is constant for heart disease and for age. We need to allow some flexibility in our model to consider whether the slopes might change dependent on heart disease.</p>
-</section><section id="making-non-linear-terms-in-linear-models" class="level3" data-number="13.4.2"><h3 data-number="13.4.2" class="anchored" data-anchor-id="making-non-linear-terms-in-linear-models">
-<span class="header-section-number">13.4.2</span> Making non-linear terms in linear models</h3>
+<p>This is exactly the additive and linear assumption: the same effect is constant for heart disease and for age.</p>
+<p>But is this really the truth? Let’s plot the raw data with <code>{ggplot2}</code>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>hd_data <span class="sc">|&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(Age, MaxHR, <span class="at">color=</span>HD)) <span class="sc">+</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using method = 'loess' and formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="session11_files/figure-html/raw-plot-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>This does <em>not</em> look parallel <strong>at all</strong> 👀</p>
+<p>We need to allow some flexibility in our model to consider that fact that slopes might change dependent on heart disease.</p>
+</section>
+<section id="making-non-additive-terms-in-linear-models" class="level2" data-number="13.7">
+<h2 data-number="13.7" class="anchored" data-anchor-id="making-non-additive-terms-in-linear-models"><span class="header-section-number">13.7</span> Making non-additive terms in linear models</h2>
 <p>Let’s start at the conceptual level.</p>
-<p>Suppose we want to predict salary using two variables:</p>
+<p>Suppose we want to predict cancer using two variables:</p>
 <ul>
-<li>(<span class="math inline">\(X_1\)</span>) = years of experience</li>
-<li>(<span class="math inline">\(X_2\)</span>) = education level</li>
+<li>(<span class="math inline">\(X_1\)</span>) = hours of exposure to asbestos</li>
+<li>(<span class="math inline">\(X_2\)</span>) = smoking status</li>
 </ul>
 <p>We might first think:</p>
 <ul>
-<li>More venom → higher mortality.</li>
-<li>One species → more vulnerable.</li>
+<li>More exposure → higher cancer risk.</li>
+<li>Smoker → more vulnerable.</li>
 </ul>
-<p>But remember the additivity assumption: all species scale similarly on mortality with increasing venom. Do you think it applies here? I’m not sure…</p>
+<p>But remember the additivity assumption: all predictors scale similarly on cancer risk with increasing exposure. Do you think it applies here? I’m not sure…</p>
 <blockquote class="blockquote">
-<p>The deadliness of venom dose might matter differently depending on the species.</p>
+<p>The cancer risk asbestos exposure might matter differently depending on the smoking status.</p>
 </blockquote>
 <p>That is an interaction. And it is per definition violating the additivity assumption!</p>
-<p>But how do we make a <em>linear model</em> capture <strong>non-linear</strong> relationships 👀</p>
+<p>But how do we make a <em>linear model</em> capture <strong>non-additive</strong> relationships 👀</p>
 <p>Think of this problem as not “breaking” the rules but rather “bending” the rules. We need some way to give the linear model extra flexibility to capture relationships that are not additive.</p>
-<section id="what-does-multiplication-mean-intuitively" class="level4" data-number="13.4.2.1"><h4 data-number="13.4.2.1" class="anchored" data-anchor-id="what-does-multiplication-mean-intuitively">
-<span class="header-section-number">13.4.2.1</span> 1. What does multiplication mean intuitively?</h4>
+<section id="what-does-multiplication-mean-intuitively" class="level3" data-number="13.7.1">
+<h3 data-number="13.7.1" class="anchored" data-anchor-id="what-does-multiplication-mean-intuitively"><span class="header-section-number">13.7.1</span> 1. What does multiplication mean intuitively?</h3>
 <p>Think about ordinary multiplication first.</p>
 <p>If you have:</p>
 <p><span class="math display">\[
@@ -625,41 +722,45 @@ Type: response</code></pre>
   4 \times 3 = 12.
 \]</span></p>
 <p>The result depends on <em>both numbers</em>. This process is linear <em>conditioned</em> on the other number being the same.</p>
-<p>Now imagine:</p>
+<p>Now abstract to:</p>
 <p><span class="math display">\[
   X_1 \times X_2.
 \]</span></p>
-<p>If (<span class="math inline">\(X_1\)</span>) changes, the product changes — but <em>how much it changes depends on (<span class="math inline">\(X_2\)</span>)</em>.</p>
+<p>If <span class="math inline">\(X_1\)</span> changes, the product changes — but <em>how much it changes depends on <span class="math inline">\(X_2\)</span></em>.</p>
 <p>For example:</p>
 <div id="tbl-multiplication-table" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-tbl figure"><figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl quarto-uncaptioned" id="tbl-multiplication-table-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl quarto-uncaptioned" id="tbl-multiplication-table-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;13.1
-</figcaption><div aria-describedby="tbl-multiplication-table-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+</figcaption>
+<div aria-describedby="tbl-multiplication-table-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
-<thead><tr class="header">
-<th style="text-align: right;">Venom dose (<span class="math inline">\(X_1\)</span>)</th>
-<th style="text-align: right;">Education (<span class="math inline">\(X_2\)</span>)</th>
+<thead>
+<tr class="header">
+<th style="text-align: right;">exposure (h) (<span class="math inline">\(X_1\)</span>)</th>
+<th style="text-align: right;">smoking status (<span class="math inline">\(X_2\)</span>)</th>
 <th style="text-align: right;">(<span class="math inline">\(X_1X_2\)</span>)</th>
-</tr></thead>
+</tr>
+</thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: right;">2</td>
-<td style="text-align: right;">1</td>
+<td style="text-align: right;">yes = 1</td>
 <td style="text-align: right;">2</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">3</td>
-<td style="text-align: right;">1</td>
+<td style="text-align: right;">yes = 1</td>
 <td style="text-align: right;">3</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">2</td>
-<td style="text-align: right;">3</td>
+<td style="text-align: right;">no = 3</td>
 <td style="text-align: right;">6</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">3</td>
-<td style="text-align: right;">3</td>
+<td style="text-align: right;">no = 3</td>
 <td style="text-align: right;">9</td>
 </tr>
 </tbody>
@@ -667,10 +768,10 @@ Table&nbsp;13.1
 </div>
 </figure>
 </div>
-<p>Notice what happens when experience increases from 2 to 3:</p>
+<p>Notice what happens when exposure increases from 2 to 3:</p>
 <ul>
-<li>If education = 1, the product increases by <strong>1</strong>.</li>
-<li>If education = 3, the product increases by <strong>3</strong>.</li>
+<li>If smoker = 1, the product increases by <strong>1</strong>.</li>
+<li>If nonsmoker = 3, the product increases by <strong>3</strong>.</li>
 </ul>
 <p>So multiplication naturally creates a situation where:</p>
 <blockquote class="blockquote">
@@ -682,60 +783,63 @@ Table&nbsp;13.1
   γ = X_1X_2
 \]</span> our new variable, γ (gamma), <em>multiply the two variables together</em>.</p>
 <blockquote class="blockquote">
-<p>Notice that multiplication is non-linear now!</p>
+<p>Notice that multiplication is non-additive now!</p>
 </blockquote>
 <p>When we say <em>linear regression</em>, “linear” does <em>not</em> mean that we are forever doomed to model only linear and additive phenomena.</p>
-<p>Instead, it means that the model <em>coefficients</em> are linear — the numbers that the regression estimates.</p>
-<p>You can think of γ as we create a <em>new predictor</em> — the variable is producing another linear coefficient. The regression can then use this new variable just like any other predictor.</p>
+<p>Instead, it means that the model <em>coefficients</em> are linear and additive — the numbers that the regression estimates.</p>
+<p>You can think of γ as a <em>new predictor</em> — the variable is producing another linear coefficient. The regression can then use this new variable just like any other predictor.</p>
 <p>This new variable consider the <em>conditional relationship</em> between two values. If <span class="math inline">\(β_1\)</span> is small, the value might be small independent of <span class="math inline">\(β_2\)</span>. But if both <span class="math inline">\(β_1\)</span> and <span class="math inline">\(β_2\)</span> is large, the value might always be large (see <a href="#tbl-multiplication-table" class="quarto-xref">Table&nbsp;<span>13.1</span></a>)</p>
 <p>There are therefore two different ideas:</p>
 <ul>
 <li>Additive models: Where the effect of one predictor does not depend on the other predictor.</li>
-<li>Interaction models: Where he effect of one predictor can depend on the other predictor.</li>
+<li>Interaction models: Where the effect of one predictor can depend on the other predictor.</li>
 </ul>
 <p>Multiplication is useful because it naturally creates this dependency.</p>
 <p>But how do we do that in R(eal life)?</p>
-</section></section><section id="adding-an-interaction" class="level3" data-number="13.4.3"><h3 data-number="13.4.3" class="anchored" data-anchor-id="adding-an-interaction">
-<span class="header-section-number">13.4.3</span> Adding an interaction</h3>
-<p>We can literally make a new variable called <code>age_by_hd</code> using <a href="https://dplyr.tidyverse.org">dplyr</a>:</p>
+</section>
+</section>
+<section id="adding-an-interaction" class="level2" data-number="13.8">
+<h2 data-number="13.8" class="anchored" data-anchor-id="adding-an-interaction"><span class="header-section-number">13.8</span> Adding an interaction</h2>
+<p>We can literally make a new variable called <code>age_by_hd</code> using <code>{dplyr}</code>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">model_interact_manual</span> <span class="op">&lt;-</span> <span class="va">hd_data</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu">mutate</span><span class="op">(</span></span>
-<span>        HD_num <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">HD</span> <span class="op">==</span> <span class="st">"yes"</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span>,</span>
-<span>        age_by_hd <span class="op">=</span> <span class="va">Age</span> <span class="op">*</span> <span class="va">HD_num</span></span>
-<span>    <span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">MaxHR</span> <span class="op">~</span> <span class="va">Age</span> <span class="op">+</span> <span class="va">HD</span> <span class="op">+</span> <span class="va">age_by_hd</span>,</span>
-<span>    data <span class="op">=</span> <span class="va">_</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">model_interact_manual</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>model_interact_manual <span class="ot">&lt;-</span> hd_data <span class="sc">|&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">mutate</span>(</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">HD_num =</span> <span class="fu">ifelse</span>(HD <span class="sc">==</span> <span class="st">"Yes"</span>, <span class="dv">1</span>, <span class="dv">0</span>),</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">age_by_hd =</span> Age <span class="sc">*</span> HD_num</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lm</span>(MaxHR <span class="sc">~</span> Age <span class="sc">+</span> HD <span class="sc">+</span> age_by_hd,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> _)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(model_interact_manual)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>(Intercept)         Age       HDyes   age_by_hd 
+<pre><code>(Intercept)         Age       HDYes   age_by_hd 
 213.9282010  -1.0563804 -53.8425770   0.6885871 </code></pre>
 </div>
 </div>
 <p>However, this is such a common routine in R that we don’t need to make the new variable. Instead, we can indicate this multiplication by using the following notation:</p>
 <p><code>Age:HD</code></p>
-<p>We will wait with interpreting the coefficients till the <a href="#sec-coef-interp" class="quarto-xref"><span>Section 13.4.4</span></a>. For now, confirm that these numbers are identical to the model below.</p>
+<p>We will wait with interpreting the coefficients till the <a href="#sec-coef-interp" class="quarto-xref"><span>Section 13.9</span></a>. For now, confirm that these numbers are identical to the model below.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">model_interact</span> <span class="op">&lt;-</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">MaxHR</span> <span class="op">~</span> <span class="va">Age</span> <span class="op">+</span> <span class="va">HD</span> <span class="op">+</span> <span class="va">Age</span><span class="op">:</span><span class="va">HD</span>,</span>
-<span>    data <span class="op">=</span> <span class="va">hd_data</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">model_interact</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>model_interact <span class="ot">&lt;-</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lm</span>(MaxHR <span class="sc">~</span> Age <span class="sc">+</span> HD <span class="sc">+</span> Age<span class="sc">:</span>HD,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> hd_data)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(model_interact)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>(Intercept)         Age       HDyes   Age:HDyes 
+<pre><code>(Intercept)         Age       HDYes   Age:HDYes 
 213.9282010  -1.0563804 -53.8425770   0.6885871 </code></pre>
 </div>
 </div>
 <p>Finally, let’s take a look at the interaction plot:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/plot_predictions.html">plot_predictions</a></span><span class="op">(</span></span>
-<span>    <span class="va">model_interact</span>,</span>
-<span>    condition <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Age"</span>, <span class="st">"HD"</span><span class="op">)</span></span>
-<span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_predictions</span>(</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    model_interact,</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">condition =</span> <span class="fu">c</span>(<span class="st">"Age"</span>, <span class="st">"HD"</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="session11_files/figure-html/plot-interaction-1.png" class="img-fluid figure-img" width="672"></p>
+<figure class="figure">
+<p><img src="session11_files/figure-html/plot-interaction-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -753,21 +857,21 @@ Table&nbsp;13.1
 <div class="callout-body-container callout-body">
 <p>You will also see other people using this notation <code>Age * HD</code>. This expands to <code>Age + HD + Age:HD</code>. However, we recommend using the <code>Age:HD</code>, as adding more variables and <code>*</code> notation quickly explodes.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">model_interact</span> <span class="op">&lt;-</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">MaxHR</span> <span class="op">~</span> <span class="va">Age</span> <span class="op">*</span> <span class="va">HD</span>,</span>
-<span>    data <span class="op">=</span> <span class="va">hd_data</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>model_interact <span class="ot">&lt;-</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lm</span>(MaxHR <span class="sc">~</span> Age <span class="sc">*</span> HD,</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> hd_data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </div>
-</section><section id="sec-coef-interp" class="level3" data-number="13.4.4"><h3 data-number="13.4.4" class="anchored" data-anchor-id="sec-coef-interp">
-<span class="header-section-number">13.4.4</span> Interpreting an interaction estimate</h3>
+</section>
+<section id="sec-coef-interp" class="level2" data-number="13.9">
+<h2 data-number="13.9" class="anchored" data-anchor-id="sec-coef-interp"><span class="header-section-number">13.9</span> Interpreting an interaction estimate</h2>
 <p>In order to interpret the regression model, we need to recover the regression coefficient. From there, we will have to plug in numbers depending on what we’re interesting in estimating. This section goes through that process step by step.</p>
-<section id="step-1-recovering-the-regression-equation" class="level4" data-number="13.4.4.1"><h4 data-number="13.4.4.1" class="anchored" data-anchor-id="step-1-recovering-the-regression-equation">
-<span class="header-section-number">13.4.4.1</span> Step 1: Recovering the regression equation</h4>
-<p>The first thing you can do to inspect a regression model is to use the <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> function:</p>
+<p><strong>Step 1: Recovering the regression equation</strong></p>
+<p>The first thing you can do to inspect a regression model is to use the <code>summary()</code> function:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">model_interact</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>model_interact <span class="sc">|&gt;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summary</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -781,8 +885,8 @@ Coefficients:
             Estimate Std. Error t value Pr(&gt;|t|)    
 (Intercept) 213.9282     8.5496  25.022  &lt; 2e-16 ***
 Age          -1.0564     0.1600  -6.602 1.85e-10 ***
-HDyes       -53.8426    14.6636  -3.672 0.000285 ***
-Age:HDyes     0.6886     0.2627   2.621 0.009213 ** 
+HDYes       -53.8426    14.6636  -3.672 0.000285 ***
+Age:HDYes     0.6886     0.2627   2.621 0.009213 ** 
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
@@ -791,23 +895,23 @@ Multiple R-squared:  0.2856,    Adjusted R-squared:  0.2784
 F-statistic: 39.85 on 3 and 299 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
-<p>Note that we are missing the confidence intervals. A better tool is <code><a href="https://easystats.github.io/parameters/reference/model_parameters.html">parameters::model_parameters()</a></code>:</p>
+<p>Note that we are missing the confidence intervals. A better tool is <code>parameters::model_parameters()</code>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">model_params</span> <span class="op">&lt;-</span> <span class="va">model_interact</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu">parameters</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/parameters/reference/model_parameters.html">model_parameters</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="va">model_params</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>model_params <span class="ot">&lt;-</span> model_interact <span class="sc">|&gt;</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    parameters<span class="sc">::</span><span class="fu">model_parameters</span>()</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>model_params</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 9
   Parameter   Coefficient     SE    CI  CI_low CI_high     t df_error
   &lt;chr&gt;             &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;    &lt;int&gt;
 1 (Intercept)     214.     8.55   0.95 197.    231.    25.0       299
 2 Age              -1.06   0.160  0.95  -1.37   -0.742 -6.60      299
-3 HDyes           -53.8   14.7    0.95 -82.7   -25.0   -3.67      299
-4 Age:HDyes         0.689  0.263  0.95   0.172   1.21   2.62      299
+3 HDYes           -53.8   14.7    0.95 -82.7   -25.0   -3.67      299
+4 Age:HDYes         0.689  0.263  0.95   0.172   1.21   2.62      299
 # ℹ 1 more variable: p &lt;dbl&gt;</code></pre>
 </div>
 </div>
-<p>This is great — we could make it a bit simpler and only look at the estimates (here names <code>_est</code>):</p>
+<p>This is great — we could make it a bit simpler and only look at the estimates (here abbreviated <code>_est</code>):</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 4
@@ -816,7 +920,7 @@ F-statistic: 39.85 on 3 and 299 DF,  p-value: &lt; 2.2e-16</code></pre>
 1          214.   -1.06  -53.8               0.689</code></pre>
 </div>
 </div>
-<p>You might wonder how this relates to the regression equation. Let’s plug the values in:</p>
+<p>It is straight forward relating these coefficients to the regression equation. Let’s plug the values in one at a time:</p>
 <p><span class="math display">\[
   \bar{Y} = 213.93 − 1.06 * age − 53.84 * hd + 0.689 * age\_by\_hd
 \]</span></p>
@@ -826,25 +930,25 @@ F-statistic: 39.85 on 3 and 299 DF,  p-value: &lt; 2.2e-16</code></pre>
 <li>hd = 0 (no heart disease) or 1 (heart disease)</li>
 </ul>
 <p>And there we have the regression equation 🎉</p>
-</section><section id="step-2-write-separate-equations-for-each-group" class="level4" data-number="13.4.4.2"><h4 data-number="13.4.4.2" class="anchored" data-anchor-id="step-2-write-separate-equations-for-each-group">
-<span class="header-section-number">13.4.4.2</span> Step 2: Write separate equations for each group</h4>
+<p><strong>Step 2: Write separate equations for each group</strong></p>
 <p>For this case, we would want the estimate for a heart disease vs.&nbsp;no heart disease.</p>
 <p>Recall that no heart disease was coded <code>hd = 0</code>:</p>
 <p><span class="math display">\[
-  \bar{Y} = 213.93 − 1.06 * age − 53.84 * ZERO + 0.689 * ZERO
-\]</span> <span class="math inline">\(53.84 * 0\)</span> cancels out — so does 0.689 * ZERO.</p>
+  \bar{Y} = 213.93 − 1.06 * age − 53.84 * 0 + 0.689 * (age × 0)
+\]</span> <span class="math inline">\(53.84 * 0\)</span> cancels out — so does <span class="math inline">\(0.689 * 0\)</span>.</p>
 <p><span class="math inline">\(\bar{Y} = 213.93 − 1.06(age)\)</span></p>
 <p><strong>Interpretation:</strong></p>
 <p>For people without heart disease, each additional year of age is associated with about 1.06 units lower predicted outcome.</p>
 <p>If we now look at the heart disease group (<code>hd = 1</code>) we get:</p>
-<p>$ {Y} = 213.93 − 1.06(age) − 53.84 + 0.689(age) $</p>
-<p>because <span class="math inline">\(53.84 * 1\)</span> is 53.84 and <span class="math inline">\(0.689 * age × 1\)</span> is <span class="math inline">\(0.689(age)\)</span>.</p>
+<p><span class="math display">\[
+  \bar{Y} = 213.93 − 1.06(age) − 53.84 + 0.689(age × 1)
+\]</span></p>
+<p>because <span class="math inline">\(53.84 * 1\)</span> is 53.84 and <span class="math inline">\(0.689 * age × 1\)</span> is <span class="math inline">\(0.689(age × 1)\)</span>.</p>
 <p>We can combine the terms:</p>
 <p><span class="math inline">\(\bar{Y} = 160.09 − 0.371(age)\)</span></p>
 <p><strong>Interpretation:</strong></p>
 <p>For people with heart disease, each additional year of age is associated with only about 0.37 units lower predicted outcome. The age effect is less negative because of the positive interaction term.</p>
-</section><section id="step-3-plug-in-specific-ages" class="level4" data-number="13.4.4.3"><h4 data-number="13.4.4.3" class="anchored" data-anchor-id="step-3-plug-in-specific-ages">
-<span class="header-section-number">13.4.4.3</span> Step 3: Plug in specific ages</h4>
+<p><strong>Step 3: Plug in specific ages</strong></p>
 <p><strong>Age = 40</strong></p>
 <p><em>No heart disease:</em> <span class="math inline">\(213.93 − 1.06(40) = 171.67\)</span></p>
 <p><em>Heart disease:</em> <span class="math inline">\(160.09 − 0.368(40) = 145.37\)</span></p>
@@ -859,40 +963,42 @@ F-statistic: 39.85 on 3 and 299 DF,  p-value: &lt; 2.2e-16</code></pre>
 <blockquote class="blockquote">
 <p>At age 70, heart disease is associated with only about 6 units (BPM max heart rate) lower predicted outcome.</p>
 </blockquote>
-</section><section id="step-4-interpret-the-interaction" class="level4" data-number="13.4.4.4"><h4 data-number="13.4.4.4" class="anchored" data-anchor-id="step-4-interpret-the-interaction">
-<span class="header-section-number">13.4.4.4</span> Step 4: Interpret the interaction</h4>
+<p><strong>Step 4: Interpret the interaction</strong></p>
 <p>The interaction coefficient is: <strong>0.689</strong></p>
 <p>This means that the effect of heart disease becomes 0.689 units (BPM max heart &gt; rate) less negative for every additional year of age.</p>
-<p>In other words: The difference between the heart disease and no-heart-disease groups shrinks by about 0.689 units for each additional year of age.</p>
+<p>In other words: The age effect for the heart disease group groups shrinks by about 0.689 units for each additional year of age. It will eventually cross zero, at which point the direction of the association reverses.</p>
 <p>We can again plug the values in to examine this:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>Age HD<span class="ot">=</span><span class="dv">0</span>    HD<span class="ot">=</span><span class="dv">1</span>    <span class="fu">Difference</span> (HD−No HD)</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="dv">40</span>  <span class="fl">171.67</span>  <span class="fl">145.37</span>  <span class="sc">-</span><span class="fl">26.30</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="dv">50</span>  <span class="fl">161.11</span>  <span class="fl">141.69</span>  <span class="sc">-</span><span class="fl">19.41</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="dv">60</span>  <span class="fl">150.54</span>  <span class="fl">138.01</span>  <span class="sc">-</span><span class="fl">12.53</span></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="dv">70</span>  <span class="fl">139.98</span>  <span class="fl">134.32</span>  <span class="sc">-</span><span class="fl">5.66</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>Age HD<span class="ot">=</span><span class="dv">0</span>    HD<span class="ot">=</span><span class="dv">1</span>    <span class="fu">Difference</span> (HD−No HD)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="dv">40</span>  <span class="fl">171.67</span>  <span class="fl">145.37</span>  <span class="sc">-</span><span class="fl">26.30</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="dv">50</span>  <span class="fl">161.11</span>  <span class="fl">141.69</span>  <span class="sc">-</span><span class="fl">19.41</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="dv">60</span>  <span class="fl">150.54</span>  <span class="fl">138.01</span>  <span class="sc">-</span><span class="fl">12.53</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="dv">70</span>  <span class="fl">139.98</span>  <span class="fl">134.32</span>  <span class="sc">-</span><span class="fl">5.66</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Often, graphics are easier to interpret than tables or coefficients. Let’s try to visualize the difference between max heart rate and having a heart disease when it change across age.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/plot_slopes.html">plot_slopes</a></span><span class="op">(</span><span class="va">model_interact</span>, variables <span class="op">=</span> <span class="st">"HD"</span>, condition <span class="op">=</span> <span class="st">"Age"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu">geom_hline</span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fl">0</span>, linetype <span class="op">=</span> <span class="st">"dotted"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu">labs</span><span class="op">(</span></span>
-<span>        y <span class="op">=</span> <span class="st">"expected difference (MaxHR | HD)"</span></span>
-<span>    <span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_slopes</span>(model_interact, <span class="at">variables =</span> <span class="st">"HD"</span>, <span class="at">condition =</span> <span class="st">"Age"</span>) <span class="sc">+</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">"dotted"</span>) <span class="sc">+</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> <span class="st">"expected difference (MaxHR | HD)"</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="session11_files/figure-html/delta-hr-of-hd-across-age-1.png" class="img-fluid figure-img" width="672"></p>
+<figure class="figure">
+<p><img src="session11_files/figure-html/delta-hr-of-hd-across-age-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-</section></section></section><section id="symmetry-of-the-linear-interaction" class="level2" data-number="13.5"><h2 data-number="13.5" class="anchored" data-anchor-id="symmetry-of-the-linear-interaction">
-<span class="header-section-number">13.5</span> Symmetry of the linear interaction</h2>
+</section>
+<section id="symmetry-of-the-linear-interaction" class="level2" data-number="13.10">
+<h2 data-number="13.10" class="anchored" data-anchor-id="symmetry-of-the-linear-interaction"><span class="header-section-number">13.10</span> Symmetry of the linear interaction</h2>
 <p>Consider for example the max heart rate and age problem. The interaction there has two equally valid phrasings.</p>
 <ul>
 <li>How much does the influence of age (on max heart rate) depend on whether the patient has a heart disease?</li>
 <li>How much does the influence of having a heart disease (on max heart rate) depend on age?</li>
 </ul>
 <p>These sound like different questions, but in a linear model they are mathematically identical.</p>
-<p>The original model is</p>
+<p>To proof this to yourself, we’re going to do factor out the interaction term in the equation and show how this can be done in two ways.</p>
+<p>The original model is:</p>
 <p><span class="math display">\[
   \text{max heart rate}_i \sim α + β_1age + β_2HD + β_3age\_by\_HD + ε\\
 \]</span></p>
@@ -932,107 +1038,113 @@ F-statistic: 39.85 on 3 and 299 DF,  p-value: &lt; 2.2e-16</code></pre>
   \mu_i = \alpha + \beta_1 \,\text{age}_i + G_i\,\text{HD}_i.
 \]</span></p>
 <p>The quantity <span class="math inline">\(G_i\)</span> plays the same role for the heart-disease effect that <span class="math inline">\(\gamma_i\)</span> played for the age effect.</p>
-<section id="key-takeaway" class="level3" data-number="13.5.1"><h3 data-number="13.5.1" class="anchored" data-anchor-id="key-takeaway">
-<span class="header-section-number">13.5.1</span> Key takeaway</h3>
+<section id="key-takeaway" class="level3" data-number="13.10.1">
+<h3 data-number="13.10.1" class="anchored" data-anchor-id="key-takeaway"><span class="header-section-number">13.10.1</span> Key takeaway</h3>
 <p>The interaction coefficient <span class="math inline">\(\beta_3\)</span> simultaneously describes</p>
 <ul>
 <li>how the effect of age changes across HD/non-HD, and</li>
 <li>how the effect of HD changes across levels of age.</li>
 </ul>
 <p>In a linear model, interactions are symmetric. The choice of which variable is called the “predictor” and which is called the “moderator” is often a matter of interpretation rather than mathematics.</p>
-</section></section><section id="continuous-interactions" class="level2" data-number="13.6"><h2 data-number="13.6" class="anchored" data-anchor-id="continuous-interactions">
-<span class="header-section-number">13.6</span> Continuous interactions</h2>
-<p>Until now, we’ve use one continuous and one dichotomous variable.</p>
-<blockquote class="blockquote">
-<p>What if we have two continuous variables that interaction?</p>
-</blockquote>
+</section>
+</section>
+<section id="continuous-interactions" class="level2" data-number="13.11">
+<h2 data-number="13.11" class="anchored" data-anchor-id="continuous-interactions"><span class="header-section-number">13.11</span> Continuous interactions</h2>
+<p>Until now, we’ve used one continuous and one dichotomous variable.</p>
+<p>But what if we have two continuous variables that interaction?</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">pain_data</span> <span class="op">&lt;-</span> <span class="fu">expand_grid</span><span class="op">(</span></span>
-<span>  dose <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">10</span>,</span>
-<span>  pain <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span></span>
-<span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">mutate</span><span class="op">(</span></span>
-<span>    relief <span class="op">=</span> <span class="fl">1.6</span> <span class="op">+</span> <span class="fl">0.4</span><span class="op">*</span><span class="va">dose</span> <span class="op">+</span> <span class="fl">0.4</span><span class="op">*</span><span class="va">pain</span> <span class="op">+</span> <span class="fl">0.9</span><span class="op">*</span><span class="va">dose</span><span class="op">*</span><span class="va">pain</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fu">n</span><span class="op">(</span><span class="op">)</span>, <span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span></span>
-<span>    <span class="op">)</span></span>
-<span></span>
-<span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">relief</span> <span class="op">~</span> <span class="va">dose</span> <span class="op">*</span> <span class="va">pain</span>, data <span class="op">=</span> <span class="va">pain_data</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>pain_data <span class="ot">&lt;-</span> <span class="fu">expand_grid</span>(</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">dose =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">10</span>,</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">pain =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">relief =</span> <span class="fl">1.6</span> <span class="sc">+</span> <span class="fl">0.4</span><span class="sc">*</span>dose <span class="sc">+</span> <span class="fl">0.4</span><span class="sc">*</span>pain <span class="sc">+</span> <span class="fl">0.9</span><span class="sc">*</span>dose<span class="sc">*</span>pain <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="fu">n</span>(), <span class="dv">0</span>,<span class="dv">1</span>)</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">lm</span>(relief <span class="sc">~</span> dose <span class="sc">*</span> pain, <span class="at">data =</span> pain_data)</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(m)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
 lm(formula = relief ~ dose * pain, data = pain_data)
 
 Residuals:
-     Min       1Q   Median       3Q      Max 
--1.83115 -0.36693  0.02835  0.65836  1.39374 
+    Min      1Q  Median      3Q     Max 
+-2.4383 -0.8468  0.1904  0.7104  2.5224 
 
 Coefficients:
             Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)  2.03325    0.48047   4.232 0.000213 ***
-dose         0.39703    0.08122   4.889 3.46e-05 ***
-pain         0.03713    0.37217   0.100 0.921209    
-dose:pain    0.88088    0.06291  14.003 1.95e-14 ***
+(Intercept)  1.69908    0.59190   2.871 0.007576 ** 
+dose         0.40467    0.10005   4.045 0.000354 ***
+pain        -0.05814    0.45849  -0.127 0.899966    
+dose:pain    0.92833    0.07750  11.979 9.46e-13 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 0.9331 on 29 degrees of freedom
-Multiple R-squared:  0.9784,    Adjusted R-squared:  0.9762 
-F-statistic: 437.8 on 3 and 29 DF,  p-value: &lt; 2.2e-16</code></pre>
+Residual standard error: 1.149 on 29 degrees of freedom
+Multiple R-squared:   0.97, Adjusted R-squared:  0.9669 
+F-statistic: 312.4 on 3 and 29 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">pain_data</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">mutate</span><span class="op">(</span>pain_group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">pain</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">dose</span>, <span class="va">relief</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_smooth</span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span>, se <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">facet_wrap</span><span class="op">(</span></span>
-<span>    <span class="op">~</span> <span class="va">pain_group</span>,</span>
-<span>    labeller <span class="op">=</span> <span class="fu">as_labeller</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
-<span>      `0` <span class="op">=</span> <span class="st">"No pain"</span>,</span>
-<span>      `1` <span class="op">=</span> <span class="st">"Mild pain"</span>,</span>
-<span>      `2` <span class="op">=</span> <span class="st">"Severe pain"</span></span>
-<span>    <span class="op">)</span><span class="op">)</span></span>
-<span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu">labs</span><span class="op">(</span></span>
-<span>        x <span class="op">=</span> <span class="st">"Dose (mg)"</span>,</span>
-<span>        y <span class="op">=</span> <span class="st">"Subjective relief (0 - 25)"</span></span>
-<span>    <span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>pain_data <span class="sc">|&gt;</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pain_group =</span> <span class="fu">factor</span>(pain)) <span class="sc">|&gt;</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(dose, relief)) <span class="sc">+</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    <span class="sc">~</span> pain_group,</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">labeller =</span> <span class="fu">as_labeller</span>(<span class="fu">c</span>(</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>      <span class="st">`</span><span class="at">0</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"No pain"</span>,</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>      <span class="st">`</span><span class="at">1</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"Mild pain"</span>,</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>      <span class="st">`</span><span class="at">2</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"Severe pain"</span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>    ))</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">x =</span> <span class="st">"Dose (mg)"</span>,</span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> <span class="st">"Subjective relief (0 - 25)"</span></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
 </div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="session11_files/figure-html/triptic-plot-1.png" class="img-fluid figure-img" width="672"></p>
+<figure class="figure">
+<p><img src="session11_files/figure-html/triptic-plot-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-</section><section id="polynomials" class="level2" data-number="13.7"><h2 data-number="13.7" class="anchored" data-anchor-id="polynomials">
-<span class="header-section-number">13.7</span> Polynomials</h2>
+</section>
+<section id="polynomials" class="level2" data-number="13.12">
+<h2 data-number="13.12" class="anchored" data-anchor-id="polynomials"><span class="header-section-number">13.12</span> Polynomials</h2>
 <p>Recall the linearity assumption <span class="citation" data-cites="james2021introduction">(<a href="../appendix/references.html#ref-james2021introduction" role="doc-biblioref">1</a>)</span>.</p>
 <p>Everything are not linear, is it? Consider for example the height of people:</p>
 <div class="cell">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="session11_files/figure-html/height-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption>Demographic data from Kalahari !Kung San people collected by Nancy Howell</figcaption></figure>
+<figure class="figure">
+<p><img src="session11_files/figure-html/height-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Demographic data from Kalahari !Kung San people collected by Nancy Howell</figcaption>
+</figure>
 </div>
 </div>
 </div>
 <p>As a human, you increase you height quite dramatically in childhood — but this inevitably comes to an end later in life. So how can we model this non-linear development?</p>
-<p>The answer is surprisingly simple — we can compute a new variable ϕ (phi) that is the original variable squared <span class="math inline">\((i.e. ϕ = X_1^2)\)</span>. If we do this for <code>age</code>, we can get <span class="math inline">\(ϕ = age^2\)</span>. But nothing stops us from taking the cube or above! This is called a polynomial and looks like this:</p>
+<p>The answer is surprisingly simple — we can compute a new variable ϕ (phi) that is the original variable squared (i.e.&nbsp;<span class="math inline">\(ϕ = X_1^2\)</span>). If we do this for <code>age</code>, we can get <span class="math inline">\(ϕ = age^2\)</span>. But nothing stops us from taking the cube (age^3$) or beyond! This is called a polynomial and looks like this:</p>
 <!-- panache-ignore-start-->
 <table class="caption-top table">
 <colgroup>
 <col style="width: 40%">
 <col style="width: 60%">
 </colgroup>
-<thead><tr class="header">
+<thead>
+<tr class="header">
 <th style="text-align: right;">Polynomial degree</th>
 <th>Regression model</th>
-</tr></thead>
+</tr>
+</thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: right;">1</td>
@@ -1052,58 +1164,150 @@ F-statistic: 437.8 on 3 and 29 DF,  p-value: &lt; 2.2e-16</code></pre>
 </tr>
 </tbody>
 </table>
-<!-- panache-ignore-end--><div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">height_data</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">age</span>,<span class="va">height</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu">geom_smooth</span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">height_data</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">age</span>,<span class="va">height</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu">geom_smooth</span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span>, formula <span class="op">=</span> <span class="va">y</span> <span class="op">~</span> <span class="va">x</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html">I</a></span><span class="op">(</span><span class="va">x</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span> <span class="co"># I is function for "as-is" to make math operation as is.</span></span>
-<span></span>
-<span><span class="va">height_data</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">age</span>,<span class="va">height</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu">geom_smooth</span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span>, formula <span class="op">=</span> <span class="va">y</span> <span class="op">~</span> <span class="va">x</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html">I</a></span><span class="op">(</span><span class="va">x</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html">I</a></span><span class="op">(</span><span class="va">x</span><span class="op">^</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span> <span class="co"># I is function for "as-is" to make math operation as is.</span></span>
-<span></span>
-<span><span class="va">height_data</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">age</span><span class="op">&lt;</span><span class="fl">25</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">age</span>,<span class="va">height</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu">geom_smooth</span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span>, formula <span class="op">=</span> <span class="va">y</span> <span class="op">~</span> <span class="va">x</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html">I</a></span><span class="op">(</span><span class="va">x</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span> <span class="co"># I is function for "as-is" to make math operation as is.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<!-- panache-ignore-end-->
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>height_data <span class="sc">|&gt;</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(age,height)) <span class="sc">+</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>)</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>height_data <span class="sc">|&gt;</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(age,height)) <span class="sc">+</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">formula =</span> y <span class="sc">~</span> x <span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">2</span>)) <span class="co"># I is function for "as-is" to make math operation as is.</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>height_data <span class="sc">|&gt;</span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(age,height)) <span class="sc">+</span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">formula =</span> y <span class="sc">~</span> x <span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">3</span>)) <span class="co"># I is function for "as-is" to make math operation as is.</span></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>height_data <span class="sc">|&gt;</span></span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">filter</span>(age<span class="sc">&lt;</span><span class="dv">25</span>) <span class="sc">|&gt;</span></span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(age,height)) <span class="sc">+</span></span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">formula =</span> y <span class="sc">~</span> x <span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">2</span>)) <span class="co"># I is function for "as-is" to make math operation as is.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="session11_files/figure-html/lin-quar-fit-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption>Linear model</figcaption></figure>
-</div>
-</div>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="session11_files/figure-html/lin-quar-fit-2.png" class="img-fluid figure-img" width="672"></p>
-<figcaption>Quardratic model</figcaption></figure>
+<figure class="figure">
+<p><img src="session11_files/figure-html/lin-quar-fit-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Linear model</figcaption>
+</figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="session11_files/figure-html/lin-quar-fit-3.png" class="img-fluid figure-img" width="672"></p>
-<figcaption>Cubic model</figcaption></figure>
+<figure class="figure">
+<p><img src="session11_files/figure-html/lin-quar-fit-2.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Quardratic model</figcaption>
+</figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="session11_files/figure-html/lin-quar-fit-4.png" class="img-fluid figure-img" width="672"></p>
-<figcaption>Quadratic model of individuals &lt; 25 years old</figcaption></figure>
+<figure class="figure">
+<p><img src="session11_files/figure-html/lin-quar-fit-3.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Cubic model</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="session11_files/figure-html/lin-quar-fit-4.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Quadratic model of individuals &lt; 25 years old</figcaption>
+</figure>
 </div>
 </div>
 <p>Demographic data from Kalahari !Kung San people collected by Nancy Howell</p>
 </div>
-<p>As you can see, the models definitely fit better than the</p>
-</section><section id="the-danger-of" class="level2 hidden" data-number="13.8"><h2 data-number="13.8" class="anchored" data-anchor-id="the-danger-of">
-<span class="header-section-number">13.8</span> The danger of</h2>
+<p>There is no free lunch — and the price for a non-linear linear model is that we now have more coefficients for the same variable 👀</p>
+<p>Take a look:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://strengejacke.github.io/sjPlot/">sjPlot</a></span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(height <span class="sc">~</span> age <span class="sc">+</span> <span class="fu">I</span>(age<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">I</span>(age<span class="sc">^</span><span class="dv">3</span>),</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">data=</span>height_data) <span class="sc">|&gt;</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    parameters<span class="sc">::</span><span class="fu">parameters</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 9
+  Parameter   Coefficient      SE    CI   CI_low  CI_high     t df_error
+  &lt;chr&gt;             &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;    &lt;int&gt;
+1 (Intercept)   71.8      1.05e+0  0.95  6.97e+1  7.38e+1  68.6      540
+2 age            6.05     1.27e-1  0.95  5.80e+0  6.30e+0  47.5      540
+3 I(age^2)      -0.130    4.00e-3  0.95 -1.38e-1 -1.23e-1 -32.6      540
+4 I(age^3)       0.000848 3.44e-5  0.95  7.81e-4  9.16e-4  24.6      540
+# ℹ 1 more variable: p &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p>So which which coefficient should we report?! 😅</p>
+<p>You should report all — but non of them can be interpreted in isolation. In fact, you need to plug all values in simultaneously. Now, imagine if you also had an interaction with weight 👀</p>
+</section>
+<section id="discussion-of-polynomial-regression" class="level2" data-number="13.13">
+<h2 data-number="13.13" class="anchored" data-anchor-id="discussion-of-polynomial-regression"><span class="header-section-number">13.13</span> Discussion of polynomial regression</h2>
+<p>Think for yourself for 3 minutes:</p>
+<ul>
+<li>Which model is the best?</li>
+<li>What makes some models better or worse?</li>
+<li>Would you trust predictions from these models? Which would you (not)?</li>
+</ul>
+<p>Talk to your neiggbour and try to come to agreement.</p>
+</section>
+<section id="know-your-limits-when-you-need-marginal-effects" class="level2" data-number="13.14">
+<h2 data-number="13.14" class="anchored" data-anchor-id="know-your-limits-when-you-need-marginal-effects"><span class="header-section-number">13.14</span> Know your limits — when you need marginal effects</h2>
+<p>In fact, many models become increasingly difficult to a point where eyeballing model coefficients is just madness!</p>
+<p>Take this example:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>five_way_model <span class="ot">&lt;-</span> <span class="fu">glm</span>(</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.factor</span>(HD) <span class="sc">~</span> Chol <span class="sc">*</span> RestBP <span class="sc">*</span> MaxHR <span class="sc">*</span> ChestPain,</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> binomial,</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">data=</span>hd_data</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>parameters<span class="sc">::</span><span class="fu">parameters</span>(five_way_model)[,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)] <span class="sc">|&gt;</span> <span class="fu">print</span>(<span class="at">n=</span><span class="cn">Inf</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Fixed Effects
+
+Parameter                             | Coefficient
+---------------------------------------------------
+(Intercept)                           |      -39.08
+Chol                                  |        0.10
+RestBP                                |        0.34
+MaxHR                                 |        0.19
+ChestPainnonanginal                   |      -24.81
+ChestPainnontypical                   |     -321.23
+ChestPaintypical                      |      263.16
+Chol:RestBP                           |   -6.82e-04
+Chol:MaxHR                            |   -4.17e-04
+RestBP:MaxHR                          |   -1.71e-03
+Chol:ChestPainnonanginal              |        0.11
+Chol:ChestPainnontypical              |        1.33
+Chol:ChestPaintypical                 |       -1.08
+RestBP:ChestPainnonanginal            |        0.15
+RestBP:ChestPainnontypical            |        2.23
+RestBP:ChestPaintypical               |       -2.51
+MaxHR:ChestPainnonanginal             |        0.23
+MaxHR:ChestPainnontypical             |        1.90
+MaxHR:ChestPaintypical                |       -1.77
+Chol:RestBP:MaxHR                     |    2.91e-06
+Chol:RestBP:ChestPainnonanginal       |   -7.17e-04
+Chol:RestBP:ChestPainnontypical       |   -9.36e-03
+Chol:RestBP:ChestPaintypical          |        0.01
+Chol:MaxHR:ChestPainnonanginal        |   -1.06e-03
+Chol:MaxHR:ChestPainnontypical        |   -8.01e-03
+Chol:MaxHR:ChestPaintypical           |    7.64e-03
+RestBP:MaxHR:ChestPainnonanginal      |   -1.48e-03
+RestBP:MaxHR:ChestPainnontypical      |       -0.01
+RestBP:MaxHR:ChestPaintypical         |        0.02
+Chol:RestBP:MaxHR:ChestPainnonanginal |    6.95e-06
+Chol:RestBP:MaxHR:ChestPainnontypical |    5.66e-05
+Chol:RestBP:MaxHR:ChestPaintypical    |   -6.66e-05</code></pre>
+</div>
+</div>
+<p>Oh my, that’s a lot of coefficients! 👀</p>
+<p>How in the world are we ever going to interpret this monster?! And now it’s a logistic regression, so the coefficients are in log-odds! 😅</p>
+<p>Truth is — we can’t infer much (if anything at all) from the coefficients alone. We would need to do a marginal effect estimate, which we’ll cover in <a href="session15.html" class="quarto-xref"><span>Chapter 15</span></a>.</p>
+<div class="hidden">
+<p>The danger of</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sjPlot)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>
 Attaching package: 'sjPlot'</code></pre>
@@ -1113,23 +1317,22 @@ Attaching package: 'sjPlot'</code></pre>
 
     set_theme</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">efc</span>, <span class="st">"sjPlot"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in data(efc, "sjPlot"): data set 'sjPlot' not found</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span></span>
-<span>  <span class="va">neg_c_7</span> <span class="op">~</span> <span class="va">c12hour</span> <span class="op">+</span> <span class="va">e16sex</span> <span class="op">+</span> <span class="va">c12hour</span><span class="op">:</span><span class="va">e16sex</span>,</span>
-<span>  data <span class="op">=</span> <span class="va">efc</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># fit model with 3-way-interaction</span></span>
-<span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">neg_c_7</span> <span class="op">~</span> <span class="va">c12hour</span> <span class="op">*</span> <span class="va">barthtot</span> <span class="op">*</span> <span class="va">e16sex</span>, data <span class="op">=</span> <span class="va">efc</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># select only levels 30, 50 and 70 from continuous variable Barthel-Index</span></span>
-<span><span class="fu">sjPlot</span><span class="fu">::</span><span class="fu"><a href="https://strengejacke.github.io/sjPlot/reference/plot_model.html">plot_model</a></span><span class="op">(</span><span class="va">fit</span>, type <span class="op">=</span> <span class="st">"pred"</span>, terms <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"c12hour"</span>, <span class="st">"barthtot [30,50,70]"</span>, <span class="st">"e16sex"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(efc, <span class="at">package=</span><span class="st">"sjPlot"</span>)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  neg_c_7 <span class="sc">~</span> c12hour <span class="sc">+</span> e16sex <span class="sc">+</span> c12hour<span class="sc">:</span>e16sex,</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> efc</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="co"># fit model with 3-way-interaction</span></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(neg_c_7 <span class="sc">~</span> c12hour <span class="sc">*</span> barthtot <span class="sc">*</span> e16sex, <span class="at">data =</span> efc)</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a><span class="co"># select only levels 30, 50 and 70 from continuous variable Barthel-Index</span></span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>sjPlot<span class="sc">::</span><span class="fu">plot_model</span>(fit, <span class="at">type =</span> <span class="st">"pred"</span>, <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">"c12hour"</span>, <span class="st">"barthtot [30,50,70]"</span>, <span class="st">"e16sex"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="session11_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
+<figure class="figure">
+<p><img src="session11_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1142,13 +1345,13 @@ Attaching package: 'sjPlot'</code></pre>
 <p>How much does the difference between male and female caregivers depend on caregiving hours?</p>
 <p>Students usually perceive these as different questions, but the interaction coefficient is the same parameter in both cases.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://marginaleffects.com/">marginaleffects</a></span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">marginaleffects</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/slopes.html">slopes</a></span><span class="op">(</span></span>
-<span>  <span class="va">fit</span>,</span>
-<span>  variables <span class="op">=</span> <span class="st">"c12hour"</span>,</span>
-<span>  by <span class="op">=</span> <span class="st">"e16sex"</span></span>
-<span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(marginaleffects)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>marginaleffects<span class="sc">::</span><span class="fu">slopes</span>(</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  fit,</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">variables =</span> <span class="st">"c12hour"</span>,</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">by =</span> <span class="st">"e16sex"</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
  e16sex Estimate Std. Error    z Pr(&gt;|z|)   S     2.5 % 97.5 %
@@ -1159,41 +1362,43 @@ Term: c12hour
 Type: response
 Comparison: dY/dX</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#marginaleffects::avg_slopes(</span></span>
-<span><span class="co">#  fit,</span></span>
-<span><span class="co">#  variables = "c12hour",</span></span>
-<span><span class="co">#  by = list("c12hour", "barthtot" = c(30,50,70))</span></span>
-<span><span class="co">#)</span></span>
-<span></span>
-<span><span class="fu">marginaleffects</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/plot_slopes.html">plot_slopes</a></span><span class="op">(</span></span>
-<span>  <span class="va">fit</span>,</span>
-<span>  variables <span class="op">=</span> <span class="st">"c12hour"</span>,</span>
-<span>  condition <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"c12hour"</span>, <span class="st">"barthtot"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">30</span>,<span class="fl">50</span>,<span class="fl">70</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co">#marginaleffects::avg_slopes(</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="co">#  fit,</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="co">#  variables = "c12hour",</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="co">#  by = list("c12hour", "barthtot" = c(30,50,70))</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="co">#)</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>marginaleffects<span class="sc">::</span><span class="fu">plot_slopes</span>(</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>  fit,</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">variables =</span> <span class="st">"c12hour"</span>,</span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">condition =</span> <span class="fu">list</span>(<span class="st">"c12hour"</span>, <span class="st">"barthtot"</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">30</span>,<span class="dv">50</span>,<span class="dv">70</span>))</span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="session11_files/figure-html/continuous-1.png" class="img-fluid figure-img" width="672"></p>
+<figure class="figure">
+<p><img src="session11_files/figure-html/continuous-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">marginaleffects</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/plot_predictions.html">plot_predictions</a></span><span class="op">(</span></span>
-<span>  <span class="va">fit</span>,</span>
-<span>  variables <span class="op">=</span> <span class="st">"c12hour"</span>,</span>
-<span>  condition <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"c12hour"</span>, <span class="st">"barthtot"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">30</span>,<span class="fl">50</span>,<span class="fl">70</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>marginaleffects<span class="sc">::</span><span class="fu">plot_predictions</span>(</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  fit,</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">variables =</span> <span class="st">"c12hour"</span>,</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">condition =</span> <span class="fu">list</span>(<span class="st">"c12hour"</span>, <span class="st">"barthtot"</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">30</span>,<span class="dv">50</span>,<span class="dv">70</span>))</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="session11_files/figure-html/continuous-2.png" class="img-fluid figure-img" width="672"></p>
+<figure class="figure">
+<p><img src="session11_files/figure-html/continuous-2.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">marginaleffects</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/comparisons.html">comparisons</a></span><span class="op">(</span></span>
-<span>  <span class="va">fit</span>,</span>
-<span>  variables <span class="op">=</span> <span class="st">"e16sex"</span>,</span>
-<span>  by <span class="op">=</span> <span class="st">"c12hour"</span></span>
-<span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>marginaleffects<span class="sc">::</span><span class="fu">comparisons</span>(</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  fit,</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">variables =</span> <span class="st">"e16sex"</span>,</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">by =</span> <span class="st">"c12hour"</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
  c12hour Estimate Std. Error       z Pr(&gt;|z|)   S  2.5 % 97.5 %
@@ -1214,19 +1419,19 @@ Comparison: +1</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">drug_data</span> <span class="op">&lt;-</span> <span class="fu">expand_grid</span><span class="op">(</span></span>
-<span>  dose <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">10</span>,</span>
-<span>  receptor <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">10</span>, by <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
-<span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">mutate</span><span class="op">(</span>effect <span class="op">=</span> <span class="fl">.2</span><span class="op">*</span><span class="va">dose</span> <span class="op">+</span> <span class="fl">.1</span><span class="op">*</span><span class="va">receptor</span> <span class="op">+</span></span>
-<span>         <span class="fl">.10</span><span class="op">*</span><span class="va">dose</span><span class="op">*</span><span class="va">receptor</span> <span class="op">+</span></span>
-<span>         <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fu">n</span><span class="op">(</span><span class="op">)</span>, <span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">effect</span> <span class="op">~</span> <span class="va">dose</span> <span class="op">*</span> <span class="va">receptor</span>, data <span class="op">=</span> <span class="va">drug_data</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>drug_data <span class="ot">&lt;-</span> <span class="fu">expand_grid</span>(</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">dose =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">10</span>,</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">receptor =</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="at">by =</span> <span class="dv">1</span>)</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">effect =</span> .<span class="dv">2</span><span class="sc">*</span>dose <span class="sc">+</span> .<span class="dv">1</span><span class="sc">*</span>receptor <span class="sc">+</span></span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>         .<span class="dv">10</span><span class="sc">*</span>dose<span class="sc">*</span>receptor <span class="sc">+</span></span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>         <span class="fu">rnorm</span>(<span class="fu">n</span>(), <span class="dv">0</span>, <span class="dv">1</span>))</span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">lm</span>(effect <span class="sc">~</span> dose <span class="sc">*</span> receptor, <span class="at">data =</span> drug_data)</span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(m)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -1249,91 +1454,94 @@ Residual standard error: 0.9115 on 106 degrees of freedom
 Multiple R-squared:  0.9237,    Adjusted R-squared:  0.9215 
 F-statistic: 427.8 on 3 and 106 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">drug_data</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">mutate</span><span class="op">(</span>receptor_group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cut.html">cut</a></span><span class="op">(</span><span class="va">receptor</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">dose</span>, <span class="va">effect</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_smooth</span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span>, se <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">facet_wrap</span><span class="op">(</span><span class="op">~</span> <span class="va">receptor_group</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>drug_data <span class="sc">|&gt;</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">receptor_group =</span> <span class="fu">cut</span>(receptor, <span class="dv">3</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(dose, effect)) <span class="sc">+</span></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> receptor_group)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
 </div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="session11_files/figure-html/hidden-stuff-1.png" class="img-fluid figure-img" width="672"></p>
+<figure class="figure">
+<p><img src="session11_files/figure-html/hidden-stuff-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb38"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#########</span></span>
-<span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu">expand_grid</span><span class="op">(</span></span>
-<span>  frailty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>,</span>
-<span>  dose    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>,</span>
-<span>  id      <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">9</span></span>
-<span><span class="op">)</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu">mutate</span><span class="op">(</span></span>
-<span>    change_pf <span class="op">=</span> <span class="fl">35</span> <span class="op">+</span></span>
-<span>      <span class="fl">25</span> <span class="op">*</span> <span class="va">dose</span> <span class="op">-</span></span>
-<span>      <span class="fl">18</span> <span class="op">*</span> <span class="va">dose</span><span class="op">^</span><span class="fl">2</span> <span class="op">-</span></span>
-<span>      <span class="fl">8</span>  <span class="op">*</span> <span class="va">frailty</span> <span class="op">+</span></span>
-<span>      <span class="fl">5</span>  <span class="op">*</span> <span class="va">dose</span> <span class="op">*</span> <span class="va">frailty</span> <span class="op">-</span></span>
-<span>      <span class="fl">7</span>  <span class="op">*</span> <span class="va">dose</span><span class="op">^</span><span class="fl">2</span> <span class="op">*</span> <span class="va">frailty</span> <span class="op">+</span></span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fu">n</span><span class="op">(</span><span class="op">)</span>, <span class="fl">0</span>, <span class="fl">7</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Fitted curves at -1, 0, +1 SD frailty</span></span>
-<span><span class="va">pred</span> <span class="op">&lt;-</span> <span class="fu">expand_grid</span><span class="op">(</span></span>
-<span>  dose <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1.5</span>, <span class="fl">1.5</span>, length.out <span class="op">=</span> <span class="fl">100</span><span class="op">)</span>,</span>
-<span>  frailty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span></span>
-<span><span class="op">)</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu">mutate</span><span class="op">(</span></span>
-<span>    change_pf <span class="op">=</span> <span class="fl">35</span> <span class="op">+</span></span>
-<span>      <span class="fl">25</span> <span class="op">*</span> <span class="va">dose</span> <span class="op">-</span></span>
-<span>      <span class="fl">18</span> <span class="op">*</span> <span class="va">dose</span><span class="op">^</span><span class="fl">2</span> <span class="op">-</span></span>
-<span>      <span class="fl">8</span>  <span class="op">*</span> <span class="va">frailty</span> <span class="op">+</span></span>
-<span>      <span class="fl">5</span>  <span class="op">*</span> <span class="va">dose</span> <span class="op">*</span> <span class="va">frailty</span> <span class="op">-</span></span>
-<span>      <span class="fl">7</span>  <span class="op">*</span> <span class="va">dose</span><span class="op">^</span><span class="fl">2</span> <span class="op">*</span> <span class="va">frailty</span>,</span>
-<span>    frailty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span></span>
-<span>      <span class="va">frailty</span>,</span>
-<span>      levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>,</span>
-<span>      labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Low frailty"</span>, <span class="st">"Mean frailty"</span>, <span class="st">"High frailty"</span><span class="op">)</span></span>
-<span>    <span class="op">)</span></span>
-<span>  <span class="op">)</span></span>
-<span></span>
-<span><span class="fu">ggplot</span><span class="op">(</span><span class="va">dat</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">dose</span>, <span class="va">change_pf</span>, colour <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">frailty</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_point</span><span class="op">(</span>size <span class="op">=</span> <span class="fl">2.5</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_line</span><span class="op">(</span></span>
-<span>    data <span class="op">=</span> <span class="va">pred</span>,</span>
-<span>    <span class="fu">aes</span><span class="op">(</span><span class="va">dose</span>, <span class="va">change_pf</span>, colour <span class="op">=</span> <span class="va">frailty</span><span class="op">)</span>,</span>
-<span>    linewidth <span class="op">=</span> <span class="fl">1.2</span></span>
-<span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">labs</span><span class="op">(</span></span>
-<span>    x <span class="op">=</span> <span class="st">"Chemotherapy dose intensity (SD)"</span>,</span>
-<span>    y <span class="op">=</span> <span class="st">"Change in physical functioning"</span>,</span>
-<span>    colour <span class="op">=</span> <span class="st">"Frailty"</span></span>
-<span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">theme_minimal</span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">13</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="do">#########</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">expand_grid</span>(</span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">frailty =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">dose    =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">id      =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">9</span></span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">change_pf =</span> <span class="dv">35</span> <span class="sc">+</span></span>
+<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a>      <span class="dv">25</span> <span class="sc">*</span> dose <span class="sc">-</span></span>
+<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a>      <span class="dv">18</span> <span class="sc">*</span> dose<span class="sc">^</span><span class="dv">2</span> <span class="sc">-</span></span>
+<span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a>      <span class="dv">8</span>  <span class="sc">*</span> frailty <span class="sc">+</span></span>
+<span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a>      <span class="dv">5</span>  <span class="sc">*</span> dose <span class="sc">*</span> frailty <span class="sc">-</span></span>
+<span id="cb39-17"><a href="#cb39-17" aria-hidden="true" tabindex="-1"></a>      <span class="dv">7</span>  <span class="sc">*</span> dose<span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> frailty <span class="sc">+</span></span>
+<span id="cb39-18"><a href="#cb39-18" aria-hidden="true" tabindex="-1"></a>      <span class="fu">rnorm</span>(<span class="fu">n</span>(), <span class="dv">0</span>, <span class="dv">7</span>)</span>
+<span id="cb39-19"><a href="#cb39-19" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb39-20"><a href="#cb39-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-21"><a href="#cb39-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Fitted curves at -1, 0, +1 SD frailty</span></span>
+<span id="cb39-22"><a href="#cb39-22" aria-hidden="true" tabindex="-1"></a>pred <span class="ot">&lt;-</span> <span class="fu">expand_grid</span>(</span>
+<span id="cb39-23"><a href="#cb39-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">dose =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="fl">1.5</span>, <span class="fl">1.5</span>, <span class="at">length.out =</span> <span class="dv">100</span>),</span>
+<span id="cb39-24"><a href="#cb39-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">frailty =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb39-25"><a href="#cb39-25" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb39-26"><a href="#cb39-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb39-27"><a href="#cb39-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">change_pf =</span> <span class="dv">35</span> <span class="sc">+</span></span>
+<span id="cb39-28"><a href="#cb39-28" aria-hidden="true" tabindex="-1"></a>      <span class="dv">25</span> <span class="sc">*</span> dose <span class="sc">-</span></span>
+<span id="cb39-29"><a href="#cb39-29" aria-hidden="true" tabindex="-1"></a>      <span class="dv">18</span> <span class="sc">*</span> dose<span class="sc">^</span><span class="dv">2</span> <span class="sc">-</span></span>
+<span id="cb39-30"><a href="#cb39-30" aria-hidden="true" tabindex="-1"></a>      <span class="dv">8</span>  <span class="sc">*</span> frailty <span class="sc">+</span></span>
+<span id="cb39-31"><a href="#cb39-31" aria-hidden="true" tabindex="-1"></a>      <span class="dv">5</span>  <span class="sc">*</span> dose <span class="sc">*</span> frailty <span class="sc">-</span></span>
+<span id="cb39-32"><a href="#cb39-32" aria-hidden="true" tabindex="-1"></a>      <span class="dv">7</span>  <span class="sc">*</span> dose<span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> frailty,</span>
+<span id="cb39-33"><a href="#cb39-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">frailty =</span> <span class="fu">factor</span>(</span>
+<span id="cb39-34"><a href="#cb39-34" aria-hidden="true" tabindex="-1"></a>      frailty,</span>
+<span id="cb39-35"><a href="#cb39-35" aria-hidden="true" tabindex="-1"></a>      <span class="at">levels =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb39-36"><a href="#cb39-36" aria-hidden="true" tabindex="-1"></a>      <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Low frailty"</span>, <span class="st">"Mean frailty"</span>, <span class="st">"High frailty"</span>)</span>
+<span id="cb39-37"><a href="#cb39-37" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb39-38"><a href="#cb39-38" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb39-39"><a href="#cb39-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-40"><a href="#cb39-40" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat, <span class="fu">aes</span>(dose, change_pf, <span class="at">colour =</span> <span class="fu">factor</span>(frailty))) <span class="sc">+</span></span>
+<span id="cb39-41"><a href="#cb39-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">2.5</span>) <span class="sc">+</span></span>
+<span id="cb39-42"><a href="#cb39-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(</span>
+<span id="cb39-43"><a href="#cb39-43" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> pred,</span>
+<span id="cb39-44"><a href="#cb39-44" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(dose, change_pf, <span class="at">colour =</span> frailty),</span>
+<span id="cb39-45"><a href="#cb39-45" aria-hidden="true" tabindex="-1"></a>    <span class="at">linewidth =</span> <span class="fl">1.2</span></span>
+<span id="cb39-46"><a href="#cb39-46" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb39-47"><a href="#cb39-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb39-48"><a href="#cb39-48" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Chemotherapy dose intensity (SD)"</span>,</span>
+<span id="cb39-49"><a href="#cb39-49" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Change in physical functioning"</span>,</span>
+<span id="cb39-50"><a href="#cb39-50" aria-hidden="true" tabindex="-1"></a>    <span class="at">colour =</span> <span class="st">"Frailty"</span></span>
+<span id="cb39-51"><a href="#cb39-51" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb39-52"><a href="#cb39-52" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">13</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="session11_files/figure-html/hidden-stuff-2.png" class="img-fluid figure-img" width="672"></p>
+<figure class="figure">
+<p><img src="session11_files/figure-html/hidden-stuff-2.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
+</div>
+</div>
+</div>
+
+
+<div id="refs" class="references csl-bib-body" role="list" style="display: none">
+<div id="ref-james2021introduction" class="csl-entry" role="listitem">
+<div class="csl-left-margin">1. </div><div class="csl-right-inline"><span class="nocase">James G, Witten D, Hastie T, Tibshirani R, et al.</span> An introduction to statistical learning: With applications in r. Vol. 2. Springer; 2021. </div>
 </div>
 </div>
 </section>
 
-<div id="refs" class="references csl-bib-body" role="list" style="display: none">
-<div id="ref-james2021introduction" class="csl-entry" role="listitem">
-<div class="csl-left-margin">1. </div>
-<div class="csl-right-inline">
-<span class="nocase">James G, Witten D, Hastie T, Tibshirani R, et al.</span> An introduction to statistical learning: With applications in r. Vol. 2. Springer; 2021. </div>
-</div>
-</div>
-
-<script async="" src="https://scripts.simpleanalyticscdn.com/latest.js"></script></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+<script async="" src="https://scripts.simpleanalyticscdn.com/latest.js"></script></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
     const anchorJS = new window.AnchorJS();
@@ -1732,7 +1940,9 @@ F-statistic: 427.8 on 3 and 106 DF,  p-value: &lt; 2.2e-16</code></pre>
       }
     }
   });
-  </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
       <a href="../sessions/session04.html" class="pagination-link" aria-label="When in doubt - plot it out">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">When in doubt - plot it out</span></span>
       </a>          
@@ -1744,13 +1954,14 @@ F-statistic: 427.8 on 3 and 106 DF,  p-value: &lt; 2.2e-16</code></pre>
   </div>
 </nav>
 </div> <!-- /content -->
-<footer class="footer"><div class="nav-footer">
+<footer class="footer">
+  <div class="nav-footer">
     <div class="nav-footer-left">
       &nbsp;
     </div>   
     <div class="nav-footer-center">
       <ul class="footer-items list-unstyled">
-<li class="nav-item">
+    <li class="nav-item">
     <a class="nav-link active" href="../LICENSE.html" aria-current="page">
 <p>License: CC BY 4.0 <i class="fa-brands fa-creative-commons" aria-label="creative-commons"></i> <i class="fa-brands fa-creative-commons-by" aria-label="creative-commons-by"></i></p>
 </a>
@@ -1761,12 +1972,14 @@ F-statistic: 427.8 on 3 and 106 DF,  p-value: &lt; 2.2e-16</code></pre>
 </a>
   </li>  
 </ul>
-<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/DanMazJen/medicinsk-statistik/edit/main/sessions/session11.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/blob/main/sessions/session11.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/DanMazJen/medicinsk-statistik/edit/main/sessions/session11.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/blob/main/sessions/session11.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>
   </div>
 </footer>
+
+
 
 
 </body></html>

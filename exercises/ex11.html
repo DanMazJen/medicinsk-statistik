@@ -500,31 +500,29 @@ Warning
 <p>Hint: Think of a variable that could make the relationship stronger in some patients and weaker in others.</p>
 <details><summary><strong>Click for the solution</strong>
 </summary><p>There are many potential answer, non of which can be confirmed in this session using statistics. Therefore, I provide no answers - but feel free to explore the literature on these topics!</p>
-One example: 1) You could do all the physical activity you want, but if you consume more calories than you burn, the physical activity does not impact BMI. However, if you do not consume enogugh calories, physical activity will impact BMI a lot. Therefore, calorie consumption would lead to interaction - mediating the effects - of physical activity on BMI.
+Example answer to question 1: You could do all the physical activity you want, but if you consume more calories than you burn, the physical activity does not impact BMI. However, if you do not consume enogugh calories, physical activity will impact BMI a lot. Therefore, calorie consumption would lead to interaction - mediating the effects - of physical activity on BMI.
 </details><p><strong>Exercise 2A</strong>:</p>
 <p>Which of the following hypotheses contain an interaction:</p>
 <ol type="1">
 <li>The association between smoking and lung cancer is stronger among individuals with a family history of lung cancer.</li>
-<li>Older individuals are either more likely to have hypertension than younger individuals or have hypercholesterolemia.</li>
+<li>Older individuals are more likely to have hypertension than younger individuals but also to have hypercholesterolemia.</li>
 <li>The effect of exercise on BMI is greater in men than in women and in younger than in older individuals.</li>
 <li>Patients with severe hypertension are more likely to receive antihypertensive medication but not antipsychotic medication.</li>
-<li>The association between alcohol consumption and liver disease is stronger among individuals with hepatitis infection but not among individuals with diabetes.</li>
+<li>The association between alcohol consumption and liver disease is strong among individuals with hepatitis infection but not among individuals with diabetes.</li>
 </ol>
 <details><summary><strong>Click for the solution</strong>
 </summary><ol type="1">
 <li>Interaction</li>
-<li>No interaction</li>
+<li>No interaction (more like a covariate)</li>
 <li>Interaction</li>
-<li>No interaction</li>
-<li>No interaction</li>
+<li>No interaction (not dependent on meds)</li>
+<li>No interaction (one covaraite is not informative)</li>
 </ol></details><p><strong>Exercise 3A</strong>:</p>
 <p>For each of the explanations in <strong>2A</strong>, write a linear model that expresses the stated relationship.</p>
 <details><summary><strong>Click for the solution</strong>
 </summary><ol type="1">
 <li><span class="math inline">\(LungCancer = \beta_0 + \beta_1 \text{Smoking} + \beta_2 \text{FamilyHistory} + \beta_3 (\text{Smoking} \times \text{FamilyHistory})\)</span></li>
-<li>
-<span class="math inline">\(hypertension = \beta_0 + \beta_1 \text{Age}\)</span> or <span class="math inline">\(hypertension = \beta_0 + \beta_1 \text{Age} + \beta_2 \text{Hypercholesterolemia}\)</span>
-</li>
+<li><span class="math inline">\(hypertension = \beta_0 + \beta_1 \text{Age} + \beta_2 \text{Hypercholesterolemia}\)</span></li>
 <li><span class="math inline">\(BMI = \beta_0 + \beta_1 \text{Exercise} + \beta_2 \text{Sex} + \beta_3 \text{Age} + \beta_4 (\text{Exercise} \times \text{Sex}) + \beta_5 (\text{Exercise} \times \text{Age})\)</span></li>
 <li><span class="math inline">\(hypertension = \beta_0 + \beta_1 \text{HypertensionSeverity} + \beta_2 \text{antipsychoticMedicine}\)</span></li>
 <li><span class="math inline">\(liverDisease = \beta_0 + \beta_1 \text{Alcohol} + \beta_2 \text{Hepatitis} + \beta_3 \text{Diabetes} + \beta_4 (\text{Alcohol} \times \text{Hepatitis})\)</span></li>
@@ -533,7 +531,7 @@ One example: 1) You could do all the physical activity you want, but if you cons
 <p>The research team asks you to investigate whether the relationship between uric acid and fasting blood glucose differs between men and women.</p>
 <p>Import the dataset by typing:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">SUA_data</span> <span class="op">&lt;-</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"https://zenodo.org/records/8292712/files/SUA_CVDs_risk_factors.csv"</span><span class="op">)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">SUA_data</span> <span class="op">&lt;-</span> <span class="fu">medisr</span><span class="fu">::</span><span class="va"><a href="https://danmazjen.github.io/medisr/reference/SUA_data.html">SUA_data</a></span></span>
 <span></span>
 <span><span class="va">SUA_data</span> <span class="op">&lt;-</span> <span class="va">SUA_data</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
@@ -607,16 +605,20 @@ One example: 1) You could do all the physical activity you want, but if you cons
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td>UA</td>
-<td style="text-align: right;">0.004</td>
+<td>Intercept</td>
+<td style="text-align: right;">5.6449</td>
 </tr>
 <tr class="even">
-<td>Sex(Female)</td>
-<td style="text-align: right;">-0.20</td>
+<td>UA</td>
+<td style="text-align: right;">10^{-4}</td>
 </tr>
 <tr class="odd">
+<td>Sex(Female)</td>
+<td style="text-align: right;">-0.6042</td>
+</tr>
+<tr class="even">
 <td>UA × Sex(Female)</td>
-<td style="text-align: right;">0.003</td>
+<td style="text-align: right;">0.0017</td>
 </tr>
 </tbody>
 </table>
@@ -628,11 +630,11 @@ One example: 1) You could do all the physical activity you want, but if you cons
 <p>Hint: The slope for females is the sum of the UA coefficient and the interaction coefficient.</p>
 <details><summary><strong>Click for the solution</strong>
 </summary><ol type="1">
-<li>An expected increase of 0.40 units of FBG.</li>
-<li>An expected increase of 0.70 units of FBG</li>
-<li>males. The increase in FBG per 100-unit increase in UA is 0.70 among females versus 0.40 among males.</li>
+<li>An expected increase of 0.01 units of FBG.</li>
+<li>An expected increase of 0.18 units of FBG</li>
+<li>Females.</li>
 </ol></details><p><strong>Exercise 4B</strong></p>
-<p>You show the interaction coefficient 0.0016803 to your colleague, who responds:</p>
+<p>Let’s continue with the actual data you have from <code>model1</code>. You show the interaction coefficient 0.0016803 to your colleague, who responds:</p>
 <blockquote class="blockquote">
 <p>“The interaction coefficient is small, so the interaction is not clinically important.”</p>
 </blockquote>
@@ -654,7 +656,7 @@ One example: 1) You could do all the physical activity you want, but if you cons
 </ol></details><p><strong>Exercise 5B</strong></p>
 <p>Consider the model:</p>
 <p><span class="math display">\[
-  FBG = β_0 + β_1UA + β_2sex + β_3(sex*UA) + ε
+  FBG = β_0 + β_1UA + β_2sex + β_3(sex * UA) + ε
 \]</span></p>
 <ol type="1">
 <li>We hypotesize that it is Sex that affects the association between UA and FBG. You find a significant affect. Can you confirm this hypothesis as a causal relationship?</li>
@@ -686,8 +688,14 @@ One example: 1) You could do all the physical activity you want, but if you cons
 </ol></details></section><section id="c-how-can-we-write-up-a-clincal-report-for-our-clinical-colleagues" class="level3" data-number="20.2.3"><h3 data-number="20.2.3" class="anchored" data-anchor-id="c-how-can-we-write-up-a-clincal-report-for-our-clinical-colleagues">
 <span class="header-section-number">20.2.3</span> C: How can we write up a clincal report for our clinical colleagues:</h3>
 <p><strong>Exercise 1C</strong>:</p>
-<p>The fitted model produced the following results:</p>
+<!-- panache-ignore-start -->
+<p>Assume that the fitted model produced the following results:</p>
 <table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 30%">
+<col style="width: 44%">
+</colgroup>
 <thead><tr class="header">
 <th>Term</th>
 <th style="text-align: right;">Estimate</th>
@@ -695,30 +703,38 @@ One example: 1) You could do all the physical activity you want, but if you cons
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td>UA</td>
-<td style="text-align: right;">0.004</td>
-<td>(0.002, 0.006)</td>
+<td>(Intercept)</td>
+<td style="text-align: right;">5.6449</td>
+<td>(5.4731, 5.8166)</td>
 </tr>
 <tr class="even">
-<td>Sex(Female)</td>
-<td style="text-align: right;">-0.20</td>
-<td>(-0.35, -0.05)</td>
+<td>UA</td>
+<td style="text-align: right;">10^{-4}</td>
+<td>(-4^{-4}, 5^{-4})</td>
 </tr>
 <tr class="odd">
+<td>Sex(Female)</td>
+<td style="text-align: right;">-0.6042</td>
+<td>(-0.8081, -0.4002)</td>
+</tr>
+<tr class="even">
 <td>UA × Sex(Female)</td>
-<td style="text-align: right;">0.003</td>
-<td>(0.001, 0.005)</td>
+<td style="text-align: right;">0.0017</td>
+<td>(0.0011, 0.0023)</td>
 </tr>
 </tbody>
 </table>
-<p>Write a short results paragraph suitable for the Results section of a clinical paper. Avoid statistical jargon where possible.</p>
-<p><strong>Exercise 2C</strong></p>
+<!-- panache-ignore-start --><p>Write a short paragraph suitable for the Results section of a semester project. Avoid statistical jargon where possible. Keep it as concise and clean as possible.</p>
+<details><summary><strong>Click for the solution</strong>
+</summary>
+UA was positively associated with the outcome among females, with a 100-unit increase in UA corresponding to an expected increase of 0.18 units (95% CI [0.11, 0.23]). Among males, the estimated increase was much smaller, at 0.01 units per 100-unit increase in UA, and was not statistically significant (95% CI [−0.04, 0.05]).
+</details><p><strong>Exercise 2C</strong></p>
 <p>The figure below shows predicted fasting blood glucose values across 5 uric acid levels for men and women.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="ex11_files/figure-html/ex-2C-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption>TODO</figcaption></figure>
+<figcaption>YOUR ASSIGNMENT!</figcaption></figure>
 </div>
 </div>
 </div>
@@ -729,7 +745,7 @@ One example: 1) You could do all the physical activity you want, but if you cons
 </ol>
 <details><summary><strong>Click for the solution</strong>
 </summary><ol type="1">
-<li>Fasting blood glocuse levels over 5 representative values of uric acid for males and females</li>
+<li>Fasting blood glocuse levels over 5 representative values of uric acid for males and females OR Predicted fast blood glucose values at five levels of uric acid levels for males and females</li>
 <li>While males show stable FBG across UA levels, women do not. At the extreme low or high levels of UA, women show positive correlation with FBG.</li>
 </ol></details><p><strong>Exercise 3C</strong></p>
 <p>Continuous × Continuous Interaction</p>
@@ -745,7 +761,7 @@ One example: 1) You could do all the physical activity you want, but if you cons
 <li>What clinical question does the interaction term address?</li>
 <li>If the interaction coefficient is negative, what does that imply about the relationship between UA and FBG as GFR increases?</li>
 <li>Which effect(s) are significant and how do we interpret the UA and GFR coefficients?</li>
-<li>Use {marginaleffects} to create a plot that shows how the slope of UA changes across the observed range of GFR.</li>
+<li>Use <a href="https://marginaleffects.com/">marginaleffects</a>to create a plot that shows how the slope of UA changes across the observed range of GFR.</li>
 <li>Is there a case in which GFR doesn’t affect FBG, independent of UA?</li>
 </ol>
 <details><summary><strong>Click for the solution</strong>
@@ -763,7 +779,7 @@ One example: 1) You could do all the physical activity you want, but if you cons
 <span>    <span class="fu">ylab</span><span class="op">(</span><span class="st">"Predicted fasting blood glucose"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="ex11_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+<figure class="figure"><p><img src="ex11_files/figure-html/sol-3c-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -808,7 +824,7 @@ One example: 1) You could do all the physical activity you want, but if you cons
 <span>    <span class="fu">ylab</span><span class="op">(</span><span class="st">"Predicted fasting blood glucose"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="ex11_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+<figure class="figure"><p><img src="ex11_files/figure-html/sol-4c-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -838,7 +854,7 @@ One example: 1) You could do all the physical activity you want, but if you cons
 </ol>
 <details><summary><strong>Click for the solution</strong>
 </summary><ol type="1">
-<li><span class="math inline">\(FBG=β0 + β1UA + β2sex + β3hyperglycemia + β4(UA×sex) + β5(UA×hyperglycemia) + β6(sex×hyperglycemia) + β7(UA×sex×hyperglycemia) + ε Includes\)</span></li>
+<li><span class="math inline">\(FBG=β0 + β1UA + β2sex + β3hyperglycemia + β4(UA×sex) + β5(UA×hyperglycemia) + β6(sex×hyperglycemia) + β7(UA×sex×hyperglycemia) + ε\)</span></li>
 </ol>
 <ul>
 <li>Main effects:
@@ -879,7 +895,7 @@ One example: 1) You could do all the physical activity you want, but if you cons
 <span>    <span class="fu">ylab</span><span class="op">(</span><span class="st">"Predicted fasting blood glucose"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="ex11_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+<figure class="figure"><p><img src="ex11_files/figure-html/sol-5c-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -902,7 +918,7 @@ One example: 1) You could do all the physical activity you want, but if you cons
 <li>What quantity is being modeled by this regression?</li>
 <li>What does the interaction term test?</li>
 <li>What is the interpretation of the interaction coefficient? (hint: <em>the next plot will help</em>)</li>
-<li>Use {marginaleffects} to plot predicted probabilities of hyperglycemia across UA separately for men and women.</li>
+<li>Use <a href="https://marginaleffects.com/">marginaleffects</a> to plot predicted probabilities of hyperglycemia across UA separately for men and women.</li>
 </ol>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/plot_predictions.html">plot_predictions</a></span><span class="op">(</span></span>
@@ -912,7 +928,7 @@ One example: 1) You could do all the physical activity you want, but if you cons
 <span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="ex11_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+<figure class="figure"><p><img src="ex11_files/figure-html/sol-6c-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>

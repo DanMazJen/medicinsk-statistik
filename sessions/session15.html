@@ -111,7 +111,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script>
+}</script><script src="../site_libs/quarto-diagram/mermaid.min.js"></script><script src="../site_libs/quarto-diagram/mermaid-init.js"></script><link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script><script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 </head>
 <body class="nav-sidebar floating nav-fixed quarto-light">
 
@@ -394,26 +420,46 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li>
 <a href="#slides" id="toc-slides" class="nav-link" data-scroll-target="#slides"><span class="header-section-number">16</span> Slides</a>
   <ul class="collapse">
-<li><a href="#case-session-14" id="toc-case-session-14" class="nav-link" data-scroll-target="#case-session-14"><span class="header-section-number">16.1</span> Case session 14: “”</a></li>
-  <li>
-<a href="#reading-task-investigating-one-variable-at-a-time" id="toc-reading-task-investigating-one-variable-at-a-time" class="nav-link" data-scroll-target="#reading-task-investigating-one-variable-at-a-time"><span class="header-section-number">16.2</span> Reading Task: Investigating one variable at a time</a>
+<li>
+<a href="#case-session-14" id="toc-case-session-14" class="nav-link" data-scroll-target="#case-session-14"><span class="header-section-number">16.1</span> Case session 14: “”</a>
   <ul class="collapse">
-<li><a href="#context" id="toc-context" class="nav-link" data-scroll-target="#context"><span class="header-section-number">16.2.1</span> Context</a></li>
+<li><a href="#reading-task-conditional-venom" id="toc-reading-task-conditional-venom" class="nav-link" data-scroll-target="#reading-task-conditional-venom"><span class="header-section-number">16.1.1</span> Reading Task: Conditional venom?</a></li>
+  </ul>
+</li>
+  <li><a href="#the-danger-of-coefficients" id="toc-the-danger-of-coefficients" class="nav-link" data-scroll-target="#the-danger-of-coefficients"><span class="header-section-number">16.2</span> The danger of coefficients</a></li>
+  <li><a href="#marginalizing-the-problem---our-workflow" id="toc-marginalizing-the-problem---our-workflow" class="nav-link" data-scroll-target="#marginalizing-the-problem---our-workflow"><span class="header-section-number">16.3</span> Marginalizing the problem - our workflow:</a></li>
+  <li>
+<a href="#reading-task-investigating-one-variable-at-a-time" id="toc-reading-task-investigating-one-variable-at-a-time" class="nav-link" data-scroll-target="#reading-task-investigating-one-variable-at-a-time"><span class="header-section-number">16.4</span> Reading Task: Investigating one variable at a time</a>
+  <ul class="collapse">
+<li><a href="#context" id="toc-context" class="nav-link" data-scroll-target="#context"><span class="header-section-number">16.4.1</span> Context</a></li>
   </ul>
 </li>
   <li>
-<a href="#the-scientific-model" id="toc-the-scientific-model" class="nav-link" data-scroll-target="#the-scientific-model"><span class="header-section-number">16.3</span> The scientific model</a>
+<a href="#the-scientific-model" id="toc-the-scientific-model" class="nav-link" data-scroll-target="#the-scientific-model"><span class="header-section-number">16.5</span> The scientific model</a>
   <ul class="collapse">
-<li><a href="#the-statistical-model" id="toc-the-statistical-model" class="nav-link" data-scroll-target="#the-statistical-model"><span class="header-section-number">16.3.1</span> The statistical model</a></li>
+<li><a href="#the-statistical-model" id="toc-the-statistical-model" class="nav-link" data-scroll-target="#the-statistical-model"><span class="header-section-number">16.5.1</span> The statistical model</a></li>
   </ul>
 </li>
-  <li><a href="#clear-communication" id="toc-clear-communication" class="nav-link" data-scroll-target="#clear-communication"><span class="header-section-number">16.4</span> Clear communication</a></li>
+  <li>
+<a href="#clear-communication" id="toc-clear-communication" class="nav-link" data-scroll-target="#clear-communication"><span class="header-section-number">16.6</span> Clear communication</a>
+  <ul class="collapse">
+<li><a href="#why-the-odds-ratio-is-not-enough" id="toc-why-the-odds-ratio-is-not-enough" class="nav-link" data-scroll-target="#why-the-odds-ratio-is-not-enough"><span class="header-section-number">16.6.1</span> Why the odds ratio is not enough</a></li>
+  <li><a href="#what-is-a-marginal-effect" id="toc-what-is-a-marginal-effect" class="nav-link" data-scroll-target="#what-is-a-marginal-effect"><span class="header-section-number">16.6.2</span> What is a marginal effect?</a></li>
+  <li><a href="#the-effect-depends-on-the-patient" id="toc-the-effect-depends-on-the-patient" class="nav-link" data-scroll-target="#the-effect-depends-on-the-patient"><span class="header-section-number">16.6.3</span> The effect depends on the patient</a></li>
+  </ul>
+</li>
+  <li><a href="#predicted-probabilities-versus-marginal-effects" id="toc-predicted-probabilities-versus-marginal-effects" class="nav-link" data-scroll-target="#predicted-probabilities-versus-marginal-effects"><span class="header-section-number">16.7</span> Predicted probabilities versus marginal effects</a></li>
+  <li><a href="#average-marginal-effects" id="toc-average-marginal-effects" class="nav-link" data-scroll-target="#average-marginal-effects"><span class="header-section-number">16.8</span> Average marginal effects</a></li>
+  <li><a href="#interactions-when-the-effect-depends-on-something-else" id="toc-interactions-when-the-effect-depends-on-something-else" class="nav-link" data-scroll-target="#interactions-when-the-effect-depends-on-something-else"><span class="header-section-number">16.9</span> Interactions: when the effect depends on something else</a></li>
+  <li><a href="#visualizing-the-interaction" id="toc-visualizing-the-interaction" class="nav-link" data-scroll-target="#visualizing-the-interaction"><span class="header-section-number">16.10</span> Visualizing the interaction</a></li>
+  <li><a href="#comparing-clinically-meaningful-changes" id="toc-comparing-clinically-meaningful-changes" class="nav-link" data-scroll-target="#comparing-clinically-meaningful-changes"><span class="header-section-number">16.11</span> Comparing clinically meaningful changes</a></li>
+  <li><a href="#uncertainty-a-marginal-effect-is-an-estimate-not-a-known-quantity." id="toc-uncertainty-a-marginal-effect-is-an-estimate-not-a-known-quantity." class="nav-link" data-scroll-target="#uncertainty-a-marginal-effect-is-an-estimate-not-a-known-quantity."><span class="header-section-number">16.12</span> Uncertainty A marginal effect is an estimate, not a known quantity.</a></li>
   </ul>
 </li>
   </ul><div class="toc-actions"><ul><li><a href="https://github.com/DanMazJen/medicinsk-statistik/edit/main/sessions/session15.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/blob/main/sessions/session15.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><script data-goatcounter="https://DanMazJen-medicinsk-statistik.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/session01.html">Sessions</a></li><li class="breadcrumb-item"><a href="../sessions/session15.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Marginalizing the problem</span></a></li></ol></nav><div class="quarto-title">
+<main class="content page-columns page-full" id="quarto-document-content"><script data-goatcounter="https://DanMazJen-medicinsk-statistik.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/session01.html">Sessions</a></li><li class="breadcrumb-item"><a href="../sessions/session15.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Marginalizing the problem</span></a></li></ol></nav><div class="quarto-title">
 <h1 class="title"><span id="sec-marginal-effects" class="quarto-section-identifier"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Marginalizing the problem</span></span></h1>
 </div>
 
@@ -452,7 +498,7 @@ Warning
 <li>read</li>
 </ul>
 </li>
-</ul></section><section id="slides" class="level1" data-number="16"><h1 data-number="16">
+</ul></section><section id="slides" class="level1 page-columns page-full" data-number="16"><h1 data-number="16">
 <span class="header-section-number">16</span> Slides</h1>
 <blockquote class="blockquote">
 <p><a href="../slides/day15.html"><strong>Session 15 slides</strong></a></p>
@@ -511,14 +557,124 @@ Warning
 </div>
 </div>
 </div>
-</section><section id="reading-task-investigating-one-variable-at-a-time" class="level2" data-number="16.2"><h2 data-number="16.2" class="anchored" data-anchor-id="reading-task-investigating-one-variable-at-a-time">
-<span class="header-section-number">16.2</span> Reading Task: Investigating one variable at a time</h2>
+<section id="reading-task-conditional-venom" class="level3" data-number="16.1.1"><h3 data-number="16.1.1" class="anchored" data-anchor-id="reading-task-conditional-venom">
+<span class="header-section-number">16.1.1</span> Reading Task: Conditional venom?</h3>
+<p>Read <a href="https://www.australiangeographic.com.au/blogs/creatura-with-bec-crew/2025/09/funnel-web-spiders-are-australias-deadliest-not-for-our-pets/">this Australian Geographics blog</a> on the Funnel-web spider.</p>
+</section></section><section id="the-danger-of-coefficients" class="level2" data-number="16.2"><h2 data-number="16.2" class="anchored" data-anchor-id="the-danger-of-coefficients">
+<span class="header-section-number">16.2</span> The danger of coefficients</h2>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In nonlinear models, you cannot generally interpret the regression coefficient as the change in probability.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The purpose of <a href="https://marginaleffects.com/">marginaleffects</a> is essentially to help us make this translation: From a fitted generalized model → to quantities that answer the scientific question.</p>
+</div>
+</div>
+</section><section id="marginalizing-the-problem---our-workflow" class="level2 page-columns page-full" data-number="16.3"><h2 data-number="16.3" class="anchored" data-anchor-id="marginalizing-the-problem---our-workflow">
+<span class="header-section-number">16.3</span> Marginalizing the problem - our workflow:</h2>
+<p>Throughout this session, we’ll use this workflow:</p>
+<p><strong>Step 1</strong> — What is my scientific question?</p>
+<p>What happens to the probability of Y when X changes?</p>
+<p><strong>Step 2</strong> — What did the regression estimate?</p>
+<p>log-odds</p>
+<p><strong>Step 3</strong> — What quantity do I actually want to communicate?</p>
+<p>probability</p>
+<p><strong>Step 4</strong> — At what values?</p>
+<ul>
+<li>A particular patient?</li>
+<li>A clinically meaningful scenario?</li>
+<li>The average population?</li>
+<li>Different levels of an interacting variable?</li>
+</ul>
+<p><strong>Step 5</strong> — Use marginal effects</p>
+<p>avg_slopes(model)</p>
+<p>or</p>
+<p>slopes(model, …)</p>
+<p>or</p>
+<p>avg_comparisons(model, …)</p>
+<p><strong>Step 6</strong> — Communicate in clinically meaningful units</p>
+<p>Prefer:</p>
+<p>1.8 percentage-point increase in predicted probability</p>
+<p>over:</p>
+<p>AME = 0.018</p>
+<div id="fig-marginal-effects-workflow" class="column-page quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-marginal-effects-workflow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="workflow-diag">
+<div>
+<pre class="mermaid mermaid-js" data-label="workflow-diag">flowchart LR
+    A["1. Scientific question&lt;br/&gt;&lt;br/&gt;What happens to P(Y)&lt;br/&gt;when X changes?"]
+    --&gt; B["2. Regression estimate&lt;br/&gt;&lt;br/&gt;log-odds"]
+
+    B --&gt; C["3. Quantity to communicate&lt;br/&gt;&lt;br/&gt;Probability"]
+
+    C --&gt; D{"4. Who/where are we estimating the effect?"}
+
+    D --&gt; D1["Particular patient"]
+    D --&gt; D2["Clinically meaningful&lt;br/&gt;scenario"]
+    D --&gt; D3["Average population"]
+    D --&gt; D4["Different levels of&lt;br/&gt;an interacting variable"]
+
+    D1 --&gt; E["5. Marginal effects"]
+    D2 --&gt; E
+    D3 --&gt; E
+    D4 --&gt; E
+
+    E --&gt; E1["avg_slopes(model)"]
+    E --&gt; E2["slopes(model, ...)"]
+    E --&gt; E3["avg_comparisons(model, ...)"]
+
+    E1 --&gt; F["6. Communicate in&lt;br/&gt;clinically meaningful units"]
+    E2 --&gt; F
+    E3 --&gt; F
+
+    F --&gt; G["1.8 percentage-point increase&lt;br/&gt;in predicted probability"]
+
+    style A fill:#E8F1FB,stroke:#3B6EA5,stroke-width:2px
+    style B fill:#F3F3F3,stroke:#666,stroke-width:2px
+    style C fill:#E8F5E9,stroke:#4C8C4A,stroke-width:2px
+    style D fill:#FFF4D6,stroke:#C79A24,stroke-width:2px
+    style E fill:#EDE7F6,stroke:#7656A6,stroke-width:2px
+    style F fill:#E8F5E9,stroke:#4C8C4A,stroke-width:2px
+    style G fill:#DDF3E0,stroke:#3D8B40,stroke-width:3px
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-marginal-effects-workflow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;16.1: From the scientific question to a clinically interpretable marginal effect.
+</figcaption></figure>
+</div>
+<p>As shown in <a href="#fig-marginal-effects-workflow" class="quarto-xref">Figure&nbsp;<span>16.1</span></a>, we move from the <strong>scientific question</strong>, through the <strong>model scale</strong>, to a <strong>marginal effect on the probability scale</strong>.</p>
+</section><section id="reading-task-investigating-one-variable-at-a-time" class="level2" data-number="16.4"><h2 data-number="16.4" class="anchored" data-anchor-id="reading-task-investigating-one-variable-at-a-time">
+<span class="header-section-number">16.4</span> Reading Task: Investigating one variable at a time</h2>
 <p>…</p>
 <blockquote class="blockquote">
 <p>How does <code>[RISK FACTOR]</code> affect the probability of <code>[DISEASE/OUTCOME]</code>?</p>
 </blockquote>
-<section id="context" class="level3" data-number="16.2.1"><h3 data-number="16.2.1" class="anchored" data-anchor-id="context">
-<span class="header-section-number">16.2.1</span> Context</h3>
+<section id="context" class="level3" data-number="16.4.1"><h3 data-number="16.4.1" class="anchored" data-anchor-id="context">
+<span class="header-section-number">16.4.1</span> Context</h3>
 <ul>
 <li>Population: <code>[POPULATION]</code>
 </li>
@@ -534,14 +690,16 @@ Warning
 <blockquote class="blockquote">
 <p><strong>If a patient’s <code>[RISK FACTOR]</code> increases by <code>[X UNITS]</code>, how much does their probability of disease increase?</strong></p>
 </blockquote>
-</section></section><section id="the-scientific-model" class="level2" data-number="16.3"><h2 data-number="16.3" class="anchored" data-anchor-id="the-scientific-model">
-<span class="header-section-number">16.3</span> The scientific model</h2>
+</section></section><section id="the-scientific-model" class="level2" data-number="16.5"><h2 data-number="16.5" class="anchored" data-anchor-id="the-scientific-model">
+<span class="header-section-number">16.5</span> The scientific model</h2>
 <p>We model the probability of disease:</p>
 <pre class="text"><code>P(Disease = 1 | X)</code></pre>
 <p>using logistic regression:</p>
-<p>logit(P(Y=1))=β0+β1X1+β2X2+⋯(P(Y=1)) = _0 + _1X_1 + _2X_2 + </p>
-<section id="the-statistical-model" class="level3" data-number="16.3.1"><h3 data-number="16.3.1" class="anchored" data-anchor-id="the-statistical-model">
-<span class="header-section-number">16.3.1</span> The statistical model</h3>
+<p><span class="math display">\[
+  {logit}(P(Y = 1)) = \beta\_0 + \beta\_1X_1 + \beta\_2X_2 + \cdots
+\]</span></p>
+<section id="the-statistical-model" class="level3" data-number="16.5.1"><h3 data-number="16.5.1" class="anchored" data-anchor-id="the-statistical-model">
+<span class="header-section-number">16.5.1</span> The statistical model</h3>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span></span>
 <span>  <span class="va">disease</span> <span class="op">~</span> <span class="va">risk_factor</span> <span class="op">+</span> <span class="va">covariate_1</span> <span class="op">+</span> <span class="va">covariate_2</span>,</span>
 <span>  data <span class="op">=</span> <span class="va">data</span>,</span>
@@ -554,21 +712,201 @@ Warning
 <li>odds ratio for <code>[X]</code>
 </li>
 <li>statistical uncertainty, if relevant</li>
-</ul></section></section><section id="clear-communication" class="level2" data-number="16.4"><h2 data-number="16.4" class="anchored" data-anchor-id="clear-communication">
-<span class="header-section-number">16.4</span> Clear communication</h2>
+</ul></section></section><section id="clear-communication" class="level2" data-number="16.6"><h2 data-number="16.6" class="anchored" data-anchor-id="clear-communication">
+<span class="header-section-number">16.6</span> Clear communication</h2>
 <p>Suppose:</p>
-<blockquote class="blockquote">
-<p><strong>OR = [INSERT OR]</strong></p>
-</blockquote>
-<blockquote class="blockquote">
+<p>OR = 1.50</p>
 <p>What does this mean?</p>
-</blockquote>
-<p>The more important question:</p>
+<p>A 1-unit increase in age is associated with a 50% increase in the odds of cardiovascular disease, holding the other variables constant.</p>
+<p>But the more important question is:</p>
+<p>Does this mean that a 1-year increase in age increases the probability of disease by 50 percentage points?</p>
+<p>No.</p>
+<p>An odds ratio describes a change in odds, not directly a change in probability.</p>
+<section id="why-the-odds-ratio-is-not-enough" class="level3" data-number="16.6.1"><h3 data-number="16.6.1" class="anchored" data-anchor-id="why-the-odds-ratio-is-not-enough">
+<span class="header-section-number">16.6.1</span> Why the odds ratio is not enough</h3>
+<p>The clinical question is usually about risk/probability, not odds.</p>
+<p>Consider two patients:</p>
+<ul>
+<li>Patient A has a predicted disease probability of 5%.</li>
+<li>Patient B has a predicted disease probability of 50%.</li>
+</ul>
+<p>Suppose both experience the same change in the predictor.</p>
+<p>The resulting change in probability will not necessarily be the same.</p>
+<p>This is the key complication of logistic regression:</p>
 <blockquote class="blockquote">
-<p><strong>Does this mean that a [X]-unit increase in <code>[X]</code> increases the probability of disease by [OR-related percentage] percentage points?</strong></p>
+<p>The effect of X on probability depends on where you start.</p>
 </blockquote>
-<p>recall…</p>
-<p>An odds ratio describes a change in <strong>odds</strong>, not directly a change in <strong>probability</strong>.</p>
+<p>The relationship between X and probability is nonlinear.</p>
+<p>The logistic curve is relatively flat near 0 and 1, and steepest in the middle.</p>
+<p>Therefore:</p>
+<blockquote class="blockquote">
+<p>There is not necessarily one single “effect of X” on probability.</p>
+</blockquote>
+</section><section id="what-is-a-marginal-effect" class="level3" data-number="16.6.2"><h3 data-number="16.6.2" class="anchored" data-anchor-id="what-is-a-marginal-effect">
+<span class="header-section-number">16.6.2</span> What is a marginal effect?</h3>
+<p>A marginal effect asks:</p>
+<p><em>How much does predicted probability change when X changes?</em></p>
+<p>For a continuous variable:</p>
+<p><em>What happens to predicted probability if X increases by 1 unit?</em></p>
+<p>For example:</p>
+<p>If age increases by 1 year, how much does predicted probability of disease change?</p>
+<p>In a nonlinear model, this is calculated on the probability scale, rather than the log-odds scale.</p>
+<p>With {marginaleffects}:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://marginaleffects.com/">marginaleffects</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/slopes.html">avg_slopes</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Conceptually, the output answers: A 1-unit increase in age → Δ predicted probability</p>
+<p>If the result were:</p>
+<p>age: 0.012</p>
+<p>the interpretation would be:</p>
+<p>A one-year increase in age is associated with a 1.2 percentage-point increase in predicted probability, on average.</p>
+<p>Notice the distinction:</p>
+<p>0.012 probability</p>
+<p>1.2 percentage points</p>
+</section><section id="the-effect-depends-on-the-patient" class="level3" data-number="16.6.3"><h3 data-number="16.6.3" class="anchored" data-anchor-id="the-effect-depends-on-the-patient">
+<span class="header-section-number">16.6.3</span> The effect depends on the patient</h3>
+<p>Suppose we want to know the effect of age for a particular patient.</p>
+<p>We might ask:</p>
+<p>What is the marginal effect of age for a 50-year-old non-smoker with normal blood pressure?</p>
+<p>versus:</p>
+<p>What is the marginal effect of age for a 75-year-old smoker with high blood pressure?</p>
+<p>These can be different.</p>
+<p>We can calculate effects for specified covariate values:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/slopes.html">slopes</a></span><span class="op">(</span></span>
+<span>  <span class="va">model</span>,</span>
+<span>  newdata <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/datagrid.html">datagrid</a></span><span class="op">(</span></span>
+<span>    age <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">50</span>, <span class="fl">75</span><span class="op">)</span>,</span>
+<span>    smoking <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>,</span>
+<span>    blood_pressure <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">120</span>, <span class="fl">160</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The important concept is not the syntax.</p>
+<p>It is:</p>
+<p>A marginal effect is conditional on the characteristics of the person for whom we calculate it.</p>
+</section></section><section id="predicted-probabilities-versus-marginal-effects" class="level2" data-number="16.7"><h2 data-number="16.7" class="anchored" data-anchor-id="predicted-probabilities-versus-marginal-effects">
+<span class="header-section-number">16.7</span> Predicted probabilities versus marginal effects</h2>
+<p>These are different questions.</p>
+<p>Predicted probability What is this patient’s predicted probability of disease?</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/predictions.html">predictions</a></span><span class="op">(</span></span>
+<span>  <span class="va">model</span>,</span>
+<span>  newdata <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/datagrid.html">datagrid</a></span><span class="op">(</span></span>
+<span>    age <span class="op">=</span> <span class="fl">60</span>,</span>
+<span>    smoking <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>    blood_pressure <span class="op">=</span> <span class="fl">130</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Marginal effect How much does the predicted probability change if age increases?</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/slopes.html">slopes</a></span><span class="op">(</span></span>
+<span>  <span class="va">model</span>,</span>
+<span>  newdata <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/datagrid.html">datagrid</a></span><span class="op">(</span></span>
+<span>    age <span class="op">=</span> <span class="fl">60</span>,</span>
+<span>    smoking <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>    blood_pressure <span class="op">=</span> <span class="fl">130</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Predictions:</strong></p>
+<blockquote class="blockquote">
+<p>“What is the risk?”</p>
+</blockquote>
+<p><strong>Marginal effects:</strong></p>
+<blockquote class="blockquote">
+<p>“How much does the risk change?”</p>
+</blockquote>
+<p>Both are useful, but they answer different scientific questions.</p>
+</section><section id="average-marginal-effects" class="level2" data-number="16.8"><h2 data-number="16.8" class="anchored" data-anchor-id="average-marginal-effects">
+<span class="header-section-number">16.8</span> Average marginal effects</h2>
+<p>Often we do not want the effect for one particular patient.</p>
+<p>We want:</p>
+<p>What is the average effect in this population?</p>
+<p>That is the average marginal effect (AME).</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/slopes.html">avg_slopes</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Conceptually:</p>
+<div class="line-block">Patient 1: effect of X = …<br>
+Patient 2: effect of X = …<br>
+Patient 3: effect of X = …<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⋮<br>
+Patient N: effect of X = …</div>
+<p>Average = AME</p>
+<p>The interpretation is:</p>
+<p>On average, a one-unit increase in X changes predicted probability by Δ percentage points.</p>
+<p>This is often much easier to communicate than an odds ratio.</p>
+</section><section id="interactions-when-the-effect-depends-on-something-else" class="level2" data-number="16.9"><h2 data-number="16.9" class="anchored" data-anchor-id="interactions-when-the-effect-depends-on-something-else">
+<span class="header-section-number">16.9</span> Interactions: when the effect depends on something else</h2>
+<p>Suppose our model includes:</p>
+<p>Age × Smoking</p>
+<p>The scientific question becomes:</p>
+<p>Does the effect of age on disease probability differ between smokers and non-smokers?</p>
+<p>The model might be:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span></span>
+<span>  <span class="va">disease</span> <span class="op">~</span> <span class="va">age</span> <span class="op">*</span> <span class="va">smoking</span> <span class="op">+</span> <span class="va">blood_pressure</span>,</span>
+<span>  data <span class="op">=</span> <span class="va">data</span>,</span>
+<span>  family <span class="op">=</span> <span class="va">binomial</span></span>
+<span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The temptation is to look at the interaction coefficient and interpret it directly.</p>
+<p>Don’t.</p>
+<p>The interaction coefficient is on the log-odds scale.</p>
+<p>Instead, calculate the marginal effect of age at different smoking statuses:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/slopes.html">slopes</a></span><span class="op">(</span></span>
+<span>  <span class="va">model</span>,</span>
+<span>  variables <span class="op">=</span> <span class="st">"age"</span>,</span>
+<span>  by <span class="op">=</span> <span class="st">"smoking"</span></span>
+<span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Now the result directly addresses the scientific question:</p>
+<p>Effect of age among non-smokers Effect of age among smokers</p>
+<p>And you can ask:</p>
+<p>Is the difference between those marginal effects clinically meaningful?</p>
+</section><section id="visualizing-the-interaction" class="level2" data-number="16.10"><h2 data-number="16.10" class="anchored" data-anchor-id="visualizing-the-interaction">
+<span class="header-section-number">16.10</span> Visualizing the interaction</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/plot_predictions.html">plot_predictions</a></span><span class="op">(</span></span>
+<span>  <span class="va">model</span>,</span>
+<span>  condition <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"age"</span>, <span class="st">"smoking"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section><section id="comparing-clinically-meaningful-changes" class="level2" data-number="16.11"><h2 data-number="16.11" class="anchored" data-anchor-id="comparing-clinically-meaningful-changes">
+<span class="header-section-number">16.11</span> Comparing clinically meaningful changes</h2>
+<p>A one-unit change is not always clinically meaningful.</p>
+<p>For example, instead of asking:</p>
+<p>What is the effect of a 1-unit increase in blood pressure?</p>
+<p>we might ask:</p>
+<p>What is the change in predicted probability when blood pressure increases from 120 to 140 mmHg?</p>
+<p>For this, use a comparison:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/comparisons.html">avg_comparisons</a></span><span class="op">(</span></span>
+<span>  <span class="va">model</span>,</span>
+<span>  variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
+<span>    blood_pressure <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">120</span>, <span class="fl">140</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>This produces a quantity directly corresponding to the clinical question:</p>
+<p>Predicted probability at 140 − Predicted probability at 120 = change in probability</p>
+</section><section id="uncertainty-a-marginal-effect-is-an-estimate-not-a-known-quantity." class="level2" data-number="16.12"><h2 data-number="16.12" class="anchored" data-anchor-id="uncertainty-a-marginal-effect-is-an-estimate-not-a-known-quantity.">
+<span class="header-section-number">16.12</span> Uncertainty A marginal effect is an estimate, not a known quantity.</h2>
+<p>Therefore we also report uncertainty:</p>
+<ul>
+<li>Estimate</li>
+<li>95% CI</li>
+<li>p-value</li>
+</ul>
+<p>For example:</p>
+<p>AME = 0.018 (95% CI 0.010–0.026)</p>
+<p>Interpretation:</p>
+<p>On average, a one-unit increase in X is associated with a 1.8 percentage-point increase in predicted probability, with a 95% confidence interval from 1.0 to 2.6 percentage points.</p>
 
 
 </section></section><script async="" src="https://scripts.simpleanalyticscdn.com/latest.js"></script></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">

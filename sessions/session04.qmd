@@ -24,6 +24,25 @@ data(hd_data, package = "medisr")
 
 {{< include /includes/curriculum/_session4.qmd >}}
 
+# Slides
+
+> [**Session 4 slides**](../slides/day4.html)
+
+<div>
+
+```{=html}
+<iframe class="slide-deck" src="../slides/day4.html"></iframe>
+```
+
+</div>
+
+::: {.callout-note collapse="true"}
+## Teacher note
+
+The slides contain speaking notes that you can view by pressing 'S' on the
+keyboard.
+:::
+
 ## Case session 4: "Let's first see what the data are telling us"
 
 A research group at AalboR University is reviewing data collected from patients

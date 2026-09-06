@@ -3,6 +3,8 @@ format: rostools-theme-revealjs
 search: false
 ---
 
+# Conditioning and polynomial madness {.smaller}
+
 ```{r}
 #| label: setup
 #| echo: false
@@ -41,8 +43,6 @@ revealjs-plugins:
 filters:
   - editable
 -->
-
-# Conditioning and polynomial madness {.smaller}
 
 ## Oscar winners live longer
 
@@ -312,7 +312,7 @@ We get:
 Here's the regression equation:
 
 $$
-  \bar{Y} = 10 + 2*age - 20*sick - 1 * (age×sick)
+  \bar{Y} = 10 + 2 * age - 20 * sick - 1 * (age × sick)
 $$
 
 - *What if I'm 32 years old and not sick?*
@@ -586,7 +586,12 @@ polynomials.
 
 ## Polynomial madness
 
-`shiny::runApp("apps/polynomial-app/app.R")`
+  | Polynomial degree | Regression model                                                    |
+  | ----------------: | ------------------------------------------------------------------- |
+  |                 1 | $y = \beta_0 + \beta_1 x$                                           |
+  |                 2 | $y = \beta_0 + \beta_1 x + \beta_2 x^2$                             |
+  |                 3 | $y = \beta_0 + \beta_1 x + \beta_2 x^2 + \beta_3 x^3$               |
+  |                 4 | $y = \beta_0 + \beta_1 x + \beta_2 x^2 + \beta_3 x^3 + \beta_4 x^4$ |
 
 ## Human height is not linear! Is regression broken?
 
@@ -627,10 +632,9 @@ height_data |>
     geom_smooth(method = "lm", formula = y ~ x + I(x^2) + I(x^3)) # I is function for "as-is" to make math operation as is.
 ```
 
-::: {notes}
-- Potenser (2. eller 3. potens)
-- kubik og kvadrat
-:::
+## Live demo:
+
+`shiny::runApp("apps/polynomial-app/app.R")`
 
 ## What about logistic regression?
 

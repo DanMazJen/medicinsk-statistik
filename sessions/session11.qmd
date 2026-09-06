@@ -90,6 +90,10 @@ broadly, or are there patient groups where it may be misleading?*
 :::
 
 ```{r}
+#| label: why-this
+#| echo: false
+#| output: false
+
 hd_data <- hd_data |>
     mutate(
         ExAng = factor(ExAng,
@@ -116,21 +120,19 @@ hd_data |>
 
 ### Reading Task: Conditional venom?
 
-Read [this Australian Geographics blog]
-(https://www.australiangeographic.com.au/blogs/creatura-with-bec-crew/2025/09/funnel-web-spiders-are-australias-deadliest-not-for-our-pets/)
+Read [this Australian Geographics
+blog](https://www.australiangeographic.com.au/blogs/creatura-with-bec-crew/2025/09/funnel-web-spiders-are-australias-deadliest-not-for-our-pets/)
 on the Funnel-web spider.
 
-## The additive and linear assumption
+## Reading task: The additive and linear assumption
 
 In a standard linear regression model, we make two important assumptions about
-how the predictors X relate to the response Y:
+how the predictors X relate to the response Y [@james2021introduction]:
 
 1. Additivity assumption
 
-Each predictor affects Y independently of the other predictors. In other words,
-the effect of $X_j$ ​
-
-does not depend on the values of the other X's.
+> Each predictor affects Y independently of the other predictors. In other
+> words, the effect of $X_j$ ​does not depend on the values of the other X's.
 
 Example: Suppose we predict salary using years of experience and education. The
 additivity assumption says that the effect of one additional year of experience
@@ -138,9 +140,9 @@ is the same regardless of a person's education level.
 
 2. Linearity assumption
 
-The effect of a predictor on Y is constant across its range. A one-unit increase
-in $X_j$ is assumed to produce the same change in Y, no matter what the current
-value of $X_j$ is.
+> The effect of a predictor on Y is constant across its range. A one-unit
+> increase in $X_j$ is assumed to produce the same change in Y, no matter what
+> the current value of $X_j$ is.
 
 Example: If each additional year of experience increases salary by €2,000, the
 model assumes this €2,000 increase is the same for someone with 2 years of
@@ -151,6 +153,11 @@ will see how we routinely do this using simple tricks of multiplication and
 squaring the predictor variables.
 
 ### Adding the variable to a regression model is not enough
+
+We will use the `lm()` function for linear model and the `{marginaleffects}`
+package to make a quick `{ggplot2}` figure. While we could do this in
+`{ggplot2}`, the `{marginaleffects}` package has several tricks for making
+regression plots nice and simple to code and inspect.
 
 ```{r}
 #| label: addition-not-enough
@@ -178,26 +185,32 @@ consider whether the slopes might change dependent on heart disease.
 
 ### Making non-linear terms in linear models
 
-multiplying two variables does not make the regression model "non-linear" in the
-statistical sense. Instead, it gives the model extra flexibility to capture
-relationships that are not additive.
-
-Let's start with the basic idea.
+Let's start at the conceptual level.
 
 Suppose we want to predict salary using two variables:
 
-- (X_1) = years of experience
-- (X_2) = education level
+- ($X_1$) = years of experience
+- ($X_2$) = education level
 
 We might first think:
 
-More experience → higher salary. More education → higher salary.
+- More venom → higher mortality.
+- One species → more vulnerable.
 
-But there is another possibility:
+But remember the additivity assumption: all species scale similarly on mortality
+with increasing venom. Do you think it applies here? I'm not sure...
 
-- The value of experience might matter differently depending on education.
+> The deadliness of venom dose might matter differently depending on the
+> species.
 
-That is an interaction.
+That is an interaction. And it is per definition violating the additivity
+assumption!
+
+But how do we make a *linear model* capture **non-linear** relationships 👀
+
+Think of this problem as not "breaking" the rules but rather "bending" the
+rules. We need some way to give the linear model extra flexibility to capture
+relationships that are not additive.
 
 #### 1. What does multiplication mean intuitively?
 
@@ -215,7 +228,8 @@ $$
   4 \times 3 = 12.
 $$
 
-The result depends on *both numbers*.
+The result depends on *both numbers*. This process is linear *conditioned* on
+the other number being the same.
 
 Now imagine:
 
@@ -223,17 +237,19 @@ $$
   X_1 \times X_2.
 $$
 
-If (X_1) changes, the product changes --- but *how much it changes depends on
-(X_2)*.
+If ($X_1$) changes, the product changes --- but *how much it changes depends on
+($X_2$)*.
 
 For example:
 
-  | Experience (X_1) | Education (X_2) | (X_1X_2) |
-  | ---------------: | --------------: | -------: |
-  |                2 |               1 |        2 |
-  |                3 |               1 |        3 |
-  |                2 |               3 |        6 |
-  |                3 |               3 |        9 |
+::: {#tbl-multiplication-table}
+  | Venom dose ($X_1$) | Education ($X_2$) | ($X_1X_2$) |
+  | -----------------: | ----------------: | ---------: |
+  |                  2 |                 1 |          2 |
+  |                  3 |                 1 |          3 |
+  |                  2 |                 3 |          6 |
+  |                  3 |                 3 |          9 |
+:::
 
 Notice what happens when experience increases from 2 to 3:
 
@@ -242,37 +258,33 @@ Notice what happens when experience increases from 2 to 3:
 
 So multiplication naturally creates a situation where:
 
-> **The effect of one variable depends on the value of the other variable.**
+> The effect of one variable depends on the value of the other variable.
 
 That is exactly what we mean by an **interaction**.
 
 To allow this, we create a new variable:
 
 $$
-  X_1X_2
+  γ = X_1X_2
 $$
-which simply means *multiply the two variables together*.
+our new variable, γ (gamma), *multiply the two variables together*.
 
 > Notice that multiplication is non-linear now!
 
-When we say *linear regression*, "linear" does *not* mean that we are forbidden
-from multiplying variables.
+When we say *linear regression*, "linear" does *not* mean that we are forever
+doomed to model only linear and additive phenomena.
 
-Instead, it means that the model is linear in the *coefficients* --- the numbers
-that the regression estimates.
+Instead, it means that the model *coefficients* are linear --- the numbers that
+the regression estimates.
 
-We can think of (X_1X_2) as simply creating a *new predictor*.
+You can think of γ as we create a *new predictor* --- the variable is producing
+another linear coefficient. The regression can then use this new variable just
+like any other predictor.
 
-Instead of thinking:
-
-> "I am multiplying two predictors inside the regression."
-
-Think:
-
-> "I have created a new variable called interaction, whose value is (X_1 \times
-> X_2)."
-
-The regression can then use this new variable just like any other predictor.
+This new variable consider the *conditional relationship* between two values. If
+$β_1$ is small, the value might be small independent of $β_2$. But if both $β_1$
+and $β_2$ is large, the value might always be large (see
+@tbl-multiplication-table)
 
 There are therefore two different ideas:
 
@@ -283,7 +295,11 @@ There are therefore two different ideas:
 
 Multiplication is useful because it naturally creates this dependency.
 
+But how do we do that in R(eal life)?
+
 ### Adding an interaction
+
+We can literally make a new variable called `age_by_hd` using `{dplyr}`:
 
 ```{r}
 #| label: interaction1
@@ -305,8 +321,8 @@ notation:
 
 `Age:HD`
 
-We will wait with interpreting the coefficients till the next section. For now,
-confirm that these numbers are identical to the model below.
+We will wait with interpreting the coefficients till the @sec-coef-interp. For
+now, confirm that these numbers are identical to the model below.
 
 ```{r}
 #| label: interaction1-r-trick
@@ -348,7 +364,16 @@ model_interact <-
 ```
 :::
 
-### Interpreting an interaction estimate
+### Interpreting an interaction estimate {#sec-coef-interp}
+
+In order to interpret the regression model, we need to recover the regression
+coefficient. From there, we will have to plug in numbers depending on what we're
+interesting in estimating. This section goes through that process step by step.
+
+#### Step 1: Recovering the regression equation
+
+The first thing you can do to inspect a regression model is to use the
+`summary()` function:
 
 ```{r}
 #| label: summary-int1
@@ -356,6 +381,9 @@ model_interact <-
 model_interact |>
     summary()
 ```
+
+Note that we are missing the confidence intervals. A better tool is
+`parameters::model_parameters()`:
 
 ```{r}
 #| label: params
@@ -365,17 +393,12 @@ model_params <- model_interact |>
 model_params
 ```
 
-$$
-  \bar{Y} = 213.93 − 1.06*age − 53.84*hd + 0.689 * age×hd)
-$$
-
-where:
-
-- age = age in years
-- hd = 0 (no heart disease) or 1 (heart disease)
+This is great --- we could make it a bit simpler and only look at the estimates
+(here names `_est`):
 
 ```{r}
 #| label: model-coeff-interp
+#| echo: false
 
 model_params <-
     data.frame(
@@ -388,25 +411,48 @@ model_params <-
 model_params
 ```
 
-#### Step 1: Write separate equations for each group
+You might wonder how this relates to the regression equation. Let's plug the
+values in:
 
-- No heart disease (hd = 0)
-- Substitute hd = 0:
+$$
+  \bar{Y} = 213.93 − 1.06 * age − 53.84 * hd + 0.689 * age\_by\_hd
+$$
 
-$ \bar{Y} = 213.93 − 1.06(age) $
+where:
+
+- age = age in years
+- hd = 0 (no heart disease) or 1 (heart disease)
+
+And there we have the regression equation 🎉
+
+#### Step 2: Write separate equations for each group
+
+For this case, we would want the estimate for a heart disease vs. no heart
+disease.
+
+Recall that no heart disease was coded `hd = 0`:
+
+$$
+  \bar{Y} = 213.93 − 1.06 * age − 53.84 * ZERO + 0.689 * ZERO
+$$
+$53.84 * 0$ cancels out --- so does 0.689 \* ZERO.
+
+$\bar{Y} = 213.93 − 1.06(age)$
 
 **Interpretation:**
 
 For people without heart disease, each additional year of age is associated with
-about 1.06 units lower predicted outcome. Heart disease (hd = 1)
+about 1.06 units lower predicted outcome.
 
-Substitute hd = 1:
+If we now look at the heart disease group (`hd = 1`) we get:
 
 $ \bar{Y} = 213.93 − 1.06(age) − 53.84 + 0.689(age) $
 
-Combine terms:
+because $53.84 * 1$ is 53.84 and $0.689 * age × 1$ is $0.689(age)$.
 
-$\bar{Y} = 160.09 − 0.368(age)$
+We can combine the terms:
+
+$\bar{Y} = 160.09 − 0.371(age)$
 
 **Interpretation:**
 
@@ -414,36 +460,36 @@ For people with heart disease, each additional year of age is associated with
 only about 0.37 units lower predicted outcome. The age effect is less negative
 because of the positive interaction term.
 
-#### Step 2: Plug in specific ages
+#### Step 3: Plug in specific ages
 
 **Age = 40**
 
-*No heart disease:* 213.93−1.06(40)=171.67
+*No heart disease:* $213.93 − 1.06(40) = 171.67$
 
-*Heart disease:* 160.09−0.368(40)=145.37
+*Heart disease:* $160.09 − 0.368(40) = 145.37$
 
-*Difference:* 145.37−171.67=−26.30
+*Difference:* $145.37 − 171.67 = −26.30$
 
-> At age 40, heart disease is associated with about 26 units lower predicted
-> outcome.
+> At age 40, heart disease is associated with about 26 units (BPM max heart
+> rate) lower predicted outcome.
 
 **Age = 70**
 
-*No heart disease:* 213.93−1.06(70)=140.00
+*No heart disease:* $213.93 − 1.06(70) = 140.00$
 
-*Heart disease:* 160.09−0.368(70)=134.34
+*Heart disease:* $160.09 − 0.368(70) = 134.34$
 
-*Difference:* 134.34−140.00=−5.66
+*Difference:* $134.34 − 140.00 = −5.66$
 
-> At age 70, heart disease is associated with only about 6 units lower predicted
-> outcome.
+> At age 70, heart disease is associated with only about 6 units (BPM max heart
+> rate) lower predicted outcome.
 
-#### Step 3: Interpret the interaction
+#### Step 4: Interpret the interaction
 
 The interaction coefficient is: **0.689**
 
-This means that the effect of heart disease becomes 0.689 units less negative
-for every additional year of age.
+This means that the effect of heart disease becomes 0.689 units (BPM max heart >
+rate) less negative for every additional year of age.
 
 In other words: The difference between the heart disease and no-heart-disease
 groups shrinks by about 0.689 units for each additional year of age.
@@ -458,9 +504,9 @@ Age HD=0    HD=1    Difference (HD−No HD)
 70  139.98  134.32  -5.66
 ```
 
-Often, graphics are easier to interpret than than tables or coefficients. Let's
-try to visualize the difference between max heart rate and having a heart
-disease when it change across age.
+Often, graphics are easier to interpret than tables or coefficients. Let's try
+to visualize the difference between max heart rate and having a heart disease
+when it change across age.
 
 ```{r}
 #| label: delta-hr-of-hd-across-age
@@ -471,6 +517,11 @@ plot_slopes(model_interact, variables = "HD", condition = "Age") +
     labs(
         y = "expected difference (MaxHR | HD)"
     )
+```
+
+```{r}
+#| label: ekstra-for-margeff-later
+#| include: false
 
 slopes(model_interact,
   variables = "HD",
@@ -499,12 +550,12 @@ mathematically identical.
 The original model is
 
 $$
-  \text{max heart rate}_i \sim  α + β_1age + β_2HD + β_3age × HD + ε\\
+  \text{max heart rate}_i \sim α + β_1age + β_2HD + β_3age\_by\_HD + ε\\
 $$
 
 For now, let's make the model more compressed at the expense of nesting some
-parameters within a new variable γ. We will not consider the noise, ε, so we
-will only deal with the expected value, μ.
+parameters within a new variable γ (gamma). We will not consider the noise, ε,
+so we will only deal with the expected value, μ.
 
 $$
   \mu_i = \alpha + \gamma_i \,\text{age}_i + \beta_2 \,\text{HD}_i
@@ -523,7 +574,8 @@ without heart disease.
 Substituting the second equation into the first gives
 
 $$
-  \mu_i = \alpha + (\beta_1 + \beta_3 \,\text{HD}_i)\,\text{age}_i + \beta_2 \,\text{HD}_i.
+  \mu_i = \alpha + (\beta_1 + \beta_3 \,\text{HD}_i)\,\text{age}_i
+          + \beta_2 \,\text{HD}_i.
 $$
 
 The substitution makes explicit where the interaction enters the model.
@@ -531,7 +583,8 @@ The substitution makes explicit where the interaction enters the model.
 Expanding:
 
 $$
-  \mu_i = \alpha + \beta_1 \,\text{age}_i + \beta_3 \,\text{age}_i \times \text{HD}_i + \beta_2 \,\text{HD}_i.
+  \mu_i = \alpha + \beta_1 \,\text{age}_i + \beta_3 \,\text{age}_i
+          \times \text{HD}_i + \beta_2 \,\text{HD}_i.
 $$
 
 The interaction term is the same regardless of which variable we initially
@@ -540,7 +593,8 @@ treated as the predictor.
 Now collect the terms containing $\text{HD}_i$:
 
 $$
-  \mu_i = \alpha + \beta_1 \,\text{age}_i + (\beta_2 + \beta_3 \,\text{age}_i)\,\text{HD}_i.
+  \mu_i = \alpha + \beta_1 \,\text{age}_i
+          + (\beta_2 + \beta_3 \,\text{age}_i)\,\text{HD}_i.
 $$
 
 This is the same model, but now the coefficient of $\text{HD}_i$ is allowed to
@@ -618,15 +672,78 @@ pain_data |>
 
 ## Polynomials
 
-##
+Recall the linearity assumption [@james2021introduction].
 
-## Intution of polynomials
+Everything are not linear, is it? Consider for example the height of people:
 
-`shiny::runApp("apps/polynomial-app/app.R")`
+```{r}
+#| label: height
+#| fig-cap: "Demographic data from Kalahari !Kung San people collected by Nancy Howell "
+#| echo: false
 
+height_data <- medisr::height_data
+
+height_data |>
+    ggplot(aes(age,height)) +
+    geom_point()
+```
+
+As a human, you increase you height quite dramatically in childhood --- but this
+inevitably comes to an end later in life. So how can we model this non-linear
+development?
+
+The answer is surprisingly simple --- we can compute a new variable ϕ (phi) that
+is the original variable squared $(i.e. ϕ = X_1^2)$. If we do this for `age`, we
+can get $ϕ = age^2$. But nothing stops us from taking the cube or above! This is
+called a polynomial and looks like this:
+
+<!-- panache-ignore-start-->
+| Polynomial degree | Regression model |
+|-:|---|
+| 1 | $y = \beta_0 + \beta_1 x$ |
+| 2 | $y = \beta_0 + \beta_1 x + \beta_2 x^2$ |
+| 3 | $y = \beta_0 + \beta_1 x + \beta_2 x^2 + \beta_3 x^3$ |
+| 4 | $y = \beta_0 + \beta_1 x + \beta_2 x^2 + \beta_3 x^3 + \beta_4 x^4$ |
+<!-- panache-ignore-end-->
+
+```{r}
+#| label: lin-quar-fit
+#| warning: false
+#| fig-cap: "Demographic data from Kalahari !Kung San people collected by Nancy Howell"
+#| fig-subcap:
+#|   - "Linear model"
+#|   - "Quardratic model"
+#|   - "Cubic model"
+#|   - "Quadratic model of individuals < 25 years old"
+#|   #| echo: false
+
+height_data |>
+    ggplot(aes(age,height)) +
+    geom_point() +
+    geom_smooth(method = "lm")
+
+height_data |>
+    ggplot(aes(age,height)) +
+    geom_point() +
+    geom_smooth(method = "lm", formula = y ~ x + I(x^2)) # I is function for "as-is" to make math operation as is.
+
+height_data |>
+    ggplot(aes(age,height)) +
+    geom_point() +
+    geom_smooth(method = "lm", formula = y ~ x + I(x^2) + I(x^3)) # I is function for "as-is" to make math operation as is.
+
+height_data |>
+    dplyr::filter(age<25) |>
+    ggplot(aes(age,height)) +
+    geom_point() +
+    geom_smooth(method = "lm", formula = y ~ x + I(x^2)) # I is function for "as-is" to make math operation as is.
+```
+
+As you can see, the models definitely fit better than the
+
+::: {.hidden}
 ## The danger of
 
-::: {hidden}
 ```{r}
 library(sjPlot)
 data(efc, "sjPlot")

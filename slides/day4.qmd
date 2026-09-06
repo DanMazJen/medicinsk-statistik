@@ -1,0 +1,73 @@
+---
+format: rostools-theme-revealjs
+search: false
+---
+
+# Data visualizations {.center .align-center}
+
+Start after section 13.3 Proceed with section 13.4
+
+## Why Visualize Data? {.r-stretch .center style="text-align: center;"}
+
+## Why Visualize Data? {.smaller .scrollable}
+
+Which of these are easiest to draw information from:
+
+::: panel-tabset
+### Table
+
+```{r}
+#| echo: false
+#| warning: false
+#| label: viz-is-powerful
+
+x <- seq(0, 2 * pi, length.out = 20)
+y <- round(sin(x) * 10, 1)
+
+dat <- data.frame(month = x, temperature = y)
+
+dat |>
+  gt::gt()
+```
+
+### Plot
+
+```{r}
+#| label: viz-is-powerful2
+#| echo: false
+#| warning: false
+
+dat |>
+  ggplot2::ggplot(ggplot2::aes(month, temperature)) +
+  ggplot2::geom_point()
+```
+:::
+
+## Public communication
+
+![](images/corona-data-viz.jpg){fig-align="center"}
+
+## Public communication
+
+![](images/corona-data-viz-zoom.jpeg){fig-align="center"}
+
+## When plots goes wrong...
+
+![what's the error here 👀](images/height_graph_no-zero.jpeg){fig-align="center"}
+
+## A simple fix
+
+![](images/height_graph_zero.jpg){fig-align="center"}
+
+## What you read today:
+
+[Royal Statistical Society
+guide](https://royal-statistical-society.github.io/datavisguide/docs/principles.html)
+
+## How to get -03
+
+![Please don't do this 👀](images/dataviz-3d.png){fig-align="center"}
+
+## Thinking about communication
+
+![What do you notice?](images/viz-styling-intro.png){fig-align="center"}

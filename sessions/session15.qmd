@@ -71,3 +71,65 @@ hd_data |>
 ## Reading Task: Investigating one variable at a time
 
 ...
+
+> How does `[RISK FACTOR]` affect the probability of `[DISEASE/OUTCOME]`?
+
+### Context
+
+- Population: `[POPULATION]`
+- Risk factor: `[X]`
+- Outcome: `[Y]`
+- Relevant clinical context: `[CONTEXT]`
+- Dataset/source: `[DATA SOURCE]`
+
+> **If a patient's `[RISK FACTOR]` increases by `[X UNITS]`, how much does their
+> probability of disease increase?**
+
+## The scientific model
+
+We model the probability of disease:
+
+```text
+P(Disease = 1 | X)
+```
+
+using logistic regression:
+
+logit(P(Y=1))=β0+β1X1+β2X2+⋯\text{logit}(P(Y=1)) = \beta\_0 + \beta\_1X_1 +
+\beta\_2X_2 + \cdots
+
+### The statistical model
+
+```r
+model <- glm(
+  disease ~ risk_factor + covariate_1 + covariate_2,
+  data = data,
+  family = binomial
+)
+```
+
+```text
+[INSERT MODEL OUTPUT]
+```
+
+- coefficient for `[X]`
+- odds ratio for `[X]`
+- statistical uncertainty, if relevant
+
+## Clear communication
+
+Suppose:
+
+> **OR = [INSERT OR]**
+
+> What does this mean?
+
+The more important question:
+
+> **Does this mean that a [X]-unit increase in `[X]` increases the probability
+> of disease by [OR-related percentage] percentage points?**
+
+recall...
+
+An odds ratio describes a change in **odds**, not directly a change in
+**probability**.

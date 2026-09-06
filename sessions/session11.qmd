@@ -47,16 +47,16 @@ keyboard.
 ## Case session 11: ""
 
 At AalboR Statistical Hospital, a new exercise-based cardiac assessment protocol
-has recently been introduced following an initial data review suggesting that
-patients with lower max heart rate are more likely to have underlying heart
-disease. Based on this, some clinicians have started using the max heart rate
-during exercise as a quick indicator when evaluating chest pain patients.
+has recently been proposed by some researchers as a screening tool for heart
+disease, suggesting that patients with lower max heart rate are more likely to
+have underlying heart disease. Based on this, some clinicians have started using
+the max heart rate during exercise as a quick indicator when scrrening patients.
 
 However, during a recent internal meeting, a cardiologist raises a concern:
 
 > *"I'm not convinced this applies to all patients. Especially older patients ---
-> their heart rate response already decrease. If that's true, we could be
-> misinterpreting results in a subgroup of patients.*
+> their max heart rate is already very low. If that's true, we could be biasing
+> our screening in our older patients.*
 
 You are asked to explore the hospital's patient data to assess whether the
 relationship between heart disease and max heart rate appears consistent across
@@ -118,11 +118,15 @@ hd_data |>
   geom_smooth(method = "lm", formula = y ~ x)
 ```
 
-### Reading Task: Conditional venom?
+## Reading Task: Conditional cancer risk?
 
-Read [this Australian Geographics
-blog](https://www.australiangeographic.com.au/blogs/creatura-with-bec-crew/2025/09/funnel-web-spiders-are-australias-deadliest-not-for-our-pets/)
-on the Funnel-web spider.
+Read [this jurainfo.dk
+article](https://jurainfo.dk/artikel/ny-hoejesteretsdom-om-asbest-og-rygning) on
+the effect of asbestos and smoking on cancer.
+
+For the interested reader, there's another [tv2nord
+post](https://www.tv2nord.dk/naar-stoev-draeber/fire-gange-saa-mange-doer-af-asbest-de-siger-at-jeg-vil-doe-af-det)
+on the same topic.
 
 ## Reading task: The additive and linear assumption
 
@@ -134,9 +138,20 @@ how the predictors X relate to the response Y [@james2021introduction]:
 > Each predictor affects Y independently of the other predictors. In other
 > words, the effect of $X_j$ ​does not depend on the values of the other X's.
 
-Example: Suppose we predict salary using years of experience and education. The
-additivity assumption says that the effect of one additional year of experience
-is the same regardless of a person's education level.
+**Example:**
+
+Suppose we predict the risk of lung cancer, $Y$, using smoking status, $X_1$,
+and asbestos exposure, $X_2$. The additivity assumption says that the effect of
+asbestos exposure on cancer risk is exactly the same regardless of whether a
+person is a smoker or a non-smoker.
+
+::: {.callout-warning appearance="simple"}
+# Notice
+
+In our cancer example, this assumption is violated, because smoking and asbestos
+have a multiplicativ synergistic effect --- the effect of asbestos is far more
+harmful to smokers than non-smokers.
+:::
 
 2. Linearity assumption
 
@@ -144,75 +159,116 @@ is the same regardless of a person's education level.
 > increase in $X_j$ is assumed to produce the same change in Y, no matter what
 > the current value of $X_j$ is.
 
-Example: If each additional year of experience increases salary by €2,000, the
-model assumes this €2,000 increase is the same for someone with 2 years of
-experience and someone with 20 years.
+**Example:**
+
+Suppose we predict the risk of lung cancer, $Y$ using the number of hours
+working in an asbestos-filled environment $X_j$. The linearity assumption says
+that the increase in cancer risk from your 1st hour to your 2nd hour of asbestos
+exposure is exactly the same as the increase in risk from your 19th hour to your
+20th hour of exposure.
+
+::: {.callout-warning appearance="simple"}
+# Again, notice
+
+In reality, this assumption is violated here, because the biological damage of
+asbestos accumulates and worsens over time. This means that later years of
+exposure or long-term accumulation cause a much steeper, non-linear spike in
+cancer risk compared to the very first year).
+:::
 
 We need to bend these assumptions in order to produce an interaction effect. You
 will see how we routinely do this using simple tricks of multiplication and
 squaring the predictor variables.
 
-### Adding the variable to a regression model is not enough
+## Adding the variable to a regression model is not enough
+
+Recall the data from @sec-HeartDisease-data. We have already extensive knowledge
+from this dataset from @sec-visualization. I will not reintroduce the dataset
+here.
 
 We will use the `lm()` function for linear model and the `{marginaleffects}`
 package to make a quick `{ggplot2}` figure. While we could do this in
 `{ggplot2}`, the `{marginaleffects}` package has several tricks for making
 regression plots nice and simple to code and inspect.
 
+Let's go ahead and load the data, make a linear model and add our two variables
+of interest: age and heart disease.
+
 ```{r}
 #| label: addition-not-enough
 
-model_additive <-
-    lm(MaxHR ~ Age + HD,
-    data = hd_data)
+hd_data <- medisr::hd_data # <1>
 
-library(marginaleffects)
+model_additive <-         # <2>
+    lm(MaxHR ~ Age + HD,   # <2>
+    data = hd_data)       # <2>
 
-plot_predictions(
-    model_additive,
-    condition = c("Age", "HD")
+library(marginaleffects)  # <3>
+
+plot_predictions(       # <4>
+    model_additive,      # <4>
+    condition = c("Age", "HD") # <4>
 )
-
-model_additive |>
-    avg_slopes()
 ```
+
+1. first, we load in the dataset.
+2. Next, we make a simple linear model adding the two variables of interest.
+3. Here, we load the `{marginaleffects}` package
+4. We plot how the model predicts the max heart rate based on age for both
+   patients with and without heart disease. Note how we add the model variable
+   and give a string vector to the argument `condition`.
 
 Wait --- the lines are completely parallel?!
 
 This is exactly the additive and linear assumption: the same effect is constant
-for heart disease and for age. We need to allow some flexibility in our model to
-consider whether the slopes might change dependent on heart disease.
+for heart disease and for age.
 
-### Making non-linear terms in linear models
+But is this really the truth? Let's plot the raw data with `{ggplot2}`:
+
+```{r}
+#| label: raw-plot
+
+hd_data |>
+    ggplot(aes(Age, MaxHR, color=HD)) +
+    geom_point() +
+    geom_smooth()
+```
+
+This does *not* look parallel **at all** 👀
+
+We need to allow some flexibility in our model to consider that fact that slopes
+might change dependent on heart disease.
+
+## Making non-additive terms in linear models
 
 Let's start at the conceptual level.
 
-Suppose we want to predict salary using two variables:
+Suppose we want to predict cancer using two variables:
 
-- ($X_1$) = years of experience
-- ($X_2$) = education level
+- ($X_1$) = hours of exposure to asbestos
+- ($X_2$) = smoking status
 
 We might first think:
 
-- More venom → higher mortality.
-- One species → more vulnerable.
+- More exposure → higher cancer risk.
+- Smoker → more vulnerable.
 
-But remember the additivity assumption: all species scale similarly on mortality
-with increasing venom. Do you think it applies here? I'm not sure...
+But remember the additivity assumption: all predictors scale similarly on cancer
+risk with increasing exposure. Do you think it applies here? I'm not sure...
 
-> The deadliness of venom dose might matter differently depending on the
-> species.
+> The cancer risk asbestos exposure might matter differently depending on the
+> smoking status.
 
 That is an interaction. And it is per definition violating the additivity
 assumption!
 
-But how do we make a *linear model* capture **non-linear** relationships 👀
+But how do we make a *linear model* capture **non-additive** relationships 👀
 
 Think of this problem as not "breaking" the rules but rather "bending" the
 rules. We need some way to give the linear model extra flexibility to capture
 relationships that are not additive.
 
-#### 1. What does multiplication mean intuitively?
+### 1. What does multiplication mean intuitively?
 
 Think about ordinary multiplication first.
 
@@ -231,30 +287,30 @@ $$
 The result depends on *both numbers*. This process is linear *conditioned* on
 the other number being the same.
 
-Now imagine:
+Now abstract to:
 
 $$
   X_1 \times X_2.
 $$
 
-If ($X_1$) changes, the product changes --- but *how much it changes depends on
-($X_2$)*.
+If $X_1$ changes, the product changes --- but *how much it changes depends on
+$X_2$*.
 
 For example:
 
 ::: {#tbl-multiplication-table}
-  | Venom dose ($X_1$) | Education ($X_2$) | ($X_1X_2$) |
-  | -----------------: | ----------------: | ---------: |
-  |                  2 |                 1 |          2 |
-  |                  3 |                 1 |          3 |
-  |                  2 |                 3 |          6 |
-  |                  3 |                 3 |          9 |
+  | exposure (h) ($X_1$) | smoking status ($X_2$) | ($X_1X_2$) |
+  | -------------------: | ---------------------: | ---------: |
+  |                    2 |                yes = 1 |          2 |
+  |                    3 |                yes = 1 |          3 |
+  |                    2 |                 no = 3 |          6 |
+  |                    3 |                 no = 3 |          9 |
 :::
 
-Notice what happens when experience increases from 2 to 3:
+Notice what happens when exposure increases from 2 to 3:
 
-- If education = 1, the product increases by **1**.
-- If education = 3, the product increases by **3**.
+- If smoker = 1, the product increases by **1**.
+- If nonsmoker = 3, the product increases by **3**.
 
 So multiplication naturally creates a situation where:
 
@@ -269,17 +325,17 @@ $$
 $$
 our new variable, γ (gamma), *multiply the two variables together*.
 
-> Notice that multiplication is non-linear now!
+> Notice that multiplication is non-additive now!
 
 When we say *linear regression*, "linear" does *not* mean that we are forever
 doomed to model only linear and additive phenomena.
 
-Instead, it means that the model *coefficients* are linear --- the numbers that
-the regression estimates.
+Instead, it means that the model *coefficients* are linear and additive --- the
+numbers that the regression estimates.
 
-You can think of γ as we create a *new predictor* --- the variable is producing
-another linear coefficient. The regression can then use this new variable just
-like any other predictor.
+You can think of γ as a *new predictor* --- the variable is producing another
+linear coefficient. The regression can then use this new variable just like any
+other predictor.
 
 This new variable consider the *conditional relationship* between two values. If
 $β_1$ is small, the value might be small independent of $β_2$. But if both $β_1$
@@ -290,14 +346,14 @@ There are therefore two different ideas:
 
 - Additive models: Where the effect of one predictor does not depend on the
   other predictor.
-- Interaction models: Where he effect of one predictor can depend on the other
+- Interaction models: Where the effect of one predictor can depend on the other
   predictor.
 
 Multiplication is useful because it naturally creates this dependency.
 
 But how do we do that in R(eal life)?
 
-### Adding an interaction
+## Adding an interaction
 
 We can literally make a new variable called `age_by_hd` using `{dplyr}`:
 
@@ -305,8 +361,8 @@ We can literally make a new variable called `age_by_hd` using `{dplyr}`:
 #| label: interaction1
 
 model_interact_manual <- hd_data |>
-    mutate(
-        HD_num = ifelse(HD == "yes", 1, 0),
+    dplyr::mutate(
+        HD_num = ifelse(HD == "Yes", 1, 0),
         age_by_hd = Age * HD_num
     ) |>
     lm(MaxHR ~ Age + HD + age_by_hd,
@@ -364,13 +420,13 @@ model_interact <-
 ```
 :::
 
-### Interpreting an interaction estimate {#sec-coef-interp}
+## Interpreting an interaction estimate {#sec-coef-interp}
 
 In order to interpret the regression model, we need to recover the regression
 coefficient. From there, we will have to plug in numbers depending on what we're
 interesting in estimating. This section goes through that process step by step.
 
-#### Step 1: Recovering the regression equation
+**Step 1: Recovering the regression equation**
 
 The first thing you can do to inspect a regression model is to use the
 `summary()` function:
@@ -394,7 +450,7 @@ model_params
 ```
 
 This is great --- we could make it a bit simpler and only look at the estimates
-(here names `_est`):
+(here abbreviated `_est`):
 
 ```{r}
 #| label: model-coeff-interp
@@ -411,8 +467,8 @@ model_params <-
 model_params
 ```
 
-You might wonder how this relates to the regression equation. Let's plug the
-values in:
+It is straight forward relating these coefficients to the regression equation.
+Let's plug the values in one at a time:
 
 $$
   \bar{Y} = 213.93 − 1.06 * age − 53.84 * hd + 0.689 * age\_by\_hd
@@ -425,7 +481,7 @@ where:
 
 And there we have the regression equation 🎉
 
-#### Step 2: Write separate equations for each group
+**Step 2: Write separate equations for each group**
 
 For this case, we would want the estimate for a heart disease vs. no heart
 disease.
@@ -433,9 +489,9 @@ disease.
 Recall that no heart disease was coded `hd = 0`:
 
 $$
-  \bar{Y} = 213.93 − 1.06 * age − 53.84 * ZERO + 0.689 * ZERO
+  \bar{Y} = 213.93 − 1.06 * age − 53.84 * 0 + 0.689 * (age × 0)
 $$
-$53.84 * 0$ cancels out --- so does 0.689 \* ZERO.
+$53.84 * 0$ cancels out --- so does $0.689 * 0$.
 
 $\bar{Y} = 213.93 − 1.06(age)$
 
@@ -446,9 +502,11 @@ about 1.06 units lower predicted outcome.
 
 If we now look at the heart disease group (`hd = 1`) we get:
 
-$ \bar{Y} = 213.93 − 1.06(age) − 53.84 + 0.689(age) $
+$$
+  \bar{Y} = 213.93 − 1.06(age) − 53.84 + 0.689(age × 1)
+$$
 
-because $53.84 * 1$ is 53.84 and $0.689 * age × 1$ is $0.689(age)$.
+because $53.84 * 1$ is 53.84 and $0.689 * age × 1$ is $0.689(age × 1)$.
 
 We can combine the terms:
 
@@ -460,7 +518,7 @@ For people with heart disease, each additional year of age is associated with
 only about 0.37 units lower predicted outcome. The age effect is less negative
 because of the positive interaction term.
 
-#### Step 3: Plug in specific ages
+**Step 3: Plug in specific ages**
 
 **Age = 40**
 
@@ -484,15 +542,16 @@ because of the positive interaction term.
 > At age 70, heart disease is associated with only about 6 units (BPM max heart
 > rate) lower predicted outcome.
 
-#### Step 4: Interpret the interaction
+**Step 4: Interpret the interaction**
 
 The interaction coefficient is: **0.689**
 
 This means that the effect of heart disease becomes 0.689 units (BPM max heart >
 rate) less negative for every additional year of age.
 
-In other words: The difference between the heart disease and no-heart-disease
-groups shrinks by about 0.689 units for each additional year of age.
+In other words: The age effect for the heart disease group groups shrinks by
+about 0.689 units for each additional year of age. It will eventually cross
+zero, at which point the direction of the association reverses.
 
 We can again plug the values in to examine this:
 
@@ -547,7 +606,10 @@ has two equally valid phrasings.
 These sound like different questions, but in a linear model they are
 mathematically identical.
 
-The original model is
+To proof this to yourself, we're going to do factor out the interaction term in
+the equation and show how this can be done in two ways.
+
+The original model is:
 
 $$
   \text{max heart rate}_i \sim α + β_1age + β_2HD + β_3age\_by\_HD + ε\\
@@ -628,9 +690,9 @@ interpretation rather than mathematics.
 
 ## Continuous interactions
 
-Until now, we've use one continuous and one dichotomous variable.
+Until now, we've used one continuous and one dichotomous variable.
 
-> What if we have two continuous variables that interaction?
+But what if we have two continuous variables that interaction?
 
 ```{r}
 #| label: cont-interaction
@@ -693,9 +755,9 @@ inevitably comes to an end later in life. So how can we model this non-linear
 development?
 
 The answer is surprisingly simple --- we can compute a new variable ϕ (phi) that
-is the original variable squared $(i.e. ϕ = X_1^2)$. If we do this for `age`, we
-can get $ϕ = age^2$. But nothing stops us from taking the cube or above! This is
-called a polynomial and looks like this:
+is the original variable squared (i.e. $ϕ = X_1^2$). If we do this for `age`, we
+can get $ϕ = age^2$. But nothing stops us from taking the cube (age^3$) or
+beyond! This is called a polynomial and looks like this:
 
 <!-- panache-ignore-start-->
 | Polynomial degree | Regression model |
@@ -739,14 +801,70 @@ height_data |>
     geom_smooth(method = "lm", formula = y ~ x + I(x^2)) # I is function for "as-is" to make math operation as is.
 ```
 
-As you can see, the models definitely fit better than the
+There is no free lunch --- and the price for a non-linear linear model is that
+we now have more coefficients for the same variable 👀
+
+Take a look:
+
+```{r}
+#| label: many-x-poly
+
+lm(height ~ age + I(age^2) + I(age^3),
+    data=height_data) |>
+    parameters::parameters()
+```
+
+So which which coefficient should we report?! 😅
+
+You should report all --- but non of them can be interpreted in isolation. In
+fact, you need to plug all values in simultaneously. Now, imagine if you also
+had an interaction with weight 👀
+
+## Discussion of polynomial regression
+
+Think for yourself for 3 minutes:
+
+- Which model is the best?
+- What makes some models better or worse?
+- Would you trust predictions from these models? Which would you (not)?
+
+Talk to your neiggbour and try to come to agreement.
+
+## Know your limits --- when you need marginal effects
+
+In fact, many models become increasingly difficult to a point where eyeballing
+model coefficients is just madness!
+
+Take this example:
+
+```{r}
+#| label: five-way-model
+#| fig-cap: "That's a lot of coefficients! 👀"
+
+five_way_model <- glm(
+    as.factor(HD) ~ Chol * RestBP * MaxHR * ChestPain,
+    family = binomial,
+    data=hd_data
+    )
+
+parameters::parameters(five_way_model)[,c(1,2)] |> print(n=Inf)
+```
+
+Oh my, that's a lot of coefficients! 👀
+
+How in the world are we ever going to interpret this monster?! And now it's a
+logistic regression, so the coefficients are in log-odds! 😅
+
+Truth is --- we can't infer much (if anything at all) from the coefficients
+alone. We would need to do a marginal effect estimate, which we'll cover in
+@sec-marginal-effects.
 
 ::: {.hidden}
-## The danger of
+The danger of
 
 ```{r}
 library(sjPlot)
-data(efc, "sjPlot")
+data(efc, package="sjPlot")
 
 m <- lm(
   neg_c_7 ~ c12hour + e16sex + c12hour:e16sex,

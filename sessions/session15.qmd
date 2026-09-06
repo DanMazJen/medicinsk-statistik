@@ -68,6 +68,116 @@ hd_data |>
   geom_smooth(method = "lm")
 ```
 
+### Reading Task: Conditional venom?
+
+Read [this Australian Geographics
+blog](https://www.australiangeographic.com.au/blogs/creatura-with-bec-crew/2025/09/funnel-web-spiders-are-australias-deadliest-not-for-our-pets/)
+on the Funnel-web spider.
+
+## The danger of coefficients
+
+::: {.callout-warning}
+In nonlinear models, you cannot generally interpret the regression coefficient
+as the change in probability.
+:::
+
+::: {.callout-important}
+The purpose of `{marginaleffects}` is essentially to help us make this
+translation: From a fitted generalized model → to quantities that answer the
+scientific question.
+:::
+
+## Marginalizing the problem - our workflow:
+
+Throughout this session, we'll use this workflow:
+
+**Step 1** --- What is my scientific question?
+
+What happens to the probability of Y when X changes?
+
+**Step 2** --- What did the regression estimate?
+
+log-odds
+
+**Step 3** --- What quantity do I actually want to communicate?
+
+probability
+
+**Step 4** --- At what values?
+
+- A particular patient?
+- A clinically meaningful scenario?
+- The average population?
+- Different levels of an interacting variable?
+
+**Step 5** --- Use marginal effects
+
+avg_slopes(model)
+
+or
+
+slopes(model, ...)
+
+or
+
+avg_comparisons(model, ...)
+
+**Step 6** --- Communicate in clinically meaningful units
+
+Prefer:
+
+1.8 percentage-point increase in predicted probability
+
+over:
+
+AME = 0.018
+
+::: {#fig-marginal-effects-workflow .column-page fig-cap="From the scientific question to a clinically interpretable marginal effect."}
+```{mermaid}
+%%| label: workflow-diag
+
+flowchart LR
+    A["1. Scientific question<br/><br/>What happens to P(Y)<br/>when X changes?"]
+    --> B["2. Regression estimate<br/><br/>log-odds"]
+
+    B --> C["3. Quantity to communicate<br/><br/>Probability"]
+
+    C --> D{"4. Who/where are we estimating the effect?"}
+
+    D --> D1["Particular patient"]
+    D --> D2["Clinically meaningful<br/>scenario"]
+    D --> D3["Average population"]
+    D --> D4["Different levels of<br/>an interacting variable"]
+
+    D1 --> E["5. Marginal effects"]
+    D2 --> E
+    D3 --> E
+    D4 --> E
+
+    E --> E1["avg_slopes(model)"]
+    E --> E2["slopes(model, ...)"]
+    E --> E3["avg_comparisons(model, ...)"]
+
+    E1 --> F["6. Communicate in<br/>clinically meaningful units"]
+    E2 --> F
+    E3 --> F
+
+    F --> G["1.8 percentage-point increase<br/>in predicted probability"]
+
+    style A fill:#E8F1FB,stroke:#3B6EA5,stroke-width:2px
+    style B fill:#F3F3F3,stroke:#666,stroke-width:2px
+    style C fill:#E8F5E9,stroke:#4C8C4A,stroke-width:2px
+    style D fill:#FFF4D6,stroke:#C79A24,stroke-width:2px
+    style E fill:#EDE7F6,stroke:#7656A6,stroke-width:2px
+    style F fill:#E8F5E9,stroke:#4C8C4A,stroke-width:2px
+    style G fill:#DDF3E0,stroke:#3D8B40,stroke-width:3px
+```
+:::
+
+As shown in @fig-marginal-effects-workflow, we move from the **scientific
+question**, through the **model scale**, to a **marginal effect on the
+probability scale**.
+
 ## Reading Task: Investigating one variable at a time
 
 ...
@@ -95,8 +205,9 @@ P(Disease = 1 | X)
 
 using logistic regression:
 
-logit(P(Y=1))=β0+β1X1+β2X2+⋯\text{logit}(P(Y=1)) = \beta\_0 + \beta\_1X_1 +
-\beta\_2X_2 + \cdots
+$$
+  {logit}(P(Y = 1)) = \beta\_0 + \beta\_1X_1 + \beta\_2X_2 + \cdots
+$$
 
 ### The statistical model
 
@@ -120,16 +231,323 @@ model <- glm(
 
 Suppose:
 
-> **OR = [INSERT OR]**
+OR = 1.50
 
-> What does this mean?
+What does this mean?
 
-The more important question:
+A 1-unit increase in age is associated with a 50% increase in the odds of
+cardiovascular disease, holding the other variables constant.
 
-> **Does this mean that a [X]-unit increase in `[X]` increases the probability
-> of disease by [OR-related percentage] percentage points?**
+But the more important question is:
 
-recall...
+Does this mean that a 1-year increase in age increases the probability of
+disease by 50 percentage points?
 
-An odds ratio describes a change in **odds**, not directly a change in
-**probability**.
+No.
+
+An odds ratio describes a change in odds, not directly a change in probability.
+
+### Why the odds ratio is not enough
+
+The clinical question is usually about risk/probability, not odds.
+
+Consider two patients:
+
+- Patient A has a predicted disease probability of 5%.
+- Patient B has a predicted disease probability of 50%.
+
+Suppose both experience the same change in the predictor.
+
+The resulting change in probability will not necessarily be the same.
+
+This is the key complication of logistic regression:
+
+> The effect of X on probability depends on where you start.
+
+The relationship between X and probability is nonlinear.
+
+The logistic curve is relatively flat near 0 and 1, and steepest in the middle.
+
+Therefore:
+
+> There is not necessarily one single "effect of X" on probability.
+
+### What is a marginal effect?
+
+A marginal effect asks:
+
+*How much does predicted probability change when X changes?*
+
+For a continuous variable:
+
+*What happens to predicted probability if X increases by 1 unit?*
+
+For example:
+
+If age increases by 1 year, how much does predicted probability of disease
+change?
+
+In a nonlinear model, this is calculated on the probability scale, rather than
+the log-odds scale.
+
+With {marginaleffects}:
+
+```{r}
+#| label: marg-eff
+#| eval: false
+
+library(marginaleffects)
+
+avg_slopes(model)
+```
+
+Conceptually, the output answers: A 1-unit increase in age → Δ predicted
+probability
+
+If the result were:
+
+age: 0.012
+
+the interpretation would be:
+
+A one-year increase in age is associated with a 1.2 percentage-point increase in
+predicted probability, on average.
+
+Notice the distinction:
+
+0.012 probability
+
+1.2 percentage points
+
+### The effect depends on the patient
+
+Suppose we want to know the effect of age for a particular patient.
+
+We might ask:
+
+What is the marginal effect of age for a 50-year-old non-smoker with normal
+blood pressure?
+
+versus:
+
+What is the marginal effect of age for a 75-year-old smoker with high blood
+pressure?
+
+These can be different.
+
+We can calculate effects for specified covariate values:
+
+```{r}
+#| label: grid-eff
+#| eval: false
+
+slopes(
+  model,
+  newdata = datagrid(
+    age = c(50, 75),
+    smoking = c(0, 1),
+    blood_pressure = c(120, 160)
+  )
+)
+```
+
+The important concept is not the syntax.
+
+It is:
+
+A marginal effect is conditional on the characteristics of the person for whom
+we calculate it.
+
+## Predicted probabilities versus marginal effects
+
+These are different questions.
+
+Predicted probability What is this patient's predicted probability of disease?
+
+```{r}
+#| label: pred
+#| eval: false
+
+predictions(
+  model,
+  newdata = datagrid(
+    age = 60,
+    smoking = 0,
+    blood_pressure = 130
+  )
+)
+```
+
+Marginal effect How much does the predicted probability change if age increases?
+
+```{r}
+#| label: pro-marg
+#| eval: false
+
+slopes(
+  model,
+  newdata = datagrid(
+    age = 60,
+    smoking = 0,
+    blood_pressure = 130
+  )
+)
+```
+
+**Predictions:**
+
+> "What is the risk?"
+
+**Marginal effects:**
+
+> "How much does the risk change?"
+
+Both are useful, but they answer different scientific questions.
+
+## Average marginal effects
+
+Often we do not want the effect for one particular patient.
+
+We want:
+
+What is the average effect in this population?
+
+That is the average marginal effect (AME).
+
+```{r}
+#| label: avg-slopes
+#| eval: false
+
+avg_slopes(model)
+```
+
+Conceptually:
+
+| Patient 1: effect of X = ...
+| Patient 2: effect of X = ...
+| Patient 3: effect of X = ...
+|        ⋮
+| Patient N: effect of X = ...
+
+Average = AME
+
+The interpretation is:
+
+On average, a one-unit increase in X changes predicted probability by Δ
+percentage points.
+
+This is often much easier to communicate than an odds ratio.
+
+## Interactions: when the effect depends on something else
+
+Suppose our model includes:
+
+Age × Smoking
+
+The scientific question becomes:
+
+Does the effect of age on disease probability differ between smokers and
+non-smokers?
+
+The model might be:
+
+```{r}
+#| label: model1
+#| eval: false
+
+model <- glm(
+  disease ~ age * smoking + blood_pressure,
+  data = data,
+  family = binomial
+)
+```
+
+The temptation is to look at the interaction coefficient and interpret it
+directly.
+
+Don't.
+
+The interaction coefficient is on the log-odds scale.
+
+Instead, calculate the marginal effect of age at different smoking statuses:
+
+```{r}
+#| label: int-model1
+#| eval: false
+
+slopes(
+  model,
+  variables = "age",
+  by = "smoking"
+)
+```
+
+Now the result directly addresses the scientific question:
+
+Effect of age among non-smokers Effect of age among smokers
+
+And you can ask:
+
+Is the difference between those marginal effects clinically meaningful?
+
+## Visualizing the interaction
+
+```{r}
+#| label: plotting1
+#| eval: false
+
+plot_predictions(
+  model,
+  condition = c("age", "smoking")
+)
+```
+
+## Comparing clinically meaningful changes
+
+A one-unit change is not always clinically meaningful.
+
+For example, instead of asking:
+
+What is the effect of a 1-unit increase in blood pressure?
+
+we might ask:
+
+What is the change in predicted probability when blood pressure increases from
+120 to 140 mmHg?
+
+For this, use a comparison:
+
+```{r}
+#| label: clin-inform
+#| eval: false
+
+avg_comparisons(
+  model,
+  variables = list(
+    blood_pressure = c(120, 140)
+  )
+)
+```
+
+This produces a quantity directly corresponding to the clinical question:
+
+Predicted probability at 140 − Predicted probability at 120 = change in
+probability
+
+## Uncertainty A marginal effect is an estimate, not a known quantity.
+
+Therefore we also report uncertainty:
+
+- Estimate
+- 95% CI
+- p-value
+
+For example:
+
+AME = 0.018 (95% CI 0.010--0.026)
+
+Interpretation:
+
+On average, a one-unit increase in X is associated with a 1.8 percentage-point
+increase in predicted probability, with a 95% confidence interval from 1.0 to
+2.6 percentage points.

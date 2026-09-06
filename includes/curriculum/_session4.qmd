@@ -1,3 +1,5 @@
+*Mandatory:*
+
 - [data viz guide of the Royal Statistical
   Society](https://royal-statistical-society.github.io/datavisguide/)
   - Chapters 1-4: Why we visualise data; Principles and elements of
@@ -6,8 +8,9 @@
   post](https://www.astrazeneca.com/what-science-can-do/topics/clinical-innovation/data-visualisation-turning-science-into-stories.html)
 - [data.europa.eu blog post on Honest
   Charts](https://data.europa.eu/en/publications/datastories/honest-charts-ethics-and-integrity-data-visualisation)
+- @sec-HeartDisease-data
 
-*Extra - not mandatory*
+*Extra - not mandatory:*
 
 - [weissgerber et al 2015 plos
   biology](https://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.1002128)

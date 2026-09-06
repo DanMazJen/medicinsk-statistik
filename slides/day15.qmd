@@ -54,13 +54,15 @@ hd_data <- hd_data |>
 
 ## Case 15: "?" {.smaller .scrollable}
 
-## Manetees and bombers
+## Deadly venom - according to whom?
 
-- *conditioning*: Dependence on state
-- everything is conditional
-  - on data
-  - on model
-- *Interaction*: Influence of predictor conditional on other predictor
+![The Funnel-web spider's venom contains delta-hexatoxins (such as robustoxin)](images/funnel_web_spider.jpg)
+
+::: notes
+Its venom contains delta-hexatoxins (such as robustoxin) that severely target
+the nervous systems of humans and other primates, while most other
+mammals---like cats, dogs, and rabbits---are largely unaffected.
+:::
 
 ## x's effect on y - simple
 
@@ -322,7 +324,7 @@ model_interact |>
 
 ::: {.fragment}
 *But is this significantly different?*
-$E(Y∣HD = yes,Age=50)−E(Y∣HD = no,Age=50)$
+$E(Y ∣ HD = yes,Age = 50) − E(Y ∣ HD = no,Age = 50)$
 :::
 
 ## Hypothesis test on the effect of HD at age 50
@@ -339,7 +341,7 @@ model_interact |>
 )
 ```
 
-$E(Y∣HD = yes,Age=50)−E(Y∣HD = no,Age=50)$
+$E(Y ∣ HD = yes,Age = 50) − E(Y ∣ HD = no,Age = 50)$
 
 ::: {.callout-important}
 We need the covariance between the two predicted values to get the correct
@@ -365,19 +367,19 @@ sqrt(variance)
 
 Suppose your model is
 
-$η=β0​+β1​Age+β2​HD+β3​(Age×HD)$
+$η = β0​ + β1​Age + β2​HD + β3​(Age × HD)$
 
 and you're interested in the difference in predictions at Age = 50:
 
-$g(β)=y^​(HD=1,Age=50)−y^​(HD=0,Age=50)$
+$g(β) = y^​(HD = 1,Age = 50) − y^​(HD = 0,Age = 50)$
 
 The delta method says:
 
-$Var(g(β^))≈∇g(β^)TVar(β^)∇g(β^)$
+$Var(g(β^)) ≈ ∇g(β^)TVar(β^)∇g(β^)$
 
 The trick is finding the gradient $∇g$
 
-The variance is: $Var(g)=L⊤VL$
+The variance is: $Var(g) = L⊤VL$
 
 ```{r}
 #| label: delta-method-full

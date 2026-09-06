@@ -96,14 +96,17 @@ survival analysis, the timing of exposure matters.
   - on model
 - *Interaction*: Influence of predictor conditional on other predictor
 
-## Deadly venom - according to whom?
+## Deadly asbestos - according to whom?
 
-![The Funnel-web spider's venom contains delta-hexatoxins (such as robustoxin)](images/funnel_web_spider.jpg)
+![Anyone knows what this is](images/asbest.webp)
+
+::: {.fragment}
+Read section 13.4
+:::
 
 ::: notes
-Its venom contains delta-hexatoxins (such as robustoxin) that severely target
-the nervous systems of humans and other primates, while most other
-mammals---like cats, dogs, and rabbits---are largely unaffected.
+Is it the synergy of two damaging effects? Or because non-smokers are faster to
+spot lung anomalies?
 :::
 
 ## Conditional modulation or interaction

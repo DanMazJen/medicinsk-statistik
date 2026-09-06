@@ -51,8 +51,8 @@ patients and weaker in others.
 There are many potential answer, non of which can be confirmed in this session using statistics.
 Therefore, I provide no answers - but feel free to explore the literature on these topics!
 
-One example:
-1) You could do all the physical activity you want, but if you consume more calories than you burn,
+Example answer to question 1:
+You could do all the physical activity you want, but if you consume more calories than you burn,
 the physical activity does not impact BMI. However, if you do not consume enogugh calories, physical
 activity will impact BMI a lot. Therefore, calorie consumption would lead to interaction - mediating the
 effects - of physical activity on BMI.
@@ -64,23 +64,22 @@ Which of the following hypotheses contain an interaction:
 
 1) The association between smoking and lung cancer is stronger among individuals
    with a family history of lung cancer.
-2) Older individuals are either more likely to have hypertension than younger
-   individuals or have hypercholesterolemia.
+2) Older individuals are more likely to have hypertension than younger
+   individuals but also to have hypercholesterolemia.
 3) The effect of exercise on BMI is greater in men than in women and in younger
    than in older individuals.
 4) Patients with severe hypertension are more likely to receive antihypertensive
    medication but not antipsychotic medication.
-5) The association between alcohol consumption and liver disease is stronger
-   among individuals with hepatitis infection but not among individuals with
-   diabetes.
+5) The association between alcohol consumption and liver disease is strong among
+   individuals with hepatitis infection but not among individuals with diabetes.
 
 <details>
 <summary>**Click for the solution**</summary>
 1) Interaction
-2) No interaction
+2) No interaction (more like a covariate)
 3) Interaction
-4) No interaction
-5) No interaction
+4) No interaction (not dependent on meds)
+5) No interaction (one covaraite is not informative)
 </details>
 
 **Exercise 3A**:
@@ -91,7 +90,7 @@ stated relationship.
 <details>
 <summary>**Click for the solution**</summary>
 1. $LungCancer = \beta_0 + \beta_1 \text{Smoking} + \beta_2 \text{FamilyHistory} + \beta_3 (\text{Smoking} \times \text{FamilyHistory})$
-2. $hypertension = \beta_0 + \beta_1 \text{Age}$ or $hypertension = \beta_0 + \beta_1 \text{Age} + \beta_2 \text{Hypercholesterolemia}$
+2. $hypertension = \beta_0 + \beta_1 \text{Age} + \beta_2 \text{Hypercholesterolemia}$
 3. $BMI = \beta_0 + \beta_1 \text{Exercise} + \beta_2 \text{Sex} + \beta_3 \text{Age} + \beta_4 (\text{Exercise} \times \text{Sex}) + \beta_5 (\text{Exercise} \times \text{Age})$
 4. $hypertension = \beta_0 + \beta_1 \text{HypertensionSeverity} + \beta_2 \text{antipsychoticMedicine}$
 5. $liverDisease = \beta_0 + \beta_1 \text{Alcohol} + \beta_2 \text{Hepatitis} + \beta_3 \text{Diabetes} + \beta_4 (\text{Alcohol} \times \text{Hepatitis})$
@@ -108,7 +107,7 @@ Import the dataset by typing:
 #| label: import-SUA-data
 #| warning: false
 
-SUA_data <- readr::read_csv("https://zenodo.org/records/8292712/files/SUA_CVDs_risk_factors.csv")
+SUA_data <- medisr::SUA_data
 
 SUA_data <- SUA_data |>
     dplyr::mutate(
@@ -203,11 +202,12 @@ plot_predictions(
 
 Suppose the fitted model produced:
 
-  | Term             | Estimate |
-  | ---------------- | -------: |
-  | UA               |    0.004 |
-  | Sex(Female)      |    -0.20 |
-  | UA × Sex(Female) |    0.003 |
+  | Term             | Estimate            |
+  | ---------------- | ------------------: |
+  | Intercept        | `r coef(model1)[1] |> round(4)` |
+  | UA               | `r coef(model1)[2] |> round(4)` |
+  | Sex(Female)      | `r coef(model1)[3] |> round(4)` |
+  | UA × Sex(Female) | `r coef(model1)[4] |> round(4)` |
 
 1) What is the expected effect of a 100-unit increase in UA among males?
 2) What is the expected effect of a 100-unit increase in UA among females?
@@ -218,15 +218,15 @@ coefficient.
 
 <details>
 <summary>**Click for the solution**</summary>
-1. An expected increase of 0.40 units of FBG.
-2. An expected increase of 0.70 units of FBG
-3. males. The increase in FBG per 100-unit increase in UA is 0.70 among females versus 0.40 among males.
+1. An expected increase of 0.01 units of FBG.
+2. An expected increase of 0.18 units of FBG
+3. Females.
 </details>
 
 **Exercise 4B**
 
-You show the interaction coefficient `r coef(model1)[4]` to your colleague, who
-responds:
+Let's continue with the actual data you have from `model1`. You show the
+interaction coefficient `r coef(model1)[4]` to your colleague, who responds:
 
 > "The interaction coefficient is small, so the interaction is not clinically
 > important."
@@ -253,7 +253,7 @@ The same colleague argues that:
 Consider the model:
 
 $$
-  FBG = β_0 + β_1UA + β_2sex + β_3(sex*UA) + ε
+  FBG = β_0 + β_1UA + β_2sex + β_3(sex * UA) + ε
 $$
 
 1. We hypotesize that it is Sex that affects the association between UA and FBG.
@@ -296,16 +296,27 @@ The 2B code is better for the bigger picture of the model, considering different
 
 **Exercise 1C**:
 
-The fitted model produced the following results:
+<!-- panache-ignore-start -->
+Assume that the fitted model produced the following results:
 
-  | Term             | Estimate | 95% CI         |
-  | ---------------- | -------: | -------------- |
-  | UA               |    0.004 | (0.002, 0.006) |
-  | Sex(Female)      |    -0.20 | (-0.35, -0.05) |
-  | UA × Sex(Female) |    0.003 | (0.001, 0.005) |
+  | Term             | Estimate            | 95% CI                       |
+  | ---------------- | ------------------: | ---------------------------- |
+  | (Intercept)      | `r coef(model1)[1] |> round(4)` | (`r parameters::parameters(model1)[1,5] |> round(4)`, `r parameters::parameters(model1)[1,6] |> round(4)`) |
+  | UA               |`r coef(model1)[2] |> round(4)` | (`r parameters::parameters(model1)[2,5] |> round(4)`, `r parameters::parameters(model1)[2,6] |> round(4)`) |
+  | Sex(Female)      |`r coef(model1)[3] |> round(4)` | (`r parameters::parameters(model1)[3,5] |> round(4)`, `r parameters::parameters(model1)[3,6] |> round(4)`) |
+  | UA × Sex(Female) |`r coef(model1)[4] |> round(4)` | (`r parameters::parameters(model1)[4,5] |> round(4)`, `r parameters::parameters(model1)[4,6] |> round(4)`) |
+<!-- panache-ignore-start -->
 
-Write a short results paragraph suitable for the Results section of a clinical
-paper. Avoid statistical jargon where possible.
+Write a short paragraph suitable for the Results section of a semester project.
+Avoid statistical jargon where possible. Keep it as concise and clean as
+possible.
+
+<details>
+<summary>**Click for the solution**</summary>
+UA was positively associated with the outcome among females, with a 100-unit increase in UA corresponding to an expected
+increase of 0.18 units (95% CI [0.11, 0.23]). Among males, the estimated increase was much smaller, at 0.01 units per
+100-unit increase in UA, and was not statistically significant (95% CI [−0.04, 0.05]).
+</details>
 
 **Exercise 2C**
 
@@ -314,7 +325,7 @@ levels for men and women.
 
 ```{r}
 #| echo: false
-#| fig-cap: "TODO"
+#| fig-cap: "YOUR ASSIGNMENT!"
 #| label: ex-2C
 
 library(marginaleffects)
@@ -335,7 +346,7 @@ Write:
 
 <details>
 <summary>**Click for the solution**</summary>
-1. Fasting blood glocuse levels over 5 representative values of uric acid for males and females
+1. Fasting blood glocuse levels over 5 representative values of uric acid for males and females OR Predicted fast blood glucose values at five levels of uric acid levels for males and females
 2. While males show stable FBG across UA levels, women do not. At the extreme low or high levels of UA, women show positive correlation with FBG.
 </details>
 
@@ -349,6 +360,8 @@ fasting blood glucose (FBG) may become stronger as kidney function declines.
 You fit:
 
 ```{r}
+#| label: ex-3c
+
 model_cc <- lm(
   FBG ~ UA + GFR + UA:GFR,
   data = SUA_data
@@ -360,8 +373,8 @@ model_cc <- lm(
    relationship between UA and FBG as GFR increases?
 3) Which effect(s) are significant and how do we interpret the UA and GFR
    coefficients?
-4) Use {marginaleffects} to create a plot that shows how the slope of UA changes
-   across the observed range of GFR.
+4) Use `{marginaleffects}`to create a plot that shows how the slope of UA
+   changes across the observed range of GFR.
 6) Is there a case in which GFR doesn't affect FBG, independent of UA?
 
 <details>
@@ -371,7 +384,7 @@ model_cc <- lm(
 3. The main-effect coefficients describe effects when the interacting variable equals 0. The interaction allows us to vary the GFR and UA values to more interesting levels.
 4. Here:
 
-```{r}
+```{r sol-3c}
 plot_predictions(
     model_cc,
     condition = c("GFR", "UA")
@@ -394,6 +407,8 @@ fasting blood glucose differs according to age.
 You fit:
 
 ```{r}
+#| label: ex-4c
+
 model3 <- lm(
     FBG ~ BMI + Age + BMI:Age,
     data = SUA_data
@@ -418,7 +433,7 @@ A colleague states:
 Clinically, this would suggest that a given increase in BMI is associated with a larger increase in FBG among older individuals than among younger individuals.
 2. Here:
 
-```{r}
+```{r sol-4c}
 plot_predictions(
     model3,
     condition = list(
@@ -443,6 +458,8 @@ and fasting blood glucose (FBG) may depend on both sex and BMI.
 You fit:
 
 ```{r}
+#| label: ex-5c
+
 model_3way <- lm(
   FBG ~ UA * sex * hyperglycemia,
   data = SUA_data
@@ -468,7 +485,7 @@ model_3way <- lm(
 <details>
 <summary>**Click for the solution**</summary>
 
-1. $FBG=β0 + β1UA + β2sex + β3hyperglycemia + β4(UA×sex) + β5(UA×hyperglycemia) + β6(sex×hyperglycemia) + β7(UA×sex×hyperglycemia) + ε Includes$
+1. $FBG=β0 + β1UA + β2sex + β3hyperglycemia + β4(UA×sex) + β5(UA×hyperglycemia) + β6(sex×hyperglycemia) + β7(UA×sex×hyperglycemia) + ε$
 
 - Main effects:
   - UA, sex, hyperglycemia
@@ -484,7 +501,7 @@ model_3way <- lm(
 Equivalently, the modification of the UA effect by sex becomes more positive when hyperglycemia is present.
 4. Besides main effects, all coefficients are too cluttered in each other. So many conditional statements (depending on other variables).
 5. Here:
-```{r}
+```{r sol-5c}
 plot_predictions(
     model_3way,
     condition = list(
@@ -512,6 +529,8 @@ The outcome is now whether a participant has hyperglycemia.
 You fit a logistic regression model:
 
 ```{r}
+#| label: ex-6c
+
 model_logit <- glm(
   hyperglycemia ~ UA * sex,
   family = binomial,
@@ -523,10 +542,12 @@ model_logit <- glm(
 2. What does the interaction term test?
 3. What is the interpretation of the interaction coefficient? (hint: *the next
    plot will help*)
-4. Use {marginaleffects} to plot predicted probabilities of hyperglycemia across
-   UA separately for men and women.
+4. Use `{marginaleffects}` to plot predicted probabilities of hyperglycemia
+   across UA separately for men and women.
 
 ```{r}
+#| label: sol-6c
+
 plot_predictions(
     model_logit,
     condition = c("UA", "sex"),

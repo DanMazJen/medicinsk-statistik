@@ -1,6 +1,4 @@
-# Conditioning and polynomial madness {#sec-interaction}
-
-> "x." --- John Doe
+# Bending the rules {#sec-interaction}
 
 ```{r}
 #| label: setup
@@ -44,8 +42,43 @@ The slides contain speaking notes that you can view by pressing 'S' on the
 keyboard.
 :::
 
-## Case session 11: ""
+## Case session 11: "Conditioned on age"
 
+At AalboR Statistical Hospital, clinicians have been reviewing data from
+patients who underwent exercise testing as part of their cardiac evaluation.
+
+One of the variables recorded during the test is maximum heart rate. When
+looking at the data as a whole, the clinicians notice an interesting pattern:
+patients with heart disease tend to have lower maximum heart rates than patients
+without heart disease.
+
+At first, this seems fairly straightforward.
+
+During a case discussion, however, a cardiologist points out something that
+makes the pattern less convincing:
+
+> "Before we interpret this relationship, we should remember that maximum heart
+> rate also changes with age. A maximum heart rate that seems unusually low for
+> a younger patient may not be unusual for an older patient."
+
+This prompts the team to look more closely at the data.
+
+They begin comparing patients of different ages and notice that the relationship
+between maximum heart rate and heart disease does not look quite the same
+everywhere in the dataset.
+
+What initially appeared to be a simple relationship may depend on who the
+patient is.
+
+You are asked to investigate this pattern in the hospital's patient data. The
+challenge is to understand what happens to the relationship between maximum
+heart rate and heart disease when we consider patients conditional on their age ---
+and whether the relationship itself changes across ages.
+
+The findings may reveal something that is easy to miss when looking only at the
+overall data.
+
+::: {.hidden}
 At AalboR Statistical Hospital, a new exercise-based cardiac assessment protocol
 has recently been proposed by some researchers as a screening tool for heart
 disease, suggesting that patients with lower max heart rate are more likely to
@@ -64,6 +97,7 @@ patients, or whether it differs depending on their age.
 
 You are tasked with the decision: *Should this new assessment approach be used
 broadly, or are there patient groups where it may be misleading?*
+:::
 
 ::: {.hidden}
 At AalboR Statistical Hospital, a new exercise-based cardiac assessment protocol
@@ -116,6 +150,31 @@ hd_data |>
   ggplot(ggplot2::aes(Age, MaxHR, color = HD)) +
   geom_point() +
   geom_smooth(method = "lm", formula = y ~ x)
+```
+
+```{r}
+#| label: case-supplement
+#| echo: false
+#| warning: false
+#| layout-ncol: 2
+#| fig-cap: "AalboR Statistical Hospital internal review data at the meeting"
+#| fig-subcap:
+#|   - "Boxplot showing decreased max heart rate for heart disease patients"
+#|   - "Scatter plot supporting the cardiologist's statement"
+#|   - "Follow-up data visualization based on the cardiologist's statement"
+
+hd_data |>
+  ggplot(ggplot2::aes(HD, MaxHR)) +
+  geom_boxplot()
+
+hd_data |>
+  ggplot(ggplot2::aes(Age, MaxHR)) +
+  geom_point()
+
+hd_data |>
+  ggplot(ggplot2::aes(Age, MaxHR, color=HD)) +
+  geom_point()+
+  geom_smooth()
 ```
 
 ## Reading Task: Conditional cancer risk?
@@ -180,6 +239,48 @@ We need to bend these assumptions in order to produce an interaction effect. You
 will see how we routinely do this using simple tricks of multiplication and
 squaring the predictor variables.
 
+## One question, two models, no answer...
+
+We could try splitting the dataset in two: make a linear model for the heart
+disease patenst and a linear model for the rest.
+
+```{r}
+#| fig-cap: "Heart rate decline as a function of age."
+#| label: fig-age-maxhr-separate
+#| echo: false
+
+hd_data |>
+  ggplot(ggplot2::aes(Age, MaxHR)) +
+  facet_grid(cols = vars(HD)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(title = "Conditioned on Heart Disease")
+```
+
+```{r}
+#| label: fig-age-maxhr-separate-coef
+
+lm(MaxHR ~ Age, data = subset(hd_data,HD=="no"))
+lm(MaxHR ~ Age, data = subset(hd_data,HD=="yes"))
+```
+
+Now we have two different coefficients of `Age`. Now, how do we compare them to
+see whether they differ? 😅
+
+> We are interested in the estimand: `MaxHR` ~ `HD` \| `Age`
+
+In words, is the effect of heart disease on max heart rate mediated by age?
+
+Unfortunately, we have no estimate for this! As we divided the groups, we cannot
+compare them within our statistical mode.
+
+Another concerning issue is that now our sample size is smaller and our model is
+more uncertain. As we split the dataset in two, the model cannot learn the
+association between max heart rate and age from all participants --- even
+thought that would be more robust!
+
+So this is not a good approach... Let's explore another approach.
+
 ## Adding the variable to a regression model is not enough
 
 Recall the data from @sec-HeartDisease-data. We have already extensive knowledge
@@ -196,6 +297,7 @@ of interest: age and heart disease.
 
 ```{r}
 #| label: addition-not-enough
+#| echo: true
 
 hd_data <- medisr::hd_data # <1>
 
@@ -211,7 +313,7 @@ plot_predictions(       # <4>
 )
 ```
 
-1. first, we load in the dataset.
+1. First, we load in the dataset.
 2. Next, we make a simple linear model adding the two variables of interest.
 3. Here, we load the `{marginaleffects}` package
 4. We plot how the model predicts the max heart rate based on age for both
@@ -221,7 +323,7 @@ plot_predictions(       # <4>
 Wait --- the lines are completely parallel?!
 
 This is exactly the additive and linear assumption: the same effect is constant
-for heart disease and for age.
+for heart disease and for age [@james2021introduction].
 
 But is this really the truth? Let's plot the raw data with `{ggplot2}`:
 
@@ -238,6 +340,9 @@ This does *not* look parallel **at all** 👀
 
 We need to allow some flexibility in our model to consider that fact that slopes
 might change dependent on heart disease.
+
+In other words: > We need to bend the assumption of additive and linear
+variables [@james2021introduction].
 
 ## Making non-additive terms in linear models
 
@@ -256,8 +361,8 @@ We might first think:
 But remember the additivity assumption: all predictors scale similarly on cancer
 risk with increasing exposure. Do you think it applies here? I'm not sure...
 
-> The cancer risk asbestos exposure might matter differently depending on the
-> smoking status.
+> The association between lung cancer and asbestos exposure could be different
+> conditioned on smoking status.
 
 That is an interaction. And it is per definition violating the additivity
 assumption!
@@ -697,42 +802,157 @@ But what if we have two continuous variables that interaction?
 ```{r}
 #| label: cont-interaction
 
-pain_data <- expand_grid(
-  dose = 0:10,
-  pain = c(0,1,2)
-) |>
-  mutate(
-    relief = 1.6 + 0.4*dose + 0.4*pain + 0.9*dose*pain + rnorm(n(), 0,1)
-    )
-
-m <- lm(relief ~ dose * pain, data = pain_data)
+m <- lm(MaxHR ~ Age + Chol + Age:Chol, data=hd_data)
 
 summary(m)
 ```
 
+The interpretation remains the same --- but now that both values have infinitely
+many possible values, it suddenly becomes difficult to plot and show all the
+ranges 😅
+
+A nice trick is to do a triptych plot. [Triptych
+art](https://en.wikipedia.org/wiki/Triptych) is
+
+> "a work of art (usually a panel painting) that is divided into three sections,
+> or three carved panels that are hinged together and can be folded shut or
+> displayed open. It is therefore a type of polyptych, the term for all
+> multi-panel works. The middle panel is typically the largest and flanked by
+> two smaller related works, although there are triptychs of equal-sized panels.
+> The form can also be used for pendant jewelry."
+
+- Wikipedia
+
+Here is an example:
+
 ```{r}
 #| label: triptic-plot
+#| code-fold: true
+#| fig-cap: Max heart rate by cholesterole conditioned on age
 
-pain_data |>
-  mutate(pain_group = factor(pain)) |>
-  ggplot(aes(dose, relief)) +
-  geom_point() +
-  geom_smooth(method = "lm", se = FALSE) +
-  facet_wrap(
-    ~ pain_group,
-    labeller = as_labeller(c(
-      `0` = "No pain",
-      `1` = "Mild pain",
-      `2` = "Severe pain"
-    ))
-  ) +
-    labs(
-        x = "Dose (mg)",
-        y = "Subjective relief (0 - 25)"
+# Calculate Age values at -2 SD, Mean, and +2 SD
+age_values <- c(
+  "-1 SD" = mean(hd_data$Age, na.rm = TRUE) - (sd(hd_data$Age, na.rm = TRUE) * 1),
+  "Mean"  = mean(hd_data$Age, na.rm = TRUE),
+  "+1 SD" = mean(hd_data$Age, na.rm = TRUE) + (sd(hd_data$Age, na.rm = TRUE) * 1)
+)
+
+# Create prediction data
+plot_data <- expand_grid(
+  Chol = seq(
+    min(hd_data$Chol, na.rm = TRUE),
+    max(hd_data$Chol, na.rm = TRUE),
+    length.out = 100
+  ),
+  age_group = names(age_values)
+) |>
+  mutate(
+    Age = age_values[age_group],
+    age_group = factor(
+      age_group,
+      levels = c("-1 SD", "Mean", "+1 SD")
     )
+  )
+
+# Fit model
+model <- lm(MaxHR ~ Age * Chol, data = hd_data)
+
+# Add predicted MaxHR
+plot_data <- plot_data |>
+  mutate(
+    predicted_MaxHR = predict(model, newdata = plot_data)
+  )
+
+# Plot
+ggplot(plot_data, aes(x = Chol, y = predicted_MaxHR)) +
+  geom_line(linewidth = 1) +
+  facet_wrap(
+    ~ age_group,
+    labeller = as_labeller(
+      c(
+        "-1 SD" = "-1 SD of Age",
+        "Mean"  = "Mean Age",
+        "+1 SD" = "+1 SD of Age"
+      )
+    )
+  ) +
+  labs(
+    x = "Chol",
+    y = "Maximum heart rate (MaxHR)",
+    title = "Predicted Maximum Heart Rate by Chol",
+    subtitle = "At −1 SD, Mean, and +1 SD of Age"
+  ) +
+  theme_minimal()
 ```
 
-## Polynomials
+Recall the symmetry of interaction. The regression model could be interpreted in
+the other direction: *max heart rate predicted by age conditioned on
+cholesterole level*.
+
+Note that the ±1 SD is an arbitrary - but often reasonable - choice. I've use ±2
+SD for the next plot:
+
+```{r}
+#| label: triptic-plot2
+#| fig-cap: Max heart rate by age conditioned on cholesterole
+#| code-fold: true
+
+# Calculate Chol values at -1 SD, Mean, and +1 SD
+chol_values <- c(
+  "-2 SD" = mean(hd_data$Chol, na.rm = TRUE) - (sd(hd_data$Chol, na.rm = TRUE) *2),
+  "Mean"  = mean(hd_data$Chol, na.rm = TRUE),
+  "+2 SD" = mean(hd_data$Chol, na.rm = TRUE) + (sd(hd_data$Chol, na.rm = TRUE)*2)
+)
+
+# Create prediction data
+plot_data <- expand_grid(
+  Age = seq(
+    min(hd_data$Age, na.rm = TRUE),
+    max(hd_data$Age, na.rm = TRUE),
+    length.out = 100
+  ),
+  chol_group = names(chol_values)
+) |>
+  mutate(
+    Chol = chol_values[chol_group],
+    chol_group = factor(
+      chol_group,
+      levels = c("-2 SD", "Mean", "+2 SD")
+    )
+  )
+
+# Fit model
+model <- lm(MaxHR ~ Age * Chol, data = hd_data)
+
+# Add predicted MaxHR
+plot_data <- plot_data |>
+  mutate(
+    predicted_MaxHR = predict(model, newdata = plot_data)
+  )
+
+# Plot
+ggplot(plot_data, aes(x = Age, y = predicted_MaxHR)) +
+  geom_line(linewidth = 1) +
+  facet_wrap(
+  ~ chol_group,
+  labeller = as_labeller(
+    c(
+        "-2 SD" = "-2 SD of Chol",
+        "Mean"  = "Mean Chol",
+        "+2 SD" = "+2 SD of Chol"
+        )
+        )
+    ) +
+  labs(
+    x = "Age",
+    y = "Maximum heart rate (MaxHR)",
+    title = "Predicted Maximum Heart Rate by Age",
+    subtitle = "At −2 SD, Mean, and +2 SD of Chol"
+  ) +
+  theme_minimal()
+```
+
+## Polynomials - bending the rules, literally!
 
 Recall the linearity assumption [@james2021introduction].
 

@@ -186,7 +186,7 @@ software installed on the server is `R` and `RStudio`.
 
 # output-location: slide
 
-data(hd_data, package = "medisr")
+hd_data <- medisr::hd_data
 
 hd_data |>
   ggauto::ggauto(
@@ -249,7 +249,7 @@ hd_data |>
 2) Copy the following code:
 
 ```r
-data(hd_data, package = "medisr")
+hd_data <- medisr::hd_data
 ```
 
 3) Paste it into your R console and check if you see the data in your `variable`
@@ -427,6 +427,6 @@ Getting or asking for help :raising_hand_woman::raising_hand_man: {.smaller}
 ## Rest of session {.center style="text-align: center;"}
 
 See the website chapter
-[11.3](https://danmazjen.github.io/medicinsk-statistik/sessions/session01.html#sec-setup-project)
+[11.4](https://danmazjen.github.io/medicinsk-statistik/sessions/session01.html#sec-setup-project)
 
 [A gentle introduction to **R**]{.r-stretch}

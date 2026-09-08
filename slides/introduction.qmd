@@ -110,7 +110,7 @@ https://vbn.aau.dk/da/persons/cdahl/
 
 <!-- TODO: Insert picture analogy -->
 
-## More on chatmodels and AI {.smaller}
+## More on chatmodels and AI {.smaller .scrollable}
 
 See the website chapter
 [5.2](https://danmazjen.github.io/medicinsk-statistik/pre-course/reading.html#using-ai)
@@ -140,6 +140,8 @@ See the website chapter
 **Stop-assignment**
 
 - Hand-in of course work
+
+This will be developed in the workshops (*important to show op*)
 :::::
 ::::: {.column width="50%"}
 **Project**
@@ -147,6 +149,8 @@ See the website chapter
 - Use skills from course to do a short 1 month applied data exploration and
   statistical analysis
 - Draw question based on curriculum
+
+*see @sec-project-work for an example*
 :::::
 :::
 

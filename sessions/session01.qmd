@@ -115,8 +115,8 @@ To do data analysis effectively and in an organised and less stressful way,
 everything comes down to how you setup and structure your folders and files.
 Essentially, how to make your analysis project into a self-contained project at
 the folder level. This session will cover how to set up a project into an
-RStudio R Project and structure the files and folders using the `{prodigenr}`
-package.
+RStudio R Project and structure the files and folders using the
+[`{medisr}`](https://danmazjen.github.io/medisr/) package.
 
 ## :book: Reading task: What is a project and why use it?
 
@@ -165,22 +165,23 @@ workspace (where all the R activity and output is temporarily saved), history,
 and documents.
 
 There are many ways one could organise a project folder. We'll be setting up a
-project folder and file structure using `{prodigenr}`. We'll use RStudio's "New
+project folder and file structure using
+[`{medisr}`](https://danmazjen.github.io/medisr/). We'll use RStudio's "New
 Project" menu item under "File -> New Project...". A new pop-up window shows up.
-Click "New directory" and scroll down to "Scientific Analysis Project using
-prodigenr". Type out `medical-statistics` as the directory name and save it to
-the `Desktop/`.
+Click "New directory" and select "New Project". Type out
+`hallo-medical-statistics` as the directory name and save it to the `Desktop/`
+(or where you want to store your project).
 
 ::: {.callout-tip appearance="default"}
 You can also type the below function into the Console, but we won't do that in
 this session.
 
 ```{r}
-#| label: prodigenr-setup
+#| label: project-setup
 #| filename: "Console"
 #| eval: false
 
-prodigenr::setup_project("~/Desktop/medicinsk-statistik-session1")
+medisr::medisr_init_project("~/Desktop/medicinsk-statistik-session1")
 ```
 :::
 
@@ -188,21 +189,15 @@ After we've created a New Project in RStudio, we'll have a bunch of new files
 and folders.
 
 ```
-LearningR
-├── .git/
+hallo-medical-statistics
 ├── R/
-│   └── README.md
-├── data/
-│   └── README.md
-├── data-raw/
-│   └── README.md
-├── docs/
-│   └── README.md
-├── .gitignore
-├── DESCRIPTION
-├── medical-statistics.Rproj
-├── README.md
-└── TODO.md
+│   ├── clean_script.R
+│   └── learning.R
+├── data
+├── docs
+├── figures
+├── hallo-medical-statistics.Rproj
+└── raw-data
 ```
 
 This forces a specific and consistent folder structure to all your work. Think
@@ -231,15 +226,14 @@ File -> Open Project
 or
 
 ```
-File -> Recent Project.. -> medical-statistics
+File -> Recent Project.. -> hallo-medical-statistics
 ```
 
 Within the project we created, there are several README files in each folder
 that explain a bit about what should be placed there. Briefly:
 
 1. Documents like reports, theses, conference abstracts, and exploration type
-   documents should be put in the `docs/` directory, including
-   [Quarto](https://quarto.org) files.
+   documents should be put in the `docs/` directory, including Word files.
 2. Data, raw data, and metadata should be in either the `data/` directory or in
    `data-raw/` for the raw data. We'll explain this more later.
 3. All `.R` files (called scripts) and code should be in the `R/` directory.
@@ -554,12 +548,11 @@ You have already tried reading in data. The command was:
 ```{r}
 #| label: read-medisr-data
 
-data(hd_data)
+hd_data <- medisr::hd_data
 ```
 
-This function `data()` will find the dataset we need and load it in. However, it
-is relying on the fact that we made the dataset available in the `{medisr}`
-package.
+However, it is relying on the fact that we made the dataset available in the
+[`{medisr}`](https://danmazjen.github.io/medisr/) package.
 
 If that was not possible, you could use the `{readr}` package's `read_csv()`
 function and provide for example a website:
@@ -638,8 +631,9 @@ operations.
 
 ## Summary
 
-- Use `{prodigenr}` to assist with setting up a new project, with standard files
-  and folders to begin working on a data analysis project.
+- Use [`{medisr}`](https://danmazjen.github.io/medisr/)'s function
+  `medisr_init_project()` to assist with setting up a new project, with standard
+  files and folders to begin working on a data analysis project.
 - Use R Projects in RStudio to manage your project and make it easier to work
   with R in it.
 - Use R as a basic calculator.

@@ -11,7 +11,7 @@ urls:
 
 surveys:
   pre-course: "https://forms.gle/XGEgzV9Bcwwjykk7A"
-  feedback: "https://docs.google.com/forms/d/e/1FAIpQLSejsgArWYbCpTjKoxdCArtAVJrtBZQCINIEUj1TqppYrd3n8g/viewform?usp=publish-editor"
+  feedback: "https://forms.gle/6BEo1WgHmD46FSFh6"
 
 # Use `r3::get_allowed_r_versions()` and `r3::get_allowed_rstudio_versions()`
 # to get a list of the allowed R and RStudio versions.

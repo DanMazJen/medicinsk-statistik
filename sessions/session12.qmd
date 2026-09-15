@@ -35,7 +35,7 @@ knitr::opts_chunk$set(
 
 {{< include /includes/curriculum/_session12.qmd >}}
 
-# Slides
+## Slides
 
 > [**Session 12 slides**](../slides/day12.html)
 
@@ -54,7 +54,7 @@ The slides contain speaking notes that you can view by pressing 'S' on the
 keyboard.
 :::
 
-# Case session 12: "Why are seizure data always right-skewed?"
+## Case session 12: "Why are seizure data always right-skewed?"
 
 At PhaRmacy Inc., excitement is growing over a new anti-seizure medication,
 progabide. A randomized clinical trial has just finished, and the lead
@@ -172,8 +172,8 @@ Baseline seizures ─────► Outcome (Seizures)
 -->
 <!-- panache-ignore-format-end -->
 
-Before doing *anything* with statistics and code, we should try imagining how
-the data was generated.
+Before doing *anything* with statistics and code, we should try to imagine how
+the data was generated in order to make a causal model.
 
 ### Exercise: Discuss the causal mechanisms of progabide
 
@@ -192,14 +192,14 @@ overcomplicate your model.
 dag <- dagitty::dagitty("
 dag {
 
-severity -> gaba
+severity -> GABA
 severity -> baseline
 
-gaba -> seizures
-gaba -> baseline
+GABA -> seizures
+GABA -> baseline
 
 baseline -> seizures
-drug -> gaba
+drug -> GABA
 
 }
 ")
@@ -213,7 +213,8 @@ dag |>
 need_to_adjust_for <- dagitty::adjustmentSets(dag,
     exposure = "drug",
     outcome = "seizures",
-    effect="total"
+    #effect="total" # no confounding
+    effect="direct" # GABA, baseline  OR gaba, severity
 )
 ```
 
@@ -248,8 +249,7 @@ epil <- epil |>
         log_base = lbase,
         log_age = lage
   ) |>
-    #filter(period < 2 | period > 3) |>
-    filter(period > 3) |>
+    filter(trial_end == 1) |>
     mutate(
         seizure_count = as.integer(seizure_count),
         period = factor(period,
@@ -259,13 +259,19 @@ epil <- epil |>
     )
 ```
 
-And let's looks at what we have:
+Now, let's take a glipse of what data we have:
 
 ```{r}
 #| label: just-looking
 
 epil |>
-    tibble::as_tibble()
+    dplyr::glimpse()
+```
+
+And let's see how many were assigned each arm of the RCT:
+
+```{r}
+#| label: count-arms
 
 epil |>
     count(drug)
@@ -276,7 +282,7 @@ So 59 patients in total with pretty balanced groups.
 Now, let's look at a histogram of the `baseline_seizures` and `seizure_count`:
 
 ```{r}
-#| label: explore1
+#| label: fig-explore1
 
 seizure_lims <- range(c(epil$baseline_seizures, epil$seizure_count))
 
@@ -296,6 +302,8 @@ posttrial_data_plot <- epil |>
     ) +
     coord_cartesian(xlim = seizure_lims)
 
+# This part takes the two ggplot's and puts them side-by-side using {patchwork}
+library(patchwork)
 baseline_data_plot + posttrial_data_plot
 ```
 
@@ -307,15 +315,12 @@ We should also consider the relationship between `baseline_seizures` and
 
 ```{r}
 #| label: explore2
+#| warning: false
 
 epil |>
     ggplot(aes(baseline_seizures,seizure_count,color=drug)) +
     geom_point(alpha=0.6) +
-    geom_smooth(
-        method="loess",
-        se=FALSE,
-        formula = y ~ x) +
-    theme_bw()
+    geom_smooth()
 ```
 
 It definitely looks like there's an association between `baseline_seizures` and
@@ -324,10 +329,10 @@ include this in the *statistical model* to account for the variance.
 
 Recall the case:
 
-> We want to know the difference in probability (i.e., incidence rate) of
-> getting seizures.
+> We want to know the difference in prevalence (here, more specifically,
+> *incidence rate*) of getting seizures after being prescribed progabide.
 
-## Can we use Logistic regression?
+## Can we use logistic regression?
 
 This is a ultra quick recap of logistic regression. See session 10 on logistic
 regression by Carsten for a comprehensive recap.
@@ -338,14 +343,14 @@ $$
   outcome \sim Binomial(N,p)
 $$
 where *N* is the trial count and *p* is the probability, which we are interested
-in estimating with out model.
+in estimating with our model.
 
 - We use the binomial distribution with *logit link* to model the outcome as the
   probability of event A.
 - These are discrete counts, but we are interested in the overall probability of
   getting outcome A.
 - Only two outcomes: 0 or 1 (heads or tails, dead or alive, left or right)
-- The logit link transform our outcome variable to a linear space called
+- The logit link transforms our outcome variable to a linear space called
   log-odds that goes from $-\infty$ to $\infty$.
 - The logistic function transforms our data back to the outcome space
   (probabilities that goes from 0---1).
@@ -368,10 +373,10 @@ Luckily, there's a trick for this. When N becomes huge and *p* becomes really
 small, the binomial distribution takes a special shape --- the Poisson
 distribution.
 
-Explained mathematically:
+**Explained mathematically**:
 
-The expected value of a binomial distribution is just *Np* (probability scale),
-and its variance $Np(1-p)$. But when *N* is very large and *p* is very small,
+The expected value of a binomial distribution is just $Np$ (probability scale),
+and its variance $Np(1 - p)$. But when *N* is very large and *p* is very small,
 the variance and expected value is the same.
 
 E.g., you have 1 in 1000 probability of getting a price.
@@ -412,10 +417,13 @@ $$
 Why log?
 
 ```{r}
-#| label: why-log
+#| label: fig-whylog
+#| fig-cap: While the log-linear scale can take any real value, the ouctome
+#|   scale is only positive real numbers.
 #| echo: false
-#| fig-subcap:
-#|   - "While the log-linear scale can take any real value, the ouctome scale is only positive real numbers."
+
+# fig-subcap:
+#   - "While the log-linear scale can take any real value, the ouctome scale is only positive real numbers."
 
 # fig-cap: "Charts"
 #   - "Second"
@@ -498,14 +506,18 @@ ggplot(dat, aes(x = x, y = value)) +
  # )
 ```
 
+As illustrated in @fig-whylog, taking the log of any number is bounded between
+$0 \to \inf$. Still, the log-odds space is $-\inf \to \inf$. So the trick is
+similar to the logistic regression, but without ceiling to 1.
+
 Note that the log-link has the same flaws and benefits from the binomial
 distribution.
 
-Pros:
+> Pros:
 
 - ensures positive values (for prediction)
 
-Cons:
+> Cons:
 
 - implies exponential relationship with predictors
   - Grow very rapidly --- therefore, very sensitive to range
@@ -547,11 +559,15 @@ dist_draws |>
         bins=30
     ) +
     facet_wrap(~dist) +
-    labs(x="seizures")
+    labs(
+        x="Seizures",
+        y="Count (a.u.)"
+    ) +
+    theme(axis.text.y = element_blank())
 ```
 
-What do you notice? Compare the plots to the observed data we plotted just
-above.
+What do you notice? Compare the plots to the observed data we plotted in
+@fig-explore1.
 
 - Which best captures the data?
 - Which makes the worst fit?
@@ -599,7 +615,8 @@ data-generating distributions, we're going to go with the following formulation:
 
 $$
   seizure\_count_i \sim Poisson(λ_i) \\
-  log(λ_i) = α + β_1 baseline\_seizures + β_2 drug + β_3 baseline\_seizures*drug \\
+  log(λ_i) = α + β_1 baseline\_seizures + β_2 drug
+             + β_3 baseline\_seizures × drug \\
 $$
 
 1. The model says that we believe `seizure_count` is Poisson distributed
@@ -647,23 +664,26 @@ coef(m1_intercept)
 
 What does it mean?
 
-Unless you're a chatbot, I'm not sure you can't read anything major from these
+Unless you're a chatbot, I'm not sure you can read anything major from these
 coefficients. It's because they're still in log-link space!
 
-So what do we do? Feed them to the chat model?
+So what do we do? Feed them to the chat model? *Please don't!* 😅
 
 Similar to the logistic regression, we have to apply the opposite transformation
 we did in the first place to make the model linear. In statistical terminology,
-the function that can transform the model pack to it's outcome unit is called
-the *inverse link function*. And the "opposite" mathematical operation to log is
-exponentiation.
+the function that can transform the model back to it's outcome unit is called
+the *inverse link function*. And the "opposite" mathematical operation to *log*
+is to *exponentiation*.
 
-Let's convert them back from log-ratios to a incidence rate-ratio. We do this by
-exponentiating the value:
+Let's convert the coefficients back from *log-rate ratios* to *incidence
+rate-ratios*. We do this by exponentiating the value:
 
 $$
-  e^{cefficients}
+  e^{coefficient}
 $$
+
+In R, we can use `{broom}` to `tidy` the model coefficients and generate
+confidence intervals 🎉
 
 ```{r}
 #| label: inference
@@ -680,10 +700,10 @@ The intercept reads `r exp(m1_intercept$coefficients[1])`, which is the expected
 Confirm this for yourself using the following code:
 `mean(subset(epil,drug=="placebo")$seizure_count)`.
 
-Next, it's the `β1drug` `r exp(m1_intercept$coefficients[2])`, which is the
-expected rate ratio in `seizure_count` when being on progabide for 8 weeks,
-compared to placebo. Since the incidence rate-ratio less than 1, the expected
-seizure count is lower.
+Next, it's the
+$β1_{drug} named `drugprogabide` in `R`: `r exp(m1_intercept$coefficients[2])`, which is the expected rate ratio in `seizure_count\`
+when being on progabide for 8 weeks, compared to placebo. Since the incidence
+rate-ratio less than 1, the expected seizure count is lower.
 
 In fact, `r round((1 - exp(m1_intercept$coefficients[2])) * 100, 1)`% lower on
 average. To confirm this for yourself, run the following code:
@@ -691,9 +711,9 @@ average. To confirm this for yourself, run the following code:
 for the treatment group. Finally, prove to yourself that this is what the two
 coefficients mean in relation to each other by this code:
 `exp(m1_intercept$coefficients[2])*mean(subset(epil,drug=="placebo")$seizure_count)`.
-So the average effect of being on progabide for 8 weeks was a reduction of
+So the expected effect of being on progabide for 8 weeks was a reduction of
 `r (1-exp(m1_intercept$coefficients[2]))*mean(subset(epil,drug=="placebo")$seizure_count)`
-seizures during 8 weeks in this small sample.
+seizures during 8 weeks, based on this small sample.
 
 ## Reading task: Reporting incidence rate ratio or counts
 
@@ -727,7 +747,7 @@ unit to make national policies?.
 
  </details>
 
-## Fitting a multiple Poisson regression
+## Fitting a Poisson regression model with covariates
 
 While the model we've been using so far is not wrong, per se, it's also rather
 simple. Until now, we have estimated the average change in seizure count, not
@@ -784,8 +804,6 @@ of progabide. However, the new model adjusting for `baseline_seizures` does.
 
 But how do we interpret this model?
 
-## Marginal effects and counterfactuals:
-
 ### Discussion: How each model represent the data:
 
 The two models have very different ways of estimating the expected
@@ -835,7 +853,9 @@ plot_baseline_pred
 ### Making sense of Poisson coefficients
 
 The easies way to understand the model coefficients is to make marginal plots.
-We'll use the {marginaleffects} package for this.
+You will learn more about marginal effects in @sec-marginal-effects.
+
+We'll use the `{marginaleffects}` package for this.
 
 ```{r}
 #| label: counterfactuals
@@ -844,7 +864,7 @@ We'll use the {marginaleffects} package for this.
 
 m2_baseline |>
     plot_predictions(
-    condition=c("baseline_seizures","drug"),
+    condition=c("baseline_seizures","drug")
     ) +
     labs(
     y="Predicted seizures"
@@ -854,70 +874,6 @@ m2_baseline |>
 This is more like it! Now, we can appreciate how the model expects the average
 effect of `seizure_count` as a function of `baseline_seizures` and whether the
 patient took progabide for 8 weeks.
-
-### Extra madness - counterfactuals for clinical inference
-
-This is an extra part (not curriculum material).
-
-Suppose you wanted to know a cutoff for when the drug prevents *at least* three
-seizures:
-
-```{r}
-#| label: cut-off-of-when-to-use
-
-grid <- datagrid(
-    model=m2_baseline,
-    baseline_seizures = seq(0, 100, by = 1),
-    age = mean(epil$age), #28 yo
-    #V4 = 1, # follow-up
-    drug = c("placebo", "progabide")
-)
-
-pred <- marginaleffects::predictions(m2_baseline, newdata = grid)
-
-cutoff <- pred |>
-    dplyr::select(baseline_seizures, drug, estimate) |>
-    tidyr::pivot_wider(
-        names_from = drug,
-        values_from = estimate) |>
-    mutate(
-        reduction = placebo - progabide
-    )
-
-cutoff_pt <- cutoff |>
-  slice_min(abs(reduction - (3)), n = 1)
-
-worsening <- cutoff |>
-  slice_min(abs(reduction - (0)), n = 1)
-
-ggplot(cutoff,
-       aes(baseline_seizures, reduction)) +
-    geom_line(linewidth = 1) +
-    geom_hline(yintercept = 3,
-               linetype = 2,
-               colour = "red") +
-    labs(
-        x = "Baseline seizures",
-        y = "Expected reduction",
-        title = "Expected treatment benefit"
-    ) +
-    theme_bw() +
-    geom_label(
-        data = cutoff_pt,
-        aes(
-            label = paste0(
-            "Baseline = ", baseline_seizures,
-            "\nReduction = ", round(reduction, 2))
-        ),
-        nudge_y = -1.5
-    ) +
-    geom_point(aes(baseline_seizures,reduction),
-        cutoff_pt,
-        colour = "steelblue",
-        size = 3)
-```
-
-Ask the teacher if you're curious...
 
 ## Telling your model that people respond differently
 
@@ -944,9 +900,8 @@ $$
 where the expected seizure count is modeled using a log link,
 
 $$
-  \log(\mu_i) = \beta_0 + \beta_1\text{drug}_i +
-  \beta_2\text{baseline}_i +
-  \beta_3(\text{drug}_i \times \text{baseline}_i).
+  \log(\mu_i) = \beta_0 + \beta_1\text{drug}_i + \beta_2\text{baseline}_i
+                + \beta_3(\text{drug}_i \times \text{baseline}_i).
 $$
 
 A key assumption of the Poisson distribution is that the mean and variance are
@@ -997,9 +952,7 @@ The consequence is that the variance is no longer constrained to equal the mean.
 Instead,
 
 $$
-  \mathrm{Var}(Y_i) =
-  \mu_i +
-  \frac{\mu_i^2}{\theta},
+  \mathrm{Var}(Y_i) = \mu_i + \frac{\mu_i^2}{\theta},
 $$
 
 where $\theta$ is the dispersion parameter estimated from the data.
@@ -1141,36 +1094,63 @@ If we simply modeled the raw event counts, Hospital 2 would naturally tend to
 have larger counts because each observation covers a longer period of time.
 
 ```{r}
-#| label: offset-example
+#| label: offset-simulation
 
 set.seed(636961739)
-num_days <- 30 # days of the experiment
+
+num_weeks <- 8 # weeks of the experiment
+num_days <- 8*7 # days of the experiment
 
 hospital1 <- rpois (num_days, 1.5) # 1.5 events per day
-
-num_weeks <- 4 # weeks of the experiment
 
 hospital2 <- rpois(num_weeks, 0.5*7) # events * lowst unit (i.e., days)
 
 events <- c(hospital1, hospital2)
-exposure <- c(rep(1,30), rep(7,4))
-hospital_id <- c(rep(0,30), rep(1,4))
+exposure <- c(rep(1,num_days), rep(7,num_weeks))
+hospital_id <- c(rep("Aalbjerg",num_days), rep("Esborg",num_weeks))
 hospital_data <- data.frame(
   events=events,
   days=exposure,
-  hospital_id=hospital_id
+  hospital_id= as.factor(hospital_id)
 )
 
 hospital_data$log_days = log(hospital_data$days)
 
-sim_m1 <- glm( events ~ 1 + hospital_id,
+hospital_data
+```
+
+We have generated a dataset where we have:
+
+- `events`: number of events
+- `days`: how many das the events have been counted and summed over
+- `hospital_id`: unique ID of the hospital {`Esborg` or `Aalbjerg`}
+- `log_days`: taking the log of `days`
+
+## Modelling without thinking
+
+```{r}
+#| label: no-offset
+
+sim_m1 <- glm( events ~ hospital_id,
     family = poisson,
     data = hospital_data
 )
 
 broom::tidy(sim_m1,exponentiate = TRUE)
+```
 
-sim_m2 <- glm( events ~ 1 + hospital_id,
+Oh, wow! Esborg has a `r exp(sim_m1$coefficients[2])` rate ratio compared to
+Aalbjerg!
+
+That is alarming and someone should figure out why so many events are taking
+place in Esborg.
+
+Let's add an offset and see what this gives us:
+
+```{r}
+#| label: with-offset
+
+sim_m2 <- glm( events ~ hospital_id,
     family = poisson,
     offset = log_days, # here we added the expoure time as an offset.
     data = hospital_data
@@ -1179,31 +1159,45 @@ sim_m2 <- glm( events ~ 1 + hospital_id,
 broom::tidy(sim_m2,exponentiate = TRUE)
 ```
 
-#### Expectations:
+Oh, no! Now Esborg has a `r exp(sim_m2$coefficients[2])` rate ratio compared to
+Aalbjerg!
 
-In this simulation, Hospital 1 was generated with an average rate of 1.5 events
-per day, while Hospital 2 was generated with an average rate of 0.5 events per
+> How can this be? What should we trust?
+
+As always, models are no source of truth and trying to reading coefficients
+blindly is a poor choice - there lies madness.
+
+Instead, we should make clear expectations and seek out models that are capable
+of addressing our needs to inquire knowledge.
+
+### Explicitly stating our expectations:
+
+In this simulation, `Aalbjerg` was generated with an average rate of 1.5 events
+per day, while `Esborg` was generated with an average rate of 0.5 events per
 day. Therefore, we expect a correct fitted model to recover:
 
 - An intercept corresponding to approximately 1.5 events per day
 
-- An exponentiated coefficient for hospital_id of approximately
+- An exponentiated coefficient for `hospital_idEsborg` of approximately
 
   $$
-    \frac{0.50}{1.5}≈0.33.
+    \frac{0.50}{1.5} ≈ 0.33.
   $$
 
-This means Hospital 2 has about one-third the event rate of Hospital 1
+This means `Esborg` has about one-third the event rate of `Aalbjerg`
 (equivalently, about a 67% lower event rate). Since we are fitting a Poisson
 model, this exponentiated coefficient is interpreted as an incidence rate ratio
-(IRR). Note: *Small differences between the estimated and true values are
-expected because the data are randomly simulated*.
+(IRR).
 
-#### Observations:
+Note: *Small differences between the estimated and true values are expected
+because the data are randomly simulated and we have low sample size*.
 
-Notice that when we simply model the raw event counts, Hospital 2 will naturally
-have larger counts because each observation covers a longer period of time. This
-is in contrast to our expectation.
+### Making sound inference:
+
+Notice that when we simply model the raw event counts, `Esborg` will naturally
+have larger counts. Why? Because each observation covers a longer period of time
+(here a full week) compared to that of `Aalbjerg` (only a single day). This is
+in contrast to our expectation.
 
 The offset corrects for this by incorporating the amount of exposure into the
 model. Specifically, we include the logarithm of the exposure `log_days` as an
@@ -1217,7 +1211,42 @@ Because the offset has a coefficient fixed at 1, the model estimates event rates
 exposure times to be compared on the same scale. The estimates are much closer
 to our expectation this time.
 
-# Summary:
+We could also model the week rate ratio by multiplying the day unit by 7:
+
+$$
+  log μ_i = log (days_i × 7) + α + β1hospital_i
+$$
+
+In R, we would simply multiply the expoure variable by 7:
+
+```{r}
+#| label: with-offset-week
+
+hospital_data <- hospital_data |>
+    mutate(log_week = log(days/7))
+
+sim_m3 <- glm(
+    events ~ hospital_id,
+    family = poisson,
+    offset = log_week, # here we added the expoure time as an offset.
+    data = hospital_data
+)
+
+broom::tidy(sim_m3,exponentiate = TRUE)
+```
+
+The rate ratio stays the same between the hositals
+
+$$
+  \frac{0.50 * 7}{1.5 * 7} = \frac{3.50}{10.5} ≈ 0.33.
+$$
+
+But now the intercept is `r exp(sim_m3$coefficients[1])` --- effectively seven
+times as large!
+
+This way, you are in charge of what exposure time you want to report 🎉
+
+## Summary:
 
 This session introduced the Poisson distribution and how to use it in regression
 (within the GLM framework). We covered it's relationship to logistic regression
@@ -1310,25 +1339,23 @@ multiplication** of the design matrix and the estimated coefficient vector.
 Let the design matrix be
 
 $$
-  X =
-  \begin{bmatrix}
-  1 & 0 & 6.0 & 0\\
-  1 & 0 & 7.46 & 0\\
-  \vdots & \vdots & \vdots & \vdots\\
-  1 & 0 & 151 & 0
-  \end{bmatrix},
+  X = \begin{bmatrix}
+        1      & 0      & 6.0    & 0      \\
+        1      & 0      & 7.46   & 0      \\
+        \vdots & \vdots & \vdots & \vdots \\
+        1      & 0      & 151    & 0
+      \end{bmatrix},
 $$
 
 and let the estimated regression coefficients be
 
 $$
-  \hat{\beta} =
-  \begin{bmatrix}
-  1.29584\\
-  -0.24923\\
-  0.02145\\
-  0.00042
-  \end{bmatrix}.
+  \hat{\beta} = \begin{bmatrix}
+                  1.29584 \\
+                  -0.24923 \\
+                  0.02145 \\
+                  0.00042
+                \end{bmatrix}.
 $$
 
 The linear predictor is obtained by matrix multiplication:

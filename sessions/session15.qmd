@@ -551,3 +551,69 @@ Interpretation:
 On average, a one-unit increase in X is associated with a 1.8 percentage-point
 increase in predicted probability, with a 95% confidence interval from 1.0 to
 2.6 percentage points.
+
+::: {.hidden}
+### Extra madness - counterfactuals for clinical inference
+
+This is an extra part (not curriculum material).
+
+Suppose you wanted to know a cutoff for when the drug prevents *at least* three
+seizures:
+
+```r
+#| label: cut-off-of-when-to-use
+
+grid <- datagrid(
+    model=m2_baseline,
+    baseline_seizures = seq(0, 100, by = 1),
+    age = mean(epil$age), #28 yo
+    #V4 = 1, # follow-up
+    drug = c("placebo", "progabide")
+)
+
+pred <- marginaleffects::predictions(m2_baseline, newdata = grid)
+
+cutoff <- pred |>
+    dplyr::select(baseline_seizures, drug, estimate) |>
+    tidyr::pivot_wider(
+        names_from = drug,
+        values_from = estimate) |>
+    mutate(
+        reduction = placebo - progabide
+    )
+
+cutoff_pt <- cutoff |>
+  slice_min(abs(reduction - (3)), n = 1)
+
+worsening <- cutoff |>
+  slice_min(abs(reduction - (0)), n = 1)
+
+ggplot(cutoff,
+       aes(baseline_seizures, reduction)) +
+    geom_line(linewidth = 1) +
+    geom_hline(yintercept = 3,
+               linetype = 2,
+               colour = "red") +
+    labs(
+        x = "Baseline seizures",
+        y = "Expected reduction",
+        title = "Expected treatment benefit"
+    ) +
+    theme_bw() +
+    geom_label(
+        data = cutoff_pt,
+        aes(
+            label = paste0(
+            "Baseline = ", baseline_seizures,
+            "\nReduction = ", round(reduction, 2))
+        ),
+        nudge_y = -1.5
+    ) +
+    geom_point(aes(baseline_seizures,reduction),
+        cutoff_pt,
+        colour = "steelblue",
+        size = 3)
+```
+
+Ask the teacher if you're curious...
+:::

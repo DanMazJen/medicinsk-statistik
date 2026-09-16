@@ -890,7 +890,7 @@ survival analysis, the timing of exposure matters.
 ::: {.hidden}
 ## Checking the estimates {.smaller}
 
-```{r}
+```r
 slopes(model_interact,
   variables = "HD",
   newdata = datagrid(Age = range))
@@ -900,7 +900,7 @@ slopes(model_interact,
 
 ## Hypothesis testing the interaction {.smaller}
 
-```{r}
+```r
 slopes(model_interact,
   variables = "HD",
   newdata = datagrid(Age = range),
@@ -963,7 +963,7 @@ output of summary of center
 :::::
 :::
 
-```{r}
+```r
 #| label: present-data
 
 pain_data |>
@@ -1051,7 +1051,7 @@ $$
 
 
 
-```{r}
+```r
 #| label: cont-interaction
 #| echo: false
 

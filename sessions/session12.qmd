@@ -666,7 +666,7 @@ And why does the output say:
 > The model has a log- or logit-link. Consider using `exponentiate = TRUE` to
 > interpret coefficients as ratios.
 
-## GLMs are notoriously difficult to interpret {#sec-poisson-interp}
+## Reading task: GLMs are notoriously difficult to interpret {#sec-poisson-interp}
 
 Let's have a look at the coefficients:
 
@@ -823,6 +823,7 @@ Note that both coefficients changed substantially.
 
 But how do we interpret these models?
 
+<!--
 ### Discussion: How each model represent the data:
 
 Try to make inferences based on the coefficients of the models.
@@ -833,7 +834,7 @@ Try to make inferences based on the coefficients of the models.
 The two models have very different ways of estimating the expected
 `seizure_count`. Explain to your neighbour what the models do using these plots:
 
-```{r}
+```r
 #| label: predictions
 #| echo: false
 #| fig-cap: "Model expectations"
@@ -875,7 +876,9 @@ plot_drug_only_pred
 plot_baseline_pred
 ```
 
-### Making sense of Poisson coefficients
+-->
+
+### Reading task: Making sense of Poisson coefficients
 
 The easies way to understand the model coefficients is to make marginal plots.
 You will learn more about marginal effects in @sec-marginal-effects.
@@ -937,8 +940,7 @@ But when we transform back to the outcome scale, we add the $x_i$ of all the
 coefficients:
 
 $$
-  E[Y]
-  = \exp\left( \beta_0 + \beta_1\,drug + \beta_2\,baseline\_seizures \right)
+  E[Y] = e^{\beta_0+\beta_1\,drug+\beta_2\,baseline\_seizures}
 $$
 
 So `baseline_seizures` is always part of the equation and therefore affects the
@@ -949,6 +951,28 @@ In other words, the effect of drug is conditional on the baseline value through
 the nonlinear log-link transformation. That's why `plot_predictions()` can show
 a conditional drug effect across different levels of `baseline_seizures` without
 an interaction term in the model.
+
+```{r}
+#| layout-ncol: 2
+#| label: plots-models
+
+m2_baseline |>
+    plot_predictions(
+    condition=c("baseline_seizures","drug"),
+    type = "link"
+    ) +
+    labs(
+    y="Log space"
+) + coord_cartesian(c(-1,150),c(0,5))
+
+m2_baseline |>
+    plot_predictions(
+    condition=c("baseline_seizures","drug")
+    ) +
+    labs(
+    y="Count outcome space"
+) + coord_cartesian(c(-5,150),c(-5,150))
+```
 
 ::: {.callout-tip collapse="true" appearance="simple"}
 ## The matematical nerd intuition
@@ -962,14 +986,14 @@ $$
 Back-transform to the response scale:
 
 $$
-  λ = \exp\left( \beta_0 + \beta_1\,drug + \beta_2\,baseline_seizures \right)
+  λ = \exp\left( \beta_0 + \beta_1\,drug + \beta_2\,baseline\_seizures \right)
 $$
 
 Take the derivative with respect to `drug`:
 
 $$
   \frac{\partial λ}{\partial drug}
-  = \beta_1 \exp\left( \beta_0 + \beta_1\,drug + \beta_2\,baseline_seizures \right)
+  = \beta_1 \exp\left( \beta_0 + \beta_1\,drug + \beta_2\,baseline\_seizures \right)
 $$
 
 Or equivalently:
@@ -984,24 +1008,25 @@ scale depends on `baseline_seizures`.
 The cross-partial derivative makes this explicit:
 
 $$
-  \frac{\partial^2λ} {\partial drug\,\partial baseline_seizures}
-  = \beta_1\beta_2 \exp\left( \beta_0 + \beta_1\,drug + \beta_2\,baseline_seizures \right)
+  \frac{\partial^2λ} {\partial drug\,\partial baseline\_seizures}
+  = \beta_1\beta_2 \exp\left( \beta_0 + \beta_1\,drug + \beta_2\,baseline\_seizures \right)
 $$
 
 Thus, whenever $\beta_1 \neq 0$ and $\beta_2 \neq 0$:
 
 $$
-  \frac{\partial^2λ} {\partial drug\,\partial baseline_seizures} \neq 0
+  \frac{\partial^2λ} {\partial drug\,\partial baseline\_seizures} \neq 0
 $$
 
 So the nonlinear inverse link creates an interaction on the outcome scale, even
-though there is no explicit `drug × baseline` interaction term in the model.
+though there is no explicit `drug × baseline_seizures` interaction term in the
+model.
 
 Importantly, this is not an interaction in the linear predictor. It is a
 response-scale interaction induced by the nonlinear inverse link.
 :::
 
-## A direct comparison of linear and poisson regression
+## A direct comparison of Gaussian and Poisson regression
 
 > What would have happened, had we used our good-old linear model?
 
@@ -1042,167 +1067,7 @@ Notice that:
    tests.
 3. <!-- TODO: Write text here -->
 
-## Telling your model that people respond differently
-
-<!--
-Poisson models often have a lot of unexplained variance, mainly from ignoring
-*rate heterogeneity*.
-
-The gamma-Poisson is a mixture of different Poisson distributions (similar to
-how Student-t is a mixture of Gaussians).
--->
-
-What a cool model we have! But wait... Did we check for any assumptions yet? And
-what are the assumptions specific to Poisson regression?
-
-### The theory
-
-Our Poisson model assumes that the number of seizures follows a Poisson
-distribution,
-
-$$
-  Y_i \sim \text{Poisson}(\mu_i),
-$$
-
-where the expected seizure count is modeled using a log link,
-
-$$
-  \log(\mu_i) = \beta_0 + \beta_1\text{drug}_i + \beta_2\text{baseline}_i
-                + \beta_3(\text{drug}_i \times \text{baseline}_i).
-$$
-
-A key assumption of the Poisson distribution is that the mean and variance are
-equal,
-
-$$
-  \mathbb{E}[Y_i] = \mathrm{Var}(Y_i) = \mu_i.
-$$
-
-In medical data, this assumption is often unrealistic. Some patients are
-inherently more prone to seizures than others because of unmeasured factors such
-as disease severity, genetics, medication adherence, or other clinical
-characteristics. Consequently, the observed variability is often much larger
-than the Poisson model expects. This phenomenon is termed **overdispersion**.
-
-The DAG (from the beginning of the session) illustrates one possible explanation
-for this extra variability. Patients differ in their underlying disease
-severity, which influences both baseline seizure counts and GABA activity.
-Although treatment affects GABA, there may still be patient-to-patient
-differences that are not fully captured by the measured baseline seizure count.
-These unobserved differences create **rate heterogeneity** --- each patient has
-their own underlying seizure rate rather than sharing one common rate.
-
-Rather than assuming a single Poisson rate for every individual, the negative
-binomial model assumes that each patient has their own Poisson rate,
-
-$$
-  Y_i \mid \lambda_i \sim \text{Poisson}(\lambda_i),
-$$
-
-where these individual rates themselves follow a Gamma distribution,
-
-$$
-  \lambda_i \sim \text{Gamma}(\alpha,\beta).
-$$
-
-Integrating over this distribution of rates produces the **negative binomial
-distribution**. For this reason, the model is often called the **gamma-Poisson
-model**.
-
-This idea is similar to the Student's $t$ distribution. A Gaussian distribution
-assumes one common variance, whereas the Student's $t$ can be viewed as a
-mixture of Gaussian distributions with different variances. Likewise, the
-negative binomial is a mixture of Poisson distributions with different event
-rates.
-
-The consequence is that the variance is no longer constrained to equal the mean.
-Instead,
-
-$$
-  \mathrm{Var}(Y_i) = \mu_i + \frac{\mu_i^2}{\theta},
-$$
-
-where $\theta$ is the dispersion parameter estimated from the data.
-
-As $\theta \rightarrow \infty$,
-
-$$
-  \mathrm{Var}(Y_i) \rightarrow \mu_i,
-$$
-
-so the negative binomial model reduces to the ordinary Poisson model.
-
-### The practice
-
-Before fitting a negative binomial model, it is useful to check whether the
-Poisson assumptions appear reasonable. The `performance::check_overdispersion()`
-function compares the observed variability with the variability expected under
-the fitted Poisson model. Evidence of substantial overdispersion suggests that
-the Poisson model is likely underestimating uncertainty.
-
-The `performance::check_model()` function provides additional diagnostic plots
-for evaluating the adequacy of the fitted model. If overdispersion is present,
-we can fit a negative binomial model using `MASS::glm.nb()`. The interpretation
-of the regression coefficients remains unchanged: exponentiating a coefficient
-gives the multiplicative change in the expected seizure rate, just as in the
-Poisson model. The only difference is that the negative binomial model
-explicitly allows for unexplained patient-to-patient variability.
-
-```{r}
-#| label: assumptions
-
-performance::check_overdispersion(m2_baseline)
-
-performance::check_model(m2_baseline)
-
-m3_nb <- MASS::glm.nb(seizure_count ~ drug * baseline_seizures,
-    data = epil
-)
-
-performance::check_model(m3_nb)
-```
-
-To illustrate the difference between these distributions, the figure below
-simulates data using the observed mean and standard deviation of the epilepsy
-data. The Gaussian distribution allows impossible negative seizure counts, while
-the Poisson distribution is restricted to non-negative integers but produces too
-little variability because its variance equals its mean. The negative binomial
-distribution remains discrete and non-negative while accommodating the larger
-variance observed in the data, making it a much more realistic model for seizure
-counts.
-
-```{r}
-#| label: draws-nb
-
-mu <- mean(epil$seizure_count) # 7.305085
-sigma <- sd(epil$seizure_count) # 9.649467
-set.seed(363461174)
-dist_draws <- data.frame(
-    gaussian = rnorm(1000,mu,sigma),
-    poisson = rpois(1000,mu),
-    negbin = rnbinom(1000, mu = mu, size = mu^2 / (sigma^2 - mu)) # Variance = mu + mu^2/size - solve for size!
-) |>
-tidyr::pivot_longer(
-    cols = c("gaussian","poisson","negbin"),
-    names_to = "dist",
-    values_to = "value" )
-
-dist_draws |> ggplot() +
-    geom_histogram(
-        aes(x=value), bins=30
-    ) +
-    facet_wrap(~dist) +
-    labs(x="seizures")
-```
-
-This time, what do you notice? Compare the plots to the observed data we plotted
-juin the beginning of the session.
-
-- Which best captures the data?
-- Which makes the worst fit?
-- What else do you notice?
-
-## Fair game - normalizing the exposure time
+## Reading task: Fair game - normalizing the exposure time
 
 The parameter λ is commonly interpreted as a *rate*.
 
@@ -1422,6 +1287,168 @@ covered how the coefficients are interpreted (incidence rate-ratio), and how we
 invert the coefficients (taking it's exponential). Finally, we covered the
 assumptions (dispersion) and how to adjust different exposure times (including
 an offset).
+
+## EXTRA MATERIAL
+
+## Telling your model that people respond differently
+
+<!--
+Poisson models often have a lot of unexplained variance, mainly from ignoring
+*rate heterogeneity*.
+
+The gamma-Poisson is a mixture of different Poisson distributions (similar to
+how Student-t is a mixture of Gaussians).
+-->
+
+What a cool model we have! But wait... Did we check for any assumptions yet? And
+what are the assumptions specific to Poisson regression?
+
+### The theory
+
+Our Poisson model assumes that the number of seizures follows a Poisson
+distribution,
+
+$$
+  Y_i \sim \text{Poisson}(\mu_i),
+$$
+
+where the expected seizure count is modeled using a log link,
+
+$$
+  \log(\mu_i) = \beta_0 + \beta_1\text{drug}_i + \beta_2\text{baseline}_i
+                + \beta_3(\text{drug}_i \times \text{baseline}_i).
+$$
+
+A key assumption of the Poisson distribution is that the mean and variance are
+equal,
+
+$$
+  \mathbb{E}[Y_i] = \mathrm{Var}(Y_i) = \mu_i.
+$$
+
+In medical data, this assumption is often unrealistic. Some patients are
+inherently more prone to seizures than others because of unmeasured factors such
+as disease severity, genetics, medication adherence, or other clinical
+characteristics. Consequently, the observed variability is often much larger
+than the Poisson model expects. This phenomenon is termed **overdispersion**.
+
+The DAG (from the beginning of the session) illustrates one possible explanation
+for this extra variability. Patients differ in their underlying disease
+severity, which influences both baseline seizure counts and GABA activity.
+Although treatment affects GABA, there may still be patient-to-patient
+differences that are not fully captured by the measured baseline seizure count.
+These unobserved differences create **rate heterogeneity** --- each patient has
+their own underlying seizure rate rather than sharing one common rate.
+
+Rather than assuming a single Poisson rate for every individual, the negative
+binomial model assumes that each patient has their own Poisson rate,
+
+$$
+  Y_i \mid \lambda_i \sim \text{Poisson}(\lambda_i),
+$$
+
+where these individual rates themselves follow a Gamma distribution,
+
+$$
+  \lambda_i \sim \text{Gamma}(\alpha,\beta).
+$$
+
+Integrating over this distribution of rates produces the **negative binomial
+distribution**. For this reason, the model is often called the **gamma-Poisson
+model**.
+
+This idea is similar to the Student's $t$ distribution. A Gaussian distribution
+assumes one common variance, whereas the Student's $t$ can be viewed as a
+mixture of Gaussian distributions with different variances. Likewise, the
+negative binomial is a mixture of Poisson distributions with different event
+rates.
+
+The consequence is that the variance is no longer constrained to equal the mean.
+Instead,
+
+$$
+  \mathrm{Var}(Y_i) = \mu_i + \frac{\mu_i^2}{\theta},
+$$
+
+where $\theta$ is the dispersion parameter estimated from the data.
+
+As $\theta \rightarrow \infty$,
+
+$$
+  \mathrm{Var}(Y_i) \rightarrow \mu_i,
+$$
+
+so the negative binomial model reduces to the ordinary Poisson model.
+
+### The practice
+
+Before fitting a negative binomial model, it is useful to check whether the
+Poisson assumptions appear reasonable. The `performance::check_overdispersion()`
+function compares the observed variability with the variability expected under
+the fitted Poisson model. Evidence of substantial overdispersion suggests that
+the Poisson model is likely underestimating uncertainty.
+
+The `performance::check_model()` function provides additional diagnostic plots
+for evaluating the adequacy of the fitted model. If overdispersion is present,
+we can fit a negative binomial model using `MASS::glm.nb()`. The interpretation
+of the regression coefficients remains unchanged: exponentiating a coefficient
+gives the multiplicative change in the expected seizure rate, just as in the
+Poisson model. The only difference is that the negative binomial model
+explicitly allows for unexplained patient-to-patient variability.
+
+```{r}
+#| label: assumptions
+
+performance::check_overdispersion(m2_baseline)
+
+performance::check_model(m2_baseline)
+
+m3_nb <- MASS::glm.nb(seizure_count ~ drug * baseline_seizures,
+    data = epil
+)
+
+performance::check_model(m3_nb)
+```
+
+To illustrate the difference between these distributions, the figure below
+simulates data using the observed mean and standard deviation of the epilepsy
+data. The Gaussian distribution allows impossible negative seizure counts, while
+the Poisson distribution is restricted to non-negative integers but produces too
+little variability because its variance equals its mean. The negative binomial
+distribution remains discrete and non-negative while accommodating the larger
+variance observed in the data, making it a much more realistic model for seizure
+counts.
+
+```{r}
+#| label: draws-nb
+
+mu <- mean(epil$seizure_count) # 7.305085
+sigma <- sd(epil$seizure_count) # 9.649467
+set.seed(363461174)
+dist_draws <- data.frame(
+    gaussian = rnorm(1000,mu,sigma),
+    poisson = rpois(1000,mu),
+    negbin = rnbinom(1000, mu = mu, size = mu^2 / (sigma^2 - mu)) # Variance = mu + mu^2/size - solve for size!
+) |>
+tidyr::pivot_longer(
+    cols = c("gaussian","poisson","negbin"),
+    names_to = "dist",
+    values_to = "value" )
+
+dist_draws |> ggplot() +
+    geom_histogram(
+        aes(x=value), bins=30
+    ) +
+    facet_wrap(~dist) +
+    labs(x="seizures")
+```
+
+This time, what do you notice? Compare the plots to the observed data we plotted
+juin the beginning of the session.
+
+- Which best captures the data?
+- Which makes the worst fit?
+- What else do you notice?
 
 ::: {.hidden}
 Hidden material on prediction

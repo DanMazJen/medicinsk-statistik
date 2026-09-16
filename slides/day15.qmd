@@ -6,14 +6,6 @@ search: false
 # Marginalizing the problem
 
 <!--
-Image of planes and manetees...
--->
-
-::: notes
-Manetees in florida Abraham Wald WWII
-:::
-
-<!--
 ### Editable in yaml
 revealjs-plugins:
   - editable
@@ -553,4 +545,19 @@ an age group between 50-70.
 
 How much functional gain/loss does going from 138 to 151 BMI really mean in this
 age group?
+:::
+
+::: {.hidden}
+Reading Task: Reporting Incidence Rate Ratio or Counts
+
+::::: {.fragment}
+**Question**: Should we report the incidence rate ratio or the counts for each
+group?
+
+- Absolute Perspective: Mosquitoes cause the most deaths annually.
+- Relative Perspective: Shark attacks are rarer but more dangerous per
+  encounter.
+:::::
+
+**Tip**: Condition on `baseline_seizures`.
 :::

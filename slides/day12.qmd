@@ -307,62 +307,86 @@ m1_drug <- glm(seizure_count ~ drug,
 What does this mean!? 👀
 :::
 
-##
-
-![caption](images/difficult-meme.png){#fig-id fig-alt="alt"}
-
 ## GLMs Are Notoriously Difficult to Interpret
 
+![](images/difficult-meme.png){fig-align="center"}
+
+##
+
+```{r}
+#| label: try-read-coef
+
+coef(m1_drug)
+```
+
+![](images/what_do_you_mean.jpg){fig-align="center"}
+
+## Which space?
+
+::: {.r-fit-text}
+The regression coefficients are in log-space
+:::
+
+```{r}
+#| label: try-read-coef
+
+coef(m1_drug)
+```
+
+We need to transform back to outcome space!
+
+## Reading task
+
+::: {.r-fit-text}
+Section 14.10 *GLMs are notoriously difficult to interpret*
+:::
+
+Please also make sure to run the proposed code.
+
+Run code from:
+
+- 14.4.2 (explore the data for familiarization)
+- 14.9 (Fitting the model)
+
+## Inverse log transform
+
+::: {.r-fit-text}
 Exponentiate Coefficients:
 
 $$
   e^{coefficients}
 $$
+:::
 
 ```{r}
 #| label: inference
 
-parameters::parameters(m1_intercept, exponentiate = TRUE)
+parameters::parameters(m1_drug, exponentiate = TRUE)
 ```
 
 ::: {.fragment}
 **Interpretation**:
 
 - Intercept: Expected `seizure_count` for the placebo group.
-- drug Coefficient: Incidence rate ratio (IRR) for progabide vs. placebo.
+- Drug coefficient: Incidence rate ratio (IRR) for progabide vs. placebo.
 :::
 
-## Reading Task: Reporting Incidence Rate Ratio or Counts
-
-::: {.fragment}
-**Question**: Should we report the incidence rate ratio or the counts for each
-group?
-
-- Absolute Perspective: Mosquitoes cause the most deaths annually.
-- Relative Perspective: Shark attacks are rarer but more dangerous per
-  encounter.
-:::
-
-**Tip**: Condition on `baseline_seizures`.
-
-## Fitting a Multiple Poisson Regression
-
-**Model with Baseline:**
+## Fitting more covariates
 
 ```{r}
 #| label: model-fit
 
 m2_baseline <- glm(seizure_count ~ drug * baseline_seizures, family = poisson(link="log"), data = epil)
-broom::tidy(m2_baseline, exponentiate = TRUE, conf.int = TRUE)
+parameters::parameters(m2_baseline, exponentiate = TRUE, conf.int = TRUE)
 ```
 
-## Model Comparison:
+##
 
 ```{r}
 #| label: comparing-models
 
 coef_df <- bind_rows(
-  tidy(m1_intercept, conf.int = TRUE, exponentiate = TRUE) |> mutate(model = "Model 1 - intercept"),
+  tidy(m1_drug, conf.int = TRUE, exponentiate = TRUE) |> mutate(model = "Model 1 - intercept"),
   tidy(m2_baseline, conf.int = TRUE, exponentiate = TRUE) |> mutate(model = "Model 2 - baseline")
 )
 
@@ -381,94 +405,108 @@ ggplot(coef_df, aes(x = estimate, y = model)) +
   theme_minimal()
 ```
 
-## Marginal Effects and Counterfactuals
+##
 
-**Model Expectations**:
+![](images/what_do_you_mean.jpg){fig-align="center"}
 
-- **Intercept Model**: Assumes the same mean for all.
-- **Baseline Model**: Differentiates by pre-drug seizures.
+##
 
-::: {.fragment}
-```{r}
-#| label: predictions
-#| echo: false
-#| fig-cap: "Model expectations"
-#| layout-ncol: 2
-#| fig-subcap:
-#|   - "Intercept model assumes the mean."
-#|   - "Baseline model also differentiates by pre-drug seizures"
-
-epil$pred <- predict(
-    m1_intercept,
-    type="response"
-)
-
-plot_intercept_pred <- ggplot(epil,
-       aes(pred,seizure_count,color=baseline_seizures))+
-    geom_point()+
-    geom_abline(slope=1,
-                intercept=0,
-                color="red") +
-    theme_bw() +
-    scale_color_viridis_b()
-
-epil$pred <- predict(
-    m2_baseline,
-    type="response"
-)
-
-plot_baseline_pred <- ggplot(epil,
-       aes(pred,seizure_count,color=baseline_seizures))+
-    geom_point()+
-    geom_abline(slope=1,
-                intercept=0,
-                color="red") +
-    theme_bw() +
-    scale_color_viridis_b()
-
-plot_intercept_pred
-plot_baseline_pred
-```
+::: {.r-fit-text}
+Section 14.12.1 *Making sense of Poisson coefficients*
 :::
+
+## Effects depend on the scale
+
+We model the log of the expected count:
+
+$$
+  log(\text{expected seizures}) = β0 + β1drug + β 2 baseline\_seizures
+$$
+
+There is no drug × baseline interaction in the model.
+
+But on the count scale:
+
+$$
+  \text{expected seizures} = e^{β0+β1drug+β 2 baseline\_seizures}
+$$
+
+So the effect of drug on the number of seizures can vary with baseline seizures.
+
+Why? 👀
+
+The Poisson model uses a log link: adding effects on the log scale becomes
+multiplying effects on the count scale.
+
+## Why does the drug effect vary?
+
+For a Poisson model:
+
+$$
+  λ = e^{β0+β1+... βn}
+$$
+
+The drug coefficient is the same everywhere on the log scale.
+
+But after converting back to counts, the drug effect is multiplied by the
+expected count.
+
+So:
+
+> Same effect on the log scale ≠ same difference in counts.
+
+This is why the plots can show different drug effects at different baseline
+seizure counts --- even without an interaction.
 
 ## Making Sense of Poisson Coefficients
 
-**Marginal Plots**:
+Let's plot the model we have fitting
+
+Recall the link function we used:
+
+$$
+  y_i \sim Poisson(λ_i) \\
+  log(λ_i) = β0 + β1_{drug} + β1_{baseline\_seizures}
+$$
 
 ```{r}
 #| label: counterfactuals
 
 m2_baseline |>
     plot_predictions(
+    condition=c("baseline_seizures","drug"),
+    type = "link"
+    ) +
+    labs(
+    y="Log space"
+) + coord_cartesian(c(-1,150),c(0,5))
+```
+
+##
+
+But we want to interpret it in count space
+
+$$
+  y_i \sim Poisson(λ_i) \\
+  λ_i = e^{β0+β1_{drug}+β1_{baseline\_seizures}}
+$$
+
+```{r}
+#| label: counterfactuals2
+
+m2_baseline |>
+    plot_predictions(
     condition=c("baseline_seizures","drug")
     ) +
     labs(
-    y="Predicted seizures"
+    y="Count outcome space"
 ) + coord_cartesian(c(-5,150),c(-5,150))
 ```
 
-## Telling Your Model That People Respond Differently
+##
 
-**Overdispersion:**
-
-Poisson assumes mean = variance. Real-world data often has extra variability
-(overdispersion). Solution: Negative Binomial Model (Gamma-Poisson mixture).
-
-::: {.fragment}
-**Negative Binomial Model**:
-
-$$
-  Y_i \| λ_i \sim Poisson(λ_i)Yi​ ∣ λi​ ∼ Poisson(λi​) λi
-             ∼ Gamma(α,β)λ_i \sim Gamma(α, β)λi​ ∼ Gamma(α,β)
-$$
-:::
-
-::: {.fragment}
-**Variance:**
-
-$$
-  Var(Y_i) = μ_i + \frac{μ_i^2}{θ}
-$$
+::: {.r-stretch-text}
+Read section 14.13 *Fair game - normalizing the exposure time*
 :::
 
 ## Fair Game: Normalizing the Exposure Time
@@ -537,4 +575,34 @@ Key Takeaways:
 - Exponentiate coefficients to get **incidence rate ratios** (IRR).
 - **Overdispersion**: Use Negative Binomial if variance > mean.
 - **Offset**: Adjust for varying exposure times.
+:::
+
+##
+
+::: {.r-fit-text}
+Extra slides
+:::
+
+## Telling Your Model That People Respond Differently
+
+**Overdispersion:**
+
+Poisson assumes mean = variance. Real-world data often has extra variability
+(overdispersion). Solution: Negative Binomial Model (Gamma-Poisson mixture).
+
+::: {.fragment}
+**Negative Binomial Model**:
+
+$$
+  Y_i \| λ_i \sim Poisson(λ_i)Yi​ ∣ λi​ ∼ Poisson(λi​) λi
+             ∼ Gamma(α,β)λ_i \sim Gamma(α, β)λi​ ∼ Gamma(α,β)
+$$
+:::
+
+::: {.fragment}
+**Variance:**
+
+$$
+  Var(Y_i) = μ_i + \frac{μ_i^2}{θ}
+$$
 :::

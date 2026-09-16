@@ -82,18 +82,84 @@ Tangibly, during the workshop you will:
 
 {{< include /includes/curriculum/_session1.qmd >}}
 
+**Session 2:**
+
+Chapter 1 in the Medical Statistic Compendium
+
+**Session 3:**
+
+Chapter 2 in the Medical Statistic Compendium
+
 **Session 4:**
 
 {{< include /includes/curriculum/_session4.qmd >}}
+
+**Session 5:**
+
+Chapter 3 in the Medical Statistic Compendium
+
+**Session 6:**
+
+See zip file on [Moodle](https://www.moodle.aau.dk/)
+
+**Session 7:**
+
+TBD - see Moodle for announcement.
+
+**Session 8:**
+
+Chapter 4 in the Medical Statistic Compendium
+
+**Session 9:**
+
+TBD - see Moodle for announcement.
+
+**Session 10:**
+
+TBD - see Moodle for announcement.
 
 **Session 11:**
 
 {{< include /includes/curriculum/_session11.qmd >}}
 
+**Session 12:**
+
+{{< include /includes/curriculum/_session12.qmd >}}
+
+**Session 13:**
+
+TBD - see Moodle for announcement.
+
+**Session 14:**
+
+TBD - see Moodle for announcement.
+
 **Session 15:**
 
 {{< include /includes/curriculum/_session15.qmd >}}
 
+**Session 16:**
+
+TBD - see Moodle for announcement.
+
+**Session 17:**
+
+TBD - see Moodle for announcement.
+
 **Session 18:**
 
 {{< include /includes/curriculum/_session18.qmd >}}
+
+**Session 19:**
+
+[Vickers, Calster & Steyerberg, 2019 - A simple, step-by-step guide to
+interpreting decision curve
+analysis](https://link.springer.com/article/10.1186/s41512-019-0064-7)
+
+**Session 20:**
+
+TBD - see Moodle for announcement.
+
+**Session 21:**
+
+TBD - see Moodle for announcement.

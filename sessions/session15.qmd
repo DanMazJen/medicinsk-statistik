@@ -553,7 +553,41 @@ increase in predicted probability, with a 95% confidence interval from 1.0 to
 2.6 percentage points.
 
 ::: {.hidden}
-### Extra madness - counterfactuals for clinical inference
+Reading task: Reporting incidence rate ratio or counts
+
+> Should we report the incidence rate ratio or the counts for each group?
+
+What would you prefer and why?
+
+From an absolute perspective, the musquito is the most dangerous animal in the
+world! It causes most deaths a year. However, if I were to battle a musquito or
+a shark, I would bet my life on the musquito and not the shark! It is relatively
+much more dangerous! However, conditional on being in the real-life situation of
+facing a musquito or a shark, the former is much more probable.
+
+Now, consider the interpretation of the coefficients and model we just made in
+@sec-poisson-interp. How would you inform a patient or a clinican about the
+results?
+
+<details>
+ <summary>**Click for a tip**</summary>
+
+*Tip*: consider conditioning on `baseline_seizures`.
+
+Is `round((1 - exp(m1_intercept$coefficients[2])) * 100, 1)`% lower the same
+when you have 1 seizure every 8 weeks?
+What about 100? Would it be a meaningful unit to make national policies?
+
+Now, what if we take the average absolute change:
+`(1-exp(m1_intercept$coefficients[2]))*mean(subset(epil,drug=="placebo")$seizure_count)`
+when you have 1 seizure every 8 weeks? What about 100? Would it be a meaningful
+unit to make national policies?.
+
+ </details>
+:::
+
+::: {.hidden}
+Extra madness - counterfactuals for clinical inference
 
 This is an extra part (not curriculum material).
 

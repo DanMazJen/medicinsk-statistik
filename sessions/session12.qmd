@@ -173,7 +173,7 @@ Baseline seizures ─────► Outcome (Seizures)
 <!-- panache-ignore-format-end -->
 
 Before doing *anything* with statistics and code, we should try to imagine how
-the data was generated in order to make a causal model.
+the data were generated in order to make a causal model.
 
 ### Exercise: Discuss the causal mechanisms of progabide
 
@@ -185,7 +185,7 @@ overcomplicate your model.
 <summary>**Click for a potential solution**</summary>
 
 ```{r}
-#| label: dag
+#| label: fig-dag
 #| echo: false
 #| warning: false
 
@@ -324,8 +324,9 @@ epil |>
 ```
 
 It definitely looks like there's an association between `baseline_seizures` and
-`seizure_count`, so in accordance with our *medical scientific model*, we better
-include this in the *statistical model* to account for the variance.
+`seizure_count`, so in accordance with our *medical scientific model* from
+@fig-dag, we better include this in the *statistical model* to account for this
+relationship.
 
 Recall the case:
 
@@ -334,7 +335,7 @@ Recall the case:
 
 ## Can we use logistic regression?
 
-This is a ultra quick recap of logistic regression. See session 10 on logistic
+This is an ultra quick recap of logistic regression. See session 10 on logistic
 regression by Carsten for a comprehensive recap.
 
 Logistic regression uses the binomial distribution:
@@ -360,7 +361,7 @@ in estimating with our model.
 As the case states, we did not manipulate how many seizures the patients were
 able to get in the trial period. While we could assume that the baseline was the
 maximum, it would completely break the logistic regression if we got more
-seizures after --- a < 100% probability 😅
+seizures after --- aka higher than 100% probability 😅
 
 While the binomail distribution is great when *N* is known (trial count), there
 exists studies where you don't know the upper limit (counting fish, selling a
@@ -506,9 +507,12 @@ ggplot(dat, aes(x = x, y = value)) +
  # )
 ```
 
-As illustrated in @fig-whylog, taking the log of any number is bounded between
-$0 \to \inf$. Still, the log-odds space is $-\inf \to \inf$. So the trick is
-similar to the logistic regression, but without ceiling to 1.
+As illustrated in @fig-whylog, taking the log of any positive number is free to
+take any value between $-\inf \to \inf$. This space is called log-linear because
+it is linear in log-space. Importantly, we want the outcome space to be bounded
+between $0 \to \inf$. We get back to outcome space using the inverse-log
+transform (more on this in @sec-poisson-interp). So the trick is similar to the
+logistic regression, but without ceiling to 1.
 
 Note that the log-link has the same flaws and benefits from the binomial
 distribution.
@@ -626,14 +630,18 @@ $$
 5. An effect of `drug`
 6. An interaction between `baseline_seizures` and `baseline_seizures`
 
-## Fitting a model
+## Fitting a Poisson model
 
-Let's try fitting a simple model first: an intercept-only model.
+Let's try fitting a simpler model first: only the intercept and the drug effect,
+not accounting for baseline seizure burden.
+
+Recall that (generalized) linear regression models that needs a link function is
+made using the `glm` function.
 
 ```{r}
-#| label: intercept-only-fit
+#| label: drug-only-fit
 
-m1_intercept <- glm(
+m1_drug_only <- glm(
     seizure_count ~ drug,
     family = poisson(link="log"),
     data = epil
@@ -644,13 +652,18 @@ m1_intercept <- glm(
 Great! Now, let's explore the content of it.
 
 ```{r}
-#| label: intercept-only-fit-interp
+#| label: drug_only-fit-interp
 
-summary(m1_intercept)
+parameters::parameters(m1_drug_only)
 ```
 
 Yeah, we did it! But... What does the coefficients actually mean? Did we come
 any closer to answering our medical question: did the drug reduce epilepsy?
+
+And why does the output say:
+
+> The model has a log- or logit-link. Consider using `exponentiate = TRUE` to
+> interpret coefficients as ratios.
 
 ## GLMs are notoriously difficult to interpret {#sec-poisson-interp}
 
@@ -659,13 +672,14 @@ Let's have a look at the coefficients:
 ```{r}
 #| label: IO-coef
 
-coef(m1_intercept)
+coef(m1_drug_only)
 ```
 
 What does it mean?
 
 Unless you're a chatbot, I'm not sure you can read anything major from these
-coefficients. It's because they're still in log-link space!
+coefficients. It's because they're still in log-linear space (described in
+@fig-whylog)!
 
 So what do we do? Feed them to the chat model? *Please don't!* 😅
 
@@ -683,69 +697,45 @@ $$
 $$
 
 In R, we can use `{broom}` to `tidy` the model coefficients and generate
-confidence intervals 🎉
+confidence intervals:
 
 ```{r}
 #| label: inference
 
-broom::tidy(m1_intercept,
+broom::tidy(m1_drug_only,
      exponentiate = TRUE,
      conf.int = TRUE)
 ```
 
-That's more like it!
+or you can use `parameters::parameters()`, which has a slightly different style:
 
-The intercept reads `r exp(m1_intercept$coefficients[1])`, which is the expected
+```{r}
+#| label: inference-params
+
+parameters::parameters(m1_drug_only,exponentiate = TRUE)
+```
+
+That's more like it! 🎉
+
+The intercept reads `r exp(m1_drug_only$coefficients[1])`, which is the expected
 `seizure_count` for the placebo group (and the average as we would expect!)
 Confirm this for yourself using the following code:
 `mean(subset(epil,drug=="placebo")$seizure_count)`.
 
-Next, it's the
-$β1_{drug} named `drugprogabide` in `R`: `r exp(m1_intercept$coefficients[2])`, which is the expected rate ratio in `seizure_count\`
-when being on progabide for 8 weeks, compared to placebo. Since the incidence
-rate-ratio less than 1, the expected seizure count is lower.
+Next, it's the $β1_{drug}$ named `drugprogabide` in `R`:
+`r exp(m1_drug_only$coefficients[2])`, which is the expected rate ratio in
+`seizure_count` when being on progabide for 8 weeks, compared to placebo. Since
+the incidence rate-ratio less than 1, the expected seizure count is lower.
 
-In fact, `r round((1 - exp(m1_intercept$coefficients[2])) * 100, 1)`% lower on
+In fact, `r round((1 - exp(m1_drug_only$coefficients[2])) * 100, 1)`% lower on
 average. To confirm this for yourself, run the following code:
 `mean(subset(epil,drug=="progabide")$seizure_count)` and see the average count
 for the treatment group. Finally, prove to yourself that this is what the two
 coefficients mean in relation to each other by this code:
-`exp(m1_intercept$coefficients[2])*mean(subset(epil,drug=="placebo")$seizure_count)`.
+`exp(m1_drug_only$coefficients[2])*mean(subset(epil,drug=="placebo")$seizure_count)`.
 So the expected effect of being on progabide for 8 weeks was a reduction of
-`r (1-exp(m1_intercept$coefficients[2]))*mean(subset(epil,drug=="placebo")$seizure_count)`
+`r (1-exp(m1_drug_only$coefficients[2]))*mean(subset(epil,drug=="placebo")$seizure_count)`
 seizures during 8 weeks, based on this small sample.
-
-## Reading task: Reporting incidence rate ratio or counts
-
-> Should we report the incidence rate ratio or the counts for each group?
-
-What would you prefer and why?
-
-From an absolute perspective, the musquito is the most dangerous animal in the
-world! It causes most deaths a year. However, if I were to battle a musquito or
-a shark, I would bet my life on the musquito and not the shark! It is relatively
-much more dangerous! However, conditional on being in the real-life situation of
-facing a musquito or a shark, the former is much more probable.
-
-Now, consider the interpretation of the coefficients and model we just made in
-@sec-poisson-interp. How would you inform a patient or a clinican about the
-results?
-
-<details>
- <summary>**Click for a tip**</summary>
-
-*Tip*: consider conditioning on `baseline_seizures`.
-
-Is `r round((1 - exp(m1_intercept$coefficients[2])) * 100, 1)`% lower the same
-when you have 1 seizure every 8 weeks?
-What about 100? Would it be a meaningful unit to make national policies?
-
-Now, what if we take the average absolute change:
-`r (1-exp(m1_intercept$coefficients[2]))*mean(subset(epil,drug=="placebo")$seizure_count)`
-when you have 1 seizure every 8 weeks? What about 100? Would it be a meaningful
-unit to make national policies?.
-
- </details>
 
 ## Fitting a Poisson regression model with covariates
 
@@ -780,8 +770,8 @@ let's compare the models:
 #| label: comparing-models
 
 coef_df <- bind_rows(
-  tidy(m1_intercept, conf.int = TRUE, exponentiate = TRUE) |> mutate(model = "Model 1 - intercept"),
-  tidy(m2_baseline, conf.int = TRUE, exponentiate = TRUE) |> mutate(model = "Model 2 - baseline")
+  tidy(m1_drug_only, conf.int = TRUE, exponentiate = TRUE) |> mutate(model = "Model 1 - drug only"),
+  tidy(m2_baseline, conf.int = TRUE, exponentiate = TRUE) |> mutate(model = "Model 2 - add baseline seizure")
 )
 
 ggplot(coef_df, aes(x = estimate, y = model)) +
@@ -799,7 +789,7 @@ ggplot(coef_df, aes(x = estimate, y = model)) +
   theme_minimal()
 ```
 
-The intercept model does not provide a statistically significant average effect
+The drug-only model does not provide a statistically significant average effect
 of progabide. However, the new model adjusting for `baseline_seizures` does.
 
 But how do we interpret this model?
@@ -819,11 +809,11 @@ The two models have very different ways of estimating the expected
 #|   - "baseline model also differentiates by pre-drug seizures"
 
 epil$pred <- predict(
-    m1_intercept,
+    m1_drug_only,
     type="response"
 )
 
-plot_intercept_pred <- ggplot(epil,
+plot_drug_only_pred <- ggplot(epil,
        aes(pred,seizure_count,color=baseline_seizures))+
     geom_point()+
     geom_abline(slope=1,
@@ -846,7 +836,7 @@ plot_baseline_pred <- ggplot(epil,
     theme_bw() +
     scale_color_viridis_b()
 
-plot_intercept_pred
+plot_drug_only_pred
 plot_baseline_pred
 ```
 
@@ -874,6 +864,40 @@ m2_baseline |>
 This is more like it! Now, we can appreciate how the model expects the average
 effect of `seizure_count` as a function of `baseline_seizures` and whether the
 patient took progabide for 8 weeks.
+
+## A direct comparison of linear and poisson regression
+
+> What would have happened, had we used our good-old linear model?
+
+Let's try!
+
+```{r}
+#| label: lm-try
+
+lin_m <- lm(
+     seizure_count ~ drug * baseline_seizures,
+     data = epil
+)
+
+broom::tidy(lin_m,
+    exponentiate = TRUE,
+     conf.int = TRUE
+)
+```
+
+```{r}
+#| label: counterfactuals-lm
+
+lin_m |>
+    plot_predictions(
+    condition=c("baseline_seizures","drug")
+    ) +
+    labs(
+    y="Predicted seizures"
+) + coord_cartesian(c(-5,150),c(-5,150))
+```
+
+Note how different this model is!
 
 ## Telling your model that people respond differently
 

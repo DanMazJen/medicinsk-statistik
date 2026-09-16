@@ -5,15 +5,7 @@ search: false
 
 # A Poissonous counting trick {.smaller}
 
-<!--
-Image of planes and manetees...
--->
-
-![](images/rstudio-introduction.png)
-
-::: notes
-Manetees in florida Abraham Wald WWII
-:::
+![Can you solve the task? Can a regression model?](images/counts_children.gif)
 
 ```{r}
 #| label: setup
@@ -73,62 +65,73 @@ filters:
 
 ## Case Session 12: "Why are seizure data always right-skewed?" {.smaller .scrollable}
 
-::: {.fragment}
 At PhaRmacy Inc., excitement is growing over a new anti-seizure medication,
 progabide. A randomized clinical trial has just finished, and the lead
-investigator reports:
+investigator walks into the weekly research meeting with a smile and says:
 
 > "The treatment group had fewer seizures."
 
-Everyone celebrates, but one brave person asks:
+Everyone celebrates but one brave person leans forward and asks:
 
 > "Fewer... according to what model?"
-:::
 
-::: {.fragment}
-- **The outcome**: Number of seizures per patient during the study.
-- **Distribution**: Highly right-skewed (not normal or binary).
-- **Goal**: Analyze using an appropriate model and interpret progabide's
-  effectiveness.
-:::
+The lead investigator acknowledges the questions and provides the available
+data.
 
-## Data Example
-::: {.columns}
-::::: {.column}
-**Causal Mechanisms**:
+Looking at the raw data raises more questions than answers. The outcome is the
+number of seizures each patient experienced during the study. Some patients had
+only a handful of seizures, while others had dozens, and a few appear very
+different from the rest. The distribution is highly skewed and doesn't resemble
+the continuous, normally distributed outcomes you're used to analyzing. At the
+same time, the outcome is clearly not binary, so a logistic regression model
+would not be appropriate either.
 
-Discuss how progabide works and the role of `baseline_seizures`.
+As a member of the clinical development team, you have been asked to review the
+trial results before they are presented to management. Your role is to work with
+the biostatistics group to ensure that the data are analyzed using an
+appropriate model and that the conclusions about progabide's effectiveness are
+scientifically sound.
 
-**DAG**:
+At the upcoming project meeting, you'll need to explain why some familiar
+regression models are not suitable for these data, recommend a more appropriate
+approach, and interpret what the analysis tells the team about the effect of
+progabide after accounting for patients' baseline seizure frequency.
 
-Imagine the data-generating process before diving into statistics.
+## Discuss the causal mechanisms of progabide
 
-::::::: {.fragment}
-**Note**:
+- Discuss how progabide might work and how baseline seizure frequency might tie
+  into this.
+- You may look at the wikipidia page for progabide, but don't overcomplicate
+  your scientific model.
 
-Baseline is not a confounder but is conditioned on to:
+Take 5 minutes for this.
 
-- Increase precision -Account for chance imbalance Improve power
-:::::::
-:::::
-::::: {.column}
+## My proposed scientifric model
+
 ```{r}
 #| label: dag
 #| echo: false
 #| warning: false
 
-dag <- dagitty::dagitty("dag { severity -> gaba; severity -> baseline; gaba -> seizures; gaba -> baseline; baseline -> seizures; drug -> gaba }")
+dag <- dagitty::dagitty("dag { severity -> GABA; severity -> preSeizures; GABA -> postSeizures; GABA -> preSeizures; preSeizures -> postSeizures; drug -> GABA }")
 dag |> ggdag::tidy_dagitty() |> ggdag::ggdag(text = FALSE) + ggdag::geom_dag_text(size = 2.5) + theme_void()
 ```
-:::::
-:::
 
-# Exploring the Data
+## The dataset
 
-- **Dataset**: epil (59 patients, balanced groups).
+- `epil`: (59 patients, balanced groups).
 
 - **Variables**: `seizure_count`, `drug`, `baseline_seizures`, `trial_end`,
-  `log_base`, `log_age`.
+  `log_base`, `log_age`, `subject`, `age`.
+
+```{r}
+#| label: explore-arms
+
+epil |>
+    count(drug)
+```
+
+## Exploratory visualization
 
 ::: {.columns}
 ::::: {.column}
@@ -153,11 +156,12 @@ baseline_data_plot + posttrial_data_plot
 ::::: {.column}
 ```{r}
 #| label: explore2
+#| warning: false
 
 epil |>
     ggplot(aes(baseline_seizures, seizure_count,color=drug)) +
     geom_point(alpha=0.6) +
-    geom_smooth(method="loess", se=FALSE,formula = y ~ x) +
+    geom_smooth() +
     theme_bw()
 ```
 :::::
@@ -180,52 +184,45 @@ $$
 **Limitations**:
 
 - Requires known trial count (N).
-- Only two outcomes (0 or 1).
-- Not suitable for count data (e.g., seizures).
+- Only two outcome types.
+- Uses the logit link to transform the outcome variable.
 :::
 
 ## Reading Task: When the Odds Are Low, Go Poisson! {.smaller .scrollable}
 
 ::: {.fragment}
-**Binomial Distribution**:
+**Poisson regression**:
 
-Great when N (trial count) is known. Poisson **Distribution**:
-
-For unknown N (e.g., counting fish, seizures).
+- When *N* (trial count) is unknown (e.g., mortality rate).
+- When the prevalence is low
 :::
 
 ::: {.fragment}
-**Mathematical Insight**:
+**Mathematical intuition**:
 
-Binomial: Mean = Np, Variance = Np(1-p). When N is large and p is small, mean ≈
-variance ≈ Np. Poisson: Single parameter, λ (lambda), where mean = variance = λ.
+Binomial:
 
-```{r}
-#| label: binom-to-poisson
+$Mean = Np$ and $Variance = Np(1 - p)$.
 
-y <- rbinom(1e5, 1000, 1/1000)
-
-c(mean(y), var(y))
-```
+When N is large and p is small, $mean ≈ variance ≈ Np$ --- we call this λ
+(lambda).
 :::
 
-## Why Use a Log Link in Poisson Regression?
+## Log Link
 
 ::: {.columns}
-::::: {.column}
-**Log Link**: Ensures positive predictions (counts cannot be negative).
+::::: {.column width="30%"}
+Ensures positive predictions (counts cannot be negative).
 
-Model Form:
 $$
   y_i \sim Poisson(λ_i) \\
-  log(λ_i) = α + β(x_i - \bar{x})
+  log(λ_i) = α + βx_i
 $$
 :::::
-::::: {.column}
+::::: {.column width="70%"}
 ```{r}
 #| label: why-log
 #| echo: false
-#| fig-cap: "Why Use a Log Link in Poisson Regression?"
 
 dat <- data.frame(x = seq(-5, 5, length.out = 200)) |>
   mutate(
@@ -247,40 +244,27 @@ ggplot(dat, aes(x = x, y = value)) +
 
 ## Discussion Task: Gaussian vs. Poisson for Seizure Counts
 
-Compare the Fit:
-
-```{r}
-#| label: gauss-vs-poisson
-
-mu <- mean(epil$seizure_count)
-sigma <- sd(epil$seizure_count)
-set.seed(363461174)
-dist_draws <- data.frame(
-    gaussian = rnorm(1000, mu, sigma),
-    poisson = rpois(1000, mu)
-) |>
-    tidyr::pivot_longer(cols = c("gaussian", "poisson"), names_to = "dist", values_to = "value")
-
-dist_draws |>
-    ggplot() +
-    geom_histogram(aes(x=value), bins=30) +
-    facet_wrap(~dist) +
-    labs(x="seizures")
-```
+::: {.r-fit-text}
+Read section 14.7
+:::
 
 **Questions**:
 
-- Which distribution best captures the data?
-- Which makes the worst fit?
+What do you notice? Compare the plots to the exploratory data visualization
+earlier (see website).
 
-## Proposing a Model
+- Which best captures the data?
+- Which makes the worst fit?
+- What else do you notice?
+
+## Proposing a model
 
 ::: {.fragment}
 **Model Formulation**:
 
 $$
   seizure\_count_i \sim Poisson(λ_i) \\
-  log(λ_i) = α + β_1 baseline\_seizures + β_2 drug + β_3 baseline\_seizures \times drug
+  log(λ_i) = α + β_1 baseline\_seizures + β_2 drug
 $$
 :::
 
@@ -289,27 +273,43 @@ $$
 
 - seizure_count is Poisson-distributed.
 - Log link function.
-- Intercept (α), covariate (baseline_seizures), effect of drug, and interaction.
+- Intercept (α), covariate (baseline_seizures), and effect of drug.
 :::
 
-## Fitting a Model
+## Fitting the model
+
+Best practice:
+
+- Always fit the simplest model first.
+- Use this model as a sanity check
+- When you understand it, go ahead and build on it
+- At some point, you'll have the correct scientific model, which you can use for
+  inference
+
+## Intercept and drug model
 
 ::: {.fragment}
-**Intercept-Only Model**:
-
 ```{r}
 #| label: intercept-only-fit
+#| code-fold: show
 
-m1_intercept <- glm(seizure_count ~ drug, family = poisson(link="log"), data = epil)
-summary(m1_intercept)
+m1_drug <- glm(seizure_count ~ drug,
+    family = poisson(link="log"),
+    data = epil)
+
+    parameters::parameters(m1_drug)
 ```
 :::
 
-**Interpretation**:
+##
 
-::: {.fragment}
-- What does this mean!? 👀
+::: {.r-fit-text}
+What does this mean!? 👀
 :::
+
+##
+
+![caption](images/difficult-meme.png){#fig-id fig-alt="alt"}
 
 ## GLMs Are Notoriously Difficult to Interpret
 
@@ -322,7 +322,7 @@ $$
 ```{r}
 #| label: inference
 
-broom::tidy(m1_intercept, exponentiate = TRUE, conf.int = TRUE)
+parameters::parameters(m1_intercept, exponentiate = TRUE)
 ```
 
 ::: {.fragment}
@@ -440,7 +440,7 @@ plot_baseline_pred
 
 m2_baseline |>
     plot_predictions(
-    condition=c("baseline_seizures","drug"),
+    condition=c("baseline_seizures","drug")
     ) +
     labs(
     y="Predicted seizures"
@@ -458,8 +458,8 @@ Poisson assumes mean = variance. Real-world data often has extra variability
 **Negative Binomial Model**:
 
 $$
-  Y_i \| λ_i \sim
-  Poisson(λ_i)Yi​∣λi​∼Poisson(λi​) λi∼Gamma(α,β)λ_i \sim Gamma(α, β)λi​∼Gamma(α,β)
+  Y_i \| λ_i \sim Poisson(λ_i)Yi​ ∣ λi​ ∼ Poisson(λi​) λi
+             ∼ Gamma(α,β)λ_i \sim Gamma(α, β)λi​ ∼ Gamma(α,β)
 $$
 :::
 

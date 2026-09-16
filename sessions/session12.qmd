@@ -307,7 +307,7 @@ library(patchwork)
 baseline_data_plot + posttrial_data_plot
 ```
 
-By looking at the data, it's deficult to really see whether the average
+By looking at the data, it's difficult to really see whether the average
 `seizure_count` decreases, but some of the extreme cases do seem to shrink.
 
 We should also consider the relationship between `baseline_seizures` and
@@ -514,6 +514,9 @@ between $0 \to \inf$. We get back to outcome space using the inverse-log
 transform (more on this in @sec-poisson-interp). So the trick is similar to the
 logistic regression, but without ceiling to 1.
 
+- Notice that the log space is linear (what we model)
+- The logistic space has an exponential shape (the transformation we apply)
+
 Note that the log-link has the same flaws and benefits from the binomial
 distribution.
 
@@ -620,7 +623,6 @@ data-generating distributions, we're going to go with the following formulation:
 $$
   seizure\_count_i \sim Poisson(λ_i) \\
   log(λ_i) = α + β_1 baseline\_seizures + β_2 drug
-             + β_3 baseline\_seizures × drug \\
 $$
 
 1. The model says that we believe `seizure_count` is Poisson distributed
@@ -628,7 +630,6 @@ $$
 3. We expect an intercept, α
 4. A covariate `baseline_seizures`
 5. An effect of `drug`
-6. An interaction between `baseline_seizures` and `baseline_seizures`
 
 ## Fitting a Poisson model
 
@@ -641,7 +642,7 @@ made using the `glm` function.
 ```{r}
 #| label: drug-only-fit
 
-m1_drug_only <- glm(
+m1_drug <- glm(
     seizure_count ~ drug,
     family = poisson(link="log"),
     data = epil
@@ -654,7 +655,7 @@ Great! Now, let's explore the content of it.
 ```{r}
 #| label: drug_only-fit-interp
 
-parameters::parameters(m1_drug_only)
+parameters::parameters(m1_drug)
 ```
 
 Yeah, we did it! But... What does the coefficients actually mean? Did we come
@@ -672,7 +673,7 @@ Let's have a look at the coefficients:
 ```{r}
 #| label: IO-coef
 
-coef(m1_drug_only)
+coef(m1_drug)
 ```
 
 What does it mean?
@@ -684,10 +685,10 @@ coefficients. It's because they're still in log-linear space (described in
 So what do we do? Feed them to the chat model? *Please don't!* 😅
 
 Similar to the logistic regression, we have to apply the opposite transformation
-we did in the first place to make the model linear. In statistical terminology,
-the function that can transform the model back to it's outcome unit is called
-the *inverse link function*. And the "opposite" mathematical operation to *log*
-is to *exponentiation*.
+we did in the first place to get interpretable inference. In statistical
+terminology, the function that can transform the model back to it's outcome unit
+is called the *inverse link function*. And the "opposite" mathematical operation
+to *log* is to *exponentiation*.
 
 Let's convert the coefficients back from *log-rate ratios* to *incidence
 rate-ratios*. We do this by exponentiating the value:
@@ -702,7 +703,7 @@ confidence intervals:
 ```{r}
 #| label: inference
 
-broom::tidy(m1_drug_only,
+broom::tidy(m1_drug,
      exponentiate = TRUE,
      conf.int = TRUE)
 ```
@@ -712,40 +713,68 @@ or you can use `parameters::parameters()`, which has a slightly different style:
 ```{r}
 #| label: inference-params
 
-parameters::parameters(m1_drug_only,exponentiate = TRUE)
+parameters::parameters(m1_drug,exponentiate = TRUE)
 ```
 
 That's more like it! 🎉
 
-The intercept reads `r exp(m1_drug_only$coefficients[1])`, which is the expected
+The intercept reads `r exp(m1_drug$coefficients[1])`, which is the expected
 `seizure_count` for the placebo group (and the average as we would expect!)
 Confirm this for yourself using the following code:
 `mean(subset(epil,drug=="placebo")$seizure_count)`.
 
 Next, it's the $β1_{drug}$ named `drugprogabide` in `R`:
-`r exp(m1_drug_only$coefficients[2])`, which is the expected rate ratio in
+`r exp(m1_drug$coefficients[2])`, which is the expected rate ratio in
 `seizure_count` when being on progabide for 8 weeks, compared to placebo. Since
 the incidence rate-ratio less than 1, the expected seizure count is lower.
 
-In fact, `r round((1 - exp(m1_drug_only$coefficients[2])) * 100, 1)`% lower on
+In fact, `r round((1 - exp(m1_drug$coefficients[2])) * 100, 1)`% lower on
 average. To confirm this for yourself, run the following code:
 `mean(subset(epil,drug=="progabide")$seizure_count)` and see the average count
 for the treatment group. Finally, prove to yourself that this is what the two
 coefficients mean in relation to each other by this code:
-`exp(m1_drug_only$coefficients[2])*mean(subset(epil,drug=="placebo")$seizure_count)`.
+`exp(m1_drug$coefficients[2])*mean(subset(epil,drug=="placebo")$seizure_count)`.
 So the expected effect of being on progabide for 8 weeks was a reduction of
-`r (1-exp(m1_drug_only$coefficients[2]))*mean(subset(epil,drug=="placebo")$seizure_count)`
+`r (1-exp(m1_drug$coefficients[2]))*mean(subset(epil,drug=="placebo")$seizure_count)`
 seizures during 8 weeks, based on this small sample.
+
+So far so good! 😄
+
+We were able to do this nice sanity check for ourselves because the model only
+had an intercept and a binary `(0/1)` covariate. When we add more covariates or
+a continuous variable, things start to complicate really fast. We'll learn how
+to handle that in @sec-marginal-effects. Still, making simplar models as a first
+step to make sanity checks is always good practice! When doing real research,
+this is absolutely necessary.
 
 ## Fitting a Poisson regression model with covariates
 
-While the model we've been using so far is not wrong, per se, it's also rather
-simple. Until now, we have estimated the average change in seizure count, not
-taking into account how many seizures patients had before taking the drug.
+While the model we've been using so far is not wrong, it's also rather simple.
+Until now, we have estimated the average change in seizure count, not taking
+into account how many seizures patients had before taking the drug.
 
 Adding the baseline covariate will increase the precision of the model and
 provide better predictions for different patients, depending on their disease
 severity.
+
+::: {.callout-tip appearance="simple"}
+## Adding covariates are no simple game!
+
+Had the study been a large-scale RCT study, we would probably not incl. the
+baseline seizure burden in the adjustment set. This is because the variable is
+actually not a confound for this dataset, as we randomized who got offered the
+drug treatment.
+
+However, as the sample size is rather small, we cannot assume a 100% successful
+randomization (aka groups might not be exactly comparable). Furthermore, adding
+informative covariates increase precision and predictive performance. You'll
+learn more about prediction later.
+
+For now, take this assignment as a practice in fitting multiple covariates to a
+Poisson regression.
+
+Ask an instructor if you're interested in discussing this topic further.
+:::
 
 So we want to condition on `baseline_seizures`. Let's to that:
 
@@ -753,7 +782,7 @@ So we want to condition on `baseline_seizures`. Let's to that:
 #| label: model-fit
 
 m2_baseline <- glm(
-    seizure_count ~ drug * baseline_seizures,
+    seizure_count ~ drug + baseline_seizures,
     family = poisson(link="log"),
     data = epil
 )
@@ -770,11 +799,12 @@ let's compare the models:
 #| label: comparing-models
 
 coef_df <- bind_rows(
-  tidy(m1_drug_only, conf.int = TRUE, exponentiate = TRUE) |> mutate(model = "Model 1 - drug only"),
+  tidy(m1_drug, conf.int = TRUE, exponentiate = TRUE) |> mutate(model = "Model 1 - drug only"),
   tidy(m2_baseline, conf.int = TRUE, exponentiate = TRUE) |> mutate(model = "Model 2 - add baseline seizure")
 )
 
-ggplot(coef_df, aes(x = estimate, y = model)) +
+coef_df |>
+  ggplot(aes(x = estimate, y = model)) +
   geom_vline(xintercept = 1, linetype = "dashed", colour = "grey50") +
   geom_point(size = 2) +
   geom_errorbar(
@@ -789,15 +819,19 @@ ggplot(coef_df, aes(x = estimate, y = model)) +
   theme_minimal()
 ```
 
-The drug-only model does not provide a statistically significant average effect
-of progabide. However, the new model adjusting for `baseline_seizures` does.
+Note that both coefficients changed substantially.
 
-But how do we interpret this model?
+But how do we interpret these models?
 
 ### Discussion: How each model represent the data:
 
+Try to make inferences based on the coefficients of the models.
+
+- Look at the intercepts --- what do they mean and do they differ?
+- Look at the drug effects --- what do they mean and do they differ?
+
 The two models have very different ways of estimating the expected
-`seizure_count`. Explain to your neighbour the model does it using these plots:
+`seizure_count`. Explain to your neighbour what the models do using these plots:
 
 ```{r}
 #| label: predictions
@@ -809,7 +843,7 @@ The two models have very different ways of estimating the expected
 #|   - "baseline model also differentiates by pre-drug seizures"
 
 epil$pred <- predict(
-    m1_drug_only,
+    m1_drug,
     type="response"
 )
 
@@ -828,12 +862,13 @@ epil$pred <- predict(
 )
 
 plot_baseline_pred <- ggplot(epil,
-       aes(pred,seizure_count,color=baseline_seizures))+
+       aes(pred,seizure_count,color=baseline_seizures, group=drug))+
     geom_point()+
     geom_abline(slope=1,
                 intercept=0,
                 color="red") +
     theme_bw() +
+    geom_smooth() +
     scale_color_viridis_b()
 
 plot_drug_only_pred
@@ -846,6 +881,26 @@ The easies way to understand the model coefficients is to make marginal plots.
 You will learn more about marginal effects in @sec-marginal-effects.
 
 We'll use the `{marginaleffects}` package for this.
+
+Here, we plot the expected seizure count at the 8 week follow up for `m1_drug`
+
+```{r}
+#| label: marginal-plot1
+
+m1_drug |>
+    plot_predictions(
+    condition=c("drug")
+    ) +
+    labs(
+    y="Predicted seizures"
+)
+```
+
+Notice that we only have point estimates (`progabide` == 0/1) with confidence
+intervals ($\hat{y} ± 1.96 × SE(\hat{y})$).
+
+For `m2_baseline`, we add a continuous variable, which makes things more
+complicated:
 
 ```{r}
 #| label: counterfactuals
@@ -861,9 +916,90 @@ m2_baseline |>
 ) + coord_cartesian(c(-5,150),c(-5,150))
 ```
 
-This is more like it! Now, we can appreciate how the model expects the average
-effect of `seizure_count` as a function of `baseline_seizures` and whether the
-patient took progabide for 8 weeks.
+Now, we can appreciate how the model computes it's expectation for the average
+effect of `progabide` as a function of `baseline_seizures`.
+
+Note that we did not add an interaction in `m2_baseline`, but that it is still
+producing a conditional effect of `progabide` as a function of
+`baseline_seizures`. How did it do that!? 👀
+
+The trick is the log link. In a Poisson model, we model the log of the expected
+seizure count:
+
+$$
+  \log\left( E[Y] \right) = \beta_0 + \beta_1\,drug
+                            + \beta_2\,baseline\_seizures
+$$
+
+Model `m2_baseline` did *not* fit an interaction in the log-space.
+
+But when we transform back to the outcome scale, we add the $x_i$ of all the
+coefficients:
+
+$$
+  E[Y]
+  = \exp\left( \beta_0 + \beta_1\,drug + \beta_2\,baseline\_seizures \right)
+$$
+
+So `baseline_seizures` is always part of the equation and therefore affects the
+predicted effect of drug on the outcome scale (i.e., counts) --- even though we
+never explicitly computed a drug × baseline_seizures interaction.
+
+In other words, the effect of drug is conditional on the baseline value through
+the nonlinear log-link transformation. That's why `plot_predictions()` can show
+a conditional drug effect across different levels of `baseline_seizures` without
+an interaction term in the model.
+
+::: {.callout-tip collapse="true" appearance="simple"}
+## The matematical nerd intuition
+
+Start with the Poisson model:
+
+$$
+  \log(λ) = \beta_0 + \beta_1\,drug + \beta_2\,baseline_seizures
+$$
+
+Back-transform to the response scale:
+
+$$
+  λ = \exp\left( \beta_0 + \beta_1\,drug + \beta_2\,baseline_seizures \right)
+$$
+
+Take the derivative with respect to `drug`:
+
+$$
+  \frac{\partial λ}{\partial drug}
+  = \beta_1 \exp\left( \beta_0 + \beta_1\,drug + \beta_2\,baseline_seizures \right)
+$$
+
+Or equivalently:
+
+$$
+  \frac{\partial λ}{\partial drug} = \beta_1λ
+$$
+
+Because λ contains `baseline_seizures`, the effect of `drug` on the response
+scale depends on `baseline_seizures`.
+
+The cross-partial derivative makes this explicit:
+
+$$
+  \frac{\partial^2λ} {\partial drug\,\partial baseline_seizures}
+  = \beta_1\beta_2 \exp\left( \beta_0 + \beta_1\,drug + \beta_2\,baseline_seizures \right)
+$$
+
+Thus, whenever $\beta_1 \neq 0$ and $\beta_2 \neq 0$:
+
+$$
+  \frac{\partial^2λ} {\partial drug\,\partial baseline_seizures} \neq 0
+$$
+
+So the nonlinear inverse link creates an interaction on the outcome scale, even
+though there is no explicit `drug × baseline` interaction term in the model.
+
+Importantly, this is not an interaction in the linear predictor. It is a
+response-scale interaction induced by the nonlinear inverse link.
+:::
 
 ## A direct comparison of linear and poisson regression
 
@@ -875,7 +1011,7 @@ Let's try!
 #| label: lm-try
 
 lin_m <- lm(
-     seizure_count ~ drug * baseline_seizures,
+     seizure_count ~ drug + baseline_seizures,
      data = epil
 )
 
@@ -897,7 +1033,14 @@ lin_m |>
 ) + coord_cartesian(c(-5,150),c(-5,150))
 ```
 
-Note how different this model is!
+Notice that:
+
+1. The predicted seizure count at follow-up produces negative values for the
+   treatment group with low disease burden. This is of course nonsense! `r `
+2. The interaction effect makes the drug effect flip at around 50
+   `baseline_seizures`. This is surprising and would require rigorous follow-up
+   tests.
+3. <!-- TODO: Write text here -->
 
 ## Telling your model that people respond differently
 

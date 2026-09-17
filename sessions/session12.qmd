@@ -1,4 +1,4 @@
-# A Poissonous counting trick {#sec-poisson}
+# A fishy counting trick {#sec-poisson}
 
 > "Choose to be optimistic, it feels better." --- Dalai Lama
 
@@ -1067,14 +1067,39 @@ Notice that:
    tests.
 3. <!-- TODO: Write text here -->
 
-## Reading task: Fair game - normalizing the exposure time
+## Reading task: Shifting perspectives - from absolute counts to relative rates
 
-The parameter λ is commonly interpreted as a *rate*.
+Until now, we have considered the outcome scale as an absolute count. This is
+nice when working with balanced groups or individual-level inference. But often,
+we work with large populations with different seizes. In such cases, we should
+interpreted the parameter, λ, as a *rate*.
 
-The rate interpretation is nice for allowing varying expoure time.
+**What is a rate?**
 
-Implizitly, λ is equal to an expected number of events, μ, per unit time or
-distance, τ. This implies that $λ = μ/τ$, which lets us redefine the link:
+A rate tells us how much one thing changes compared with another. In simple
+terms, it answers the question:
+
+> "How much of something happens for each unit of something else?"
+
+Rates are especially useful in biomedical science because many biological
+processes happen over time. For example, we can describe how quickly a patient's
+heart rate changes, how fast a drug is eliminated from the body, or how quickly
+a wound heals.
+
+A rate is usually written as a fraction:
+
+$$
+  rate = \frac{{\text{change in Y}}}{\text{for X unit}}
+$$
+
+The denominator tells us what we are measuring the change against, such as time,
+while the numerator tells us what is changing.
+
+### The offset
+
+Implicitly, λ is equal to an expected number of events, μ, per unit time or
+distance, τ. This implies that $λ = \frac{μ}{τ}$, which lets us redefine the
+link:
 
 $$
   y_i \sim Poisson(λ_i) \\

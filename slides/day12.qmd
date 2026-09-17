@@ -577,6 +577,49 @@ Key Takeaways:
 - **Offset**: Adjust for varying exposure times.
 :::
 
+## The history of a dataset
+
+::: {.columns}
+::::: {.column}
+![Ronald A. Fisher](images/ronald_fisher_smoking.jpg)
+:::::
+
+::::: {.column}
+![Jerry Cornfield](images/jerry_cornfield_smoking.jpg)
+:::::
+:::
+
+::: {.notes}
+Ronald A. Fisher and the tobaco industry
+
+Jerry Cornfield as the man collecting all evidence for causal inference of
+smoking causing lung cancer.
+:::
+
+## The history of a dataset
+
+::: {.columns}
+::::: {.column}
+![Austin Bradford Hill](images/bradford_hill_smoking.jpeg)
+:::::
+
+::::: {.column}
+![Richard Doll](images/doll_smoking.jpg)
+:::::
+:::
+
+::: {.notes}
+Ronald A. Fisher and the tobaco industry
+
+Jerry Cornfield as the man collecting all evidence for causal inference of
+smoking causing lung cancer.
+:::
+
+##
+::: {.r-fit-text}
+Now to exercises
+:::
+
 ##
 
 ::: {.r-fit-text}

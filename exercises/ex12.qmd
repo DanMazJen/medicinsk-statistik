@@ -1,4 +1,4 @@
-# Exercises: A Poissonous counting trick {#sec-ex-poisson}
+# Exercises: A fishy counting trick {#sec-ex-poisson}
 
 ::: {.callout-tip collapse="false"}
 ## Conditional variables
@@ -16,8 +16,45 @@ The learning objectives for this session are:
 
 ## Exercises: Revisiting smoking regulations
 
-You're working for the Medical Regulations department. You're tasksed to revisit
-some of the data that causally linked smoking to cancer.
+You are working in the Medical Regulations Department, where a historical review
+of evidence used to inform tobacco regulation is underway.
+
+As part of the review, your team has been given mortality data from the British
+Doctors Study, the landmark study initiated by Richard Doll and Austin Bradford
+Hill in the 1950s. The study followed British doctors over many years and
+recorded their smoking habits and subsequent mortality.
+
+The dataset available to you is an aggregated version of the historical study.
+It contains the number of deaths and the total person-years of observation for
+doctors grouped by age and smoking status.
+
+At an initial briefing, one analyst presents a simple summary of the data:
+
+> "The mortality rate appears to be higher among smokers. The difference is
+> quite striking."
+
+This catches the attention of the regulatory team. However, another
+epidemiologist raises an important concern:
+
+> "We should be careful about interpreting that comparison. Mortality changes
+> substantially with age, and the smoking groups don't necessarily contribute
+> the same amount of observation at every age."
+
+The team therefore decides that simply comparing the number of deaths between
+smokers and non-smokers is not sufficient. Doctors contribute different amounts
+of observation time, and age may need to be accounted for when comparing
+mortality rates.
+
+You are asked to investigate the historical data more systematically.
+
+Your task is to examine mortality rates in relation to smoking status while
+accounting for differences in person-time and age. The department is
+particularly interested in whether a statistical model can describe the observed
+mortality patterns and quantify the association between smoking and mortality.
+
+The data are aggregated, so the analysis will require you to think carefully
+about what the response variable represents and how the amount of observation
+differs between groups.
 
 ### A: Let's start off by considering when in general to use Poisson, logistic or normal regression.
 
@@ -46,7 +83,7 @@ heart failure patients within 30 days of discharge.
 
 **Exercise 1B**: Reviewing a colleagues paper.
 
-You're assigned as a internal peer reviewer for study titled:
+You're assigned as an internal peer reviewer for a study titled:
 
 > Association Between Corticosteroid Therapy and Hospital-Acquired Infections in
 > an Intensive Care Unit
@@ -76,12 +113,13 @@ A Poisson regression model was fitted.
 Poisson regression was used to estimate the association between corticosteroid
 therapy and infection occurrence. Age was included as the offset variable to
 account for differences in patient risk over time. The model included
-corticosteroid treatment and diabetes as explanatory variables.
+corticosteroid treatment as main treatment effect and adjusting for diabetes.
 
 The fitted model was
 
 $$
-  log(λi​)=β0​+β1​(Steroid)+β2​(Diabetes)+offset(Age)
+  \text{Infections} = Poisson(λ) \\
+  log(λ_i​) = β0​ + β1​(Steroid) + β2​(Diabetes) + \text{offset}(Age)
 $$
 
 **results**
@@ -92,15 +130,14 @@ $$
   | Corticosteroid therapy |        0.47 |           0.11 |  <0.001 |
   | Diabetes               |        0.29 |           0.10 |   0.004 |
 
-Raw coeffivients can be seen from the table above.
+Raw coefficients can be seen from the table above.
 
 Patients receiving corticosteroids had 0.47 times higher odds of developing
 hospital-acquired infections compared with patients who did not receive
-corticosteroids (p < 0.001). Likewise, patients with diabetes had 0.29 higher
-odds of infection than patients without diabetes.
+corticosteroids (p < 0.001).
 
 These findings indicate that corticosteroid therapy substantially increases the
-odds of hospital-acquired infection after adjustment for age.
+odds of hospital-acquired infection after adjustment for age and diabetes.
 
 **Discussion**
 
@@ -111,6 +148,20 @@ coefficient of 0.47 suggests a clinically meaningful increase in infection risk.
 These results support careful monitoring of patients receiving corticosteroids
 in the ICU.
 
+**Your task:**
+
+- Identify all errors you can --- you may ask for tips.
+
+<details>
+<summary>**Click for tips**</summary>
+There are several mistakes:
+
+- What was age doing in the model?
+- What is the table outputting and how did they make inference in the result and discussion section about that?
+- Is this Poisson or Logistic regression?
+
+</details>
+
 <details>
 <summary>**Click for the solution**</summary>
 
@@ -120,7 +171,7 @@ in the ICU.
   - Age should be included as a regular covariate if adjustment is desired.
 2. Wrong interpretation
   - The text interprets the results as odds ("0.47 times higher odds").
-  - Standard Poisson regression estimates incidence rate ratios (IRRs) or rate ratios, not odds ratios.
+  - Standard Poisson regression estimates log-ratios, not (log) odds ratios. Saying odds ratios or incidence rate ratio (IRRs) is double wrong (see next point).
 3. Coefficients not exponentiated
   - The table reports coefficients (0.47 and 0.29), but the narrative treats them as effect sizes.
   - The correct interpretation requires exponentiation:
@@ -130,37 +181,211 @@ in the ICU.
 
 ### B: Analyzing the historic "Doctors" dataset
 
-The following R code contains 3 intentional mistakes. Identify and fix them:
+Let's start by loading the dataset:
 
 ```{r}
-#| label: mistakes
+#| label: load-data
 
-# Mistake 1: Missing offset for exposure time (e.g., person-years)
-#model_mistake <- glm(mortality ~ smoker + age,
-#                     family = poisson(link = "log"),
-#                     data = doctors)
-
-# Mistake 2: Interpreting the coefficient as odds ratio
-#summary(model_mistake)  # Student claims: "The odds of death are 1.5x higher for smokers."
-
-# Mistake 3: Not exponentiating the coefficient
-#coef(model_mistake)     # Student claims: "The coefficient for smoker is 0.4, so smokers have 0.4 more deaths."
+doctors <- medisr::doctors
 ```
 
-Question: Explain why each mistake is wrong and how to correct it.
+You should also read the documentation `?medisr::doctors`.
+
+**Exercise 1B**
+
+Approach the dataset naïvely by simply counting up the number of deaths for
+smokers and non-smokers.
+
+- How many died?
+
+;<details>
+<summary>**Click for the solution**</summary>
+
+```{r}
+#| label: 1b
+
+library(dplyr)
+
+doctors |>
+    group_by(smoking) |>
+    summarise(n_deaths = sum(deaths))
+```
+
+- non-smoker: 101
+- smoker: 630
+
+</details>
+
+**Exercise 2B**
+
+Check the balance in the groups.
+
+- How many years in total did the researchers follow the smoking group and how
+  many the non-smoking group?
+
+;<details>
+<summary>**Click for the solution**</summary>
+
+```{r}
+#| label: 2b
+
+doctors |>
+    group_by(smoking) |>
+    summarise(n_years = sum(personyears))
+```
+
+- non-smoker: 39220
+- smoker: 142247
+
+</details>
+
+**Exercise 3B**
+
+Finally, check whether the age groups are composed evenly and whether they are
+comparable between the smoking groups.
+
+1. Which group is nearly half of the participants between 35 to 44 years old?
+2. In the other group, how many of the age categories has higher percent
+   distribution?
+
+*Tip*: For each group, compute the percent of all participants belonging to each
+of the five age groups and visually compare them one by one.
+
+;<details>
+<summary>**Click for the solution**</summary>
+
+```{r}
+#| label: 3b
+
+doctors |>
+  group_by(smoking) |>
+  mutate(percent = 100 * personyears / sum(personyears)) |>
+  ungroup() |>
+  select(age, smoking, percent)
+```
+
+<!-- panache-ignore-start-->
+    age smoker `non-smoker`
+  <dbl>  <dbl>        <dbl>
+1     1  36.8         47.9
+2     2  30.4         27.2
+3     3  20.1         14.6
+4     4   8.90         6.59
+5     5   3.74         3.73
+<!-- panache-ignore-end-->
+
+1. non-smokers
+2. 2---5, so the 4 older groups.
+
+</details>
+
+**Exercise 4B**
+
+Now, run the model naïvely, without accounting for these differences.
+
+The model will be:
+
+$$
+  deaths = Poisson(λ) \\
+  log(λ) = β0 + β1_{smoking}
+$$
+Report the (incorrect) estimand for incidence rate ratio for smoking vs.
+non-smoking.
+
+;<details>
+<summary>**Click for the solution**</summary>
+
+```{r}
+#| label: 4B
+
+m4b <- glm(deaths ~ smoking,
+                     family = poisson(link = "log"),
+                     data = doctors)
+
+m4b |> parameters::parameters(exponentiate=TRUE)
+```
+
+<!-- panache-ignore-start-->
+Parameter        |   IRR |   SE |         95% CI |     z |      p
+-----------------------------------------------------------------
+(Intercept)      | 20.20 | 2.01 | [16.51, 24.40] | 30.21 | < .001
+smoking [smoker] |  6.24 | 0.67 | [ 5.08,  7.74] | 17.08 | < .001
+<!-- panache-ignore-end-->
+
+</details>
+
+**Exercise 5B**
+
+Let's try to correct for these issues.
+
+Provide the scientific regression equation we will run
+
+<details>
+<summary>**Click for the solution**</summary>
+
+The model will be:
+
+$$
+  deaths = Poisson(λ) \\
+  log(λ) = β0 + β1_{smoking} + β2_{age} + \text{offset}(personyears)
+$$
+
+*Note that the offset does not have a β coefficient associated with it!*
+
+</details>
+
+**Exercise 6B**
+
+The following R code contains two mistakes. Identify and fix them:
+
+```{r}
+#| label: 6b
+
+m5b <- glm(deaths ~ smoking + age,
+                     family = poisson(link = "logit"),
+                     offset = personyears,
+                     data = doctors)
+```
+
+<details>
+<summary>**Click for the solution**</summary>
+
+```{r}
+#| label: 6b2
+
+# Mistake 1: the offset should be log-personyears!
+# Mistake 2: the link should be log (logit is for logistic regression)!
+m6b <- glm(deaths ~ smoking + age,
+                     family = poisson(link = "log"),
+                     offset = log(personyears),
+                     data = doctors)
+```
+
+</details>
 
 ### C: Writing a Clinical Report
 
 **Exercise 3A:**
 
-Structuring the Report
+The final model is provided in **Exercise 6B**. If you didn't make that
+exercise, go ahead and see the solution and copy the code. You will not make
+inference based on the model.
+
+You will write a clincal report based on the inference we got from the model.
+
+> Structuring the Report
 
 - 1: How would you explain the incidence rate ratio (IRR) to a clinician who is
   not familiar with statistics?
-- 2: Write a 1-paragraph summary of the findings from your Poisson model (from
-  Exercise 2A) for a clinical audience.
-- 3: How would you visually present the effect of smoking on mortality in a
+- 2: Write a 1-paragraph summary of the findings from your Poisson model for a
+  clinical audience.
+- 3: Compare these results to the naïve model from **Exercise 4B**
+- 4: How would you visually present the effect of smoking on mortality in a
   figure for the report? Describe the plot.
-- 4: Now implement the plot using {ggplot2}.
-- 5: Make a legend to the plot so that others can read it with the intention you
+- 5: Now implement the plot using {ggplot2}.
+- 6: Make a legend to the plot so that others can read it with the intention you
   had.
+
+No solution is given here, as you can be creative 😄
+
+Please discuss your ideas with the instructors!

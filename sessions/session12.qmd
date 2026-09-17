@@ -238,7 +238,7 @@ you can go back to session 8 by Rasmus for working with `{dplyr}` for wrangling.
 ```{r}
 #| label: pre-wrangle
 
-data(epil)
+epil <- MASS::epil # this is not from medisr
 
 epil <- epil |>
     rename(
@@ -1061,7 +1061,7 @@ lin_m |>
 Notice that:
 
 1. The predicted seizure count at follow-up produces negative values for the
-   treatment group with low disease burden. This is of course nonsense! `r `
+   treatment group with low disease burden. This is of course nonsense!
 2. The interaction effect makes the drug effect flip at around 50
    `baseline_seizures`. This is surprising and would require rigorous follow-up
    tests.
@@ -1160,7 +1160,7 @@ num_days <- 8*7 # days of the experiment
 
 hospital1 <- rpois (num_days, 1.5) # 1.5 events per day
 
-hospital2 <- rpois(num_weeks, 0.5*7) # events * lowst unit (i.e., days)
+hospital2 <- rpois(num_weeks, 0.5*7) # 0.5 events per day scaled to a week
 
 events <- c(hospital1, hospital2)
 exposure <- c(rep(1,num_days), rep(7,num_weeks))
@@ -1199,8 +1199,12 @@ broom::tidy(sim_m1,exponentiate = TRUE)
 Oh, wow! Esborg has a `r exp(sim_m1$coefficients[2])` rate ratio compared to
 Aalbjerg!
 
+How many counts is that? Intercept (Aalbjerg estimate)
+`exp(sim_m1$coefficients[1])` × $β_{Esborg}$ `exp(sim_m1$coefficients[2])` is
+`exp(sim_m1$coefficients[1])*exp(sim_m1$coefficients[2])`.
+
 That is alarming and someone should figure out why so many events are taking
-place in Esborg.
+place in Esborg compared to Aalbjerg!
 
 Let's add an offset and see what this gives us:
 
@@ -1218,6 +1222,10 @@ broom::tidy(sim_m2,exponentiate = TRUE)
 
 Oh, no! Now Esborg has a `r exp(sim_m2$coefficients[2])` rate ratio compared to
 Aalbjerg!
+
+How many counts is that now? Intercept (Aalbjerg estimate)
+`exp(sim_m2$coefficients[1])` × $β_{Esborg}$ `exp(sim_m2$coefficients[2])` is
+`exp(sim_m2$coefficients[1])*exp(sim_m2$coefficients[2])`.
 
 > How can this be? What should we trust?
 
@@ -1242,9 +1250,9 @@ day. Therefore, we expect a correct fitted model to recover:
   $$
 
 This means `Esborg` has about one-third the event rate of `Aalbjerg`
-(equivalently, about a 67% lower event rate). Since we are fitting a Poisson
-model, this exponentiated coefficient is interpreted as an incidence rate ratio
-(IRR).
+(equivalently, about a 67% points lower event rate). Since we are fitting a
+Poisson model, this exponentiated coefficient is interpreted as an incidence
+rate ratio (IRR).
 
 Note: *Small differences between the estimated and true values are expected
 because the data are randomly simulated and we have low sample size*.

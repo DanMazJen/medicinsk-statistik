@@ -3,9 +3,7 @@ format: rostools-theme-revealjs
 search: false
 ---
 
-# A Poissonous counting trick {.smaller}
-
-![Can you solve the task? Can a regression model?](images/counts_children.gif)
+# A fishy counting trick {.smaller}
 
 ```{r}
 #| label: setup
@@ -63,6 +61,10 @@ filters:
   - editable
 -->
 
+##
+
+![Can you solve the task? Can a regression model?](images/counts_children.gif){.r-stretch fig-align="center"}
+
 ## Case Session 12: "Why are seizure data always right-skewed?" {.smaller .scrollable}
 
 At PhaRmacy Inc., excitement is growing over a new anti-seizure medication,
@@ -117,12 +119,27 @@ dag <- dagitty::dagitty("dag { severity -> GABA; severity -> preSeizures; GABA -
 dag |> ggdag::tidy_dagitty() |> ggdag::ggdag(text = FALSE) + ggdag::geom_dag_text(size = 2.5) + theme_void()
 ```
 
-## The dataset
+## The dataset {.smaller}
 
-- `epil`: (59 patients, balanced groups).
+- `MASS::epil`: 59 patients
 
-- **Variables**: `seizure_count`, `drug`, `baseline_seizures`, `trial_end`,
-  `log_base`, `log_age`, `subject`, `age`.
+You read about the data for today. We clean the data as such:
+
+**Variables**:
+
+- `seizure_count`
+- `drug`
+- `baseline_seizures`
+- `subject`
+- `age`
+
+##
+
+::: {.r-stretch-text}
+What would we like to check before making a model?
+:::
+
+## The dataset {.r-stretch}
 
 ```{r}
 #| label: explore-arms
@@ -133,10 +150,12 @@ epil |>
 
 ## Exploratory visualization
 
-::: {.columns}
-::::: {.column}
 ```{r}
 #| label: explore1
+#| layout-ncol: 2
+#| layout-align: center
+
+# cap-location: bottom
 
 seizure_lims <- range(c(epil$baseline_seizures, epil$seizure_count))
 
@@ -151,12 +170,6 @@ posttrial_data_plot <- epil |>
     coord_cartesian(xlim = seizure_lims)
 
 baseline_data_plot + posttrial_data_plot
-```
-:::::
-::::: {.column}
-```{r}
-#| label: explore2
-#| warning: false
 
 epil |>
     ggplot(aes(baseline_seizures, seizure_count,color=drug)) +
@@ -164,13 +177,17 @@ epil |>
     geom_smooth() +
     theme_bw()
 ```
-:::::
-:::
 
-::: {.fragment}
+::: {.notes}
 **Observation**: Strong association between `baseline_seizures` and
 `seizure_count`.
 :::
+
+##
+
+Quickly run through section **14.4.2 Exploring the data for familiarization**
+
+![](images/open_rstudio.jpeg){.r-stretch fig-align="center"}
 
 ## Can We Use Logistic Regression?
 ::: {.fragment}
@@ -271,12 +288,14 @@ $$
 ::: {.fragment}
 **Interpretation:**
 
-- seizure_count is Poisson-distributed.
+- `seizure_count` is Poisson-distributed.
 - Log link function.
-- Intercept (α), covariate (baseline_seizures), and effect of drug.
+- Intercept (α), estimand $β_{drug}$ and conditioned on (`baseline_seizures`).
 :::
 
-## Fitting the model
+## Fitting the model {.smaller}
+
+![](images/small_steps_first.jpeg){.r-stretch fig-align="center"}
 
 Best practice:
 
@@ -286,8 +305,39 @@ Best practice:
 - At some point, you'll have the correct scientific model, which you can use for
   inference
 
-## Intercept and drug model
+## Intercept and drug model {.center .align-center}
 
+Go ahead and try to fit the model:
+
+```r
+m1_drug <- glm(seizure_count ~ drug,  # <1>
+    family = "what should go here?",       # <2>
+    data = epil)                    # <3>
+
+    parameters::parameters(m1_drug) # <4>
+```
+
+1. `glm()` function modeling `seizure_count` as a function of `drug`
+2. `fimaly` is Poisson distribution with log link
+3. data is the `epil` `data.frame`
+4. to extract the parameters
+
+## Intercept and drug model {.center .align-center}
+
+```r
+m1_drug <- glm(seizure_count ~ drug,  # <1>
+    family = poisson(link="log"),       # <2>
+    data = epil)                    # <3>
+
+    parameters::parameters(m1_drug) # <4>
+```
+
+1. `glm()` function modeling `seizure_count` as a function of `drug`
+2. `fimaly` is Poisson distribution with log link
+3. data is the `epil` `data.frame`
+4. to extract the parameters
+
+## Intercept and drug model {.center .align-center}
 ::: {.fragment}
 ```{r}
 #| label: intercept-only-fit
@@ -301,7 +351,7 @@ m1_drug <- glm(seizure_count ~ drug,
 ```
 :::
 
-##
+## {.center .align-center}
 
 ::: {.r-fit-text}
 What does this mean!? 👀
@@ -312,6 +362,10 @@ What does this mean!? 👀
 ![](images/difficult-meme.png){fig-align="center"}
 
 ##
+
+These are the coefficients:
+
+`coef(m1_drug)`
 
 ```{r}
 #| label: try-read-coef
@@ -343,12 +397,13 @@ Section 14.10 *GLMs are notoriously difficult to interpret*
 
 Please also make sure to run the proposed code.
 
-Run code from:
+You need to have run:
 
-- 14.4.2 (explore the data for familiarization)
-- 14.9 (Fitting the model)
+- 14.4.2 *explore the data for familiarization* for importing and modifying the
+  dataset
+- 14.9 *Fitting the model* for having the model object
 
-## Inverse log transform
+## Inverse log transform {.scrollable}
 
 ::: {.r-fit-text}
 Exponentiate Coefficients:
@@ -371,19 +426,67 @@ parameters::parameters(m1_drug, exponentiate = TRUE)
 - Drug coefficient: Incidence rate ratio (IRR) for progabide vs. placebo.
 :::
 
+## Fitting more covariates {.center .align-center}
+
+```r
+m2_baseline <- glm(
+    seizure_count ~ drug + baseline_seizures,
+    family = poisson(link="log"),
+    data = epil
+)
+```
+
 ## Fitting more covariates
+
+General thoughts on this:
+
+- Adjusting for baseline seizure count is not necessary for this model...
+- But it will increase precision and give us the direct effect of `drug`
+- It would also be necessary for predicting individual effects
+- It provides the "direct effect" of `drug`
+- Small *N* --- randomization might not have been successful
+
+*Making adjustment sets are no simple game!*
+
+## Fitting more covariates {.center .align-center}
+
+```r
+#| label: model-fit
+
+m2_baseline <- glm(
+    seizure_count ~ drug + baseline_seizures,
+    family = poisson(link="log"),
+    data = epil
+)
+
+parameters::parameters(m2_baseline, exponentiate = TRUE)
+```
+
+## Fitting more covariates {.center .align-center}
+
+Here's the output:
 
 ```{r}
 #| label: model-fit
 
-m2_baseline <- glm(seizure_count ~ drug * baseline_seizures, family = poisson(link="log"), data = epil)
-parameters::parameters(m2_baseline, exponentiate = TRUE, conf.int = TRUE)
+m2_baseline <- glm(
+    seizure_count ~ drug + baseline_seizures,
+    family = poisson(link="log"),
+    data = epil
+)
+
+parameters::parameters(m2_baseline, exponentiate = TRUE)
 ```
 
 ##
 
+![](images/what_do_you_mean.jpg){fig-align="center"}
+
+## {.center .align-center}
+
 ```{r}
 #| label: comparing-models
+#| fig-cap: "Can comparing coefficients help interpretation?"
 
 coef_df <- bind_rows(
   tidy(m1_drug, conf.int = TRUE, exponentiate = TRUE) |> mutate(model = "Model 1 - intercept"),
@@ -407,13 +510,86 @@ ggplot(coef_df, aes(x = estimate, y = model)) +
 
 ##
 
-![](images/what_do_you_mean.jpg){fig-align="center"}
+![It didn't help...](images/what_do_you_mean.jpg){fig-align="center"}
 
 ##
 
 ::: {.r-fit-text}
 Section 14.12.1 *Making sense of Poisson coefficients*
 :::
+
+##
+
+```r
+m1_drug |>
+    plot_predictions(
+    condition=c("drug")
+    ) +
+    labs(
+    y="Predicted seizures"
+)
+```
+
+```{r}
+#| label: m1drug-plot
+
+m1_drug |>
+    plot_predictions(
+    condition=c("drug")
+    ) +
+    labs(
+    y="Predicted seizures"
+)
+```
+
+##
+
+```r
+m2_baseline |>
+    plot_predictions(
+    condition=c("baseline_seizures","drug"),
+    type = "link" # or "response"
+    ) +
+    labs(
+    y="Predicted seizures"
+) + coord_cartesian(c(-5,150),c(-5,150))
+
+```
+
+```{r}
+#| label: m2baseline-plot
+
+m2_baseline |>
+    plot_predictions(
+    condition=c("baseline_seizures","drug"),
+    type = "link"
+    ) +
+    labs(
+    y="Log space"
+) + coord_cartesian(c(-1,150),c(0,5))
+m2_baseline |>
+    plot_predictions(
+    condition=c("baseline_seizures","drug")
+    ) +
+    labs(
+    y="Count outcome space"
+) + coord_cartesian(c(-5,150),c(-5,150))
+```
+
+## Conditional effects without interaction
+
+- We don't model an interaction on the log-space
+
+$$
+  \log\left( E[Y] \right) = \beta_0 + \beta_1\,drug
+                            + \beta_2\,baseline\_seizures
+$$
+
+- But it inevitably happens on the response scale:
+
+$$
+  E[Y] = e^{\beta_0+\beta_1\,drug+\beta_2\,baseline\_seizures}
+$$
 
 ## Effects depend on the scale
 
@@ -423,7 +599,7 @@ $$
   log(\text{expected seizures}) = β0 + β1drug + β 2 baseline\_seizures
 $$
 
-There is no drug × baseline interaction in the model.
+There is no `drug` × `baseline_seizures` interaction in the model.
 
 But on the count scale:
 
@@ -506,14 +682,17 @@ m2_baseline |>
 ##
 
 ::: {.r-stretch-text}
-Read section 14.13 *Fair game - normalizing the exposure time*
+Read section 14.13 *Shifting perspectives - from absolute counts to relative
+rates*
 :::
 
-## Fair Game: Normalizing the Exposure Time
+## Shifting perspectives - from absolute counts to relative rates {.smaller}
 
-Offset for Exposure Time:
+$$
+  rate = \frac{{\text{change in Y}}}{\text{for X unit}}
+$$
 
-λ: Rate (events per unit time). **Model**:
+**Model**:
 $$
   y_i \sim Poisson(μ_i) \\
   log μ_i = log τ_i + α + βx_i
@@ -521,13 +700,46 @@ $$
 **Offset**:
 
 $$
-  log(τ_i) (e.g., log of exposure time).
+  log(τ_i)
 $$
+
+## Simulated dataset {.center .align-center}
+
+Consider the case of reporting events (e.g., death) at two hospitals. Hospital 1
+`Aalbjerg` records daily events (30 observations of one day each), while
+Hospital 2 `Esborg` records weekly events (4 observations, each representing
+seven days).
+
+## Simulated dataset {.smaller .scrollable}
+
+```r
+set.seed(636961739)
+
+num_weeks <- 8 # weeks of the experiment
+num_days <- 8*7 # days of the experiment
+
+hospital1 <- rpois (num_days, 1.5) # 1.5 events per day
+
+hospital2 <- rpois(num_weeks, 0.5*7) # 0.5 events per day scaled to a week
+
+events <- c(hospital1, hospital2)
+exposure <- c(rep(1,num_days), rep(7,num_weeks))
+hospital_id <- c(rep("Aalbjerg",num_days), rep("Esborg",num_weeks))
+hospital_data <- data.frame(
+  events=events,
+  days=exposure,
+  hospital_id= as.factor(hospital_id)
+)
+
+hospital_data$log_days = log(hospital_data$days)
+
+hospital_data
+```
 
 ## Offset example:
 
 - Hospital 1: Daily events (30 observations).
-- Hospital 2: Weekly events (4 observations). text Copy
+- Hospital 2: Weekly events (4 observations).
 
 ```{r}
 #| label: offset-example
@@ -564,6 +776,12 @@ sim_m2 <- glm( events ~ 1 + hospital_id,
 
 broom::tidy(sim_m2,exponentiate = TRUE)
 ```
+
+## Relative Risk
+
+Risk ratio
+
+<!-- TODO: relative risiko vs incidence rate ratio poisson --- robust variance estimatering (bernouli)  -->
 
 ## Summary
 

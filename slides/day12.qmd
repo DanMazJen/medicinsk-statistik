@@ -328,7 +328,7 @@ The regression coefficients are in log-space
 :::
 
 ```{r}
-#| label: try-read-coef
+#| label: try-read-coef2
 
 coef(m1_drug)
 ```

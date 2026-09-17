@@ -46,7 +46,7 @@ However, R is by far the most capable when it comes to statistical programming
 within medical statistics.
 :::
 
-::: {#tip-python .callout-tip collapse="true"}
+::: {#tip-ide .callout-tip collapse="true"}
 # Can I use an IDE other than RStudio?
 
 Yes, you can use any IDE you prefer. However, we will not provide specific
@@ -54,12 +54,31 @@ instructions for other IDEs. Any issues or troubleshooting will be your
 responsibility.
 :::
 
-## How do I find the datasets mentioned in the course?
+## How do I find materials mentioned in the course?
 
 ::: {#tip-data .callout-tip collapse="true"}
-Where do I find the course datasets?
+# Where do I find the course datasets?
 
 Datasets are available [here](/exercises/data.qmd).
+:::
+
+::: {#tip-slides .callout-tip collapse="true"}
+# How do I download slides from the website?
+
+To Print to PDF, do the following:
+
+1. Toggle into Print View using the **E** key (or using the Navigation Menu)
+2. Open the in-browser print dialog COMMAND+P/Ctrl+P.
+3. Change the Destination setting to **Save as PDF**.
+4. Change the Layout to Landscape.
+5. Disable **Print backgrounds** and **PrintHeaders and fotters**
+5. Change the **Margins** to **None**.
+6. Enable the **Background graphics** option.
+7. Click **Save** 🎉
+
+If you entered print mode in the same window, you can toggle out of Print View
+using the same **E** key, or navigate back to last slide seen using usual back
+button in your browser.
 :::
 
 ## Miscellaneous

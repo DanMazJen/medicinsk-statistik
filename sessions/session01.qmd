@@ -17,6 +17,12 @@ The slides contain speaking notes that you can view by pressing 'S' on the
 keyboard.
 :::
 
+::: {.callout-tip appearance="simple"}
+# Downloading slides
+
+Want to download the slides as a PDF? See @tip-slides.
+:::
+
 ## Pree-class Literature
 
 {{< include /includes/curriculum/_session1.qmd >}}

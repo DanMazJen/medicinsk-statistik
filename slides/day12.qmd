@@ -779,9 +779,68 @@ broom::tidy(sim_m2,exponentiate = TRUE)
 
 ## Relative Risk
 
-Risk ratio
+A relative risk compares the **risk (cumulative incidence)** of an outcome
+between groups:
 
-<!-- TODO: relative risiko vs incidence rate ratio poisson --- robust variance estimatering (bernouli)  -->
+$$
+  RR = \frac{Risk in exposed group}{Risk in unexposed group}
+$$
+
+Suppose 10 out of 100 patients die at hospital A, while 5 out of 100 dies at
+hospital B.
+
+The relative risk between the two hospitals is
+
+$$
+  RR = \frac{10\%}{5\%} = 2
+$$
+
+So, hospital A has 2 times the risk of death.
+
+## IRR
+
+An incidence rate ratio compares **the rate at which new cases occur**, taking
+into account how much person-time people are observed.
+
+This is what we did in the simulation example above.
+
+1.5 events per day vs 0.5 events per day gives a 0.33 incidence rate ratio.
+
+estimating a relative risk from binary outcome data requires a modified Poisson
+regression (using robust standard errors) rather than a standard Poisson model
+
+## In R
+
+```r
+#| label: relative-risk-robust-est
+
+# 1. Fit standard Poisson GLM with log link on binary data
+model_rr <- glm(seizure_count ~ drug + baseline_seizures,
+                     data = epil,
+                     family = poisson(link = "log"))
+
+# 2. Compute Average Risk Ratio (Relative Risk) using robust standard errors
+avg_comparisons(model_rr,
+                variables = "drug",
+                comparison = "lnratioavg", # Calculates log risk ratio, then exponentiates
+                vcov = sandwich::vcovHC(model_rr, type = "HC3")) # Applies robust standard errors
+```
+
+## In R
+
+Note the two important parameters:
+
+- `comparison = "lnratioavg"`
+
+This argument tells marginaleffects to calculate the relative risk. It computes
+the log of the ratio of predicted probabilities, averages them across your
+sample, and then transforms them back to the risk ratio scale.
+
+- `vcov = vcovHC(...)`
+
+This step is crucial for the Poisson model. It corrects the standard errors for
+the binomial nature of your binary data, preventing falsely narrow confidence
+intervals.
 
 ## Summary
 

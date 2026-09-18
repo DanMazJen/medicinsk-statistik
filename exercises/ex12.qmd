@@ -338,9 +338,7 @@ $$
 
 The following R code contains two mistakes. Identify and fix them:
 
-```{r}
-#| label: 6b
-
+```r
 m5b <- glm(deaths ~ smoking + age,
                      family = poisson(link = "logit"),
                      offset = personyears,
@@ -351,7 +349,7 @@ m5b <- glm(deaths ~ smoking + age,
 <summary>**Click for the solution**</summary>
 
 ```{r}
-#| label: 6b2
+#| label: 6b
 
 # Mistake 1: the offset should be log-personyears!
 # Mistake 2: the link should be log (logit is for logistic regression)!

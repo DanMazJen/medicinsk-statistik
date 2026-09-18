@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.10.18">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>21&nbsp; Exercises: A Poissonous counting trick – Medical Statistics, MEDMS24B5_1</title>
+<title>21&nbsp; Exercises: A fishy counting trick – Medical Statistics, MEDMS24B5_1</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -158,7 +158,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../exercises/data.html">Exercises</a></li><li class="breadcrumb-item"><a href="../exercises/ex12.html"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Exercises: A Poissonous counting trick</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../exercises/data.html">Exercises</a></li><li class="breadcrumb-item"><a href="../exercises/ex12.html"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Exercises: A fishy counting trick</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -284,7 +284,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session12.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">A Poissonous counting trick</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">A fishy counting trick</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -337,7 +337,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/ex12.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Exercises: A Poissonous counting trick</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Exercises: A fishy counting trick</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -421,14 +421,19 @@ window.Quarto = {
   <ul class="collapse">
 <li><a href="#a-lets-start-off-by-considering-when-in-general-to-use-poisson-logistic-or-normal-regression." id="toc-a-lets-start-off-by-considering-when-in-general-to-use-poisson-logistic-or-normal-regression." class="nav-link" data-scroll-target="#a-lets-start-off-by-considering-when-in-general-to-use-poisson-logistic-or-normal-regression."><span class="header-section-number">21.2.1</span> A: Let’s start off by considering when in general to use Poisson, logistic or normal regression.</a></li>
   <li><a href="#b-analyzing-the-historic-doctors-dataset" id="toc-b-analyzing-the-historic-doctors-dataset" class="nav-link" data-scroll-target="#b-analyzing-the-historic-doctors-dataset"><span class="header-section-number">21.2.2</span> B: Analyzing the historic “Doctors” dataset</a></li>
-  <li><a href="#c-writing-a-clinical-report" id="toc-c-writing-a-clinical-report" class="nav-link" data-scroll-target="#c-writing-a-clinical-report"><span class="header-section-number">21.2.3</span> C: Writing a Clinical Report</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#parameter-irr-se-95-ci-z-p" id="toc-parameter-irr-se-95-ci-z-p" class="nav-link" data-scroll-target="#parameter-irr-se-95-ci-z-p"><span class="header-section-number">21.3</span> Parameter | IRR | SE | 95% CI | z | p</a>
+  <ul class="collapse">
+<li><a href="#c-writing-a-clinical-report" id="toc-c-writing-a-clinical-report" class="nav-link" data-scroll-target="#c-writing-a-clinical-report"><span class="header-section-number">21.3.1</span> C: Writing a Clinical Report</a></li>
   </ul>
 </li>
   </ul><div class="toc-actions"><ul><li><a href="https://github.com/DanMazJen/medicinsk-statistik/edit/main/exercises/ex12.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/blob/main/exercises/ex12.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><script data-goatcounter="https://DanMazJen-medicinsk-statistik.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../exercises/data.html">Exercises</a></li><li class="breadcrumb-item"><a href="../exercises/ex12.html"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Exercises: A Poissonous counting trick</span></a></li></ol></nav><div class="quarto-title">
-<h1 class="title"><span id="sec-ex-poisson" class="quarto-section-identifier"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Exercises: A Poissonous counting trick</span></span></h1>
+<main class="content" id="quarto-document-content"><script data-goatcounter="https://DanMazJen-medicinsk-statistik.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../exercises/data.html">Exercises</a></li><li class="breadcrumb-item"><a href="../exercises/ex12.html"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Exercises: A fishy counting trick</span></a></li></ol></nav><div class="quarto-title">
+<h1 class="title"><span id="sec-ex-poisson" class="quarto-section-identifier"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Exercises: A fishy counting trick</span></span></h1>
 </div>
 
 
@@ -481,7 +486,21 @@ Warning
 <li>Forstå statistiske problemstillinger, der er centrale for medicin med industrial specialisering og forstå, hvordan de biostatistiske værktøjer kan appliceres på disse problemstillinger</li>
 </ul></section><section id="exercises-revisiting-smoking-regulations" class="level2" data-number="21.2"><h2 data-number="21.2" class="anchored" data-anchor-id="exercises-revisiting-smoking-regulations">
 <span class="header-section-number">21.2</span> Exercises: Revisiting smoking regulations</h2>
-<p>You’re working for the Medical Regulations department. You’re tasksed to revisit some of the data that causally linked smoking to cancer.</p>
+<p>You are working in the Medical Regulations Department, where a historical review of evidence used to inform tobacco regulation is underway.</p>
+<p>As part of the review, your team has been given mortality data from the British Doctors Study, the landmark study initiated by Richard Doll and Austin Bradford Hill in the 1950s. The study followed British doctors over many years and recorded their smoking habits and subsequent mortality.</p>
+<p>The dataset available to you is an aggregated version of the historical study. It contains the number of deaths and the total person-years of observation for doctors grouped by age and smoking status.</p>
+<p>At an initial briefing, one analyst presents a simple summary of the data:</p>
+<blockquote class="blockquote">
+<p>“The mortality rate appears to be higher among smokers. The difference is quite striking.”</p>
+</blockquote>
+<p>This catches the attention of the regulatory team. However, another epidemiologist raises an important concern:</p>
+<blockquote class="blockquote">
+<p>“We should be careful about interpreting that comparison. Mortality changes substantially with age, and the smoking groups don’t necessarily contribute the same amount of observation at every age.”</p>
+</blockquote>
+<p>The team therefore decides that simply comparing the number of deaths between smokers and non-smokers is not sufficient. Doctors contribute different amounts of observation time, and age may need to be accounted for when comparing mortality rates.</p>
+<p>You are asked to investigate the historical data more systematically.</p>
+<p>Your task is to examine mortality rates in relation to smoking status while accounting for differences in person-time and age. The department is particularly interested in whether a statistical model can describe the observed mortality patterns and quantify the association between smoking and mortality.</p>
+<p>The data are aggregated, so the analysis will require you to think carefully about what the response variable represents and how the amount of observation differs between groups.</p>
 <section id="a-lets-start-off-by-considering-when-in-general-to-use-poisson-logistic-or-normal-regression." class="level3" data-number="21.2.1"><h3 data-number="21.2.1" class="anchored" data-anchor-id="a-lets-start-off-by-considering-when-in-general-to-use-poisson-logistic-or-normal-regression.">
 <span class="header-section-number">21.2.1</span> A: Let’s start off by considering when in general to use Poisson, logistic or normal regression.</h3>
 <p><strong>Exercise 1A</strong>: Poisson vs.&nbsp;Binomial vs.&nbsp;Gaussian</p>
@@ -499,7 +518,7 @@ Warning
 <li>Logistic regression.</li>
 <li>Poisson.</li>
 </ol></details><p><strong>Exercise 1B</strong>: Reviewing a colleagues paper.</p>
-<p>You’re assigned as a internal peer reviewer for study titled:</p>
+<p>You’re assigned as an internal peer reviewer for a study titled:</p>
 <blockquote class="blockquote">
 <p>Association Between Corticosteroid Therapy and Hospital-Acquired Infections in an Intensive Care Unit</p>
 </blockquote>
@@ -516,10 +535,11 @@ Warning
 </ul>
 <p>A Poisson regression model was fitted.</p>
 <p><strong>Statistical Methods</strong></p>
-<p>Poisson regression was used to estimate the association between corticosteroid therapy and infection occurrence. Age was included as the offset variable to account for differences in patient risk over time. The model included corticosteroid treatment and diabetes as explanatory variables.</p>
+<p>Poisson regression was used to estimate the association between corticosteroid therapy and infection occurrence. Age was included as the offset variable to account for differences in patient risk over time. The model included corticosteroid treatment as main treatment effect and adjusting for diabetes.</p>
 <p>The fitted model was</p>
 <p><span class="math display">\[
-  log(λi​)=β0​+β1​(Steroid)+β2​(Diabetes)+offset(Age)
+  \text{Infections} = Poisson(λ) \\
+  log(λ_i​) = β0​ + β1​(Steroid) + β2​(Diabetes) + \text{offset}(Age)
 \]</span></p>
 <p><strong>results</strong></p>
 <table class="caption-top table">
@@ -550,13 +570,23 @@ Warning
 </tr>
 </tbody>
 </table>
-<p>Raw coeffivients can be seen from the table above.</p>
-<p>Patients receiving corticosteroids had 0.47 times higher odds of developing hospital-acquired infections compared with patients who did not receive corticosteroids (p &lt; 0.001). Likewise, patients with diabetes had 0.29 higher odds of infection than patients without diabetes.</p>
-<p>These findings indicate that corticosteroid therapy substantially increases the odds of hospital-acquired infection after adjustment for age.</p>
+<p>Raw coefficients can be seen from the table above.</p>
+<p>Patients receiving corticosteroids had 0.47 times higher odds of developing hospital-acquired infections compared with patients who did not receive corticosteroids (p &lt; 0.001).</p>
+<p>These findings indicate that corticosteroid therapy substantially increases the odds of hospital-acquired infection after adjustment for age and diabetes.</p>
 <p><strong>Discussion</strong></p>
 <p>After adjusting for age using an offset variable, corticosteroid therapy remained an independent predictor of hospital-acquired infection. The regression coefficient of 0.47 suggests a clinically meaningful increase in infection risk.</p>
 <p>These results support careful monitoring of patients receiving corticosteroids in the ICU.</p>
-<details><summary><strong>Click for the solution</strong>
+<p><strong>Your task:</strong></p>
+<ul>
+<li>Identify all errors you can — you may ask for tips.</li>
+</ul>
+<details><summary><strong>Click for tips</strong>
+</summary><p>There are several mistakes:</p>
+<ul>
+<li>What was age doing in the model?</li>
+<li>What is the table outputting and how did they make inference in the result and discussion section about that?</li>
+<li>Is this Poisson or Logistic regression?</li>
+</ul></details><details><summary><strong>Click for the solution</strong>
 </summary><ol type="1">
 <li>Wrong offset</li>
 </ol>
@@ -570,7 +600,7 @@ Warning
 </ol>
 <ul>
 <li>The text interprets the results as odds (“0.47 times higher odds”).</li>
-<li>Standard Poisson regression estimates incidence rate ratios (IRRs) or rate ratios, not odds ratios.</li>
+<li>Standard Poisson regression estimates log-ratios, not (log) odds ratios. Saying odds ratios or incidence rate ratio (IRRs) is double wrong (see next point).</li>
 </ul>
 <ol start="3" type="1">
 <li>Coefficients not exponentiated</li>
@@ -585,31 +615,180 @@ Warning
 </li>
 </ul></details></section><section id="b-analyzing-the-historic-doctors-dataset" class="level3" data-number="21.2.2"><h3 data-number="21.2.2" class="anchored" data-anchor-id="b-analyzing-the-historic-doctors-dataset">
 <span class="header-section-number">21.2.2</span> B: Analyzing the historic “Doctors” dataset</h3>
-<p>The following R code contains 3 intentional mistakes. Identify and fix them:</p>
+<p>Let’s start by loading the dataset:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Mistake 1: Missing offset for exposure time (e.g., person-years)</span></span>
-<span><span class="co">#model_mistake &lt;- glm(mortality ~ smoker + age,</span></span>
-<span><span class="co">#                     family = poisson(link = "log"),</span></span>
-<span><span class="co">#                     data = doctors)</span></span>
-<span></span>
-<span><span class="co"># Mistake 2: Interpreting the coefficient as odds ratio</span></span>
-<span><span class="co">#summary(model_mistake)  # Student claims: "The odds of death are 1.5x higher for smokers."</span></span>
-<span></span>
-<span><span class="co"># Mistake 3: Not exponentiating the coefficient</span></span>
-<span><span class="co">#coef(model_mistake)     # Student claims: "The coefficient for smoker is 0.4, so smokers have 0.4 more deaths."</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">doctors</span> <span class="op">&lt;-</span> <span class="fu">medisr</span><span class="fu">::</span><span class="va"><a href="https://danmazjen.github.io/medisr/reference/doctors.html">doctors</a></span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>Question: Explain why each mistake is wrong and how to correct it.</p>
-</section><section id="c-writing-a-clinical-report" class="level3" data-number="21.2.3"><h3 data-number="21.2.3" class="anchored" data-anchor-id="c-writing-a-clinical-report">
-<span class="header-section-number">21.2.3</span> C: Writing a Clinical Report</h3>
+<p>You should also read the documentation <code><a href="https://danmazjen.github.io/medisr/reference/doctors.html">?medisr::doctors</a></code>.</p>
+<p><strong>Exercise 1B</strong></p>
+<p>Approach the dataset naïvely by simply counting up the number of deaths for smokers and non-smokers.</p>
+<ul>
+<li>How many died?</li>
+</ul>
+;
+<details><summary><strong>Click for the solution</strong>
+</summary><div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'dplyr'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:stats':
+
+    filter, lag</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">doctors</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">smoking</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>n_deaths <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">deaths</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+  smoking    n_deaths
+  &lt;fct&gt;         &lt;dbl&gt;
+1 non-smoker      101
+2 smoker          630</code></pre>
+</div>
+</div>
+<ul>
+<li>non-smoker: 101</li>
+<li>smoker: 630</li>
+</ul></details><p><strong>Exercise 2B</strong></p>
+<p>Check the balance in the groups.</p>
+<ul>
+<li>How many years in total did the researchers follow the smoking group and how many the non-smoking group?</li>
+</ul>
+;
+<details><summary><strong>Click for the solution</strong>
+</summary><div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">doctors</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">smoking</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>n_years <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">personyears</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+  smoking    n_years
+  &lt;fct&gt;        &lt;dbl&gt;
+1 non-smoker   39220
+2 smoker      142247</code></pre>
+</div>
+</div>
+<ul>
+<li>non-smoker: 39220</li>
+<li>smoker: 142247</li>
+</ul></details><p><strong>Exercise 3B</strong></p>
+<p>Finally, check whether the age groups are composed evenly and whether they are comparable between the smoking groups.</p>
+<ol type="1">
+<li>Which group is nearly half of the participants between 35 to 44 years old?</li>
+<li>In the other group, how many of the age categories has higher percent distribution?</li>
+</ol>
+<p><em>Tip</em>: For each group, compute the percent of all participants belonging to each of the five age groups and visually compare them one by one.</p>
+;
+<details><summary><strong>Click for the solution</strong>
+</summary><div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">doctors</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">smoking</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>percent <span class="op">=</span> <span class="fl">100</span> <span class="op">*</span> <span class="va">personyears</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">personyears</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">age</span>, <span class="va">smoking</span>, <span class="va">percent</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 3
+     age smoking    percent
+   &lt;dbl&gt; &lt;fct&gt;        &lt;dbl&gt;
+ 1     1 smoker       36.8 
+ 2     2 smoker       30.4 
+ 3     3 smoker       20.1 
+ 4     4 smoker        8.90
+ 5     5 smoker        3.74
+ 6     1 non-smoker   47.9 
+ 7     2 non-smoker   27.2 
+ 8     3 non-smoker   14.6 
+ 9     4 non-smoker    6.59
+10     5 non-smoker    3.73</code></pre>
+</div>
+</div>
+<!-- panache-ignore-start-->
+<pre><code>age smoker `non-smoker`</code></pre>
+<p><dbl><dbl><dbl> 1 1 36.8 47.9 2 2 30.4 27.2 3 3 20.1 14.6 4 4 8.90 6.59 5 5 3.74 3.73 <!-- panache-ignore-end--></dbl></dbl></dbl></p>
+<ol type="1">
+<li>non-smokers</li>
+<li>2—5, so the 4 older groups.</li>
+</ol></details><p><strong>Exercise 4B</strong></p>
+<p>Now, run the model naïvely, without accounting for these differences.</p>
+<p>The model will be:</p>
+<p><span class="math display">\[
+  deaths = Poisson(λ) \\
+  log(λ) = β0 + β1_{smoking}
+\]</span> Report the (incorrect) estimand for incidence rate ratio for smoking vs. non-smoking.</p>
+;
+<details><summary><strong>Click for the solution</strong>
+</summary><div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">m4b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span><span class="va">deaths</span> <span class="op">~</span> <span class="va">smoking</span>,</span>
+<span>                     family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html">poisson</a></span><span class="op">(</span>link <span class="op">=</span> <span class="st">"log"</span><span class="op">)</span>,</span>
+<span>                     data <span class="op">=</span> <span class="va">doctors</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">m4b</span> <span class="op">|&gt;</span> <span class="fu">parameters</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/parameters/reference/model_parameters.html">parameters</a></span><span class="op">(</span>exponentiate<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 9
+  Parameter     Coefficient    SE    CI CI_low CI_high     z df_error
+  &lt;chr&gt;               &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;
+1 (Intercept)         20.2  2.01   0.95  16.5    24.4   30.2      Inf
+2 smokingsmoker        6.24 0.669  0.95   5.08    7.74  17.1      Inf
+# ℹ 1 more variable: p &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<!-- panache-ignore-start-->
+</details></section></section><section id="parameter-irr-se-95-ci-z-p" class="level2" data-number="21.3"><h2 data-number="21.3" class="anchored" data-anchor-id="parameter-irr-se-95-ci-z-p">
+<span class="header-section-number">21.3</span> Parameter | IRR | SE | 95% CI | z | p</h2>
+<p>(Intercept) | 20.20 | 2.01 | [16.51, 24.40] | 30.21 | &lt; .001 smoking [smoker] | 6.24 | 0.67 | [ 5.08, 7.74] | 17.08 | &lt; .001 <!-- panache-ignore-end--></p>
+
+<p><strong>Exercise 5B</strong></p>
+<p>Let’s try to correct for these issues.</p>
+<p>Provide the scientific regression equation we will run</p>
+<details><summary><strong>Click for the solution</strong>
+</summary><p>The model will be:</p>
+<p><span class="math display">\[
+  deaths = Poisson(λ) \\
+  log(λ) = β0 + β1_{smoking} + β2_{age} + \text{offset}(personyears)
+\]</span></p>
+<p><em>Note that the offset does not have a β coefficient associated with it!</em></p>
+</details><p><strong>Exercise 6B</strong></p>
+<p>The following R code contains two mistakes. Identify and fix them:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">m5b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span><span class="va">deaths</span> <span class="op">~</span> <span class="va">smoking</span> <span class="op">+</span> <span class="va">age</span>,</span>
+<span>                     family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html">poisson</a></span><span class="op">(</span>link <span class="op">=</span> <span class="st">"logit"</span><span class="op">)</span>,</span>
+<span>                     offset <span class="op">=</span> <span class="va">personyears</span>,</span>
+<span>                     data <span class="op">=</span> <span class="va">doctors</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<details><summary><strong>Click for the solution</strong>
+</summary><div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Mistake 1: the offset should be log-personyears!</span></span>
+<span><span class="co"># Mistake 2: the link should be log (logit is for logistic regression)!</span></span>
+<span><span class="va">m6b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span><span class="va">deaths</span> <span class="op">~</span> <span class="va">smoking</span> <span class="op">+</span> <span class="va">age</span>,</span>
+<span>                     family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html">poisson</a></span><span class="op">(</span>link <span class="op">=</span> <span class="st">"log"</span><span class="op">)</span>,</span>
+<span>                     offset <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="va">personyears</span><span class="op">)</span>,</span>
+<span>                     data <span class="op">=</span> <span class="va">doctors</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</details><section id="c-writing-a-clinical-report" class="level3" data-number="21.3.1"><h3 data-number="21.3.1" class="anchored" data-anchor-id="c-writing-a-clinical-report">
+<span class="header-section-number">21.3.1</span> C: Writing a Clinical Report</h3>
 <p><strong>Exercise 3A:</strong></p>
+<p>The final model is provided in <strong>Exercise 6B</strong>. If you didn’t make that exercise, go ahead and see the solution and copy the code. You will not make inference based on the model.</p>
+<p>You will write a clincal report based on the inference we got from the model.</p>
+<blockquote class="blockquote">
 <p>Structuring the Report</p>
+</blockquote>
 <ul>
 <li>1: How would you explain the incidence rate ratio (IRR) to a clinician who is not familiar with statistics?</li>
-<li>2: Write a 1-paragraph summary of the findings from your Poisson model (from Exercise 2A) for a clinical audience.</li>
-<li>3: How would you visually present the effect of smoking on mortality in a figure for the report? Describe the plot.</li>
-<li>4: Now implement the plot using {ggplot2}.</li>
-<li>5: Make a legend to the plot so that others can read it with the intention you had.</li>
+<li>2: Write a 1-paragraph summary of the findings from your Poisson model for a clinical audience.</li>
+<li>3: Compare these results to the naïve model from <strong>Exercise 4B</strong>
+</li>
+<li>4: How would you visually present the effect of smoking on mortality in a figure for the report? Describe the plot.</li>
+<li>5: Now implement the plot using {ggplot2}.</li>
+<li>6: Make a legend to the plot so that others can read it with the intention you had.</li>
 </ul>
+<p>No solution is given here, as you can be creative 😄</p>
+<p>Please discuss your ideas with the instructors!</p>
 
 
 </section></section><script async="" src="https://scripts.simpleanalyticscdn.com/latest.js"></script></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">

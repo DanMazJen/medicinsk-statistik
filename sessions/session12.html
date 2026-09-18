@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.10.18">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>14&nbsp; A Poissonous counting trick – Medical Statistics, MEDMS24B5_1</title>
+<title>14&nbsp; A fishy counting trick – Medical Statistics, MEDMS24B5_1</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -58,7 +58,26 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
@@ -158,7 +177,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/session01.html">Sessions</a></li><li class="breadcrumb-item"><a href="../sessions/session12.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">A Poissonous counting trick</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/session01.html">Sessions</a></li><li class="breadcrumb-item"><a href="../sessions/session12.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">A fishy counting trick</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -284,7 +303,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sessions/session12.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">A Poissonous counting trick</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">A fishy counting trick</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -337,7 +356,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/ex12.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Exercises: A Poissonous counting trick</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Exercises: A fishy counting trick</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -427,7 +446,7 @@ window.Quarto = {
 </li>
   <li><a href="#can-we-use-logistic-regression" id="toc-can-we-use-logistic-regression" class="nav-link" data-scroll-target="#can-we-use-logistic-regression"><span class="header-section-number">14.5</span> Can we use logistic regression?</a></li>
   <li>
-<a href="#reading-task-when-the-odds-are-low-go-poisson" id="toc-reading-task-when-the-odds-are-low-go-poisson" class="nav-link" data-scroll-target="#reading-task-when-the-odds-are-low-go-poisson"><span class="header-section-number">14.6</span> Reading Task: When the odds are low, go Poisson!</a>
+<a href="#sec-whenpoisson" id="toc-sec-whenpoisson" class="nav-link" data-scroll-target="#sec-whenpoisson"><span class="header-section-number">14.6</span> Reading Task: When the odds are low, go Poisson!</a>
   <ul class="collapse">
 <li><a href="#which-link" id="toc-which-link" class="nav-link" data-scroll-target="#which-link"><span class="header-section-number">14.6.1</span> Which link?</a></li>
   </ul>
@@ -444,9 +463,10 @@ window.Quarto = {
 </li>
   <li><a href="#a-direct-comparison-of-gaussian-and-poisson-regression" id="toc-a-direct-comparison-of-gaussian-and-poisson-regression" class="nav-link" data-scroll-target="#a-direct-comparison-of-gaussian-and-poisson-regression"><span class="header-section-number">14.12</span> A direct comparison of Gaussian and Poisson regression</a></li>
   <li>
-<a href="#reading-task-fair-game---normalizing-the-exposure-time" id="toc-reading-task-fair-game---normalizing-the-exposure-time" class="nav-link" data-scroll-target="#reading-task-fair-game---normalizing-the-exposure-time"><span class="header-section-number">14.13</span> Reading task: Fair game - normalizing the exposure time</a>
+<a href="#reading-task-shifting-perspectives---from-absolute-counts-to-relative-rates" id="toc-reading-task-shifting-perspectives---from-absolute-counts-to-relative-rates" class="nav-link" data-scroll-target="#reading-task-shifting-perspectives---from-absolute-counts-to-relative-rates"><span class="header-section-number">14.13</span> Reading task: Shifting perspectives - from absolute counts to relative rates</a>
   <ul class="collapse">
-<li><a href="#simulating-an-example" id="toc-simulating-an-example" class="nav-link" data-scroll-target="#simulating-an-example"><span class="header-section-number">14.13.1</span> Simulating an example:</a></li>
+<li><a href="#the-offset" id="toc-the-offset" class="nav-link" data-scroll-target="#the-offset"><span class="header-section-number">14.13.1</span> The offset</a></li>
+  <li><a href="#simulating-an-example" id="toc-simulating-an-example" class="nav-link" data-scroll-target="#simulating-an-example"><span class="header-section-number">14.13.2</span> Simulating an example:</a></li>
   </ul>
 </li>
   <li>
@@ -456,20 +476,21 @@ window.Quarto = {
   <li><a href="#making-sound-inference" id="toc-making-sound-inference" class="nav-link" data-scroll-target="#making-sound-inference"><span class="header-section-number">14.14.2</span> Making sound inference:</a></li>
   </ul>
 </li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">14.15</span> Summary:</a></li>
-  <li><a href="#extra-material" id="toc-extra-material" class="nav-link" data-scroll-target="#extra-material"><span class="header-section-number">14.16</span> EXTRA MATERIAL</a></li>
+  <li><a href="#logistic-vs-poisson-for-binary-outcomes" id="toc-logistic-vs-poisson-for-binary-outcomes" class="nav-link" data-scroll-target="#logistic-vs-poisson-for-binary-outcomes"><span class="header-section-number">14.15</span> Logistic vs Poisson for binary outcomes</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">14.16</span> Summary:</a></li>
+  <li><a href="#extra-material" id="toc-extra-material" class="nav-link" data-scroll-target="#extra-material"><span class="header-section-number">14.17</span> EXTRA MATERIAL</a></li>
   <li>
-<a href="#telling-your-model-that-people-respond-differently" id="toc-telling-your-model-that-people-respond-differently" class="nav-link" data-scroll-target="#telling-your-model-that-people-respond-differently"><span class="header-section-number">14.17</span> Telling your model that people respond differently</a>
+<a href="#telling-your-model-that-people-respond-differently" id="toc-telling-your-model-that-people-respond-differently" class="nav-link" data-scroll-target="#telling-your-model-that-people-respond-differently"><span class="header-section-number">14.18</span> Telling your model that people respond differently</a>
   <ul class="collapse">
-<li><a href="#the-theory" id="toc-the-theory" class="nav-link" data-scroll-target="#the-theory"><span class="header-section-number">14.17.1</span> The theory</a></li>
-  <li><a href="#the-practice" id="toc-the-practice" class="nav-link" data-scroll-target="#the-practice"><span class="header-section-number">14.17.2</span> The practice</a></li>
+<li><a href="#the-theory" id="toc-the-theory" class="nav-link" data-scroll-target="#the-theory"><span class="header-section-number">14.18.1</span> The theory</a></li>
+  <li><a href="#the-practice" id="toc-the-practice" class="nav-link" data-scroll-target="#the-practice"><span class="header-section-number">14.18.2</span> The practice</a></li>
   </ul>
 </li>
   </ul><div class="toc-actions"><ul><li><a href="https://github.com/DanMazJen/medicinsk-statistik/edit/main/sessions/session12.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/blob/main/sessions/session12.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><script data-goatcounter="https://DanMazJen-medicinsk-statistik.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/session01.html">Sessions</a></li><li class="breadcrumb-item"><a href="../sessions/session12.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">A Poissonous counting trick</span></a></li></ol></nav><div class="quarto-title">
-<h1 class="title"><span id="sec-poisson" class="quarto-section-identifier"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">A Poissonous counting trick</span></span></h1>
+<main class="content" id="quarto-document-content"><script data-goatcounter="https://DanMazJen-medicinsk-statistik.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/session01.html">Sessions</a></li><li class="breadcrumb-item"><a href="../sessions/session12.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">A fishy counting trick</span></a></li></ol></nav><div class="quarto-title">
+<h1 class="title"><span id="sec-poisson" class="quarto-section-identifier"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">A fishy counting trick</span></span></h1>
 </div>
 
 
@@ -630,7 +651,7 @@ Baseline seizures ─────► Outcome (Seizures)
 <details><summary><strong>Click for a potential solution</strong>
 </summary><div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-dag" class="quarto-float quarto-figure quarto-figure-center anchored" width="70%" data-fig-align="center">
+<div id="fig-dag" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" width="70%">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-dag-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="session12_files/figure-html/fig-dag-1.png" id="fig-dag" class="img-fluid quarto-figure quarto-figure-center anchored figure-img" style="width:70.0%">
 </div>
@@ -651,7 +672,7 @@ Figure&nbsp;14.1
 <span class="header-section-number">14.4.2</span> Exploring the data for familiarization</h3>
 <p>Let’s explore the dataset a bit — but before we do, I’ll do some tidying of the dataset using <a href="https://dplyr.tidyverse.org">dplyr</a> for wrangling. I’m not gonna explain this bit, as you can go back to session 8 by Rasmus for working with <a href="https://dplyr.tidyverse.org">dplyr</a> for wrangling.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">epil</span><span class="op">)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">epil</span> <span class="op">&lt;-</span> <span class="fu">MASS</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/MASS/man/epil.html">epil</a></span> <span class="co"># this is not from medisr</span></span>
 <span></span>
 <span><span class="va">epil</span> <span class="op">&lt;-</span> <span class="va">epil</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu">rename</span><span class="op">(</span></span>
@@ -726,7 +747,7 @@ $ log_age           &lt;dbl&gt; 0.11420370, 0.08141387, -0.10090768, 0.26373…<
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com">patchwork</a></span><span class="op">)</span></span>
 <span><span class="va">baseline_data_plot</span> <span class="op">+</span> <span class="va">posttrial_data_plot</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div id="fig-explore1" class="quarto-float quarto-figure quarto-figure-center anchored" width="70%" data-fig-align="center">
+<div id="fig-explore1" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" width="70%">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-explore1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="session12_files/figure-html/fig-explore1-1.png" id="fig-explore1" class="img-fluid quarto-figure quarto-figure-center anchored figure-img" style="width:70.0%">
 </div>
@@ -768,7 +789,7 @@ Figure&nbsp;14.2
 <li>Only two outcomes: 0 or 1 (heads or tails, dead or alive, left or right)</li>
 <li>The logit link transforms our outcome variable to a linear space called log-odds that goes from <span class="math inline">\(-\infty\)</span> to <span class="math inline">\(\infty\)</span>.</li>
 <li>The logistic function transforms our data back to the outcome space (probabilities that goes from 0—1).</li>
-</ul></section><section id="reading-task-when-the-odds-are-low-go-poisson" class="level2" data-number="14.6"><h2 data-number="14.6" class="anchored" data-anchor-id="reading-task-when-the-odds-are-low-go-poisson">
+</ul></section><section id="sec-whenpoisson" class="level2" data-number="14.6"><h2 data-number="14.6" class="anchored" data-anchor-id="sec-whenpoisson">
 <span class="header-section-number">14.6</span> Reading Task: When the odds are low, go Poisson!</h2>
 <p>As the case states, we did not manipulate how many seizures the patients were able to get in the trial period. While we could assume that the baseline was the maximum, it would completely break the logistic regression if we got more seizures after — aka higher than 100% probability 😅</p>
 <p>While the binomail distribution is great when <em>N</em> is known (trial count), there exists studies where you don’t know the upper limit (counting fish, selling a product, etc.) — what is the upper bound of fish in a lake we haven’t fully accounted for?</p>
@@ -783,7 +804,7 @@ Figure&nbsp;14.2
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html">rbinom</a></span><span class="op">(</span><span class="fl">1e5</span>, <span class="fl">1000</span>, <span class="fl">1</span><span class="op">/</span><span class="fl">1000</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">var</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1.001980 1.001306</code></pre>
+<pre><code>[1] 1.00013 1.00854</code></pre>
 </div>
 </div>
 <p>As a result, the distribution only has one parameter, λ (pronounced <em>lambda</em>).</p>
@@ -1203,7 +1224,7 @@ plot_baseline_pred
 <span>    <span class="fu">labs</span><span class="op">(</span></span>
 <span>    y<span class="op">=</span><span class="st">"Count outcome space"</span></span>
 <span><span class="op">)</span> <span class="op">+</span> <span class="fu">coord_cartesian</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">5</span>,<span class="fl">150</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">5</span>,<span class="fl">150</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell quarto-layout-panel" data-layout-align="center" data-layout-ncol="2">
+<div class="cell quarto-layout-panel" data-layout-ncol="2" data-layout-align="center">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
@@ -1305,15 +1326,26 @@ plot_baseline_pred
 </div>
 <p>Notice that:</p>
 <ol type="1">
-<li>The predicted seizure count at follow-up produces negative values for the treatment group with low disease burden. This is of course nonsense! <code>r</code>
-</li>
+<li>The predicted seizure count at follow-up produces negative values for the treatment group with low disease burden. This is of course nonsense!</li>
 <li>The interaction effect makes the drug effect flip at around 50 <code>baseline_seizures</code>. This is surprising and would require rigorous follow-up tests.</li>
 <li><!-- TODO: Write text here --></li>
-</ol></section><section id="reading-task-fair-game---normalizing-the-exposure-time" class="level2" data-number="14.13"><h2 data-number="14.13" class="anchored" data-anchor-id="reading-task-fair-game---normalizing-the-exposure-time">
-<span class="header-section-number">14.13</span> Reading task: Fair game - normalizing the exposure time</h2>
-<p>The parameter λ is commonly interpreted as a <em>rate</em>.</p>
-<p>The rate interpretation is nice for allowing varying expoure time.</p>
-<p>Implizitly, λ is equal to an expected number of events, μ, per unit time or distance, τ. This implies that <span class="math inline">\(λ = μ/τ\)</span>, which lets us redefine the link:</p>
+</ol></section><section id="reading-task-shifting-perspectives---from-absolute-counts-to-relative-rates" class="level2" data-number="14.13"><h2 data-number="14.13" class="anchored" data-anchor-id="reading-task-shifting-perspectives---from-absolute-counts-to-relative-rates">
+<span class="header-section-number">14.13</span> Reading task: Shifting perspectives - from absolute counts to relative rates</h2>
+<p>Until now, we have considered the outcome scale as an absolute count. This is nice when working with balanced groups or individual-level inference. But often, we work with large populations with different seizes. In such cases, we should interpreted the parameter, λ, as a <em>rate</em>.</p>
+<p><strong>What is a rate?</strong></p>
+<p>A rate tells us how much one thing changes compared with another. In simple terms, it answers the question:</p>
+<blockquote class="blockquote">
+<p>“How much of something happens for each unit of something else?”</p>
+</blockquote>
+<p>Rates are especially useful in biomedical science because many biological processes happen over time. For example, we can describe how quickly a patient’s heart rate changes, how fast a drug is eliminated from the body, or how quickly a wound heals.</p>
+<p>A rate is usually written as a fraction:</p>
+<p><span class="math display">\[
+  rate = \frac{{\text{change in Y}}}{\text{for X unit}}
+\]</span></p>
+<p>The denominator tells us what we are measuring the change against, such as time, while the numerator tells us what is changing.</p>
+<section id="the-offset" class="level3" data-number="14.13.1"><h3 data-number="14.13.1" class="anchored" data-anchor-id="the-offset">
+<span class="header-section-number">14.13.1</span> The offset</h3>
+<p>Implicitly, λ is equal to an expected number of events, μ, per unit time or distance, τ. This implies that <span class="math inline">\(λ = \frac{μ}{τ}\)</span>, which lets us redefine the link:</p>
 <p><span class="math display">\[
   y_i \sim Poisson(λ_i) \\
   log λ_i = log \frac{μ_i}{τ_i} = α + βx_i
@@ -1335,8 +1367,8 @@ plot_baseline_pred
 <p>Where τ is a column in the data. It’s just like adding a predictor (taking its log) without adding a parameter for it!</p>
 <p>If you put a parameter in front of τ, you’re able to model the hypothesis that the rate is not constant with time.</p>
 <p><em>Remember:</em> When the length of observations, area of sampling, or intensity of sampling varies, the counts we observe also naturally vary! Poisson assumes stationarity (time/space) — here, we add an offset! That is — the logarithm of the exposure unit.</p>
-<section id="simulating-an-example" class="level3" data-number="14.13.1"><h3 data-number="14.13.1" class="anchored" data-anchor-id="simulating-an-example">
-<span class="header-section-number">14.13.1</span> Simulating an example:</h3>
+</section><section id="simulating-an-example" class="level3" data-number="14.13.2"><h3 data-number="14.13.2" class="anchored" data-anchor-id="simulating-an-example">
+<span class="header-section-number">14.13.2</span> Simulating an example:</h3>
 <p>Consider the case of reporting events (e.g., death) at two hospitals. Hospital 1 records daily events (30 observations of one day each), while Hospital 2 records weekly events (4 observations, each representing seven days).</p>
 <p>If we simply modeled the raw event counts, Hospital 2 would naturally tend to have larger counts because each observation covers a longer period of time.</p>
 <div class="cell" data-layout-align="center">
@@ -1347,7 +1379,7 @@ plot_baseline_pred
 <span></span>
 <span><span class="va">hospital1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Poisson.html">rpois</a></span> <span class="op">(</span><span class="va">num_days</span>, <span class="fl">1.5</span><span class="op">)</span> <span class="co"># 1.5 events per day</span></span>
 <span></span>
-<span><span class="va">hospital2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Poisson.html">rpois</a></span><span class="op">(</span><span class="va">num_weeks</span>, <span class="fl">0.5</span><span class="op">*</span><span class="fl">7</span><span class="op">)</span> <span class="co"># events * lowst unit (i.e., days)</span></span>
+<span><span class="va">hospital2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Poisson.html">rpois</a></span><span class="op">(</span><span class="va">num_weeks</span>, <span class="fl">0.5</span><span class="op">*</span><span class="fl">7</span><span class="op">)</span> <span class="co"># 0.5 events per day scaled to a week</span></span>
 <span></span>
 <span><span class="va">events</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">hospital1</span>, <span class="va">hospital2</span><span class="op">)</span></span>
 <span><span class="va">exposure</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1</span>,<span class="va">num_days</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">7</span>,<span class="va">num_weeks</span><span class="op">)</span><span class="op">)</span></span>
@@ -1407,7 +1439,8 @@ plot_baseline_pred
 </div>
 </div>
 <p>Oh, wow! Esborg has a 2.2340426 rate ratio compared to Aalbjerg!</p>
-<p>That is alarming and someone should figure out why so many events are taking place in Esborg.</p>
+<p>How many counts is that? Intercept (Aalbjerg estimate) <code>exp(sim_m1$coefficients[1])</code> × <span class="math inline">\(β_{Esborg}\)</span> <code>exp(sim_m1$coefficients[2])</code> is <code>exp(sim_m1$coefficients[1])*exp(sim_m1$coefficients[2])</code>.</p>
+<p>That is alarming and someone should figure out why so many events are taking place in Esborg compared to Aalbjerg!</p>
 <p>Let’s add an offset and see what this gives us:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sim_m2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span> <span class="va">events</span> <span class="op">~</span> <span class="va">hospital_id</span>,</span>
@@ -1426,6 +1459,7 @@ plot_baseline_pred
 </div>
 </div>
 <p>Oh, no! Now Esborg has a 0.3191489 rate ratio compared to Aalbjerg!</p>
+<p>How many counts is that now? Intercept (Aalbjerg estimate) <code>exp(sim_m2$coefficients[1])</code> × <span class="math inline">\(β_{Esborg}\)</span> <code>exp(sim_m2$coefficients[2])</code> is <code>exp(sim_m2$coefficients[1])*exp(sim_m2$coefficients[2])</code>.</p>
 <blockquote class="blockquote">
 <p>How can this be? What should we trust?</p>
 </blockquote>
@@ -1443,7 +1477,7 @@ plot_baseline_pred
 \]</span></p>
 </li>
 </ul>
-<p>This means <code>Esborg</code> has about one-third the event rate of <code>Aalbjerg</code> (equivalently, about a 67% lower event rate). Since we are fitting a Poisson model, this exponentiated coefficient is interpreted as an incidence rate ratio (IRR).</p>
+<p>This means <code>Esborg</code> has about one-third the event rate of <code>Aalbjerg</code> (equivalently, about a 67% points lower event rate). Since we are fitting a Poisson model, this exponentiated coefficient is interpreted as an incidence rate ratio (IRR).</p>
 <p>Note: <em>Small differences between the estimated and true values are expected because the data are randomly simulated and we have low sample size</em>.</p>
 </section><section id="making-sound-inference" class="level3" data-number="14.14.2"><h3 data-number="14.14.2" class="anchored" data-anchor-id="making-sound-inference">
 <span class="header-section-number">14.14.2</span> Making sound inference:</h3>
@@ -1483,13 +1517,107 @@ plot_baseline_pred
 \]</span></p>
 <p>But now the intercept is 11.75 — effectively seven times as large!</p>
 <p>This way, you are in charge of what exposure time you want to report 🎉</p>
-</section></section><section id="summary" class="level2" data-number="14.15"><h2 data-number="14.15" class="anchored" data-anchor-id="summary">
-<span class="header-section-number">14.15</span> Summary:</h2>
+</section></section><section id="logistic-vs-poisson-for-binary-outcomes" class="level2" data-number="14.15"><h2 data-number="14.15" class="anchored" data-anchor-id="logistic-vs-poisson-for-binary-outcomes">
+<span class="header-section-number">14.15</span> Logistic vs Poisson for binary outcomes</h2>
+<p>As you might have noted in the simulation above, the outcome was actually binary (event happened or not) — shouldn’t we use logistic regression for such outcomes?</p>
+<p>Recall <a href="#sec-whenpoisson" class="quarto-xref"><span>Section 14.6</span></a> — when the rate is low, a binomial distribution transform into the Poisson distribution. So some binary events can be modeled as Poisson, given a few assumptions:</p>
+<ul>
+<li>low rate</li>
+<li>variance scales with <em>n</em> (see <a href="#sec-whenpoisson" class="quarto-xref"><span>Section 14.6</span></a>).</li>
+</ul>
+<p>In reality, most epidemiologists and clinicians are interested in the <strong>relative risk</strong> between groups, not the incidence rate ratio. And given the fact that a logistic regression would give the relative risk…</p>
+<blockquote class="blockquote">
+<p>Does that mean that we can call the above a relative risk instead of an incidence rate ratio?</p>
+</blockquote>
+<p>Not quite 😅</p>
+<p>A relative risk compares the <strong>risk (cumulative incidence)</strong> of an outcome between groups:</p>
+<p><span class="math display">\[
+  RR = \frac{Risk in exposed group}{Risk in unexposed group}
+\]</span></p>
+<p>Suppose 10 out of 100 patients die at hospital A, while 5 out of 100 dies at hospital B.</p>
+<p>The relative risk between the two hospitals is</p>
+<p><span class="math display">\[
+  RR = \frac{10\%}{5\%} = 2
+\]</span></p>
+<p>So, hospital A has 2 times the risk of death.</p>
+<p>An incidence rate ratio compares <strong>the rate at which new cases occur</strong>, taking into account how much person-time people are observed.</p>
+<p>This is what we did in the simulation example above.</p>
+<p>1.5 events per day vs 0.5 events per day gives a 0.33 incidence rate ratio.</p>
+<p>Estimating a relative risk from binary outcome data requires a modified Poisson regression (using robust standard errors) rather than a standard Poisson model (see <span class="citation" data-cites="zou2004modified">(<a href="../appendix/references.html#ref-zou2004modified" role="doc-biblioref">1</a>)</span>).</p>
+<p>This is how you could compute that in R:</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># 1. Fit standard Poisson GLM with log link on binary data</span></span>
+<span><span class="va">model_irr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span></span>
+<span>  <span class="va">seizure_count</span> <span class="op">~</span> <span class="va">drug</span> <span class="op">+</span> <span class="va">baseline_seizures</span>,</span>
+<span>  data <span class="op">=</span> <span class="va">epil</span>,</span>
+<span>  family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html">poisson</a></span><span class="op">(</span>link <span class="op">=</span> <span class="st">"log"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">irr</span> <span class="op">&lt;-</span> <span class="fu">parameters</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/parameters/reference/model_parameters.html">model_parameters</a></span><span class="op">(</span></span>
+<span>  <span class="va">model_irr</span>,</span>
+<span>  exponentiate <span class="op">=</span> <span class="cn">TRUE</span>  <span class="co"># Get IRR</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="co"># 2. Compute Average Risk Ratio (Relative Risk) using robust standard errors</span></span>
+<span><span class="va">rr</span> <span class="op">&lt;-</span> <span class="fu">avg_comparisons</span><span class="op">(</span><span class="va">model_irr</span>,</span>
+<span>                variables <span class="op">=</span> <span class="st">"drug"</span>,</span>
+<span>                comparison <span class="op">=</span> <span class="st">"lnratioavg"</span>, <span class="co"># Calculates adjusted Risk Ratio</span></span>
+<span>                transform <span class="op">=</span> <span class="va">exp</span>, <span class="co"># then exponentiates</span></span>
+<span>                vcov <span class="op">=</span> <span class="fu">sandwich</span><span class="fu">::</span><span class="fu"><a href="https://zeileis.codeberg.page/sandwich/reference/vcovHC.html">vcovHC</a></span><span class="op">(</span><span class="va">model_irr</span>, type <span class="op">=</span> <span class="st">"HC3"</span><span class="op">)</span><span class="op">)</span> <span class="co"># Applies robust standard errors due to poisson regression approach</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Note the two important parameters:</p>
+<ul>
+<li><code>comparison = "lnratioavg"</code></li>
+</ul>
+<p>This argument tells marginaleffects to calculate the relative risk. It computes the log of the ratio of predicted probabilities, averages them across your sample, and then transforms them back to the risk ratio scale.</p>
+<ul>
+<li><code>vcov = vcovHC(...)</code></li>
+</ul>
+<p>This step is crucial for the Poisson model. It corrects the standard errors for the binomial nature of your binary data, preventing falsely narrow confidence intervals.</p>
+<p>Finally, we can appreciate the difference of the estimates using a plot:</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb38"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu">bind_rows</span><span class="op">(</span></span>
+<span>  <span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">rr</span>, conf.int <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">term</span> <span class="op">==</span> <span class="st">"drug"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
+<span>        measure <span class="op">=</span> <span class="st">"RR"</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>  <span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">model_irr</span>,</span>
+<span>  conf.int <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  exponentiate <span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">term</span> <span class="op">==</span> <span class="st">"drugprogabide"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>measure <span class="op">=</span> <span class="st">"IRR"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/transmute.html">transmute</a></span><span class="op">(</span><span class="va">measure</span>, <span class="va">estimate</span>, <span class="va">conf.low</span>, <span class="va">conf.high</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">ggplot</span><span class="op">(</span><span class="va">df</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">estimate</span>, <span class="va">measure</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_errorbarh</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>xmin <span class="op">=</span> <span class="va">conf.low</span>, xmax <span class="op">=</span> <span class="va">conf.high</span><span class="op">)</span>, height <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">theme_minimal</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_vline</span><span class="op">(</span>xintercept <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: `geom_errorbarh()` was deprecated in ggplot2 4.0.0.
+ℹ Please use the `orientation` argument of `geom_errorbar()` instead.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`height` was translated to `width`.</code></pre>
+</div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="session12_files/figure-html/plot-irr-rr-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Note that while the while the estimate remains the same, the standard error is adjusted. This leads to different confidence intervals, and eventually also different <em>p</em>-value. In this case, it was enough to change from a significant IRR to a non-significant RR.</p>
+</section><section id="summary" class="level2" data-number="14.16"><h2 data-number="14.16" class="anchored" data-anchor-id="summary">
+<span class="header-section-number">14.16</span> Summary:</h2>
 <p>This session introduced the Poisson distribution and how to use it in regression (within the GLM framework). We covered it’s relationship to logistic regression and why it’s necessary in favor of the gaussian linear regression. We also covered how the coefficients are interpreted (incidence rate-ratio), and how we invert the coefficients (taking it’s exponential). Finally, we covered the assumptions (dispersion) and how to adjust different exposure times (including an offset).</p>
-</section><section id="extra-material" class="level2" data-number="14.16"><h2 data-number="14.16" class="anchored" data-anchor-id="extra-material">
-<span class="header-section-number">14.16</span> EXTRA MATERIAL</h2>
-</section><section id="telling-your-model-that-people-respond-differently" class="level2" data-number="14.17"><h2 data-number="14.17" class="anchored" data-anchor-id="telling-your-model-that-people-respond-differently">
-<span class="header-section-number">14.17</span> Telling your model that people respond differently</h2>
+</section><section id="extra-material" class="level2" data-number="14.17"><h2 data-number="14.17" class="anchored" data-anchor-id="extra-material">
+<span class="header-section-number">14.17</span> EXTRA MATERIAL</h2>
+</section><section id="telling-your-model-that-people-respond-differently" class="level2" data-number="14.18"><h2 data-number="14.18" class="anchored" data-anchor-id="telling-your-model-that-people-respond-differently">
+<span class="header-section-number">14.18</span> Telling your model that people respond differently</h2>
 <!--
 Poisson models often have a lot of unexplained variance, mainly from ignoring
 *rate heterogeneity*.
@@ -1498,8 +1626,8 @@ The gamma-Poisson is a mixture of different Poisson distributions (similar to
 how Student-t is a mixture of Gaussians).
 -->
 <p>What a cool model we have! But wait… Did we check for any assumptions yet? And what are the assumptions specific to Poisson regression?</p>
-<section id="the-theory" class="level3" data-number="14.17.1"><h3 data-number="14.17.1" class="anchored" data-anchor-id="the-theory">
-<span class="header-section-number">14.17.1</span> The theory</h3>
+<section id="the-theory" class="level3" data-number="14.18.1"><h3 data-number="14.18.1" class="anchored" data-anchor-id="the-theory">
+<span class="header-section-number">14.18.1</span> The theory</h3>
 <p>Our Poisson model assumes that the number of seizures follows a Poisson distribution,</p>
 <p><span class="math display">\[
   Y_i \sim \text{Poisson}(\mu_i),
@@ -1535,12 +1663,12 @@ how Student-t is a mixture of Gaussians).
   \mathrm{Var}(Y_i) \rightarrow \mu_i,
 \]</span></p>
 <p>so the negative binomial model reduces to the ordinary Poisson model.</p>
-</section><section id="the-practice" class="level3" data-number="14.17.2"><h3 data-number="14.17.2" class="anchored" data-anchor-id="the-practice">
-<span class="header-section-number">14.17.2</span> The practice</h3>
+</section><section id="the-practice" class="level3" data-number="14.18.2"><h3 data-number="14.18.2" class="anchored" data-anchor-id="the-practice">
+<span class="header-section-number">14.18.2</span> The practice</h3>
 <p>Before fitting a negative binomial model, it is useful to check whether the Poisson assumptions appear reasonable. The <code><a href="https://easystats.github.io/performance/reference/check_overdispersion.html">performance::check_overdispersion()</a></code> function compares the observed variability with the variability expected under the fitted Poisson model. Evidence of substantial overdispersion suggests that the Poisson model is likely underestimating uncertainty.</p>
 <p>The <code><a href="https://easystats.github.io/performance/reference/check_model.html">performance::check_model()</a></code> function provides additional diagnostic plots for evaluating the adequacy of the fitted model. If overdispersion is present, we can fit a negative binomial model using <code><a href="https://rdrr.io/pkg/MASS/man/glm.nb.html">MASS::glm.nb()</a></code>. The interpretation of the regression coefficients remains unchanged: exponentiating a coefficient gives the multiplicative change in the expected seizure rate, just as in the Poisson model. The only difference is that the negative binomial model explicitly allows for unexplained patient-to-patient variability.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">performance</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/performance/reference/check_overdispersion.html">check_overdispersion</a></span><span class="op">(</span><span class="va">m2_baseline</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb41"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">performance</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/performance/reference/check_overdispersion.html">check_overdispersion</a></span><span class="op">(</span><span class="va">m2_baseline</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># Overdispersion test
 
@@ -1551,7 +1679,7 @@ how Student-t is a mixture of Gaussians).
 <div class="cell-output cell-output-stderr">
 <pre><code>Overdispersion detected.</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb40"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">performance</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/performance/reference/check_model.html">check_model</a></span><span class="op">(</span><span class="va">m2_baseline</span><span class="op">)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb44"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">performance</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/performance/reference/check_model.html">check_model</a></span><span class="op">(</span><span class="va">m2_baseline</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">m3_nb</span> <span class="op">&lt;-</span> <span class="fu">MASS</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/MASS/man/glm.nb.html">glm.nb</a></span><span class="op">(</span><span class="va">seizure_count</span> <span class="op">~</span> <span class="va">drug</span> <span class="op">*</span> <span class="va">baseline_seizures</span>,</span>
 <span>    data <span class="op">=</span> <span class="va">epil</span></span>
@@ -1561,7 +1689,7 @@ how Student-t is a mixture of Gaussians).
 </div>
 <p>To illustrate the difference between these distributions, the figure below simulates data using the observed mean and standard deviation of the epilepsy data. The Gaussian distribution allows impossible negative seizure counts, while the Poisson distribution is restricted to non-negative integers but produces too little variability because its variance equals its mean. The negative binomial distribution remains discrete and non-negative while accommodating the larger variance observed in the data, making it a much more realistic model for seizure counts.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb41"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">epil</span><span class="op">$</span><span class="va">seizure_count</span><span class="op">)</span> <span class="co"># 7.305085</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb45"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">epil</span><span class="op">$</span><span class="va">seizure_count</span><span class="op">)</span> <span class="co"># 7.305085</span></span>
 <span><span class="va">sigma</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">epil</span><span class="op">$</span><span class="va">seizure_count</span><span class="op">)</span> <span class="co"># 9.649467</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">363461174</span><span class="op">)</span></span>
 <span><span class="va">dist_draws</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
@@ -1597,7 +1725,7 @@ how Student-t is a mixture of Gaussians).
 <p>Hidden material on prediction</p>
 <p>manual predictions:</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb42"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x_seq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">epil</span><span class="op">$</span><span class="va">base</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">epil</span><span class="op">$</span><span class="va">base</span><span class="op">)</span>, length.out <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb46"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x_seq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">epil</span><span class="op">$</span><span class="va">base</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">epil</span><span class="op">$</span><span class="va">base</span><span class="op">)</span>, length.out <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">m2_baseline</span><span class="op">)</span></span>
 <span></span>
@@ -1615,7 +1743,7 @@ how Student-t is a mixture of Gaussians).
 </figure>
 </div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb43"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># placebo</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb47"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># placebo</span></span>
 <span><span class="va">newdata</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
 <span>  baseline_seizures <span class="op">=</span> <span class="va">x_seq</span>,</span>
 <span>  drug <span class="op">=</span> <span class="st">"placebo"</span></span>
@@ -1664,7 +1792,7 @@ how Student-t is a mixture of Gaussians).
        99       100 
 61.559061 63.531737 </code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb45"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mu_prog</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb49"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mu_prog</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span></span>
 <span>    <span class="va">b</span><span class="op">[</span><span class="st">"(Intercept)"</span><span class="op">]</span> <span class="op">+</span></span>
 <span>    <span class="va">b</span><span class="op">[</span><span class="st">"drugprogabide"</span><span class="op">]</span> <span class="op">+</span></span>
 <span>    <span class="op">(</span><span class="va">b</span><span class="op">[</span><span class="st">"baseline_seizures"</span><span class="op">]</span> <span class="op">+</span> <span class="va">b</span><span class="op">[</span><span class="st">"drugprogabide:baseline_seizures"</span><span class="op">]</span><span class="op">)</span> <span class="op">*</span> <span class="va">x_seq</span></span>
@@ -1682,7 +1810,7 @@ range (`geom_line()`).</code></pre>
 </figure>
 </div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb47"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#X &lt;- model.matrix(~ trt + base + `trtprogabide:base`, newdata)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb51"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#X &lt;- model.matrix(~ trt + base + `trtprogabide:base`, newdata)</span></span>
 <span><span class="co">#X &lt;- model.matrix(~ trt * base, newdata)</span></span>
 <span><span class="va">tt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/delete.response.html">delete.response</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/terms.html">terms</a></span><span class="op">(</span><span class="va">m2_baseline</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
@@ -1830,7 +1958,7 @@ range (`geom_line()`).</code></pre>
   \eta = X\hat{\beta}.
 \]</span></p>
 <p>In R, this is computed as</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb49"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">eta</span> <span class="op">&lt;-</span> <span class="va">X</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html">%*%</a></span> <span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb53"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">eta</span> <span class="op">&lt;-</span> <span class="va">X</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html">%*%</a></span> <span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Here,</p>
 <ul>
 <li>
@@ -1876,7 +2004,7 @@ range (`geom_line()`).</code></pre>
   \hat{\mu} = \exp(\eta).
 \]</span></p>
 <p>In R:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb50"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">eta</span> <span class="op">&lt;-</span> <span class="va">X</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html">%*%</a></span> <span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span>   <span class="co"># matrix multiplication</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb54"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">eta</span> <span class="op">&lt;-</span> <span class="va">X</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html">%*%</a></span> <span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span>   <span class="co"># matrix multiplication</span></span>
 <span><span class="va">mu</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="va">eta</span><span class="op">)</span>          <span class="co"># inverse log link</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>A <strong>cross product</strong> is <strong>not</strong> being computed here. In vector algebra, the cross product is defined only for three-dimensional vectors and produces another vector. Although R has a function named <code><a href="https://rdrr.io/r/base/crossprod.html">crossprod()</a></code>, it computes</p>
 <p><span class="math display">\[
@@ -2003,6 +2131,12 @@ survival rates under hypothetical scenarios across years and demographic groups.
 -->
 
 
+<div id="refs" class="references csl-bib-body" role="list" style="display: none">
+<div id="ref-zou2004modified" class="csl-entry" role="listitem">
+<div class="csl-left-margin">1. </div>
+<div class="csl-right-inline">Zou G. A modified poisson regression approach to prospective studies with binary data. American journal of epidemiology. 2004;159(7):702–6. </div>
+</div>
+</div>
 </section></section><script async="" src="https://scripts.simpleanalyticscdn.com/latest.js"></script></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";

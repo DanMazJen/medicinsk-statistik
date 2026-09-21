@@ -253,29 +253,40 @@ probability scale**.
 
 ## The estimand
 
-We are interested in the probability of death at 1-year follow-up:
+We are interested in the probability of death:
 
 $$
   P(death = 1 | X)
 $$
 
-for an observational study looking at the effect of thrombectomy after stroke:
+for an RCT study looking at dose-effect of death on beetles:
 
 ```{r}
 #| label: smoking-dag
 #| echo: false
 
 dag <- ggdag::dagify(
-  death ~ trt,
-  trt ~ age,
-  death ~ age,
-  death ~ diabetes,
-  diabetes ~ age,
-  hyp_ten ~ diabetes,
-  trt ~ diabetes,
-  death ~ hyp_ten,
-  hyp_ten ~ age,
-  diabetes ~ sex
+  died ~ dose
+)
+
+ggdag::ggdag(dag) +
+  ggdag::geom_dag_point(size = 20) +
+  ggdag::geom_dag_text(size = 3) +
+  ggdag::theme_dag()
+```
+
+Here, there are no confounding. We randomized the study and controlled all
+variables.
+
+For smoking cigarettes, using observational data:
+
+```{r}
+#| label: beetles-dag
+#| echo: false
+
+dag <- ggdag::dagify(
+  deaths ~ smoking + age,
+  smoking ~ age
 )
 
 ggdag::ggdag(dag) +
@@ -319,19 +330,6 @@ The above function is the **logistic**
 
 ### The statistical models
 
-We want to adjust for competing predictors of death and potential counfounders
-in our model.
-
-$$
-  logit( \text{death at 1 year followup}) = α + β1_{thrombectomy}
-                                            + β2_{diabites} + β3_{age} \\
-  + β4_{hypertention} + β5_{sex} + β6_{thrombectomy×diabites} \\
-  + β7_{thrombectomy×age}
-  + β8_{thrombectomy×hyptertension} + β9_{thrombectomy×sex} \\
-$$
-
-We implement this model in R using `glm()`:
-
 ```{r}
 #| label: thrombectomy-model
 
@@ -355,12 +353,90 @@ th_model <- glm(
 )
 ```
 
+```{r}
+#| label: doctors-model
+
+age_labels <- c("35 to 44 years", "45 to 54 years", "55 to 64 years", "65 to 74 years", "75 to 84 years")
+doctors <- medisr::doctors |>
+    mutate(age = factor(age, levels=c(1:5), labels=age_labels)) |>
+    select(-agesq)
+
+smoking_model <- glm(
+  deaths ~ smoking * age + offset(log(personyears)),
+  family = poisson(link = "log"),
+  data = doctors
+)
+```
+
+If you did the exercises from @sec-ex-poisson you are very familiar with this
+dataset and model. Therefore, I won't explain it in detail. Here, we use the
+offset to compute a fixed rate per year (see @sec-poisson).
+
 Here's the model output:
 
 ```{r}
 #| label: smoking-output
 
-th_model |>
+smoking_model |>
+    parameters::parameters(exponentiate=TRUE)
+```
+
+- coefficient for `[X]`
+- odds ratio for `[X]`
+- statistical uncertainty, if relevant
+
+**Logistic example**
+
+We also make a logistic regression:
+
+```{r}
+#| label: beetles-data
+
+beetle_dose <- medisr::beetle_dose |>
+    mutate(
+        survived = n-died#,
+        #dose_sq = I(dose^2)
+        )
+
+beetles_model <- glm( cbind(died, survived) ~ dose, family = binomial(link =
+"logit"), data = beetle_dose )
+```
+
+Binomial data can be stored as **aggregated** and **disagreggated**. The former
+is compact and show the total success and failures:
+
+<!--panache-ignore-start-->
+| Coin    |  Heads    | Tails |
+| -------- | ------- | ------- |
+| Small    | 49      | 56      |
+| Medium   | 51      | 55      |
+| Large    | 50      | 47      |
+<!--panache-ignore-end-->
+
+The disaggregated dataset would show a long list with each coinflip coming out
+as either `heads = 1` or `heads = 0` so the first 5 tosses could be:
+
+<!--panache-ignore-start-->
+| Coin    | Heads |
+|---------|-------|
+| Small   | 1     |
+| Small   | 1     |
+| Small   | 0     |
+| Small   | 1     |
+| Small   | 0     |
+<!--panache-ignore-end-->
+
+Because our dataset is *aggregated*, we need to tell `glm()` what's the success
+and failure --- in this case, how many died and how many did not from the dose
+concentration. We use `cbind(died, survived)` as the outcome. Effetively this is
+a way to say that 6 out of 59 --- or ~10% of the beetles died of the lowest does
+of 49.05689 mg/L of gaseous carbon disulphide (CS₂) --- values are in log_10 CS₂
+mg/L.
+
+```{r}
+#| label: beetle-output
+
+beetles_model |>
     parameters::parameters(exponentiate=TRUE)
 ```
 
@@ -464,8 +540,6 @@ for us:
 ```{r}
 #| label: with-link
 
-library(marginaleffects)
-
 predictions(th_model, newdata = grid, type = "link")
 ```
 
@@ -479,11 +553,7 @@ count, was the model poisson regression):
 predictions(th_model, newdata = grid)
 ```
 
-## Step 4: What quantity do I actually want to communicate
-
-In this case, we're interested in probability of death.
-
-### Clear communication
+## Clear communication
 
 Suppose:
 
@@ -528,11 +598,10 @@ Therefore:
 
 > There is not necessarily one single "effect of X" on probability.
 
-```{r}
-# the effect of 1 year age point slope for old?
-# No slope increase - already high probability of death?
+## Step 4: What quantity do I actually want to communicate
 
-```
+In this case, we're interested in probability of death for the beetles and count
+of deaths per personyear for the smoking dataset.
 
 ## Step 5: At what values?
 
@@ -541,13 +610,7 @@ Therefore:
 - The average population?
 - Different levels of an interacting variable?
 
-Here, we tackle one scientific question at a time in order to address these
-questions:
-
 ### Our sample
-
-If we don't supply a `newdata` grid, the `predictions()` function will take all
-participants in our sample and compute predictions for them, one by one:
 
 ```{r}
 #| label: empirical-grid
@@ -556,7 +619,7 @@ p = predictions(th_model)
 p
 ```
 
-You can see that the row length is the same as the original dataset:
+You can see that the row length is the same
 
 ```{r}
 #| label: nrow
@@ -565,17 +628,43 @@ nrow(p)
 nrow(thrombectomy)
 ```
 
-A table with `r nrow(p)` rows is not super intuitive and nice to make inference
-from. Why can we do about that?
+We have now made predictions for all our participants.
 
-We could either
+We can compute the average for them by using `avg_predictions()`
 
-1. Make a plot to illustrate it all visually, or
-2. take the average of all these predictions
+```{r}
+#| label: avg-pred
 
-**Keeping all information**
+avg_predictions(th_model)
+```
 
-Let's start by the first approach and visualize all information:
+So the average probability of death at the 1-year follow-up is 26.7%.
+
+Finally, to compute the average for the patients receiving thrombectomy and
+those who did not, we can group the average for these conditions
+
+```{r}
+#| label: avg-pred-trt
+
+avg_predictions(th_model, by="thrombectomy")
+```
+
+Based on the data we have, patients that are offered and successfully manage to
+receive thrombectomy have a 30.7% and 21.4% chance of death measured at 1-year
+follow-up.
+
+```{r}
+#| label: relative-risk
+
+avg_comparisons(
+    th_model,
+    by="thrombectomy",
+    comparison = "lnratioavg", # Calculates adjusted Risk Ratio
+    transform = exp # then exponentiates
+    )
+```
+
+Let's visualize this information:
 
 ```{r}
 #| label: empirical-data-viz
@@ -602,206 +691,58 @@ p2 = ggplot(p) +
 p1 + p2
 ```
 
-The plot to the left shows the histogram. I suddenly becomes clear that fewer
-patients received thrombectomy than patients who did not.
-
-Indeed, that is correct:
-
-```{r}
-#| label: arm-balance
-
-table(thrombectomy$thrombectomy)
-```
-
-about `r mean(thrombectomy$thrombectomy)` received thrombectomy.
-
-From the right plot, we can see the cumulative density plot. Here, it seems that
-overall... <!-- TODO: Write text here -->
-
-**Marginalizing over the predictions**
-
-We can compute the average for them by using `avg_predictions()`
-
-```{r}
-#| label: avg-pred
-
-avg_predictions(th_model)
-```
-
-So the average probability of death at the 1-year follow-up is 26.7%.
-
-This is a reasonable estimate for answering the question
-
-> "how many Danes die at 1-year follow-up after stroke?"
-
-However, as we now know that the groups are unbalanced, this is not a good
-estimate for the treatment effect! And it doesn't have the granularity to
-address more nuanced questions of sub-population level.
-
-Finally, to compute the average for the patients receiving thrombectomy and
-those who did not, we can group the average for these conditions
-
-```{r}
-#| label: avg-pred-trt
-
-avg_predictions(th_model, by="thrombectomy")
-```
-
-Based on the data we have, patients that are offered and successfully manage to
-receive thrombectomy have a 30.7% and 21.4% chance of death measured at 1-year
-follow-up.
-
-This is the final estimate for our question:
-
-> "Do Danish patients who receive thrombectomy have better probability of
-> survival at 1-year follow-up after stroke, compared to patients not receiving
-> thrombectomy?"
-
-::: {.hidden}
-```r
-#| label: relative-risk
-
-avg_comparisons(
-    th_model,
-    by="thrombectomy",
-    comparison = "lnratioavg", # Calculates adjusted Risk Ratio
-    transform = exp # then exponentiates
-    )
-```
-:::
-
 ### Young adults with diabetes
 
 ```{r}
 #| label: grid-oi
 
-datagrid(
-    prior_diabetes = 1,
-    thrombectomy = c(0, 1),
-    age_at_diagnosis=c(80:90),
-    model = th_model
-)
+datagrid(prior_diabetes = 1, thrombectomy = c(0, 1), age_at_diagnosis=c(30:50), model = th_model) |> head()
 ```
 
 ```{r}
 #| label: grid-oi-build
 
-p = predictions(
-    th_model,
-    newdata = datagrid(
-        prior_diabetes = 1,
-        thrombectomy = c(0, 1),
-        age_at_diagnosis=c(80:90)
-    )
+p = predictions(th_model,
+  newdata = datagrid(prior_diabetes = 1, thrombectomy = c(0, 1), age_at_diagnosis=c(30:50))
 )
-
 p
 ```
 
 ```{r}
 #| label: just-50
 
-predictions(
-    th_model,
-    newdata = datagrid(
-        age_at_diagnosis = 80,
-        prior_diabetes = unique,
-        thrombectomy = max
-    )
+predictions(th_model,
+  newdata = datagrid(age_at_diagnosis = 50, prior_diabetes = unique, thrombectomy = max)
 )
 ```
 
 ```{r}
 #| label: grid-30-to-50
 
-predictions(
-    th_model,
-    newdata = datagrid(
-        age_at_diagnosis=c(80:90),
-        prior_diabetes = unique,
-        thrombectomy = max)
+predictions(th_model,
+  newdata = datagrid(age_at_diagnosis=c(30:50), prior_diabetes = unique, thrombectomy = max)
 )
 ```
 
 ```{r}
 #| label: marginal-grid-30-to-50
 
-avg_predictions(
-    th_model,
-    newdata = datagrid(
-        age_at_diagnosis=c(80:90),
-        prior_diabetes = unique,
-        thrombectomy = max)
+avg_predictions(th_model,
+  newdata = datagrid(age_at_diagnosis=c(30:50), prior_diabetes = unique, thrombectomy = max)
 )
 ```
 
 ```{r}
 #| label: marginal-plot
 
-grid_oi <- datagrid(
-    age_at_diagnosis=c(80:90),
-    prior_diabetes = unique,
-    thrombectomy = unique,
-    model = th_model
-)
+grid_oi <- datagrid(age_at_diagnosis=c(80:90), prior_diabetes = unique, thrombectomy = unique, model = th_model)
 
 p1 = plot_predictions(th_model, newdata = grid_oi, by = "thrombectomy")
 p2 = plot_predictions(th_model, newdata = grid_oi, by = c("thrombectomy", "prior_diabetes"))
 p1 + p2
 ```
 
-It becomes clear that the effect of thrombectomy on 1-year follow-up mortality
-is negated substantially by the co-occurrence of diabetes in old age.
-
-The effect is substantial for non-diabetic old patient.
-
-```{r}
-#| label: final-est-old-diab
-
-avg_predictions(
-    th_model,
-    by = c("thrombectomy", "prior_diabetes"),
-    newdata = datagrid(
-        age_at_diagnosis=c(80:90),
-        prior_diabetes = unique,
-        thrombectomy = unique
-    )
-)
-```
-
-from 42.3% probability of death without treatment to 26.7% for non-diabetic.
-
-from 66.2% probability of death without treatment to 61.6% for non-diabetic.
-
-So our estimates are
-
 ### The balanced experiment
-
-Until now, we have considered our observations as meaningful populations that we
-want to investigate. However, if we're interested in thrombectomy as an
-experimental procedure for any possible candidate patient, we have until now
-treated the groups unfairly.
-
-First of all, we have more not receiving the
-
-```{r}
-#| label: sub-groups
-
-xtabs(~ thrombectomy + sex, data=thrombectomy)
-```
-
-We have many more males in the treatment group and
-
-```{r}
-#| label: sub-diabetes
-
- xtabs(~ thrombectomy + prior_diabetes, data=thrombectomy)
-```
-
-We don't have equal amount of patients with diabetes in the treatment group.
-
-We might be interested in covering some representative and balanced parts of the
-population.
 
 ```{r}
 #| label: exp-balance
@@ -848,23 +789,13 @@ p3 = plot_predictions(
 
 ## Counterfactual
 
-Finally, we might be interested in the imaginary scenario: what had happened,
-given all patients received both the treatment and no treatment, and which would
-have resulted in the best probability of being alive at the 1-year follow-up?
-
-We can actually ask this question too:
-
 ```{r}
-#| label: counterfactual
-
 p = predictions(th_model, variables = list(thrombectomy = 0:1))
 nrow(p)
 ```
 
-Notice how our dataset just doubled its rows. This is no coicidence!
-
-In fact, we now have all observed participants with the "counterfactual" reality
-that they both got thrombectomy and not.
+So now, we have all observed participants with the "counterfactual" reality that
+they both got thrombectomy and not.
 
 These predictions are interesting, because they give us a first look at the
 kinds of counterfactual (potentially causal) queries.
@@ -875,20 +806,11 @@ We can ask:
 > predicted probability of death in the counterfactual world where they receive
 > thrombectory, and where they do not?
 
-Let's marginalize over all participant profiles and get the average probability
-of death, had everyone in the sample been in both scenarios of the
-treatment/no-treatment.
-
 ```{r}
 #| label: counterfactual-est
 
 avg_predictions(th_model, variables = list(thrombectomy = 0:1))
 ```
-
-Notice how different the probabilities are now. Remember that the dataset is not
-balanced --- but rather symmetric between the two groups now. The sample is
-still biased by propensity for having diabetes, hypertension etc. But the
-treatment groups share all these biases now.
 
 ```{r}
 #| label: counterfactual-plot
@@ -903,18 +825,12 @@ plot_predictions(
 )
 ```
 
-This is the best estimate we have until now for the question:
-
-> "Would Danish stroke patients have lower probability of death at 1-year
-> follow-up after stroke if everyone had received thrombectomy compared to not
-> receiving it?"
-
 ## Step 6: Post-processing model coefficients ---
 
 **the estimate**
 
 <!--
-```r
+```{r}
 #| label: outcome-scale
 
 library(marginaleffects)
@@ -1009,7 +925,7 @@ plot_predictions(th_model, condition = list(
 ))
 ```
 
-```r
+```{r}
 #| label: outcome-scale
 
 library(marginaleffects)
@@ -1151,7 +1067,7 @@ the log-odds scale.
 
 With {marginaleffects}:
 
-```r
+```{r}
 #| label: marg-eff
 #| eval: false
 
@@ -1196,7 +1112,7 @@ These can be different.
 
 We can calculate effects for specified covariate values:
 
-```r
+```{r}
 #| label: grid-eff
 #| eval: false
 
@@ -1223,7 +1139,7 @@ These are different questions.
 
 Predicted probability What is this patient's predicted probability of disease?
 
-```r
+```{r}
 #| label: pred
 #| eval: false
 
@@ -1239,7 +1155,7 @@ predictions(
 
 Marginal effect How much does the predicted probability change if age increases?
 
-```r
+```{r}
 #| label: pro-marg
 #| eval: false
 
@@ -1273,7 +1189,7 @@ What is the average effect in this population?
 
 That is the average marginal effect (AME).
 
-```r
+```{r}
 #| label: avg-slopes
 #| eval: false
 
@@ -1310,7 +1226,7 @@ non-smokers?
 
 The model might be:
 
-```r
+```{r}
 #| label: model1
 #| eval: false
 
@@ -1330,7 +1246,7 @@ The interaction coefficient is on the log-odds scale.
 
 Instead, calculate the marginal effect of age at different smoking statuses:
 
-```r
+```{r}
 #| label: int-model1
 #| eval: false
 
@@ -1351,7 +1267,7 @@ Is the difference between those marginal effects clinically meaningful?
 
 ## Visualizing the interaction
 
-```r
+```{r}
 #| label: plotting1
 #| eval: false
 
@@ -1376,7 +1292,7 @@ What is the change in predicted probability when blood pressure increases from
 
 For this, use a comparison:
 
-```r
+```{r}
 #| label: clin-inform
 #| eval: false
 

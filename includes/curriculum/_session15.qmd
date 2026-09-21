@@ -1,3 +1,5 @@
-- [Marginal effects chatpter 5
-  ](https://marginaleffects.com/chapters/predictions.html)
-  - read
+- [Marginal effects chatpter
+  3](https://marginaleffects.com/chapters/framework.html)
+- [Marginal effects chatpter
+  5](https://marginaleffects.com/chapters/predictions.html)
+  - You can skip section **5.4 Uncertainty** and **5.5 Test**

@@ -1794,7 +1794,7 @@ which is a matrix product, not the geometric cross product.
 
 <!--  These are just notes for other datasets....
 
-```{r extra-counterfactuals}
+```r extra-counterfactuals
 cf <- bind_rows(
 #
     predictions(
@@ -1830,7 +1830,7 @@ cmp |>
     theme_bw()
 ```
 
-```{r}
+```r
 #| label: cut-off-of-when-to-use-ekstra
 
 placebo <- predictions(
@@ -1863,7 +1863,7 @@ https://search.r-project.org/CRAN/refmans/dobson/html/doctors.html?utm_source=ch
 https://search.r-project.org/CRAN/refmans/ACSWR/html/bs1.html?utm_source=chatgpt.com
 https://github.com/agbarnett/dobson/tree/main/data
 
-```{r}
+```r
 #| eval: false
 #| include: false
 #| echo: false
@@ -1895,7 +1895,7 @@ doctors2 <- doctors |>
 doctors2
 ```
 
-```{r}
+```r
 #| eval: false
 #| include: false
 #| echo: false
@@ -1930,7 +1930,7 @@ ggplot(doctors2,
   labs(y = "Log mortality rate")
 ```
 
-```{r}
+```r
 #| eval: false
 #| include: false
 #| echo: false
@@ -1945,7 +1945,7 @@ m1 <- glm(
 summary(m1)
 ```
 
-```{r}
+```r
 #| eval: false
 #| include: false
 #| echo: false
@@ -2011,7 +2011,7 @@ assessed before interpreting results. Finally, marginal effects summarize
 adjusted contrasts, while counterfactual predictions visualize model-implied
 survival rates under hypothetical scenarios across years and demographic groups.
 
-```{r}
+```r
 #| eval: false
 #| include: false
 #| echo: false

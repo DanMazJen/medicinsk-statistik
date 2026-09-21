@@ -804,7 +804,7 @@ Figure&nbsp;14.2
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html">rbinom</a></span><span class="op">(</span><span class="fl">1e5</span>, <span class="fl">1000</span>, <span class="fl">1</span><span class="op">/</span><span class="fl">1000</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">var</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1.00013 1.00854</code></pre>
+<pre><code>[1] 0.9928600 0.9875989</code></pre>
 </div>
 </div>
 <p>As a result, the distribution only has one parameter, λ (pronounced <em>lambda</em>).</p>
@@ -1224,7 +1224,7 @@ plot_baseline_pred
 <span>    <span class="fu">labs</span><span class="op">(</span></span>
 <span>    y<span class="op">=</span><span class="st">"Count outcome space"</span></span>
 <span><span class="op">)</span> <span class="op">+</span> <span class="fu">coord_cartesian</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">5</span>,<span class="fl">150</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">5</span>,<span class="fl">150</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell quarto-layout-panel" data-layout-ncol="2" data-layout-align="center">
+<div class="cell quarto-layout-panel" data-layout-align="center" data-layout-ncol="2">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
@@ -1593,15 +1593,12 @@ plot_baseline_pred
 <span></span>
 <span><span class="fu">ggplot</span><span class="op">(</span><span class="va">df</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">estimate</span>, <span class="va">measure</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_errorbarh</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>xmin <span class="op">=</span> <span class="va">conf.low</span>, xmax <span class="op">=</span> <span class="va">conf.high</span><span class="op">)</span>, height <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_errorbarh</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>xmin <span class="op">=</span> <span class="va">conf.low</span>, xmax <span class="op">=</span> <span class="va">conf.high</span><span class="op">)</span>, width <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">theme_minimal</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_vline</span><span class="op">(</span>xintercept <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: `geom_errorbarh()` was deprecated in ggplot2 4.0.0.
 ℹ Please use the `orientation` argument of `geom_errorbar()` instead.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>`height` was translated to `width`.</code></pre>
 </div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -1668,7 +1665,7 @@ how Student-t is a mixture of Gaussians).
 <p>Before fitting a negative binomial model, it is useful to check whether the Poisson assumptions appear reasonable. The <code><a href="https://easystats.github.io/performance/reference/check_overdispersion.html">performance::check_overdispersion()</a></code> function compares the observed variability with the variability expected under the fitted Poisson model. Evidence of substantial overdispersion suggests that the Poisson model is likely underestimating uncertainty.</p>
 <p>The <code><a href="https://easystats.github.io/performance/reference/check_model.html">performance::check_model()</a></code> function provides additional diagnostic plots for evaluating the adequacy of the fitted model. If overdispersion is present, we can fit a negative binomial model using <code><a href="https://rdrr.io/pkg/MASS/man/glm.nb.html">MASS::glm.nb()</a></code>. The interpretation of the regression coefficients remains unchanged: exponentiating a coefficient gives the multiplicative change in the expected seizure rate, just as in the Poisson model. The only difference is that the negative binomial model explicitly allows for unexplained patient-to-patient variability.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb41"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">performance</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/performance/reference/check_overdispersion.html">check_overdispersion</a></span><span class="op">(</span><span class="va">m2_baseline</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb40"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">performance</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/performance/reference/check_overdispersion.html">check_overdispersion</a></span><span class="op">(</span><span class="va">m2_baseline</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># Overdispersion test
 
@@ -1679,7 +1676,7 @@ how Student-t is a mixture of Gaussians).
 <div class="cell-output cell-output-stderr">
 <pre><code>Overdispersion detected.</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb44"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">performance</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/performance/reference/check_model.html">check_model</a></span><span class="op">(</span><span class="va">m2_baseline</span><span class="op">)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb43"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">performance</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/performance/reference/check_model.html">check_model</a></span><span class="op">(</span><span class="va">m2_baseline</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">m3_nb</span> <span class="op">&lt;-</span> <span class="fu">MASS</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/MASS/man/glm.nb.html">glm.nb</a></span><span class="op">(</span><span class="va">seizure_count</span> <span class="op">~</span> <span class="va">drug</span> <span class="op">*</span> <span class="va">baseline_seizures</span>,</span>
 <span>    data <span class="op">=</span> <span class="va">epil</span></span>
@@ -1689,7 +1686,7 @@ how Student-t is a mixture of Gaussians).
 </div>
 <p>To illustrate the difference between these distributions, the figure below simulates data using the observed mean and standard deviation of the epilepsy data. The Gaussian distribution allows impossible negative seizure counts, while the Poisson distribution is restricted to non-negative integers but produces too little variability because its variance equals its mean. The negative binomial distribution remains discrete and non-negative while accommodating the larger variance observed in the data, making it a much more realistic model for seizure counts.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb45"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">epil</span><span class="op">$</span><span class="va">seizure_count</span><span class="op">)</span> <span class="co"># 7.305085</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb44"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">epil</span><span class="op">$</span><span class="va">seizure_count</span><span class="op">)</span> <span class="co"># 7.305085</span></span>
 <span><span class="va">sigma</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">epil</span><span class="op">$</span><span class="va">seizure_count</span><span class="op">)</span> <span class="co"># 9.649467</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">363461174</span><span class="op">)</span></span>
 <span><span class="va">dist_draws</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
@@ -1725,7 +1722,7 @@ how Student-t is a mixture of Gaussians).
 <p>Hidden material on prediction</p>
 <p>manual predictions:</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb46"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x_seq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">epil</span><span class="op">$</span><span class="va">base</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">epil</span><span class="op">$</span><span class="va">base</span><span class="op">)</span>, length.out <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb45"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x_seq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">epil</span><span class="op">$</span><span class="va">base</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">epil</span><span class="op">$</span><span class="va">base</span><span class="op">)</span>, length.out <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">m2_baseline</span><span class="op">)</span></span>
 <span></span>
@@ -1743,7 +1740,7 @@ how Student-t is a mixture of Gaussians).
 </figure>
 </div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb47"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># placebo</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb46"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># placebo</span></span>
 <span><span class="va">newdata</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
 <span>  baseline_seizures <span class="op">=</span> <span class="va">x_seq</span>,</span>
 <span>  drug <span class="op">=</span> <span class="st">"placebo"</span></span>
@@ -1792,7 +1789,7 @@ how Student-t is a mixture of Gaussians).
        99       100 
 61.559061 63.531737 </code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb49"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mu_prog</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb48"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mu_prog</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span></span>
 <span>    <span class="va">b</span><span class="op">[</span><span class="st">"(Intercept)"</span><span class="op">]</span> <span class="op">+</span></span>
 <span>    <span class="va">b</span><span class="op">[</span><span class="st">"drugprogabide"</span><span class="op">]</span> <span class="op">+</span></span>
 <span>    <span class="op">(</span><span class="va">b</span><span class="op">[</span><span class="st">"baseline_seizures"</span><span class="op">]</span> <span class="op">+</span> <span class="va">b</span><span class="op">[</span><span class="st">"drugprogabide:baseline_seizures"</span><span class="op">]</span><span class="op">)</span> <span class="op">*</span> <span class="va">x_seq</span></span>
@@ -1810,7 +1807,7 @@ range (`geom_line()`).</code></pre>
 </figure>
 </div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb51"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#X &lt;- model.matrix(~ trt + base + `trtprogabide:base`, newdata)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb50"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#X &lt;- model.matrix(~ trt + base + `trtprogabide:base`, newdata)</span></span>
 <span><span class="co">#X &lt;- model.matrix(~ trt * base, newdata)</span></span>
 <span><span class="va">tt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/delete.response.html">delete.response</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/terms.html">terms</a></span><span class="op">(</span><span class="va">m2_baseline</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
@@ -1958,7 +1955,7 @@ range (`geom_line()`).</code></pre>
   \eta = X\hat{\beta}.
 \]</span></p>
 <p>In R, this is computed as</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb53"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">eta</span> <span class="op">&lt;-</span> <span class="va">X</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html">%*%</a></span> <span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb52"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">eta</span> <span class="op">&lt;-</span> <span class="va">X</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html">%*%</a></span> <span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Here,</p>
 <ul>
 <li>
@@ -2004,7 +2001,7 @@ range (`geom_line()`).</code></pre>
   \hat{\mu} = \exp(\eta).
 \]</span></p>
 <p>In R:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb54"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">eta</span> <span class="op">&lt;-</span> <span class="va">X</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html">%*%</a></span> <span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span>   <span class="co"># matrix multiplication</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb53"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">eta</span> <span class="op">&lt;-</span> <span class="va">X</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html">%*%</a></span> <span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span>   <span class="co"># matrix multiplication</span></span>
 <span><span class="va">mu</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="va">eta</span><span class="op">)</span>          <span class="co"># inverse log link</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>A <strong>cross product</strong> is <strong>not</strong> being computed here. In vector algebra, the cross product is defined only for three-dimensional vectors and produces another vector. Although R has a function named <code><a href="https://rdrr.io/r/base/crossprod.html">crossprod()</a></code>, it computes</p>
 <p><span class="math display">\[
@@ -2014,10 +2011,7 @@ range (`geom_line()`).</code></pre>
 </div>
 <!--  These are just notes for other datasets....
 
-
-::: {.cell layout-align="center"}
-
-```{.r .cell-code}
+```r extra-counterfactuals
 cf <- bind_rows(
 #
     predictions(
@@ -2037,13 +2031,7 @@ cf |>
     ggplot(aes(estimate,fill=group))+
     geom_density(alpha=0.4)+
     theme_bw()
-```
 
-::: {.cell-output-display}
-![](session12_files/figure-html/extra-counterfactuals-1.png){fig-align='center' width=70%}
-:::
-
-```{.r .cell-code}
 cmp <- comparisons(
     m2_baseline,
     variables="drug"
@@ -2059,16 +2047,9 @@ cmp |>
     theme_bw()
 ```
 
-::: {.cell-output-display}
-![](session12_files/figure-html/extra-counterfactuals-2.png){fig-align='center' width=70%}
-:::
-:::
+```r
+#| label: cut-off-of-when-to-use-ekstra
 
-
-
-::: {.cell layout-align="center"}
-
-```{.r .cell-code}
 placebo <- predictions(
     m2_baseline,
     newdata = transform(epil, drug = "placebo")
@@ -2092,8 +2073,6 @@ grid <- datagrid(
     drug = c("placebo", "progabide")
 )
 ```
-:::
-
 
 # Other dataset
 
@@ -2101,13 +2080,135 @@ https://search.r-project.org/CRAN/refmans/dobson/html/doctors.html?utm_source=ch
 https://search.r-project.org/CRAN/refmans/ACSWR/html/bs1.html?utm_source=chatgpt.com
 https://github.com/agbarnett/dobson/tree/main/data
 
+```r
+#| eval: false
+#| include: false
+#| echo: false
 
+url <- "https://raw.githubusercontent.com/agbarnett/dobson/main/data/doctors.rda"
+load(url(url))
+doctors
 
+glm(
+  deaths ~ age + smoking,
+  family = poisson(),
+  offset = log(personyears),
+  data = doctors
+)
 
+doctors2 <- doctors |>
+  mutate(
+    age_group = factor(
+      age,
+      levels = 1:5,
+      labels = c("35–44", "45–54", "55–64", "65–74", "75–84")
+    ),
+    rate = deaths / personyears,
+    rate_1000 = 1000 * rate,
+    offsets = log(personyears)
+  ) |>
+  select(age_group, smoking, deaths, personyears, rate, rate_1000, offsets)
 
+doctors2
+```
 
+```r
+#| eval: false
+#| include: false
+#| echo: false
 
+ggplot(doctors2,
+       aes(age_group, rate_1000,
+           colour = smoking,
+           group = smoking)) +
+  geom_point(size = 3) +
+  geom_line(linewidth = 1) +
+  labs(
+    x = "Age group",
+    y = "Deaths per 1,000 person-years",
+    colour = "Smoking"
+  ) +
+  theme_bw()
 
+ggplot(doctors2,
+       aes(personyears, deaths,
+           colour = smoking)) +
+  geom_point(size = 3) +
+  scale_x_log10() +
+  theme_bw()
+
+ggplot(doctors2,
+       aes(age_group,
+           log(rate),
+           colour = smoking,
+           group = smoking)) +
+  geom_point(size = 3) +
+  geom_line() +
+  labs(y = "Log mortality rate")
+```
+
+```r
+#| eval: false
+#| include: false
+#| echo: false
+
+m1 <- glm(
+  deaths ~ offset(offsets) + smoking + age_group,
+  #offset = offsets,
+  family = poisson(),
+  data = doctors2
+)
+
+summary(m1)
+```
+
+```r
+#| eval: false
+#| include: false
+#| echo: false
+
+avg_predictions(
+    m1,
+    variables = "smoking",
+    type = "response"
+)
+
+cf <- bind_rows(
+
+    mutate(doctors2,
+           smoking = "smoker",
+           scenario = "Everyone smokes"),
+
+    mutate(doctors2,
+           smoking = "non-smoker",
+           scenario = "Nobody smokes")
+
+)
+
+pred <- predictions(
+    m1,
+    newdata = datagrid(
+        age_group = levels(doctors2$age_group),
+        smoking = levels(doctors2$smoking),
+        personyears = 1000
+    )
+)
+
+ggplot(pred,
+       aes(age_group,
+           estimate,
+           colour = smoking,
+           group = smoking)) +
+    geom_line() +
+    geom_point(size = 3) +
+    ylab("Predicted deaths per 1,000 person-years")
+
+avg_comparisons(
+    m1,
+    variables = "smoking",
+    comparison = "ratio"
+)
+```
 
 ## Exploratory analysis and modelling strategy
 
@@ -2127,7 +2228,157 @@ assessed before interpreting results. Finally, marginal effects summarize
 adjusted contrasts, while counterfactual predictions visualize model-implied
 survival rates under hypothetical scenarios across years and demographic groups.
 
+```r
+#| eval: false
+#| include: false
+#| echo: false
 
+# https://github.com/agbarnett/dobson/blob/main/data/chronic.rda
+url <- "https://raw.githubusercontent.com/agbarnett/dobson/main/data/graduates.rda"
+load(url(url))
+doctors
+
+#load("/Users/ze18rp/Downloads/chronic.rda")
+#chronic
+
+load("/Users/ze18rp/Downloads/graduates.rda")
+graduates
+
+#library(tidyverse)
+#library(performance)
+#library(marginaleffects)
+
+graduates2 <- graduates |>
+  mutate(
+    survive = as.integer(survive),
+    total = as.integer(total),
+    year_c = year - min(year),
+    faculty = as.factor(faculty)
+  )
+
+## -------------------------------------------------
+## EDA
+## -------------------------------------------------
+
+# 1. Survival rate over time
+ggplot(graduates2,
+       aes(year, survive / total,
+           colour = faculty,
+           group = interaction(faculty, sex),
+           shape = sex)
+        ) +
+  geom_line(alpha = 0.7) +
+  geom_point() +
+  labs(
+    y = "Survival rate",
+    x = "Year"
+  ) +
+  theme_bw()
+
+# 2. Distribution of survival rates by faculty and sex
+ggplot(graduates2,
+       aes(faculty, survive / total, fill = sex)) +
+  geom_boxplot() +
+  labs(y = "Survival rate") +
+  theme_bw()
+
+# 3. Cohort sizes over time
+ggplot(graduates2,
+       aes(year, total,
+           colour = faculty,
+           shape = sex)) +
+  geom_point(size = 2) +
+  geom_line(aes(group = interaction(faculty, sex))) +
+  labs(y = "Total graduates") +
+  theme_bw()
+
+## -------------------------------------------------
+## Poisson GLMs
+## -------------------------------------------------
+
+m1 <- glm(
+  survive ~ year_c + faculty + sex + offset(log(total)),
+  family = poisson,
+  data = graduates2
+)
+
+m2 <- glm(
+  survive ~ year_c * faculty + sex + offset(log(total)),
+  family = poisson,
+  data = graduates2
+)
+
+summary(m1)
+summary(m2)
+
+# Check Poisson assumption
+performance::check_overdispersion(m1)
+performance::check_overdispersion(m2)
+
+## -------------------------------------------------
+## Marginal effects
+## -------------------------------------------------
+
+# Average adjusted comparison between faculties
+avg_comparisons(m2, variables = "faculty")
+avg_comparisons(
+  m2,
+  variables = list(faculty = "pairwise")
+)
+nd <- datagrid(
+  year_c = mean(graduates2$year_c),
+  sex = levels(factor(graduates2$sex)),
+  faculty = levels(graduates2$faculty),
+  total = 100
+)
+avg_comparisons(
+  m2,
+  variables = list(faculty = "pairwise"),
+  newdata = datagrid(
+    year_c = mean(graduates2$year_c),
+    sex = unique,
+    faculty = unique,
+    total = 100
+  )
+)
+
+# Average slope for year
+avg_slopes(m2, variables = "year_c")
+
+## -------------------------------------------------
+## Counterfactual predictions
+## -------------------------------------------------
+
+# Predicted survival rate over time by faculty
+plot_predictions(
+  m2,
+  condition = c("year_c", "faculty"),
+  newdata = datagrid(
+    year_c = seq(min(graduates2$year_c),
+                 max(graduates2$year_c),
+                 length.out = 100),
+    faculty = unique(graduates2$faculty),
+    sex = "men",
+    total = 100
+  ),
+  type = "response"
+)
+
+# Predicted survival rate by year and sex
+plot_predictions(
+  m2,
+  condition = c("year_c", "sex"),
+  newdata = datagrid(
+    year_c = seq(min(graduates2$year_c),
+                 max(graduates2$year_c),
+                 length.out = 100),
+    faculty = "medicine",
+    sex = unique(graduates2$sex),
+    total = 100
+  ),
+  type = "response"
+)
+```
 -->
 
 

@@ -58,7 +58,26 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
@@ -417,45 +436,43 @@ window.Quarto = {
    
   <ul>
 <li><a href="#pree-class-literature" id="toc-pree-class-literature" class="nav-link active" data-scroll-target="#pree-class-literature"><span class="header-section-number">15.1</span> Pree-class Literature</a></li>
+  <li><a href="#slides" id="toc-slides" class="nav-link" data-scroll-target="#slides"><span class="header-section-number">15.2</span> Slides</a></li>
+  <li><a href="#case-session-15-if-youre-already-dead-your-odds-of-dying-dont-increase." id="toc-case-session-15-if-youre-already-dead-your-odds-of-dying-dont-increase." class="nav-link" data-scroll-target="#case-session-15-if-youre-already-dead-your-odds-of-dying-dont-increase."><span class="header-section-number">15.3</span> Case session 15: “If you’re already dead, your odds of dying don’t increase.”</a></li>
+  <li><a href="#reading-task-communicating-results-of-regression-models" id="toc-reading-task-communicating-results-of-regression-models" class="nav-link" data-scroll-target="#reading-task-communicating-results-of-regression-models"><span class="header-section-number">15.4</span> Reading Task: Communicating results of regression models</a></li>
+  <li><a href="#discussion-exercise-what-do-we-actually-want-to-know" id="toc-discussion-exercise-what-do-we-actually-want-to-know" class="nav-link" data-scroll-target="#discussion-exercise-what-do-we-actually-want-to-know"><span class="header-section-number">15.5</span> Discussion exercise: “What do we actually want to know?”</a></li>
+  <li><a href="#the-danger-of-coefficients" id="toc-the-danger-of-coefficients" class="nav-link" data-scroll-target="#the-danger-of-coefficients"><span class="header-section-number">15.6</span> The danger of coefficients</a></li>
+  <li><a href="#marginalizing-the-problem---our-workflow" id="toc-marginalizing-the-problem---our-workflow" class="nav-link" data-scroll-target="#marginalizing-the-problem---our-workflow"><span class="header-section-number">15.7</span> Marginalizing the problem - our workflow:</a></li>
   <li>
-<a href="#slides" id="toc-slides" class="nav-link" data-scroll-target="#slides"><span class="header-section-number">16</span> Slides</a>
+<a href="#scientific-questions" id="toc-scientific-questions" class="nav-link" data-scroll-target="#scientific-questions"><span class="header-section-number">15.8</span> 5 scientific questions</a>
   <ul class="collapse">
-<li>
-<a href="#case-session-14" id="toc-case-session-14" class="nav-link" data-scroll-target="#case-session-14"><span class="header-section-number">16.1</span> Case session 14: “”</a>
-  <ul class="collapse">
-<li><a href="#reading-task-conditional-venom" id="toc-reading-task-conditional-venom" class="nav-link" data-scroll-target="#reading-task-conditional-venom"><span class="header-section-number">16.1.1</span> Reading Task: Conditional venom?</a></li>
+<li><a href="#context" id="toc-context" class="nav-link" data-scroll-target="#context"><span class="header-section-number">15.8.1</span> Context</a></li>
   </ul>
 </li>
-  <li><a href="#the-danger-of-coefficients" id="toc-the-danger-of-coefficients" class="nav-link" data-scroll-target="#the-danger-of-coefficients"><span class="header-section-number">16.2</span> The danger of coefficients</a></li>
-  <li><a href="#marginalizing-the-problem---our-workflow" id="toc-marginalizing-the-problem---our-workflow" class="nav-link" data-scroll-target="#marginalizing-the-problem---our-workflow"><span class="header-section-number">16.3</span> Marginalizing the problem - our workflow:</a></li>
+  <li><a href="#the-estimand" id="toc-the-estimand" class="nav-link" data-scroll-target="#the-estimand"><span class="header-section-number">15.9</span> The estimand</a></li>
   <li>
-<a href="#reading-task-investigating-one-variable-at-a-time" id="toc-reading-task-investigating-one-variable-at-a-time" class="nav-link" data-scroll-target="#reading-task-investigating-one-variable-at-a-time"><span class="header-section-number">16.4</span> Reading Task: Investigating one variable at a time</a>
+<a href="#the-estimator" id="toc-the-estimator" class="nav-link" data-scroll-target="#the-estimator"><span class="header-section-number">15.10</span> The estimator</a>
   <ul class="collapse">
-<li><a href="#context" id="toc-context" class="nav-link" data-scroll-target="#context"><span class="header-section-number">16.4.1</span> Context</a></li>
+<li><a href="#the-statistical-models" id="toc-the-statistical-models" class="nav-link" data-scroll-target="#the-statistical-models"><span class="header-section-number">15.10.1</span> The statistical models</a></li>
   </ul>
 </li>
+  <li><a href="#coefficient-to-quantity-of-interest" id="toc-coefficient-to-quantity-of-interest" class="nav-link" data-scroll-target="#coefficient-to-quantity-of-interest"><span class="header-section-number">15.11</span> Coefficient to quantity of interest</a></li>
   <li>
-<a href="#the-scientific-model" id="toc-the-scientific-model" class="nav-link" data-scroll-target="#the-scientific-model"><span class="header-section-number">16.5</span> The scientific model</a>
+<a href="#step-4-what-quantity-do-i-actually-want-to-communicate" id="toc-step-4-what-quantity-do-i-actually-want-to-communicate" class="nav-link" data-scroll-target="#step-4-what-quantity-do-i-actually-want-to-communicate"><span class="header-section-number">15.12</span> Step 4: What quantity do I actually want to communicate</a>
   <ul class="collapse">
-<li><a href="#the-statistical-model" id="toc-the-statistical-model" class="nav-link" data-scroll-target="#the-statistical-model"><span class="header-section-number">16.5.1</span> The statistical model</a></li>
+<li><a href="#clear-communication" id="toc-clear-communication" class="nav-link" data-scroll-target="#clear-communication"><span class="header-section-number">15.12.1</span> Clear communication</a></li>
+  <li><a href="#why-the-odds-ratio-is-not-enough" id="toc-why-the-odds-ratio-is-not-enough" class="nav-link" data-scroll-target="#why-the-odds-ratio-is-not-enough"><span class="header-section-number">15.12.2</span> Why the odds ratio is not enough</a></li>
   </ul>
 </li>
   <li>
-<a href="#clear-communication" id="toc-clear-communication" class="nav-link" data-scroll-target="#clear-communication"><span class="header-section-number">16.6</span> Clear communication</a>
+<a href="#step-5-at-what-values" id="toc-step-5-at-what-values" class="nav-link" data-scroll-target="#step-5-at-what-values"><span class="header-section-number">15.13</span> Step 5: At what values?</a>
   <ul class="collapse">
-<li><a href="#why-the-odds-ratio-is-not-enough" id="toc-why-the-odds-ratio-is-not-enough" class="nav-link" data-scroll-target="#why-the-odds-ratio-is-not-enough"><span class="header-section-number">16.6.1</span> Why the odds ratio is not enough</a></li>
-  <li><a href="#what-is-a-marginal-effect" id="toc-what-is-a-marginal-effect" class="nav-link" data-scroll-target="#what-is-a-marginal-effect"><span class="header-section-number">16.6.2</span> What is a marginal effect?</a></li>
-  <li><a href="#the-effect-depends-on-the-patient" id="toc-the-effect-depends-on-the-patient" class="nav-link" data-scroll-target="#the-effect-depends-on-the-patient"><span class="header-section-number">16.6.3</span> The effect depends on the patient</a></li>
+<li><a href="#our-sample" id="toc-our-sample" class="nav-link" data-scroll-target="#our-sample"><span class="header-section-number">15.13.1</span> Our sample</a></li>
+  <li><a href="#young-adults-with-diabetes" id="toc-young-adults-with-diabetes" class="nav-link" data-scroll-target="#young-adults-with-diabetes"><span class="header-section-number">15.13.2</span> Young adults with diabetes</a></li>
+  <li><a href="#the-balanced-experiment" id="toc-the-balanced-experiment" class="nav-link" data-scroll-target="#the-balanced-experiment"><span class="header-section-number">15.13.3</span> The balanced experiment</a></li>
   </ul>
 </li>
-  <li><a href="#predicted-probabilities-versus-marginal-effects" id="toc-predicted-probabilities-versus-marginal-effects" class="nav-link" data-scroll-target="#predicted-probabilities-versus-marginal-effects"><span class="header-section-number">16.7</span> Predicted probabilities versus marginal effects</a></li>
-  <li><a href="#average-marginal-effects" id="toc-average-marginal-effects" class="nav-link" data-scroll-target="#average-marginal-effects"><span class="header-section-number">16.8</span> Average marginal effects</a></li>
-  <li><a href="#interactions-when-the-effect-depends-on-something-else" id="toc-interactions-when-the-effect-depends-on-something-else" class="nav-link" data-scroll-target="#interactions-when-the-effect-depends-on-something-else"><span class="header-section-number">16.9</span> Interactions: when the effect depends on something else</a></li>
-  <li><a href="#visualizing-the-interaction" id="toc-visualizing-the-interaction" class="nav-link" data-scroll-target="#visualizing-the-interaction"><span class="header-section-number">16.10</span> Visualizing the interaction</a></li>
-  <li><a href="#comparing-clinically-meaningful-changes" id="toc-comparing-clinically-meaningful-changes" class="nav-link" data-scroll-target="#comparing-clinically-meaningful-changes"><span class="header-section-number">16.11</span> Comparing clinically meaningful changes</a></li>
-  <li><a href="#uncertainty-a-marginal-effect-is-an-estimate-not-a-known-quantity." id="toc-uncertainty-a-marginal-effect-is-an-estimate-not-a-known-quantity." class="nav-link" data-scroll-target="#uncertainty-a-marginal-effect-is-an-estimate-not-a-known-quantity."><span class="header-section-number">16.12</span> Uncertainty A marginal effect is an estimate, not a known quantity.</a></li>
-  </ul>
-</li>
+  <li><a href="#counterfactual" id="toc-counterfactual" class="nav-link" data-scroll-target="#counterfactual"><span class="header-section-number">15.14</span> Counterfactual</a></li>
+  <li><a href="#step-6-post-processing-model-coefficients" id="toc-step-6-post-processing-model-coefficients" class="nav-link" data-scroll-target="#step-6-post-processing-model-coefficients"><span class="header-section-number">15.15</span> Step 6: Post-processing model coefficients —</a></li>
   </ul><div class="toc-actions"><ul><li><a href="https://github.com/DanMazJen/medicinsk-statistik/edit/main/sessions/session15.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/blob/main/sessions/session15.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
     </div>
 <!-- main -->
@@ -486,20 +503,19 @@ Warning
 <div class="callout-body-container callout-body">
 <p>🚧 This section is being actively worked on. 🚧</p>
 </div>
-</div><blockquote class="blockquote">
-<p>“x.” — John Doe</p>
-</blockquote>
-<section id="pree-class-literature" class="level2" data-number="15.1"><h2 data-number="15.1" class="anchored" data-anchor-id="pree-class-literature">
+</div><section id="pree-class-literature" class="level2" data-number="15.1"><h2 data-number="15.1" class="anchored" data-anchor-id="pree-class-literature">
 <span class="header-section-number">15.1</span> Pree-class Literature</h2>
 <ul>
+<li><a href="https://marginaleffects.com/chapters/framework.html">Marginal effects chatpter 3</a></li>
 <li>
 <a href="https://marginaleffects.com/chapters/predictions.html">Marginal effects chatpter 5</a>
 <ul>
-<li>read</li>
+<li>You can skip section <strong>5.4 Uncertainty</strong> and <strong>5.5 Test</strong>
+</li>
 </ul>
 </li>
-</ul></section><section id="slides" class="level1 page-columns page-full" data-number="16"><h1 data-number="16">
-<span class="header-section-number">16</span> Slides</h1>
+</ul></section><section id="slides" class="level2" data-number="15.2"><h2 data-number="15.2" class="anchored" data-anchor-id="slides">
+<span class="header-section-number">15.2</span> Slides</h2>
 <blockquote class="blockquote">
 <p><a href="../slides/day15.html"><strong>Session 15 slides</strong></a></p>
 </blockquote>
@@ -522,46 +538,58 @@ Warning
 </div>
 </div>
 </div>
-<section id="case-session-14" class="level2" data-number="16.1"><h2 data-number="16.1" class="anchored" data-anchor-id="case-session-14">
-<span class="header-section-number">16.1</span> Case session 14: “”</h2>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">hd_data</span> <span class="op">&lt;-</span> <span class="va">hd_data</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu">mutate</span><span class="op">(</span></span>
-<span>        ExAng <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">ExAng</span>,</span>
-<span>            levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>,</span>
-<span>            labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"no"</span>, <span class="st">"yes"</span><span class="op">)</span></span>
-<span>        <span class="op">)</span>,</span>
-<span>        HD <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">HD</span>,</span>
-<span>            levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"No"</span>, <span class="st">"Yes"</span><span class="op">)</span>,</span>
-<span>            labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"no"</span>, <span class="st">"yes"</span><span class="op">)</span></span>
-<span>        <span class="op">)</span>,</span>
-<span>        ChestPain <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">ChestPain</span><span class="op">)</span>,</span>
-<span>        Thal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">Thal</span><span class="op">)</span>,</span>
-<span>        fasting_blood_glucose <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">Fbs</span>,</span>
-<span>            levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>,</span>
-<span>            labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"normal"</span>, <span class="st">"high"</span><span class="op">)</span></span>
-<span>        <span class="op">)</span></span>
-<span>    <span class="op">)</span></span>
-<span></span>
-<span><span class="va">hd_data</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">Age</span>, <span class="va">MaxHR</span>, color <span class="op">=</span> <span class="va">HD</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_smooth</span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
-</div>
-<div class="cell-output-display">
-<div>
-<figure class="figure"><p><img src="session15_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<section id="reading-task-conditional-venom" class="level3" data-number="16.1.1"><h3 data-number="16.1.1" class="anchored" data-anchor-id="reading-task-conditional-venom">
-<span class="header-section-number">16.1.1</span> Reading Task: Conditional venom?</h3>
-<p>Read <a href="https://www.australiangeographic.com.au/blogs/creatura-with-bec-crew/2025/09/funnel-web-spiders-are-australias-deadliest-not-for-our-pets/">this Australian Geographics blog</a> on the Funnel-web spider.</p>
-</section></section><section id="the-danger-of-coefficients" class="level2" data-number="16.2"><h2 data-number="16.2" class="anchored" data-anchor-id="the-danger-of-coefficients">
-<span class="header-section-number">16.2</span> The danger of coefficients</h2>
+</section><section id="case-session-15-if-youre-already-dead-your-odds-of-dying-dont-increase." class="level2" data-number="15.3"><h2 data-number="15.3" class="anchored" data-anchor-id="case-session-15-if-youre-already-dead-your-odds-of-dying-dont-increase.">
+<span class="header-section-number">15.3</span> Case session 15: “If you’re already dead, your odds of dying don’t increase.”</h2>
+<p>At a PhaRmaceutic RStudio AS, a new compound is being evaluated for toxicity before it can move further through development. In an early preclinical experiment, groups of laboratory animals are exposed to increasing doses of the compound, and investigators record how many animals die at each dose.</p>
+<p>At the weekly safety meeting, the lead researcher summarizes the results:</p>
+<blockquote class="blockquote">
+<p>“As the dose increases, mortality increases.”</p>
+</blockquote>
+<p>One colleague looks at the highest-dose groups and asks:</p>
+<blockquote class="blockquote">
+<p>“But if almost all the animals are already dead, can another increase in dose really have the same effect?”</p>
+</blockquote>
+<p>The team looks more closely at the data. Mortality increases rapidly through the middle of the dose range, but begins to level off at high doses.</p>
+<p>The investigators fit a logistic regression model because the outcome is binary: each animal either died or survived. The model produces a coefficient for dose.</p>
+<blockquote class="blockquote">
+<p>“A one-unit increase in dose increases mortality by 8.7,” the lead researcher says.</p>
+</blockquote>
+<p>The biostatistician stops them.</p>
+<blockquote class="blockquote">
+<p>“The coefficient is on the log-odds scale. That’s not a change in probability.”</p>
+</blockquote>
+<p>The team now faces a more useful question:</p>
+<ul>
+<li>How does increasing dose change the probability of death?</li>
+</ul>
+<p>And because the dose-response relationship is nonlinear, another question follows:</p>
+<ul>
+<li>At what dose are we asking about the effect?</li>
+</ul>
+<p>Your task is to investigate the dose-response relationship using a quadratic logistic regression model. You will move from regression coefficients to predicted probabilities and marginal slopes, examining how the effect of dose changes across the dose range.</p>
+</section><section id="reading-task-communicating-results-of-regression-models" class="level2" data-number="15.4"><h2 data-number="15.4" class="anchored" data-anchor-id="reading-task-communicating-results-of-regression-models">
+<span class="header-section-number">15.4</span> Reading Task: Communicating results of regression models</h2>
+<p><em>The following text was synthesized from <span class="citation" data-cites="marginalbook">(<a href="../appendix/references.html#ref-marginalbook" role="doc-biblioref">1</a>)</span> Chapter 2 and adjusted to the topic of the lecture.</em></p>
+<p>A fitted statistical model produces coefficients, but these coefficients are not necessarily the quantities we are scientifically interested in. The <strong>estimand</strong> is the quantity that answers the research question—the thing we actually want to learn about. A model coefficient, by contrast, is simply a statistical quantity used to represent patterns in the data. It is an abstract output of the model, not medical or clinical information in itself.</p>
+<p>For example, a logistic regression produces coefficients on the log-odds scale. Although this may be useful for fitting the model, a log-odds coefficient is often difficult to interpret in practical or clinical terms. It does not directly tell us how a patient’s probability of an outcome changes.</p>
+<p>Even probabilities, which are much more familiar, can be surprisingly difficult to interpret. People do not always reason about probabilities intuitively, and research in psychology and behavioral economics has documented many ways in which our judgments about probabilities can be misleading.</p>
+<p>This raises an important question: if simple probabilities can be difficult to understand, why make our results even harder to interpret by focusing on quantities such as odds ratios or other model coefficients? The problem becomes even greater with more complicated models involving nonlinear relationships, interactions, random effects, Bayesian models, or machine-learning methods.</p>
+<p>The key point is that the model coefficient should usually not be the end of the analysis. We should start with the scientific question and the estimand we want to learn about, and then use the statistical model as a tool for <strong>estimating</strong> that quantity. When the raw model coefficients are difficult to interpret, we can transform the model results into quantities that are easier to understand and that directly address the research question.</p>
+<p>For example, rather than reporting only a logistic regression coefficient or odds ratio, we might report predicted probabilities for clinically meaningful values of the predictors and compare those probabilities. The model is then doing what it is meant to do: providing a statistical representation of the data that helps us learn about a scientifically meaningful quantity.</p>
+</section><section id="discussion-exercise-what-do-we-actually-want-to-know" class="level2" data-number="15.5"><h2 data-number="15.5" class="anchored" data-anchor-id="discussion-exercise-what-do-we-actually-want-to-know">
+<span class="header-section-number">15.5</span> Discussion exercise: “What do we actually want to know?”</h2>
+<blockquote class="blockquote">
+<p>An observational study retrospecively investigates whether a new treatment reduces the risk of a complication after surgery. The researchers fit a logistic regression model and obtain <span class="math inline">\(β_1\)</span> (odds ratio) is 0.65 for treatment vs.&nbsp;control.</p>
+</blockquote>
+<p><strong>Discuss with our neighbor:</strong></p>
+<ol type="1">
+<li><p>What is the scientific question? What would you actually want to know about the treatment?</p></li>
+<li><p>What is the model giving us? What exactly is the odds ratio of 0.65? Is it itself a clinical outcome or something else?</p></li>
+<li><p>What would be easier to interpret? Imagine the complication occurs in 20% of patients in the control group. What kind of result would you rather show a clinician or patient: the odds ratio, a risk/probability, an absolute risk difference, or something else? Why?</p></li>
+<li><p>What is the estimand? Try to state, in one sentence, the quantity you would ideally like to learn about.</p></li>
+<li><p>If the model coefficient is not the scientific answer, what role does the model play?</p></li>
+</ol></section><section id="the-danger-of-coefficients" class="level2" data-number="15.6"><h2 data-number="15.6" class="anchored" data-anchor-id="the-danger-of-coefficients">
+<span class="header-section-number">15.6</span> The danger of coefficients</h2>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -588,33 +616,27 @@ Important
 <p>The purpose of <a href="https://marginaleffects.com/">marginaleffects</a> is essentially to help us make this translation: From a fitted generalized model → to quantities that answer the scientific question.</p>
 </div>
 </div>
-</section><section id="marginalizing-the-problem---our-workflow" class="level2 page-columns page-full" data-number="16.3"><h2 data-number="16.3" class="anchored" data-anchor-id="marginalizing-the-problem---our-workflow">
-<span class="header-section-number">16.3</span> Marginalizing the problem - our workflow:</h2>
+</section><section id="marginalizing-the-problem---our-workflow" class="level2 page-columns page-full" data-number="15.7"><h2 data-number="15.7" class="anchored" data-anchor-id="marginalizing-the-problem---our-workflow">
+<span class="header-section-number">15.7</span> Marginalizing the problem - our workflow:</h2>
 <p>Throughout this session, we’ll use this workflow:</p>
-<p><strong>Step 1</strong> — What is my scientific question?</p>
-<p>What happens to the probability of Y when X changes?</p>
-<p><strong>Step 2</strong> — What did the regression estimate?</p>
-<p>log-odds</p>
-<p><strong>Step 3</strong> — What quantity do I actually want to communicate?</p>
-<p>probability</p>
-<p><strong>Step 4</strong> — At what values?</p>
+<ol type="1">
+<li>What is my scientific question — <strong>the estimand</strong>?</li>
+<li>Choose machinery to model data — <strong>the estimator</strong>?</li>
+<li>What did the regression estimate — <strong>the coefficient</strong>?</li>
+<li>What quantity do I actually want to communicate?</li>
+<li>At what values?</li>
+</ol>
 <ul>
 <li>A particular patient?</li>
 <li>A clinically meaningful scenario?</li>
 <li>The average population?</li>
 <li>Different levels of an interacting variable?</li>
 </ul>
-<p><strong>Step 5</strong> — Use marginal effects</p>
-<p>avg_slopes(model)</p>
-<p>or</p>
-<p>slopes(model, …)</p>
-<p>or</p>
-<p>avg_comparisons(model, …)</p>
-<p><strong>Step 6</strong> — Communicate in clinically meaningful units</p>
-<p>Prefer:</p>
-<p>1.8 percentage-point increase in predicted probability</p>
-<p>over:</p>
-<p>AME = 0.018</p>
+<ol start="6" type="1">
+<li>Post-model transformations — <strong>the estimate</strong>
+</li>
+<li>Communicate in clinically meaningful units</li>
+</ol>
 <div id="fig-marginal-effects-workflow" class="column-page quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-marginal-effects-workflow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell" data-layout-align="center">
@@ -663,18 +685,22 @@ Important
 </div>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-marginal-effects-workflow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;16.1: From the scientific question to a clinically interpretable marginal effect.
+Figure&nbsp;15.1: From the scientific question to a clinically interpretable marginal effect.
 </figcaption></figure>
 </div>
-<p>As shown in <a href="#fig-marginal-effects-workflow" class="quarto-xref">Figure&nbsp;<span>16.1</span></a>, we move from the <strong>scientific question</strong>, through the <strong>model scale</strong>, to a <strong>marginal effect on the probability scale</strong>.</p>
-</section><section id="reading-task-investigating-one-variable-at-a-time" class="level2" data-number="16.4"><h2 data-number="16.4" class="anchored" data-anchor-id="reading-task-investigating-one-variable-at-a-time">
-<span class="header-section-number">16.4</span> Reading Task: Investigating one variable at a time</h2>
-<p>…</p>
+<p>As shown in <a href="#fig-marginal-effects-workflow" class="quarto-xref">Figure&nbsp;<span>15.1</span></a>, we move from the <strong>scientific question</strong>, through the <strong>model scale</strong>, to a <strong>marginal effect on the probability scale</strong>.</p>
+</section><section id="scientific-questions" class="level2" data-number="15.8"><h2 data-number="15.8" class="anchored" data-anchor-id="scientific-questions">
+<span class="header-section-number">15.8</span> 5 scientific questions</h2>
+<ol type="1">
+<li><p>Does the population who got thrombectory have lower probability of death at 1-year follow-up after stroke?</p></li>
+<li><p>What is the effect of thrombectory in older adults with diabetes, compared to older adults without diabetes?</p></li>
+<li><p>What would be the average probability of death, had all participants received thrombectomy, compared to not receiving it.</p></li>
+</ol>
 <blockquote class="blockquote">
 <p>How does <code>[RISK FACTOR]</code> affect the probability of <code>[DISEASE/OUTCOME]</code>?</p>
 </blockquote>
-<section id="context" class="level3" data-number="16.4.1"><h3 data-number="16.4.1" class="anchored" data-anchor-id="context">
-<span class="header-section-number">16.4.1</span> Context</h3>
+<section id="context" class="level3" data-number="15.8.1"><h3 data-number="15.8.1" class="anchored" data-anchor-id="context">
+<span class="header-section-number">15.8.1</span> Context</h3>
 <ul>
 <li>Population: <code>[POPULATION]</code>
 </li>
@@ -690,30 +716,203 @@ Figure&nbsp;16.1: From the scientific question to a clinically interpretable mar
 <blockquote class="blockquote">
 <p><strong>If a patient’s <code>[RISK FACTOR]</code> increases by <code>[X UNITS]</code>, how much does their probability of disease increase?</strong></p>
 </blockquote>
-</section></section><section id="the-scientific-model" class="level2" data-number="16.5"><h2 data-number="16.5" class="anchored" data-anchor-id="the-scientific-model">
-<span class="header-section-number">16.5</span> The scientific model</h2>
-<p>We model the probability of disease:</p>
-<pre class="text"><code>P(Disease = 1 | X)</code></pre>
-<p>using logistic regression:</p>
+</section></section><section id="the-estimand" class="level2" data-number="15.9"><h2 data-number="15.9" class="anchored" data-anchor-id="the-estimand">
+<span class="header-section-number">15.9</span> The estimand</h2>
+<p>We are interested in the probability of death at 1-year follow-up:</p>
 <p><span class="math display">\[
-  {logit}(P(Y = 1)) = \beta\_0 + \beta\_1X_1 + \beta\_2X_2 + \cdots
+  P(death = 1 | X)
 \]</span></p>
-<section id="the-statistical-model" class="level3" data-number="16.5.1"><h3 data-number="16.5.1" class="anchored" data-anchor-id="the-statistical-model">
-<span class="header-section-number">16.5.1</span> The statistical model</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span></span>
-<span>  <span class="va">disease</span> <span class="op">~</span> <span class="va">risk_factor</span> <span class="op">+</span> <span class="va">covariate_1</span> <span class="op">+</span> <span class="va">covariate_2</span>,</span>
-<span>  data <span class="op">=</span> <span class="va">data</span>,</span>
-<span>  family <span class="op">=</span> <span class="va">binomial</span></span>
-<span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<pre class="text"><code>[INSERT MODEL OUTPUT]</code></pre>
+<p>for an observational study looking at the effect of thrombectomy after stroke:</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="session15_files/figure-html/smoking-dag-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Here, age is confounding the effect of smoking on death (specifically, it’s a fork). Therefore, we need to adjust for age.</p>
+</section><section id="the-estimator" class="level2" data-number="15.10"><h2 data-number="15.10" class="anchored" data-anchor-id="the-estimator">
+<span class="header-section-number">15.10</span> The estimator</h2>
+<p><span class="math display">\[
+  y_i = Binomial(n,p_i) \\
+  logit(p_i) = α + βx_i
+\]</span> where <em>n</em> is the number of observations and <em>p</em> is the probability of death.</p>
+<p>The logit function is defined as the <em>log-odds</em>:</p>
+<p><span class="math display">\[
+  logit(p_i) = log(\frac{p_i}{1 - p_i})
+\]</span></p>
+<p>The “odds” of an event is just the probability it happens divided by the probability it does not happen. In other words:</p>
+<p><span class="math display">\[
+  log(\frac{p_i}{1 - p_i}) = α + βx_i
+\]</span> To figure out the definition of <em>p_i</em>, we do some algebra to solve for <span class="math inline">\(p_i\)</span>:</p>
+<p><span class="math display">\[
+  p_i = \frac{exp( α + βx_i)}{1 + exp(α + βx_i)}
+\]</span> The above function is the <strong>logistic</strong></p>
 <ul>
-<li>coefficient for <code>[X]</code>
-</li>
-<li>odds ratio for <code>[X]</code>
-</li>
-<li>statistical uncertainty, if relevant</li>
-</ul></section></section><section id="clear-communication" class="level2" data-number="16.6"><h2 data-number="16.6" class="anchored" data-anchor-id="clear-communication">
-<span class="header-section-number">16.6</span> Clear communication</h2>
+<li>Note that the log-odds space is linear (what we model)</li>
+<li>The logistic space is the sigmoidal shape (the transformation)</li>
+</ul>
+<section id="the-statistical-models" class="level3" data-number="15.10.1"><h3 data-number="15.10.1" class="anchored" data-anchor-id="the-statistical-models">
+<span class="header-section-number">15.10.1</span> The statistical models</h3>
+<p>We want to adjust for competing predictors of death and potential counfounders in our model.</p>
+<p><span class="math display">\[
+  logit( \text{death at 1 year followup}) = α + β1_{thrombectomy}
+                                            + β2_{diabites} + β3_{age} \\
+  + β4_{hypertention} + β5_{sex} + β6_{thrombectomy×diabites} \\
+  + β7_{thrombectomy×age}
+  + β8_{thrombectomy×hyptertension} + β9_{thrombectomy×sex} \\
+\]</span></p>
+<p>We implement this model in R using <code><a href="https://rdrr.io/r/stats/glm.html">glm()</a></code>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">thrombectomy</span> <span class="op">&lt;-</span> <span class="fu">medisr</span><span class="fu">::</span><span class="va"><a href="https://danmazjen.github.io/medisr/reference/thrombectomy.html">thrombectomy</a></span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu">mutate</span><span class="op">(</span>death_1year_followup <span class="op">=</span> <span class="fu">if_else</span><span class="op">(</span><span class="va">time_to_death</span> <span class="op">&lt;</span> <span class="fl">365</span> <span class="op">&amp;</span> <span class="va">death</span> <span class="op">==</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">0</span><span class="op">)</span>,</span>
+<span>    age_at_diagnosis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">age_at_diagnosis</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span></span>
+<span><span class="va">th_model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span></span>
+<span>  <span class="va">death_1year_followup</span> <span class="op">~</span> <span class="va">thrombectomy</span> <span class="op">+</span></span>
+<span>        <span class="va">prior_diabetes</span> <span class="op">+</span></span>
+<span>        <span class="va">age_at_diagnosis</span> <span class="op">+</span></span>
+<span>        <span class="va">prior_hypertention</span> <span class="op">+</span></span>
+<span>        <span class="va">sex</span> <span class="op">+</span></span>
+<span>        <span class="va">thrombectomy</span><span class="op">:</span><span class="va">prior_diabetes</span> <span class="op">+</span></span>
+<span>        <span class="va">thrombectomy</span><span class="op">:</span><span class="va">age_at_diagnosis</span> <span class="op">+</span></span>
+<span>        <span class="va">thrombectomy</span><span class="op">:</span><span class="va">prior_hypertention</span> <span class="op">+</span></span>
+<span>        <span class="va">thrombectomy</span><span class="op">:</span><span class="va">sex</span>,</span>
+<span>        family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html">binomial</a></span><span class="op">(</span>link <span class="op">=</span> <span class="st">"logit"</span><span class="op">)</span>,</span>
+<span>  data <span class="op">=</span> <span class="va">thrombectomy</span></span>
+<span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Here’s the model output:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">th_model</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu">parameters</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/parameters/reference/model_parameters.html">parameters</a></span><span class="op">(</span>exponentiate<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 9
+   Parameter   Coefficient      SE    CI  CI_low CI_high      z df_error
+   &lt;chr&gt;             &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;
+ 1 (Intercept)     0.00182 1.55e-3  0.95 3.25e-4 9.18e-3 -7.41       Inf
+ 2 thrombecto…     9.06    1.03e+1  0.95 9.82e-1 8.49e+1  1.94       Inf
+ 3 prior_diab…     2.70    7.43e-1  0.95 1.57e+0 4.64e+0  3.60       Inf
+ 4 age_at_dia…     1.07    1.10e-2  0.95 1.05e+0 1.09e+0  6.34       Inf
+ 5 prior_hype…     1.48    2.99e-1  0.95 9.94e-1 2.20e+0  1.92       Inf
+ 6 sex             1.04    2.09e-1  0.95 7.02e-1 1.54e+0  0.196      Inf
+ 7 thrombecto…     1.64    7.60e-1  0.95 6.57e-1 4.08e+0  1.06       Inf
+ 8 thrombecto…     0.973   1.39e-2  0.95 9.46e-1 1.00e+0 -1.93       Inf
+ 9 thrombecto…     0.428   1.41e-1  0.95 2.23e-1 8.12e-1 -2.58       Inf
+10 thrombecto…     1.34    4.32e-1  0.95 7.14e-1 2.53e+0  0.908      Inf
+# ℹ 1 more variable: p &lt;dbl&gt;</code></pre>
+</div>
+</div>
+</section></section><section id="coefficient-to-quantity-of-interest" class="level2" data-number="15.11"><h2 data-number="15.11" class="anchored" data-anchor-id="coefficient-to-quantity-of-interest">
+<span class="header-section-number">15.11</span> Coefficient to quantity of interest</h2>
+<p>Recall <a href="session11.html#sec-coef-interp" class="quarto-xref"><span>Section 13.10</span></a> where we learned how to plug in numbers from a fitted regression in order to fit expectations or <em>predictions</em> of specific patients profiles in the dataset.</p>
+<p>We will do this again - but this time, we’re fitting a POisson regression</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">b</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">th_model</span><span class="op">)</span></span>
+<span><span class="va">b</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                    (Intercept)                    thrombectomy 
+                    -6.30743079                      2.20414044 
+                 prior_diabetes                age_at_diagnosis 
+                     0.99219918                      0.06548817 
+             prior_hypertention                             sex 
+                     0.38930725                      0.03936706 
+    thrombectomy:prior_diabetes   thrombectomy:age_at_diagnosis 
+                     0.49240096                     -0.02760921 
+thrombectomy:prior_hypertention                thrombectomy:sex 
+                    -0.84966243                      0.29304514 </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">linpred_treatment_diabetes_50yo_female</span> <span class="op">=</span> <span class="va">b</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="op">+</span> <span class="va">b</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span> <span class="op">*</span> <span class="fl">1</span> <span class="op">+</span> <span class="va">b</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span> <span class="op">*</span> <span class="fl">1</span> <span class="op">+</span> <span class="va">b</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span> <span class="op">*</span> <span class="fl">50</span> <span class="op">+</span> <span class="va">b</span><span class="op">[</span><span class="fl">5</span><span class="op">]</span> <span class="op">*</span> <span class="fl">0</span> <span class="op">+</span> <span class="va">b</span><span class="op">[</span><span class="fl">6</span><span class="op">]</span> <span class="op">*</span> <span class="fl">0</span> <span class="op">+</span> <span class="va">b</span><span class="op">[</span><span class="fl">7</span><span class="op">]</span> <span class="op">*</span> <span class="fl">1</span> <span class="op">+</span> <span class="va">b</span><span class="op">[</span><span class="fl">8</span><span class="op">]</span> <span class="op">*</span> <span class="fl">0</span> <span class="op">+</span> <span class="va">b</span><span class="op">[</span><span class="fl">9</span><span class="op">]</span> <span class="op">*</span> <span class="fl">0</span></span>
+<span></span>
+<span><span class="va">linpred_treatment_diabetes_50yo_female</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/unname.html">unname</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.6557182</code></pre>
+</div>
+</div>
+<!--panache-ignore-start-->
+<p>b[1] * 1 # intercept b[2] * 1 # thrombectomy = 1 b[3] * 1 # diabetes = 1 b[4] * 50 # age = 50 b[5] * 0 # hypertension = 0 b[6] * 0 # female = 0 b[7] * 1 # thrombectomy * diabetes = 1<em>1 b[8] </em> 0 # thrombectomy * hypertension = 1<em>0 b[9] </em> 0 # thrombectomy * sex = 1*0 <!--panache-ignore-end--></p>
+<p>The other will be</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">linpred_no_treatment_diabetes_40yo_male</span> <span class="op">=</span> <span class="va">b</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="op">+</span> <span class="va">b</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span> <span class="op">*</span> <span class="fl">0</span> <span class="op">+</span> <span class="va">b</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span> <span class="op">*</span> <span class="fl">1</span> <span class="op">+</span> <span class="va">b</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span> <span class="op">*</span> <span class="fl">40</span> <span class="op">+</span> <span class="va">b</span><span class="op">[</span><span class="fl">5</span><span class="op">]</span> <span class="op">*</span> <span class="fl">0</span> <span class="op">+</span> <span class="va">b</span><span class="op">[</span><span class="fl">6</span><span class="op">]</span> <span class="op">*</span> <span class="fl">1</span> <span class="op">+</span> <span class="va">b</span><span class="op">[</span><span class="fl">7</span><span class="op">]</span> <span class="op">*</span> <span class="fl">0</span> <span class="op">+</span> <span class="va">b</span><span class="op">[</span><span class="fl">8</span><span class="op">]</span> <span class="op">*</span> <span class="fl">0</span> <span class="op">+</span> <span class="va">b</span><span class="op">[</span><span class="fl">9</span><span class="op">]</span> <span class="op">*</span> <span class="fl">0</span></span>
+<span></span>
+<span><span class="va">linpred_no_treatment_diabetes_40yo_male</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/unname.html">unname</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -2.656338</code></pre>
+</div>
+</div>
+<!--panache-ignore-start-->
+<p>b[1] * 1 # intercept b[2] * 0 # thrombectomy = 0 b[3] * 1 # diabetes = 1 b[4] * 40 # age = 40 b[5] * 0 # hypertension = 0 b[6] * 1 # male = 1 b[7] * 0 # thrombectomy * diabetes = 0 b[8] * 0 # thrombectomy * hypertension = 0 b[9] * 0 # thrombectomy * sex = 0 <!--panache-ignore-end--></p>
+<p>But we’re still in log-odds space. Let’s convert</p>
+<p>The letter <em>g</em> represents the standard logistic function</p>
+<p><span class="math display">\[
+  g(x) = \frac{1}{1 + e^{-x}}
+\]</span></p>
+<p>Applying this function ensures that the linear component inside the parentheses of Equation 5.1 gets rescaled to the interval in order to respect the natural (probability) scale of the binary outcome.</p>
+<p>In R, we can make a function to do this for us:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">g</span> <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fl">1</span> <span class="op">/</span> <span class="op">(</span><span class="fl">1</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="op">-</span><span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/unname.html">unname</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">g</span><span class="op">(</span><span class="va">linpred_treatment_diabetes_50yo_female</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.6582979</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">g</span><span class="op">(</span><span class="va">linpred_no_treatment_diabetes_40yo_male</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.06559945</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">grid</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
+<span>    thrombectomy <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span>,</span>
+<span>    prior_diabetes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>,</span>
+<span>    age_at_diagnosis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">50</span>, <span class="fl">40</span><span class="op">)</span>,</span>
+<span>    prior_hypertention <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>,</span>
+<span>    sex <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">grid</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 5
+  thrombectomy prior_diabetes age_at_diagnosis prior_hypertention   sex
+         &lt;dbl&gt;          &lt;dbl&gt;            &lt;dbl&gt;              &lt;dbl&gt; &lt;dbl&gt;
+1            1              1               50                  0     0
+2            0              1               40                  0     1</code></pre>
+</div>
+</div>
+<p>Now, the <a href="https://marginaleffects.com/">marginaleffects</a> function <code><a href="https://rdrr.io/pkg/marginaleffects/man/predictions.html">predictions()</a></code> can take care of all this for us:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://marginaleffects.com/">marginaleffects</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/predictions.html">predictions</a></span><span class="op">(</span><span class="va">th_model</span>, newdata <span class="op">=</span> <span class="va">grid</span>, type <span class="op">=</span> <span class="st">"link"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ Estimate Std. Error     z Pr(&gt;|z|)    S 2.5 % 97.5 %
+   -0.725      0.470 -1.54    0.123  3.0 -1.65  0.196
+   -2.656      0.445 -5.97   &lt;0.001 28.7 -3.53 -1.784
+
+Type: link</code></pre>
+</div>
+</div>
+<p>If we don’t specify <code>type = "link"</code>, the default value is <code>type = "response"</code>, which has already transformed the log-odds to probability (or log-ratio to count, was the model poisson regression):</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/predictions.html">predictions</a></span><span class="op">(</span><span class="va">th_model</span>, newdata <span class="op">=</span> <span class="va">grid</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ Estimate Pr(&gt;|z|)    S  2.5 % 97.5 %
+   0.3263    0.123  3.0 0.1617  0.549
+   0.0656   &lt;0.001 28.7 0.0285  0.144
+
+Type: invlink(link)</code></pre>
+</div>
+</div>
+</section><section id="step-4-what-quantity-do-i-actually-want-to-communicate" class="level2" data-number="15.12"><h2 data-number="15.12" class="anchored" data-anchor-id="step-4-what-quantity-do-i-actually-want-to-communicate">
+<span class="header-section-number">15.12</span> Step 4: What quantity do I actually want to communicate</h2>
+<p>In this case, we’re interested in probability of death.</p>
+<section id="clear-communication" class="level3" data-number="15.12.1"><h3 data-number="15.12.1" class="anchored" data-anchor-id="clear-communication">
+<span class="header-section-number">15.12.1</span> Clear communication</h3>
 <p>Suppose:</p>
 <p>OR = 1.50</p>
 <p>What does this mean?</p>
@@ -722,8 +921,8 @@ Figure&nbsp;16.1: From the scientific question to a clinically interpretable mar
 <p>Does this mean that a 1-year increase in age increases the probability of disease by 50 percentage points?</p>
 <p>No.</p>
 <p>An odds ratio describes a change in odds, not directly a change in probability.</p>
-<section id="why-the-odds-ratio-is-not-enough" class="level3" data-number="16.6.1"><h3 data-number="16.6.1" class="anchored" data-anchor-id="why-the-odds-ratio-is-not-enough">
-<span class="header-section-number">16.6.1</span> Why the odds ratio is not enough</h3>
+</section><section id="why-the-odds-ratio-is-not-enough" class="level3" data-number="15.12.2"><h3 data-number="15.12.2" class="anchored" data-anchor-id="why-the-odds-ratio-is-not-enough">
+<span class="header-section-number">15.12.2</span> Why the odds ratio is not enough</h3>
 <p>The clinical question is usually about risk/probability, not odds.</p>
 <p>Consider two patients:</p>
 <ul>
@@ -742,246 +941,1133 @@ Figure&nbsp;16.1: From the scientific question to a clinically interpretable mar
 <blockquote class="blockquote">
 <p>There is not necessarily one single “effect of X” on probability.</p>
 </blockquote>
-</section><section id="what-is-a-marginal-effect" class="level3" data-number="16.6.2"><h3 data-number="16.6.2" class="anchored" data-anchor-id="what-is-a-marginal-effect">
-<span class="header-section-number">16.6.2</span> What is a marginal effect?</h3>
-<p>A marginal effect asks:</p>
-<p><em>How much does predicted probability change when X changes?</em></p>
-<p>For a continuous variable:</p>
-<p><em>What happens to predicted probability if X increases by 1 unit?</em></p>
-<p>For example:</p>
-<p>If age increases by 1 year, how much does predicted probability of disease change?</p>
-<p>In a nonlinear model, this is calculated on the probability scale, rather than the log-odds scale.</p>
-<p>With {marginaleffects}:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://marginaleffects.com/">marginaleffects</a></span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/slopes.html">avg_slopes</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># the effect of 1 year age point slope for old?</span></span>
+<span><span class="co"># No slope increase - already high probability of death?</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>Conceptually, the output answers: A 1-unit increase in age → Δ predicted probability</p>
-<p>If the result were:</p>
-<p>age: 0.012</p>
-<p>the interpretation would be:</p>
-<p>A one-year increase in age is associated with a 1.2 percentage-point increase in predicted probability, on average.</p>
-<p>Notice the distinction:</p>
-<p>0.012 probability</p>
-<p>1.2 percentage points</p>
-</section><section id="the-effect-depends-on-the-patient" class="level3" data-number="16.6.3"><h3 data-number="16.6.3" class="anchored" data-anchor-id="the-effect-depends-on-the-patient">
-<span class="header-section-number">16.6.3</span> The effect depends on the patient</h3>
-<p>Suppose we want to know the effect of age for a particular patient.</p>
-<p>We might ask:</p>
-<p>What is the marginal effect of age for a 50-year-old non-smoker with normal blood pressure?</p>
-<p>versus:</p>
-<p>What is the marginal effect of age for a 75-year-old smoker with high blood pressure?</p>
-<p>These can be different.</p>
-<p>We can calculate effects for specified covariate values:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/slopes.html">slopes</a></span><span class="op">(</span></span>
-<span>  <span class="va">model</span>,</span>
-<span>  newdata <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/datagrid.html">datagrid</a></span><span class="op">(</span></span>
-<span>    age <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">50</span>, <span class="fl">75</span><span class="op">)</span>,</span>
-<span>    smoking <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>,</span>
-<span>    blood_pressure <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">120</span>, <span class="fl">160</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span>
-<span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>The important concept is not the syntax.</p>
-<p>It is:</p>
-<p>A marginal effect is conditional on the characteristics of the person for whom we calculate it.</p>
-</section></section><section id="predicted-probabilities-versus-marginal-effects" class="level2" data-number="16.7"><h2 data-number="16.7" class="anchored" data-anchor-id="predicted-probabilities-versus-marginal-effects">
-<span class="header-section-number">16.7</span> Predicted probabilities versus marginal effects</h2>
-<p>These are different questions.</p>
-<p>Predicted probability What is this patient’s predicted probability of disease?</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/predictions.html">predictions</a></span><span class="op">(</span></span>
-<span>  <span class="va">model</span>,</span>
-<span>  newdata <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/datagrid.html">datagrid</a></span><span class="op">(</span></span>
-<span>    age <span class="op">=</span> <span class="fl">60</span>,</span>
-<span>    smoking <span class="op">=</span> <span class="fl">0</span>,</span>
-<span>    blood_pressure <span class="op">=</span> <span class="fl">130</span></span>
-<span>  <span class="op">)</span></span>
-<span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>Marginal effect How much does the predicted probability change if age increases?</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/slopes.html">slopes</a></span><span class="op">(</span></span>
-<span>  <span class="va">model</span>,</span>
-<span>  newdata <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/datagrid.html">datagrid</a></span><span class="op">(</span></span>
-<span>    age <span class="op">=</span> <span class="fl">60</span>,</span>
-<span>    smoking <span class="op">=</span> <span class="fl">0</span>,</span>
-<span>    blood_pressure <span class="op">=</span> <span class="fl">130</span></span>
-<span>  <span class="op">)</span></span>
-<span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p><strong>Predictions:</strong></p>
-<blockquote class="blockquote">
-<p>“What is the risk?”</p>
-</blockquote>
-<p><strong>Marginal effects:</strong></p>
-<blockquote class="blockquote">
-<p>“How much does the risk change?”</p>
-</blockquote>
-<p>Both are useful, but they answer different scientific questions.</p>
-</section><section id="average-marginal-effects" class="level2" data-number="16.8"><h2 data-number="16.8" class="anchored" data-anchor-id="average-marginal-effects">
-<span class="header-section-number">16.8</span> Average marginal effects</h2>
-<p>Often we do not want the effect for one particular patient.</p>
-<p>We want:</p>
-<p>What is the average effect in this population?</p>
-<p>That is the average marginal effect (AME).</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/slopes.html">avg_slopes</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>Conceptually:</p>
-<div class="line-block">Patient 1: effect of X = …<br>
-Patient 2: effect of X = …<br>
-Patient 3: effect of X = …<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⋮<br>
-Patient N: effect of X = …</div>
-<p>Average = AME</p>
-<p>The interpretation is:</p>
-<p>On average, a one-unit increase in X changes predicted probability by Δ percentage points.</p>
-<p>This is often much easier to communicate than an odds ratio.</p>
-</section><section id="interactions-when-the-effect-depends-on-something-else" class="level2" data-number="16.9"><h2 data-number="16.9" class="anchored" data-anchor-id="interactions-when-the-effect-depends-on-something-else">
-<span class="header-section-number">16.9</span> Interactions: when the effect depends on something else</h2>
-<p>Suppose our model includes:</p>
-<p>Age × Smoking</p>
-<p>The scientific question becomes:</p>
-<p>Does the effect of age on disease probability differ between smokers and non-smokers?</p>
-<p>The model might be:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span></span>
-<span>  <span class="va">disease</span> <span class="op">~</span> <span class="va">age</span> <span class="op">*</span> <span class="va">smoking</span> <span class="op">+</span> <span class="va">blood_pressure</span>,</span>
-<span>  data <span class="op">=</span> <span class="va">data</span>,</span>
-<span>  family <span class="op">=</span> <span class="va">binomial</span></span>
-<span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>The temptation is to look at the interaction coefficient and interpret it directly.</p>
-<p>Don’t.</p>
-<p>The interaction coefficient is on the log-odds scale.</p>
-<p>Instead, calculate the marginal effect of age at different smoking statuses:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/slopes.html">slopes</a></span><span class="op">(</span></span>
-<span>  <span class="va">model</span>,</span>
-<span>  variables <span class="op">=</span> <span class="st">"age"</span>,</span>
-<span>  by <span class="op">=</span> <span class="st">"smoking"</span></span>
-<span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>Now the result directly addresses the scientific question:</p>
-<p>Effect of age among non-smokers Effect of age among smokers</p>
-<p>And you can ask:</p>
-<p>Is the difference between those marginal effects clinically meaningful?</p>
-</section><section id="visualizing-the-interaction" class="level2" data-number="16.10"><h2 data-number="16.10" class="anchored" data-anchor-id="visualizing-the-interaction">
-<span class="header-section-number">16.10</span> Visualizing the interaction</h2>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/plot_predictions.html">plot_predictions</a></span><span class="op">(</span></span>
-<span>  <span class="va">model</span>,</span>
-<span>  condition <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"age"</span>, <span class="st">"smoking"</span><span class="op">)</span></span>
-<span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</section><section id="comparing-clinically-meaningful-changes" class="level2" data-number="16.11"><h2 data-number="16.11" class="anchored" data-anchor-id="comparing-clinically-meaningful-changes">
-<span class="header-section-number">16.11</span> Comparing clinically meaningful changes</h2>
-<p>A one-unit change is not always clinically meaningful.</p>
-<p>For example, instead of asking:</p>
-<p>What is the effect of a 1-unit increase in blood pressure?</p>
-<p>we might ask:</p>
-<p>What is the change in predicted probability when blood pressure increases from 120 to 140 mmHg?</p>
-<p>For this, use a comparison:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/comparisons.html">avg_comparisons</a></span><span class="op">(</span></span>
-<span>  <span class="va">model</span>,</span>
-<span>  variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
-<span>    blood_pressure <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">120</span>, <span class="fl">140</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span>
-<span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>This produces a quantity directly corresponding to the clinical question:</p>
-<p>Predicted probability at 140 − Predicted probability at 120 = change in probability</p>
-</section><section id="uncertainty-a-marginal-effect-is-an-estimate-not-a-known-quantity." class="level2" data-number="16.12"><h2 data-number="16.12" class="anchored" data-anchor-id="uncertainty-a-marginal-effect-is-an-estimate-not-a-known-quantity.">
-<span class="header-section-number">16.12</span> Uncertainty A marginal effect is an estimate, not a known quantity.</h2>
-<p>Therefore we also report uncertainty:</p>
+</section></section><section id="step-5-at-what-values" class="level2" data-number="15.13"><h2 data-number="15.13" class="anchored" data-anchor-id="step-5-at-what-values">
+<span class="header-section-number">15.13</span> Step 5: At what values?</h2>
 <ul>
-<li>Estimate</li>
-<li>95% CI</li>
-<li>p-value</li>
+<li>A particular patient?</li>
+<li>A clinically meaningful scenario?</li>
+<li>The average population?</li>
+<li>Different levels of an interacting variable?</li>
 </ul>
-<p>For example:</p>
-<p>AME = 0.018 (95% CI 0.010–0.026)</p>
-<p>Interpretation:</p>
-<p>On average, a one-unit increase in X is associated with a 1.8 percentage-point increase in predicted probability, with a 95% confidence interval from 1.0 to 2.6 percentage points.</p>
-<div class="hidden">
-<p>Reading task: Reporting incidence rate ratio or counts</p>
-<blockquote class="blockquote">
-<p>Should we report the incidence rate ratio or the counts for each group?</p>
-</blockquote>
-<p>What would you prefer and why?</p>
-<p>From an absolute perspective, the musquito is the most dangerous animal in the world! It causes most deaths a year. However, if I were to battle a musquito or a shark, I would bet my life on the musquito and not the shark! It is relatively much more dangerous! However, conditional on being in the real-life situation of facing a musquito or a shark, the former is much more probable.</p>
-<p>Now, consider the interpretation of the coefficients and model we just made in <a href="session12.html#sec-poisson-interp" class="quarto-xref"><span>Section 14.10</span></a>. How would you inform a patient or a clinican about the results?</p>
-<details><summary><strong>Click for a tip</strong>
-</summary><p><em>Tip</em>: consider conditioning on <code>baseline_seizures</code>.</p>
-<p>Is <code>round((1 - exp(m1_intercept$coefficients[2])) * 100, 1)</code>% lower the same when you have 1 seizure every 8 weeks? What about 100? Would it be a meaningful unit to make national policies?</p>
-<p>Now, what if we take the average absolute change: <code>(1-exp(m1_intercept$coefficients[2]))*mean(subset(epil,drug=="placebo")$seizure_count)</code> when you have 1 seizure every 8 weeks? What about 100? Would it be a meaningful unit to make national policies?.</p>
-</details>
+<p>Here, we tackle one scientific question at a time in order to address these questions:</p>
+<section id="our-sample" class="level3" data-number="15.13.1"><h3 data-number="15.13.1" class="anchored" data-anchor-id="our-sample">
+<span class="header-section-number">15.13.1</span> Our sample</h3>
+<p>If we don’t supply a <code>newdata</code> grid, the <code><a href="https://rdrr.io/pkg/marginaleffects/man/predictions.html">predictions()</a></code> function will take all participants in our sample and compute predictions for them, one by one:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">p</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/predictions.html">predictions</a></span><span class="op">(</span><span class="va">th_model</span><span class="op">)</span></span>
+<span><span class="va">p</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ Estimate Pr(&gt;|z|)    S  2.5 % 97.5 %
+   0.2677   &lt;0.001 28.9 0.2083  0.337
+   0.0706   &lt;0.001 40.2 0.0361  0.133
+   0.3220   &lt;0.001 19.9 0.2606  0.390
+   0.1979   &lt;0.001 36.8 0.1417  0.269
+   0.1275   &lt;0.001 40.1 0.0794  0.198
+--- 1013 rows omitted. See ?print.marginaleffects ---
+   0.4588    0.683  0.6 0.2776  0.652
+   0.6696    0.102  3.3 0.4651  0.825
+   0.3413    0.137  2.9 0.1788  0.552
+   0.4494    0.617  0.7 0.2694  0.644
+   0.6611    0.118  3.1 0.4575  0.819
+Type: invlink(link)</code></pre>
 </div>
-<div class="hidden">
-<p>Extra madness - counterfactuals for clinical inference</p>
-<p>This is an extra part (not curriculum material).</p>
-<p>Suppose you wanted to know a cutoff for when the drug prevents <em>at least</em> three seizures:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#| label: cut-off-of-when-to-use</span></span>
+</div>
+<p>You can see that the row length is the same as the original dataset:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1023</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">thrombectomy</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1023</code></pre>
+</div>
+</div>
+<p>A table with 1023 rows is not super intuitive and nice to make inference from. Why can we do about that?</p>
+<p>We could either</p>
+<ol type="1">
+<li>Make a plot to illustrate it all visually, or</li>
+<li>take the average of all these predictions</li>
+</ol>
+<p><strong>Keeping all information</strong></p>
+<p>Let’s start by the first approach and visualize all information:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com">patchwork</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">grid</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/datagrid.html">datagrid</a></span><span class="op">(</span></span>
-<span>    model<span class="op">=</span><span class="va">m2_baseline</span>,</span>
-<span>    baseline_seizures <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">100</span>, by <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,</span>
-<span>    age <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">epil</span><span class="op">$</span><span class="va">age</span><span class="op">)</span>, <span class="co">#28 yo</span></span>
-<span>    <span class="co">#V4 = 1, # follow-up</span></span>
-<span>    drug <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"placebo"</span>, <span class="st">"progabide"</span><span class="op">)</span></span>
+<span><span class="va">p</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/predictions.html">predictions</a></span><span class="op">(</span><span class="va">th_model</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Histogram</span></span>
+<span><span class="va">p1</span> <span class="op">=</span> <span class="fu">ggplot</span><span class="op">(</span><span class="va">p</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_histogram</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">estimate</span>, fill <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">thrombectomy</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">labs</span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Pr(outcome = 1)"</span>, y <span class="op">=</span> <span class="st">"Count"</span>, fill <span class="op">=</span> <span class="st">"thrombectomy"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">scale_fill_grey</span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Empirical Cumulative Distribution Function</span></span>
+<span><span class="va">p2</span> <span class="op">=</span> <span class="fu">ggplot</span><span class="op">(</span><span class="va">p</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">stat_ecdf</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">estimate</span>, colour <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">thrombectomy</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">labs</span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Pr(outcome = 1)"</span>,</span>
+<span>       y <span class="op">=</span> <span class="st">"Cumulative Probability"</span>,</span>
+<span>       colour <span class="op">=</span> <span class="st">"thrombectomy"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">scale_colour_grey</span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Combined plots</span></span>
+<span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value `binwidth`.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="session15_files/figure-html/empirical-data-viz-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The plot to the left shows the histogram. I suddenly becomes clear that fewer patients received thrombectomy than patients who did not.</p>
+<p>Indeed, that is correct:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">thrombectomy</span><span class="op">$</span><span class="va">thrombectomy</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+  0   1 
+583 440 </code></pre>
+</div>
+</div>
+<p>about 0.4301075 received thrombectomy.</p>
+<p>From the right plot, we can see the cumulative density plot. Here, it seems that overall… <!-- TODO: Write text here --></p>
+<p><strong>Marginalizing over the predictions</strong></p>
+<p>We can compute the average for them by using <code><a href="https://rdrr.io/pkg/marginaleffects/man/predictions.html">avg_predictions()</a></code></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/predictions.html">avg_predictions</a></span><span class="op">(</span><span class="va">th_model</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ Estimate Std. Error    z Pr(&gt;|z|)     S 2.5 % 97.5 %
+    0.267      0.013 20.5   &lt;0.001 307.1 0.241  0.292
+
+Type: response</code></pre>
+</div>
+</div>
+<p>So the average probability of death at the 1-year follow-up is 26.7%.</p>
+<p>This is a reasonable estimate for answering the question</p>
+<blockquote class="blockquote">
+<p>“how many Danes die at 1-year follow-up after stroke?”</p>
+</blockquote>
+<p>However, as we now know that the groups are unbalanced, this is not a good estimate for the treatment effect! And it doesn’t have the granularity to address more nuanced questions of sub-population level.</p>
+<p>Finally, to compute the average for the patients receiving thrombectomy and those who did not, we can group the average for these conditions</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/predictions.html">avg_predictions</a></span><span class="op">(</span><span class="va">th_model</span>, by<span class="op">=</span><span class="st">"thrombectomy"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ thrombectomy Estimate Std. Error    z Pr(&gt;|z|)     S 2.5 % 97.5 %
+            0    0.307     0.0179 17.1   &lt;0.001 216.0 0.272  0.342
+            1    0.214     0.0188 11.4   &lt;0.001  96.8 0.177  0.251
+
+Type: response</code></pre>
+</div>
+</div>
+<p>Based on the data we have, patients that are offered and successfully manage to receive thrombectomy have a 30.7% and 21.4% chance of death measured at 1-year follow-up.</p>
+<p>This is the final estimate for our question:</p>
+<blockquote class="blockquote">
+<p>“Do Danish patients who receive thrombectomy have better probability of survival at 1-year follow-up after stroke, compared to patients not receiving thrombectomy?”</p>
+</blockquote>
+<div class="hidden">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#| label: relative-risk</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/comparisons.html">avg_comparisons</a></span><span class="op">(</span></span>
+<span>    <span class="va">th_model</span>,</span>
+<span>    by<span class="op">=</span><span class="st">"thrombectomy"</span>,</span>
+<span>    comparison <span class="op">=</span> <span class="st">"lnratioavg"</span>, <span class="co"># Calculates adjusted Risk Ratio</span></span>
+<span>    transform <span class="op">=</span> <span class="va">exp</span> <span class="co"># then exponentiates</span></span>
+<span>    <span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section><section id="young-adults-with-diabetes" class="level3" data-number="15.13.2"><h3 data-number="15.13.2" class="anchored" data-anchor-id="young-adults-with-diabetes">
+<span class="header-section-number">15.13.2</span> Young adults with diabetes</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/datagrid.html">datagrid</a></span><span class="op">(</span></span>
+<span>    prior_diabetes <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>    thrombectomy <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>,</span>
+<span>    age_at_diagnosis<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">80</span><span class="op">:</span><span class="fl">90</span><span class="op">)</span>,</span>
+<span>    model <span class="op">=</span> <span class="va">th_model</span></span>
+<span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 22 × 6
+   rowid prior_hypertention   sex prior_diabetes thrombectomy
+   &lt;int&gt;              &lt;int&gt; &lt;int&gt;          &lt;dbl&gt;        &lt;dbl&gt;
+ 1     1                  1     1              1            0
+ 2     2                  1     1              1            0
+ 3     3                  1     1              1            0
+ 4     4                  1     1              1            0
+ 5     5                  1     1              1            0
+ 6     6                  1     1              1            0
+ 7     7                  1     1              1            0
+ 8     8                  1     1              1            0
+ 9     9                  1     1              1            0
+10    10                  1     1              1            0
+# ℹ 12 more rows
+# ℹ 1 more variable: age_at_diagnosis &lt;int&gt;</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb38"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">p</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/predictions.html">predictions</a></span><span class="op">(</span></span>
+<span>    <span class="va">th_model</span>,</span>
+<span>    newdata <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/datagrid.html">datagrid</a></span><span class="op">(</span></span>
+<span>        prior_diabetes <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>        thrombectomy <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>,</span>
+<span>        age_at_diagnosis<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">80</span><span class="op">:</span><span class="fl">90</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">pred</span> <span class="op">&lt;-</span> <span class="fu">marginaleffects</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/predictions.html">predictions</a></span><span class="op">(</span><span class="va">m2_baseline</span>, newdata <span class="op">=</span> <span class="va">grid</span><span class="op">)</span></span>
+<span><span class="va">p</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ prior_diabetes thrombectomy age_at_diagnosis Estimate Pr(&gt;|z|)   S
+              1            0               80    0.587  0.22571 2.1
+              1            0               81    0.603  0.15388 2.7
+              1            0               82    0.619  0.10197 3.3
+              1            0               83    0.634  0.06589 3.9
+              1            0               84    0.649  0.04165 4.6
+              1            0               85    0.664  0.02586 5.3
+              1            0               86    0.678  0.01582 6.0
+              1            0               87    0.692  0.00958 6.7
+              1            0               88    0.706  0.00576 7.4
+              1            0               89    0.719  0.00345 8.2
+              1            0               90    0.733  0.00206 8.9
+              1            1               80    0.570  0.42785 1.2
+              1            1               81    0.580  0.37336 1.4
+              1            1               82    0.589  0.32461 1.6
+              1            1               83    0.598  0.28134 1.8
+              1            1               84    0.607  0.24322 2.0
+              1            1               85    0.616  0.20986 2.3
+              1            1               86    0.625  0.18082 2.5
+              1            1               87    0.634  0.15567 2.7
+              1            1               88    0.643  0.13397 2.9
+              1            1               89    0.651  0.11531 3.1
+              1            1               90    0.660  0.09930 3.3
+ 2.5 % 97.5 %
+ 0.446  0.716
+ 0.461  0.730
+ 0.476  0.743
+ 0.491  0.757
+ 0.506  0.770
+ 0.520  0.782
+ 0.535  0.794
+ 0.549  0.806
+ 0.563  0.817
+ 0.577  0.828
+ 0.591  0.839
+ 0.397  0.728
+ 0.405  0.737
+ 0.412  0.745
+ 0.419  0.754
+ 0.427  0.762
+ 0.434  0.771
+ 0.441  0.779
+ 0.448  0.787
+ 0.455  0.795
+ 0.462  0.802
+ 0.469  0.810
+
+Type: invlink(link)</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb40"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/predictions.html">predictions</a></span><span class="op">(</span></span>
+<span>    <span class="va">th_model</span>,</span>
+<span>    newdata <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/datagrid.html">datagrid</a></span><span class="op">(</span></span>
+<span>        age_at_diagnosis <span class="op">=</span> <span class="fl">80</span>,</span>
+<span>        prior_diabetes <span class="op">=</span> <span class="va">unique</span>,</span>
+<span>        thrombectomy <span class="op">=</span> <span class="va">max</span></span>
+<span>    <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ age_at_diagnosis prior_diabetes thrombectomy Estimate Pr(&gt;|z|)    S
+               80              0            1    0.231   &lt;0.001 22.2
+               80              1            1    0.570    0.428  1.2
+ 2.5 % 97.5 %
+ 0.161  0.321
+ 0.397  0.728
+
+Type: invlink(link)</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb42"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/predictions.html">predictions</a></span><span class="op">(</span></span>
+<span>    <span class="va">th_model</span>,</span>
+<span>    newdata <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/datagrid.html">datagrid</a></span><span class="op">(</span></span>
+<span>        age_at_diagnosis<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">80</span><span class="op">:</span><span class="fl">90</span><span class="op">)</span>,</span>
+<span>        prior_diabetes <span class="op">=</span> <span class="va">unique</span>,</span>
+<span>        thrombectomy <span class="op">=</span> <span class="va">max</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ age_at_diagnosis prior_diabetes thrombectomy Estimate Pr(&gt;|z|)    S
+               80              0            1    0.231  &lt; 0.001 22.2
+               80              1            1    0.570  0.42785  1.2
+               81              0            1    0.238  &lt; 0.001 20.5
+               81              1            1    0.580  0.37336  1.4
+               82              0            1    0.245  &lt; 0.001 18.8
+               82              1            1    0.589  0.32461  1.6
+               83              0            1    0.252  &lt; 0.001 17.2
+               83              1            1    0.598  0.28134  1.8
+               84              0            1    0.259  &lt; 0.001 15.7
+               84              1            1    0.607  0.24322  2.0
+               85              0            1    0.267  &lt; 0.001 14.2
+               85              1            1    0.616  0.20986  2.3
+               86              0            1    0.274  &lt; 0.001 12.9
+               86              1            1    0.625  0.18082  2.5
+               87              0            1    0.282  &lt; 0.001 11.6
+               87              1            1    0.634  0.15567  2.7
+               88              0            1    0.289  &lt; 0.001 10.5
+               88              1            1    0.643  0.13397  2.9
+               89              0            1    0.297  0.00148  9.4
+               89              1            1    0.651  0.11531  3.1
+               90              0            1    0.305  0.00293  8.4
+               90              1            1    0.660  0.09930  3.3
+ 2.5 % 97.5 %
+ 0.161  0.321
+ 0.397  0.728
+ 0.165  0.331
+ 0.405  0.737
+ 0.169  0.341
+ 0.412  0.745
+ 0.174  0.351
+ 0.419  0.754
+ 0.178  0.362
+ 0.427  0.762
+ 0.182  0.373
+ 0.434  0.771
+ 0.186  0.384
+ 0.441  0.779
+ 0.191  0.395
+ 0.448  0.787
+ 0.195  0.407
+ 0.455  0.795
+ 0.199  0.418
+ 0.462  0.802
+ 0.204  0.430
+ 0.469  0.810
+
+Type: invlink(link)</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb44"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/predictions.html">avg_predictions</a></span><span class="op">(</span></span>
+<span>    <span class="va">th_model</span>,</span>
+<span>    newdata <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/datagrid.html">datagrid</a></span><span class="op">(</span></span>
+<span>        age_at_diagnosis<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">80</span><span class="op">:</span><span class="fl">90</span><span class="op">)</span>,</span>
+<span>        prior_diabetes <span class="op">=</span> <span class="va">unique</span>,</span>
+<span>        thrombectomy <span class="op">=</span> <span class="va">max</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ Estimate Std. Error    z Pr(&gt;|z|)    S 2.5 % 97.5 %
+    0.442     0.0577 7.65   &lt;0.001 45.6 0.328  0.555
+
+Type: response</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb46"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">grid_oi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/datagrid.html">datagrid</a></span><span class="op">(</span></span>
+<span>    age_at_diagnosis<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">80</span><span class="op">:</span><span class="fl">90</span><span class="op">)</span>,</span>
+<span>    prior_diabetes <span class="op">=</span> <span class="va">unique</span>,</span>
+<span>    thrombectomy <span class="op">=</span> <span class="va">unique</span>,</span>
+<span>    model <span class="op">=</span> <span class="va">th_model</span></span>
+<span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">cutoff</span> <span class="op">&lt;-</span> <span class="va">pred</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">baseline_seizures</span>, <span class="va">drug</span>, <span class="va">estimate</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span></span>
-<span>        names_from <span class="op">=</span> <span class="va">drug</span>,</span>
-<span>        values_from <span class="op">=</span> <span class="va">estimate</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu">mutate</span><span class="op">(</span></span>
-<span>        reduction <span class="op">=</span> <span class="va">placebo</span> <span class="op">-</span> <span class="va">progabide</span></span>
+<span><span class="va">p1</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/plot_predictions.html">plot_predictions</a></span><span class="op">(</span><span class="va">th_model</span>, newdata <span class="op">=</span> <span class="va">grid_oi</span>, by <span class="op">=</span> <span class="st">"thrombectomy"</span><span class="op">)</span></span>
+<span><span class="va">p2</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/plot_predictions.html">plot_predictions</a></span><span class="op">(</span><span class="va">th_model</span>, newdata <span class="op">=</span> <span class="va">grid_oi</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"thrombectomy"</span>, <span class="st">"prior_diabetes"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="session15_files/figure-html/marginal-plot-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>It becomes clear that the effect of thrombectomy on 1-year follow-up mortality is negated substantially by the co-occurrence of diabetes in old age.</p>
+<p>The effect is substantial for non-diabetic old patient.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb47"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/predictions.html">avg_predictions</a></span><span class="op">(</span></span>
+<span>    <span class="va">th_model</span>,</span>
+<span>    by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"thrombectomy"</span>, <span class="st">"prior_diabetes"</span><span class="op">)</span>,</span>
+<span>    newdata <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/datagrid.html">datagrid</a></span><span class="op">(</span></span>
+<span>        age_at_diagnosis<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">80</span><span class="op">:</span><span class="fl">90</span><span class="op">)</span>,</span>
+<span>        prior_diabetes <span class="op">=</span> <span class="va">unique</span>,</span>
+<span>        thrombectomy <span class="op">=</span> <span class="va">unique</span></span>
+<span>    <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ thrombectomy prior_diabetes Estimate Std. Error    z Pr(&gt;|z|)    S
+            0              0    0.423     0.0455 9.30   &lt;0.001 65.9
+            0              1    0.662     0.0674 9.82   &lt;0.001 73.2
+            1              0    0.267     0.0490 5.46   &lt;0.001 24.3
+            1              1    0.616     0.0889 6.93   &lt;0.001 37.8
+ 2.5 % 97.5 %
+ 0.334  0.513
+ 0.530  0.794
+ 0.171  0.363
+ 0.442  0.790
+
+Type: response</code></pre>
+</div>
+</div>
+<p>from 42.3% probability of death without treatment to 26.7% for non-diabetic.</p>
+<p>from 66.2% probability of death without treatment to 61.6% for non-diabetic.</p>
+<p>So our estimates are</p>
+</section><section id="the-balanced-experiment" class="level3" data-number="15.13.3"><h3 data-number="15.13.3" class="anchored" data-anchor-id="the-balanced-experiment">
+<span class="header-section-number">15.13.3</span> The balanced experiment</h3>
+<p>Until now, we have considered our observations as meaningful populations that we want to investigate. However, if we’re interested in thrombectomy as an experimental procedure for any possible candidate patient, we have until now treated the groups unfairly.</p>
+<p>First of all, we have more not receiving the</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb49"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/xtabs.html">xtabs</a></span><span class="op">(</span><span class="op">~</span> <span class="va">thrombectomy</span> <span class="op">+</span> <span class="va">sex</span>, data<span class="op">=</span><span class="va">thrombectomy</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>            sex
+thrombectomy   0   1
+           0 308 275
+           1 190 250</code></pre>
+</div>
+</div>
+<p>We have many more males in the treatment group and</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb51"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span> <span class="fu"><a href="https://rdrr.io/r/stats/xtabs.html">xtabs</a></span><span class="op">(</span><span class="op">~</span> <span class="va">thrombectomy</span> <span class="op">+</span> <span class="va">prior_diabetes</span>, data<span class="op">=</span><span class="va">thrombectomy</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>            prior_diabetes
+thrombectomy   0   1
+           0 512  71
+           1 400  40</code></pre>
+</div>
+</div>
+<p>We don’t have equal amount of patients with diabetes in the treatment group.</p>
+<p>We might be interested in covering some representative and balanced parts of the population.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb53"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">age_mean</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">thrombectomy</span><span class="op">$</span><span class="va">age_at_diagnosis</span><span class="op">)</span></span>
+<span><span class="va">age_sd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">thrombectomy</span><span class="op">$</span><span class="va">age_at_diagnosis</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">grid_oi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/datagrid.html">datagrid</a></span><span class="op">(</span></span>
+<span>    model <span class="op">=</span> <span class="va">th_model</span>,</span>
+<span>    prior_diabetes <span class="op">=</span> <span class="va">unique</span>,</span>
+<span>    prior_hypertention <span class="op">=</span> <span class="va">unique</span>,</span>
+<span>    sex <span class="op">=</span> <span class="va">unique</span>,</span>
+<span>    thrombectomy <span class="op">=</span> <span class="va">unique</span>,</span>
+<span>    age_at_diagnosis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">age_mean</span><span class="op">-</span><span class="va">age_sd</span>, <span class="va">age_mean</span>, <span class="va">age_mean</span><span class="op">+</span><span class="va">age_sd</span><span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
 <span></span>
-<span><span class="va">cutoff_pt</span> <span class="op">&lt;-</span> <span class="va">cutoff</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">slice_min</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span><span class="op">(</span><span class="va">reduction</span> <span class="op">-</span> <span class="op">(</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span>, n <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">worsening</span> <span class="op">&lt;-</span> <span class="va">cutoff</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">slice_min</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span><span class="op">(</span><span class="va">reduction</span> <span class="op">-</span> <span class="op">(</span><span class="fl">0</span><span class="op">)</span><span class="op">)</span>, n <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">ggplot</span><span class="op">(</span><span class="va">cutoff</span>,</span>
-<span>       <span class="fu">aes</span><span class="op">(</span><span class="va">baseline_seizures</span>, <span class="va">reduction</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu">geom_line</span><span class="op">(</span>linewidth <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu">geom_hline</span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fl">3</span>,</span>
-<span>               linetype <span class="op">=</span> <span class="fl">2</span>,</span>
-<span>               colour <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu">labs</span><span class="op">(</span></span>
-<span>        x <span class="op">=</span> <span class="st">"Baseline seizures"</span>,</span>
-<span>        y <span class="op">=</span> <span class="st">"Expected reduction"</span>,</span>
-<span>        title <span class="op">=</span> <span class="st">"Expected treatment benefit"</span></span>
-<span>    <span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu">theme_bw</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu">geom_label</span><span class="op">(</span></span>
-<span>        data <span class="op">=</span> <span class="va">cutoff_pt</span>,</span>
-<span>        <span class="fu">aes</span><span class="op">(</span></span>
-<span>            label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span></span>
-<span>            <span class="st">"Baseline = "</span>, <span class="va">baseline_seizures</span>,</span>
-<span>            <span class="st">"\nReduction = "</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">reduction</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
-<span>        <span class="op">)</span>,</span>
-<span>        nudge_y <span class="op">=</span> <span class="op">-</span><span class="fl">1.5</span></span>
-<span>    <span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu">geom_point</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">baseline_seizures</span>,<span class="va">reduction</span><span class="op">)</span>,</span>
-<span>        <span class="va">cutoff_pt</span>,</span>
-<span>        colour <span class="op">=</span> <span class="st">"steelblue"</span>,</span>
-<span>        size <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Ask the teacher if you’re curious…</p>
+<span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/predictions.html">predictions</a></span><span class="op">(</span></span>
+<span>    <span class="va">th_model</span>,</span>
+<span>    by <span class="op">=</span> <span class="st">"thrombectomy"</span>,</span>
+<span>    newdata <span class="op">=</span> <span class="va">grid_oi</span></span>
+<span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ thrombectomy Estimate Std. Error     z Pr(&gt;|z|)    S 2.5 % 97.5 %
+            0    0.334     0.0296 11.29   &lt;0.001 95.8 0.276  0.392
+            1    0.365     0.0432  8.45   &lt;0.001 54.9 0.280  0.450
+
+Type: response</code></pre>
 </div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb55"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">p1</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/plot_predictions.html">plot_predictions</a></span><span class="op">(</span></span>
+<span>    <span class="va">th_model</span>,</span>
+<span>    newdata <span class="op">=</span> <span class="va">grid_oi</span>,</span>
+<span>    condition <span class="op">=</span> <span class="st">"age_at_diagnosis"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">p2</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/plot_predictions.html">plot_predictions</a></span><span class="op">(</span></span>
+<span>    <span class="va">th_model</span>,</span>
+<span>    newdata <span class="op">=</span> <span class="va">grid_oi</span>,</span>
+<span>    condition <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"age_at_diagnosis"</span>, <span class="st">"thrombectomy"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">p3</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/plot_predictions.html">plot_predictions</a></span><span class="op">(</span></span>
+<span>    <span class="va">th_model</span>,</span>
+<span>    newdata <span class="op">=</span> <span class="va">grid_oi</span>,</span>
+<span>    condition <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"age_at_diagnosis"</span>, <span class="st">"thrombectomy"</span>, <span class="st">"prior_diabetes"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="op">(</span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span><span class="op">)</span> <span class="op">/</span> <span class="va">p3</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="session15_files/figure-html/data-viz-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section></section><section id="counterfactual" class="level2" data-number="15.14"><h2 data-number="15.14" class="anchored" data-anchor-id="counterfactual">
+<span class="header-section-number">15.14</span> Counterfactual</h2>
+<p>Finally, we might be interested in the imaginary scenario: what had happened, given all patients received both the treatment and no treatment, and which would have resulted in the best probability of being alive at the 1-year follow-up?</p>
+<p>We can actually ask this question too:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb56"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">p</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/predictions.html">predictions</a></span><span class="op">(</span><span class="va">th_model</span>, variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>thrombectomy <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2046</code></pre>
+</div>
+</div>
+<p>Notice how our dataset just doubled its rows. This is no coicidence!</p>
+<p>In fact, we now have all observed participants with the “counterfactual” reality that they both got thrombectomy and not.</p>
+<p>These predictions are interesting, because they give us a first look at the kinds of counterfactual (potentially causal) queries.</p>
+<p>We can ask:</p>
+<blockquote class="blockquote">
+<p>For each individual in the <code>Syntheric DanStroke {medisr}</code> sample, what is the predicted probability of death in the counterfactual world where they receive thrombectory, and where they do not?</p>
+</blockquote>
+<p>Let’s marginalize over all participant profiles and get the average probability of death, had everyone in the sample been in both scenarios of the treatment/no-treatment.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb58"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/predictions.html">avg_predictions</a></span><span class="op">(</span><span class="va">th_model</span>, variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>thrombectomy <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ thrombectomy Estimate Std. Error    z Pr(&gt;|z|)     S 2.5 % 97.5 %
+            0    0.271     0.0168 16.1   &lt;0.001 191.8 0.238  0.304
+            1    0.239     0.0212 11.3   &lt;0.001  95.6 0.198  0.281
+
+Type: response</code></pre>
+</div>
+</div>
+<p>Notice how different the probabilities are now. Remember that the dataset is not balanced — but rather symmetric between the two groups now. The sample is still biased by propensity for having diabetes, hypertension etc. But the treatment groups share all these biases now.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb60"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/plot_predictions.html">plot_predictions</a></span><span class="op">(</span></span>
+<span>    <span class="va">th_model</span>,</span>
+<span>    newdata<span class="op">=</span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/datagrid.html">datagrid</a></span><span class="op">(</span></span>
+<span>        thrombectomy <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span>,</span>
+<span>        grid_type<span class="op">=</span><span class="st">"counterfactual"</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    by<span class="op">=</span><span class="st">"thrombectomy"</span></span>
+<span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="session15_files/figure-html/counterfactual-plot-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>This is the best estimate we have until now for the question:</p>
+<blockquote class="blockquote">
+<p>“Would Danish stroke patients have lower probability of death at 1-year follow-up after stroke if everyone had received thrombectomy compared to not receiving it?”</p>
+</blockquote>
+</section><section id="step-6-post-processing-model-coefficients" class="level2" data-number="15.15"><h2 data-number="15.15" class="anchored" data-anchor-id="step-6-post-processing-model-coefficients">
+<span class="header-section-number">15.15</span> Step 6: Post-processing model coefficients —</h2>
+<p><strong>the estimate</strong></p>
+<!--
+```r
+#| label: outcome-scale
+
+library(marginaleffects)
+
+plot_predictions(th_model, condition =  "thrombectomy")
+
+plot_predictions(th_model,
+    by =  "thrombectomy"
+)
+
+# interesting
+datagrid(prior_diabetes = 1, thrombectomy = c(0, 1), model = th_model)
+
+p = predictions(th_model,
+  newdata = datagrid(prior_diabetes = 1, thrombectomy = c(0, 1))
+)
+p
+
+predictions(th_model,
+  newdata = datagrid(age = 50, prior_diabetes = unique, thrombectomy = max)
+)
+
+# Representative grid
+p = predictions(th_model, newdata = "mean")
+p
+
+#Balanced grid
+
+# predictions(mod, newdata = datagrid(
+#   agecat = unique, incentive = unique, distance = mean
+# ))
+
+predictions(th_model, newdata = "balanced")
+
+# Counterfactual grid
+p = predictions(th_model, variables = list(thrombectomy = 0:1))
+dim(p)
+
+p = data.frame(
+  Control = p[p$thrombectomy == 0, "estimate"],
+  Treatment = p[p$thrombectomy == 1, "estimate"])
+
+ggplot(p, aes(Control, Treatment)) +
+  geom_abline(intercept = 0, slope = 1, linetype = "dashed") +
+  geom_point() +
+  labs(x = "Pr(outcome=1) when thrombectomy = 0",
+       y = "Pr(outcome=1) when thrombectomy = 1") +
+  xlim(0, 1) + ylim(0, 1) + coord_equal()
+
+# Aggregation
+
+p = avg_predictions(th_model, newdata = "balanced", by = "thrombectomy")
+p
+
+table(thrombectomy$thrombectomy)
+
+avg_predictions(th_model, by = "thrombectomy")
+
+avg_predictions(
+    th_model,
+    variables = list(thrombectomy = c(0, 1)),
+    by = "thrombectomy")
 
 
-</section></section><script async="" src="https://scripts.simpleanalyticscdn.com/latest.js"></script></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+## Visualization
+
+
+
+## Marginal predictions
+avg_predictions(th_model, by = "thrombectomy")
+
+p1 = plot_predictions(th_model, by = "thrombectomy")
+p2 = plot_predictions(th_model, by = c("thrombectomy", "prior_diabetes"))
+p1 + p2
+
+plot_predictions(th_model, by = "thrombectomy", newdata = "balanced")
+
+# Conditional predictions
+p1 = plot_predictions(th_model,
+  condition = "age_at_diagnosis"
+)
+p2 = plot_predictions(th_model,
+  condition = c("age_at_diagnosis", "thrombectomy")
+)
+p3 = plot_predictions(th_model,
+  condition = c("age_at_diagnosis", "thrombectomy", "prior_diabetes")
+)
+(p1 + p2) / p3
+
+plot_predictions(th_model, condition = list(
+    "age_at_diagnosis", "prior_diabetes" = 1, "thrombectomy" = 0
+))
+```
+
+```r
+#| label: outcome-scale
+
+library(marginaleffects)
+
+plot_predictions(beetles_model, condition =  "dose")
+
+slopes(
+  beetles_model,
+  variables = "dose",
+  type = "response"
+)
+
+plot_slopes(
+  beetles_model,
+  variables = "dose",
+  condition = "dose",
+  type = "response"
+)
+
+
+plot_comparisons(
+  beetles_model,
+  variables = "dose",
+  condition = list("dose" = 1:2),
+  type = "response"
+)
+
+
+
+smoking_model
+
+plot_predictions(smoking_model, by="age")
+
+slopes(
+  smoking_model,
+  variables = "smoking",
+  type = "response"
+)
+
+plot_slopes(
+  smoking_model,
+  variables = "smoking",
+  condition = "age",
+  type = "response"
+)
+
+plot_comparisons(
+  smoking_model,
+  variables = "smoking",
+  condition = "age",
+  newdata = doctors,
+  type = "response"
+)
+
+my_grid <- expand.grid(
+  age = levels(doctors$age),
+  smoking = levels(doctors$smoking),
+  personyears = 10000
+)
+
+plot_comparisons(
+  smoking_model,
+  variables = "smoking",
+  condition = "age",
+  newdata = my_grid,
+  type = "response"
+)
+
+plot_comparisons(
+  smoking_model,
+  variables = "smoking",
+  condition = "age",
+  newdata = my_grid,
+  comparison = "ratio",
+  type = "response"
+)
+
+
+marginaleffects::avg_predictions(
+  smoking_model,
+  variables = "smoking",
+  by = "smoking"
+)
+
+marginaleffects::avg_predictions(
+  smoking_model,
+  variables = "smoking",
+  by = "age"
+)
+
+
+ATE = marginaleffects::avg_comparisons(
+  smoking_model,
+  variables = "smoking",
+  newdata = doctors
+)
+ATE
+
+ATT <- marginaleffects::avg_comparisons(
+  smoking_model,
+  variables = "smoking",
+  newdata = subset(smoking == 'smoker')
+)
+ATT
+
+ATU <- marginaleffects::avg_comparisons(
+  smoking_model,
+  variables = "smoking",
+  newdata = subset(smoking == 'non-smoker')
+)
+ATU
+
+CATE <- marginaleffects::avg_comparisons(
+  smoking_model,
+  variables = "smoking",
+  by = "age"
+)
+CATE
+
+```
+
+### What is a marginal effect?
+
+A marginal effect asks:
+
+*How much does predicted probability change when X changes?*
+
+For a continuous variable:
+
+*What happens to predicted probability if X increases by 1 unit?*
+
+For example:
+
+If age increases by 1 year, how much does predicted probability of disease
+change?
+
+In a nonlinear model, this is calculated on the probability scale, rather than
+the log-odds scale.
+
+With {marginaleffects}:
+
+```r
+#| label: marg-eff
+#| eval: false
+
+library(marginaleffects)
+
+avg_slopes(model)
+```
+
+Conceptually, the output answers: A 1-unit increase in age → Δ predicted
+probability
+
+If the result were:
+
+age: 0.012
+
+the interpretation would be:
+
+A one-year increase in age is associated with a 1.2 percentage-point increase in
+predicted probability, on average.
+
+Notice the distinction:
+
+0.012 probability
+
+1.2 percentage points
+
+### The effect depends on the patient
+
+Suppose we want to know the effect of age for a particular patient.
+
+We might ask:
+
+What is the marginal effect of age for a 50-year-old non-smoker with normal
+blood pressure?
+
+versus:
+
+What is the marginal effect of age for a 75-year-old smoker with high blood
+pressure?
+
+These can be different.
+
+We can calculate effects for specified covariate values:
+
+```r
+#| label: grid-eff
+#| eval: false
+
+slopes(
+  model,
+  newdata = datagrid(
+    age = c(50, 75),
+    smoking = c(0, 1),
+    blood_pressure = c(120, 160)
+  )
+)
+```
+
+The important concept is not the syntax.
+
+It is:
+
+A marginal effect is conditional on the characteristics of the person for whom
+we calculate it.
+
+## Predicted probabilities versus marginal effects
+
+These are different questions.
+
+Predicted probability What is this patient's predicted probability of disease?
+
+```r
+#| label: pred
+#| eval: false
+
+predictions(
+  model,
+  newdata = datagrid(
+    age = 60,
+    smoking = 0,
+    blood_pressure = 130
+  )
+)
+```
+
+Marginal effect How much does the predicted probability change if age increases?
+
+```r
+#| label: pro-marg
+#| eval: false
+
+slopes(
+  model,
+  newdata = datagrid(
+    age = 60,
+    smoking = 0,
+    blood_pressure = 130
+  )
+)
+```
+
+**Predictions:**
+
+> "What is the risk?"
+
+**Marginal effects:**
+
+> "How much does the risk change?"
+
+Both are useful, but they answer different scientific questions.
+
+## Average marginal effects
+
+Often we do not want the effect for one particular patient.
+
+We want:
+
+What is the average effect in this population?
+
+That is the average marginal effect (AME).
+
+```r
+#| label: avg-slopes
+#| eval: false
+
+avg_slopes(model)
+```
+
+Conceptually:
+
+| Patient 1: effect of X = ...
+| Patient 2: effect of X = ...
+| Patient 3: effect of X = ...
+|        ⋮
+| Patient N: effect of X = ...
+
+Average = AME
+
+The interpretation is:
+
+On average, a one-unit increase in X changes predicted probability by Δ
+percentage points.
+
+This is often much easier to communicate than an odds ratio.
+
+## Interactions: when the effect depends on something else
+
+Suppose our model includes:
+
+Age × Smoking
+
+The scientific question becomes:
+
+Does the effect of age on disease probability differ between smokers and
+non-smokers?
+
+The model might be:
+
+```r
+#| label: model1
+#| eval: false
+
+model <- glm(
+  disease ~ age * smoking + blood_pressure,
+  data = data,
+  family = binomial
+)
+```
+
+The temptation is to look at the interaction coefficient and interpret it
+directly.
+
+Don't.
+
+The interaction coefficient is on the log-odds scale.
+
+Instead, calculate the marginal effect of age at different smoking statuses:
+
+```r
+#| label: int-model1
+#| eval: false
+
+slopes(
+  model,
+  variables = "age",
+  by = "smoking"
+)
+```
+
+Now the result directly addresses the scientific question:
+
+Effect of age among non-smokers Effect of age among smokers
+
+And you can ask:
+
+Is the difference between those marginal effects clinically meaningful?
+
+## Visualizing the interaction
+
+```r
+#| label: plotting1
+#| eval: false
+
+plot_predictions(
+  model,
+  condition = c("age", "smoking")
+)
+```
+
+## Comparing clinically meaningful changes
+
+A one-unit change is not always clinically meaningful.
+
+For example, instead of asking:
+
+What is the effect of a 1-unit increase in blood pressure?
+
+we might ask:
+
+What is the change in predicted probability when blood pressure increases from
+120 to 140 mmHg?
+
+For this, use a comparison:
+
+```r
+#| label: clin-inform
+#| eval: false
+
+avg_comparisons(
+  model,
+  variables = list(
+    blood_pressure = c(120, 140)
+  )
+)
+```
+
+This produces a quantity directly corresponding to the clinical question:
+
+Predicted probability at 140 − Predicted probability at 120 = change in
+probability
+
+## Uncertainty A marginal effect is an estimate, not a known quantity.
+
+Therefore we also report uncertainty:
+
+- Estimate
+- 95% CI
+- p-value
+
+For example:
+
+AME = 0.018 (95% CI 0.010--0.026)
+
+Interpretation:
+
+On average, a one-unit increase in X is associated with a 1.8 percentage-point
+increase in predicted probability, with a 95% confidence interval from 1.0 to
+2.6 percentage points.
+
+::: {.hidden}
+Reading task: Reporting incidence rate ratio or counts
+
+> Should we report the incidence rate ratio or the counts for each group?
+
+What would you prefer and why?
+
+From an absolute perspective, the musquito is the most dangerous animal in the
+world! It causes most deaths a year. However, if I were to battle a musquito or
+a shark, I would bet my life on the musquito and not the shark! It is relatively
+much more dangerous! However, conditional on being in the real-life situation of
+facing a musquito or a shark, the former is much more probable.
+
+Now, consider the interpretation of the coefficients and model we just made in
+@sec-poisson-interp. How would you inform a patient or a clinican about the
+results?
+
+<details>
+ <summary>**Click for a tip**</summary>
+
+*Tip*: consider conditioning on `baseline_seizures`.
+
+Is `round((1 - exp(m1_intercept$coefficients[2])) * 100, 1)`% lower the same
+when you have 1 seizure every 8 weeks?
+What about 100? Would it be a meaningful unit to make national policies?
+
+Now, what if we take the average absolute change:
+`(1-exp(m1_intercept$coefficients[2]))*mean(subset(epil,drug=="placebo")$seizure_count)`
+when you have 1 seizure every 8 weeks? What about 100? Would it be a meaningful
+unit to make national policies?.
+
+ </details>
+:::
+
+::: {.hidden}
+Extra madness - counterfactuals for clinical inference
+
+This is an extra part (not curriculum material).
+
+Suppose you wanted to know a cutoff for when the drug prevents *at least* three
+seizures:
+
+```r
+#| label: cut-off-of-when-to-use
+
+grid <- datagrid(
+    model=m2_baseline,
+    baseline_seizures = seq(0, 100, by = 1),
+    age = mean(epil$age), #28 yo
+    #V4 = 1, # follow-up
+    drug = c("placebo", "progabide")
+)
+
+pred <- marginaleffects::predictions(m2_baseline, newdata = grid)
+
+cutoff <- pred |>
+    dplyr::select(baseline_seizures, drug, estimate) |>
+    tidyr::pivot_wider(
+        names_from = drug,
+        values_from = estimate) |>
+    mutate(
+        reduction = placebo - progabide
+    )
+
+cutoff_pt <- cutoff |>
+  slice_min(abs(reduction - (3)), n = 1)
+
+worsening <- cutoff |>
+  slice_min(abs(reduction - (0)), n = 1)
+
+ggplot(cutoff,
+       aes(baseline_seizures, reduction)) +
+    geom_line(linewidth = 1) +
+    geom_hline(yintercept = 3,
+               linetype = 2,
+               colour = "red") +
+    labs(
+        x = "Baseline seizures",
+        y = "Expected reduction",
+        title = "Expected treatment benefit"
+    ) +
+    theme_bw() +
+    geom_label(
+        data = cutoff_pt,
+        aes(
+            label = paste0(
+            "Baseline = ", baseline_seizures,
+            "\nReduction = ", round(reduction, 2))
+        ),
+        nudge_y = -1.5
+    ) +
+    geom_point(aes(baseline_seizures,reduction),
+        cutoff_pt,
+        colour = "steelblue",
+        size = 3)
+```
+
+Ask the teacher if you're curious...
+:::
+
+
+
+### Reading Task: Conditional venom?
+
+Read [this Australian Geographics
+blog](https://www.australiangeographic.com.au/blogs/creatura-with-bec-crew/2025/09/funnel-web-spiders-are-australias-deadliest-not-for-our-pets/)
+on the Funnel-web spider.
+
+
+
+-->
+
+
+<div id="refs" class="references csl-bib-body" role="list" style="display: none">
+<div id="ref-marginalbook" class="csl-entry" role="listitem">
+<div class="csl-left-margin">1. </div>
+<div class="csl-right-inline">Arel-Bundock V, Greifer N, Heiss A. <a href="https://doi.org/10.18637/jss.v111.i09">How to interpret statistical models using <span class="nocase">marginaleffects</span> for <span>R</span> and <span>Python</span></a>. Journal of Statistical Software. 2024;111(9):1–32. </div>
+</div>
+</div>
+</section><script async="" src="https://scripts.simpleanalyticscdn.com/latest.js"></script></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
     const anchorJS = new window.AnchorJS();

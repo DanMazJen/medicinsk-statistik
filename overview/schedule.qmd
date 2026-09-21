@@ -13,10 +13,10 @@ material is collected in @sec-syllabus.
 |2| 6/10 | Probability and stochastic variables, distributions and realizations |  |
 |3| 9/10 | Outcome types and measuring effects |  |
 |4| 13/10 | Descriptive data: box, violin, and bar plots |  |
-|5| 27/10 | Law of Large Numbers, uncertainty, permutation tests, bootstrapping |  |
-|6| 2/11 | Data manipulation |  |
-|7| 15/10 | **Workshop:** Operationalizing a research question (SAP examples) | **NB:** *We will work on tasks relevant for the course assignment* |
-|8| 29/10 | Systematic vs. random noise, hypothesis testing, reproducibility, confounding, selection bias |      |
+|5| 15/10 | Law of Large Numbers, uncertainty, permutation tests, bootstrapping |  |
+|6| 27/10 | Data manipulation |  |
+|7| 29/10 | **Workshop:** Operationalizing a research question (SAP examples) | **NB:** *We will work on tasks relevant for the course assignment* |
+|8| 2/11 | Systematic vs. random noise, hypothesis testing, reproducibility, confounding, selection bias |      |
 |9| 4/11 | Linear regression and likelihood theory (estimand, estimator, estimate) |  |
 |10| 5/11 | Logistic regression and likelihood theory |  |
 |11| 10/11 | Interaction and polynomials |   |

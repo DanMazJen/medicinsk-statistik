@@ -9,11 +9,13 @@
 library(ggplot2)
 library(dplyr)
 library(readr)
+library(marginaleffects)
+library(tidyr)
 
 #hd_data <- readr::read_csv(
 #  "https://raw.githubusercontent.com/DanMazJen/medicinsk-statistik/main/data/hd_data.csv"
 #)
-data(hd_data, package = "medisr")
+#data(hd_data, package = "medisr")
 ```
 
 ## Pree-class Literature
@@ -128,7 +130,7 @@ that helps us learn about a scientifically meaningful quantity.
 
 > An observational study retrospecively investigates whether a new treatment
 > reduces the risk of a complication after surgery. The researchers fit a
-> logistic regression model and obtain $β_1$ (odds ratio) is 0.65 for treatment
+> logistic regression model and obtain $β_1$ (odds ratio) as 0.65 for treatment
 > vs. control.
 
 **Discuss with our neighbor:**
@@ -149,19 +151,6 @@ that helps us learn about a scientifically meaningful quantity.
 
 5. If the model coefficient is not the scientific answer, what role does the
    model play?
-
-## The danger of coefficients
-
-::: {.callout-warning}
-In nonlinear models, you cannot generally interpret the regression coefficient
-as the change in probability.
-:::
-
-::: {.callout-important}
-The purpose of `{marginaleffects}` is essentially to help us make this
-translation: From a fitted generalized model → to quantities that answer the
-scientific question.
-:::
 
 ## Marginalizing the problem - our workflow:
 
@@ -187,31 +176,26 @@ Throughout this session, we'll use this workflow:
 
 flowchart LR
     A["1. Scientific question<br/><br/>What happens to P(Y)<br/>when X changes?"]
-    --> B["2. Regression estimate<br/><br/>log-odds"]
 
-    B --> C["3. Quantity to communicate<br/><br/>Probability"]
+    A --> B["2. Estimator<br/><br/>logistic regression"]
 
-    C --> D{"4. Who/where are we estimating the effect?"}
+    B --> C["3. Regression estimate<br/><br/>log-odds"]
 
-    D --> D1["Particular patient"]
-    D --> D2["Clinically meaningful<br/>scenario"]
-    D --> D3["Average population"]
-    D --> D4["Different levels of<br/>an interacting variable"]
+    C --> D["4. Quantity to communicate<br/><br/>Probability"]
 
-    D1 --> E["5. Marginal effects"]
-    D2 --> E
-    D3 --> E
-    D4 --> E
+    D --> E{"5. Who/where are we estimating the effect?"}
 
-    E --> E1["avg_slopes(model)"]
-    E --> E2["slopes(model, ...)"]
-    E --> E3["avg_comparisons(model, ...)"]
+    E --> E1["Particular patient"]
+    E --> E2["Clinically meaningful<br/>scenario"]
+    E --> E3["Average population"]
+    E --> E4["Different levels of<br/>an interacting variable"]
 
-    E1 --> F["6. Communicate in<br/>clinically meaningful units"]
-    E2 --> F
-    E3 --> F
+    E1 --> F["6. Marginal effects"]
+    E2 --> F["6. Marginal effects"]
+    E3 --> F["6. Marginal effects"]
+    E4 --> F["6. Marginal effects"]
 
-    F --> G["1.8 percentage-point increase<br/>in predicted probability"]
+    F --> G["7. Communicate in<br/>clinically meaningful units"]
 
     style A fill:#E8F1FB,stroke:#3B6EA5,stroke-width:2px
     style B fill:#F3F3F3,stroke:#666,stroke-width:2px
@@ -227,31 +211,42 @@ As shown in @fig-marginal-effects-workflow, we move from the **scientific
 question**, through the **model scale**, to a **marginal effect on the
 probability scale**.
 
-## 5 scientific questions
+## Step 1: Four scientific questions
+
+Throughout this session, we'll tackle four research questions one-by-one:
 
 1. Does the population who got thrombectory have lower probability of death at
-   1-year follow-up after stroke?
+   1-year follow-up after stroke compared to the population who did not get
+   thrombectomy?
 
 2. What is the effect of thrombectory in older adults with diabetes, compared to
    older adults without diabetes?
 
-3. What would be the average probability of death, had all participants received
-   thrombectomy, compared to not receiving it.
+3. What is effect of the average person profile in the sample?
 
-> How does `[RISK FACTOR]` affect the probability of `[DISEASE/OUTCOME]`?
+4. What would be the average probability of death, had all participants received
+   thrombectomy, compared to not receiving it?
+
+::: {.callout-warning}
+## From model to meaning
+
+In nonlinear models, you cannot generally interpret the regression coefficient
+as the change in probability.
+
+The purpose of `{marginaleffects}` is essentially to help us make this
+translation: From a fitted generalized model → to quantities that answer the
+scientific question.
+:::
 
 ### Context
 
-- Population: `[POPULATION]`
-- Risk factor: `[X]`
-- Outcome: `[Y]`
-- Relevant clinical context: `[CONTEXT]`
-- Dataset/source: `[DATA SOURCE]`
+Go ahead and read more about the dataset
 
-> **If a patient's `[RISK FACTOR]` increases by `[X UNITS]`, how much does their
-> probability of disease increase?**
+```r
+?medisr::thrombectomy
+```
 
-## The estimand
+### The estimand
 
 We are interested in the probability of death at 1-year follow-up:
 
@@ -266,28 +261,41 @@ for an observational study looking at the effect of thrombectomy after stroke:
 #| echo: false
 
 dag <- ggdag::dagify(
-  death ~ trt,
-  trt ~ age,
-  death ~ age,
-  death ~ diabetes,
-  diabetes ~ age,
-  hyp_ten ~ diabetes,
-  trt ~ diabetes,
-  death ~ hyp_ten,
-  hyp_ten ~ age,
-  diabetes ~ sex
+  death ~ trt + age + diabetes + hyp_ten,
+  trt ~ age + diabetes + hyp_ten,
+  hyp_ten ~ diabetes + age,
+  diabetes ~ sex + age
 )
 
 ggdag::ggdag(dag) +
   ggdag::geom_dag_point(size = 20) +
   ggdag::geom_dag_text(size = 3) +
   ggdag::theme_dag()
+
+# ggdag::ggdag(dag, text = FALSE, use_labels = "name")
+
+# dagitty::adjustmentSets(dag,exposure="trt","death")
 ```
 
-Here, age is confounding the effect of smoking on death (specifically, it's a
-fork). Therefore, we need to adjust for age.
+We need to adjust for age, hypertension and diabetes. We will still incl. sex,
+as the dataset is unbalanced and we want to adjust for that bias.
 
-## The estimator
+## Step 2: The estimator
+
+We follow individuals for one year and there is no censoring. The probability of
+death is relative high (as we'll see in a minute) and *n* can be defined as the
+sample size. So we are able to use logistic regression.
+
+::: {.callout-warning}
+## What about Poisson regression?
+
+In many ways, this would actually have been the natural choice here, as the
+dataset has a time aspect and we follow people for longer and some may become
+censored my migrating etc.
+
+Here, the choice was purely educational --- you'll use poisson regression on the
+length of stay in the exercises 😄
+:::
 
 $$
   y_i = Binomial(n,p_i) \\
@@ -364,7 +372,7 @@ th_model |>
     parameters::parameters(exponentiate=TRUE)
 ```
 
-## Coefficient to quantity of interest
+## Step 3: Stock with regression coefficients...
 
 Recall @sec-coef-interp where we learned how to plug in numbers from a fitted
 regression in order to fit expectations or *predictions* of specific patients
@@ -479,11 +487,7 @@ count, was the model poisson regression):
 predictions(th_model, newdata = grid)
 ```
 
-## Step 4: What quantity do I actually want to communicate
-
-In this case, we're interested in probability of death.
-
-### Clear communication
+## Step 4: Clear communication --- transforming coefficients
 
 Suppose:
 
@@ -502,6 +506,8 @@ disease by 50 percentage points?
 No.
 
 An odds ratio describes a change in odds, not directly a change in probability.
+
+In this case, we're interested in probability of death.
 
 ### Why the odds ratio is not enough
 
@@ -529,12 +535,23 @@ Therefore:
 > There is not necessarily one single "effect of X" on probability.
 
 ```{r}
+#| label: slop-maybe
+
 # the effect of 1 year age point slope for old?
 # No slope increase - already high probability of death?
 
 ```
 
-## Step 5: At what values?
+## Step 5-7: Model-based transformations
+
+To get the best estimate of our estimand, we need to do some post-hoc
+transformations to our model coefficients.
+
+Our model is conditional on our sample --- we cannot do anything about that. We
+can, however, do some post-hoc weigh on certain participant profiles, so that
+our estimate is targeting a specific aspect of the model inference.
+
+Questions that form such discussions can be:
 
 - A particular patient?
 - A clinically meaningful scenario?
@@ -544,7 +561,36 @@ Therefore:
 Here, we tackle one scientific question at a time in order to address these
 questions:
 
-### Our sample
+### RQ 1: Our sample as reality
+
+> "Does the population who got thrombectory have lower probability of death at
+> 1-year follow-up after stroke compared to the population who did not get
+> thrombectomy?"
+
+Here, we're interested in the sample we have. We're not asking questions whether
+these people are representative, biased, or we have any confounds.
+
+The approach we **STRONGLY RECOMMEND NOT TO USE** is to simply report the
+coefficients:
+
+```{r}
+#| label: raw-coeff
+
+th_model |>
+    parameters::parameters(exponentiate=TRUE)
+```
+
+Here, the odds ratio is 2.20 ...
+
+> when all interacting variables are at their reference/zero values.
+
+In particular, the interpretation depends on how age is coded/centered and on
+the reference categories for diabetes, hypertension, and sex.
+
+> But how intuitive is that? 👀
+
+Instead, lets make predictions on the outcome scale of probabilities using
+`{marginaleffects}`.
 
 If we don't supply a `newdata` grid, the `predictions()` function will take all
 participants in our sample and compute predictions for them, one by one:
@@ -657,20 +703,33 @@ This is the final estimate for our question:
 > survival at 1-year follow-up after stroke, compared to patients not receiving
 > thrombectomy?"
 
-::: {.hidden}
-```r
-#| label: relative-risk
+However, a better estimate might be the **risk difference** or the **risk
+ratio**.
 
-avg_comparisons(
-    th_model,
-    by="thrombectomy",
-    comparison = "lnratioavg", # Calculates adjusted Risk Ratio
-    transform = exp # then exponentiates
-    )
-```
-:::
+$$
+  RD = 0.214 - 0.307 = -9.3
+$$
+or a 9.3% points lower predicted risk of death on the absolute scale.
 
-### Young adults with diabetes
+$$
+  RR = \frac{0.214}{0.307} = 0.697
+$$
+or a 30% lower predicted risk of death on the relative scale.
+
+So we conclude that:
+
+> The model-estimated 1-year mortality was 30.7% in the absence of thrombectomy
+> and 21.4% under thrombectomy, corresponding to an un-adjusted absolute risk
+> difference of −9.3 percentage points
+
+### RQ 2: Treatment effect of older adults conditional on diabetes status
+
+> "What is the effect of thrombectory in older adults with diabetes, compared to
+> older adults without diabetes?"
+
+Here, we're interested specifically in a sub-population. So now, we need to
+consider multiple variables (`diabetes` and `thrombectory`) and the proportions
+who have this profile in our sample.
 
 ```{r}
 #| label: grid-oi
@@ -775,14 +834,22 @@ from 66.2% probability of death without treatment to 61.6% for non-diabetic.
 
 So our estimates are
 
-### The balanced experiment
+### RQ:3 "The average person"
+
+> What is effect of the average person profile in the sample?
 
 Until now, we have considered our observations as meaningful populations that we
 want to investigate. However, if we're interested in thrombectomy as an
 experimental procedure for any possible candidate patient, we have until now
 treated the groups unfairly.
 
-First of all, we have more not receiving the
+But realistictly, people who gets hit by a stroke and need thrombectomy are not
+"any one". These people are already a specific sub-population of Danish people.
+Therefore, a perfectly balanced age group, 50% diabetes etc. is extremely
+unrealistic and not representative of the Danish population.
+
+First of all, males are nearly 48% propensity of receiving thrombectory or not,
+while it's only 38% of females.
 
 ```{r}
 #| label: sub-groups
@@ -799,6 +866,11 @@ We have many more males in the treatment group and
 ```
 
 We don't have equal amount of patients with diabetes in the treatment group.
+
+About 10-15% of our sample have diabetes (while the Danish prevalence is
+[6,4%](https://diabetes.dk/forskning/viden-om-diabetes/diabetes-i-danmark/)). A
+balanced design would have 50% in each group (although this is unrealistic in
+reality).
 
 We might be interested in covering some representative and balanced parts of the
 population.
@@ -825,6 +897,27 @@ predictions(
 )
 ```
 
+This grid is perfectly balanced at our representative selected age: 60, 73, and
+86 years old. We have the same amount of diabetes, hypertension, males, and
+thrombectomy. This is indeed a completely made-up example. But so is "the
+average person"! 👀
+
+::: {.callout-warning}
+### "The average person" doesn't exist!
+
+In some samples, "the average person" doesn't exist. I mean this literally 😅
+
+Consider the case where we have a bimodal distribution --- either people love or
+hate coriander/cilantro. There is noone who is "meh". So computing the average
+person would be the awkward average of "meh", while in reality, people are
+either excited or disgusted.
+
+Imagine a scenario where a patient either benefits a lot or not at all from a
+treatment. The "average person" would then get "some moderate effect" --- but
+that would be completely against the clinical reality experienced by the
+clinicians! 👀
+:::
+
 ```{r}
 #| label: data-viz
 
@@ -846,7 +939,12 @@ p3 = plot_predictions(
 (p1 + p2) / p3
 ```
 
-## Counterfactual
+### RQ 4: "What if" 🤔
+
+The research questions was:
+
+> What would be the average probability of death, had all participants received
+> thrombectomy, compared to not receiving it?
 
 Finally, we might be interested in the imaginary scenario: what had happened,
 given all patients received both the treatment and no treatment, and which would
@@ -863,17 +961,20 @@ nrow(p)
 
 Notice how our dataset just doubled its rows. This is no coicidence!
 
-In fact, we now have all observed participants with the "counterfactual" reality
-that they both got thrombectomy and not.
+In fact, we now have all observed participants with the "*counterfactual*"
+reality that they both got thrombectomy and not. It is called counterfactual
+because is its "counter to the fact". The fact was that each patient either did
+or did not revieve the thrombectomy. Counter to this fact, we're interested in
+the imaginary scenario that they got both!
 
 These predictions are interesting, because they give us a first look at the
-kinds of counterfactual (potentially causal) queries.
+kinds of counterfactual (*potentially causal*) queries.
 
 We can ask:
 
-> For each individual in the `Syntheric DanStroke {medisr}` sample, what is the
-> predicted probability of death in the counterfactual world where they receive
-> thrombectory, and where they do not?
+> For each individual in the `Syntheric DanStroke` `{medisr}` sample, what is
+> the predicted probability of death in the counterfactual world where they
+> receive thrombectory, and where they do not?
 
 Let's marginalize over all participant profiles and get the average probability
 of death, had everyone in the sample been in both scenarios of the
@@ -909,9 +1010,75 @@ This is the best estimate we have until now for the question:
 > follow-up after stroke if everyone had received thrombectomy compared to not
 > receiving it?"
 
-## Step 6: Post-processing model coefficients ---
+However, a better estimate might be the **risk difference** or the **risk
+ratio**.
 
-**the estimate**
+```{r}
+#| label: relative-diff
+
+avg_comparisons(
+    th_model,
+    variables = "thrombectomy"
+    )
+```
+
+So a risk difference of -0.0317, favoring thrombectomy (negative probability
+subtracting the probability of death for patients revieving thrombectomy -
+patients not revieving thrombectomy).
+
+::: {.callout}
+## The average treatment effect (ATE)
+
+Given certain assumptions (i.e., exchangeability, positivity, non-interference,
+and consistency), the risk difference above is actually equivalent to performing
+*g*-computation that yields the *average treatment effect*. However, this theory
+is beyond the scope of this lecture 😄
+:::
+
+The `comparisons()` function above computed the predicted probability of
+mortality (`death_1year_followup == 1`) for each observed row of the data in two
+counterfactual cases: when `thrombectomy == 1`, and when `thrombectomy == 0`.
+Then, it computed the differences between these two sets of predictions.
+Finally, it computed the population-average of risk differences.
+
+Instead of *risk differences*, we could compute population-averaged (marginal)
+adjusted *risk ratios*:
+
+```{r}
+#| label: relative-ratio
+
+avg_comparisons(
+    th_model,
+    variables="thrombectomy",
+    comparison = "lnratioavg", # Calculates adjusted Risk Ratio
+    transform = exp # then exponentiates
+    )
+```
+
+Which gives the estimate of a 0.883 adjusted risk ratio after revieving
+thrombectomy.
+
+So we conclude that:
+
+> The model-estimated 1-year mortality was 27.1% in the absence of thrombectomy
+> and 23.9% under thrombectomy, corresponding to an adjusted risk ratio of
+> 0.883.
+
+## Summary
+
+This session covered going from estimand to estimate.
+
+To communicate clearly about results, we need to apply transformations to our
+model coefficients. Predictions can be computed on different scales, depending
+on the type of statistical model. The quantity we use should be intuitive and
+relevant for clinical practice (going from OR to model-based probabilities)
+
+Analysts can make predictions for different combinations of predictor values, or
+grids: empirical, interesting, representative, balanced, or counterfactual. The
+grid depends on the research estimatand.
+
+To simplify the presentation of results, it often makes sense to report average
+predictions (i.e. marginalizing over all predictions).
 
 <!--
 ```r

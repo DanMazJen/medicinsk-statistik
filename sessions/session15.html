@@ -454,13 +454,16 @@ window.Quarto = {
 <li><a href="#the-statistical-models" id="toc-the-statistical-models" class="nav-link" data-scroll-target="#the-statistical-models"><span class="header-section-number">15.8.1</span> The statistical models</a></li>
   </ul>
 </li>
-  <li><a href="#step-3-stock-with-regression-coefficients" id="toc-step-3-stock-with-regression-coefficients" class="nav-link" data-scroll-target="#step-3-stock-with-regression-coefficients"><span class="header-section-number">15.9</span> Step 3: Stock with regression coefficients…</a></li>
   <li>
-<a href="#step-4-clear-communication-transforming-coefficients" id="toc-step-4-clear-communication-transforming-coefficients" class="nav-link" data-scroll-target="#step-4-clear-communication-transforming-coefficients"><span class="header-section-number">15.10</span> Step 4: Clear communication — transforming coefficients</a>
+<a href="#step-3-stock-with-regression-coefficients" id="toc-step-3-stock-with-regression-coefficients" class="nav-link" data-scroll-target="#step-3-stock-with-regression-coefficients"><span class="header-section-number">15.9</span> Step 3: Stock with regression coefficients…</a>
   <ul class="collapse">
-<li><a href="#why-the-odds-ratio-is-not-enough" id="toc-why-the-odds-ratio-is-not-enough" class="nav-link" data-scroll-target="#why-the-odds-ratio-is-not-enough"><span class="header-section-number">15.10.1</span> Why the odds ratio is not enough</a></li>
+<li><a href="#rookie-mistake-1" id="toc-rookie-mistake-1" class="nav-link" data-scroll-target="#rookie-mistake-1"><span class="header-section-number">15.9.1</span> Rookie mistake #1</a></li>
+  <li><a href="#rookie-mistake-2" id="toc-rookie-mistake-2" class="nav-link" data-scroll-target="#rookie-mistake-2"><span class="header-section-number">15.9.2</span> Rookie mistake #2:</a></li>
+  <li><a href="#rookie-mistake-3" id="toc-rookie-mistake-3" class="nav-link" data-scroll-target="#rookie-mistake-3"><span class="header-section-number">15.9.3</span> Rookie mistake #3</a></li>
+  <li><a href="#thought-experiment" id="toc-thought-experiment" class="nav-link" data-scroll-target="#thought-experiment"><span class="header-section-number">15.9.4</span> Thought experiment:</a></li>
   </ul>
 </li>
+  <li><a href="#step-4-clear-communication-transforming-coefficients" id="toc-step-4-clear-communication-transforming-coefficients" class="nav-link" data-scroll-target="#step-4-clear-communication-transforming-coefficients"><span class="header-section-number">15.10</span> Step 4: Clear communication — transforming coefficients</a></li>
   <li>
 <a href="#step-5-7-model-based-transformations" id="toc-step-5-7-model-based-transformations" class="nav-link" data-scroll-target="#step-5-7-model-based-transformations"><span class="header-section-number">15.11</span> Step 5-7: Model-based transformations</a>
   <ul class="collapse">
@@ -826,143 +829,59 @@ Figure&nbsp;15.1: From the scientific question to a clinically interpretable mar
 <span>  data <span class="op">=</span> <span class="va">thrombectomy</span></span>
 <span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+</section></section><section id="step-3-stock-with-regression-coefficients" class="level2" data-number="15.9"><h2 data-number="15.9" class="anchored" data-anchor-id="step-3-stock-with-regression-coefficients">
+<span class="header-section-number">15.9</span> Step 3: Stock with regression coefficients…</h2>
 <p>Here’s the model output:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">th_model</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu">parameters</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/parameters/reference/model_parameters.html">parameters</a></span><span class="op">(</span>exponentiate<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span>    <span class="fu">parameters</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/parameters/reference/model_parameters.html">parameters</a></span><span class="op">(</span>exponentiate<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu">select</span><span class="op">(</span><span class="va">Parameter</span>, <span class="va">Coefficient</span>, <span class="va">SE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu">rename</span><span class="op">(</span>Odds_ratio<span class="op">=</span><span class="va">Coefficient</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 10 × 9
-   Parameter   Coefficient      SE    CI  CI_low CI_high      z df_error
-   &lt;chr&gt;             &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;
- 1 (Intercept)     0.00182 1.55e-3  0.95 3.25e-4 9.18e-3 -7.41       Inf
- 2 thrombecto…     9.06    1.03e+1  0.95 9.82e-1 8.49e+1  1.94       Inf
- 3 prior_diab…     2.70    7.43e-1  0.95 1.57e+0 4.64e+0  3.60       Inf
- 4 age_at_dia…     1.07    1.10e-2  0.95 1.05e+0 1.09e+0  6.34       Inf
- 5 prior_hype…     1.48    2.99e-1  0.95 9.94e-1 2.20e+0  1.92       Inf
- 6 sex             1.04    2.09e-1  0.95 7.02e-1 1.54e+0  0.196      Inf
- 7 thrombecto…     1.64    7.60e-1  0.95 6.57e-1 4.08e+0  1.06       Inf
- 8 thrombecto…     0.973   1.39e-2  0.95 9.46e-1 1.00e+0 -1.93       Inf
- 9 thrombecto…     0.428   1.41e-1  0.95 2.23e-1 8.12e-1 -2.58       Inf
-10 thrombecto…     1.34    4.32e-1  0.95 7.14e-1 2.53e+0  0.908      Inf
-# ℹ 1 more variable: p &lt;dbl&gt;</code></pre>
+<pre><code># A tibble: 10 × 3
+   Parameter                       Odds_ratio       SE
+   &lt;chr&gt;                                &lt;dbl&gt;    &lt;dbl&gt;
+ 1 (Intercept)                        0.00182  0.00155
+ 2 thrombectomy                       9.06    10.3    
+ 3 prior_diabetes                     2.70     0.743  
+ 4 age_at_diagnosis                   1.07     0.0110 
+ 5 prior_hypertention                 1.48     0.299  
+ 6 sex                                1.04     0.209  
+ 7 thrombectomy:prior_diabetes        1.64     0.760  
+ 8 thrombectomy:age_at_diagnosis      0.973    0.0139 
+ 9 thrombectomy:prior_hypertention    0.428    0.141  
+10 thrombectomy:sex                   1.34     0.432  </code></pre>
 </div>
 </div>
-</section></section><section id="step-3-stock-with-regression-coefficients" class="level2" data-number="15.9"><h2 data-number="15.9" class="anchored" data-anchor-id="step-3-stock-with-regression-coefficients">
-<span class="header-section-number">15.9</span> Step 3: Stock with regression coefficients…</h2>
-<p>Recall <a href="session11.html#sec-coef-interp" class="quarto-xref"><span>Section 13.10</span></a> where we learned how to plug in numbers from a fitted regression in order to fit expectations or <em>predictions</em> of specific patients profiles in the dataset.</p>
-<p>We will do this again - but this time, we’re fitting a POisson regression</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">b</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">th_model</span><span class="op">)</span></span>
-<span><span class="va">b</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>                    (Intercept)                    thrombectomy 
-                    -6.30743079                      2.20414044 
-                 prior_diabetes                age_at_diagnosis 
-                     0.99219918                      0.06548817 
-             prior_hypertention                             sex 
-                     0.38930725                      0.03936706 
-    thrombectomy:prior_diabetes   thrombectomy:age_at_diagnosis 
-                     0.49240096                     -0.02760921 
-thrombectomy:prior_hypertention                thrombectomy:sex 
-                    -0.84966243                      0.29304514 </code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">linpred_treatment_diabetes_50yo_female</span> <span class="op">=</span> <span class="va">b</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="op">+</span> <span class="va">b</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span> <span class="op">*</span> <span class="fl">1</span> <span class="op">+</span> <span class="va">b</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span> <span class="op">*</span> <span class="fl">1</span> <span class="op">+</span> <span class="va">b</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span> <span class="op">*</span> <span class="fl">50</span> <span class="op">+</span> <span class="va">b</span><span class="op">[</span><span class="fl">5</span><span class="op">]</span> <span class="op">*</span> <span class="fl">0</span> <span class="op">+</span> <span class="va">b</span><span class="op">[</span><span class="fl">6</span><span class="op">]</span> <span class="op">*</span> <span class="fl">0</span> <span class="op">+</span> <span class="va">b</span><span class="op">[</span><span class="fl">7</span><span class="op">]</span> <span class="op">*</span> <span class="fl">1</span> <span class="op">+</span> <span class="va">b</span><span class="op">[</span><span class="fl">8</span><span class="op">]</span> <span class="op">*</span> <span class="fl">0</span> <span class="op">+</span> <span class="va">b</span><span class="op">[</span><span class="fl">9</span><span class="op">]</span> <span class="op">*</span> <span class="fl">0</span></span>
-<span></span>
-<span><span class="va">linpred_treatment_diabetes_50yo_female</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/unname.html">unname</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.6557182</code></pre>
-</div>
-</div>
-<!--panache-ignore-start-->
-<p>b[1] * 1 # intercept b[2] * 1 # thrombectomy = 1 b[3] * 1 # diabetes = 1 b[4] * 50 # age = 50 b[5] * 0 # hypertension = 0 b[6] * 0 # female = 0 b[7] * 1 # thrombectomy * diabetes = 1<em>1 b[8] </em> 0 # thrombectomy * hypertension = 1<em>0 b[9] </em> 0 # thrombectomy * sex = 1*0 <!--panache-ignore-end--></p>
-<p>The other will be</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">linpred_no_treatment_diabetes_40yo_male</span> <span class="op">=</span> <span class="va">b</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="op">+</span> <span class="va">b</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span> <span class="op">*</span> <span class="fl">0</span> <span class="op">+</span> <span class="va">b</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span> <span class="op">*</span> <span class="fl">1</span> <span class="op">+</span> <span class="va">b</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span> <span class="op">*</span> <span class="fl">40</span> <span class="op">+</span> <span class="va">b</span><span class="op">[</span><span class="fl">5</span><span class="op">]</span> <span class="op">*</span> <span class="fl">0</span> <span class="op">+</span> <span class="va">b</span><span class="op">[</span><span class="fl">6</span><span class="op">]</span> <span class="op">*</span> <span class="fl">1</span> <span class="op">+</span> <span class="va">b</span><span class="op">[</span><span class="fl">7</span><span class="op">]</span> <span class="op">*</span> <span class="fl">0</span> <span class="op">+</span> <span class="va">b</span><span class="op">[</span><span class="fl">8</span><span class="op">]</span> <span class="op">*</span> <span class="fl">0</span> <span class="op">+</span> <span class="va">b</span><span class="op">[</span><span class="fl">9</span><span class="op">]</span> <span class="op">*</span> <span class="fl">0</span></span>
-<span></span>
-<span><span class="va">linpred_no_treatment_diabetes_40yo_male</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/unname.html">unname</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] -2.656338</code></pre>
-</div>
-</div>
-<!--panache-ignore-start-->
-<p>b[1] * 1 # intercept b[2] * 0 # thrombectomy = 0 b[3] * 1 # diabetes = 1 b[4] * 40 # age = 40 b[5] * 0 # hypertension = 0 b[6] * 1 # male = 1 b[7] * 0 # thrombectomy * diabetes = 0 b[8] * 0 # thrombectomy * hypertension = 0 b[9] * 0 # thrombectomy * sex = 0 <!--panache-ignore-end--></p>
-<p>But we’re still in log-odds space. Let’s convert</p>
-<p>The letter <em>g</em> represents the standard logistic function</p>
-<p><span class="math display">\[
-  g(x) = \frac{1}{1 + e^{-x}}
-\]</span></p>
-<p>Applying this function ensures that the linear component inside the parentheses of Equation 5.1 gets rescaled to the interval in order to respect the natural (probability) scale of the binary outcome.</p>
-<p>In R, we can make a function to do this for us:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">g</span> <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fl">1</span> <span class="op">/</span> <span class="op">(</span><span class="fl">1</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="op">-</span><span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/unname.html">unname</a></span><span class="op">(</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">g</span><span class="op">(</span><span class="va">linpred_treatment_diabetes_50yo_female</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.6582979</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">g</span><span class="op">(</span><span class="va">linpred_no_treatment_diabetes_40yo_male</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.06559945</code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">grid</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
-<span>    thrombectomy <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span>,</span>
-<span>    prior_diabetes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>,</span>
-<span>    age_at_diagnosis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">50</span>, <span class="fl">40</span><span class="op">)</span>,</span>
-<span>    prior_hypertention <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>,</span>
-<span>    sex <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span></span>
-<span><span class="op">)</span></span>
-<span><span class="va">grid</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 2 × 5
-  thrombectomy prior_diabetes age_at_diagnosis prior_hypertention   sex
-         &lt;dbl&gt;          &lt;dbl&gt;            &lt;dbl&gt;              &lt;dbl&gt; &lt;dbl&gt;
-1            1              1               50                  0     0
-2            0              1               40                  0     1</code></pre>
-</div>
-</div>
-<p>Now, the <a href="https://marginaleffects.com/">marginaleffects</a> function <code><a href="https://rdrr.io/pkg/marginaleffects/man/predictions.html">predictions()</a></code> can take care of all this for us:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://marginaleffects.com/">marginaleffects</a></span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/predictions.html">predictions</a></span><span class="op">(</span><span class="va">th_model</span>, newdata <span class="op">=</span> <span class="va">grid</span>, type <span class="op">=</span> <span class="st">"link"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
- Estimate Std. Error     z Pr(&gt;|z|)    S 2.5 % 97.5 %
-   -0.725      0.470 -1.54    0.123  3.0 -1.65  0.196
-   -2.656      0.445 -5.97   &lt;0.001 28.7 -3.53 -1.784
-
-Type: link</code></pre>
-</div>
-</div>
-<p>If we don’t specify <code>type = "link"</code>, the default value is <code>type = "response"</code>, which has already transformed the log-odds to probability (or log-ratio to count, was the model poisson regression):</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/predictions.html">predictions</a></span><span class="op">(</span><span class="va">th_model</span>, newdata <span class="op">=</span> <span class="va">grid</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
- Estimate Pr(&gt;|z|)    S  2.5 % 97.5 %
-   0.3263    0.123  3.0 0.1617  0.549
-   0.0656   &lt;0.001 28.7 0.0285  0.144
-
-Type: invlink(link)</code></pre>
-</div>
-</div>
-</section><section id="step-4-clear-communication-transforming-coefficients" class="level2" data-number="15.10"><h2 data-number="15.10" class="anchored" data-anchor-id="step-4-clear-communication-transforming-coefficients">
-<span class="header-section-number">15.10</span> Step 4: Clear communication — transforming coefficients</h2>
-<p>Suppose:</p>
-<p>OR = 1.50</p>
+<p>Cool, we got an OR = 9.06 for <code>thrombectomy</code></p>
+<blockquote class="blockquote">
 <p>What does this mean?</p>
-<p>A 1-unit increase in age is associated with a 50% increase in the odds of cardiovascular disease, holding the other variables constant.</p>
+</blockquote>
+<section id="rookie-mistake-1" class="level3" data-number="15.9.1"><h3 data-number="15.9.1" class="anchored" data-anchor-id="rookie-mistake-1">
+<span class="header-section-number">15.9.1</span> Rookie mistake #1</h3>
+<blockquote class="blockquote">
+<p>Don’t read this coefficient, thinking it generalizes to the sample!</p>
+</blockquote>
+<p>This sample has odds of 0.00182 for the outcome when thrombectomy = 0 and <strong>all other coefficients are 0</strong>.</p>
+<p>In other words, the intercept describes the model’s baseline odds for a 0-year-old female without diabetes or hypertension, and without thrombectomy. Such a patient didn’t participate in the study. Thus, this is out-of-sample prediction — and a pretty silly and unjustified extrapolation from what we’re trying to answer scientifically here.</p>
+<p>The thrombectomy OR of 9.06 means that, holding all the other variables constant, the odds are multiplied by 9.06 when thrombectomy changes from 0 to 1.</p>
+</section><section id="rookie-mistake-2" class="level3" data-number="15.9.2"><h3 data-number="15.9.2" class="anchored" data-anchor-id="rookie-mistake-2">
+<span class="header-section-number">15.9.2</span> Rookie mistake #2:</h3>
+<p>Thinking that an OR of 9.06 means a 9-fold increase in probability.</p>
+<p>It doesn’t. An odds ratio describes a change in odds, not probability. To get the probability, you need to convert the log-odds back using the inverse logit function <code>g()</code>.</p>
+<p>For example, the model’s baseline odds are:</p>
+<p><span class="math inline">\(0.00182\)</span></p>
+<p>With thrombectomy:</p>
+<p><span class="math inline">\(0.00182 × 9.06 ≈ 0.0165\)</span></p>
+<p>which corresponds to a probability of approximately 1.62%, not 9.06%.</p>
+<p>So, OR = 9.06 does not mean that the probability of the outcome is 9.06 times higher. It means that, for two otherwise identical patients, the patient with <code>thrombectomy = 1</code> has 9.06 times the odds of the outcome compared with the patient with thrombectomy = 0.</p>
+</section><section id="rookie-mistake-3" class="level3" data-number="15.9.3"><h3 data-number="15.9.3" class="anchored" data-anchor-id="rookie-mistake-3">
+<span class="header-section-number">15.9.3</span> Rookie mistake #3</h3>
+<p>A 1-unit increase in age is associated with a 0.7% increase in the odds of cardiovascular disease, holding the other variables constant.</p>
 <p>But the more important question is:</p>
-<p>Does this mean that a 1-year increase in age increases the probability of disease by 50 percentage points?</p>
-<p>No.</p>
+<p>Does this mean that a 1-year increase in age increases the probability of disease by 0.7% percentage points?</p>
+<p>The answer is a stricking no!</p>
 <p>An odds ratio describes a change in odds, not directly a change in probability.</p>
-<p>In this case, we’re interested in probability of death.</p>
-<section id="why-the-odds-ratio-is-not-enough" class="level3" data-number="15.10.1"><h3 data-number="15.10.1" class="anchored" data-anchor-id="why-the-odds-ratio-is-not-enough">
-<span class="header-section-number">15.10.1</span> Why the odds ratio is not enough</h3>
 <p>The clinical question is usually about risk/probability, not odds.</p>
 <p>Consider two patients:</p>
 <ul>
@@ -981,11 +900,305 @@ Type: invlink(link)</code></pre>
 <blockquote class="blockquote">
 <p>There is not necessarily one single “effect of X” on probability.</p>
 </blockquote>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># the effect of 1 year age point slope for old?</span></span>
-<span><span class="co"># No slope increase - already high probability of death?</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">plot_slopes</span><span class="op">(</span></span>
+<span>  <span class="va">th_model</span>,</span>
+<span>  condition <span class="op">=</span> <span class="st">"age_at_diagnosis"</span>,</span>
+<span>  variables <span class="op">=</span> <span class="st">"age_at_diagnosis"</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"link"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu">plot_slopes</span><span class="op">(</span></span>
+<span>  <span class="va">th_model</span>,</span>
+<span>  condition <span class="op">=</span> <span class="st">"age_at_diagnosis"</span>,</span>
+<span>  variables <span class="op">=</span> <span class="st">"age_at_diagnosis"</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"response"</span></span>
+<span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="session15_files/figure-html/slop-maybe-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>the odds ratio change as a function of 1-unit change in age</figcaption></figure>
 </div>
-</section></section><section id="step-5-7-model-based-transformations" class="level2" data-number="15.11"><h2 data-number="15.11" class="anchored" data-anchor-id="step-5-7-model-based-transformations">
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="session15_files/figure-html/slop-maybe-2.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>the probability change as a function of 1-unit change in age</figcaption></figure>
+</div>
+</div>
+</div>
+</div>
+</section><section id="thought-experiment" class="level3" data-number="15.9.4"><h3 data-number="15.9.4" class="anchored" data-anchor-id="thought-experiment">
+<span class="header-section-number">15.9.4</span> Thought experiment:</h3>
+<p>If you’re already likely to die, will adding risk change something?</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">grid1</span> <span class="op">=</span> <span class="fu">datagrid</span><span class="op">(</span></span>
+<span>    age_at_diagnosis <span class="op">=</span> <span class="fl">100</span>,</span>
+<span>    prior_diabetes <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>    thrombectomy <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>    model <span class="op">=</span> <span class="va">th_model</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">plot_predictions</span><span class="op">(</span></span>
+<span>  <span class="va">th_model</span>,</span>
+<span>  newdata <span class="op">=</span> <span class="va">grid1</span>,</span>
+<span>  variable <span class="op">=</span> <span class="st">"prior_hypertention"</span>,</span>
+<span>  by <span class="op">=</span> <span class="st">"prior_hypertention"</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">grid2</span> <span class="op">=</span> <span class="fu">datagrid</span><span class="op">(</span></span>
+<span>    age_at_diagnosis <span class="op">=</span> <span class="fl">70</span>,</span>
+<span>    prior_diabetes <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>    thrombectomy <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>    model <span class="op">=</span> <span class="va">th_model</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">plot_predictions</span><span class="op">(</span></span>
+<span>  <span class="va">th_model</span>,</span>
+<span>  newdata <span class="op">=</span> <span class="va">grid2</span>,</span>
+<span>  variable <span class="op">=</span> <span class="st">"prior_hypertention"</span>,</span>
+<span>  by <span class="op">=</span> <span class="st">"prior_hypertention"</span></span>
+<span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="session15_files/figure-html/slop-maybe1-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>the odds ratio change as a function of 1-unit change in age</figcaption></figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="session15_files/figure-html/slop-maybe1-2.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>the probability change as a function of 1-unit change in age</figcaption></figure>
+</div>
+</div>
+</div>
+</div>
+<p>So only a 6% point absolute difference (78.1% to 84.1%) probability for a 100-year-old with diabetes but a 9.1 point absolute difference (33.4% to 42.5%) probability for a 70-year-old with diabetes, both not receiving thrombectomy.</p>
+</section></section><section id="step-4-clear-communication-transforming-coefficients" class="level2" data-number="15.10"><h2 data-number="15.10" class="anchored" data-anchor-id="step-4-clear-communication-transforming-coefficients">
+<span class="header-section-number">15.10</span> Step 4: Clear communication — transforming coefficients</h2>
+<p>Recall <a href="session11.html#sec-coef-interp" class="quarto-xref"><span>Section 13.10</span></a> where we learned how to plug in numbers from a fitted regression in order to fit expectations or <em>predictions</em> of specific patients profiles in the dataset.</p>
+<p>We will do this again - but this time, we’re fitting a logistic regression</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">b</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">th_model</span><span class="op">)</span></span>
+<span><span class="va">b</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                    (Intercept)                    thrombectomy 
+                    -6.30743079                      2.20414044 
+                 prior_diabetes                age_at_diagnosis 
+                     0.99219918                      0.06548817 
+             prior_hypertention                             sex 
+                     0.38930725                      0.03936706 
+    thrombectomy:prior_diabetes   thrombectomy:age_at_diagnosis 
+                     0.49240096                     -0.02760921 
+thrombectomy:prior_hypertention                thrombectomy:sex 
+                    -0.84966243                      0.29304514 </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">linpred_treatment_diabetes_50yo_female</span> <span class="op">=</span> <span class="va">b</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="op">+</span></span>
+<span>    <span class="va">b</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span> <span class="op">*</span> <span class="fl">1</span> <span class="op">+</span> <span class="va">b</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span> <span class="op">*</span> <span class="fl">1</span> <span class="op">+</span> <span class="va">b</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span> <span class="op">*</span> <span class="fl">50</span> <span class="op">+</span> <span class="va">b</span><span class="op">[</span><span class="fl">5</span><span class="op">]</span> <span class="op">*</span> <span class="fl">0</span> <span class="op">+</span></span>
+<span>    <span class="va">b</span><span class="op">[</span><span class="fl">6</span><span class="op">]</span> <span class="op">*</span> <span class="fl">0</span> <span class="op">+</span> <span class="va">b</span><span class="op">[</span><span class="fl">7</span><span class="op">]</span> <span class="op">*</span> <span class="fl">1</span> <span class="op">+</span> <span class="va">b</span><span class="op">[</span><span class="fl">8</span><span class="op">]</span> <span class="op">*</span> <span class="fl">50</span> <span class="op">+</span> <span class="va">b</span><span class="op">[</span><span class="fl">9</span><span class="op">]</span> <span class="op">*</span> <span class="fl">0</span> <span class="op">+</span> <span class="va">b</span><span class="op">[</span><span class="fl">10</span><span class="op">]</span> <span class="op">*</span> <span class="fl">0</span></span>
+<span></span>
+<span><span class="va">linpred_treatment_diabetes_50yo_female</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/unname.html">unname</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -0.7247424</code></pre>
+</div>
+</div>
+<!--panache-ignore-start-->
+<table class="caption-top table">
+<thead><tr class="header">
+<th>Term</th>
+<th>Value</th>
+<th>Comment</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code>b[1]</code></td>
+<td><code>* 1</code></td>
+<td>intercept</td>
+</tr>
+<tr class="even">
+<td><code>b[2]</code></td>
+<td><code>* 1</code></td>
+<td>thrombectomy = 1</td>
+</tr>
+<tr class="odd">
+<td><code>b[3]</code></td>
+<td><code>* 1</code></td>
+<td>diabetes = 1</td>
+</tr>
+<tr class="even">
+<td><code>b[4]</code></td>
+<td><code>* 50</code></td>
+<td>age = 50</td>
+</tr>
+<tr class="odd">
+<td><code>b[5]</code></td>
+<td><code>* 0</code></td>
+<td>hypertension = 0</td>
+</tr>
+<tr class="even">
+<td><code>b[6]</code></td>
+<td><code>* 0</code></td>
+<td>female = 0</td>
+</tr>
+<tr class="odd">
+<td><code>b[7]</code></td>
+<td><code>* 1</code></td>
+<td>thrombectomy * diabetes = 1*1</td>
+</tr>
+<tr class="even">
+<td><code>b[8]</code></td>
+<td><code>* 50</code></td>
+<td>thrombectomy * age = 1*50</td>
+</tr>
+<tr class="odd">
+<td><code>b[9]</code></td>
+<td><code>* 0</code></td>
+<td>thrombectomy * hypertension = 1*0</td>
+</tr>
+<tr class="even">
+<td><code>b[10]</code></td>
+<td><code>* 0</code></td>
+<td>thrombectomy * sex = 1*0</td>
+</tr>
+</tbody>
+</table>
+<!--panache-ignore-end--><p>The other will be</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">linpred_no_treatment_diabetes_40yo_male</span> <span class="op">=</span> <span class="va">b</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="op">+</span></span>
+<span>    <span class="va">b</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span> <span class="op">*</span> <span class="fl">0</span> <span class="op">+</span> <span class="va">b</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span> <span class="op">*</span> <span class="fl">1</span> <span class="op">+</span> <span class="va">b</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span> <span class="op">*</span> <span class="fl">40</span> <span class="op">+</span> <span class="va">b</span><span class="op">[</span><span class="fl">5</span><span class="op">]</span> <span class="op">*</span> <span class="fl">0</span> <span class="op">+</span></span>
+<span>    <span class="va">b</span><span class="op">[</span><span class="fl">6</span><span class="op">]</span> <span class="op">*</span> <span class="fl">1</span> <span class="op">+</span> <span class="va">b</span><span class="op">[</span><span class="fl">7</span><span class="op">]</span> <span class="op">*</span> <span class="fl">0</span> <span class="op">+</span> <span class="va">b</span><span class="op">[</span><span class="fl">8</span><span class="op">]</span> <span class="op">*</span> <span class="fl">0</span> <span class="op">+</span> <span class="va">b</span><span class="op">[</span><span class="fl">9</span><span class="op">]</span> <span class="op">*</span> <span class="fl">0</span> <span class="op">+</span> <span class="va">b</span><span class="op">[</span><span class="fl">10</span><span class="op">]</span> <span class="op">*</span> <span class="fl">0</span></span>
+<span></span>
+<span><span class="va">linpred_no_treatment_diabetes_40yo_male</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/unname.html">unname</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -2.656338</code></pre>
+</div>
+</div>
+<!--panache-ignore-start-->
+<table class="caption-top table">
+<thead><tr class="header">
+<th>Term</th>
+<th>Value</th>
+<th>Comment</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code>b[1]</code></td>
+<td><code>* 1</code></td>
+<td>intercept</td>
+</tr>
+<tr class="even">
+<td><code>b[2]</code></td>
+<td><code>* 0</code></td>
+<td>thrombectomy = 0</td>
+</tr>
+<tr class="odd">
+<td><code>b[3]</code></td>
+<td><code>* 1</code></td>
+<td>diabetes = 1</td>
+</tr>
+<tr class="even">
+<td><code>b[4]</code></td>
+<td><code>* 40</code></td>
+<td>age = 40</td>
+</tr>
+<tr class="odd">
+<td><code>b[5]</code></td>
+<td><code>* 0</code></td>
+<td>hypertension = 0</td>
+</tr>
+<tr class="even">
+<td><code>b[6]</code></td>
+<td><code>* 1</code></td>
+<td>male = 1</td>
+</tr>
+<tr class="odd">
+<td><code>b[7]</code></td>
+<td><code>* 0</code></td>
+<td>thrombectomy * diabetes = 0</td>
+</tr>
+<tr class="even">
+<td><code>b[8]</code></td>
+<td><code>* 0</code></td>
+<td>thrombectomy * age = 0*40</td>
+</tr>
+<tr class="odd">
+<td><code>b[9]</code></td>
+<td><code>* 0</code></td>
+<td>thrombectomy * hypertension = 0</td>
+</tr>
+<tr class="even">
+<td><code>b[10]</code></td>
+<td><code>* 0</code></td>
+<td>thrombectomy * sex = 0</td>
+</tr>
+</tbody>
+</table>
+<!--panache-ignore-end--><p>But we’re still in log-odds space. Let’s convert</p>
+<p>The letter <em>g</em> represents the standard logistic function</p>
+<p><span class="math display">\[
+  g(x) = \frac{1}{1 + e^{-x}}
+\]</span></p>
+<p>Applying this function ensures that the linear component inside the parentheses of Equation 5.1 gets rescaled to the interval in order to respect the natural (probability) scale of the binary outcome.</p>
+<p>In R, we can make a function to do this for us:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">g</span> <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fl">1</span> <span class="op">/</span> <span class="op">(</span><span class="fl">1</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="op">-</span><span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/unname.html">unname</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">g</span><span class="op">(</span><span class="va">linpred_treatment_diabetes_50yo_female</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.3263495</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">g</span><span class="op">(</span><span class="va">linpred_no_treatment_diabetes_40yo_male</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.06559945</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">grid</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
+<span>    thrombectomy <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span>,</span>
+<span>    prior_diabetes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>,</span>
+<span>    age_at_diagnosis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">50</span>, <span class="fl">40</span><span class="op">)</span>,</span>
+<span>    prior_hypertention <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>,</span>
+<span>    sex <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">grid</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 5
+  thrombectomy prior_diabetes age_at_diagnosis prior_hypertention   sex
+         &lt;dbl&gt;          &lt;dbl&gt;            &lt;dbl&gt;              &lt;dbl&gt; &lt;dbl&gt;
+1            1              1               50                  0     0
+2            0              1               40                  0     1</code></pre>
+</div>
+</div>
+<p>Now, the <a href="https://marginaleffects.com/">marginaleffects</a> function <code><a href="https://rdrr.io/pkg/marginaleffects/man/predictions.html">predictions()</a></code> can take care of all this for us:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://marginaleffects.com/">marginaleffects</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/predictions.html">predictions</a></span><span class="op">(</span><span class="va">th_model</span>, newdata <span class="op">=</span> <span class="va">grid</span>, type <span class="op">=</span> <span class="st">"link"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ Estimate Std. Error     z Pr(&gt;|z|)    S 2.5 % 97.5 %
+   -0.725      0.470 -1.54    0.123  3.0 -1.65  0.196
+   -2.656      0.445 -5.97   &lt;0.001 28.7 -3.53 -1.784
+
+Type: link</code></pre>
+</div>
+</div>
+<p>If we don’t specify <code>type = "link"</code>, the default value is <code>type = "response"</code>, which has already transformed the log-odds to probability (or log-ratio to count, was the model poisson regression):</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/predictions.html">predictions</a></span><span class="op">(</span><span class="va">th_model</span>, newdata <span class="op">=</span> <span class="va">grid</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ Estimate Pr(&gt;|z|)    S  2.5 % 97.5 %
+   0.3263    0.123  3.0 0.1617  0.549
+   0.0656   &lt;0.001 28.7 0.0285  0.144
+
+Type: invlink(link)</code></pre>
+</div>
+</div>
+</section><section id="step-5-7-model-based-transformations" class="level2" data-number="15.11"><h2 data-number="15.11" class="anchored" data-anchor-id="step-5-7-model-based-transformations">
 <span class="header-section-number">15.11</span> Step 5-7: Model-based transformations</h2>
 <p>To get the best estimate of our estimand, we need to do some post-hoc transformations to our model coefficients.</p>
 <p>Our model is conditional on our sample — we cannot do anything about that. We can, however, do some post-hoc weigh on certain participant profiles, so that our estimate is targeting a specific aspect of the model inference.</p>
@@ -1005,7 +1218,7 @@ Type: invlink(link)</code></pre>
 <p>Here, we’re interested in the sample we have. We’re not asking questions whether these people are representative, biased, or we have any confounds.</p>
 <p>The approach we <strong>STRONGLY RECOMMEND NOT TO USE</strong> is to simply report the coefficients:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">th_model</span> <span class="op">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">th_model</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu">parameters</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/parameters/reference/model_parameters.html">parameters</a></span><span class="op">(</span>exponentiate<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 10 × 9
@@ -1035,7 +1248,7 @@ Type: invlink(link)</code></pre>
 <p>Instead, lets make predictions on the outcome scale of probabilities using <a href="https://marginaleffects.com/">marginaleffects</a>.</p>
 <p>If we don’t supply a <code>newdata</code> grid, the <code><a href="https://rdrr.io/pkg/marginaleffects/man/predictions.html">predictions()</a></code> function will take all participants in our sample and compute predictions for them, one by one:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">p</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/predictions.html">predictions</a></span><span class="op">(</span><span class="va">th_model</span><span class="op">)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">p</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/predictions.html">predictions</a></span><span class="op">(</span><span class="va">th_model</span><span class="op">)</span></span>
 <span><span class="va">p</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -1056,11 +1269,11 @@ Type: invlink(link)</code></pre>
 </div>
 <p>You can see that the row length is the same as the original dataset:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1023</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">thrombectomy</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">thrombectomy</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1023</code></pre>
 </div>
@@ -1074,7 +1287,7 @@ Type: invlink(link)</code></pre>
 <p><strong>Keeping all information</strong></p>
 <p>Let’s start by the first approach and visualize all information:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com">patchwork</a></span><span class="op">)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com">patchwork</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">p</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/predictions.html">predictions</a></span><span class="op">(</span><span class="va">th_model</span><span class="op">)</span></span>
 <span></span>
@@ -1107,7 +1320,7 @@ Type: invlink(link)</code></pre>
 <p>The plot to the left shows the histogram. I suddenly becomes clear that fewer patients received thrombectomy than patients who did not.</p>
 <p>Indeed, that is correct:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">thrombectomy</span><span class="op">$</span><span class="va">thrombectomy</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">thrombectomy</span><span class="op">$</span><span class="va">thrombectomy</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
   0   1 
@@ -1119,7 +1332,7 @@ Type: invlink(link)</code></pre>
 <p><strong>Marginalizing over the predictions</strong></p>
 <p>We can compute the average for them by using <code><a href="https://rdrr.io/pkg/marginaleffects/man/predictions.html">avg_predictions()</a></code></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/predictions.html">avg_predictions</a></span><span class="op">(</span><span class="va">th_model</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/predictions.html">avg_predictions</a></span><span class="op">(</span><span class="va">th_model</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
  Estimate Std. Error    z Pr(&gt;|z|)     S 2.5 % 97.5 %
@@ -1136,7 +1349,7 @@ Type: response</code></pre>
 <p>However, as we now know that the groups are unbalanced, this is not a good estimate for the treatment effect! And it doesn’t have the granularity to address more nuanced questions of sub-population level.</p>
 <p>Finally, to compute the average for the patients receiving thrombectomy and those who did not, we can group the average for these conditions</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/predictions.html">avg_predictions</a></span><span class="op">(</span><span class="va">th_model</span>, by<span class="op">=</span><span class="st">"thrombectomy"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/predictions.html">avg_predictions</a></span><span class="op">(</span><span class="va">th_model</span>, by<span class="op">=</span><span class="st">"thrombectomy"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
  thrombectomy Estimate Std. Error    z Pr(&gt;|z|)     S 2.5 % 97.5 %
@@ -1169,7 +1382,7 @@ Type: response</code></pre>
 </blockquote>
 <p>Here, we’re interested specifically in a sub-population. So now, we need to consider multiple variables (<code>diabetes</code> and <code>thrombectory</code>) and the proportions who have this profile in our sample.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb38"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/datagrid.html">datagrid</a></span><span class="op">(</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/datagrid.html">datagrid</a></span><span class="op">(</span></span>
 <span>    prior_diabetes <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>    thrombectomy <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>,</span>
 <span>    age_at_diagnosis<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">80</span><span class="op">:</span><span class="fl">90</span><span class="op">)</span>,</span>
@@ -1194,7 +1407,7 @@ Type: response</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb40"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">p</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/predictions.html">predictions</a></span><span class="op">(</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb41"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">p</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/predictions.html">predictions</a></span><span class="op">(</span></span>
 <span>    <span class="va">th_model</span>,</span>
 <span>    newdata <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/datagrid.html">datagrid</a></span><span class="op">(</span></span>
 <span>        prior_diabetes <span class="op">=</span> <span class="fl">1</span>,</span>
@@ -1257,7 +1470,7 @@ Type: invlink(link)</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb42"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/predictions.html">predictions</a></span><span class="op">(</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb43"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/predictions.html">predictions</a></span><span class="op">(</span></span>
 <span>    <span class="va">th_model</span>,</span>
 <span>    newdata <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/datagrid.html">datagrid</a></span><span class="op">(</span></span>
 <span>        age_at_diagnosis <span class="op">=</span> <span class="fl">80</span>,</span>
@@ -1278,7 +1491,7 @@ Type: invlink(link)</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb44"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/predictions.html">predictions</a></span><span class="op">(</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb45"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/predictions.html">predictions</a></span><span class="op">(</span></span>
 <span>    <span class="va">th_model</span>,</span>
 <span>    newdata <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/datagrid.html">datagrid</a></span><span class="op">(</span></span>
 <span>        age_at_diagnosis<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">80</span><span class="op">:</span><span class="fl">90</span><span class="op">)</span>,</span>
@@ -1338,7 +1551,7 @@ Type: invlink(link)</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb46"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/predictions.html">avg_predictions</a></span><span class="op">(</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb47"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/predictions.html">avg_predictions</a></span><span class="op">(</span></span>
 <span>    <span class="va">th_model</span>,</span>
 <span>    newdata <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/datagrid.html">datagrid</a></span><span class="op">(</span></span>
 <span>        age_at_diagnosis<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">80</span><span class="op">:</span><span class="fl">90</span><span class="op">)</span>,</span>
@@ -1354,7 +1567,7 @@ Type: response</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb48"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">grid_oi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/datagrid.html">datagrid</a></span><span class="op">(</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb49"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">grid_oi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/datagrid.html">datagrid</a></span><span class="op">(</span></span>
 <span>    age_at_diagnosis<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">80</span><span class="op">:</span><span class="fl">90</span><span class="op">)</span>,</span>
 <span>    prior_diabetes <span class="op">=</span> <span class="va">unique</span>,</span>
 <span>    thrombectomy <span class="op">=</span> <span class="va">unique</span>,</span>
@@ -1374,7 +1587,7 @@ Type: response</code></pre>
 <p>It becomes clear that the effect of thrombectomy on 1-year follow-up mortality is negated substantially by the co-occurrence of diabetes in old age.</p>
 <p>The effect is substantial for non-diabetic old patient.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb49"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/predictions.html">avg_predictions</a></span><span class="op">(</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb50"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/predictions.html">avg_predictions</a></span><span class="op">(</span></span>
 <span>    <span class="va">th_model</span>,</span>
 <span>    by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"thrombectomy"</span>, <span class="st">"prior_diabetes"</span><span class="op">)</span>,</span>
 <span>    newdata <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/datagrid.html">datagrid</a></span><span class="op">(</span></span>
@@ -1411,7 +1624,7 @@ Type: response</code></pre>
 <p>But realistictly, people who gets hit by a stroke and need thrombectomy are not “any one”. These people are already a specific sub-population of Danish people. Therefore, a perfectly balanced age group, 50% diabetes etc. is extremely unrealistic and not representative of the Danish population.</p>
 <p>First of all, males are nearly 48% propensity of receiving thrombectory or not, while it’s only 38% of females.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb51"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/xtabs.html">xtabs</a></span><span class="op">(</span><span class="op">~</span> <span class="va">thrombectomy</span> <span class="op">+</span> <span class="va">sex</span>, data<span class="op">=</span><span class="va">thrombectomy</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb52"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/xtabs.html">xtabs</a></span><span class="op">(</span><span class="op">~</span> <span class="va">thrombectomy</span> <span class="op">+</span> <span class="va">sex</span>, data<span class="op">=</span><span class="va">thrombectomy</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>            sex
 thrombectomy   0   1
@@ -1421,7 +1634,7 @@ thrombectomy   0   1
 </div>
 <p>We have many more males in the treatment group and</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb53"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span> <span class="fu"><a href="https://rdrr.io/r/stats/xtabs.html">xtabs</a></span><span class="op">(</span><span class="op">~</span> <span class="va">thrombectomy</span> <span class="op">+</span> <span class="va">prior_diabetes</span>, data<span class="op">=</span><span class="va">thrombectomy</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb54"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span> <span class="fu"><a href="https://rdrr.io/r/stats/xtabs.html">xtabs</a></span><span class="op">(</span><span class="op">~</span> <span class="va">thrombectomy</span> <span class="op">+</span> <span class="va">prior_diabetes</span>, data<span class="op">=</span><span class="va">thrombectomy</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>            prior_diabetes
 thrombectomy   0   1
@@ -1433,7 +1646,7 @@ thrombectomy   0   1
 <p>About 10-15% of our sample have diabetes (while the Danish prevalence is <a href="https://diabetes.dk/forskning/viden-om-diabetes/diabetes-i-danmark/">6,4%</a>). A balanced design would have 50% in each group (although this is unrealistic in reality).</p>
 <p>We might be interested in covering some representative and balanced parts of the population.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb55"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">age_mean</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">thrombectomy</span><span class="op">$</span><span class="va">age_at_diagnosis</span><span class="op">)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb56"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">age_mean</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">thrombectomy</span><span class="op">$</span><span class="va">age_at_diagnosis</span><span class="op">)</span></span>
 <span><span class="va">age_sd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">thrombectomy</span><span class="op">$</span><span class="va">age_at_diagnosis</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">grid_oi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/datagrid.html">datagrid</a></span><span class="op">(</span></span>
@@ -1476,7 +1689,7 @@ Type: response</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb57"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">p1</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/plot_predictions.html">plot_predictions</a></span><span class="op">(</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb58"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">p1</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/plot_predictions.html">plot_predictions</a></span><span class="op">(</span></span>
 <span>    <span class="va">th_model</span>,</span>
 <span>    newdata <span class="op">=</span> <span class="va">grid_oi</span>,</span>
 <span>    condition <span class="op">=</span> <span class="st">"age_at_diagnosis"</span></span>
@@ -1508,7 +1721,7 @@ Type: response</code></pre>
 <p>Finally, we might be interested in the imaginary scenario: what had happened, given all patients received both the treatment and no treatment, and which would have resulted in the best probability of being alive at the 1-year follow-up?</p>
 <p>We can actually ask this question too:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb58"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">p</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/predictions.html">predictions</a></span><span class="op">(</span><span class="va">th_model</span>, variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>thrombectomy <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb59"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">p</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/predictions.html">predictions</a></span><span class="op">(</span><span class="va">th_model</span>, variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>thrombectomy <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2046</code></pre>
@@ -1523,7 +1736,7 @@ Type: response</code></pre>
 </blockquote>
 <p>Let’s marginalize over all participant profiles and get the average probability of death, had everyone in the sample been in both scenarios of the treatment/no-treatment.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb60"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/predictions.html">avg_predictions</a></span><span class="op">(</span><span class="va">th_model</span>, variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>thrombectomy <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb61"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/predictions.html">avg_predictions</a></span><span class="op">(</span><span class="va">th_model</span>, variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>thrombectomy <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
  thrombectomy Estimate Std. Error    z Pr(&gt;|z|)     S 2.5 % 97.5 %
@@ -1535,7 +1748,7 @@ Type: response</code></pre>
 </div>
 <p>Notice how different the probabilities are now. Remember that the dataset is not balanced — but rather symmetric between the two groups now. The sample is still biased by propensity for having diabetes, hypertension etc. But the treatment groups share all these biases now.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb62"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/plot_predictions.html">plot_predictions</a></span><span class="op">(</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb63"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/plot_predictions.html">plot_predictions</a></span><span class="op">(</span></span>
 <span>    <span class="va">th_model</span>,</span>
 <span>    newdata<span class="op">=</span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/datagrid.html">datagrid</a></span><span class="op">(</span></span>
 <span>        thrombectomy <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span>,</span>
@@ -1556,7 +1769,7 @@ Type: response</code></pre>
 </blockquote>
 <p>However, a better estimate might be the <strong>risk difference</strong> or the <strong>risk ratio</strong>.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb63"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/comparisons.html">avg_comparisons</a></span><span class="op">(</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb64"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/comparisons.html">avg_comparisons</a></span><span class="op">(</span></span>
 <span>    <span class="va">th_model</span>,</span>
 <span>    variables <span class="op">=</span> <span class="st">"thrombectomy"</span></span>
 <span>    <span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1587,7 +1800,7 @@ Comparison: 1 - 0</code></pre>
 <p>The <code><a href="https://rdrr.io/pkg/marginaleffects/man/comparisons.html">comparisons()</a></code> function above computed the predicted probability of mortality (<code>death_1year_followup == 1</code>) for each observed row of the data in two counterfactual cases: when <code>thrombectomy == 1</code>, and when <code>thrombectomy == 0</code>. Then, it computed the differences between these two sets of predictions. Finally, it computed the population-average of risk differences.</p>
 <p>Instead of <em>risk differences</em>, we could compute population-averaged (marginal) adjusted <em>risk ratios</em>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb65"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/comparisons.html">avg_comparisons</a></span><span class="op">(</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb66"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/comparisons.html">avg_comparisons</a></span><span class="op">(</span></span>
 <span>    <span class="va">th_model</span>,</span>
 <span>    variables<span class="op">=</span><span class="st">"thrombectomy"</span>,</span>
 <span>    comparison <span class="op">=</span> <span class="st">"lnratioavg"</span>, <span class="co"># Calculates adjusted Risk Ratio</span></span>

@@ -41,7 +41,72 @@ The slides contain speaking notes that you can view by pressing 'S' on the
 keyboard.
 :::
 
-## Case session 15: "If you're already dead, your odds of dying don't increase."
+## Case session 15: "The odds ratio is 0.65... and so what?"
+
+At the stroke research meeting, the biostatistician puts a slide on the screen.
+
+> Thrombectomy vs. no thrombectomy: OR = 0.65
+
+The clinical team pauses.
+
+> "That sounds promising," someone says. "But what does 0.65 actually mean for a
+> patient?"
+
+The analysis comes from an observational study of patients with acute stroke.
+The outcome is death within one year, and the researchers have fitted a logistic
+regression model to account for differences between patients who received
+thrombectomy and those who did not.
+
+The statistician explains that the regression coefficient corresponds to an odds
+ratio of 0.65.
+
+Another question immediately follows:
+
+> "But what we really want to know is whether patients have a lower probability
+> of dying if they receive thrombectomy. Why are we talking about odds?"
+
+Now the room gets filled with discussion.
+
+Suppose 20% of patients in the control group die within one year. What would you
+actually want to show a clinician---or a patient?
+
+- An odds ratio of 0.65?
+- The probability of death under each treatment?
+- The absolute difference in probability of death?
+- Something else?
+
+And whose probability are we talking about?
+
+- A particular patient with a particular age, diabetes status, and clinical
+  profile?
+- An older adult with diabetes?
+- The average patient in this study?
+- Or the population-level probability we would see if everyone received
+  thrombectomy, compared with what we would see if no one received it?
+
+These are related questions, but they are not the same question. The clinical
+team decides to work through the problem one scientific question at a time.
+
+1. Is thrombectomy associated with a different probability of death?
+2. Does the effect differ for older adults with diabetes?
+3. What does the model imply for the average stroke patient?
+4. What if everyone could participate twice --- both in the treatment and the
+   no-treatment group?
+
+The team notices something --- the regression model has produced one
+coefficient, but the researchers have several different scientific questions.
+
+So they ask:
+
+> What exactly is the model estimating---and how do we turn that into the
+> quantity we actually want to know?
+
+Your task is to make sure that the quantity we calculate and communicate answers
+the scientific question we started with.
+
+<!--
+:::{.hidden}
+Case session 15: "If you're already dead, your odds of dying don't increase."
 
 At a PhaRmaceutic RStudio AS, a new compound is being evaluated for toxicity
 before it can move further through development. In an early preclinical
@@ -84,6 +149,8 @@ Your task is to investigate the dose-response relationship using a quadratic
 logistic regression model. You will move from regression coefficients to
 predicted probabilities and marginal slopes, examining how the effect of dose
 changes across the dose range.
+:::
+-->
 
 ## Reading Task: Communicating results of regression models
 

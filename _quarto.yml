@@ -1,8 +1,8 @@
 project:
   type: rostools-theme
   # TODO: Uncomment if you want to use slides.
-  pre-render:
-    - quarto render slides/*.qmd
+  #pre-render:
+  #  - quarto render slides/*.qmd
   resources:
     - slides/*.html
 

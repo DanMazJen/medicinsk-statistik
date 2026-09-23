@@ -24,8 +24,332 @@ library(marginaleffects)
 library(tidyr)
 ```
 
-## Case 15: "?" {.smaller .scrollable}
+## {.smaller .scrollable}
 
+**Case 15: "The odds ratio is 0.65... and so what?"**
+
+At the stroke research meeting, the biostatistician puts a slide on the screen.
+
+> Thrombectomy vs. no thrombectomy: OR = 0.65
+
+The clinical team pauses.
+
+> "That sounds promising," someone says. "But what does 0.65 actually mean for a
+> patient?"
+
+The analysis comes from an observational study of patients with acute stroke.
+The outcome is death within one year, and the researchers have fitted a logistic
+regression model to account for differences between patients who received
+thrombectomy and those who did not.
+
+The statistician explains that the regression coefficient corresponds to an odds
+ratio of 0.65.
+
+Another question immediately follows:
+
+> "But what we really want to know is whether patients have a lower probability
+> of dying if they receive thrombectomy. Why are we talking about odds?"
+
+Now the room gets filled with discussion.
+
+Suppose 20% of patients in the control group die within one year. What would you
+actually want to show a clinician---or a patient?
+
+- An odds ratio of 0.65?
+- The probability of death under each treatment?
+- The absolute difference in probability of death?
+- Something else?
+
+And whose probability are we talking about?
+
+- A particular patient with a particular age, diabetes status, and clinical
+  profile?
+- An older adult with diabetes?
+- The average patient in this study?
+- Or the population-level probability we would see if everyone received
+  thrombectomy, compared with what we would see if no one received it?
+
+These are related questions, but they are not the same question. The clinical
+team decides to work through the problem one scientific question at a time.
+
+1. Is thrombectomy associated with a different probability of death?
+2. Does the effect differ for older adults with diabetes?
+3. What does the model imply for the average stroke patient?
+4. What if everyone could participate twice --- both in the treatment and the
+   no-treatment group?
+
+The team notices something --- the regression model has produced one
+coefficient, but the researchers have several different scientific questions.
+
+So they ask:
+
+> What exactly is the model estimating---and how do we turn that into the
+> quantity we actually want to know?
+
+Your task is to make sure that the quantity we calculate and communicate answers
+the scientific question we started with.
+
+##
+
+![](images/estimand_estimator_estimate.jpg)
+
+##
+
+![](images/estimand_things.png)
+
+##
+
+::: {.r-fit-text}
+Reading Task: 15.4 **Communicating results of regression models**
+:::
+
+## {.smaller .scrollable}
+
+**Discussion: "What do we actually want to know?**
+
+> An observational study retrospecively investigates whether a new treatment
+> reduces the risk of a complication after surgery. The researchers fit a
+> logistic regression model and obtain 𝛽1 (odds ratio) as 0.65 for treatment vs.
+> control.
+
+**Discuss with our neighbor:**
+
+1. What is the scientific question? What would you actually want to know about
+   the treatment?
+2. What is the model giving us? What exactly is the odds ratio of 0.65? Is it
+   itself a clinical outcome or something else?
+3. What would be easier to interpret? Imagine the complication occurs in 20% of
+   patients in the control group. What kind of result would you rather show a
+   clinician or patient: the odds ratio, a risk/probability, an absolute risk
+   difference, or something else? Why?
+4. What is the estimand? Try to state, in one sentence, the quantity you would
+   ideally like to learn about.
+5. If the model coefficient is not the scientific answer, what role does the
+   model play?
+
+## Workflow
+
+```{mermaid}
+%%| label: workflow-diag
+
+flowchart LR
+    A["1. Scientific question<br/><br/>What happens to P(Y)<br/>when X changes?"]
+
+    A --> B["2. Estimator<br/><br/>logistic regression"]
+
+    B --> C["3. Regression estimate<br/><br/>log-odds"]
+
+    C --> D["4. Quantity to communicate<br/><br/>Probability"]
+
+    D --> E{"5. Who/where are we estimating the effect?"}
+
+    E --> E1["Particular patient"]
+    E --> E2["Clinically meaningful<br/>scenario"]
+    E --> E3["Average population"]
+    E --> E4["Different levels of<br/>an interacting variable"]
+
+    E1 --> F["6. Marginal effects"]
+    E2 --> F["6. Marginal effects"]
+    E3 --> F["6. Marginal effects"]
+    E4 --> F["6. Marginal effects"]
+
+    F --> G["7. Communicate in<br/>clinically meaningful units"]
+
+    style A fill:#E8F1FB,stroke:#3B6EA5,stroke-width:2px
+    style B fill:#F3F3F3,stroke:#666,stroke-width:2px
+    style C fill:#E8F5E9,stroke:#4C8C4A,stroke-width:2px
+    style D fill:#FFF4D6,stroke:#C79A24,stroke-width:2px
+    style E fill:#EDE7F6,stroke:#7656A6,stroke-width:2px
+    style F fill:#E8F5E9,stroke:#4C8C4A,stroke-width:2px
+    style G fill:#DDF3E0,stroke:#3D8B40,stroke-width:3px
+```
+
+## The dataset
+
+```r
+?medisr::thrombectomy
+```
+
+## Scientific questions
+
+::: {.r-fit-text}
+1. Does the population who got thrombectory have lower probability of death at
+   1-year follow-up after stroke compared to the population who did not get
+   thrombectomy?
+2. What is the effect of thrombectory in older adults with diabetes, compared to
+   older adults without diabetes?
+3. What is effect of the average person profile in the sample?
+4. What would be the average probability of death, had all participants received
+   thrombectomy, compared to not receiving it?
+:::
+
+## The estimand {.smaller .scrollable}
+
+We are interested in the probability of death at 1-year follow-up:
+
+$$
+  P(death = 1 | X)
+$$
+
+for an observational study looking at the effect of thrombectomy after stroke:
+
+```{r}
+#| label: smoking-dag
+#| echo: false
+
+dag <- ggdag::dagify(
+  death ~ trt + age + diabetes + hyp_ten,
+  trt ~ age + diabetes + hyp_ten,
+  hyp_ten ~ diabetes + age,
+  diabetes ~ sex + age
+)
+
+ggdag::ggdag(dag) +
+  ggdag::geom_dag_point(size = 20) +
+  ggdag::geom_dag_text(size = 3) +
+  ggdag::theme_dag()
+
+# ggdag::ggdag(dag, text = FALSE, use_labels = "name")
+
+# dagitty::adjustmentSets(dag,exposure="trt","death")
+```
+
+## The estimand {.smaller .scrollable}
+
+- We need to adjust for age, hypertension and diabetes.
+- We will still incl. sex, as the dataset is unbalanced and we want to adjust
+  for that bias.
+
+```{r}
+#| label: smoking-dag2
+#| echo: false
+
+dag <- ggdag::dagify(
+  death ~ trt + age + diabetes + hyp_ten,
+  trt ~ age + diabetes + hyp_ten,
+  hyp_ten ~ diabetes + age,
+  diabetes ~ sex + age
+)
+
+ggdag::ggdag(dag) +
+  ggdag::geom_dag_point(size = 20) +
+  ggdag::geom_dag_text(size = 3) +
+  ggdag::theme_dag()
+
+# ggdag::ggdag(dag, text = FALSE, use_labels = "name")
+
+# dagitty::adjustmentSets(dag,exposure="trt","death")
+```
+
+## The estimator
+
+![One is better](images/choose_tool.jpg){#fig-id fig-alt="alt"}
+
+## The estimator
+
+![A matter of choice](images/choose_tool_pokemon.jpeg)
+
+## Our estimator
+
+- follow individuals for one year
+- no censoring
+- probability of death is relative high
+- *n* can be defined as the sample size
+
+$$
+  y_i = Binomial(n,p_i) \\
+  logit(p_i) = α + βx_i
+$$
+
+where *n* is the number of observations and *p* is the probability of death.
+
+## Our estimator {.smaller .scrollable}
+
+The logit function is defined as the *log-odds*:
+
+$$
+  logit(p_i) = log(\frac{p_i}{1 - p_i})
+$$
+
+The "odds" of an event is just the probability it happens divided by the
+probability it does not happen. In other words:
+
+$$
+  log(\frac{p_i}{1 - p_i}) = α + βx_i
+$$
+To figure out the definition of *p_i*, we do some algebra to solve for $p_i$:
+
+$$
+  p_i = \frac{exp( α + βx_i)}{1 + exp(α + βx_i)}
+$$
+The above function is the **logistic**
+
+- Note that the log-odds space is linear (what we model)
+- The logistic space is the sigmoidal shape (the transformation)
+
+## The statistical model
+
+$$
+  logit( \text{death at 1 year followup}) = α + β1_{thrombectomy}
+                                            + β2_{diabites} + β3_{age} \\
+  + β4_{hypertention} + β5_{sex} + β6_{thrombectomy×diabites} \\
+  + β7_{thrombectomy×age}
+  + β8_{thrombectomy×hyptertension} + β9_{thrombectomy×sex} \\
+$$
+
+## In R
+
+```{r}
+#| label: thrombectomy-model
+
+thrombectomy <- medisr::thrombectomy |>
+    mutate(death_1year_followup = if_else(time_to_death < 365 & death ==1,1,0),
+    age_at_diagnosis = as.numeric(age_at_diagnosis)
+    )
+
+th_model <- glm(
+  death_1year_followup ~ thrombectomy +
+        prior_diabetes +
+        age_at_diagnosis +
+        prior_hypertention +
+        sex +
+        thrombectomy:prior_diabetes +
+        thrombectomy:age_at_diagnosis +
+        thrombectomy:prior_hypertention +
+        thrombectomy:sex,
+        family = binomial(link = "logit"),
+  data = thrombectomy
+)
+```
+
+## The coefficients
+
+```{r}
+#| label: smoking-output
+
+th_model |>
+    parameters::parameters(exponentiate=TRUE)
+```
+
+##
+
+::: {.fragment}
+class over?
+:::
+::: {.r-fit-text}
+🥳
+:::
+::: {.fragment}
+Not so quick!
+:::
+
+##
+
+::: {.r-fit-text}
+Read *Step 3: Stock with regression coefficients...*
+:::
+
+<!--
 ## Deadly venom - according to whom?
 
 ![The Funnel-web spider's venom contains delta-hexatoxins (such as robustoxin)](images/funnel_web_spider.jpg)
@@ -45,7 +369,7 @@ estimand = smoking on lung cancer*
 %%| label: lin-reg
 
 flowchart LR
-    X[X] --> Y[Y]
+    X[X] -> Y[Y]
 ```
 
 $y ~ x$
@@ -64,13 +388,13 @@ But we know this model is biased! There are known confounding
 %%| label: lin-reg2
 
 flowchart LR
-    X[X] --> Y[Y]
+    X[X] -> Y[Y]
 
-    C1[Age] --> Y
-    C2[Income] --> Y
-    C3[Education] --> Y
-    C4[Region] --> Y
-    C5[...] --> Y
+    C1[Age] -> Y
+    C2[Income] -> Y
+    C3[Education] -> Y
+    C4[Region] -> Y
+    C5[...] -> Y
 ```
 :::::
 ::::: {.column}
@@ -86,13 +410,13 @@ $$
 %%| label: lin-reg3
 
 flowchart LR
-    X((X)) --> Y[Y]
+    X((X)) -> Y[Y]
 
-    C1[Age] --> Y
-    C2[Income] --> Y
-    C3[Education] --> Y
-    C4[Region] --> Y
-    C5[...] --> Y
+    C1[Age] -> Y
+    C2[Income] -> Y
+    C3[Education] -> Y
+    C4[Region] -> Y
+    C5[...] -> Y
 
     style X stroke:#d62728,stroke-width:4px
 ```
@@ -108,7 +432,7 @@ What if we add interactions? 😨🫠
 
 ## In session 11, we learned...
 
-```{r}
+```r
 model_interact <-
     lm(MaxHR ~ Age + HD + Age:HD,
     data = hd_data)
@@ -140,7 +464,7 @@ This is where marginal effects comes to the rescue 🎉🥳
 ```{mermaid}
 flowchart LR
 
-    X((X)) --> Y[Y]
+    X((X)) -> Y[Y]
 
     subgraph Marginalized covariates
         C1[Age]
@@ -150,11 +474,11 @@ flowchart LR
         C5[...]
     end
 
-    C1 --> Y
-    C2 --> Y
-    C3 --> Y
-    C4 --> Y
-    C5 --> Y
+    C1 -> Y
+    C2 -> Y
+    C3 -> Y
+    C4 -> Y
+    C5 -> Y
 
     style X stroke:#d62728,stroke-width:4px
 ```
@@ -178,14 +502,14 @@ rate for:
 - a 80 year old with heart disease?
 - a 36 year old without heart disease?
 
-```{r}
+```r
 #| label: params-model-interact
 
 parameters::parameters(model_interact) |>
     knitr::kable()
 ```
 
-```{r}
+```r
 #| output: true
 #| label: using-predictions-one-age
 
@@ -207,7 +531,7 @@ age50_HD_false <- as.numeric(
 ```
 
 ::: {.fragment}
-```{r}
+```r
 #| output: true
 #| label: using-predictions-one-age-answers
 
@@ -218,7 +542,7 @@ paste(glue::glue("age50_HD_false = {round(age50_HD_false,1)}"))
 
 ## Predicting the effect of HD on maxHR at age 50 {.smaller .scrollable}
 
-```{r}
+```r
 #| label: plt-repel-pred
 
 # Annotation data.frame
@@ -254,7 +578,7 @@ plot_predictions(
 
 ## How?
 
-```{r}
+```r
 #| echo: true
 #| eval: false
 #| label: how-predictions-one-age
@@ -278,7 +602,7 @@ age50_HD_false <- as.numeric(
 
 ## Using {marginaleffects}
 
-```{r}
+```r
 #| label: how-predictions-one-age-margeff
 #| code-line-numbers: 2|3|4|
 #| echo: true
@@ -301,7 +625,7 @@ $E(Y ∣ HD = yes,Age = 50) − E(Y ∣ HD = no,Age = 50)$
 
 ## Hypothesis test on the effect of HD at age 50
 
-```{r}
+```r
 #| label: hypothesis-fifty-margeff
 
 model_interact |>
@@ -323,7 +647,7 @@ standard error and p-value. That's why we should use `comparisons()` or
 
 ## Uncertainty
 
-```{r}
+```r
 #| label: delta-method
 
 b <- coef(model_interact)
@@ -353,7 +677,7 @@ The trick is finding the gradient $∇g$
 
 The variance is: $Var(g) = L⊤VL$
 
-```{r}
+```r
 #| label: delta-method-full
 
 x0 <- c(1, 50, 0, 0)     # intercept, 50yo, HD = 0, interaction
@@ -380,12 +704,12 @@ study*
 
 ## {marginaleffects} to the rescue
 
-```{r}
+```r
 head(hd_data) |>
     select(Age,HD) # MaxHR
 ```
 
-```{r}
+```r
 library(marginaleffects)
 library(tinytable)
 
@@ -413,7 +737,7 @@ pred |>
 
 ## It's easy!
 
-```{r}
+```r
 #| echo: true
 
 model_interact |>
@@ -427,7 +751,7 @@ model_interact |>
 
 ## Now, we average all HD = 1 and HD = 0 separately
 
-```{r}
+```r
 model_interact |>
   avg_predictions(
     newdata = hd_data, # can be left alone
@@ -446,7 +770,7 @@ participants, had we observed them with and without HD.
 
 ## How does our sample look?
 
-```{r}
+```r
 #| label: looking-at-cohort
 
 hd_data |>
@@ -482,7 +806,7 @@ Making age more informative
 
 ## {marginaleffects} can predict the target population
 
-```{r}
+```r
 target_pop <- tidyr::expand_grid(
          Age = c(50:70),
          HD = c("no heart disease", "yes, heart disease")
@@ -499,7 +823,7 @@ model_interact |>
 
 ## Hypothesis testing on the target population
 
-```{r}
+```r
 model_interact |>
   avg_predictions(
     newdata = target_pop,
@@ -541,3 +865,5 @@ group?
 
 **Tip**: Condition on `baseline_seizures`.
 :::
+
+-->

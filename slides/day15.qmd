@@ -91,16 +91,18 @@ the scientific question we started with.
 
 ##
 
-![](images/estimand_estimator_estimate.jpg)
+![The unfortunate truth...](images/estimand_estimator_estimate.jpg){.r-stretch fig-align="center"}
 
 ##
 
-![](images/estimand_things.png)
+![Reflection points](images/estimand_things.png){.r-stretch fig-align="center"}
 
-##
+## {.center}
 
 ::: {.r-fit-text}
-Reading Task: 15.4 **Communicating results of regression models**
+Reading Task: 15.4
+
+**Communicating results of regression models**
 :::
 
 ## {.smaller .scrollable}
@@ -129,40 +131,7 @@ Reading Task: 15.4 **Communicating results of regression models**
 
 ## Workflow
 
-```{mermaid}
-%%| label: workflow-diag
-
-flowchart LR
-    A["1. Scientific question<br/><br/>What happens to P(Y)<br/>when X changes?"]
-
-    A --> B["2. Estimator<br/><br/>logistic regression"]
-
-    B --> C["3. Regression estimate<br/><br/>log-odds"]
-
-    C --> D["4. Quantity to communicate<br/><br/>Probability"]
-
-    D --> E{"5. Who/where are we estimating the effect?"}
-
-    E --> E1["Particular patient"]
-    E --> E2["Clinically meaningful<br/>scenario"]
-    E --> E3["Average population"]
-    E --> E4["Different levels of<br/>an interacting variable"]
-
-    E1 --> F["6. Marginal effects"]
-    E2 --> F["6. Marginal effects"]
-    E3 --> F["6. Marginal effects"]
-    E4 --> F["6. Marginal effects"]
-
-    F --> G["7. Communicate in<br/>clinically meaningful units"]
-
-    style A fill:#E8F1FB,stroke:#3B6EA5,stroke-width:2px
-    style B fill:#F3F3F3,stroke:#666,stroke-width:2px
-    style C fill:#E8F5E9,stroke:#4C8C4A,stroke-width:2px
-    style D fill:#FFF4D6,stroke:#C79A24,stroke-width:2px
-    style E fill:#EDE7F6,stroke:#7656A6,stroke-width:2px
-    style F fill:#E8F5E9,stroke:#4C8C4A,stroke-width:2px
-    style G fill:#DDF3E0,stroke:#3D8B40,stroke-width:3px
-```
+![](images/marginal_workflow.png){.r-stretch fig-align="center"}
 
 ## The dataset
 
@@ -170,15 +139,20 @@ flowchart LR
 ?medisr::thrombectomy
 ```
 
+Read for yourself...
+
 ## Scientific questions
 
 ::: {.r-fit-text}
 1. Does the population who got thrombectory have lower probability of death at
    1-year follow-up after stroke compared to the population who did not get
    thrombectomy?
+
 2. What is the effect of thrombectory in older adults with diabetes, compared to
    older adults without diabetes?
+
 3. What is effect of the average person profile in the sample?
+
 4. What would be the average probability of death, had all participants received
    thrombectomy, compared to not receiving it?
 :::
@@ -243,7 +217,7 @@ ggdag::ggdag(dag) +
 
 ## The estimator
 
-![One is better](images/choose_tool.jpg){#fig-id fig-alt="alt"}
+![One is better](images/choose_tool.jpg)
 
 ## The estimator
 
@@ -287,8 +261,9 @@ The above function is the **logistic**
 - Note that the log-odds space is linear (what we model)
 - The logistic space is the sigmoidal shape (the transformation)
 
-## The statistical model
+## The statistical model {.smaller .r-stretch}
 
+::: {.r-fit-text}
 $$
   logit( \text{death at 1 year followup}) = α + β1_{thrombectomy}
                                             + β2_{diabites} + β3_{age} \\
@@ -296,12 +271,37 @@ $$
   + β7_{thrombectomy×age}
   + β8_{thrombectomy×hyptertension} + β9_{thrombectomy×sex} \\
 $$
+:::
 
 ## In R
 
 ```{r}
 #| label: thrombectomy-model
+#| code-line-numbers: "2|6|16"
+#| echo: true
 
+thrombectomy <- medisr::thrombectomy |>
+    mutate(
+        death_1year_followup = if_else(time_to_death < 365 & death ==1,1,0),
+        age_at_diagnosis = as.numeric(age_at_diagnosis)
+    )
+
+th_model <- glm(
+    death_1year_followup ~ thrombectomy +
+        prior_diabetes +
+        age_at_diagnosis +
+        prior_hypertention +
+        sex +
+        thrombectomy:prior_diabetes +
+        thrombectomy:age_at_diagnosis +
+        thrombectomy:prior_hypertention +
+        thrombectomy:sex,
+    family = binomial(link = "logit"),
+    data = thrombectomy
+)
+```
+
+```r {code-line-numbers=""}
 thrombectomy <- medisr::thrombectomy |>
     mutate(death_1year_followup = if_else(time_to_death < 365 & death ==1,1,0),
     age_at_diagnosis = as.numeric(age_at_diagnosis)
@@ -328,26 +328,462 @@ th_model <- glm(
 #| label: smoking-output
 
 th_model |>
-    parameters::parameters(exponentiate=TRUE)
+    parameters::parameters(exponentiate=TRUE) |>
+    select(c(Parameter,Coefficient,SE)) |>
+    rename(Odds_ratio=Coefficient)
 ```
 
 ##
 
-::: {.fragment}
-class over?
-:::
-::: {.r-fit-text}
-🥳
-:::
-::: {.fragment}
-Not so quick!
+::: {.columns}
+::::: {.column}
+![](images/what_do_you_mean.jpg){.r-stretch fig-align="center"}
+:::::
+::::: {.column}
+::::::: {.fragment}
+![](images/estimand_estimator_estimate.jpg){.r-stretch fig-align="center"}
+:::::::
+:::::
 :::
 
-##
+## {.r-stretch fig-align="center"}
 
 ::: {.r-fit-text}
 Read *Step 3: Stock with regression coefficients...*
 :::
+
+## Mistake #1
+
+> Don't read coefficient, thinking it generalizes to the sample!
+
+## Mistake #2
+
+> Confusing OR for a probability
+
+## Mistake #3
+
+> 1-unit change OR gives different probability for two individuals
+
+## {.r-stretch fig-align="center"}
+
+::: {.r-fit-text}
+Read *Step 4: Clear communication --- transforming coefficients*
+:::
+
+1. Run all code examples and
+2. Make predictions for
+
+- A 70 year-old female without diabetes, hyptersions and thrombectomy
+- A 70 year-old male without diabetes but having hyptersions and received
+  thrombectomy
+
+## Step 5-7: Model-based transformations
+
+- A model is conditional on it's sample
+
+- Regression coefficients let's us predict any arbitrary sample *that is
+  conditional on being explained by the model!*
+
+- post-hoc weights on certain participant profiles, so that our estimate is
+  targeting a specific aspect of the model inference.
+
+Questions that form such discussions can be:
+
+- A particular patient?
+- A clinically meaningful scenario?
+- The average population?
+- Different levels of an interacting variable?
+
+## RQ 1: Our sample as reality
+
+> "Does the population who got thrombectory have lower probability of death at
+> 1-year follow-up after stroke compared to the population who did not get
+> thrombectomy?"
+
+## {.r-stretch fig-align="center"}
+
+::: {.r-fit-text}
+Can we use the model coefficient for `thrombectomy`? 👀
+:::
+
+```{r}
+#| label: smoking-output3
+
+th_model |>
+    parameters::parameters(exponentiate=TRUE) |>
+    select(c(Parameter,Coefficient,SE)) |>
+    rename(Odds_ratio=Coefficient)
+```
+
+##
+
+![](images/what_do_you_mean.jpg){.r-stretch fig-align="center"}
+
+##
+
+Here, the odds ratio is 2.20 ...
+
+::: {.fragment}
+> when all interacting variables are at their reference/zero values. In
+> particular, the interpretation depends on how age is coded/centered and on the
+> reference categories for diabetes, hypertension, and sex.
+
+But how intuitive is that? 👀
+:::
+
+##
+
+If we don't supply a newdata grid, the predictions() function will take all
+participants in our sample and compute predictions for them, one by one:
+
+```{r}
+#| echo: true
+#| label: pred1
+
+p = predictions(th_model)
+p
+```
+
+##
+
+You can see that the row length is the same as the original dataset:
+
+```{r}
+#| echo: true
+#| label: check-nrow
+
+nrow(p)
+nrow(thrombectomy)
+```
+
+- A table with 1023 rows is not super intuitive and nice to make inference from.
+
+> Why can we do about that?
+
+::: {.fragment}
+1. Make a plot to illustrate it all visually, or
+2. take the average of all these predictions
+:::
+
+##
+
+```{r}
+#| label: plot-everything
+
+library(patchwork)
+
+p = predictions(th_model)
+
+# Histogram
+p1 = ggplot(p) +
+  geom_histogram(aes(estimate, fill = factor(thrombectomy))) +
+  labs(x = "Pr(outcome = 1)", y = "Count", fill = "thrombectomy") +
+  scale_fill_grey()
+
+# Empirical Cumulative Distribution Function
+p2 = ggplot(p) +
+  stat_ecdf(aes(estimate, colour = factor(thrombectomy))) +
+  labs(x = "Pr(outcome = 1)",
+       y = "Cumulative Probability",
+       colour = "thrombectomy") +
+  scale_colour_grey()
+
+# Combined plots
+p1 + p2
+```
+
+## Design is not balanced!
+
+```{r}
+#| label: imbalance
+
+table(thrombectomy$thrombectomy)
+```
+
+about 0.4301075 received thrombectomy.
+
+## Marginalizing the problem
+
+We can compute the average for them by using avg_predictions()
+
+```{r}
+#| label: avg-pred1
+#| echo: true
+
+avg_predictions(th_model)
+```
+
+So the average probability of death at the 1-year follow-up is 26.7%.
+
+This is a reasonable estimate for answering the question
+
+> "how many Danes die at 1-year follow-up after stroke?"
+
+##
+
+However, as we now know that the groups are unbalanced, this is not a good
+estimate for the treatment effect! And it doesn't have the granularity to
+address more nuanced questions of sub-population level.
+
+Finally, to compute the average for the patients receiving thrombectomy and
+those who did not, we can group the average for these conditions
+
+```{r}
+#| label: avg-pred2
+#| echo: true
+
+avg_predictions(th_model, by="thrombectomy")
+```
+
+## Can we do better?
+
+the **risk difference** or the **risk ratio**.
+
+$$
+  RD = 0.214 - 0.307 = -9.3
+$$
+or a 9.3% points lower predicted risk of death on the absolute scale.
+
+$$
+  RR = \frac{0.214}{0.307} = 0.697
+$$
+or a 30% lower predicted risk of death on the relative scale.
+
+So we conclude that:
+
+> The model-estimated 1-year mortality was 30.7% in the absence of thrombectomy
+> and 21.4% under thrombectomy, corresponding to an un-adjusted absolute risk
+> difference of −9.3 percentage points
+
+## RQ 2: Treatment effect of older adults conditional on diabetes status
+
+> "What is the effect of thrombectory in older adults with diabetes, compared to
+> older adults without diabetes?"
+
+::: {.fragment}
+Here, we're interested specifically in a sub-population.
+
+we need to consider multiple variables (`diabetes` and `thrombectory`) *and the
+proportions* who have this profile in our sample.
+:::
+
+## Making new grids
+
+```r
+datagrid(
+    prior_diabetes = 1,
+    thrombectomy = c(0, 1),
+    age_at_diagnosis=c(80:90),
+    model = th_model
+)
+```
+
+```{r}
+#| label: diab-head
+
+p = predictions(
+    th_model,
+    newdata = datagrid(
+        prior_diabetes = 1,
+        thrombectomy = c(0, 1),
+        age_at_diagnosis=c(80:90)
+    )
+)
+
+p |> head()
+```
+
+## Estimated Marginal Mean
+
+```{r}
+#| label: diabetes-result
+#| echo: true
+
+grid_oi <- datagrid(
+    age_at_diagnosis=c(80:90),
+    prior_diabetes = unique,
+    thrombectomy = unique,
+    model = th_model
+)
+
+p1 = plot_predictions(th_model, newdata = grid_oi, by = "thrombectomy")
+p2 = plot_predictions(th_model, newdata = grid_oi, by = c("thrombectomy", "prior_diabetes"))
+p1 + p2
+```
+
+##
+
+```{r}
+#| label: diabetes-result2
+#| echo: true
+
+avg_predictions(
+    th_model,
+    by = c("thrombectomy", "prior_diabetes"),
+    newdata = datagrid(
+        age_at_diagnosis=c(80:90),
+        prior_diabetes = unique,
+        thrombectomy = unique
+    )
+)
+```
+
+- from 42.3% probability of death without treatment to 26.7% for non-diabetic.
+
+- from 66.2% probability of death without treatment to 61.6% for non-diabetic.
+
+## RQ:3 "The average person"
+
+> What is effect of the average person profile in the sample?
+
+##
+
+## Our sample is unbalanced
+
+First of all, males are nearly 48% propensity of receiving thrombectory or not,
+while it's only 38% of females.
+
+```{r}
+#| label: sex-sample
+#| echo: true
+
+xtabs(~ thrombectomy + sex, data=thrombectomy)
+```
+
+```{r}
+#| label: diabetes-sample
+#| echo: true
+
+xtabs(~ thrombectomy + prior_diabetes, data=thrombectomy)
+```
+
+- more males in the treatment group
+- few with diabetes --- 10-15% in our sample
+  - 6.4% in DK population
+  - A balanced design should have 50%
+
+## The balanced grid
+
+```{r}
+#| code-line-numbers: "1-2|4-11|13-17"
+#| label: balanced
+
+age_mean <- mean(thrombectomy$age_at_diagnosis)
+age_sd <- sd(thrombectomy$age_at_diagnosis)
+
+grid_oi <- datagrid(
+    model = th_model,
+    prior_diabetes = unique,
+    prior_hypertention = unique,
+    sex = unique,
+    thrombectomy = unique,
+    age_at_diagnosis = c(age_mean-age_sd, age_mean, age_mean+age_sd)
+    )
+
+predictions(
+    th_model,
+    by = "thrombectomy",
+    newdata = grid_oi
+)
+```
+
+## {.r-stretch .center}
+
+::: {.r-fit-text .}
+Is "the average person"! 👀
+:::
+
+##
+
+![](images/average_bimodal.jpeg){.r-stretch fig-align="center"}
+
+## RQ 4: "What if" 🤔
+
+> What would be the average probability of death, had all participants received
+> thrombectomy, compared to not receiving it?
+
+##
+
+```{r}
+#| echo: true
+
+p = predictions(th_model, variables = list(thrombectomy = 0:1))
+nrow(p)
+```
+
+##
+
+```{r}
+plot_predictions(
+    th_model,
+    newdata=datagrid(
+        thrombectomy = c(0,1),
+        grid_type="counterfactual"
+    ),
+    by="thrombectomy"
+)
+```
+
+```{r}
+#| echo: true
+
+avg_predictions(th_model, variables = list(thrombectomy = 0:1))
+```
+
+::: {.fragment}
+> For each individual in the Syntheric DanStroke medisr sample, what is the
+> predicted probability of death in the counterfactual world where they receive
+> thrombectory, and where they do not?
+:::
+
+## Can we do better?
+
+**Risk difference**
+
+```{r}
+#| echo: true
+#| code-line-numbers: "1"
+#|
+avg_comparisons(
+    th_model,
+    variables = "thrombectomy"
+    )
+```
+
+> A risk difference of -0.0317, favoring thrombectomy
+
+The `comparisons()` function above computed the predicted probability of
+mortality (`death_1year_followup == 1`) for each observed row of the data in two
+counterfactual cases: when `thrombectomy == 1`, and when `thrombectomy == 0`.
+Then, it computed the differences between these two sets of predictions.
+Finally, it computed the population-average of risk differences.
+
+##
+
+**population-averaged (marginal) adjusted risk ratios:**
+
+```{r}
+#| echo: true
+
+avg_comparisons(
+    th_model,
+    variables="thrombectomy",
+    comparison = "lnratioavg", # Calculates adjusted Risk Ratio
+    transform = exp # then exponentiates
+    )
+```
+
+> The model-estimated 1-year mortality was 27.1% in the absence of thrombectomy
+> and 23.9% under thrombectomy, corresponding to an adjusted risk ratio of
+> 0.883.
+
+##
+
+::: {.r-fit-text}
+**Time for exercises** 🎉
+:::
+
+![](images/open_rstudio.jpeg){.r-stretch fig-align="center"}
 
 <!--
 ## Deadly venom - according to whom?

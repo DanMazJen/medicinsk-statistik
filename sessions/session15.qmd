@@ -430,22 +430,171 @@ th_model <- glm(
 )
 ```
 
+## Step 3: Stock with regression coefficients...
+
 Here's the model output:
 
 ```{r}
 #| label: smoking-output
 
 th_model |>
-    parameters::parameters(exponentiate=TRUE)
+    parameters::parameters(exponentiate=TRUE) |>
+    select(Parameter, Coefficient, SE) |>
+    rename(Odds_ratio=Coefficient)
 ```
 
-## Step 3: Stock with regression coefficients...
+Cool, we got an OR = 9.06 for `thrombectomy`
+
+> What does this mean?
+
+### Rookie mistake #1
+
+> Don't read this coefficient, thinking it generalizes to the sample!
+
+This sample has odds of 0.00182 for the outcome when thrombectomy = 0 and **all
+other coefficients are 0**.
+
+In other words, the intercept describes the model's baseline odds for a
+0-year-old female without diabetes or hypertension, and without thrombectomy.
+Such a patient didn't participate in the study. Thus, this is out-of-sample
+prediction --- and a pretty silly and unjustified extrapolation from what we're
+trying to answer scientifically here.
+
+The thrombectomy OR of 9.06 means that, holding all the other variables
+constant, the odds are multiplied by 9.06 when thrombectomy changes from 0 to 1.
+
+### Rookie mistake #2:
+
+Thinking that an OR of 9.06 means a 9-fold increase in probability.
+
+It doesn't. An odds ratio describes a change in odds, not probability. To get
+the probability, you need to convert the log-odds back using the inverse logit
+function `g()`.
+
+For example, the model's baseline odds are:
+
+$0.00182$
+
+With thrombectomy:
+
+$0.00182 × 9.06 ≈ 0.0165$
+
+which corresponds to a probability of approximately 1.62%, not 9.06%.
+
+So, OR = 9.06 does not mean that the probability of the outcome is 9.06 times
+higher. It means that, for two otherwise identical patients, the patient with
+`thrombectomy = 1` has 9.06 times the odds of the outcome compared with the
+patient with thrombectomy = 0.
+
+### Rookie mistake #3
+
+A 1-unit increase in age is associated with a 0.7% increase in the odds of
+cardiovascular disease, holding the other variables constant.
+
+But the more important question is:
+
+Does this mean that a 1-year increase in age increases the probability of
+disease by 0.7% percentage points?
+
+The answer is a stricking no!
+
+An odds ratio describes a change in odds, not directly a change in probability.
+
+The clinical question is usually about risk/probability, not odds.
+
+Consider two patients:
+
+- Patient A has a predicted disease probability of 5%.
+- Patient B has a predicted disease probability of 50%.
+
+Suppose both experience the same change in the predictor.
+
+The resulting change in probability will not necessarily be the same.
+
+This is the key complication of logistic regression:
+
+> The effect of X on probability depends on where you start.
+
+The relationship between X and probability is nonlinear.
+
+The logistic curve is relatively flat near 0 and 1, and steepest in the middle.
+
+Therefore:
+
+> There is not necessarily one single "effect of X" on probability.
+
+```{r}
+#| label: slop-maybe
+#| layout-ncol: 2
+#| fig-subcap:
+#|   - the odds ratio change as a function of 1-unit change in age
+#|   - the probability change as a function of 1-unit change in age
+
+plot_slopes(
+  th_model,
+  condition = "age_at_diagnosis",
+  variables = "age_at_diagnosis",
+  type = "link"
+)
+plot_slopes(
+  th_model,
+  condition = "age_at_diagnosis",
+  variables = "age_at_diagnosis",
+  type = "response"
+)
+```
+
+### Thought experiment:
+
+If you're already likely to die, will adding risk change something?
+
+```{r}
+#| label: slop-maybe1
+#| layout-ncol: 2
+#| fig-subcap:
+#|   - the odds ratio change as a function of 1-unit change in age
+#|   - the probability change as a function of 1-unit change in age
+
+grid1 = datagrid(
+    age_at_diagnosis = 100,
+    prior_diabetes = 1,
+    thrombectomy = 0,
+    model = th_model
+)
+
+plot_predictions(
+  th_model,
+  newdata = grid1,
+  variable = "prior_hypertention",
+  by = "prior_hypertention"
+)
+
+grid2 = datagrid(
+    age_at_diagnosis = 70,
+    prior_diabetes = 1,
+    thrombectomy = 0,
+    model = th_model
+)
+
+plot_predictions(
+  th_model,
+  newdata = grid2,
+  variable = "prior_hypertention",
+  by = "prior_hypertention"
+)
+```
+
+So only a 6% point absolute difference (78.1% to 84.1%) probability for a
+100-year-old with diabetes but a 9.1 point absolute difference (33.4% to 42.5%)
+probability for a 70-year-old with diabetes, both not receiving thrombectomy.
+
+## Step 4: Clear communication --- transforming coefficients
 
 Recall @sec-coef-interp where we learned how to plug in numbers from a fitted
 regression in order to fit expectations or *predictions* of specific patients
 profiles in the dataset.
 
-We will do this again - but this time, we're fitting a POisson regression
+We will do this again - but this time, we're fitting a logistic regression
 
 ```{r}
 #| label: extract-bs
@@ -457,21 +606,27 @@ b
 ```{r}
 #| label: profile-one
 
-linpred_treatment_diabetes_50yo_female = b[1] + b[2] * 1 + b[3] * 1 + b[4] * 50 + b[5] * 0 + b[6] * 0 + b[7] * 1 + b[8] * 0 + b[9] * 0
+linpred_treatment_diabetes_50yo_female = b[1] +
+    b[2] * 1 + b[3] * 1 + b[4] * 50 + b[5] * 0 +
+    b[6] * 0 + b[7] * 1 + b[8] * 50 + b[9] * 0 + b[10] * 0
 
 linpred_treatment_diabetes_50yo_female |> unname()
 ```
 
 <!--panache-ignore-start-->
-b[1] * 1        # intercept
-b[2] * 1        # thrombectomy = 1
-b[3] * 1        # diabetes = 1
-b[4] * 50       # age = 50
-b[5] * 0        # hypertension = 0
-b[6] * 0        # female = 0
-b[7] * 1        # thrombectomy * diabetes = 1*1
-b[8] * 0        # thrombectomy * hypertension = 1*0
-b[9] * 0        # thrombectomy * sex = 1*0
+| Term | Value | Comment |
+|---|---|---|
+| `b[1]` | `* 1` | intercept |
+| `b[2]` | `* 1` | thrombectomy = 1 |
+| `b[3]` | `* 1` | diabetes = 1 |
+| `b[4]` | `* 50` | age = 50 |
+| `b[5]` | `* 0` | hypertension = 0 |
+| `b[6]` | `* 0` | female = 0 |
+| `b[7]` | `* 1` | thrombectomy * diabetes = 1*1 |
+| `b[8]` | `* 50` | thrombectomy * age = 1*50 |
+| `b[9]` | `* 0` | thrombectomy * hypertension = 1*0 |
+| `b[10]` | `* 0` | thrombectomy * sex = 1*0 |
+
 <!--panache-ignore-end-->
 
 The other will be
@@ -479,21 +634,27 @@ The other will be
 ```{r}
 #| label: profile-two
 
-linpred_no_treatment_diabetes_40yo_male = b[1] + b[2] * 0 + b[3] * 1 + b[4] * 40 + b[5] * 0 + b[6] * 1 + b[7] * 0 + b[8] * 0 + b[9] * 0
+linpred_no_treatment_diabetes_40yo_male = b[1] +
+    b[2] * 0 + b[3] * 1 + b[4] * 40 + b[5] * 0 +
+    b[6] * 1 + b[7] * 0 + b[8] * 0 + b[9] * 0 + b[10] * 0
 
 linpred_no_treatment_diabetes_40yo_male |> unname()
 ```
 
 <!--panache-ignore-start-->
-b[1] * 1        # intercept
-b[2] * 0        # thrombectomy = 0
-b[3] * 1        # diabetes = 1
-b[4] * 40       # age = 40
-b[5] * 0        # hypertension = 0
-b[6] * 1        # male = 1
-b[7] * 0        # thrombectomy * diabetes = 0
-b[8] * 0        # thrombectomy * hypertension = 0
-b[9] * 0        # thrombectomy * sex = 0
+| Term | Value | Comment |
+|---|---|---|
+| `b[1]` | `* 1` | intercept |
+| `b[2]` | `* 0` | thrombectomy = 0 |
+| `b[3]` | `* 1` | diabetes = 1 |
+| `b[4]` | `* 40` | age = 40 |
+| `b[5]` | `* 0` | hypertension = 0 |
+| `b[6]` | `* 1` | male = 1 |
+| `b[7]` | `* 0` | thrombectomy * diabetes = 0 |
+| `b[8]` | `* 0` | thrombectomy * age = 0*40 |
+| `b[9]` | `* 0` | thrombectomy * hypertension = 0 |
+| `b[10]` | `* 0` | thrombectomy * sex = 0 |
+
 <!--panache-ignore-end-->
 
 But we're still in log-odds space. Let's convert
@@ -552,61 +713,6 @@ count, was the model poisson regression):
 #| label: inv-link
 
 predictions(th_model, newdata = grid)
-```
-
-## Step 4: Clear communication --- transforming coefficients
-
-Suppose:
-
-OR = 1.50
-
-What does this mean?
-
-A 1-unit increase in age is associated with a 50% increase in the odds of
-cardiovascular disease, holding the other variables constant.
-
-But the more important question is:
-
-Does this mean that a 1-year increase in age increases the probability of
-disease by 50 percentage points?
-
-No.
-
-An odds ratio describes a change in odds, not directly a change in probability.
-
-In this case, we're interested in probability of death.
-
-### Why the odds ratio is not enough
-
-The clinical question is usually about risk/probability, not odds.
-
-Consider two patients:
-
-- Patient A has a predicted disease probability of 5%.
-- Patient B has a predicted disease probability of 50%.
-
-Suppose both experience the same change in the predictor.
-
-The resulting change in probability will not necessarily be the same.
-
-This is the key complication of logistic regression:
-
-> The effect of X on probability depends on where you start.
-
-The relationship between X and probability is nonlinear.
-
-The logistic curve is relatively flat near 0 and 1, and steepest in the middle.
-
-Therefore:
-
-> There is not necessarily one single "effect of X" on probability.
-
-```{r}
-#| label: slop-maybe
-
-# the effect of 1 year age point slope for old?
-# No slope increase - already high probability of death?
-
 ```
 
 ## Step 5-7: Model-based transformations

@@ -212,7 +212,3 @@ mean? Think in a clinical context.
 1. standard deviation tells about variability in data. There could be outliers to the mean.
 
 </details>
-
-## Survey
-
-{{< include /includes/_survey.qmd >}}

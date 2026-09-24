@@ -138,9 +138,18 @@ Medical statistics
 
 <!--panache-ignore-end-->
 
+::: notes
+High --- low Bio informatics --- wet lab responsible Clinical Trial Manager
+(desing/power) --- Regulatory Health economy --- public affairs
+:::
+
 ## 🎉 {.center}
 
 ![](/images/pain_learning_rstats.png){.r-stretch #painful-learning fig-alt="hiding pain learning R-stats" fig-align="center"}
+
+::: notes
+Learning stats is great So is R Both will be hard...!
+:::
 
 ## Case 1: "Just send a quick summary" {.smaller .scrollable}
 
@@ -176,6 +185,10 @@ software installed on the server is `R` and `RStudio`.
 - Is the task clear?
 - What skills will you need to master in order to do it?
 
+::: notes
+Coronary artery disease == Iskaemisk hjertesygdom
+:::
+
 ## Let's practice reading some figures {.center style="text-align: center;"}
 
 ## What do you make of this plot?
@@ -192,11 +205,11 @@ hd_data |>
   ggauto::ggauto(
     HD,
     MaxHR,
-    title = "Coronary Heart Disease",
+    title = "Coronary artery disease",
     subtitle = "303 individuals (139 Yes, 164 No) measured.",
     caption = "**Source**: Cleveland Medical Center",
     xlab = "Max Hear Rate",
-    ylab = "Coronary Heart Disease"
+    ylab = "Coronary artery disease"
   )
 ```
 
@@ -212,7 +225,7 @@ hd_data |>
   ggauto::ggauto(
     Age,
     MaxHR,
-    title = "Coronary Heart Disease",
+    title = "Coronary artery disease",
     subtitle = "303 individuals (139 Yes, 164 No) measured.",
     caption = "**Source**: Cleveland Medical Center",
     xlab = "Age",
@@ -223,7 +236,7 @@ hd_data |>
 ## What can we learn from data? {.r-stretch .r-fit-text}
 
 ::: {.fragment}
-- We saw how max heart rate vary between patients having coronary heart
+- We saw how max heart rate vary between patients having coronary artery
   disease...
 :::
 
@@ -232,7 +245,8 @@ hd_data |>
 :::
 
 ::: {.fragment}
-- Now, could it just be that the patients with coronary heart disease are older?
+- Now, could it just be that the patients with coronary artery disease are
+  older?
 - **Let's make a plot and check together!**
 :::
 
@@ -308,6 +322,12 @@ In this course, we will
 - Learn to make medical inference from statistics
 - Perform statistics with the help of **R**
 
+::: notes
+Statistical literacy == stats dannelse
+
+Statistical literacy == stats kompetence
+:::
+
 ## Develop statistical literacy skills
 
 ::: {.fragment}
@@ -321,6 +341,12 @@ In this course, we will
 
 ::: {.fragment}
 - Identify common statistical pitfalls and misleading conclusions
+:::
+
+::: notes
+Mange studier er uenige i konklussion.
+
+Hvis du kan kritisk vurderer statistikken kan du ofte spotte fejlene!
 :::
 
 ## Learn to make medical inference from statistics
@@ -338,6 +364,10 @@ In this course, we will
   the result would actually change patient care
 :::
 
+::: notes
+Statistical sig. != clinical relevant!
+:::
+
 ## Perform statistics using R
 
 ::: {.fragment}
@@ -352,11 +382,31 @@ In this course, we will
 - Read and understand the `R` output
 :::
 
+##
+
+![](/images/friends_with_r.png){#friends-with-r fig-alt="friends-with-r" fig-align="center" .center}
+
+::: notes
+R is your friend! Will help make difficult stuff (in hand) more manageble!
+:::
+
 ## :raising_hand_woman: How many have read results in a paper and wondered what the numbers <u>actually</u> mean? {.center}
+
+::: notes
+har læst resultater i artikler du ikke forstod?
+:::
 
 ## :raising_hand_woman: How many have wondered how scientists make <u>predictions</u> for future disease probabilities? {.center}
 
+::: notes
+undret sig over hvordan man kan forudsige sygdomstatus?
+:::
+
 ## :raising_hand_woman: Would you be interested in learning how to navigate scientific claims based on data? {.center}
+
+::: notes
+Interesseret i at lære at gennemskue forskningsresultater?
+:::
 
 ## This course is for you :tada: {.center}
 
@@ -385,7 +435,7 @@ Rest of the day: *learning the basics of R for medical statistics*
 
 [Otherwise --- 10 minutes break now!]{.center}
 
-![](/images/friends_with_r.png){#friends-with-r fig-alt="friends-with-r" fig-align="center" .center}
+![](/images/friends_with_r.png){#friends-with-r2 fig-alt="friends-with-r" fig-align="center" .center}
 
 # RStudio IDE
 

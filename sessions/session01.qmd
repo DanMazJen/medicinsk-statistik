@@ -258,17 +258,11 @@ Code is written in the "Source" tab, where it saves the code and text as a file.
 You can send selected code to the Console from the opened file by typing
 {{< var keybind.run-code >}} (or clicking the "Run" button).
 
-In the "Source" tab (where R scripts and Quarto files are shown), there is a
-"Document Outline" button (top right beside the "Run" button) that shows you the
-headers or "Sections" (more on that later). To open it you can either click the
-button, use the keybinding {{< var keybind.outline >}}, go through the menu to
-`Code -> Show Document Outline`.
-
 The Command Palette is a very useful tool to learn, since you can easily access
 almost all features and options inside RStudio through it. Open it up with
-{{< var keybind.palette >}} and then in the pop-up search bar, type out
-"document outline". The first item should be the one we want, so hit `Enter` to
-activate the Outline.
+{{< var keybind.palette >}} and then in the pop-up search bar, type out "Create
+a New Project". The first item should be the one we want, so hit `Enter` to make
+a new project (just like we did before).
 
 If you can't remember a specific keybinding in RStudio, check out the help for
 it by going to the menu item `Help -> Keyboard Shortcuts Help`.
@@ -293,16 +287,17 @@ would write code in the Console to tell R to do something. Normally, when you
 open an R session without an R Project, the session defaults to assuming you
 will be working in the `~/Desktop` or `~` (your Home folder) location. But this
 location usually isn't where you actually work and where your R code is. You
-normally work in the folder that has your R scripts, Quarto documents, or data
-files. The assumption with R Projects on the other hand, is that the R session's
-working directory should be where the R Project is, since that is where you have
-your R scripts and data files.
+normally work in the folder that has your R scripts or data files. The
+assumption with R Projects on the other hand, is that the R session's working
+directory should be where the R Project is, since that is where you have your R
+scripts and data files.
 
 R can be used as a simple calculator - try writing:
 
 ```{r}
 #| label: calculator
 #| eval: false
+#| filename: ".../hallo-medical-statistics/R/learning.R"
 
 2 + 2
 ```
@@ -315,6 +310,7 @@ an object called `weight_kilos` and assign it the value `100`, we would write:
 ```{r}
 #| label: using-assignment-operator
 #| eval: false
+#| filename: ".../hallo-medical-statistics/R/learning.R"
 
 weight_kilos <- 100
 ```
@@ -330,6 +326,7 @@ by typing the name of the object:
 ```{r}
 #| label: printing-an-object
 #| eval: false
+#| filename: ".../hallo-medical-statistics/R/learning.R"
 
 weight_kilos
 ```
@@ -354,6 +351,7 @@ factor:
 ```{r}
 #| label: vectors
 #| eval: false
+#| filename: ".../hallo-medical-statistics/R/learning.R"
 
 # Character vector
 c("a", "b", "c")
@@ -373,6 +371,7 @@ This is what a data frame looks like, if we look at the built-in dataset called
 
 ```{r}
 #| label: dataframes
+#| filename: ".../hallo-medical-statistics/R/learning.R"
 
 head(airquality)
 ```
@@ -391,6 +390,7 @@ time.
 ```{r}
 #| label: mean
 #| eval: false
+#| filename: ".../hallo-medical-statistics/R/learning.R"
 
 foo = c(31, 3, 94)
 (31 + 3 + 94) / 3 # Manual computing the mean
@@ -441,6 +441,7 @@ right? Like this:
 ```{r}
 #| label: mean-questionmark
 #| eval: false
+#| filename: "Console"
 
 ?mean()
 ```
@@ -503,6 +504,7 @@ It can take a variable and then compute the mean:
 ```{r}
 #| label: pipe-showoff
 #| eval: false
+#| filename: ".../hallo-medical-statistics/R/learning.R"
 
 values <- c(1:10)
 
@@ -515,6 +517,7 @@ instead of this notation:
 ```{r}
 #| label: no-pipe
 #| eval: false
+#| filename: ".../hallo-medical-statistics/R/learning.R"
 
 mean(values)
 ```
@@ -553,6 +556,7 @@ You have already tried reading in data. The command was:
 
 ```{r}
 #| label: read-medisr-data
+#| filename: ".../hallo-medical-statistics/R/learning.R"
 
 hd_data <- medisr::hd_data
 ```
@@ -565,6 +569,7 @@ function and provide for example a website:
 
 ```{r}
 #| label: read-data
+#| filename: ".../hallo-medical-statistics/R/learning.R"
 
 SUA_data <- readr::read_csv(
   "https://zenodo.org/records/8292712/files/SUA_CVDs_risk_factors.csv"
@@ -586,6 +591,7 @@ the file `SUA_data`:
 ```{r}
 #| label: write-data
 #| eval: false
+#| filename: ".../hallo-medical-statistics/R/learning.R"
 
 readr::write_csv(SUA_data, "data-raw/SUA_data.csv")
 ```
@@ -598,8 +604,9 @@ You can always read more about the function using `?readr::write_csv`
 
 As R is case sensitive, `view()` will now work - try it!
 
-```r {view}
-view(SUA_data) # Will produce an error
+```r
+# This will produce an error:
+view(SUA_data)
 # Instead try:
 View(SUA_data)
 ```
@@ -646,11 +653,7 @@ operations.
 - R atomic vectors: `numeric`,`character`,`logic`, and `factor`.
 - Import and examine a dataset within R using basic functions.
 
-## Survey
-
-Please complete the survey for this session:
-
-{{< include /includes/_survey.qmd >}}
+## Course Expectations
 
 > [**Course Expectations**](../slides/introduction.html)
 

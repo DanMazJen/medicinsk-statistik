@@ -33,7 +33,7 @@ https://vbn.aau.dk/da/persons/cdahl/
 -->
 :::
 
-## Course structure {.smaller}
+## Course structure {.smaller .center}
 
 **Lectures**
 
@@ -43,14 +43,70 @@ https://vbn.aau.dk/da/persons/cdahl/
 
 **Workshops**
 
-- Teacher and student presentations\
+- Teacher and student presentations
 - Literature
-- assignments in R
+- Assignments in R
 
 **Group project**
 
-- assignment in R
+- Data analysis with R
 - Supervision
+
+## Code of Conduct {.smaller}
+
+- Everyone should feel respected
+- All questions are appreciated and will be addressed (if time allow)
+- Be helpful to each other - you learn more this way
+- Teachers try using appropriate tone - please call us out if we're being
+  boomers so we can be better!
+- We dedicate a lot of time to this course but also teach other courses - please
+  be patient with us if we do not answer email immediately
+
+::: {.notes}
+Godt læringsmiljø --- Fejl er ok!
+
+Vi er her for at hjælpe --- men vi er ikke fuld-tid på kurset...
+
+Hjælp hinanden med at gøre hinanden bedre!
+
+Hvis vi siger noget boomer-agtigt, så gør opmærksom på det!
+:::
+
+##
+
+![](images/friends_with_r.png){style="fig-align: center;"}
+
+## Responsibility {.smaller}
+
+::: {style="text-align: center;"}
+::::: columns
+::::::: {.column width="50%"}
+**Student responsibility**
+
+- Read material **in advance** of lecture
+- Collaborate on group exercises
+- Use AI for (deeper) learning
+:::::::
+::::::: {.column width="50%"}
+**Teacher responsibility**
+
+- Use student feedback ASAP
+- Offer help during exercises
+- If you actively follow the course, you will not only pass the course but also
+  have advantage in job market.
+:::::::
+:::::
+:::
+
+::: {.notes}
+Godt læringsmiljø --- Fejl er ok!
+
+Vi er her for at hjælpe --- men vi er ikke fuld-tid på kurset...
+
+Hjælp hinanden med at gøre hinanden bedre!
+
+Hvis vi siger noget boomer-agtigt, så gør opmærksom på det!
+:::
 
 ## How to study {.smaller}
 
@@ -69,6 +125,7 @@ https://vbn.aau.dk/da/persons/cdahl/
 
 ## Getting or asking for help :raising_hand_woman::raising_hand_man: {.smaller}
 
+::: {.r-stretch}
 - There are lots of helpers
 - Table mates, try to help out too
 - We're all learning here!
@@ -76,6 +133,7 @@ https://vbn.aau.dk/da/persons/cdahl/
   - Remember our Code of Conduct
 - When you are IRL use humans
 - When alone at home use chat models
+:::
 
 ## Using chat models and AI {.smaller}
 
@@ -105,10 +163,13 @@ https://vbn.aau.dk/da/persons/cdahl/
 :::::
 :::
 
+##
+::: {.r-stack}
 > The time to make mistakes, struggle, and learn is now --- not when you are
 > responsible for patients, colleagues, or decisions in the workplace.
+:::
 
-<!-- TODO: Insert picture analogy -->
+![](images/pain_learning_rstats.png){style="fig-align: center;"}
 
 ## More on chatmodels and AI {.smaller .scrollable}
 
@@ -133,7 +194,7 @@ See the website chapter
   a broader perspective on human-centred and responsible use of generative AI in
   education.
 
-## The exam {.smaller}
+## The exam
 
 ::: columns
 ::::: {.column width="50%"}
@@ -150,42 +211,6 @@ This will be developed in the workshops (*important to show op*)
   statistical analysis
 - Draw question based on curriculum
 
-*see @sec-project-work for an example*
-:::::
-:::
-
-## How to give feedback to teachers {.smaller}
-
-- Course evaluation at the end (as always - changes for next year)
-- Github issues on course material (immediate change)
-- Anonymous survey after session (depends)
-
-## Code of Conduct {.smaller}
-
-- Everyone should feel respected
-- All questions are appreciated and will be addressed (if time allow)
-- Be helpful to each other - you learn more this way
-- Teachers try using appropriate tone - please call us out if we're being
-  boomers so we can be better!
-- We dedicate a lot of time to this course but also teach other courses - please
-  be patient with us if we do not answer email immediately
-
-## Responsibility {.smaller}
-
-::: columns
-::::: {.column width="50%"}
-**Student responsibility**
-
-- Read material **in advance** of lecture
-- Collaborate on group exercises
-- Use AI for (deeper) learning
-:::::
-::::: {.column width="50%"}
-**Teacher responsibility**
-
-- Use student feedback ASAP
-- Offer help during exercises
-- If you actively follow the course, you will not only pass the course but also
-  have advantage in job market.
+*see Appendix B on the website for an example*
 :::::
 :::

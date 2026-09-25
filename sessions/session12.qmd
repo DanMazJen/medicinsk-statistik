@@ -1388,13 +1388,13 @@ model_rr <- glm(
   data = birthwt
 )
 
+# crude estimate of RR
 misleading_rr <- parameters::model_parameters(
   model_rr,
   exponentiate = TRUE  # Get unadjusted risk ratio
 )
 
-
-# 2. Compute Average Risk Ratio (Relative Risk) using robust standard errors
+# Alternative: Average Risk Ratio w/ robust std.err.
 modified_rr <- avg_comparisons(model_rr,
                 variables = "smoke",
                 comparison = "lnratioavg", # Calculates adjusted Risk Ratio

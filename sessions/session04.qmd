@@ -186,9 +186,15 @@ Recall from @sec-rproj that we want a project to contain our files. In this
 session, we'll make a new project called: *plotting-data*.
 
 Recall we can use RStudio's "New Project" menu item under "File -> New
-Project...". A new pop-up window shows up. Click "New directory" and scroll down
-to "Scientific Analysis Project using prodigenr". Type out `plotting-data` as
-the directory name and save it to the `Desktop/`.
+Project...". A new pop-up window shows up. Click "New directory" and select "New
+Project". Type out `plotting-data` as the directory name and save it to the
+`Desktop/` (or where you want to store your project).
+
+Finally, while you're in the project (see top right `plotting-data`), run:
+
+```r
+medisr::medisr_init_project
+```
 
 ### Terminology
 
@@ -798,18 +804,6 @@ Anscombe's Quartet.
 
 ## Summary
 
-Pharma: Accelerating drug approvals with clear trial data. Hospitals: Improving
-patient outcomes through better decision-making. Industry: Convincing
-stakeholders (from doctors to CEOs) with evidence.
-
-Examples
-
-- Present clinical trial results to regulators (e.g., FDA, EMA) or investors.
-- Monitor hospital performance (e.g., infection rates, patient wait times).
-- Compare drug efficacy across demographics in pharma R&D.
-- Explain risks/benefits to non-experts (patients, policymakers, or even
-  journalists).
-
 A well-designed chart can mean the difference between confusion and clarity ---
 between a rejected proposal and an approved drug.
 
@@ -827,7 +821,19 @@ between a rejected proposal and an approved drug.
 - Use `geom_bar()` to create a barplot of discrete variables.
 
 ::: {.hidden}
-## :book: Reading task: Basic principles for creating graphs
+Pharma: Accelerating drug approvals with clear trial data. Hospitals: Improving
+patient outcomes through better decision-making. Industry: Convincing
+stakeholders (from doctors to CEOs) with evidence.
+
+Examples
+
+- Present clinical trial results to regulators (e.g., FDA, EMA) or investors.
+- Monitor hospital performance (e.g., infection rates, patient wait times).
+- Compare drug efficacy across demographics in pharma R&D.
+- Explain risks/benefits to non-experts (patients, policymakers, or even
+  journalists).
+
+:book: Reading task: Basic principles for creating graphs
 
 [@Johnston2021] Making graphs in R is relatively easy compared to other programs
 and can be done with very little code. Because it takes a few lines of code to

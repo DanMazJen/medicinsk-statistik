@@ -330,8 +330,8 @@ relationship.
 
 Recall the case:
 
-> We want to know the difference in prevalence (here, more specifically,
-> *incidence rate*) of getting seizures after being prescribed progabide.
+> We want to know the difference in prevalence (here, more specifically, *count
+> rate*) of getting seizures after being prescribed progabide.
 
 ## Can we use logistic regression?
 
@@ -690,8 +690,8 @@ terminology, the function that can transform the model back to it's outcome unit
 is called the *inverse link function*. And the "opposite" mathematical operation
 to *log* is to *exponentiation*.
 
-Let's convert the coefficients back from *log-rate ratios* to *incidence
-rate-ratios*. We do this by exponentiating the value:
+Let's convert the coefficients back from *log-count ratios* to *count ratios*.
+We do this by exponentiating the value:
 
 $$
   e^{coefficient}
@@ -724,9 +724,9 @@ Confirm this for yourself using the following code:
 `mean(subset(epil,drug=="placebo")$seizure_count)`.
 
 Next, it's the $β1_{drug}$ named `drugprogabide` in `R`:
-`r exp(m1_drug$coefficients[2])`, which is the expected rate ratio in
+`r exp(m1_drug$coefficients[2])`, which is the expected count ratio in
 `seizure_count` when being on progabide for 8 weeks, compared to placebo. Since
-the incidence rate-ratio less than 1, the expected seizure count is lower.
+the count ratio less than 1, the expected seizure count is lower.
 
 In fact, `r round((1 - exp(m1_drug$coefficients[2])) * 100, 1)`% lower on
 average. To confirm this for yourself, run the following code:
@@ -1196,8 +1196,8 @@ sim_m1 <- glm( events ~ hospital_id,
 broom::tidy(sim_m1,exponentiate = TRUE)
 ```
 
-Oh, wow! Esborg has a `r exp(sim_m1$coefficients[2])` rate ratio compared to
-Aalbjerg!
+Oh, wow! Esborg has a `r exp(sim_m1$coefficients[2])` incidence rate ratio
+compared to Aalbjerg!
 
 How many counts is that? Intercept (Aalbjerg estimate)
 `exp(sim_m1$coefficients[1])` × $β_{Esborg}$ `exp(sim_m1$coefficients[2])` is
@@ -1220,8 +1220,8 @@ sim_m2 <- glm( events ~ hospital_id,
 broom::tidy(sim_m2,exponentiate = TRUE)
 ```
 
-Oh, no! Now Esborg has a `r exp(sim_m2$coefficients[2])` rate ratio compared to
-Aalbjerg!
+Oh, no! Now Esborg has a `r exp(sim_m2$coefficients[2])` incidence rate ratio
+compared to Aalbjerg!
 
 How many counts is that now? Intercept (Aalbjerg estimate)
 `exp(sim_m2$coefficients[1])` × $β_{Esborg}$ `exp(sim_m2$coefficients[2])` is
@@ -1251,8 +1251,8 @@ day. Therefore, we expect a correct fitted model to recover:
 
 This means `Esborg` has about one-third the event rate of `Aalbjerg`
 (equivalently, about a 67% points lower event rate). Since we are fitting a
-Poisson model, this exponentiated coefficient is interpreted as an incidence
-rate ratio (IRR).
+Poisson model, this exponentiated coefficient is interpreted as an **incidence
+rate ratio** (IRR).
 
 Note: *Small differences between the estimated and true values are expected
 because the data are randomly simulated and we have low sample size*.
@@ -1300,7 +1300,7 @@ sim_m3 <- glm(
 broom::tidy(sim_m3,exponentiate = TRUE)
 ```
 
-The rate ratio stays the same between the hositals
+The incidence rate ratio stays the same between the hositals
 
 $$
   \frac{0.50 * 7}{1.5 * 7} = \frac{3.50}{10.5} ≈ 0.33.
@@ -1324,26 +1324,34 @@ Poisson, given a few assumptions:
 - low rate
 - variance scales with *n* (see @sec-whenpoisson).
 
-In reality, most epidemiologists and clinicians are interested in the **relative
-risk** between groups, not the incidence rate ratio. And given the fact that a
-logistic regression would give the relative risk...
+In practice, however, many epidemiologists use Poisson regression to model
+binary outcomes with relatively high rate and where the variance assumption is
+not met. The reason is that the analyst want an estimate of the **risk ratio**
+and not the **odds ratio**. Unfortunately, this creates too low standard errors,
+which leads to unrealisticly narrow confidence intervals.
 
-> Does that mean that we can call the above a relative risk instead of an
-> incidence rate ratio?
+See the compendium for explanations of the difference in risk and odds ratios.
 
-Not quite 😅
+### Correct interpretation of Poisson models with binary outcomes
+
+> Count ratio, incidence rate ratio, risk ratio, odds ratio...
+
+What is the output of a Poisson model? 😅
+
+There is a simple set of rules governing this, which you need to remember when
+interpreting coefficients of Poisson models.
 
 A relative risk compares the **risk (cumulative incidence)** of an outcome
 between groups:
 
 $$
-  RR = \frac{Risk in exposed group}{Risk in unexposed group}
+  RR = \frac{\text{Risk in exposed group}}{\text{Risk in unexposed group}}
 $$
 
 Suppose 10 out of 100 patients die at hospital A, while 5 out of 100 dies at
 hospital B.
 
-The relative risk between the two hospitals is
+The (unadjusted) relative risk between the two hospitals is
 
 $$
   RR = \frac{10\%}{5\%} = 2
@@ -1352,11 +1360,14 @@ $$
 So, hospital A has 2 times the risk of death.
 
 An incidence rate ratio compares **the rate at which new cases occur**, taking
-into account how much person-time people are observed.
+into account how much person-time people are observed. So this is only relevant
+if you have a time-to-event outcome --- in other words: You added an offset!
 
 This is what we did in the simulation example above.
 
 1.5 events per day vs 0.5 events per day gives a 0.33 incidence rate ratio.
+
+### Adjusting the rate ratio standard deviation for Poisson models
 
 Estimating a relative risk from binary outcome data requires a modified Poisson
 regression (using robust standard errors) rather than a standard Poisson model
@@ -1368,24 +1379,24 @@ This is how you could compute that in R:
 #| label: relative-risk-robust-est
 
 # 1. Fit standard Poisson GLM with log link on binary data
-model_irr <- glm(
+model_rr <- glm(
   seizure_count ~ drug + baseline_seizures,
   data = epil,
   family = poisson(link = "log")
 )
 
-irr <- parameters::model_parameters(
-  model_irr,
-  exponentiate = TRUE  # Get IRR
+unadj_rr <- parameters::model_parameters(
+  model_rr,
+  exponentiate = TRUE  # Get unadjusted risk ratio
 )
 
 
 # 2. Compute Average Risk Ratio (Relative Risk) using robust standard errors
-rr <- avg_comparisons(model_irr,
+adj_rr <- avg_comparisons(model_rr,
                 variables = "drug",
                 comparison = "lnratioavg", # Calculates adjusted Risk Ratio
                 transform = exp, # then exponentiates
-                vcov = sandwich::vcovHC(model_irr, type = "HC3")) # Applies robust standard errors due to poisson regression approach
+                vcov = sandwich::vcovHC(model_rr, type = "HC3")) # Applies robust standard errors due to poisson regression approach
 ```
 
 Note the two important parameters:
@@ -1408,16 +1419,16 @@ Finally, we can appreciate the difference of the estimates using a plot:
 #| label: plot-irr-rr
 
 df <- bind_rows(
-  broom::tidy(rr, conf.int = TRUE) |>
+  broom::tidy(adj_rr, conf.int = TRUE) |>
     dplyr::filter(term == "drug") |>
     dplyr::mutate(
-        measure = "RR"
+        measure = "adj_RR"
     ),
-  broom::tidy(model_irr,
+  broom::tidy(model_rr,
   conf.int = TRUE,
   exponentiate =TRUE) |>
     dplyr::filter(term == "drugprogabide") |>
-    dplyr::mutate(measure = "IRR")
+    dplyr::mutate(measure = "unadj_RR")
     ) |>
   dplyr::transmute(measure, estimate, conf.low, conf.high)
 
@@ -1428,10 +1439,10 @@ ggplot(df, aes(estimate, measure)) +
   geom_vline(xintercept = 1)
 ```
 
-Note that while the while the estimate remains the same, the standard error is
-adjusted. This leads to different confidence intervals, and eventually also
-different *p*-value. In this case, it was enough to change from a significant
-IRR to a non-significant RR.
+Note that while the estimate remains the same, the standard error is adjusted.
+This leads to different confidence intervals, and eventually also different
+*p*-value. In this case, it was enough to change from a significant unadjusted
+RR to a non-significant robust RR.
 
 ## Summary:
 

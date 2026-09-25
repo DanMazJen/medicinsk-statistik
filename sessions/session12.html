@@ -476,7 +476,13 @@ window.Quarto = {
   <li><a href="#making-sound-inference" id="toc-making-sound-inference" class="nav-link" data-scroll-target="#making-sound-inference"><span class="header-section-number">14.14.2</span> Making sound inference:</a></li>
   </ul>
 </li>
-  <li><a href="#logistic-vs-poisson-for-binary-outcomes" id="toc-logistic-vs-poisson-for-binary-outcomes" class="nav-link" data-scroll-target="#logistic-vs-poisson-for-binary-outcomes"><span class="header-section-number">14.15</span> Logistic vs Poisson for binary outcomes</a></li>
+  <li>
+<a href="#logistic-vs-poisson-for-binary-outcomes" id="toc-logistic-vs-poisson-for-binary-outcomes" class="nav-link" data-scroll-target="#logistic-vs-poisson-for-binary-outcomes"><span class="header-section-number">14.15</span> Logistic vs Poisson for binary outcomes</a>
+  <ul class="collapse">
+<li><a href="#correct-interpretation-of-poisson-models-with-binary-outcomes" id="toc-correct-interpretation-of-poisson-models-with-binary-outcomes" class="nav-link" data-scroll-target="#correct-interpretation-of-poisson-models-with-binary-outcomes"><span class="header-section-number">14.15.1</span> Correct interpretation of Poisson models with binary outcomes</a></li>
+  <li><a href="#adjusting-the-rate-ratio-standard-deviation-for-poisson-models" id="toc-adjusting-the-rate-ratio-standard-deviation-for-poisson-models" class="nav-link" data-scroll-target="#adjusting-the-rate-ratio-standard-deviation-for-poisson-models"><span class="header-section-number">14.15.2</span> Adjusting the rate ratio standard deviation for Poisson models</a></li>
+  </ul>
+</li>
   <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">14.16</span> Summary:</a></li>
   <li><a href="#extra-material" id="toc-extra-material" class="nav-link" data-scroll-target="#extra-material"><span class="header-section-number">14.17</span> EXTRA MATERIAL</a></li>
   <li>
@@ -774,7 +780,7 @@ Figure&nbsp;14.2
 <p>It definitely looks like there’s an association between <code>baseline_seizures</code> and <code>seizure_count</code>, so in accordance with our <em>medical scientific model</em> from <a href="#fig-dag" class="quarto-xref">Figure&nbsp;<span>14.1</span></a>, we better include this in the <em>statistical model</em> to account for this relationship.</p>
 <p>Recall the case:</p>
 <blockquote class="blockquote">
-<p>We want to know the difference in prevalence (here, more specifically, <em>incidence rate</em>) of getting seizures after being prescribed progabide.</p>
+<p>We want to know the difference in prevalence (here, more specifically, <em>count rate</em>) of getting seizures after being prescribed progabide.</p>
 </blockquote>
 </section></section><section id="can-we-use-logistic-regression" class="level2" data-number="14.5"><h2 data-number="14.5" class="anchored" data-anchor-id="can-we-use-logistic-regression">
 <span class="header-section-number">14.5</span> Can we use logistic regression?</h2>
@@ -804,7 +810,7 @@ Figure&nbsp;14.2
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html">rbinom</a></span><span class="op">(</span><span class="fl">1e5</span>, <span class="fl">1000</span>, <span class="fl">1</span><span class="op">/</span><span class="fl">1000</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">var</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1.0031200 0.9985803</code></pre>
+<pre><code>[1] 1.001700 1.000107</code></pre>
 </div>
 </div>
 <p>As a result, the distribution only has one parameter, λ (pronounced <em>lambda</em>).</p>
@@ -996,7 +1002,7 @@ epil |>
 <p>Unless you’re a chatbot, I’m not sure you can read anything major from these coefficients. It’s because they’re still in log-linear space (described in <a href="#fig-whylog" class="quarto-xref">Figure&nbsp;<span>14.3</span></a>)!</p>
 <p>So what do we do? Feed them to the chat model? <em>Please don’t!</em> 😅</p>
 <p>Similar to the logistic regression, we have to apply the opposite transformation we did in the first place to get interpretable inference. In statistical terminology, the function that can transform the model back to it’s outcome unit is called the <em>inverse link function</em>. And the “opposite” mathematical operation to <em>log</em> is to <em>exponentiation</em>.</p>
-<p>Let’s convert the coefficients back from <em>log-rate ratios</em> to <em>incidence rate-ratios</em>. We do this by exponentiating the value:</p>
+<p>Let’s convert the coefficients back from <em>log-count ratios</em> to <em>count ratios</em>. We do this by exponentiating the value:</p>
 <p><span class="math display">\[
   e^{coefficient}
 \]</span></p>
@@ -1027,7 +1033,7 @@ epil |>
 </div>
 <p>That’s more like it! 🎉</p>
 <p>The intercept reads 7.9642857, which is the expected <code>seizure_count</code> for the placebo group (and the average as we would expect!) Confirm this for yourself using the following code: <code>mean(subset(epil,drug=="placebo")$seizure_count)</code>.</p>
-<p>Next, it’s the <span class="math inline">\(β1_{drug}\)</span> named <code>drugprogabide</code> in <code>R</code>: 0.8424707, which is the expected rate ratio in <code>seizure_count</code> when being on progabide for 8 weeks, compared to placebo. Since the incidence rate-ratio less than 1, the expected seizure count is lower.</p>
+<p>Next, it’s the <span class="math inline">\(β1_{drug}\)</span> named <code>drugprogabide</code> in <code>R</code>: 0.8424707, which is the expected count ratio in <code>seizure_count</code> when being on progabide for 8 weeks, compared to placebo. Since the count ratio less than 1, the expected seizure count is lower.</p>
 <p>In fact, 15.8% lower on average. To confirm this for yourself, run the following code: <code>mean(subset(epil,drug=="progabide")$seizure_count)</code> and see the average count for the treatment group. Finally, prove to yourself that this is what the two coefficients mean in relation to each other by this code: <code>exp(m1_drug$coefficients[2])*mean(subset(epil,drug=="placebo")$seizure_count)</code>. So the expected effect of being on progabide for 8 weeks was a reduction of 1.2546083 seizures during 8 weeks, based on this small sample.</p>
 <p>So far so good! 😄</p>
 <p>We were able to do this nice sanity check for ourselves because the model only had an intercept and a binary <code>(0/1)</code> covariate. When we add more covariates or a continuous variable, things start to complicate really fast. We’ll learn how to handle that in <a href="session15.html" class="quarto-xref"><span>Chapter 15</span></a>. Still, making simplar models as a first step to make sanity checks is always good practice! When doing real research, this is absolutely necessary.</p>
@@ -1438,7 +1444,7 @@ plot_baseline_pred
 2 hospital_idEsborg     2.23     0.210      3.83 0.000126   </code></pre>
 </div>
 </div>
-<p>Oh, wow! Esborg has a 2.2340426 rate ratio compared to Aalbjerg!</p>
+<p>Oh, wow! Esborg has a 2.2340426 incidence rate ratio compared to Aalbjerg!</p>
 <p>How many counts is that? Intercept (Aalbjerg estimate) <code>exp(sim_m1$coefficients[1])</code> × <span class="math inline">\(β_{Esborg}\)</span> <code>exp(sim_m1$coefficients[2])</code> is <code>exp(sim_m1$coefficients[1])*exp(sim_m1$coefficients[2])</code>.</p>
 <p>That is alarming and someone should figure out why so many events are taking place in Esborg compared to Aalbjerg!</p>
 <p>Let’s add an offset and see what this gives us:</p>
@@ -1458,7 +1464,7 @@ plot_baseline_pred
 2 hospital_idEsborg    0.319     0.210     -5.45 0.0000000514</code></pre>
 </div>
 </div>
-<p>Oh, no! Now Esborg has a 0.3191489 rate ratio compared to Aalbjerg!</p>
+<p>Oh, no! Now Esborg has a 0.3191489 incidence rate ratio compared to Aalbjerg!</p>
 <p>How many counts is that now? Intercept (Aalbjerg estimate) <code>exp(sim_m2$coefficients[1])</code> × <span class="math inline">\(β_{Esborg}\)</span> <code>exp(sim_m2$coefficients[2])</code> is <code>exp(sim_m2$coefficients[1])*exp(sim_m2$coefficients[2])</code>.</p>
 <blockquote class="blockquote">
 <p>How can this be? What should we trust?</p>
@@ -1477,7 +1483,7 @@ plot_baseline_pred
 \]</span></p>
 </li>
 </ul>
-<p>This means <code>Esborg</code> has about one-third the event rate of <code>Aalbjerg</code> (equivalently, about a 67% points lower event rate). Since we are fitting a Poisson model, this exponentiated coefficient is interpreted as an incidence rate ratio (IRR).</p>
+<p>This means <code>Esborg</code> has about one-third the event rate of <code>Aalbjerg</code> (equivalently, about a 67% points lower event rate). Since we are fitting a Poisson model, this exponentiated coefficient is interpreted as an <strong>incidence rate ratio</strong> (IRR).</p>
 <p>Note: <em>Small differences between the estimated and true values are expected because the data are randomly simulated and we have low sample size</em>.</p>
 </section><section id="making-sound-inference" class="level3" data-number="14.14.2"><h3 data-number="14.14.2" class="anchored" data-anchor-id="making-sound-inference">
 <span class="header-section-number">14.14.2</span> Making sound inference:</h3>
@@ -1511,7 +1517,7 @@ plot_baseline_pred
 2 hospital_idEsborg    0.319     0.210     -5.45 5.14e-  8</code></pre>
 </div>
 </div>
-<p>The rate ratio stays the same between the hositals</p>
+<p>The incidence rate ratio stays the same between the hositals</p>
 <p><span class="math display">\[
   \frac{0.50 * 7}{1.5 * 7} = \frac{3.50}{10.5} ≈ 0.33.
 \]</span></p>
@@ -1525,46 +1531,52 @@ plot_baseline_pred
 <li>low rate</li>
 <li>variance scales with <em>n</em> (see <a href="#sec-whenpoisson" class="quarto-xref"><span>Section 14.6</span></a>).</li>
 </ul>
-<p>In reality, most epidemiologists and clinicians are interested in the <strong>relative risk</strong> between groups, not the incidence rate ratio. And given the fact that a logistic regression would give the relative risk…</p>
+<p>In practice, however, many epidemiologists use Poisson regression to model binary outcomes with relatively high rate and where the variance assumption is not met. The reason is that the analyst want an estimate of the <strong>risk ratio</strong> and not the <strong>odds ratio</strong>. Unfortunately, this creates too low standard errors, which leads to unrealisticly narrow confidence intervals.</p>
+<p>See the compendium for explanations of the difference in risk and odds ratios.</p>
+<section id="correct-interpretation-of-poisson-models-with-binary-outcomes" class="level3" data-number="14.15.1"><h3 data-number="14.15.1" class="anchored" data-anchor-id="correct-interpretation-of-poisson-models-with-binary-outcomes">
+<span class="header-section-number">14.15.1</span> Correct interpretation of Poisson models with binary outcomes</h3>
 <blockquote class="blockquote">
-<p>Does that mean that we can call the above a relative risk instead of an incidence rate ratio?</p>
+<p>Count ratio, incidence rate ratio, risk ratio, odds ratio…</p>
 </blockquote>
-<p>Not quite 😅</p>
+<p>What is the output of a Poisson model? 😅</p>
+<p>There is a simple set of rules governing this, which you need to remember when interpreting coefficients of Poisson models.</p>
 <p>A relative risk compares the <strong>risk (cumulative incidence)</strong> of an outcome between groups:</p>
 <p><span class="math display">\[
-  RR = \frac{Risk in exposed group}{Risk in unexposed group}
+  RR = \frac{\text{Risk in exposed group}}{\text{Risk in unexposed group}}
 \]</span></p>
 <p>Suppose 10 out of 100 patients die at hospital A, while 5 out of 100 dies at hospital B.</p>
-<p>The relative risk between the two hospitals is</p>
+<p>The (unadjusted) relative risk between the two hospitals is</p>
 <p><span class="math display">\[
   RR = \frac{10\%}{5\%} = 2
 \]</span></p>
 <p>So, hospital A has 2 times the risk of death.</p>
-<p>An incidence rate ratio compares <strong>the rate at which new cases occur</strong>, taking into account how much person-time people are observed.</p>
+<p>An incidence rate ratio compares <strong>the rate at which new cases occur</strong>, taking into account how much person-time people are observed. So this is only relevant if you have a time-to-event outcome — in other words: You added an offset!</p>
 <p>This is what we did in the simulation example above.</p>
 <p>1.5 events per day vs 0.5 events per day gives a 0.33 incidence rate ratio.</p>
+</section><section id="adjusting-the-rate-ratio-standard-deviation-for-poisson-models" class="level3" data-number="14.15.2"><h3 data-number="14.15.2" class="anchored" data-anchor-id="adjusting-the-rate-ratio-standard-deviation-for-poisson-models">
+<span class="header-section-number">14.15.2</span> Adjusting the rate ratio standard deviation for Poisson models</h3>
 <p>Estimating a relative risk from binary outcome data requires a modified Poisson regression (using robust standard errors) rather than a standard Poisson model (see <span class="citation" data-cites="zou2004modified">(<a href="../appendix/references.html#ref-zou2004modified" role="doc-biblioref">1</a>)</span>).</p>
 <p>This is how you could compute that in R:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># 1. Fit standard Poisson GLM with log link on binary data</span></span>
-<span><span class="va">model_irr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span></span>
+<span><span class="va">model_rr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span></span>
 <span>  <span class="va">seizure_count</span> <span class="op">~</span> <span class="va">drug</span> <span class="op">+</span> <span class="va">baseline_seizures</span>,</span>
 <span>  data <span class="op">=</span> <span class="va">epil</span>,</span>
 <span>  family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html">poisson</a></span><span class="op">(</span>link <span class="op">=</span> <span class="st">"log"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">irr</span> <span class="op">&lt;-</span> <span class="fu">parameters</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/parameters/reference/model_parameters.html">model_parameters</a></span><span class="op">(</span></span>
-<span>  <span class="va">model_irr</span>,</span>
-<span>  exponentiate <span class="op">=</span> <span class="cn">TRUE</span>  <span class="co"># Get IRR</span></span>
+<span><span class="va">unadj_rr</span> <span class="op">&lt;-</span> <span class="fu">parameters</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/parameters/reference/model_parameters.html">model_parameters</a></span><span class="op">(</span></span>
+<span>  <span class="va">model_rr</span>,</span>
+<span>  exponentiate <span class="op">=</span> <span class="cn">TRUE</span>  <span class="co"># Get unadjusted risk ratio</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span></span>
 <span><span class="co"># 2. Compute Average Risk Ratio (Relative Risk) using robust standard errors</span></span>
-<span><span class="va">rr</span> <span class="op">&lt;-</span> <span class="fu">avg_comparisons</span><span class="op">(</span><span class="va">model_irr</span>,</span>
+<span><span class="va">adj_rr</span> <span class="op">&lt;-</span> <span class="fu">avg_comparisons</span><span class="op">(</span><span class="va">model_rr</span>,</span>
 <span>                variables <span class="op">=</span> <span class="st">"drug"</span>,</span>
 <span>                comparison <span class="op">=</span> <span class="st">"lnratioavg"</span>, <span class="co"># Calculates adjusted Risk Ratio</span></span>
 <span>                transform <span class="op">=</span> <span class="va">exp</span>, <span class="co"># then exponentiates</span></span>
-<span>                vcov <span class="op">=</span> <span class="fu">sandwich</span><span class="fu">::</span><span class="fu"><a href="https://zeileis.codeberg.page/sandwich/reference/vcovHC.html">vcovHC</a></span><span class="op">(</span><span class="va">model_irr</span>, type <span class="op">=</span> <span class="st">"HC3"</span><span class="op">)</span><span class="op">)</span> <span class="co"># Applies robust standard errors due to poisson regression approach</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span>                vcov <span class="op">=</span> <span class="fu">sandwich</span><span class="fu">::</span><span class="fu"><a href="https://zeileis.codeberg.page/sandwich/reference/vcovHC.html">vcovHC</a></span><span class="op">(</span><span class="va">model_rr</span>, type <span class="op">=</span> <span class="st">"HC3"</span><span class="op">)</span><span class="op">)</span> <span class="co"># Applies robust standard errors due to poisson regression approach</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Note the two important parameters:</p>
 <ul>
@@ -1578,16 +1590,16 @@ plot_baseline_pred
 <p>Finally, we can appreciate the difference of the estimates using a plot:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb38"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu">bind_rows</span><span class="op">(</span></span>
-<span>  <span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">rr</span>, conf.int <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">adj_rr</span>, conf.int <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">term</span> <span class="op">==</span> <span class="st">"drug"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
-<span>        measure <span class="op">=</span> <span class="st">"RR"</span></span>
+<span>        measure <span class="op">=</span> <span class="st">"adj_RR"</span></span>
 <span>    <span class="op">)</span>,</span>
-<span>  <span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">model_irr</span>,</span>
+<span>  <span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">model_rr</span>,</span>
 <span>  conf.int <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  exponentiate <span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">term</span> <span class="op">==</span> <span class="st">"drugprogabide"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>measure <span class="op">=</span> <span class="st">"IRR"</span><span class="op">)</span></span>
+<span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>measure <span class="op">=</span> <span class="st">"unadj_RR"</span><span class="op">)</span></span>
 <span>    <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/transmute.html">transmute</a></span><span class="op">(</span><span class="va">measure</span>, <span class="va">estimate</span>, <span class="va">conf.low</span>, <span class="va">conf.high</span><span class="op">)</span></span>
 <span></span>
@@ -1607,8 +1619,8 @@ plot_baseline_pred
 </div>
 </div>
 </div>
-<p>Note that while the while the estimate remains the same, the standard error is adjusted. This leads to different confidence intervals, and eventually also different <em>p</em>-value. In this case, it was enough to change from a significant IRR to a non-significant RR.</p>
-</section><section id="summary" class="level2" data-number="14.16"><h2 data-number="14.16" class="anchored" data-anchor-id="summary">
+<p>Note that while the estimate remains the same, the standard error is adjusted. This leads to different confidence intervals, and eventually also different <em>p</em>-value. In this case, it was enough to change from a significant unadjusted RR to a non-significant robust RR.</p>
+</section></section><section id="summary" class="level2" data-number="14.16"><h2 data-number="14.16" class="anchored" data-anchor-id="summary">
 <span class="header-section-number">14.16</span> Summary:</h2>
 <p>This session introduced the Poisson distribution and how to use it in regression (within the GLM framework). We covered it’s relationship to logistic regression and why it’s necessary in favor of the gaussian linear regression. We also covered how the coefficients are interpreted (incidence rate-ratio), and how we invert the coefficients (taking it’s exponential). Finally, we covered the assumptions (dispersion) and how to adjust different exposure times (including an offset).</p>
 </section><section id="extra-material" class="level2" data-number="14.17"><h2 data-number="14.17" class="anchored" data-anchor-id="extra-material">

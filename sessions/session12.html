@@ -810,7 +810,7 @@ Figure&nbsp;14.2
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html">rbinom</a></span><span class="op">(</span><span class="fl">1e5</span>, <span class="fl">1000</span>, <span class="fl">1</span><span class="op">/</span><span class="fl">1000</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">var</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1.001700 1.000107</code></pre>
+<pre><code>[1] 0.9966400 0.9941787</code></pre>
 </div>
 </div>
 <p>As a result, the distribution only has one parameter, λ (pronounced <em>lambda</em>).</p>
@@ -1383,7 +1383,7 @@ plot_baseline_pred
 <span><span class="va">num_weeks</span> <span class="op">&lt;-</span> <span class="fl">8</span> <span class="co"># weeks of the experiment</span></span>
 <span><span class="va">num_days</span> <span class="op">&lt;-</span> <span class="fl">8</span><span class="op">*</span><span class="fl">7</span> <span class="co"># days of the experiment</span></span>
 <span></span>
-<span><span class="va">hospital1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Poisson.html">rpois</a></span> <span class="op">(</span><span class="va">num_days</span>, <span class="fl">1.5</span><span class="op">)</span> <span class="co"># 1.5 events per day</span></span>
+<span><span class="va">hospital1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Poisson.html">rpois</a></span><span class="op">(</span><span class="va">num_days</span>, <span class="fl">1.5</span><span class="op">)</span> <span class="co"># 1.5 events per day</span></span>
 <span></span>
 <span><span class="va">hospital2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Poisson.html">rpois</a></span><span class="op">(</span><span class="va">num_weeks</span>, <span class="fl">0.5</span><span class="op">*</span><span class="fl">7</span><span class="op">)</span> <span class="co"># 0.5 events per day scaled to a week</span></span>
 <span></span>
@@ -1445,7 +1445,7 @@ plot_baseline_pred
 </div>
 </div>
 <p>Oh, wow! Esborg has a 2.2340426 incidence rate ratio compared to Aalbjerg!</p>
-<p>How many counts is that? Intercept (Aalbjerg estimate) <code>exp(sim_m1$coefficients[1])</code> × <span class="math inline">\(β_{Esborg}\)</span> <code>exp(sim_m1$coefficients[2])</code> is <code>exp(sim_m1$coefficients[1])*exp(sim_m1$coefficients[2])</code>.</p>
+<p>How many counts is that? Intercept (Aalbjerg estimate) 1.6785714 × <span class="math inline">\(β_{Esborg}\)</span> 2.2340426 is 3.75.</p>
 <p>That is alarming and someone should figure out why so many events are taking place in Esborg compared to Aalbjerg!</p>
 <p>Let’s add an offset and see what this gives us:</p>
 <div class="cell" data-layout-align="center">
@@ -1465,7 +1465,7 @@ plot_baseline_pred
 </div>
 </div>
 <p>Oh, no! Now Esborg has a 0.3191489 incidence rate ratio compared to Aalbjerg!</p>
-<p>How many counts is that now? Intercept (Aalbjerg estimate) <code>exp(sim_m2$coefficients[1])</code> × <span class="math inline">\(β_{Esborg}\)</span> <code>exp(sim_m2$coefficients[2])</code> is <code>exp(sim_m2$coefficients[1])*exp(sim_m2$coefficients[2])</code>.</p>
+<p>How many counts is that now? Intercept (Aalbjerg estimate) 1.6785714 × <span class="math inline">\(β_{Esborg}\)</span> 0.3191489 is 0.5357143.</p>
 <blockquote class="blockquote">
 <p>How can this be? What should we trust?</p>
 </blockquote>
@@ -1479,7 +1479,7 @@ plot_baseline_pred
 <li>
 <p>An exponentiated coefficient for <code>hospital_idEsborg</code> of approximately</p>
 <p><span class="math display">\[
-  \frac{0.50}{1.5} ≈ 0.33.
+  \frac{0.5}{1.5} ≈ 0.33.
 \]</span></p>
 </li>
 </ul>
@@ -1519,7 +1519,7 @@ plot_baseline_pred
 </div>
 <p>The incidence rate ratio stays the same between the hositals</p>
 <p><span class="math display">\[
-  \frac{0.50 * 7}{1.5 * 7} = \frac{3.50}{10.5} ≈ 0.33.
+  \frac{0.5 * 7}{1.5 * 7} = \frac{3.5}{10.5} ≈ 0.33.
 \]</span></p>
 <p>But now the intercept is 11.75 — effectively seven times as large!</p>
 <p>This way, you are in charge of what exposure time you want to report 🎉</p>
@@ -1558,22 +1558,25 @@ plot_baseline_pred
 <p>Estimating a relative risk from binary outcome data requires a modified Poisson regression (using robust standard errors) rather than a standard Poisson model (see <span class="citation" data-cites="zou2004modified">(<a href="../appendix/references.html#ref-zou2004modified" role="doc-biblioref">1</a>)</span>).</p>
 <p>This is how you could compute that in R:</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># 1. Fit standard Poisson GLM with log link on binary data</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># grab dataset</span></span>
+<span><span class="va">birthwt</span> <span class="op">&lt;-</span> <span class="fu">MASS</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/MASS/man/birthwt.html">birthwt</a></span></span>
+<span></span>
+<span><span class="co"># 1. Fit standard Poisson GLM with log link on binary data</span></span>
 <span><span class="va">model_rr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span></span>
-<span>  <span class="va">seizure_count</span> <span class="op">~</span> <span class="va">drug</span> <span class="op">+</span> <span class="va">baseline_seizures</span>,</span>
-<span>  data <span class="op">=</span> <span class="va">epil</span>,</span>
-<span>  family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html">poisson</a></span><span class="op">(</span>link <span class="op">=</span> <span class="st">"log"</span><span class="op">)</span></span>
+<span>  <span class="va">low</span> <span class="op">~</span> <span class="va">smoke</span> <span class="op">+</span> <span class="va">age</span> <span class="op">+</span> <span class="va">ht</span> <span class="op">+</span> <span class="va">ui</span>,</span>
+<span>  family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html">poisson</a></span><span class="op">(</span>link <span class="op">=</span> <span class="st">"log"</span><span class="op">)</span>,</span>
+<span>  data <span class="op">=</span> <span class="va">birthwt</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">unadj_rr</span> <span class="op">&lt;-</span> <span class="fu">parameters</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/parameters/reference/model_parameters.html">model_parameters</a></span><span class="op">(</span></span>
+<span><span class="va">misleading_rr</span> <span class="op">&lt;-</span> <span class="fu">parameters</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/parameters/reference/model_parameters.html">model_parameters</a></span><span class="op">(</span></span>
 <span>  <span class="va">model_rr</span>,</span>
 <span>  exponentiate <span class="op">=</span> <span class="cn">TRUE</span>  <span class="co"># Get unadjusted risk ratio</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span></span>
 <span><span class="co"># 2. Compute Average Risk Ratio (Relative Risk) using robust standard errors</span></span>
-<span><span class="va">adj_rr</span> <span class="op">&lt;-</span> <span class="fu">avg_comparisons</span><span class="op">(</span><span class="va">model_rr</span>,</span>
-<span>                variables <span class="op">=</span> <span class="st">"drug"</span>,</span>
+<span><span class="va">modified_rr</span> <span class="op">&lt;-</span> <span class="fu">avg_comparisons</span><span class="op">(</span><span class="va">model_rr</span>,</span>
+<span>                variables <span class="op">=</span> <span class="st">"smoke"</span>,</span>
 <span>                comparison <span class="op">=</span> <span class="st">"lnratioavg"</span>, <span class="co"># Calculates adjusted Risk Ratio</span></span>
 <span>                transform <span class="op">=</span> <span class="va">exp</span>, <span class="co"># then exponentiates</span></span>
 <span>                vcov <span class="op">=</span> <span class="fu">sandwich</span><span class="fu">::</span><span class="fu"><a href="https://zeileis.codeberg.page/sandwich/reference/vcovHC.html">vcovHC</a></span><span class="op">(</span><span class="va">model_rr</span>, type <span class="op">=</span> <span class="st">"HC3"</span><span class="op">)</span><span class="op">)</span> <span class="co"># Applies robust standard errors due to poisson regression approach</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1590,16 +1593,16 @@ plot_baseline_pred
 <p>Finally, we can appreciate the difference of the estimates using a plot:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb38"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu">bind_rows</span><span class="op">(</span></span>
-<span>  <span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">adj_rr</span>, conf.int <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">term</span> <span class="op">==</span> <span class="st">"drug"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">modified_rr</span>, conf.int <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">term</span> <span class="op">==</span> <span class="st">"smoke"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
-<span>        measure <span class="op">=</span> <span class="st">"adj_RR"</span></span>
+<span>        measure <span class="op">=</span> <span class="st">"modified_RR"</span></span>
 <span>    <span class="op">)</span>,</span>
 <span>  <span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">model_rr</span>,</span>
 <span>  conf.int <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  exponentiate <span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">term</span> <span class="op">==</span> <span class="st">"drugprogabide"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>measure <span class="op">=</span> <span class="st">"unadj_RR"</span><span class="op">)</span></span>
+<span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">term</span> <span class="op">==</span> <span class="st">"smoke"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>measure <span class="op">=</span> <span class="st">"misleading_RR"</span><span class="op">)</span></span>
 <span>    <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/transmute.html">transmute</a></span><span class="op">(</span><span class="va">measure</span>, <span class="va">estimate</span>, <span class="va">conf.low</span>, <span class="va">conf.high</span><span class="op">)</span></span>
 <span></span>
@@ -1619,7 +1622,7 @@ plot_baseline_pred
 </div>
 </div>
 </div>
-<p>Note that while the estimate remains the same, the standard error is adjusted. This leads to different confidence intervals, and eventually also different <em>p</em>-value. In this case, it was enough to change from a significant unadjusted RR to a non-significant robust RR.</p>
+<p>Note that while the estimate remains the same, the standard error is adjusted. This leads to different confidence intervals, and eventually also different <em>p</em>-value.</p>
 </section></section><section id="summary" class="level2" data-number="14.16"><h2 data-number="14.16" class="anchored" data-anchor-id="summary">
 <span class="header-section-number">14.16</span> Summary:</h2>
 <p>This session introduced the Poisson distribution and how to use it in regression (within the GLM framework). We covered it’s relationship to logistic regression and why it’s necessary in favor of the gaussian linear regression. We also covered how the coefficients are interpreted (incidence rate-ratio), and how we invert the coefficients (taking it’s exponential). Finally, we covered the assumptions (dispersion) and how to adjust different exposure times (including an offset).</p>

@@ -692,10 +692,33 @@ $$
   rate = \frac{{\text{change in Y}}}{\text{for X unit}}
 $$
 
+## Poisson as a rate
+
+::: {.r-stretch}
+$$
+  y_i \sim Poisson(λ_i) \\
+  log λ_i = log \frac{μ_i}{τ_i} = α + βx_i
+$$
+
+Since the logarithm of a ratio is the same as the difference of logarithms:
+
+$$
+  log λ_i = log(μ_i) - log(τ_i) = α + βx_i
+$$
+:::
+
+##
+
+$τ_i$ is the exposure time
+
+When $τ_i = 1$, then $log(τ_i) = 0$ and we're back to standard Poisson!
+
+- Interpreted as 1 standardized and common unit
+
 **Model**:
 $$
   y_i \sim Poisson(μ_i) \\
-  log μ_i = log τ_i + α + βx_i
+  log μ_i = log(τ_i) + α + βx_i
 $$
 **Offset**:
 
@@ -760,6 +783,13 @@ hospital_data <- data.frame(
 )
 
 hospital_data$log_days = log(hospital_data$days)
+```
+
+##
+
+```{r}
+#| echo: true
+#| label: mindless-model1
 
 sim_m1 <- glm( events ~ 1 + hospital_id,
     family = poisson,
@@ -767,6 +797,13 @@ sim_m1 <- glm( events ~ 1 + hospital_id,
 )
 
 broom::tidy(sim_m1,exponentiate = TRUE)
+```
+
+##
+
+```{r}
+#| echo: true
+#| label: mindless-model2
 
 sim_m2 <- glm( events ~ 1 + hospital_id,
     family = poisson,
@@ -777,13 +814,129 @@ sim_m2 <- glm( events ~ 1 + hospital_id,
 broom::tidy(sim_m2,exponentiate = TRUE)
 ```
 
-## Relative Risk
+##
 
-A relative risk compares the **risk (cumulative incidence)** of an outcome
-between groups:
+![](images/what_do_you_mean.jpg)
+
+## Explicitly stating our expectations {.smaller}
+
+- `Aalbjerg` was generated with an average rate of 1.5 events per day
+
+- `Esborg` was generated with an average rate of 0.5 events per day.
+
+Therefore, we expect a correct fitted model to recover:
+
+- An intercept corresponding to approximately 1.5 events per day
+- An exponentiated coefficient for hospital_idEsborg of approximately
 
 $$
-  RR = \frac{Risk in exposed group}{Risk in unexposed group}
+  \frac{0.50}{1.50} \approx 0.33
+$$
+
+We interpret this as the **Incidence rate ratio** (count per uni-time observed).
+
+## Making sound inference:
+
+::: {.r-stack}
+- Would you expect Aalbjerg or Esborg to have higher IRR without an offset?
+:::
+
+::: {.fragment}
+::::: {.r-stack}
+- Would you expect Aalbjerg or Esborg to have higher IRR per week?
+:::::
+:::
+
+::: {.fragment}
+::::: {.r-stack}
+- Would you expect Aalbjerg or Esborg to have higher IRR per month?
+:::::
+:::
+
+##
+
+- `Esborg` will naturally have larger counts
+  - summed per week
+- `Aalbjerg` summed per day
+
+$$
+  log μ_i = log (days_i) + α + β1_{hospital}
+$$
+
+##
+
+```{r}
+#| echo: true
+#| label: per-weeks
+
+hospital_data <- hospital_data |>
+    mutate(log_week = log(days/7))
+
+sim_m3 <- glm(
+    events ~ hospital_id,
+    family = poisson,
+    offset = log_week, # here we added the expoure time as an offset.
+    data = hospital_data
+)
+
+broom::tidy(sim_m3,exponentiate = TRUE)
+```
+
+##
+
+Of course, the rate stays the same!
+
+$$
+  \frac{0.5 * 7}{1.5 * 7} = \frac{3.5}{10.5} ≈ 0.33.
+$$
+
+$$
+  \frac{0.5}{1.5} ≈ 0.33.
+$$
+
+##
+
+::: {.r-stretch}
+Wait... death is a count variable? 👀
+:::
+
+## Logistic vs Poisson for binary outcomes
+
+::: {.columns}
+::::: {.column}
+### Logistic
+
+- mean is $Np$ (probability scale),
+- variance is $Np(1 - p)$ (no assumption)
+- we get odds ratio
+:::::
+::::: {.column}
+### Poisson
+
+- mean is $λ$ (count scale),
+- variance is $λ$ (assumption: low rate)
+- we get risk ratio
+:::::
+:::
+
+##
+
+![](images/poisson_output.png)
+
+##
+
+::: {.r-stretch}
+> count ratio, incidence rate ratio, risk ratio, odds ratio...
+
+What, when, how? 👀
+:::
+
+## Risk ratio
+
+- Compares the **risk (cumulative incidence)** of an outcome between groups:
+
+$$
+  RR = \frac{\text{Risk in exposed group}}{\text{Risk in unexposed group}}
 $$
 
 Suppose 10 out of 100 patients die at hospital A, while 5 out of 100 dies at
@@ -799,31 +952,54 @@ So, hospital A has 2 times the risk of death.
 
 ## IRR
 
-An incidence rate ratio compares **the rate at which new cases occur**, taking
-into account how much person-time people are observed.
+- Compares **the rate at which new cases occur**, taking into account how much
+  person-time people are observed.
 
-This is what we did in the simulation example above.
+- only relevant if you have a time-to-event outcome --- in other words: You
+  added an offset!
 
 1.5 events per day vs 0.5 events per day gives a 0.33 incidence rate ratio.
 
-estimating a relative risk from binary outcome data requires a modified Poisson
-regression (using robust standard errors) rather than a standard Poisson model
+## Count ratio and odds ratio
 
-## In R
+- Count ratio is count $0 \to \inf$
 
-```r
+- Odds ratio is logistic regression coefficient.
+
+## Adjusting a risk ratio from Poisson
+
+Poisson variance is not robust for binomial outcomes.
+
+Therefore, we need to adjust the standard errors!
+
+## In R {.smaller}
+
+```{r}
 #| label: relative-risk-robust-est
+#| echo: true
+#| code-line-numbers: "1-21|6|7|11-14|20-21"
+
+# grab dataset
+birthwt <- MASS::birthwt
 
 # 1. Fit standard Poisson GLM with log link on binary data
-model_rr <- glm(seizure_count ~ drug + baseline_seizures,
-                     data = epil,
-                     family = poisson(link = "log"))
+model_rr <- glm(
+  low ~ smoke + age + ht + ui,
+  family = poisson(link = "log"),
+  data = birthwt
+)
+
+misleading_rr <- parameters::model_parameters(
+  model_rr,
+  exponentiate = TRUE  # Get unadjusted risk ratio
+)
 
 # 2. Compute Average Risk Ratio (Relative Risk) using robust standard errors
-avg_comparisons(model_rr,
-                variables = "drug",
-                comparison = "lnratioavg", # Calculates log risk ratio, then exponentiates
-                vcov = sandwich::vcovHC(model_rr, type = "HC3")) # Applies robust standard errors
+modified_rr <- avg_comparisons(model_rr,
+                variables = "smoke",
+                comparison = "lnratioavg", # Calculates adjusted Risk Ratio
+                transform = exp, # then exponentiates
+                vcov = sandwich::vcovHC(model_rr, type = "HC3")) # Robust standard errors
 ```
 
 ## In R
@@ -842,6 +1018,32 @@ This step is crucial for the Poisson model. It corrects the standard errors for
 the binomial nature of your binary data, preventing falsely narrow confidence
 intervals.
 
+## {.center}
+
+```{r}
+#| label: plot-irr-rr
+
+df <- bind_rows(
+  broom::tidy(modified_rr, conf.int = TRUE) |>
+    dplyr::filter(term == "smoke") |>
+    dplyr::mutate(
+        measure = "modified_RR"
+    ),
+  broom::tidy(model_rr,
+  conf.int = TRUE,
+  exponentiate =TRUE) |>
+    dplyr::filter(term == "smoke") |>
+    dplyr::mutate(measure = "misleading_RR")
+    ) |>
+  dplyr::transmute(measure, estimate, conf.low, conf.high)
+
+ggplot(df, aes(estimate, measure)) +
+  geom_point() +
+  geom_errorbarh(aes(xmin = conf.low, xmax = conf.high), width = 0.2) +
+  theme_minimal() +
+  geom_vline(xintercept = 1)
+```
+
 ## Summary
 
 ::: {.fragment}
@@ -854,11 +1056,11 @@ Key Takeaways:
 - **Offset**: Adjust for varying exposure times.
 :::
 
-## The history of a dataset
+## The history of a dataset {.r-fit}
 
 ::: {.columns}
 ::::: {.column}
-![Ronald A. Fisher](images/ronald_fisher_smoking.jpg)
+![Ronald A. Fisher](images/ronald_fisher_smoking.jpg){.r-fit-figure}
 :::::
 
 ::::: {.column}

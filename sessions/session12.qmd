@@ -1158,7 +1158,7 @@ set.seed(636961739)
 num_weeks <- 8 # weeks of the experiment
 num_days <- 8*7 # days of the experiment
 
-hospital1 <- rpois (num_days, 1.5) # 1.5 events per day
+hospital1 <- rpois(num_days, 1.5) # 1.5 events per day
 
 hospital2 <- rpois(num_weeks, 0.5*7) # 0.5 events per day scaled to a week
 
@@ -1200,8 +1200,8 @@ Oh, wow! Esborg has a `r exp(sim_m1$coefficients[2])` incidence rate ratio
 compared to Aalbjerg!
 
 How many counts is that? Intercept (Aalbjerg estimate)
-`exp(sim_m1$coefficients[1])` × $β_{Esborg}$ `exp(sim_m1$coefficients[2])` is
-`exp(sim_m1$coefficients[1])*exp(sim_m1$coefficients[2])`.
+`r exp(sim_m1$coefficients[1])` × $β_{Esborg}$ `r exp(sim_m1$coefficients[2])`
+is `r exp(sim_m1$coefficients[1])*exp(sim_m1$coefficients[2])`.
 
 That is alarming and someone should figure out why so many events are taking
 place in Esborg compared to Aalbjerg!
@@ -1224,8 +1224,8 @@ Oh, no! Now Esborg has a `r exp(sim_m2$coefficients[2])` incidence rate ratio
 compared to Aalbjerg!
 
 How many counts is that now? Intercept (Aalbjerg estimate)
-`exp(sim_m2$coefficients[1])` × $β_{Esborg}$ `exp(sim_m2$coefficients[2])` is
-`exp(sim_m2$coefficients[1])*exp(sim_m2$coefficients[2])`.
+`r exp(sim_m2$coefficients[1])` × $β_{Esborg}$ `r exp(sim_m2$coefficients[2])`
+is `r exp(sim_m2$coefficients[1])*exp(sim_m2$coefficients[2])`.
 
 > How can this be? What should we trust?
 
@@ -1246,7 +1246,7 @@ day. Therefore, we expect a correct fitted model to recover:
 - An exponentiated coefficient for `hospital_idEsborg` of approximately
 
   $$
-    \frac{0.50}{1.5} ≈ 0.33.
+    \frac{0.5}{1.5} ≈ 0.33.
   $$
 
 This means `Esborg` has about one-third the event rate of `Aalbjerg`
@@ -1303,7 +1303,7 @@ broom::tidy(sim_m3,exponentiate = TRUE)
 The incidence rate ratio stays the same between the hositals
 
 $$
-  \frac{0.50 * 7}{1.5 * 7} = \frac{3.50}{10.5} ≈ 0.33.
+  \frac{0.5 * 7}{1.5 * 7} = \frac{3.5}{10.5} ≈ 0.33.
 $$
 
 But now the intercept is `r exp(sim_m3$coefficients[1])` --- effectively seven
@@ -1378,22 +1378,25 @@ This is how you could compute that in R:
 ```{r}
 #| label: relative-risk-robust-est
 
+# grab dataset
+birthwt <- MASS::birthwt
+
 # 1. Fit standard Poisson GLM with log link on binary data
 model_rr <- glm(
-  seizure_count ~ drug + baseline_seizures,
-  data = epil,
-  family = poisson(link = "log")
+  low ~ smoke + age + ht + ui,
+  family = poisson(link = "log"),
+  data = birthwt
 )
 
-unadj_rr <- parameters::model_parameters(
+misleading_rr <- parameters::model_parameters(
   model_rr,
   exponentiate = TRUE  # Get unadjusted risk ratio
 )
 
 
 # 2. Compute Average Risk Ratio (Relative Risk) using robust standard errors
-adj_rr <- avg_comparisons(model_rr,
-                variables = "drug",
+modified_rr <- avg_comparisons(model_rr,
+                variables = "smoke",
                 comparison = "lnratioavg", # Calculates adjusted Risk Ratio
                 transform = exp, # then exponentiates
                 vcov = sandwich::vcovHC(model_rr, type = "HC3")) # Applies robust standard errors due to poisson regression approach
@@ -1419,16 +1422,16 @@ Finally, we can appreciate the difference of the estimates using a plot:
 #| label: plot-irr-rr
 
 df <- bind_rows(
-  broom::tidy(adj_rr, conf.int = TRUE) |>
-    dplyr::filter(term == "drug") |>
+  broom::tidy(modified_rr, conf.int = TRUE) |>
+    dplyr::filter(term == "smoke") |>
     dplyr::mutate(
-        measure = "adj_RR"
+        measure = "modified_RR"
     ),
   broom::tidy(model_rr,
   conf.int = TRUE,
   exponentiate =TRUE) |>
-    dplyr::filter(term == "drugprogabide") |>
-    dplyr::mutate(measure = "unadj_RR")
+    dplyr::filter(term == "smoke") |>
+    dplyr::mutate(measure = "misleading_RR")
     ) |>
   dplyr::transmute(measure, estimate, conf.low, conf.high)
 
@@ -1441,8 +1444,7 @@ ggplot(df, aes(estimate, measure)) +
 
 Note that while the estimate remains the same, the standard error is adjusted.
 This leads to different confidence intervals, and eventually also different
-*p*-value. In this case, it was enough to change from a significant unadjusted
-RR to a non-significant robust RR.
+*p*-value.
 
 ## Summary:
 

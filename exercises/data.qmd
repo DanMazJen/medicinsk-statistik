@@ -161,6 +161,8 @@ disease is present.
 
 ```r {filename="my-report.qmd"}
 hd_data <- medisr::hd_data
+# if you don't have the medisr package yet:
+hd_data <- readr::read_csv("https://www.statlearning.com/s/Heart.csv")
 ```
 
 ::: {.hidden}

@@ -27,17 +27,15 @@ this.
 
 ## Before we start the session today... {.r-fit-text}
 
-## Mac users {.r-fit-text}
+## Mac users
+
+::: {.r-stretch}
+In you Terminal, run:
 
 ```bash
-#| filename: terminal
-#| label: xcode-macs
-
-xcode-select -p
-# if you don't see:
-# /Library/Developer/CommandLineTools
 xcode-select --install
 ```
+:::
 
 You need this to install the `{medisr}` package
 
@@ -285,7 +283,7 @@ hd_data |>
 ```r
 hd_data <- medisr::hd_data
 # or if you didn't manage to download the medisr package yet:
-hd_data <- readr::read_csv("https://raw.githubusercontent.com/DanMazJen/medicinsk-statistik/main/data/hd_data.csv")
+hd_data <- readr::read_csv("https://www.statlearning.com/s/Heart.csv")
 ```
 
 3) Paste it into your R console and check if you see the data in your `variable`

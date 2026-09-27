@@ -4191,13 +4191,10 @@ display:block!important;
 </section>
 <section id="mac-users" class="slide level2">
 <h2>Mac users</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href aria-label="1"></a><span class="co">#| filename: terminal</span></span>
-<span id="cb1-2"><a href aria-label="2"></a><span class="co">#| label: xcode-macs</span></span>
-<span id="cb1-3"><a href aria-label="3"></a></span>
-<span id="cb1-4"><a href aria-label="4"></a><span class="ex">xcode-select</span> <span class="at">-p</span></span>
-<span id="cb1-5"><a href aria-label="5"></a><span class="co"># if you don&#39;t see:</span></span>
-<span id="cb1-6"><a href aria-label="6"></a><span class="co"># /Library/Developer/CommandLineTools</span></span>
-<span id="cb1-7"><a href aria-label="7"></a><span class="ex">xcode-select</span> <span class="at">--install</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="r-stretch">
+<p>In you Terminal, run:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href aria-label="1"></a><span class="ex">xcode-select</span> <span class="at">--install</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 <p>You need this to install the <code>{medisr}</code> package</p>
 <p><em>This as been added to the website installation guide</em></p>
 </section>
@@ -4576,16 +4573,36 @@ display:block!important;
 </ol>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href aria-label="1"></a>hd_data <span class="ot">&lt;-</span> medisr<span class="sc">::</span>hd_data</span>
 <span id="cb2-2"><a href aria-label="2"></a><span class="co"># or if you didn&#39;t manage to download the medisr package yet:</span></span>
-<span id="cb2-3"><a href aria-label="3"></a>hd_data <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/DanMazJen/medicinsk-statistik/main/data/hd_data.csv&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb2-3"><a href aria-label="3"></a>hd_data <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">&quot;https://www.statlearning.com/s/Heart.csv&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ol start="3" type="1">
 <li>Paste it into your R console and check if you see the data in your <code>variable</code> pane.</li>
 </ol>
 </section>
 <section id="code-along" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Code-along</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-2"><pre class="sourceCode numberSource r code-annotation-code number-lines code-with-copy code-annotated" data-id="quarto-animate-code"><code class="sourceCode r hljs"><a class="code-annotation-anchor hljs-ln-code" data-target-cell="annotated-cell-2" data-target-annotation="1" onclick="event.preventDefault();" href>1</a><span id="annotated-cell-2-1" class="code-annotation-target hljs-ln-code"><a href="#annotated-cell-2-1" aria-label="1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="annotated-cell-2-2" class="hljs-ln-code"><a href="#annotated-cell-2-2" aria-label="2"></a></span>
+<a class="code-annotation-anchor hljs-ln-code" data-target-cell="annotated-cell-2" data-target-annotation="2" onclick="event.preventDefault();" href>2</a><span id="annotated-cell-2-3" class="code-annotation-target hljs-ln-code"><a href="#annotated-cell-2-3" aria-label="3"></a>hd_data</span><div class="code-annotation-gutter-bg hljs-ln-code"></div><div class="code-annotation-gutter hljs-ln-code"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-2" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-2" data-code-lines="1" data-code-annotation="1">Tell R you will be using the <code>ggplot2</code> package</span>
+</dd>
+<dt data-target-cell="annotated-cell-2" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-2" data-code-lines="3" data-code-annotation="2">Take <code>hd_data</code>, and then,</span>
+</dd>
+</dl>
+</section>
+<section id="code-along-1" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Code-along</h2>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-3"><pre class="sourceCode numberSource r code-annotation-code number-lines code-with-copy code-annotated" data-id="quarto-animate-code"><code class="sourceCode r hljs"><a class="code-annotation-anchor hljs-ln-code" data-target-cell="annotated-cell-3" data-target-annotation="1" onclick="event.preventDefault();" href>1</a><span id="annotated-cell-3-1" class="code-annotation-target hljs-ln-code"><a href="#annotated-cell-3-1" aria-label="1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="annotated-cell-3-2" class="hljs-ln-code"><a href="#annotated-cell-3-2" aria-label="2"></a></span>
-<a class="code-annotation-anchor hljs-ln-code" data-target-cell="annotated-cell-3" data-target-annotation="2" onclick="event.preventDefault();" href>2</a><span id="annotated-cell-3-3" class="code-annotation-target hljs-ln-code"><a href="#annotated-cell-3-3" aria-label="3"></a>hd_data</span><div class="code-annotation-gutter-bg hljs-ln-code"></div><div class="code-annotation-gutter hljs-ln-code"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<a class="code-annotation-anchor hljs-ln-code" data-target-cell="annotated-cell-3" data-target-annotation="2" onclick="event.preventDefault();" href>2</a><span id="annotated-cell-3-3" class="code-annotation-target hljs-ln-code"><a href="#annotated-cell-3-3" aria-label="3"></a>hd_data <span class="sc">|&gt;</span></span>
+<a class="code-annotation-anchor hljs-ln-code" data-target-cell="annotated-cell-3" data-target-annotation="3" onclick="event.preventDefault();" href>3</a><span id="annotated-cell-3-4" class="code-annotation-target hljs-ln-code"><a href="#annotated-cell-3-4" aria-label="4"></a>  <span class="fu">ggplot</span>(</span>
+<a class="code-annotation-anchor hljs-ln-code" data-target-cell="annotated-cell-3" data-target-annotation="4" onclick="event.preventDefault();" href>4</a><span id="annotated-cell-3-5" class="code-annotation-target hljs-ln-code"><a href="#annotated-cell-3-5" aria-label="5"></a>    <span class="fu">aes</span>(<span class="at">x =</span> HD, <span class="at">y =</span> Age)</span>
+<a class="code-annotation-anchor hljs-ln-code" data-target-cell="annotated-cell-3" data-target-annotation="5" onclick="event.preventDefault();" href>5</a><span id="annotated-cell-3-6" class="code-annotation-target hljs-ln-code"><a href="#annotated-cell-3-6" aria-label="6"></a>    ) <span class="sc">+</span></span>
+<a class="code-annotation-anchor hljs-ln-code" data-target-cell="annotated-cell-3" data-target-annotation="6" onclick="event.preventDefault();" href>6</a><span id="annotated-cell-3-7" class="code-annotation-target hljs-ln-code"><a href="#annotated-cell-3-7" aria-label="7"></a>  <span class="fu">geom_boxplot</span>()</span><div class="code-annotation-gutter-bg hljs-ln-code"></div><div class="code-annotation-gutter hljs-ln-code"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <dl class="code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-3" data-target-annotation="1">1</dt>
 <dd>
@@ -4595,41 +4612,21 @@ display:block!important;
 <dd>
 <span data-code-cell="annotated-cell-3" data-code-lines="3" data-code-annotation="2">Take <code>hd_data</code>, and then,</span>
 </dd>
-</dl>
-</section>
-<section id="code-along-1" class="slide level2" data-auto-animate="true">
-<h2 data-id="quarto-animate-title">Code-along</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-4"><pre class="sourceCode numberSource r code-annotation-code number-lines code-with-copy code-annotated" data-id="quarto-animate-code"><code class="sourceCode r hljs"><a class="code-annotation-anchor hljs-ln-code" data-target-cell="annotated-cell-4" data-target-annotation="1" onclick="event.preventDefault();" href>1</a><span id="annotated-cell-4-1" class="code-annotation-target hljs-ln-code"><a href="#annotated-cell-4-1" aria-label="1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="annotated-cell-4-2" class="hljs-ln-code"><a href="#annotated-cell-4-2" aria-label="2"></a></span>
-<a class="code-annotation-anchor hljs-ln-code" data-target-cell="annotated-cell-4" data-target-annotation="2" onclick="event.preventDefault();" href>2</a><span id="annotated-cell-4-3" class="code-annotation-target hljs-ln-code"><a href="#annotated-cell-4-3" aria-label="3"></a>hd_data <span class="sc">|&gt;</span></span>
-<a class="code-annotation-anchor hljs-ln-code" data-target-cell="annotated-cell-4" data-target-annotation="3" onclick="event.preventDefault();" href>3</a><span id="annotated-cell-4-4" class="code-annotation-target hljs-ln-code"><a href="#annotated-cell-4-4" aria-label="4"></a>  <span class="fu">ggplot</span>(</span>
-<a class="code-annotation-anchor hljs-ln-code" data-target-cell="annotated-cell-4" data-target-annotation="4" onclick="event.preventDefault();" href>4</a><span id="annotated-cell-4-5" class="code-annotation-target hljs-ln-code"><a href="#annotated-cell-4-5" aria-label="5"></a>    <span class="fu">aes</span>(<span class="at">x =</span> HD, <span class="at">y =</span> Age)</span>
-<a class="code-annotation-anchor hljs-ln-code" data-target-cell="annotated-cell-4" data-target-annotation="5" onclick="event.preventDefault();" href>5</a><span id="annotated-cell-4-6" class="code-annotation-target hljs-ln-code"><a href="#annotated-cell-4-6" aria-label="6"></a>    ) <span class="sc">+</span></span>
-<a class="code-annotation-anchor hljs-ln-code" data-target-cell="annotated-cell-4" data-target-annotation="6" onclick="event.preventDefault();" href>6</a><span id="annotated-cell-4-7" class="code-annotation-target hljs-ln-code"><a href="#annotated-cell-4-7" aria-label="7"></a>  <span class="fu">geom_boxplot</span>()</span><div class="code-annotation-gutter-bg hljs-ln-code"></div><div class="code-annotation-gutter hljs-ln-code"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<dl class="code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-4" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-cell="annotated-cell-4" data-code-lines="1" data-code-annotation="1">Tell R you will be using the <code>ggplot2</code> package</span>
+<span data-code-cell="annotated-cell-3" data-code-lines="4" data-code-annotation="3">Make a <code>ggplot</code> skeleton</span>
 </dd>
-<dt data-target-cell="annotated-cell-4" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="4">4</dt>
 <dd>
-<span data-code-cell="annotated-cell-4" data-code-lines="3" data-code-annotation="2">Take <code>hd_data</code>, and then,</span>
+<span data-code-cell="annotated-cell-3" data-code-lines="5" data-code-annotation="4">Select the x and y variables using <code>aes</code> (aestetics)</span>
 </dd>
-<dt data-target-cell="annotated-cell-4" data-target-annotation="3">3</dt>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="5">5</dt>
 <dd>
-<span data-code-cell="annotated-cell-4" data-code-lines="4" data-code-annotation="3">Make a <code>ggplot</code> skeleton</span>
+<span data-code-cell="annotated-cell-3" data-code-lines="6" data-code-annotation="5">End the ggplot function that has a parenthesis open. Add <code>+</code> more…</span>
 </dd>
-<dt data-target-cell="annotated-cell-4" data-target-annotation="4">4</dt>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="6">6</dt>
 <dd>
-<span data-code-cell="annotated-cell-4" data-code-lines="5" data-code-annotation="4">Select the x and y variables using <code>aes</code> (aestetics)</span>
-</dd>
-<dt data-target-cell="annotated-cell-4" data-target-annotation="5">5</dt>
-<dd>
-<span data-code-cell="annotated-cell-4" data-code-lines="6" data-code-annotation="5">End the ggplot function that has a parenthesis open. Add <code>+</code> more…</span>
-</dd>
-<dt data-target-cell="annotated-cell-4" data-target-annotation="6">6</dt>
-<dd>
-<span data-code-cell="annotated-cell-4" data-code-lines="7" data-code-annotation="6">Specify the type of plot you want <code>ggplot</code> to do with the skeleton</span>
+<span data-code-cell="annotated-cell-3" data-code-lines="7" data-code-annotation="6">Specify the type of plot you want <code>ggplot</code> to do with the skeleton</span>
 </dd>
 </dl>
 </section>

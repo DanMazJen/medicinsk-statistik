@@ -29,7 +29,7 @@ this.
 
 ## Mac users {.r-fit-text}
 
-```{bash}
+```bash
 #| filename: terminal
 #| label: xcode-macs
 

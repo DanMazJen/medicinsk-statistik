@@ -89,10 +89,8 @@ PLoS ONE, 6(4), e18850.
 In order to access the dataset, we suggest using:
 
 ```r {filename="my-report.qmd"}
-ad_data <- medisr::ad_data
-
-ad_data |>
-    tibble::tibble(ad_data)
+ad_data <- medisr::ad_data |>
+    tibble::tibble()
 ```
 
 ::: {.hidden}
@@ -333,7 +331,7 @@ Model, Springer-Verlag, New York. ISBN: 0-387-98784-3.
 
 ```r {filename="my-report.qmd"}
 data(pbc, package="survival")
-pbc |>
+pbc <- pbc |>
     tibble::as.tibble()
 ```
 
@@ -523,7 +521,7 @@ Dohme, Inc., AstraZeneca plc, and inferential.biostatistics GmbH.
 # Importing the data:
 fev_data <- readr::read_csv("https://raw.githubusercontent.com/DanMazJen/medicinsk-statistik/main/data/fev_data.csv")
 # Make it a tibble:
-fev_data |>
+fev_data <- fev_data |>
     tibble::tibble()
 ```
 
@@ -581,7 +579,7 @@ DOI of the dataset: [10.24432/C5XP4P](10.24432/C5XP4P) and
 # Importing the data:
 messidor <- readr::read_csv("https://raw.githubusercontent.com/DanMazJen/medicinsk-statistik/main/data/messidor.csv")
 # Make it a tibble:
-messidor |>
+messidor <- messidor |>
     tibble::tibble()
 ```
 
@@ -694,7 +692,7 @@ Blood Institute (NHLBI).
 # Importing the data:
 framingham2 <- readr::read_csv("https://raw.githubusercontent.com/DanMazJen/medicinsk-statistik/main/data/framingham2.csv")
 # Make it a tibble:
-framingham2 |>
+framingham2 <- framingham2 |>
     tibble::tibble()
 ```
 

@@ -25,6 +25,26 @@ Introduce teachers and helpers after welcoming everyone and getting them to do
 this.
 :::
 
+## Before we start the session today... {.r-fit-text}
+
+## Mac users {.r-fit-text}
+
+```{bash}
+#| filename: terminal
+#| label: xcode-macs
+
+xcode-select -p
+# if you don't see:
+# /Library/Developer/CommandLineTools
+xcode-select --install
+```
+
+You need this to install the `{medisr}` package
+
+*This as been added to the website installation guide*
+
+## :raising_hand_woman: do you have R & RStudio? {.center}
+
 ## Why Medical statistics? {.r-fit-text}
 
 ## Why Medical statistics? {.r-fit-text}
@@ -264,6 +284,8 @@ hd_data |>
 
 ```r
 hd_data <- medisr::hd_data
+# or if you didn't manage to download the medisr package yet:
+hd_data <- readr::read_csv("https://raw.githubusercontent.com/DanMazJen/medicinsk-statistik/main/data/hd_data.csv")
 ```
 
 3) Paste it into your R console and check if you see the data in your `variable`

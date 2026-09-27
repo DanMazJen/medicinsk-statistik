@@ -42,6 +42,18 @@ an iPad or tablet. Please use your laptop for this course.
    If you don't use Homebrew, you can download and install RStudio as you
    normally would by clicking the link above.
 
+3. [xcode-select](https://www.youtube.com/watch?v=zx6KCC5A3oI): You can follow a
+   Youtube video by clicking the *xcode-select* link. First, open your
+   [terminal](https://support.apple.com/en-gb/guide/terminal/apd5265185d-f365-44cb-8b09-71a064a42125/mac)
+   and enter the following line:
+
+   ```bash {filename="Terminal"}
+   xcode-select --install
+   ```
+
+   This will install the software you need (i.e. a compiler). It should take
+   5-20 minutes.
+
 ### Linux (Ubuntu)
 
 1. [R](https://cloud.r-project.org/bin/linux/ubuntu/): Any version above
@@ -55,6 +67,13 @@ an iPad or tablet. Please use your laptop for this course.
 2. [RStudio](https://www.rstudio.com/products/rstudio/download/#download): Any
    version above {{< meta versions.rstudio >}}. If you have installed it before,
    check the current version by going to the menu "Help -\> About RStudio".
+
+3. [r-base-dev](https://r-pkgs.org/setup.html): You also need `r-base-dev` for
+   the `{medisr}` package.
+
+   ```bash {filename="Terminal"}
+   sudo apt install r-base-dev
+   ```
 :::
 
 ::: callout-tip

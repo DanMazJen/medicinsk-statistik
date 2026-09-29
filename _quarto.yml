@@ -62,6 +62,7 @@ book:
   appendices:
     - appendix/for-teachers.qmd
     - appendix/project-example.qmd
+    - appendix/exam-questions.qmd
     - appendix/fqa.qmd
     - CHANGELOG.md
     - CONTRIBUTING.md

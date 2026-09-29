@@ -37,9 +37,7 @@ Before we continue, let's briefly explain what some terms mean.
 For this course, we will be focusing on R packages that are powerful and
 general-purpose enough to help you in multiple aspects of your research. To
 install these packages, you'll need to install our custom `{medisr}` helper
-package that we use for this course to help you install all the needed packages
-and to run some basic checks during the pre-course setup. To install it, you'll
-first need to install the `{pak}` package.
+package that we use for this course to help you install all the needed packages.
 
 ::: callout-tip
 When running R code in the Console, sometimes it may show up as red text.
@@ -50,18 +48,15 @@ alarmed if you see red text. Take a moment and read the text to see if it says
 :::
 
 Open your RStudio and copy and paste the below code into the Console (panel "B"
-in @fig-rstudio-introduction):
+in @fig-rstudio-introduction) to install the `{medisr}` package. Hit "Enter" and
+the `{medisr}` helper package will be installed.:
 
 ```{r}
-#| label: install-pak
+#| label: install-medisr
 #| filename: "Console"
 
-install.packages("pak")
+install.packages('medisr', repos = c('https://danmazjen.r-universe.dev', 'https://cloud.r-project.org'))
 ```
-
-Next, copy and paste (or type) the function below into the RStudio Console
-(panel "B" in @fig-rstudio-introduction) to install the `{medisr}` package. Hit
-"Enter" and the `{medisr}` helper package will be installed.
 
 ::: {.callout-warning appearance="default"}
 You might encounter an error when running the below code. That's ok, if you
@@ -74,28 +69,31 @@ types of software get installed. If you run into issues, try to install in
 administrator mode.
 :::
 
-```{r}
-#| label: install-medisr
-#| filename: "Console"
+To test whether it worked, try loading the `hd_data` dataset from the `{medisr}`
+package:
 
-pak::pak("DanMazJen/medisr", upgrade = TRUE)
+```{r}
+#| label: install-necessary-packages1
+#| filename: "Console"
+#| eval: false
+
+medisr::medisr_install_packages()
 ```
 
-<!-- TODO: Show picture of the Console and with the code in and running -->
-
 When you see R code like `something::something()`, for example with
-`pak::pak()`, you would "read" this as:
+`medisr::medisr_install_packages()`, you would "read" this as:
 
-> R, can you please use the `pak()` function from the `{pak}` package.
+> R, can you please use the `medisr_install_packages()` function from the
+> `{medisr}` package.
 
 The most common way of using functions from packages is to load the package with
-`library()`, for example like `library(pak)`. Then you can use the functions
-from the package directly, like `pak()`. When you use the code `::` (pronounced
-"colon colon"), you are telling R to directly use a function from a package,
-without needing to load the whole package and all of its other functions too. We
-use this trick because we only want to use the one function `pak()` and not load
-all the other functions from the `{pak}` package into R. We will be using `::`
-often in this course.
+`library()`, for example like `library(medisr)`. Then you can use the functions
+from the package directly, like `medisr_install_packages()`. When you use the
+code `::` (pronounced "colon colon"), you are telling R to directly use a
+function from a package, without needing to load the whole package and all of
+its other functions too. We use this trick because we only want to use the one
+function `medisr_install_packages()` and not load all the other functions from
+the `{medisr}` package into R. We will be using `::` often in this course.
 
 Most of the packages we will be using in this course are bundled together into
 one package called `{tidyverse}`. This package is a collection of packages that

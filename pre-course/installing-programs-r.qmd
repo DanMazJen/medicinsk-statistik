@@ -21,7 +21,8 @@ an iPad or tablet. Please use your laptop for this course.
    before, check the current version by going to the menu "Help -\> About
    RStudio".
 3. [Rtools](https://cran.r-project.org/bin/windows/Rtools/): Choose the version
-   that says "R-release". Rtools is needed in order to build some R packages.
+   that fits your R version (probably the newest and preferably the release
+   version, if possible). Rtools is needed in order to build some R packages.
    For some computers, installing Rtools can take some time.
 
 ### MacOS
@@ -41,18 +42,6 @@ an iPad or tablet. Please use your laptop for this course.
 
    If you don't use Homebrew, you can download and install RStudio as you
    normally would by clicking the link above.
-
-3. [xcode-select](https://www.youtube.com/watch?v=zx6KCC5A3oI): You can follow a
-   Youtube video by clicking the *xcode-select* link. First, open your
-   [terminal](https://support.apple.com/en-gb/guide/terminal/apd5265185d-f365-44cb-8b09-71a064a42125/mac)
-   and enter the following line:
-
-   ```bash {filename="Terminal"}
-   xcode-select --install
-   ```
-
-   This will install the software you need (i.e. a compiler). It should take
-   5-20 minutes.
 
 ### Linux (Ubuntu)
 

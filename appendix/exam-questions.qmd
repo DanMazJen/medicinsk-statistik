@@ -1,0 +1,463 @@
+# Exam Questions {sec-exam-qs}
+
+This section provides all exam questions that you could be asked to answer
+during the examination.
+
+## 1. Betinget uafhængighed og confounding
+
+**DK:**
+
+- Redegør for betinget uafhængighed og dens relation til confounding, og
+  illustrer med et eksempel.
+
+**ENG:**
+
+- Explain conditional independence and its relationship to confounding, using an
+  example.
+
+## 2. Betinget uafhængighed, produktreglen og Bayes' formel
+
+**DK:**
+
+- Redegør for betinget uafhængighed og dens betydning for produktreglen og
+  Bayes' formel.
+
+**ENG:**
+
+- Explain conditional independence and its implications for the product rule and
+  Bayes' theorem.
+
+## 3. Ubetinget afhængighed og selektionsbias
+
+**DK:**
+
+- Redegør for ubetinget afhængighed og dens relation til selektionsbias, og
+  illustrer med et eksempel.
+
+**ENG:**
+
+- Explain unconditional dependence and its relation to selection bias, using an
+  example.
+
+## 4. Kontinuerte sandsynlighedsfordelinger
+
+**DK:**
+
+- Redegør for kontinuerte sandsynlighedsfordelinger.
+  - **a.** Angiv, hvilke datatyper de forskellige fordelinger (herunder normal-,
+    gamma- og log-normalfordelingen) typisk anvendes til.
+
+**ENG:**
+
+- Describe continuous probability distributions.
+  - **a.** Specify the types of data for which the various distributions
+    (including normal, gamma, and log-normal) are typically used.
+
+## 5. Mann-Whitney U-test
+
+**DK:**
+
+- Redegør for, hvad der undersøges med en Mann-Whitney U-test.
+  - **a.** Hvad er test-statistikken for Mann-Whitney U-testen?
+  - **b.** Hvorfor er denne test ikke relevant ved undersøgelse af
+    omkostningsforskelle?
+
+**ENG:**
+
+- Explain what is investigated with a Mann-Whitney U test.
+  - **a.** What is the test statistic for the Mann-Whitney U test?
+  - **b.** Why is this test statistic not relevant when analyzing differences in
+    costs?
+
+## 6. Permutationstest
+
+**DK:**
+
+- Redegør for, hvordan en permutationstest udføres for et forsøg med to
+  eksponeringsgrupper.
+  - **a.** Under hvilken hypotese simuleres data i en permutationstest?
+
+**ENG:**
+
+- Explain how to perform a permutation test for an experiment with two exposure
+  groups.
+  - **a.** Under which hypothesis is data simulated in a permutation test?
+
+## 7. Antagelser for t-test
+
+**DK:**
+
+- Hvilke antagelser ligger til grund for en t-test?
+  - **a.** Hvad betyder grænseværdisætningen for disse antagelser?
+
+**ENG:**
+
+- What are the underlying assumptions of a t-test?
+  - **a.** What is the significance of the central limit theorem for these
+    assumptions?
+
+## 8. Selektionsbias og confounding i effektstudier
+
+**DK:**
+
+- Redegør for selektionsbias og confounding i et effektstudie, eventuelt
+  understøttet af et kausalt diagram.
+
+**ENG:**
+
+- Explain selection bias and confounding in an effect study, optionally using a
+  causal diagram.
+
+## 9. Tolkning af Bland-Altman-plot
+
+**DK:**
+
+- Redegør for, hvordan et Bland-Altman-plot tolkes.
+  - **a.** Hvordan identificeres systematisk og tilfældig variation?
+
+**ENG:**
+
+- Explain how to interpret a Bland-Altman plot.
+  - **a.** How can systematic and random variation be identified?
+
+## 10. Intra-klass korrelation
+
+**DK:**
+
+- Redegør for forskellen på relativ (konsistens) og absolut (overensstemmelse)
+  intra-klass korrelation.
+  - **a.** Hvilken type variation afspejler de to mål?
+
+**ENG:**
+
+- Explain the difference between relative (consistency) and absolute (agreement)
+  intra-class correlation.
+  - **a.** What type of variation do these two measures represent?
+
+## 11. Statistisk styrke og stikprøvestørrelse
+
+**DK:**
+
+- Redegør for, hvad der forstås ved statistisk styrke (power) ved planlægning af
+  et klinisk forsøg.
+  - **a.** Angiv, hvilke oplysninger der indgår i beregningen af
+    stikprøvestørrelsen.
+
+**ENG:**
+
+- Explain the concept of statistical power when designing a clinical trial.
+  - **a.** Specify the information required for calculating sample size.
+
+## 12. Multipel lineær regression i effektstudier
+
+**DK:**
+
+- Redegør for multipel lineær regression i et effektstudie.
+  - **a.** Hvordan tolkes resultaterne?
+
+**ENG:**
+
+- Describe multiple linear regression in an effect study.
+  - **a.** How are the results interpreted?
+
+## 13. Antagelser for lineær regression i effektstudier
+
+**DK:**
+
+- Hvilke antagelser ligger til grund for lineær regression i et effektstudie?
+
+**ENG:**
+
+- What are the underlying assumptions of linear regression in an effect study?
+
+## 14. Multipel logistisk regression i effektstudier
+
+**DK:**
+
+- Redegør for multipel logistisk regression i et effektstudie.
+  - **a.** Hvordan tolkes resultaterne?
+
+**ENG:**
+
+- Describe multiple logistic regression in an effect study.
+  - **a.** How are the results interpreted?
+
+## 15. Antagelser for logistisk regression i effektstudier
+
+**DK:**
+
+- Hvilke antagelser ligger til grund for logistisk regression i et effektstudie?
+
+**ENG:**
+
+- What are the underlying assumptions of logistic regression in an effect study?
+
+## 16. Poisson-regression på binært udfald
+
+**DK:**
+
+- Redegør for, hvilket effektmål der opnås ved anvendelse af Poisson-regression
+  på et binært udfald (ikke tid-til-event).
+  - **a.** Hvad skal man være opmærksom på i forbindelse med
+    sikkerhedsintervaller, og hvorfor?
+
+**ENG:**
+
+- Explain which effect measure is obtained when using Poisson regression for a
+  binary outcome (not time-to-event).
+  - **a.** How does this affect the confidence intervals, and why?
+
+## 17. Poisson-regression på tid-til-event udfald
+
+**DK:**
+
+- Redegør for Poisson-regression anvendt på et tid-til-event udfald i et
+  effektstudie.
+
+**ENG:**
+
+- Describe Poisson regression applied to a time-to-event outcome in an effect
+  study.
+
+## 18. F-test (ANOVA)
+
+**DK:**
+
+- Redegør for en F-test (ANOVA).
+  - **a.** Hvilken nulhypotese og antagelser ligger til grund for testen?
+
+**ENG:**
+
+- Describe an F-test (ANOVA).
+  - **a.** What are the null hypothesis and underlying assumptions of the test?
+
+## 19. Interaktion i repeated measures ANOVA
+
+**DK:**
+
+- Redegør for begrebet interaktion i en repeated measures ANOVA.
+  - **a.** Hvordan tolkes resultaterne?
+
+**ENG:**
+
+- Explain the concept of interaction in a repeated measures ANOVA.
+  - **a.** How should the results be interpreted?
+
+## 20. Antagelser i repeated measures ANOVA
+
+**DK:**
+
+- Redegør for antagelserne i en repeated measures ANOVA.
+
+**ENG:**
+
+- Describe the assumptions underlying a repeated measures ANOVA.
+
+## 21. Marginale effekter vs. regressionskoefficienter
+
+**DK:**
+
+- Redegør for, hvad en marginal effekt er, og hvordan den adskiller sig fra en
+  regressionskoefficient.
+  - **a.** Giv et eksempel på en tilgang til udvælgelse af estimerede
+    marginalgennemsnit i et effektstudie.
+
+**ENG:**
+
+- Explain what a marginal effect is and how it differs from a regression
+  coefficient.
+  - **a.** Provide an example of an approach to selecting estimated marginal
+    means in an effect study.
+
+## 22. Marginale effekter og logistisk regression
+
+**DK:**
+
+- Redegør for, hvordan en logistisk regression kan anvendes til at estimere en
+  justeret relativ risiko eller risikodifference.
+
+**ENG:**
+
+- Explain how logistic regression can be used to estimate an adjusted relative
+  risk or risk difference.
+
+## 23. Overlevelsestabel og censurering
+
+**DK:**
+
+- Redegør for, hvordan en overlevelsestabel konstrueres.
+  - **a.** Beskriv typer af censurering.
+
+**ENG:**
+
+- Explain how to construct a survival table.
+  - **a.** Describe the types of censoring.
+
+## 24. Sammenligning af overlevelseskurver
+
+**DK:**
+
+- Hvilke metoder findes der til at opsummere forskellen mellem to
+  overlevelseskurver i et enkelt mål?
+  - **a.** Hvilke antagelser ligger til grund herfor?
+
+**ENG:**
+
+- What methods are available to summarize the difference between two survival
+  curves in a single value?
+  - **a.** What are the underlying assumptions?
+
+## 25. Forskelle mellem prædiktions- og effektstudier
+
+**DK:**
+
+- Redegør for de centrale forskelle mellem et prædiktionsstudie og et
+  effektstudie.
+  - **a.** Vær særligt opmærksom på studiernes rolle i klinisk
+    beslutningstagning.
+
+**ENG:**
+
+- Explain the key differences between a prediction study and an effect study.
+  - **a.** Pay particular attention to the role of these studies in clinical
+    decision-making.
+
+## 26. Logistisk regression i effekt- vs. prædiktionsstudier
+
+**DK:**
+
+- Redegør for forskellene i anvendelsen af logistisk regression i henholdsvis
+  effekt- og prædiktionsstudier.
+  - **a.** Hvilke overvejelser ligger til grund for valget af regressionsmodel i
+    de to studietyper?
+
+**ENG:**
+
+- Explain the differences in how logistic regression is used in effect and
+  prediction studies, respectively.
+  - **a.** What should be considered when choosing a regression model in these
+    two types of studies?
+
+## 27. Validering af prædiktionsmodeller
+
+**DK:**
+
+- Redegør for krydsvalidering og ekstern validering af prædiktionsmodeller, og
+  forklar, hvorfor begge er relevante.
+  - **a.** Hvilke typer ekstern validering findes der?
+
+**ENG:**
+
+- Describe cross-validation and external validation of prediction models, and
+  explain why both are relevant.
+  - **a.** What types of external validation exist?
+
+## 28. Kalibrering af binær prædiktionsmodel
+
+**DK:**
+
+- Redegør for kalibrering af en binær prædiktionsmodel, og giv eksempler på,
+  hvordan kalibrering kan kvantificeres.
+
+**ENG:**
+
+- Explain calibration of a binary prediction model, and provide examples of how
+  calibration can be quantified.
+
+## 29. ROC-kurve og AUC
+
+**DK:**
+
+- Redegør for en receiver operating characteristic (ROC)-kurve og tolkningen af
+  arealet under kurven.
+
+**ENG:**
+
+- Explain a receiver operating characteristic (ROC) curve and how to interpret
+  the area under the curve.
+
+## 30. Tærskelværdi for klinisk binær prædiktionsmodel
+
+**DK:**
+
+- Redegør for de centrale overvejelser ved fastsættelse af tærskelværdien
+  (cut-off) for en klinisk binær prædiktionsmodel.
+  - **a.** Hvordan omsættes disse overvejelser til en konkret tærskelværdi? Brug
+    eventuelt nakkefoldsskanning som eksempel.
+
+**ENG:**
+
+- Describe the key considerations in determining the threshold (cut-off) for a
+  clinical binary prediction model.
+  - **a.** How are these considerations translated into a specific threshold
+    value? You may use the neck fold scan as an example.
+
+## 31. Beslutningskurveanalyse
+
+**DK:**
+
+- Redegør for, hvordan en beslutningskurveanalyse tolkes.
+
+**ENG:**
+
+- Explain how to interpret a decision curve analysis.
+
+## 32. Stikprøvestørrelse for ekstern validering
+
+**DK:**
+
+- Redegør for beregningen af stikprøvestørrelsen ved ekstern validering af en
+  binær prædiktionsmodel.
+
+**ENG:**
+
+- Describe the calculation of sample size for external validation of a binary
+  prediction model.
+
+## 33. Validering af prædiktionsmodel for kontinuert udfald
+
+**DK:**
+
+- Redegør for valideringen af en prædiktionsmodel for et kontinuert udfald.
+
+**ENG:**
+
+- Describe the validation of a prediction model for a continuous outcome.
+
+## 34. Funnelplot i metaanalyse
+
+**DK:**
+
+- Redegør for, hvordan et funnelplot konstrueres og tolkes i en metaanalyse.
+
+**ENG:**
+
+- Describe how to construct and interpret a funnel plot in a meta-analysis.
+
+## 35. Forest plot og heterogenitet i metaanalyse
+
+**DK:**
+
+- Redegør for, hvordan et forest plot tolkes i en metaanalyse.
+  - **a.** Redegør for heterogenitetsbegrebet og måling heraf.
+  - **b.** Hvad skal man være opmærksom på, når observationsstudier indgår i
+    analysen?
+
+**ENG:**
+
+- Describe how to interpret a forest plot in a meta-analysis.
+  - **a.** Explain the concept of heterogeneity and how it is measured.
+  - **b.** What should be considered when observational studies are included in
+    the analysis?
+
+## 36. Random- og fixed-effects i metaanalyse
+
+**DK:**
+
+- Redegør for random- og fixed-effects i meta-analyser.
+  - **a.** Hvornår bør random-effects anvendes, og hvad er ulemperne herved?
+
+**ENG:**
+
+- Describe random- and fixed-effects in meta-analyses.
+  - **a.** When should random-effects be used, and what are their disadvantages?

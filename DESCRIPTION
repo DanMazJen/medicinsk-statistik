@@ -32,6 +32,7 @@ Imports:
     pak,
     parameters,
     performance,
+    pmsampsize,
     probably,
     purrr,
     readr,

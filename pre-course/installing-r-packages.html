@@ -352,26 +352,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../appendix/exam-questions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Exam Questions</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../appendix/fqa.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Frequently Asked Questions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Frequently Asked Questions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../CHANGELOG.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Changelog</span></span></a>
+ <span class="menu-text"><span class="chapter-number">E</span>&nbsp; <span class="chapter-title">Changelog</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../CONTRIBUTING.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">E</span>&nbsp; <span class="chapter-title">Contributing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">F</span>&nbsp; <span class="chapter-title">Contributing</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../LICENSE.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">F</span>&nbsp; <span class="chapter-title">Creative Commons Attribution 4.0 International</span></span></a>
+ <span class="menu-text"><span class="chapter-number">G</span>&nbsp; <span class="chapter-title">Creative Commons Attribution 4.0 International</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -405,19 +411,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   
 
 
-</header><div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Warning
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>🚧 This section is being actively worked on. 🚧</p>
-</div>
-</div><p>Now that you have RStudio and R on your computer and have read about them, you need to install the R packages we’ll use in the course. R packages are bundles of R code that other people have written. There are so many R packages available that there is likely an R package for anything you’d like to do in R. Making use of R packages can help you immensely when doing your research.</p>
+</header><p>Now that you have RStudio and R on your computer and have read about them, you need to install the R packages we’ll use in the course. R packages are bundles of R code that other people have written. There are so many R packages available that there is likely an R package for anything you’d like to do in R. Making use of R packages can help you immensely when doing your research.</p>
 <p>Before we continue, let’s briefly explain what some terms mean.</p>
 <ul>
 <li>
@@ -432,7 +426,7 @@ Warning
 <li>
 <strong>R package</strong> is a set of R scripts that contain multiple bundles of R code (mostly these bundles are functions, but can sometimes be data) that work together to expand on or improve R code and R functionality.</li>
 </ul>
-<p>For this course, we will be focusing on R packages that are powerful and general-purpose enough to help you in multiple aspects of your research. To install these packages, you’ll need to install our custom <a href="https://github.com/DanMazJen/medisr">medisr</a> helper package that we use for this course to help you install all the needed packages and to run some basic checks during the pre-course setup. To install it, you’ll first need to install the <a href="https://pak.r-lib.org/">pak</a> package.</p>
+<p>For this course, we will be focusing on R packages that are powerful and general-purpose enough to help you in multiple aspects of your research. To install these packages, you’ll need to install our custom <a href="https://github.com/DanMazJen/medisr">medisr</a> helper package that we use for this course to help you install all the needed packages.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -446,16 +440,15 @@ Tip
 <p>When running R code in the Console, sometimes it may show up as red text. Usually this means there is an error or a warning. Unfortunately, the Console sometimes shows text in red even when there is no error or warning. Don’t be alarmed if you see red text. Take a moment and read the text to see if it says “error” or “warning”. If it doesn’t, then ignore it!</p>
 </div>
 </div>
-<p>Open your RStudio and copy and paste the below code into the Console (panel “B” in <a href="r-and-rstudio.html#fig-rstudio-introduction" class="quarto-xref">Figure&nbsp;<span>7.1</span></a>):</p>
+<p>Open your RStudio and copy and paste the below code into the Console (panel “B” in <a href="r-and-rstudio.html#fig-rstudio-introduction" class="quarto-xref">Figure&nbsp;<span>7.1</span></a>) to install the <a href="https://github.com/DanMazJen/medisr">medisr</a> package. Hit “Enter” and the <a href="https://github.com/DanMazJen/medisr">medisr</a> helper package will be installed.:</p>
 <div class="cell">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>Console</strong></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"pak"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">'medisr'</span>, repos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'https://danmazjen.r-universe.dev'</span>, <span class="st">'https://cloud.r-project.org'</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
-<p>Next, copy and paste (or type) the function below into the RStudio Console (panel “B” in <a href="r-and-rstudio.html#fig-rstudio-introduction" class="quarto-xref">Figure&nbsp;<span>7.1</span></a>) to install the <a href="https://github.com/DanMazJen/medisr">medisr</a> package. Hit “Enter” and the <a href="https://github.com/DanMazJen/medisr">medisr</a> helper package will be installed.</p>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -470,20 +463,20 @@ Warning
 <p>The problem usually happens because some institutions block or restrict what types of software get installed. If you run into issues, try to install in administrator mode.</p>
 </div>
 </div>
+<p>To test whether it worked, try loading the <code>hd_data</code> dataset from the <a href="https://github.com/DanMazJen/medisr">medisr</a> package:</p>
 <div class="cell">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>Console</strong></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html">pak</a></span><span class="op">(</span><span class="st">"DanMazJen/medisr"</span>, upgrade <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">medisr</span><span class="fu">::</span><span class="fu"><a href="https://danmazjen.github.io/medisr/reference/medisr_install_packages.html">medisr_install_packages</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
-<!-- TODO: Show picture of the Console and with the code in and running -->
-<p>When you see R code like <code>something::something()</code>, for example with <code><a href="https://pak.r-lib.org/reference/pak.html">pak::pak()</a></code>, you would “read” this as:</p>
+<p>When you see R code like <code>something::something()</code>, for example with <code><a href="https://danmazjen.github.io/medisr/reference/medisr_install_packages.html">medisr::medisr_install_packages()</a></code>, you would “read” this as:</p>
 <blockquote class="blockquote">
-<p>R, can you please use the <code>pak()</code> function from the <a href="https://pak.r-lib.org/">pak</a> package.</p>
+<p>R, can you please use the <code>medisr_install_packages()</code> function from the <a href="https://github.com/DanMazJen/medisr">medisr</a> package.</p>
 </blockquote>
-<p>The most common way of using functions from packages is to load the package with <code><a href="https://rdrr.io/r/base/library.html">library()</a></code>, for example like <code><a href="https://pak.r-lib.org/">library(pak)</a></code>. Then you can use the functions from the package directly, like <code>pak()</code>. When you use the code <code>::</code> (pronounced “colon colon”), you are telling R to directly use a function from a package, without needing to load the whole package and all of its other functions too. We use this trick because we only want to use the one function <code>pak()</code> and not load all the other functions from the <a href="https://pak.r-lib.org/">pak</a> package into R. We will be using <code>::</code> often in this course.</p>
+<p>The most common way of using functions from packages is to load the package with <code><a href="https://rdrr.io/r/base/library.html">library()</a></code>, for example like <code><a href="https://github.com/DanMazJen/medisr">library(medisr)</a></code>. Then you can use the functions from the package directly, like <code>medisr_install_packages()</code>. When you use the code <code>::</code> (pronounced “colon colon”), you are telling R to directly use a function from a package, without needing to load the whole package and all of its other functions too. We use this trick because we only want to use the one function <code>medisr_install_packages()</code> and not load all the other functions from the <a href="https://github.com/DanMazJen/medisr">medisr</a> package into R. We will be using <code>::</code> often in this course.</p>
 <p>Most of the packages we will be using in this course are bundled together into one package called <a href="https://tidyverse.tidyverse.org">tidyverse</a>. This package is a collection of packages that are designed for common tasks in data science, ranging from data exploration to data visualization. As the name suggests, <a href="https://tidyverse.tidyverse.org">tidyverse</a> is an attempt to organize the “universe” of data analysis by providing packages that guide workflows and lead to more reproducible analysis projects. To install all the packages we will use for this course, copy and paste this command into the R Console:</p>
 <div class="cell">
 <div class="code-with-filename">

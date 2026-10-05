@@ -1,5 +1,7 @@
 # Evaluating a crystal ball - part 1 {#sec-classification}
 
+{{< text_snippet wip >}}
+
 > The future is now
 
 ```{r}
@@ -13,6 +15,7 @@ library(ggplot2)
 library(yardstick)
 library(probably)
 library(tidyr)
+library(tidyr)
 #hd_data <- readr::read_csv(
 #  "https://raw.githubusercontent.com/DanMazJen/medicinsk-statistik/main/data/hd_data.csv"
 #)
@@ -23,7 +26,7 @@ data(hd_data, package = "medisr")
 
 {{< include /includes/curriculum/_session18.qmd >}}
 
-# Slides
+## Slides
 
 > [**Session 18 slides**](../slides/day18.html)
 
@@ -43,6 +46,55 @@ keyboard.
 :::
 
 ## Case session 18: ""
+
+## Discussion task: To cause or to predict
+
+https://www.psykiatri-regionh.dk/presse-og-nyt/nyheder-og-pressemeddelelser/sider/f%C3%A6rre-akutte-genindl%C3%A6ggelser-i-psykiatrien-med-hj%C3%A6lp-fra-kunstig-intelligens.aspx?utm
+
+While causal models are great for knowing *how effective a thing is*, sometimes
+you just want to know *how likely this is to happen*.
+
+For example, suppose you're into gambling and want to bet money on horse rides
+at Aalborg Travbane. You don't need info on *why* a particylar jokey and horse
+wins --- you'll be happy just knowing whether it wins or not. The great thing
+about prediction models is that it will take any horse and provide a prediction.
+Thus, prediction models are capable of making individual judgements.
+
+But consider the counter example. You are told that your dog is sick and will
+likely die. This information is worthless without knowing *what to do about it*.
+You want an intervention --- a trick to counteract the sickness. This requires
+causal information. Often, the veterinarian will not know exactly what your dog
+needs, but they will know that any dog will get sick from eating chocolate.
+Indeed, some unique dogs might tolerate it better, but the negative effect is
+causal on a population level.
+
+Most scientific fields bennefit from both approaches. Take the weather, for
+example. The majority of people don't care why it will rain or why the
+temperature drops 10 degrees over night. But it is expremely useful information
+the industry (formers, sailors, outdoor events, public transportation). And most
+people want to know the weather in their specific part of the world. But in the
+face of climate change, we also need to know *why* the earth is experiencing
+global warming. Just knowing that the earth will be 1.2 degrees warmer in 10
+years will not help us keep the temperature lower or prevent the disaster.
+
+Read about this PhD-project at AAU:
+https://www.cs.aau.dk/kunstig-intelligens-kan-forudsige-hvor-laenge-du-skal-vaere-indlagt-n89354?utm
+
+**Discuss:**
+
+1. How are variable selection and confounding treated in prediction models?
+2. What decision does the prediction help with?
+3. Could a variable be very useful for predicting length of stay without causing
+   a longer stay?
+4. Would you trust the model if it made very accurate predictions but you didn't
+   understand why it worked?
+5. What would be different if the hospital wanted to know what intervention
+   would shorten the patient's stay?
+
+::: {.hidden}
+Prediction models cannot inform intervention. Only risk assessment and potential
+willingness to act --- but what to act on?
+:::
 
 ## Content (still being worked on)
 
@@ -205,7 +257,77 @@ p2 <- ggplot(
 p2
 ```
 
-### Evaluating a Prediction Model
+## Our model to validate:
+
+<!-- panache-ignore-format-start -->
+
+| Step | Specific issues | AlzheimerDisease model |
+|---|---|---|
+| **1. Problem definition and data inspection** | **Aim:** predictors or predictions?<br>Selection, predictor definitions, and completeness, endpoint definition | Aim is to determine whether demographic, CSF biomarker, and genetic predictors can be used to predict Alzheimer’s disease/cognitive impairment and to provide individualized predicted probabilities.<br>Data are derived from the AlzheimerDisease dataset based on a clinical study of CSF biomarkers for Alzheimer’s disease. The outcome is diagnosis, with levels **impaired** and **control**. The original observations were split by alternating rows, with even-numbered observations used for model training and odd-numbered observations used for validation. |
+| **2. Coding of predictors** | Continuous predictors<br>Combining categorical predictors | Continuous predictors include normalized age, CSF total tau, phosphorylated tau (p_tau), and amyloid beta 42 (Ab_42).<br>Sex is coded as the binary indicator **male**.<br>APOE genotype is treated as a categorical predictor with six possible allele-pair categories: E2E2, E2E3, E3E3, E3E4, E2E4, and E4E4. |
+| **3. Model specification** | Selection of main effects?<br>Assessment of assumptions? | Logistic regression model specified as **diagnosis ~ age + male + tau + p_tau + Ab_42 + Genotype**.<br>The model includes the specified main effects. No interaction terms or nonlinear transformations are described in the supplied model specification. |
+| **4. Model estimation** | Shrinkage included? | The logistic regression model was fitted to the even-numbered training observations. No shrinkage or penalization is described in the supplied model specification. |
+| **5. Model performance** | Appropriate measures used? | Predicted probabilities were generated for the odd-numbered validation observations, including probabilities for the impaired and control classes. Model performance can be assessed using **discrimination** and **calibration**; the supplied dataset specifically contains predicted probabilities and observed diagnoses, but does not specify particular performance measures. |
+| **6. Model validation** | Internal validation including model specification and estimation? | Hold-out validation using the odd-numbered observations. The model was fitted exclusively to the even-numbered training observations and evaluated on the odd-numbered validation observations. This provides validation on observations not used to fit the model. |
+| **7. Model presentation** | Format appropriate for audience | The validation dataset provides predicted probabilities for both **impaired** and **control** diagnoses alongside the observed diagnosis. This format is suitable for evaluating and presenting individual predicted risks, although the underlying logistic regression formula would be needed to reproduce individual predictions. |
+
+<!-- panache-ignore-format-end -->
+
+## Workflow
+
+```{r}
+#| label: fig-workflow
+#| echo: false
+
+library(gt)
+
+table_2 <- tibble::tribble(
+  ~Aspect, ~Measure, ~Visualization, ~Characteristics,
+  "Calibration", "A: Calibration-in-the-large (α)", "Calibration plot",
+  "Intercept in the calibration plot; compares the mean observed outcome with the mean predicted probability.",
+
+  "Calibration", "B: Calibration slope (β)", "Calibration plot",
+  "Regression slope in the calibration plot; related to the amount of shrinkage required for the regression coefficients.",
+
+  "Discrimination", "C: C-statistic", "ROC curve",
+  "Interpreted as the probability that the model assigns a higher predicted probability to a randomly selected subject with the endpoint than to a randomly selected subject without the endpoint.",
+
+  "Clinical usefulness", "D: Decision-curve analysis (Net Benefit)", "Decision curve",
+  "Net true-positive classification rate achieved by using the model across a range of decision thresholds."
+) |>
+  gt() |>
+  tab_header(
+    title = "Table 2. Overview of four measures (ABCD) for model performance"
+  ) |>
+  cols_label(
+    Aspect = "Aspect",
+    Measure = "Measure",
+    Visualization = "Visualization",
+    Characteristics = "Characteristics"
+  ) |>
+  tab_style(
+    style = cell_text(weight = "bold"),
+    locations = cells_stub()
+  ) |>
+  tab_style(
+    style = cell_text(weight = "bold"),
+    locations = cells_body(columns = Aspect)
+  ) |>
+  cols_align(
+    align = "left",
+    columns = everything()
+  ) |>
+  opt_row_striping() |>
+  tab_options(
+    table.font.size = px(13),
+    data_row.padding = px(8),
+    heading.title.font.size = px(16),
+    column_labels.font.weight = "bold"
+  )
+table_2
+```
+
+## Evaluating a Prediction Model
 
 A prediction model can be evaluated from two things:
 
@@ -244,7 +366,216 @@ predictions <- ad_validation_logistic |>
         )
 ```
 
-### A gentle overview
+## Quantifying binary prediction success
+
+dd
+
+## It all starts with the confusion matrix
+
+```{r}
+#| label: plot-logistic-data
+#| echo: false
+#| warning: false
+
+set.seed(524268529)
+n <- 10
+amyloid_beta <- runif(n, 10, 100)
+# set prob
+prob <- 1 / (1 + exp(-(-4 + 0.08 * amyloid_beta)))
+# (1 = Impaired, 0 = Control)
+group_num <- rbinom(n, 1, prob)
+group_factor <- factor(group_num, levels = c(0, 1), labels = c("Control", "Cognitive Impaired"))
+
+## Y prob
+y_prob_threshold <- 0.50
+# 3. Beregn den tilsvarende x-værdi (Amyloid Beta) fra modellen for at lave et præcist krydspunkt
+#model <- glm(Group_Num ~ Amyloid_Beta, data = data, family = binomial)
+
+
+
+#data <- data.frame(Amyloid_Beta = amyloid_beta, Group_Num = group_num, Group = group_factor, .prob = )
+
+# plot
+#ggplot(data, aes(x = Amyloid_Beta, y = Group_Num)) +
+  # Tilføj scatter-punkter farvet efter gruppe (placeret ved y = 0 og y = 1)
+#  geom_point(aes(color = Group), alpha = 0.6, size = 2.5,
+#             position = position_jitter(height = 0.02, width = 0)) +
+  # Tilføj den sigmoidale kurve (logistisk regressionslinje)
+#  geom_smooth(method = "glm", method.args = list(family = "binomial"),
+#              color = "#2c3e50", size = 1.2, se = FALSE, fill = "lightblue", alpha = 0.3) +
+  # Juster akser og labels
+#  scale_y_continuous(breaks = seq(0, 1, by = 0.25), labels = c("0.00 (Control)", "0.25", "0.50", "0.75", "1.00 (Impaired)")) +
+#  scale_color_manual(values = c("Control" = "#27ae60", "Cognitive Impaired" = "#e74c3c")) +
+#  labs(
+#    title = "A imaginary prediction model",
+#    x = "Amyloid Beta",
+#    y = "Probability | Impaired",
+#    color = "Test answer"
+#  ) +
+#  theme_minimal(base_size = 14) +
+#  theme(
+#    plot.title = element_text(face = "bold", hjust = 0.5),
+#    legend.position = "bottom"
+#  )
+
+
+set.seed(524268529)
+
+n <- 10
+
+# Simulate Amyloid Beta
+amyloid_beta <- runif(n, 10, 100)
+
+# True probability of being cognitively impaired
+prob <- 1 / (1 + exp(-(-4 + 0.08 * amyloid_beta)))
+
+# Simulate observed group
+group_num <- rbinom(n, 1, prob)
+
+group_factor <- factor(
+  group_num,
+  levels = c(0, 1),
+  labels = c("Control", "Cognitive Impaired")
+)
+
+# Create data
+data <- data.frame(
+  Amyloid_Beta = amyloid_beta,
+  Group_Num = group_num,
+  Group = group_factor
+)
+
+# Fit logistic regression
+model <- glm(
+  Group_Num ~ Amyloid_Beta,
+  data = data,
+  family = binomial
+)
+
+# Model-predicted probability for each observation
+data$prob_impaired <- predict(
+  model,
+  newdata = data,
+  type = "response"
+)
+
+y_prob_threshold <- 0.50
+
+# Plot
+data |>
+    ggplot(aes(x = Amyloid_Beta, y = prob_impaired)) +
+  # Each dot is positioned according to its predicted probability
+  geom_point(
+    aes(color = Group),
+    size = 3,
+    alpha = 0.8
+  ) +
+  # Logistic regression curve
+  geom_smooth(
+    method = "glm",
+    method.args = list(family = "binomial"),
+    color = "#2c3e50",
+    linewidth = 1.2,
+    se = FALSE
+  ) +
+  # 50% classification threshold
+  geom_hline(
+    yintercept = y_prob_threshold,
+    linetype = "dashed",
+    color = "grey40"
+  ) +
+  scale_y_continuous(
+    limits = c(0, 1),
+    breaks = seq(0, 1, by = 0.25),
+    labels = c(
+      "0.00 (Control)",
+      "0.25",
+      "0.50",
+      "0.75",
+      "1.00 (Impaired)"
+    )
+  ) +
+  scale_color_manual(
+    values = c(
+      "Control" = "#27ae60",
+      "Cognitive Impaired" = "#e74c3c"
+    )
+  ) +
+  labs(
+    title = "Predicted Probability of Cognitive Impairment",
+    x = "Amyloid Beta",
+    y = "Model probability | Impaired",
+    color = "Observed group"
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(
+    plot.title = element_text(face = "bold", hjust = 0.5),
+    legend.position = "bottom"
+  ) +
+  geom_ribbon(aes(ymin = y_prob_threshold, ymax = 1), fill = "red", alpha = 0.1) +
+  geom_ribbon(aes(ymin = 0, ymax = y_prob_threshold), fill = "green", alpha = 0.1)
+```
+
+```{r}
+#| label: change-threshold
+#| echo: false
+#| warning: false
+
+y_prob_threshold <- 0.75
+
+data |>
+    ggplot(aes(x = Amyloid_Beta, y = prob_impaired)) +
+  # Each dot is positioned according to its predicted probability
+  geom_point(
+    aes(color = Group),
+    size = 3,
+    alpha = 0.8
+  ) +
+  # Logistic regression curve
+  geom_smooth(
+    method = "glm",
+    method.args = list(family = "binomial"),
+    color = "#2c3e50",
+    linewidth = 1.2,
+    se = FALSE
+  ) +
+  # 50% classification threshold
+  geom_hline(
+    yintercept = y_prob_threshold,
+    linetype = "dashed",
+    color = "grey40"
+  ) +
+  scale_y_continuous(
+    limits = c(0, 1),
+    breaks = seq(0, 1, by = 0.25),
+    labels = c(
+      "0.00 (Control)",
+      "0.25",
+      "0.50",
+      "0.75",
+      "1.00 (Impaired)"
+    )
+  ) +
+  scale_color_manual(
+    values = c(
+      "Control" = "#27ae60",
+      "Cognitive Impaired" = "#e74c3c"
+    )
+  ) +
+  labs(
+    title = "Predicted Probability of Cognitive Impairment",
+    x = "Amyloid Beta",
+    y = "Model probability | Impaired",
+    color = "Observed group"
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(
+    plot.title = element_text(face = "bold", hjust = 0.5),
+    legend.position = "bottom"
+  ) +
+  geom_ribbon(aes(ymin = y_prob_threshold, ymax = 1), fill = "red", alpha = 0.1) +
+  geom_ribbon(aes(ymin = 0, ymax = y_prob_threshold), fill = "green", alpha = 0.1)
+```
 
 How many was correctly classified?
 
@@ -427,10 +758,195 @@ Consider consequences of the diagnosis, like:
 - Side-effects
 - Effectiveness of treatment
 
-### ROC and AUC
+### The receiver operating characteristic (ROC)
 
 Instead of choosing one threshold, we can look at model discrimination across
 all possible thresholds.
+
+```{r}
+#| label: roc-example
+#| echo: false
+#| warning: false
+
+library(tidyverse)
+library(yardstick)
+library(gt)
+
+# ------------------------------------------------------------
+# 1. Small example dataset
+# ------------------------------------------------------------
+
+dat <- tibble(
+  truth = factor(
+    c("yes", "yes", "yes", "yes", "yes", "no", "yes", "no",
+      "no", "no", "no", "no"),
+    levels = c("no", "yes")
+  ),
+  score = c(
+    0.95, 0.82, 0.78, 0.70,
+    0.68, 0.61, 0.57, 0.49,
+    0.44, 0.35, 0.25, 0.10
+  )
+)
+
+## Compute roc in steps
+roc <-roc_curve(
+  dat,
+  truth = truth,
+  score,
+  event_level = "second"
+)
+
+roc <- roc %>%
+  mutate(
+    iteration = row_number(),
+    threshold = .threshold
+  ) %>%
+  select(iteration, threshold, sensitivity, specificity) %>%
+  mutate(
+    false_positive_rate = 1 - specificity
+  )
+
+roc %>%
+  mutate(
+    iteration = row_number()
+  ) %>%
+  ggplot(aes(false_positive_rate, sensitivity)) +
+
+  # The complete ROC curve
+  geom_path(
+    aes(group = 1),
+    colour = "grey70",
+    linewidth = 1
+  ) +
+
+  # Current operating point
+  geom_point(
+    colour = "#2C7FB8",
+    size = 4
+  ) +
+
+  # Reference diagonal
+  geom_abline(
+    slope = 1,
+    intercept = 0,
+    linetype = "dashed",
+    colour = "grey80"
+  ) +
+
+  facet_wrap(~ iteration) +
+
+  scale_x_continuous(
+    limits = c(0, 1),
+    labels = scales::label_percent()
+  ) +
+  scale_y_continuous(
+    limits = c(0, 1),
+    labels = scales::label_percent()
+  ) +
+
+  labs(
+    x = "1 − specificity",
+    y = "sensitivity",
+    title = "Building the ROC curve, one threshold at a time"
+  ) +
+
+  theme_minimal(base_size = 12)
+
+
+#########
+
+confusion_matrices <- roc %>%
+  select(iteration, threshold) %>%
+  mutate(
+    cm = map(
+      threshold,
+      \(threshold) {
+        dat %>%
+          mutate(
+            estimate = factor(
+              if_else(score >= threshold, "yes", "no"),
+              levels = levels(truth)
+            )
+          ) %>%
+          conf_mat(
+            truth = truth,
+            estimate = estimate
+          )
+      }
+    )
+  )
+
+#confusion_matrices$cm[[1]]
+
+#roc_steps %>%
+#  left_join(
+#    confusion_matrices,
+#    by = c("iteration", "threshold")
+#  )
+
+make_cm_table <- function(cm, threshold) {
+
+  cm$table %>%
+    gt(
+      rowname_col = "Prediction",
+      groupname_col = "Truth"
+    ) %>%
+    tab_header(
+      title = paste("Threshold:", threshold)
+    ) %>%
+    cols_label(
+      no = "No",
+      yes = "Yes"
+    )
+}
+
+#make_cm_table(confusion_matrices$cm[[1]],1)
+
+```
+
+```{r}
+#| label: iterative-confusion-matrix-table
+#| echo: false
+
+cm_plot <- function(cm) {
+  as.data.frame(cm$table) |>
+    ggplot(aes(Prediction, Truth, fill = Freq)) +
+    geom_tile(color = "white", linewidth = 1) +
+    geom_text(
+      aes(label = Freq),
+      size = 20,
+      fontface = "bold"
+    ) +
+    scale_fill_gradient(low = "white", high = "steelblue") +
+    theme_void() +
+    theme(
+      legend.position = "none",
+      plot.margin = margin(2, 2, 2, 2)
+    )
+}
+
+confusion_matrices |>
+  mutate(
+    threshold = as.character(threshold),
+    plot = ""
+  ) |>
+  select(iteration, threshold, plot) |>
+  gt() |>
+  text_transform(
+    locations = cells_body(plot),
+    fn = function(x) {
+      map(
+        seq_along(x),
+        \(i) ggplot_image(
+          cm_plot(confusion_matrices$cm[[i]]),
+          height = px(120)
+        )
+      )
+    }
+  )
+
+```
 
 The ROC curve shows sensitivity against 1 − specificity.
 
@@ -440,6 +956,8 @@ The ROC curve shows sensitivity against 1 − specificity.
 roc_curve(ad_validation_logistic, Class, .pred_impaired, event_level = "first" ) |>
     autoplot()
 ```
+
+### Area under the curve (AUC)
 
 The area under this curve is the AUC.
 
@@ -456,50 +974,48 @@ randomly chosen "control" observation.
 AUC measures discrimination. It does not tell us whether the predicted
 probabilities themselves are accurate.
 
-### Calibration
+## Calibration
 
-Calibration asks a different question:
+Calibration refers to the agreement between observed endpoints and predictions.
+For example, if we predict a 15% risk that a patient will have cognitive
+decline, the observed proportion should be 15 MCDs per 100 with such a
+prediction. As always, we recommend visualizing this in a plot with predictions
+on the x-axis and the observed endpoint on the y-axis, see @fig-calibration. The
+observed values on the y-axis are 0 or 1 (cognitive impairment/ control), while
+the predictions on the x-axis range between 0 and 100%.
 
-When the model says 70%, does the event happen about 70% of the time?
+Perfect predictions should be on the ideal line, described with an intercept
+alpha ('A') of 0 and slope beta ('B') of 1. The log odds of predictions are used
+as the predictor of the 0/1 outcome.
 
-A simple calibration plot compares predicted probability with the observed
-proportion.
+### Alpha: calibration-in-the-large
 
-The probably package provides this directly:
+The intercept A relates to calibration-in-the-large, which compares the mean of
+all predicted risks with the mean observed risk. The parameter hence indicates
+the extent that predictions are systematically too low or too high.
 
-```{r}
-#| label: calibration
+When assessing external validity, some countries might have higher prevalence,
+which will invalidate the model. This test is called geographical validation.
+Another type of validation, called temporal validation, use data from a
+different year (or century). It is often the case that prevalences change over
+the course of time and outdated data cannot generalize to the modern medical
+standards and practices.
 
-cal_plot_breaks(ad_validation_logistic, Class, .pred_impaired)
-```
+### Beta: calibration slope
 
-A well-calibrated model follows the diagonal line.
+The calibration slope B is often smaller than 1 if a model was developed in a
+relatively small data set. Such a finding reflects that predictions were too
+extreme: low prediction too low, and high predictions too high.
 
-We can also fit a smooth calibration curve:
+For the model based on 167 patients, the slope was 0.639 among the internal
+validation patients, in line with what was expected at internal validation
+(shrinkage factor 0.82). For the model based on **MORE?**, B was close to one at
+internal validation by cross-validation or bootstrapping, as well as at external
+validation in non-US patients (slope 0.99, *p* = 0.55 for comparison with slope =
+1), see @fig-calibration.
 
-```{r}
-#| label: cal-smooth
-
-cal_plot_logistic(ad_validation_logistic, Class, .pred_impaired, smooth = FALSE)
-```
-
-Calibration is about the accuracy of the probabilities. A model can have
-excellent discrimination and poor calibration.
-
-### ABCD of model validation
-
-A useful way to remember prediction-model evaluation is the ABCD framework:
-
-- A --- Calibration-in-the-large: are predictions systematically too high or too
-  low?
-- B --- Calibration slope: are predictions too extreme or not extreme enough?
-- C --- C-statistic: how well does the model discriminate between outcomes?
-- D --- Decision curve: does using the model improve clinical decisions?
-
-[This framework](https://pmc.ncbi.nlm.nih.gov/articles/PMC4155437/) separates
-statistical performance from clinical usefulness.
-
-For example, the calibration model can be written very simply as:
+In R, the calibration model can be written as a normal logistic regression using
+`{glm}`:
 
 ```{r}
 #| label: cal-model
@@ -520,7 +1036,97 @@ The intercept is related to calibration-in-the-large (A) and the coefficient of
 Ideally, we'd see that the calibration-in-the-large is (close to) 0 and that the
 calibration slope is (close to) 1.
 
-This is called the **C-statistic** of the AUC.
+### Visualizing calibration
+
+Calibration asks a different question:
+
+When the model says 70%, does the event happen about 70% of the time?
+
+A simple calibration plot compares predicted probability with the observed
+proportion.
+
+The probably package provides this directly:
+
+```{r}
+#| label: fig-calibration
+
+cal_plot_breaks(ad_validation_logistic, Class, .pred_impaired)
+```
+
+A well-calibrated model follows the diagonal line.
+
+We can also fit a smooth calibration curve:
+
+```{r}
+#| label: cal-smooth
+
+cal_plot_logistic(ad_validation_logistic, Class, .pred_impaired, smooth = FALSE)
+```
+
+Calibration is about the accuracy of the probabilities. A model can have
+excellent discrimination and poor calibration.
+
+## Discrimination using the concordance statistic
+
+Discrimination refers to the ability of the model to distinguish a patient with
+the endpoint (cognitive impairment) from a patient without (control). A better
+discriminating model has more spread between the predictions than a poorly
+discriminating model.
+
+Consider the extreme example where a model predicts all subjects to have the
+same predicted risk as the incidence. This model would have perfect calibration ---
+but it would be useless since it does not discriminate between patients! 😅
+
+A validation plot showing a wide spread between predictions as a histogram, or
+between deciles of predicted risk, indicates a good discriminating model, see
+@fig-calibration.
+
+We use the concordance (*c*) statistic as an outcome for the models ability to
+discriminate between groups. For a binary endpoint, *c* is identical to the area
+under the receiver operating characteristic (ROC) curve, which plots the
+sensitivity (true-positive rate) against 1 -- specificity (false-positive rate)
+for consecutive cut-offs for the predicted risk.
+
+In our data, we have a AUC of 0.840
+
+**Intuition of C-statistic**
+
+Imagine you play a game with your model. You pick every possible pair of people
+from your data where one person had the event (1) and the other person did not
+(0). 
+
+You ask your model:
+
+> "Which of these two people had a higher predicted probability of the event?
+
+There are three possible outcomes for each pair: 
+
+1. Concordant pair: The model assigns a higher predicted probability to the
+   person who actually had the event (1) than to the person who did not (0).
+2. Discordant pair: The model gets it backward and assigns a higher probability
+   to the person who did not have the event (0).
+3. Tied pair: The model assigns the exact same probability to both people.
+
+The c-statistic is simply the percentage of pairs that are concordant (plus half
+of the tied pairs) out of all possible pairs.
+
+$$
+  \text{c-statistic}
+  = \frac{\text{Concordant pairs} + 0.5 × \text{Tied\ pairs}}{\text{Total\ pairs}}
+$$
+
+## Decision-curve analysis
+
+While calibration and discrimination are important for validating prediction
+model, neither reflect real clinical usefulness. Clinical usefulness can be
+boiled down to **the ability to make better decisions with a model than
+without**.
+
+If a prediction model aims to guide treatment decisions, a cut-off is required
+to classify patients as either low risk (no treatment) or high risk (treatment
+is indicated). The cut-off is a decision threshold.
+
+You will learn about decision-curve analysis in **Workshop 3**.
 
 **D**
 
@@ -528,7 +1134,114 @@ The D component asks whether the predictions are useful for making decisions.
 That requires specifying a clinical action and the range of probability
 thresholds at which that action would be taken.
 
-### Effect size estimation
+## Internal and external validation
+
+Everything we've done so far has been an internal validation --- what do I mean
+by that?
+
+Recall that we initially made an arbitrary split of the data: all odd-numbered
+patient `ID`s were assigned to a *test* set and the even-numbered `ID`s to a
+*validation* set. Had we used all the data for our model, we could not have
+performed any independent validation!
+
+### Internal validation
+
+Validating internally --- using data from the same study or dataset that was
+used to develop the model --- is useful for several reasons.
+
+First, it allows us to estimate how well our model is likely to perform on new
+patients from the **same target population**. We can use part of our data to
+develop the model and hold back another part to evaluate its performance.
+
+However, simply making one arbitrary split into training and validation data has
+some disadvantages. The estimated performance can depend heavily on which
+patients happen to end up in each set. With a small dataset, this can lead to
+substantial uncertainty in our estimate of model performance.
+
+**Cross-validation** is a more robust way of making internal splits.
+
+In $k$-fold cross-validation, we divide the data into $k$ roughly equal-sized
+groups, or *folds*. We then:
+
+1. Fit the model using $k - 1$ folds.
+2. Evaluate the model on the remaining fold.
+3. Repeat this process until every fold has been used as the validation data.
+4. Average the results across all folds to obtain an estimate of model
+   performance.
+
+For example, in 5-fold cross-validation, each patient is used for validation
+once and for model development four times.
+
+Cross-validation therefore makes more efficient use of a limited dataset than a
+single train/test split. It is particularly useful when the available dataset is
+relatively small.
+
+Importantly, cross-validation is still **internal validation**. The patients
+used to evaluate the model come from the same underlying study and therefore may
+share characteristics with the patients used to develop the model.
+
+### External validation
+
+Validating externally --- using data from **other studies, hospitals,
+populations, or settings** --- is necessary if we want to know whether a model
+generalises beyond the data on which it was developed.
+
+A model can perform very well during internal validation but perform much worse
+when applied to new data. This can happen because the new patients, clinical
+practices, measurements, or disease prevalence differ from those in the
+development dataset.
+
+External validation therefore provides a much stronger test of whether a
+prediction model is likely to be useful in practice.
+
+There are several ways in which we can perform external validation.
+
+1. **Temporal validation:**\
+   Develop the model using data from an earlier time period and evaluate it
+   using patients from a later time period. This tests whether the model
+   continues to work as patients and clinical practice change over time.
+
+2. **Geographical validation:**\
+   Develop the model using data from one geographical location, such as a
+   hospital or country, and evaluate it using data from another location. This
+   tests whether the model generalises to a different population or healthcare
+   setting.
+
+3. **Domain validation:**\
+   Develop the model in one type of healthcare setting and evaluate it in
+   another. For example, a model developed using patients from a specialist
+   hospital could be evaluated in primary care.
+
+4. **Cross-setting validation:**\
+   Develop the model using one study and evaluate it using an entirely
+   independent study. This is often the strongest form of external validation
+   because the validation data were collected independently of the model
+   development process.
+
+The further the external validation data are from the development data, the more
+demanding the test of generalisability becomes.
+
+### When to use internal and external validation?
+
+Internal and external validation can be seen as two levels of evidence:
+
+**Internal validation** as the initial an inexpensive validation:
+
+- Statistical estimation of overfitting/underfitting
+- Best guess for future external validation and generalizability
+- Always possible
+
+**External validation** as the necessary validation check:
+
+- Does my model still perform well when applied to genuinely new data from >
+  another time, place, setting, or study?
+
+A model should therefore not be considered ready for widespread clinical use
+simply because it performs well on its development data or under internal
+validation. External validation is needed to establish whether the model
+generalises to the population and setting in which we ultimately want to use it.
+
+## Effect size estimation
 
 Prediction performance and effect estimation are different questions.
 
@@ -554,7 +1267,49 @@ happens?
 A model can be excellent for prediction without giving an unbiased estimate of a
 causal effect.
 
-### Putting it all together
+### Effect size calculation in R:
+
+**Binary and survival outcomes have three criteria:**
+
+- Small overfitting: expected shrinkage of predictor effects ≤ 10%
+- Small absolute difference (≤ 0.05) between apparent and adjusted Nagelkerke's
+  R²
+- Precise estimation (within ± 0.05) of the average outcome risk at the
+  timepoint of interest
+
+Calculate the minimum sample size for a logistic prediction model with 24
+candidate predictor parameters, an anticipated outcome prevalence of 17.4%, and
+a Cox-Snell $R^2$ of 0.288 (taken from an existing model):
+
+```{r}
+#| label: effect-size-r
+
+library(pmsampsize)
+
+pmsampsize(type = "b", csrsquared = 0.288, parameters = 24, prevalence = 0.174)
+```
+
+If only a C-statistic (rather than $R^2$) is available from an existing model,
+use the cstatistic argument instead:
+
+```{r}
+#| label: effect-size-on-c-score
+
+pmsampsize(type = "b", cstatistic = 0.89, parameters = 24, prevalence = 0.174)
+```
+
+### Summary
+
+A useful way to remember prediction-model evaluation is the ABCD framework:
+
+- A --- Calibration-in-the-large: are predictions systematically too high or too
+  low?
+- B --- Calibration slope: are predictions too extreme or not extreme enough?
+- C --- C-statistic: how well does the model discriminate between outcomes?
+- D --- Decision curve: does using the model improve clinical decisions?
+
+[This framework](https://pmc.ncbi.nlm.nih.gov/articles/PMC4155437/) separates
+statistical performance from clinical usefulness.
 
 A simple evaluation therefore looks like this:
 

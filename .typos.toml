@@ -10,6 +10,7 @@ extend-exclude = [
   "_extensions/rostools/rostools-theme/_extensions/quarto-ext/fontawesome/assets/css/all.css",
   "*.bib",
   "arrows/*",
+  "appendix/exam-questions.qmd*",
 ]
 
 [default.extend-words]

@@ -16,7 +16,7 @@ book:
   date: last-modified
   repo-url: https://github.com/DanMazJen/medicinsk-statistik
   site-url: https://medicinsk-statistik.DanMazJen.org
-  body-header: "{{< text_snippet wip >}}" # TODO Comment me out when all website is not actively worked on!
+  #body-header: "{{< text_snippet wip >}}" # TODO Comment me out when all website is not actively worked on!
   chapters:
     - index.qmd
     - part: "Overview"

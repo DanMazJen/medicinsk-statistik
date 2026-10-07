@@ -1,10 +1,10 @@
 *Obligatory:*
 
 - [Steyerberg & Vergouwe,
-  2014](https://onlinelibrary.wiley.com/doi/epdf/10.1002/sim.9025) **NB**: read
-  only "An ABCD for model validation"
+  2014](https://academic.oup.com/eurheartj/article/35/29/1925/2293109?login=true)
+  **NB**: read only "An ABCD for model validation"
 
 *if you join the lecture, no need to read:*
 
 - [Riley et al.,
-  2021](https://academic.oup.com/eurheartj/article/35/29/1925/2293109?login=true)
+  2021](https://onlinelibrary.wiley.com/doi/epdf/10.1002/sim.9025)

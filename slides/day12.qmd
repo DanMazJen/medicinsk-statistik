@@ -1099,7 +1099,7 @@ smoking causing lung cancer.
 Now to exercises
 :::
 
-##
+<!-- ##
 
 ::: {.r-fit-text}
 Extra slides
@@ -1128,3 +1128,4 @@ $$
   Var(Y_i) = μ_i + \frac{μ_i^2}{θ}
 $$
 :::
+-->

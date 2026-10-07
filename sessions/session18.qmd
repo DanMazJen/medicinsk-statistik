@@ -19,7 +19,7 @@ library(tidyr)
 #hd_data <- readr::read_csv(
 #  "https://raw.githubusercontent.com/DanMazJen/medicinsk-statistik/main/data/hd_data.csv"
 #)
-data(hd_data, package = "medisr")
+#data(hd_data, package = "medisr")
 ```
 
 ## Pree-class Literature
@@ -1001,6 +1001,19 @@ different year (or century). It is often the case that prevalences change over
 the course of time and outdated data cannot generalize to the modern medical
 standards and practices.
 
+Calibration-in-the-large measures the overall calibration between observed and
+predicted risks in the validation dataset. 19A fundamental measure of
+calibration-in-the-large is O/E, which is the ratio of the total number of
+observed outcomeevents, divided by the total number of expected (predicted)
+outcome events. Equivalently, O/E is the observed risk ofhaving the outcome
+event in the entire validation dataset (ie, O/N) divided by the average risk
+predicted by the model:
+
+$$
+  \frac{\sum^n_{i=1}p_{P_{RED_i}}}{N}
+$$
+∑Ni=1 pPREDiN
+
 ### Beta: calibration slope
 
 The calibration slope B is often smaller than 1 if a model was developed in a
@@ -1267,6 +1280,156 @@ happens?
 A model can be excellent for prediction without giving an unbiased estimate of a
 causal effect.
 
+### The mathematics of it
+
+how to determine the minimum sample size needed for a new external validation
+study of a prediction model for a binary outcome.
+
+The calculations can also be used to inform whether the sample size of an
+existing(already collected) dataset is adequate for external validation
+
+When externally validating a prediction model, sample size should be large
+enough to estimate model performance with sufficient precision. Riley et al.
+(2021) propose calculating the required sample size separately for several
+performance measures and then using the largest required sample size.
+
+1. O/E ratio
+
+The observed-to-expected ratio is
+
+$$
+  \frac{\text{\# observed events}}{\text{\# prediceted events}}
+$$
+
+An ideal value is $O/E = 1$, meaning that the model predicts the correct overall
+amount of risk.
+
+For sample-size planning, Riley et al. focus on the precision of $\ln(O/E)$. The
+required sample size is
+
+$$
+  𝑁 = \frac{1 − 𝜙}{𝜙(𝑆𝐸 \{{ln(𝑂/𝐸)\}})^2}
+$$
+
+where:
+
+- $N$ = total validation sample size
+- $\phi$ = anticipated event proportion
+- $SE{\ln(O/E)}$ = desired standard error of $\ln(O/E)$.
+
+The logic is simple: more events give a more precise estimate of O/E.
+
+For example, if the anticipated event rate is 10% ($\phi = 0.10$) and the
+desired standard error is 0.10:
+
+$$
+  𝑁 = \frac{1 − 0.10}{0.10(0.10)^2} = 900.
+$$
+
+Thus, approximately 900 patients are required, corresponding to about
+$900 × 0.10 = 90$ expected events.
+
+The desired standard error is chosen based on how narrow we want the confidence
+interval for O/E to be. Because O/E is estimated on the log scale, the
+confidence interval is calculated as
+
+$$
+  ln(𝑂/𝐸) ± 1.96 × 𝑆𝐸{ln(𝑂/𝐸)},
+$$
+
+and then exponentiated.
+
+For example, if $SE{\ln(O/E)} = 0.051$ and the estimated O/E is 1:
+
+$$
+  exp(±1.96 × 0.051) ≈ (0.90,1.10).
+$$
+
+Thus, the sample-size calculation can be interpreted as:
+
+> How many patients do I need to estimate the overall agreement between observed
+> and predicted risk with the desired precision?
+
+2. C-statistic
+
+For sample-size planning, we specify:
+
+- the anticipated C-statistic, $C$;
+- the anticipated event proportion, $\phi$; and
+- the desired precision, expressed as $SE(C)$.
+
+Riley et al. use an approximate formula for the standard error:
+
+$$
+  𝑆𝐸(𝐶)
+  ≈ \frac{\sqrt{𝐶(1 − 𝐶) (1 + (𝑁𝜙 − 1)1 − 𝐶2 − 𝐶 + (𝑁(1 − 𝜙) − 1)𝐶1 + 𝐶)}} {𝑁2𝜙(1 − 𝜙)}.
+$$
+
+Unlike the O/E formula, this equation is not conveniently rearranged to give $N$
+directly. Instead, we try different values of $N$ until the resulting $SE(C)$ is
+sufficiently small.
+
+For example, suppose:
+
+$$
+  𝐶 = 0.70, \\
+  𝜙 = 0.10.
+$$
+
+If we want the C-statistic to have an approximate 95% confidence interval of
+$\pm0.05$, we need approximately
+
+$$
+  𝑆𝐸(𝐶) = \frac{0.05}{1.96} ≈ 0.0255.
+$$
+
+We then increase $N$ until the formula gives $SE(C) \approx 0.0255$.
+
+The resulting $N$ is the required validation sample size for the C-statistic
+criterion.
+
+The interpretation is:
+
+> How many patients do I need to estimate the model's ability to discriminate
+> between patients with and without the outcome with the desired precision?
+
+Because the C-statistic depends on comparisons between events and non-events,
+both the number of events and the number of non-events contribute information.
+
+**Putting the two together**
+
+The two calculations answer different questions:
+
+Performance measure Main question Sample-size driver O/E Is the overall amount
+of predicted risk correct? Mainly the number of events C-statistic Does the
+model correctly rank patients by risk? Events + non-events + anticipated
+discrimination
+
+For an external validation study, calculate the required $N$ for each
+performance measure and use the largest value as the minimum required sample
+size.
+
+For example:
+
+$$
+  𝑁_{𝑂/𝐸} = 900
+$$
+
+and
+
+$$
+  𝑁_{𝐶} = 1,200
+$$
+
+then the study should aim for at least $𝑁 = 1,200$
+
+This ensures that both O/E and the C-statistic can be estimated with the desired
+precision.
+
+Be aware that many more sample size calculation methods exists! These are in
+fact the two most simple ones. Lucily for us, R provides easy access to the more
+complicated ones.
+
 ### Effect size calculation in R:
 
 **Binary and survival outcomes have three criteria:**
@@ -1295,7 +1458,7 @@ use the cstatistic argument instead:
 ```{r}
 #| label: effect-size-on-c-score
 
-pmsampsize(type = "b", cstatistic = 0.89, parameters = 24, prevalence = 0.174)
+pmsampsize::pmsampsize(type = "b", cstatistic = 0.89, parameters = 24, prevalence = 0.174)
 ```
 
 ### Summary

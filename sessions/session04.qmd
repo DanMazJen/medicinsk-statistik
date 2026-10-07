@@ -24,7 +24,7 @@ data(hd_data, package = "medisr")
 
 {{< include /includes/curriculum/_session4.qmd >}}
 
-# Slides
+## Slides
 
 > [**Session 4 slides**](../slides/day4.html)
 

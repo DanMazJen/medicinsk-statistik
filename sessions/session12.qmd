@@ -1328,7 +1328,7 @@ In practice, however, many epidemiologists use Poisson regression to model
 binary outcomes with relatively high rate and where the variance assumption is
 not met. The reason is that the analyst want an estimate of the **risk ratio**
 and not the **odds ratio**. Unfortunately, this creates too low standard errors,
-which leads to unrealisticly narrow confidence intervals.
+which leads to unrealisticly narrow confidence intervals @zou2004modified.
 
 See the compendium for explanations of the difference in risk and odds ratios.
 
@@ -1336,7 +1336,7 @@ See the compendium for explanations of the difference in risk and odds ratios.
 
 > Count ratio, incidence rate ratio, risk ratio, odds ratio...
 
-What is the output of a Poisson model? 😅
+What is the output of a Poisson model with binary outcome? 😅
 
 There is a simple set of rules governing this, which you need to remember when
 interpreting coefficients of Poisson models.
@@ -1371,7 +1371,9 @@ This is what we did in the simulation example above.
 
 Estimating a relative risk from binary outcome data requires a modified Poisson
 regression (using robust standard errors) rather than a standard Poisson model
-(see @zou2004modified).
+(see @zou2004modified). Often, the Poisson model will be too conservative, as
+the variance will be lower than the event probability (e.g., 50% has the event,
+the standard error will be huge! 👀).
 
 This is how you could compute that in R:
 
@@ -1391,7 +1393,7 @@ model_rr <- glm(
 # crude estimate of RR
 misleading_rr <- parameters::model_parameters(
   model_rr,
-  exponentiate = TRUE  # Get unadjusted risk ratio
+  exponentiate = TRUE  # Get crude risk ratio
 )
 
 # Alternative: Average Risk Ratio w/ robust std.err.
@@ -1456,7 +1458,8 @@ invert the coefficients (taking it's exponential). Finally, we covered the
 assumptions (dispersion) and how to adjust different exposure times (including
 an offset).
 
-## EXTRA MATERIAL
+::: {.hidden}
+EXTRA MATERIAL
 
 ## Telling your model that people respond differently
 
@@ -1617,6 +1620,7 @@ juin the beginning of the session.
 - Which best captures the data?
 - Which makes the worst fit?
 - What else do you notice?
+:::
 
 ::: {.hidden}
 Hidden material on prediction
@@ -1770,13 +1774,13 @@ Thus,
 
 - The overall computation,
   $$
-  \eta = X\hat{\beta},
+    \eta = X\hat{\beta},
   $$
   is **matrix multiplication**.
 
 - Each individual fitted value,
   $$
-  \eta_i = x_i^\top \hat{\beta},
+    \eta_i = x_i^\top \hat{\beta},
   $$
   is an **inner product (dot product)**.
 

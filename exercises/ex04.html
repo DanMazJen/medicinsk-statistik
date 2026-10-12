@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.10.18">
+<meta name="generator" content="quarto-1.10.19">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <title>19&nbsp; Exercises: When in doubt, plot it out – Medical Statistics, MEDMS24B5_1</title>
 <style>
@@ -75,9 +75,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-f2f3720d61c840f4a81557a72cafc3fb.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-b3a0ae3d575e4a0a28d8790bf29525bf.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-f2f3720d61c840f4a81557a72cafc3fb.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-70b2143b4d44a8bc20f2b96c53b52f22.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-508b74a01082f8c2b637fba1098b712e.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-70b2143b4d44a8bc20f2b96c53b52f22.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-11a70ba4a8dd030c1cfce089875a5c0b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
@@ -446,7 +446,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>How do height and weight vary with age, and do these patterns differ between males and females?</p>
 </blockquote>
 <p>Before drawing conclusions, the team wants to first understand the data visually. In particular, they want to examine the distributions of height and weight, compare males and females, and explore relationships between the continuous variables.</p>
-<p>The Professor asks you to start by asking:</p>
+<p>The Professor asks you to start by reflecting:</p>
 <blockquote class="blockquote">
 <p>Which visualization is most appropriate for each question?</p>
 </blockquote>
@@ -468,7 +468,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ol>
 <details><summary><strong>Click for the solution</strong>
 </summary><div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/View.html">View</a></span><span class="op">(</span><span class="va">height_data</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu">medisr</span><span class="fu">::</span><span class="va"><a href="https://danmazjen.github.io/medisr/reference/height_data.html">height_data</a></span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/View.html">View</a></span><span class="op">(</span><span class="va">height_data</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ol type="1">
 <li>544</li>
@@ -594,7 +594,7 @@ Levels: Female Male</code></pre>
 </div>
 </div>
 </details><p><strong>Exercise 2B</strong>:</p>
-<p>Create a plot that proofes to yourself that the median age of males and females are similar within the dataset.</p>
+<p>Create a plot that proofs to yourself that the median age of males and females are similar within the dataset.</p>
 <ul>
 <li>What will you put on the x-axis?</li>
 <li>What will you put on the y-axis?</li>
@@ -750,6 +750,156 @@ range (`geom_point()`).</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure"><p><img src="ex04_files/figure-html/ex-c3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</details><p><strong>Exercise 4C:</strong></p>
+<p>Consider the hypothesis:</p>
+<blockquote class="blockquote">
+<p><strong>Hypothesis:</strong> More females weigh more than the male trend line than males weigh less than the female trend line.</p>
+</blockquote>
+<p>Which visualization would be most appropriate?</p>
+<p>Explain your reasoning and implement the plot using <a href="https://ggplot2.tidyverse.org">ggplot2</a>. Then, comment on whether the plot supports the hypothesis.</p>
+<details><summary>
+Click for the solution
+</summary><p>Can you compare the two trends and see how individuals fall above or below the other group’s trend line? 👀</p>
+<p>Example:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">height_data</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">ggplot</span><span class="op">(</span></span>
+<span>    <span class="fu">aes</span><span class="op">(</span></span>
+<span>      x <span class="op">=</span> <span class="va">age</span>,</span>
+<span>      y <span class="op">=</span> <span class="va">weight</span>,</span>
+<span>      color <span class="op">=</span> <span class="va">male</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_smooth</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using method = 'loess' and formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="ex04_files/figure-html/ex-4c-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</details><p><strong>Exercise 5C:</strong></p>
+<p>A researcher wants to investigate the following hypothesis:</p>
+<blockquote class="blockquote">
+<p><strong>Hypothesis:</strong> The variability in weight increases with age.</p>
+</blockquote>
+<p>Which visualization would be most appropriate?</p>
+<p>Explain why you chose this visualization and what features of the graph you would look at to evaluate the hypothesis.</p>
+<p>Now implement it using <a href="https://ggplot2.tidyverse.org">ggplot2</a>. Save your plot and make sure it has clear, descriptive labels.</p>
+<p>Hint: Use <code>labs()</code> to add a title, a subtitle, and meaningful axis labels. You can also use <code>labs()</code> to give the legend a descriptive title.</p>
+<details><summary>
+Click for the solution
+</summary><p>Look at how the spread of the data points changes as age increases. 👀</p>
+<p>Example:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">weight_plot</span> <span class="op">&lt;-</span> <span class="va">height_data</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">ggplot</span><span class="op">(</span></span>
+<span>    <span class="fu">aes</span><span class="op">(</span></span>
+<span>      x <span class="op">=</span> <span class="va">age</span>,</span>
+<span>      y <span class="op">=</span> <span class="va">weight</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_smooth</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">labs</span><span class="op">(</span></span>
+<span>    title <span class="op">=</span> <span class="st">"How does weight vary with age?"</span>,</span>
+<span>    subtitle <span class="op">=</span> <span class="st">"Weight variability across different ages"</span>,</span>
+<span>    x <span class="op">=</span> <span class="st">"Age (years)"</span>,</span>
+<span>    y <span class="op">=</span> <span class="st">"Weight (kg)"</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="va">weight_plot</span> <span class="co"># view the saved plot</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using method = 'loess' and formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="ex04_files/figure-html/ex-5c-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggsave</span><span class="op">(</span></span>
+<span>    filename <span class="op">=</span> <span class="st">"figures/subgroup-association.png"</span>,</span>
+<span>    plot <span class="op">=</span> <span class="va">weight_plot</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><p><strong>Exercise 6C:</strong></p>
+<p>A researcher wants to investigate the following hypothesis:</p>
+<blockquote class="blockquote">
+<p><strong>Hypothesis:</strong> Males are taller than females on average.</p>
+</blockquote>
+<p>The researcher insists that the plot should be a bar plot.</p>
+<p>Is this visualization appropriate for evaluating the hypothesis? <em>(you may also answer after plotting it)</em>.</p>
+<p>Now improve the visualization using <a href="https://ggplot2.tidyverse.org">ggplot2</a>. Choose appropriate colors, add a meaningful title and descriptive axis labels, and save your plot.</p>
+<p>Explain what you observe in the plot and whether anything about the data might make the comparison misleading.</p>
+<details><summary><strong>Click for the solution</strong>
+</summary><p>This plot doesn’t make sense because we include all ages. Thus, we have huge variability at lower heights (children growing up) and a cluster in the top representing adults. You can easily notice this by adding the jitter. This would have been difficult only from the use of <code>geom_col</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">height_data</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">male</span>, <span class="va">height</span>, color<span class="op">=</span><span class="va">male</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">stat_summary</span><span class="op">(</span>geom <span class="op">=</span> <span class="st">"col"</span>, fun <span class="op">=</span> <span class="va">mean</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_jitter</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="ex04_files/figure-html/ex-6c-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</details><p><strong>Exercise 7C (extra) 🎉</strong></p>
+<p>In the compendium, <strong>chapter 1.8 Exercises</strong>, exercise 12 and 16 used <code><a href="https://rdrr.io/r/graphics/lines.html">lines()</a></code> on top of a <code><a href="https://rdrr.io/r/graphics/hist.html">hist()</a></code> to show the density of a parametric function.</p>
+<p>The solution was:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu">medisr</span><span class="fu">::</span><span class="va"><a href="https://danmazjen.github.io/medisr/reference/dns.html">dns</a></span></span>
+<span></span>
+<span><span class="va">alc_mean</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">alcoholweek</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">alcoholweek</span>,probability <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/lines.html">lines</a></span><span class="op">(</span></span>
+<span>  <span class="fl">0</span><span class="op">:</span><span class="fl">100</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/Exponential.html">dexp</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">100</span>,</span>
+<span>    rate <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="va">alc_mean</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="ex04_files/figure-html/extra-ex1-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+Now, implement this using <a href="https://ggplot2.tidyverse.org">ggplot2</a>.
+<details><summary><strong>Click for tips</strong>
+</summary><ol type="1">
+<li>What is on the y-axis of a histogram?</li>
+<li>What is on the y-axis of a density plot?</li>
+<li>Consider using <code>after_stat()</code> or compute the density manually.</li>
+<li>Consider using <code>stat_function()</code> for the parametric function.</li>
+</ol></details><details><summary><strong>Click for the solution</strong>
+</summary><div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">data</span> <span class="op">|&gt;</span></span>
+<span><span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">alcoholweek</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_histogram</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>y <span class="op">=</span> <span class="fu">after_stat</span><span class="op">(</span><span class="va">density</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">stat_function</span><span class="op">(</span>fun <span class="op">=</span> <span class="va">dexp</span>, args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>rate <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="va">alc_mean</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value `binwidth`.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 28 rows containing non-finite outside the scale range
+(`stat_bin()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="ex04_files/figure-html/extra-ex-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>

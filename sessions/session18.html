@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.10.18">
+<meta name="generator" content="quarto-1.10.19">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <title>16&nbsp; Evaluating a crystal ball - part 1 – Medical Statistics, MEDMS24B5_1</title>
 <style>
@@ -75,9 +75,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-f2f3720d61c840f4a81557a72cafc3fb.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-b3a0ae3d575e4a0a28d8790bf29525bf.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-f2f3720d61c840f4a81557a72cafc3fb.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-70b2143b4d44a8bc20f2b96c53b52f22.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-508b74a01082f8c2b637fba1098b712e.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-70b2143b4d44a8bc20f2b96c53b52f22.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-11a70ba4a8dd030c1cfce089875a5c0b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
@@ -472,8 +472,9 @@ window.Quarto = {
   <li>
 <a href="#effect-size-estimation" id="toc-effect-size-estimation" class="nav-link" data-scroll-target="#effect-size-estimation"><span class="header-section-number">16.15</span> Effect size estimation</a>
   <ul class="collapse">
-<li><a href="#effect-size-calculation-in-r" id="toc-effect-size-calculation-in-r" class="nav-link" data-scroll-target="#effect-size-calculation-in-r"><span class="header-section-number">16.15.1</span> Effect size calculation in R:</a></li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">16.15.2</span> Summary</a></li>
+<li><a href="#the-mathematics-of-it" id="toc-the-mathematics-of-it" class="nav-link" data-scroll-target="#the-mathematics-of-it"><span class="header-section-number">16.15.1</span> The mathematics of it</a></li>
+  <li><a href="#effect-size-calculation-in-r" id="toc-effect-size-calculation-in-r" class="nav-link" data-scroll-target="#effect-size-calculation-in-r"><span class="header-section-number">16.15.2</span> Effect size calculation in R:</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">16.15.3</span> Summary</a></li>
   </ul>
 </li>
   </ul><div class="toc-actions"><ul><li><a href="https://github.com/DanMazJen/medicinsk-statistik/edit/main/sessions/session18.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/blob/main/sessions/session18.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
@@ -515,11 +516,11 @@ Warning
 <p><em>Obligatory:</em></p>
 <ul>
 <li>
-<a href="https://onlinelibrary.wiley.com/doi/epdf/10.1002/sim.9025">Steyerberg &amp; Vergouwe, 2014</a> <strong>NB</strong>: read only “An ABCD for model validation”</li>
+<a href="https://academic.oup.com/eurheartj/article/35/29/1925/2293109?login=true">Steyerberg &amp; Vergouwe, 2014</a> <strong>NB</strong>: read only “An ABCD for model validation”</li>
 </ul>
 <p><em>if you join the lecture, no need to read:</em></p>
 <ul>
-<li><a href="https://academic.oup.com/eurheartj/article/35/29/1925/2293109?login=true">Riley et al., 2021</a></li>
+<li><a href="https://onlinelibrary.wiley.com/doi/epdf/10.1002/sim.9025">Riley et al., 2021</a></li>
 </ul></section><section id="slides" class="level2" data-number="16.2"><h2 data-number="16.2" class="anchored" data-anchor-id="slides">
 <span class="header-section-number">16.2</span> Slides</h2>
 <blockquote class="blockquote">
@@ -761,23 +762,23 @@ Warning
 <div class="cell">
 <div id="fig-workflow" class="cell-output-display quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-workflow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div id="hyztkfecri" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#hyztkfecri table {
+<div id="cdpxblpdit" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#cdpxblpdit table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#hyztkfecri thead, #hyztkfecri tbody, #hyztkfecri tfoot, #hyztkfecri tr, #hyztkfecri td, #hyztkfecri th {
+#cdpxblpdit thead, #cdpxblpdit tbody, #cdpxblpdit tfoot, #cdpxblpdit tr, #cdpxblpdit td, #cdpxblpdit th {
   border-style: none;
 }
 
-#hyztkfecri p {
+#cdpxblpdit p {
   margin: 0;
   padding: 0;
 }
 
-#hyztkfecri .gt_table {
+#cdpxblpdit .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -803,12 +804,12 @@ Warning
   border-left-color: #D3D3D3;
 }
 
-#hyztkfecri .gt_caption {
+#cdpxblpdit .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#hyztkfecri .gt_title {
+#cdpxblpdit .gt_title {
   color: #333333;
   font-size: 16px;
   font-weight: initial;
@@ -820,7 +821,7 @@ Warning
   border-bottom-width: 0;
 }
 
-#hyztkfecri .gt_subtitle {
+#cdpxblpdit .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -832,7 +833,7 @@ Warning
   border-top-width: 0;
 }
 
-#hyztkfecri .gt_heading {
+#cdpxblpdit .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -844,13 +845,13 @@ Warning
   border-right-color: #D3D3D3;
 }
 
-#hyztkfecri .gt_bottom_border {
+#cdpxblpdit .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#hyztkfecri .gt_col_headings {
+#cdpxblpdit .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -865,7 +866,7 @@ Warning
   border-right-color: #D3D3D3;
 }
 
-#hyztkfecri .gt_col_heading {
+#cdpxblpdit .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -885,7 +886,7 @@ Warning
   overflow-x: hidden;
 }
 
-#hyztkfecri .gt_column_spanner_outer {
+#cdpxblpdit .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -897,15 +898,15 @@ Warning
   padding-right: 4px;
 }
 
-#hyztkfecri .gt_column_spanner_outer:first-child {
+#cdpxblpdit .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#hyztkfecri .gt_column_spanner_outer:last-child {
+#cdpxblpdit .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#hyztkfecri .gt_column_spanner {
+#cdpxblpdit .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -917,11 +918,11 @@ Warning
   width: 100%;
 }
 
-#hyztkfecri .gt_spanner_row {
+#cdpxblpdit .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#hyztkfecri .gt_group_heading {
+#cdpxblpdit .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -947,7 +948,7 @@ Warning
   text-align: left;
 }
 
-#hyztkfecri .gt_empty_group_heading {
+#cdpxblpdit .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -962,15 +963,15 @@ Warning
   vertical-align: middle;
 }
 
-#hyztkfecri .gt_from_md > :first-child {
+#cdpxblpdit .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#hyztkfecri .gt_from_md > :last-child {
+#cdpxblpdit .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#hyztkfecri .gt_row {
+#cdpxblpdit .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -989,7 +990,7 @@ Warning
   overflow-x: hidden;
 }
 
-#hyztkfecri .gt_stub {
+#cdpxblpdit .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1002,7 +1003,7 @@ Warning
   padding-right: 5px;
 }
 
-#hyztkfecri .gt_stub_row_group {
+#cdpxblpdit .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1016,15 +1017,15 @@ Warning
   vertical-align: top;
 }
 
-#hyztkfecri .gt_row_group_first td {
+#cdpxblpdit .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#hyztkfecri .gt_row_group_first th {
+#cdpxblpdit .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#hyztkfecri .gt_summary_row {
+#cdpxblpdit .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1034,16 +1035,16 @@ Warning
   padding-right: 5px;
 }
 
-#hyztkfecri .gt_first_summary_row {
+#cdpxblpdit .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#hyztkfecri .gt_first_summary_row.thick {
+#cdpxblpdit .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#hyztkfecri .gt_last_summary_row {
+#cdpxblpdit .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1053,7 +1054,7 @@ Warning
   border-bottom-color: #D3D3D3;
 }
 
-#hyztkfecri .gt_grand_summary_row {
+#cdpxblpdit .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1063,7 +1064,7 @@ Warning
   padding-right: 5px;
 }
 
-#hyztkfecri .gt_first_grand_summary_row {
+#cdpxblpdit .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1073,7 +1074,7 @@ Warning
   border-top-color: #D3D3D3;
 }
 
-#hyztkfecri .gt_last_grand_summary_row_top {
+#cdpxblpdit .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1083,11 +1084,11 @@ Warning
   border-bottom-color: #D3D3D3;
 }
 
-#hyztkfecri .gt_striped {
+#cdpxblpdit .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#hyztkfecri .gt_table_body {
+#cdpxblpdit .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1096,7 +1097,7 @@ Warning
   border-bottom-color: #D3D3D3;
 }
 
-#hyztkfecri .gt_footnotes {
+#cdpxblpdit .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1110,7 +1111,7 @@ Warning
   border-right-color: #D3D3D3;
 }
 
-#hyztkfecri .gt_footnote {
+#cdpxblpdit .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1119,7 +1120,7 @@ Warning
   padding-right: 5px;
 }
 
-#hyztkfecri .gt_sourcenotes {
+#cdpxblpdit .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1133,7 +1134,7 @@ Warning
   border-right-color: #D3D3D3;
 }
 
-#hyztkfecri .gt_sourcenote {
+#cdpxblpdit .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1141,72 +1142,72 @@ Warning
   padding-right: 5px;
 }
 
-#hyztkfecri .gt_left {
+#cdpxblpdit .gt_left {
   text-align: left;
 }
 
-#hyztkfecri .gt_center {
+#cdpxblpdit .gt_center {
   text-align: center;
 }
 
-#hyztkfecri .gt_right {
+#cdpxblpdit .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#hyztkfecri .gt_font_normal {
+#cdpxblpdit .gt_font_normal {
   font-weight: normal;
 }
 
-#hyztkfecri .gt_font_bold {
+#cdpxblpdit .gt_font_bold {
   font-weight: bold;
 }
 
-#hyztkfecri .gt_font_italic {
+#cdpxblpdit .gt_font_italic {
   font-style: italic;
 }
 
-#hyztkfecri .gt_super {
+#cdpxblpdit .gt_super {
   font-size: 65%;
 }
 
-#hyztkfecri .gt_footnote_marks {
+#cdpxblpdit .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#hyztkfecri .gt_asterisk {
+#cdpxblpdit .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#hyztkfecri .gt_indent_1 {
+#cdpxblpdit .gt_indent_1 {
   text-indent: 5px;
 }
 
-#hyztkfecri .gt_indent_2 {
+#cdpxblpdit .gt_indent_2 {
   text-indent: 10px;
 }
 
-#hyztkfecri .gt_indent_3 {
+#cdpxblpdit .gt_indent_3 {
   text-indent: 15px;
 }
 
-#hyztkfecri .gt_indent_4 {
+#cdpxblpdit .gt_indent_4 {
   text-indent: 20px;
 }
 
-#hyztkfecri .gt_indent_5 {
+#cdpxblpdit .gt_indent_5 {
   text-indent: 25px;
 }
 
-#hyztkfecri .katex-display {
+#cdpxblpdit .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#hyztkfecri div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#cdpxblpdit div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -2009,6 +2010,10 @@ Prediction impaired control
 <span class="header-section-number">16.11.1</span> Alpha: calibration-in-the-large</h3>
 <p>The intercept A relates to calibration-in-the-large, which compares the mean of all predicted risks with the mean observed risk. The parameter hence indicates the extent that predictions are systematically too low or too high.</p>
 <p>When assessing external validity, some countries might have higher prevalence, which will invalidate the model. This test is called geographical validation. Another type of validation, called temporal validation, use data from a different year (or century). It is often the case that prevalences change over the course of time and outdated data cannot generalize to the modern medical standards and practices.</p>
+<p>Calibration-in-the-large measures the overall calibration between observed and predicted risks in the validation dataset. 19A fundamental measure of calibration-in-the-large is O/E, which is the ratio of the total number of observed outcomeevents, divided by the total number of expected (predicted) outcome events. Equivalently, O/E is the observed risk ofhaving the outcome event in the entire validation dataset (ie, O/N) divided by the average risk predicted by the model:</p>
+<p><span class="math display">\[
+  \frac{\sum^n_{i=1}p_{P_{RED_i}}}{N}
+\]</span> ∑Ni=1 pPREDiN</p>
 </section><section id="beta-calibration-slope" class="level3" data-number="16.11.2"><h3 data-number="16.11.2" class="anchored" data-anchor-id="beta-calibration-slope">
 <span class="header-section-number">16.11.2</span> Beta: calibration slope</h3>
 <p>The calibration slope B is often smaller than 1 if a model was developed in a relatively small data set. Such a finding reflects that predictions were too extreme: low prediction too low, and high predictions too high.</p>
@@ -2157,8 +2162,99 @@ Develop the model using one study and evaluate it using an entirely independent 
 <p>Prediction asks: How accurately can we predict what will happen?</p>
 <p>Effect estimation asks: How does changing a particular variable relate to what happens?</p>
 <p>A model can be excellent for prediction without giving an unbiased estimate of a causal effect.</p>
-<section id="effect-size-calculation-in-r" class="level3" data-number="16.15.1"><h3 data-number="16.15.1" class="anchored" data-anchor-id="effect-size-calculation-in-r">
-<span class="header-section-number">16.15.1</span> Effect size calculation in R:</h3>
+<section id="the-mathematics-of-it" class="level3" data-number="16.15.1"><h3 data-number="16.15.1" class="anchored" data-anchor-id="the-mathematics-of-it">
+<span class="header-section-number">16.15.1</span> The mathematics of it</h3>
+<p>how to determine the minimum sample size needed for a new external validation study of a prediction model for a binary outcome.</p>
+<p>The calculations can also be used to inform whether the sample size of an existing(already collected) dataset is adequate for external validation</p>
+<p>When externally validating a prediction model, sample size should be large enough to estimate model performance with sufficient precision. Riley et al. (2021) propose calculating the required sample size separately for several performance measures and then using the largest required sample size.</p>
+<ol type="1">
+<li>O/E ratio</li>
+</ol>
+<p>The observed-to-expected ratio is</p>
+<p><span class="math display">\[
+  \frac{\text{\# observed events}}{\text{\# predicted events}}
+\]</span></p>
+<p>An ideal value is <span class="math inline">\(O/E = 1\)</span>, meaning that the model predicts the correct overall amount of risk.</p>
+<p>For sample-size planning, Riley et al.&nbsp;focus on the precision of <span class="math inline">\(\ln(O/E)\)</span>. The required sample size is</p>
+<p><span class="math display">\[
+  𝑁 = \frac{1 − 𝜙}{𝜙(𝑆𝐸 \{{ln(𝑂/𝐸)\}})^2}
+\]</span></p>
+<p>where:</p>
+<ul>
+<li>
+<span class="math inline">\(N\)</span> = total validation sample size</li>
+<li>
+<span class="math inline">\(\phi\)</span> = anticipated event proportion</li>
+<li>
+<span class="math inline">\(SE{\ln(O/E)}\)</span> = desired standard error of <span class="math inline">\(\ln(O/E)\)</span>.</li>
+</ul>
+<p>The logic is simple: more events give a more precise estimate of O/E.</p>
+<p>For example, if the anticipated event rate is 10% (<span class="math inline">\(\phi = 0.10\)</span>) and the desired standard error is 0.10:</p>
+<p><span class="math display">\[
+  𝑁 = \frac{1 − 0.10}{0.10(0.10)^2} = 900.
+\]</span></p>
+<p>Thus, approximately 900 patients are required, corresponding to about <span class="math inline">\(900 × 0.10 = 90\)</span> expected events.</p>
+<p>The desired standard error is chosen based on how narrow we want the confidence interval for O/E to be. Because O/E is estimated on the log scale, the confidence interval is calculated as</p>
+<p><span class="math display">\[
+  ln(𝑂/𝐸) ± 1.96 × 𝑆𝐸{ln(𝑂/𝐸)},
+\]</span></p>
+<p>and then exponentiated.</p>
+<p>For example, if <span class="math inline">\(SE{\ln(O/E)} = 0.051\)</span> and the estimated O/E is 1:</p>
+<p><span class="math display">\[
+  exp(±1.96 × 0.051) ≈ (0.90,1.10).
+\]</span></p>
+<p>Thus, the sample-size calculation can be interpreted as:</p>
+<blockquote class="blockquote">
+<p>How many patients do I need to estimate the overall agreement between observed and predicted risk with the desired precision?</p>
+</blockquote>
+<ol start="2" type="1">
+<li>C-statistic</li>
+</ol>
+<p>For sample-size planning, we specify:</p>
+<ul>
+<li>the anticipated C-statistic, <span class="math inline">\(C\)</span>;</li>
+<li>the anticipated event proportion, <span class="math inline">\(\phi\)</span>; and</li>
+<li>the desired precision, expressed as <span class="math inline">\(SE(C)\)</span>.</li>
+</ul>
+<p>Riley et al.&nbsp;use an approximate formula for the standard error:</p>
+<p><span class="math display">\[
+  𝑆𝐸(𝐶)
+  ≈ \frac{\sqrt{𝐶(1 − 𝐶) (1 + (𝑁𝜙 − 1)1 − 𝐶2 − 𝐶 + (𝑁(1 − 𝜙) − 1)𝐶1 + 𝐶)}} {𝑁2𝜙(1 − 𝜙)}.
+\]</span></p>
+<p>Unlike the O/E formula, this equation is not conveniently rearranged to give <span class="math inline">\(N\)</span> directly. Instead, we try different values of <span class="math inline">\(N\)</span> until the resulting <span class="math inline">\(SE(C)\)</span> is sufficiently small.</p>
+<p>For example, suppose:</p>
+<p><span class="math display">\[
+  𝐶 = 0.70, \\
+  𝜙 = 0.10.
+\]</span></p>
+<p>If we want the C-statistic to have an approximate 95% confidence interval of <span class="math inline">\(\pm0.05\)</span>, we need approximately</p>
+<p><span class="math display">\[
+  𝑆𝐸(𝐶) = \frac{0.05}{1.96} ≈ 0.0255.
+\]</span></p>
+<p>We then increase <span class="math inline">\(N\)</span> until the formula gives <span class="math inline">\(SE(C) \approx 0.0255\)</span>.</p>
+<p>The resulting <span class="math inline">\(N\)</span> is the required validation sample size for the C-statistic criterion.</p>
+<p>The interpretation is:</p>
+<blockquote class="blockquote">
+<p>How many patients do I need to estimate the model’s ability to discriminate between patients with and without the outcome with the desired precision?</p>
+</blockquote>
+<p>Because the C-statistic depends on comparisons between events and non-events, both the number of events and the number of non-events contribute information.</p>
+<p><strong>Putting the two together</strong></p>
+<p>The two calculations answer different questions:</p>
+<p>Performance measure Main question Sample-size driver O/E Is the overall amount of predicted risk correct? Mainly the number of events C-statistic Does the model correctly rank patients by risk? Events + non-events + anticipated discrimination</p>
+<p>For an external validation study, calculate the required <span class="math inline">\(N\)</span> for each performance measure and use the largest value as the minimum required sample size.</p>
+<p>For example:</p>
+<p><span class="math display">\[
+  𝑁_{𝑂/𝐸} = 900
+\]</span></p>
+<p>and</p>
+<p><span class="math display">\[
+  𝑁_{𝐶} = 1,200
+\]</span></p>
+<p>then the study should aim for at least <span class="math inline">\(𝑁 = 1,200\)</span></p>
+<p>This ensures that both O/E and the C-statistic can be estimated with the desired precision.</p>
+<p>Be aware that many more sample size calculation methods exists! These are in fact the two most simple ones. Lucily for us, R provides easy access to the more complicated ones.</p>
+</section><section id="effect-size-calculation-in-r" class="level3" data-number="16.15.2"><h3 data-number="16.15.2" class="anchored" data-anchor-id="effect-size-calculation-in-r">
+<span class="header-section-number">16.15.2</span> Effect size calculation in R:</h3>
 <p><strong>Binary and survival outcomes have three criteria:</strong></p>
 <ul>
 <li>Small overfitting: expected shrinkage of predictor effects ≤ 10%</li>
@@ -2189,7 +2285,7 @@ Final            662     0.905        24  0.288   0.603   0.477 4.80
 </div>
 <p>If only a C-statistic (rather than <span class="math inline">\(R^2\)</span>) is available from an existing model, use the cstatistic argument instead:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/pmsampsize/man/pmsampsize.html">pmsampsize</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"b"</span>, cstatistic <span class="op">=</span> <span class="fl">0.89</span>, parameters <span class="op">=</span> <span class="fl">24</span>, prevalence <span class="op">=</span> <span class="fl">0.174</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">pmsampsize</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pmsampsize/man/pmsampsize.html">pmsampsize</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"b"</span>, cstatistic <span class="op">=</span> <span class="fl">0.89</span>, parameters <span class="op">=</span> <span class="fl">24</span>, prevalence <span class="op">=</span> <span class="fl">0.174</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Given input C-statistic = 0.89  &amp; prevalence = 0.174  
 Cox-Snell R-sq = 0.2902  
@@ -2210,8 +2306,8 @@ Final            661     0.906        24 0.2902   0.603   0.481 4.79
  </code></pre>
 </div>
 </div>
-</section><section id="summary" class="level3" data-number="16.15.2"><h3 data-number="16.15.2" class="anchored" data-anchor-id="summary">
-<span class="header-section-number">16.15.2</span> Summary</h3>
+</section><section id="summary" class="level3" data-number="16.15.3"><h3 data-number="16.15.3" class="anchored" data-anchor-id="summary">
+<span class="header-section-number">16.15.3</span> Summary</h3>
 <p>A useful way to remember prediction-model evaluation is the ABCD framework:</p>
 <ul>
 <li>A — Calibration-in-the-large: are predictions systematically too high or too low?</li>

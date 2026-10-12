@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.10.18">
+<meta name="generator" content="quarto-1.10.19">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <title>14&nbsp; A fishy counting trick – Medical Statistics, MEDMS24B5_1</title>
 <style>
@@ -94,9 +94,9 @@ div.csl-indent {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-f2f3720d61c840f4a81557a72cafc3fb.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-b3a0ae3d575e4a0a28d8790bf29525bf.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-f2f3720d61c840f4a81557a72cafc3fb.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-70b2143b4d44a8bc20f2b96c53b52f22.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-508b74a01082f8c2b637fba1098b712e.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-70b2143b4d44a8bc20f2b96c53b52f22.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-11a70ba4a8dd030c1cfce089875a5c0b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
@@ -490,14 +490,6 @@ window.Quarto = {
   </ul>
 </li>
   <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">14.16</span> Summary:</a></li>
-  <li><a href="#extra-material" id="toc-extra-material" class="nav-link" data-scroll-target="#extra-material"><span class="header-section-number">14.17</span> EXTRA MATERIAL</a></li>
-  <li>
-<a href="#telling-your-model-that-people-respond-differently" id="toc-telling-your-model-that-people-respond-differently" class="nav-link" data-scroll-target="#telling-your-model-that-people-respond-differently"><span class="header-section-number">14.18</span> Telling your model that people respond differently</a>
-  <ul class="collapse">
-<li><a href="#the-theory" id="toc-the-theory" class="nav-link" data-scroll-target="#the-theory"><span class="header-section-number">14.18.1</span> The theory</a></li>
-  <li><a href="#the-practice" id="toc-the-practice" class="nav-link" data-scroll-target="#the-practice"><span class="header-section-number">14.18.2</span> The practice</a></li>
-  </ul>
-</li>
   </ul><div class="toc-actions"><ul><li><a href="https://github.com/DanMazJen/medicinsk-statistik/edit/main/sessions/session12.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/blob/main/sessions/session12.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
     </div>
 <!-- main -->
@@ -804,7 +796,7 @@ Figure&nbsp;14.2
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html">rbinom</a></span><span class="op">(</span><span class="fl">1e5</span>, <span class="fl">1000</span>, <span class="fl">1</span><span class="op">/</span><span class="fl">1000</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">var</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1.0002400 0.9964299</code></pre>
+<pre><code>[1] 1.001380 1.002648</code></pre>
 </div>
 </div>
 <p>As a result, the distribution only has one parameter, λ (pronounced <em>lambda</em>).</p>
@@ -1525,14 +1517,14 @@ plot_baseline_pred
 <li>low rate</li>
 <li>variance scales with <em>n</em> (see <a href="#sec-whenpoisson" class="quarto-xref"><span>Section 14.6</span></a>).</li>
 </ul>
-<p>In practice, however, many epidemiologists use Poisson regression to model binary outcomes with relatively high rate and where the variance assumption is not met. The reason is that the analyst want an estimate of the <strong>risk ratio</strong> and not the <strong>odds ratio</strong>. Unfortunately, this creates too low standard errors, which leads to unrealisticly narrow confidence intervals.</p>
+<p>In practice, however, many epidemiologists use Poisson regression to model binary outcomes with relatively high rate and where the variance assumption is not met. The reason is that the analyst want an estimate of the <strong>risk ratio</strong> and not the <strong>odds ratio</strong>. Unfortunately, this creates too low standard errors, which leads to unrealisticly narrow confidence intervals <span class="citation" data-cites="zou2004modified">(<a href="../appendix/references.html#ref-zou2004modified" role="doc-biblioref">1</a>)</span>.</p>
 <p>See the compendium for explanations of the difference in risk and odds ratios.</p>
 <section id="correct-interpretation-of-poisson-models-with-binary-outcomes" class="level3" data-number="14.15.1"><h3 data-number="14.15.1" class="anchored" data-anchor-id="correct-interpretation-of-poisson-models-with-binary-outcomes">
 <span class="header-section-number">14.15.1</span> Correct interpretation of Poisson models with binary outcomes</h3>
 <blockquote class="blockquote">
 <p>Count ratio, incidence rate ratio, risk ratio, odds ratio…</p>
 </blockquote>
-<p>What is the output of a Poisson model? 😅</p>
+<p>What is the output of a Poisson model with binary outcome? 😅</p>
 <p>There is a simple set of rules governing this, which you need to remember when interpreting coefficients of Poisson models.</p>
 <p>A relative risk compares the <strong>risk (cumulative incidence)</strong> of an outcome between groups:</p>
 <p><span class="math display">\[
@@ -1549,7 +1541,7 @@ plot_baseline_pred
 <p>1.5 events per day vs 0.5 events per day gives a 0.33 incidence rate ratio.</p>
 </section><section id="adjusting-the-rate-ratio-standard-deviation-for-poisson-models" class="level3" data-number="14.15.2"><h3 data-number="14.15.2" class="anchored" data-anchor-id="adjusting-the-rate-ratio-standard-deviation-for-poisson-models">
 <span class="header-section-number">14.15.2</span> Adjusting the rate ratio standard deviation for Poisson models</h3>
-<p>Estimating a relative risk from binary outcome data requires a modified Poisson regression (using robust standard errors) rather than a standard Poisson model (see <span class="citation" data-cites="zou2004modified">(<a href="../appendix/references.html#ref-zou2004modified" role="doc-biblioref">1</a>)</span>).</p>
+<p>Estimating a relative risk from binary outcome data requires a modified Poisson regression (using robust standard errors) rather than a standard Poisson model (see <span class="citation" data-cites="zou2004modified">(<a href="../appendix/references.html#ref-zou2004modified" role="doc-biblioref">1</a>)</span>). Often, the Poisson model will be too conservative, as the variance will be lower than the event probability (e.g., 50% has the event, the standard error will be huge! 👀).</p>
 <p>This is how you could compute that in R:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># grab dataset</span></span>
@@ -1565,7 +1557,7 @@ plot_baseline_pred
 <span><span class="co"># crude estimate of RR</span></span>
 <span><span class="va">misleading_rr</span> <span class="op">&lt;-</span> <span class="fu">parameters</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/parameters/reference/model_parameters.html">model_parameters</a></span><span class="op">(</span></span>
 <span>  <span class="va">model_rr</span>,</span>
-<span>  exponentiate <span class="op">=</span> <span class="cn">TRUE</span>  <span class="co"># Get unadjusted risk ratio</span></span>
+<span>  exponentiate <span class="op">=</span> <span class="cn">TRUE</span>  <span class="co"># Get crude risk ratio</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Alternative: Average Risk Ratio w/ robust std.err.</span></span>
@@ -1620,10 +1612,10 @@ plot_baseline_pred
 </section></section><section id="summary" class="level2" data-number="14.16"><h2 data-number="14.16" class="anchored" data-anchor-id="summary">
 <span class="header-section-number">14.16</span> Summary:</h2>
 <p>This session introduced the Poisson distribution and how to use it in regression (within the GLM framework). We covered it’s relationship to logistic regression and why it’s necessary in favor of the gaussian linear regression. We also covered how the coefficients are interpreted (incidence rate-ratio), and how we invert the coefficients (taking it’s exponential). Finally, we covered the assumptions (dispersion) and how to adjust different exposure times (including an offset).</p>
-</section><section id="extra-material" class="level2" data-number="14.17"><h2 data-number="14.17" class="anchored" data-anchor-id="extra-material">
-<span class="header-section-number">14.17</span> EXTRA MATERIAL</h2>
-</section><section id="telling-your-model-that-people-respond-differently" class="level2" data-number="14.18"><h2 data-number="14.18" class="anchored" data-anchor-id="telling-your-model-that-people-respond-differently">
-<span class="header-section-number">14.18</span> Telling your model that people respond differently</h2>
+<div class="hidden">
+<p>EXTRA MATERIAL</p>
+<section id="telling-your-model-that-people-respond-differently" class="level2" data-number="14.17"><h2 data-number="14.17" class="anchored" data-anchor-id="telling-your-model-that-people-respond-differently">
+<span class="header-section-number">14.17</span> Telling your model that people respond differently</h2>
 <!--
 Poisson models often have a lot of unexplained variance, mainly from ignoring
 *rate heterogeneity*.
@@ -1632,8 +1624,8 @@ The gamma-Poisson is a mixture of different Poisson distributions (similar to
 how Student-t is a mixture of Gaussians).
 -->
 <p>What a cool model we have! But wait… Did we check for any assumptions yet? And what are the assumptions specific to Poisson regression?</p>
-<section id="the-theory" class="level3" data-number="14.18.1"><h3 data-number="14.18.1" class="anchored" data-anchor-id="the-theory">
-<span class="header-section-number">14.18.1</span> The theory</h3>
+<section id="the-theory" class="level3" data-number="14.17.1"><h3 data-number="14.17.1" class="anchored" data-anchor-id="the-theory">
+<span class="header-section-number">14.17.1</span> The theory</h3>
 <p>Our Poisson model assumes that the number of seizures follows a Poisson distribution,</p>
 <p><span class="math display">\[
   Y_i \sim \text{Poisson}(\mu_i),
@@ -1669,8 +1661,8 @@ how Student-t is a mixture of Gaussians).
   \mathrm{Var}(Y_i) \rightarrow \mu_i,
 \]</span></p>
 <p>so the negative binomial model reduces to the ordinary Poisson model.</p>
-</section><section id="the-practice" class="level3" data-number="14.18.2"><h3 data-number="14.18.2" class="anchored" data-anchor-id="the-practice">
-<span class="header-section-number">14.18.2</span> The practice</h3>
+</section><section id="the-practice" class="level3" data-number="14.17.2"><h3 data-number="14.17.2" class="anchored" data-anchor-id="the-practice">
+<span class="header-section-number">14.17.2</span> The practice</h3>
 <p>Before fitting a negative binomial model, it is useful to check whether the Poisson assumptions appear reasonable. The <code><a href="https://easystats.github.io/performance/reference/check_overdispersion.html">performance::check_overdispersion()</a></code> function compares the observed variability with the variability expected under the fitted Poisson model. Evidence of substantial overdispersion suggests that the Poisson model is likely underestimating uncertainty.</p>
 <p>The <code><a href="https://easystats.github.io/performance/reference/check_model.html">performance::check_model()</a></code> function provides additional diagnostic plots for evaluating the adequacy of the fitted model. If overdispersion is present, we can fit a negative binomial model using <code><a href="https://rdrr.io/pkg/MASS/man/glm.nb.html">MASS::glm.nb()</a></code>. The interpretation of the regression coefficients remains unchanged: exponentiating a coefficient gives the multiplicative change in the expected seizure rate, just as in the Poisson model. The only difference is that the negative binomial model explicitly allows for unexplained patient-to-patient variability.</p>
 <div class="cell" data-layout-align="center">
@@ -1726,7 +1718,8 @@ how Student-t is a mixture of Gaussians).
 <li>Which best captures the data?</li>
 <li>Which makes the worst fit?</li>
 <li>What else do you notice?</li>
-</ul>
+</ul></section></section>
+</div>
 <div class="hidden">
 <p>Hidden material on prediction</p>
 <p>manual predictions:</p>
@@ -1999,10 +1992,10 @@ range (`geom_line()`).</code></pre>
 <p>Thus,</p>
 <ul>
 <li><p>The overall computation, <span class="math display">\[
-\eta = X\hat{\beta},
+  \eta = X\hat{\beta},
 \]</span> is <strong>matrix multiplication</strong>.</p></li>
 <li><p>Each individual fitted value, <span class="math display">\[
-\eta_i = x_i^\top \hat{\beta},
+  \eta_i = x_i^\top \hat{\beta},
 \]</span> is an <strong>inner product (dot product)</strong>.</p></li>
 </ul>
 <p>Since this is a Poisson generalized linear model with a log link, the predicted mean response is obtained by applying the inverse link function:</p>
@@ -2397,7 +2390,7 @@ plot_predictions(
 <div class="csl-right-inline">Zou G. A modified poisson regression approach to prospective studies with binary data. American journal of epidemiology. 2004;159(7):702–6. </div>
 </div>
 </div>
-</section></section><script async="" src="https://scripts.simpleanalyticscdn.com/latest.js"></script></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</section><script async="" src="https://scripts.simpleanalyticscdn.com/latest.js"></script></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
     const anchorJS = new window.AnchorJS();

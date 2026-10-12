@@ -1298,7 +1298,7 @@ performance measures and then using the largest required sample size.
 The observed-to-expected ratio is
 
 $$
-  \frac{\text{\# observed events}}{\text{\# prediceted events}}
+  \frac{\text{\# observed events}}{\text{\# predicted events}}
 $$
 
 An ideal value is $O/E = 1$, meaning that the model predicts the correct overall

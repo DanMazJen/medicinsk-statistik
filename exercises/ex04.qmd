@@ -23,7 +23,7 @@ visually. In particular, they want to examine the distributions of height and
 weight, compare males and females, and explore relationships between the
 continuous variables.
 
-The Professor asks you to start by asking:
+The Professor asks you to start by reflecting:
 
 > Which visualization is most appropriate for each question?
 
@@ -68,7 +68,7 @@ View the dataset.
 #| label: view-data
 #| eval: false
 
-View(height_data) <- medisr::height_data
+View(height_data)
 ```
 
 1. 544
@@ -129,7 +129,7 @@ height_data  |>
 
 **Exercise 2B**:
 
-Create a plot that proofes to yourself that the median age of males and females
+Create a plot that proofs to yourself that the median age of males and females
 are similar within the dataset.
 
 - What will you put on the x-axis?
@@ -295,6 +295,172 @@ height_data |>
   geom_point() +
   geom_smooth() +
   xlim(c(0,20)) # this line helps a lot by zooming in at the age of interest!
+```
+
+</details>
+
+**Exercise 4C:**
+
+Consider the hypothesis:
+
+> **Hypothesis:** More females weigh more than the male trend line than males
+> weigh less than the female trend line.
+
+Which visualization would be most appropriate?
+
+Explain your reasoning and implement the plot using `{ggplot2}`. Then, comment
+on whether the plot supports the hypothesis.
+
+<details>
+<summary>Click for the solution</summary>
+
+Can you compare the two trends and see how individuals fall above or below the other group's trend line? 👀
+
+Example:
+
+```{r ex-4c}
+height_data |>
+  ggplot(
+    aes(
+      x = age,
+      y = weight,
+      color = male
+    )
+  ) +
+  geom_point() +
+  geom_smooth()
+```
+
+</details>
+
+**Exercise 5C:**
+
+A researcher wants to investigate the following hypothesis:
+
+> **Hypothesis:** The variability in weight increases with age.
+
+Which visualization would be most appropriate?
+
+Explain why you chose this visualization and what features of the graph you
+would look at to evaluate the hypothesis.
+
+Now implement it using `{ggplot2}`. Save your plot and make sure it has clear,
+descriptive labels.
+
+Hint: Use `labs()` to add a title, a subtitle, and meaningful axis labels. You
+can also use `labs()` to give the legend a descriptive title.
+
+<details>
+<summary>Click for the solution</summary>
+
+Look at how the spread of the data points changes as age increases. 👀
+
+Example:
+
+```{r ex-5c}
+weight_plot <- height_data |>
+  ggplot(
+    aes(
+      x = age,
+      y = weight
+    )
+  ) +
+  geom_point() +
+  geom_smooth() +
+  labs(
+    title = "How does weight vary with age?",
+    subtitle = "Weight variability across different ages",
+    x = "Age (years)",
+    y = "Weight (kg)"
+  )
+
+weight_plot # view the saved plot
+```
+
+```r
+ggsave(
+    filename = "figures/subgroup-association.png",
+    plot = weight_plot)
+```
+</details>
+
+**Exercise 6C:**
+
+A researcher wants to investigate the following hypothesis:
+
+> **Hypothesis:** Males are taller than females on average.
+
+The researcher insists that the plot should be a bar plot.
+
+Is this visualization appropriate for evaluating the hypothesis? *(you may also
+answer after plotting it)*.
+
+Now improve the visualization using `{ggplot2}`. Choose appropriate colors, add
+a meaningful title and descriptive axis labels, and save your plot.
+
+Explain what you observe in the plot and whether anything about the data might
+make the comparison misleading.
+
+<details>
+<summary>**Click for the solution**</summary>
+
+This plot doesn't make sense because we include all ages. Thus, we have huge variability at lower heights (children growing up) and a cluster in the top representing adults.
+You can easily notice this by adding the jitter. This would have been difficult only from the use of `geom_col`.
+
+```{r ex-6c}
+height_data |>
+  ggplot(aes(male, height, color=male)) +
+  stat_summary(geom = "col", fun = mean) +
+  geom_jitter()
+```
+
+</details>
+
+**Exercise 7C (extra) 🎉**
+
+In the compendium, **chapter 1.8 Exercises**, exercise 12 and 16 used `lines()`
+on top of a `hist()` to show the density of a parametric function.
+
+The solution was:
+
+```{r}
+#| label: extra-ex1
+
+data <- medisr::dns
+
+alc_mean <- mean(data$alcoholweek, na.rm = TRUE)
+
+hist(data$alcoholweek,probability = TRUE)
+
+lines(
+  0:100,
+  dexp(
+    x = 0:100,
+    rate = 1/alc_mean
+  )
+)
+```
+
+Now, implement this using `{ggplot2}`.
+<details>
+<summary>**Click for tips**</summary>
+
+1. What is on the y-axis of a histogram?
+2. What is on the y-axis of a density plot?
+3. Consider using `after_stat()` or compute the density manually.
+4. Consider using `stat_function()` for the parametric function.
+</details>
+
+<details>
+<summary>**Click for the solution**</summary>
+
+```{r}
+#| label: extra-ex
+
+data |>
+ggplot(aes(alcoholweek)) +
+  geom_histogram(aes(y = after_stat(density))) +
+  stat_function(fun = dexp, args = list(rate = 1/alc_mean))
 ```
 
 </details>

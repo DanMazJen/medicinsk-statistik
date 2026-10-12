@@ -726,7 +726,7 @@ hd_data |>
   geom_point() +
   geom_smooth()
 
-ggsave(filename = "subgroup-association.png")
+ggsave(filename = "figures/subgroup-association.png")
 ```
 
 This will save your plot to your working directory (which should be the root of

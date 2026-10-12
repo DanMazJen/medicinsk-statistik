@@ -206,7 +206,7 @@ drug -> GABA
 
 dag |>
     ggdag::tidy_dagitty() |>
-    ggdag::ggdag(text = FALSE) +
+    ggdag::ggdag(text = '') +
     ggdag::geom_dag_text(size = 2.5) +
     theme_void()
 

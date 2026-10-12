@@ -148,7 +148,7 @@ hd_data |>
 
 Check if there are missing values in the dataset.
 
-- How many are there and for which variables (tip: view it or use `is.nan()`)?
+- How many are there and for which variables (tip: view it or use `is.na()`)?
 - What happens if you try to calculate the mean when missing values are present?
 - Can you find out how to fix the above issue by reading the documentation?
 
@@ -183,7 +183,7 @@ exercise 1B). How can you interpret this? What can we say from this?
 <details>
 <summary>**Click for the solution**</summary>
 
-1. mean 54.43894 sd 9.038662 - the group was between 72.5 and 36.5 years old so a good spread of adults.
+1. mean 54.43894 sd 9.038662 - the group was between 63,48 and 45,40 years old so a good spread of adults.
 
 </details>
 

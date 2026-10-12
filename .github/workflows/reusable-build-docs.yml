@@ -38,7 +38,7 @@ jobs:
           fetch-depth: 0
 
       - name: Spell check repo
-        uses: crate-ci/typos@06d010dfe4c84fdab1a25ea02b57b3585018ba80 # v1.42.3
+        uses: crate-ci/typos@f8a58b6b53f2279f71eb605f03a4ae4d10608f45 # v1.47.0
 
       - name: Set up R
         uses: r-lib/actions/setup-r@v2

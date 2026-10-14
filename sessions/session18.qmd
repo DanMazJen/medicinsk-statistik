@@ -45,7 +45,40 @@ The slides contain speaking notes that you can view by pressing 'S' on the
 keyboard.
 :::
 
-## Case session 18: ""
+## Case session 18: "From prediction to validation: How do we know our model works?"
+
+At NeuroPhaRma Inc., a biotech company developing tools for early detection of
+Alzheimer's disease, the research team has developed a prediction model to
+predict individual patient's cognitive impairment using their age, sex,
+cerebrospinal fluid biomarkers, and APOE genotype.
+
+The model performs well on the data used to develop it. The team is excited:
+could this tool help clinicians identify patients who need further assessment?
+
+Before the company presents the model to potential clinical partners, however,
+the biostatistics team must answer a crucial question:
+
+> "The model makes predictions. But how well can we trust them in real
+> patients?"
+
+As a junior biostatistician, you have been asked to evaluate the model before it
+moves forward. You must assess how well it distinguishes patients with and
+without cognitive impairment, whether its predicted probabilities reflect the
+risks actually observed, and whether its performance holds up in new data.
+
+Your task is to evaluate whether the model's predictions can be trusted.
+
+1. How would you assess whether the predicted risks agree with the observed
+   frequency of cognitive impairment, and whether the model systematically over-
+   or underestimates risk?
+2. How would you determine how well the model distinguishes between patients
+   with and without impairment?
+3. Finally, how would you investigate whether these properties hold in new
+   patients, rather than only in the data used to develop the model?
+
+At the project meeting, you will need to advise the team: is the model reliable
+enough to be considered for use in clinical practice, and what further evidence
+is needed before it can be trusted?
 
 ## Discussion task: To cause or to predict
 
@@ -96,27 +129,7 @@ Prediction models cannot inform intervention. Only risk assessment and potential
 willingness to act --- but what to act on?
 :::
 
-## Discussion task: Recall the framework
-
-You have read the paper by Steyerberg & Vergouwe, 2014 [@steyerberg2014towards]
-in which they propose an **ABCD framework** for validating prediction models.
-The acronym is:
-
-- A = calibration-in-the-large,
-- B = calibration slope,
-- C = discrimination/C-statistic,
-- D = clinical usefulness/decision-curve analysis.
-
-[see the framework here](https://pmc.ncbi.nlm.nih.gov/articles/PMC4155437/)
-
-**Discuss with your neighbour:**
-
-1. What does each step help answer?
-2. Were you unsure about a concept or step?
-3. Collect the questions and see whether they're addressed by the end of the
-   session --- otherwise, ask!
-
-### Dataset context:
+## Our dataset context
 
 The `ad_validation_logistic` data are particularly convenient because they
 already contain observed classes and out-of-sample predicted probabilities from
@@ -136,7 +149,7 @@ ad_data$diagnosis <- factor(ad_data$diagnosis,
 )
 
 ad_data$Genotype <- factor(ad_data$Genotype,
-  levels = c("E3E3", "E3E4", "E4E4", "E2E3", "E2E4", "E2E2"),
+  levels = c("E2E2", "E2E3", "E3E3", "E3E4", "E2E4", "E4E4"),
   labels = c("E2E2", "E2E3", "E3E3", "E3E4", "E2E4", "E4E4")
 )
 
@@ -195,6 +208,7 @@ test |>
 
 ```{r}
 #| label: data-plt1
+#| code-fold: true
 
 p1 <- ggplot(test, aes(tau, p_tau, colour = diagnosis)) +
   geom_point(
@@ -223,6 +237,7 @@ p1
 
 ```{r}
 #| label: data-plt2
+#| code-fold: true
 
 biomarkers <- test |>
   pivot_longer(
@@ -266,7 +281,7 @@ p2 <- ggplot(
 p2
 ```
 
-## Our model to validate:
+### Our model to validate:
 
 <!-- panache-ignore-format-start -->
 
@@ -282,7 +297,18 @@ p2
 
 <!-- panache-ignore-format-end -->
 
-## Workflow
+## The ABCD Workflow
+
+You have read the paper by Steyerberg & Vergouwe, 2014 [@steyerberg2014towards]
+in which they propose an **ABCD framework** for validating prediction models.
+The acronym is:
+
+- A = calibration-in-the-large,
+- B = calibration slope,
+- C = discrimination/C-statistic,
+- D = clinical usefulness/decision-curve analysis.
+
+[see the framework here](https://pmc.ncbi.nlm.nih.gov/articles/PMC4155437/)
 
 ```{r}
 #| label: fig-workflow
@@ -336,7 +362,14 @@ table_2 <- tibble::tribble(
 table_2
 ```
 
-## Evaluating a Prediction Model
+**Discuss with your neighbour:**
+
+1. What does each step help answer?
+2. Were you unsure about a concept or step?
+3. Collect the questions and see whether they're addressed by the end of the
+   session --- otherwise, ask!
+
+## Preparing the data
 
 A prediction model can be evaluated from two things:
 
@@ -344,7 +377,7 @@ A prediction model can be evaluated from two things:
 - and what the model predicted.
 
 Here we use predictions from a logistic regression model. The model has already
-been trained, so we do not fit a model. We simply evaluate its predictions.
+been trained, so we do not fit a model. We focus on evaluating its predictions.
 
 ```{r}
 #| label: get-data
@@ -361,7 +394,28 @@ probability that the patient will show cognitive impairment.
 ad_validation_logistic
 ```
 
-### Preparing the data
+As we can se, the prediction model is actually not making binary `(yes, no)`
+predictions. This is crusial knowledge! Most prediction models make probability
+statements, saying that:
+
+$$
+  p(\text{impaired} | θ_i) = x_i
+$$
+
+In words:
+
+> The model probability for being impaired is given by all subject-specific
+> predictors, θ. Thus, it logically follows that the probability for not being
+> inpaired is $1 - p(\text{impaired} | θ_i)$.
+
+However, we need to draw a line in the sand somewhere, in order to evaluate the
+model.
+
+To work with our data, we must turn probabilities into classes. Here we use 0.5
+as the threshold: if the predicted probability of impairment is at least 0.5, we
+classify the participant as impaired; otherwise, we classify them as a control.
+
+In R, this is as easy as this:
 
 ```{r}
 #| label: prep-validation
@@ -374,6 +428,11 @@ predictions <- ad_validation_logistic |>
             threshold = 0.5 )
         )
 ```
+
+In a clinical reality, however, this is a complex issue that needs careful and
+clever decisions. We have therefore dedicated a full session (later) for
+tackling this specific decision. For the remainder of this session, we'll not
+discuss the clinical implications of the threshold.
 
 ## Quantifying binary prediction success
 
@@ -396,54 +455,19 @@ specificity, sensitivity.
 This will also lead to the idea of the receiver operating characteristic (ROC)
 and area under its curve (AUC).
 
-## It all starts with the confusion matrix
+### It all starts with the confusion matrix
+
+As always, we'll start simple and build up the complexity.
+
+Imagine a model which predicts cognitive impairment solely by the level of CSF
+amyloid beta plaque concentration. The model receives a concentration value and
+feeds back a probability. We can visualize this imaginary model as
+@fig-plot-logistic-data.
 
 ```{r}
-#| label: plot-logistic-data
+#| label: fig-plot-logistic-data
 #| echo: false
 #| warning: false
-
-set.seed(524268529)
-n <- 10
-amyloid_beta <- runif(n, 10, 100)
-# set prob
-prob <- 1 / (1 + exp(-(-4 + 0.08 * amyloid_beta)))
-# (1 = Impaired, 0 = Control)
-group_num <- rbinom(n, 1, prob)
-group_factor <- factor(group_num, levels = c(0, 1), labels = c("Control", "Cognitive Impaired"))
-
-## Y prob
-y_prob_threshold <- 0.50
-# 3. Beregn den tilsvarende x-værdi (Amyloid Beta) fra modellen for at lave et præcist krydspunkt
-#model <- glm(Group_Num ~ Amyloid_Beta, data = data, family = binomial)
-
-
-
-#data <- data.frame(Amyloid_Beta = amyloid_beta, Group_Num = group_num, Group = group_factor, .prob = )
-
-# plot
-#ggplot(data, aes(x = Amyloid_Beta, y = Group_Num)) +
-  # Tilføj scatter-punkter farvet efter gruppe (placeret ved y = 0 og y = 1)
-#  geom_point(aes(color = Group), alpha = 0.6, size = 2.5,
-#             position = position_jitter(height = 0.02, width = 0)) +
-  # Tilføj den sigmoidale kurve (logistisk regressionslinje)
-#  geom_smooth(method = "glm", method.args = list(family = "binomial"),
-#              color = "#2c3e50", size = 1.2, se = FALSE, fill = "lightblue", alpha = 0.3) +
-  # Juster akser og labels
-#  scale_y_continuous(breaks = seq(0, 1, by = 0.25), labels = c("0.00 (Control)", "0.25", "0.50", "0.75", "1.00 (Impaired)")) +
-#  scale_color_manual(values = c("Control" = "#27ae60", "Cognitive Impaired" = "#e74c3c")) +
-#  labs(
-#    title = "A imaginary prediction model",
-#    x = "Amyloid Beta",
-#    y = "Probability | Impaired",
-#    color = "Test answer"
-#  ) +
-#  theme_minimal(base_size = 14) +
-#  theme(
-#    plot.title = element_text(face = "bold", hjust = 0.5),
-#    legend.position = "bottom"
-#  )
-
 
 set.seed(524268529)
 
@@ -542,71 +566,24 @@ data |>
   geom_ribbon(aes(ymin = 0, ymax = y_prob_threshold), fill = "green", alpha = 0.1)
 ```
 
-```{r}
-#| label: change-threshold
-#| echo: false
-#| warning: false
-
-y_prob_threshold <- 0.75
-
-data |>
-    ggplot(aes(x = Amyloid_Beta, y = prob_impaired)) +
-  # Each dot is positioned according to its predicted probability
-  geom_point(
-    aes(color = Group),
-    size = 3,
-    alpha = 0.8
-  ) +
-  # Logistic regression curve
-  geom_smooth(
-    method = "glm",
-    method.args = list(family = "binomial"),
-    color = "#2c3e50",
-    linewidth = 1.2,
-    se = FALSE
-  ) +
-  # 50% classification threshold
-  geom_hline(
-    yintercept = y_prob_threshold,
-    linetype = "dashed",
-    color = "grey40"
-  ) +
-  scale_y_continuous(
-    limits = c(0, 1),
-    breaks = seq(0, 1, by = 0.25),
-    labels = c(
-      "0.00 (Control)",
-      "0.25",
-      "0.50",
-      "0.75",
-      "1.00 (Impaired)"
-    )
-  ) +
-  scale_color_manual(
-    values = c(
-      "Control" = "#27ae60",
-      "Cognitive Impaired" = "#e74c3c"
-    )
-  ) +
-  labs(
-    title = "Predicted Probability of Cognitive Impairment",
-    x = "Amyloid Beta",
-    y = "Model probability | Impaired",
-    color = "Observed group"
-  ) +
-  theme_minimal(base_size = 14) +
-  theme(
-    plot.title = element_text(face = "bold", hjust = 0.5),
-    legend.position = "bottom"
-  ) +
-  geom_ribbon(aes(ymin = y_prob_threshold, ymax = 1), fill = "red", alpha = 0.1) +
-  geom_ribbon(aes(ymin = 0, ymax = y_prob_threshold), fill = "green", alpha = 0.1)
-```
-
 How many was correctly classified?
 
-We can make a **confusion matrix** --- a table that shows how many observations
-were classified correctly and how many were assigned to the wrong class.
+We can make a **confusion matrix** --- a 2×2 table that shows how many
+observations were classified (in)correctly for each class.
+
+For the fictitious data we plotted in @fig-plot-logistic-data, the confusion
+matrix would be:
+
+<!-- panache-ignore-format-start -->
+|                 | True: impaired | True: control |
+|-----------------|----------------|---------------|
+| Predicted: impaired |       4        |       1       |
+| Predicted: control  |       0        |       4       |
+<!-- panache-ignore-format-end -->
+
+`{yardstick}` has a function to compute this for our larger dataset. Recall that
+we have multiple predictors, so this would have been impossible to plot in a 2D
+coordinate system 😅
 
 ```{r}
 #| label: conf-mat
@@ -630,21 +607,40 @@ We spot an interesting pattern:
 - labeling the control participants much better --- 109 out of 123 were labeled
   correctly!
 
-We can quickly calculate that `r 109/123`% of the controls were labeled
-correctly while only `r 25/44`% of the cognitively impaired were labeled
-correctly.
-
-This seems like a reasonable way to evaluate the model. But there is a problem:
-these percentages answer a slightly different question for each class, and they
-can be strongly affected by how common each class is.
-
-In particular, there are many more controls than cognitively impaired
-participants. A model can therefore appear to perform well simply by being good
-at predicting the more common class.
+Imbalanced data can cause several issues. In our dataset, there are many more
+controls than cognitively impaired participants. The model can therefore appear
+to perform well simply by being good at predicting the more common class.
 
 So rather than looking only at the percentage of observations classified
 correctly, we can use metrics that explicitly describe different types of
 classification errors.
+
+We can quickly calculate four relevant metrics by hand:
+
+<!-- panache-ignore-format-start -->
+
+| Prediction \ Truth | Impaired (Positive) | Control (Negative) |
+|--------------------|---------------------|--------------------|
+| Impaired (Positive)| TP = 25             | FP = 14            |
+| Control (Negative) | FN = 19             | TN = 109           |
+
+
+| Metric                  | Formula          | Result |
+|-------------------------|------------------|--------|
+| Sensitivity (TPR)       | TP / (TP + FN)   | 56.8%  |
+| Specificity (TNR)       | TN / (TN + FP)   | 88.6%  |
+| False Positive Rate     | FP / (FP + TN)   | 11.4%  |
+| False Negative Rate     | FN / (FN + TP)   | 43.2%  |
+| False Negative Rate     | TP + TN / (TP + TN + FP FN)   | 80.2%  |
+
+<!-- panache-ignore-format-end -->
+
+where:
+
+- TP = True Positive
+- FP = False Positive
+- TP = True Negative
+- FP = False Negative
 
 ### Accuracy
 
@@ -654,16 +650,11 @@ Accuracy answers a simple question:
 
 Accuracy is the proportion of all observations that were classified correctly:
 
-$$ Accuracy = \frac{TP + TN}{TP + TN + FP + FN}
-
+$$
+  Accuracy = \frac{TP + TN}{TP + TN + FP + FN}
 $$
 
-Here, TP means true positives, TN means true negatives, FP means false
-positives, and FN means false negatives.
-
-To calculate accuracy, we first turn probabilities into classes. Here we use 0.5
-as the threshold: if the predicted probability of impairment is at least 0.5, we
-classify the participant as impaired; otherwise, we classify them as a control.
+We use `{yardstick}`'s function for this:
 
 ```{r}
 #| label: accuracy
@@ -674,9 +665,10 @@ accuracy(predictions, Class, .pred_class)
 The accuracy was 0.802. This means that about 80.2% of all participants were
 classified correctly.
 
-Accuracy is easy to understand, but it has an important limitation: it does not
-tell us which class the model gets wrong. It can also be misleading when the
-classes are unbalanced.
+Accuracy is easy to understand, but it has an important limitation:
+
+- it does not tell us which class the model gets wrong
+- It can also be misleading when the classes are unbalanced.
 
 For example, imagine that 95% of participants were controls. A model that always
 predicted "control" would have 95% accuracy, despite completely failing to
@@ -789,10 +781,206 @@ Consider consequences of the diagnosis, like:
 Instead of choosing one threshold, we can look at model discrimination across
 all possible thresholds.
 
+Let's go back to our imaginary model:
+
 ```{r}
-#| label: roc-example
+#| label: plot-logistic-datav2
 #| echo: false
 #| warning: false
+#| fig-cap: "Threshold at 50%"
+
+set.seed(524268529)
+
+n <- 10
+
+# Simulate Amyloid Beta
+amyloid_beta <- runif(n, 10, 100)
+
+# True probability of being cognitively impaired
+prob <- 1 / (1 + exp(-(-4 + 0.08 * amyloid_beta)))
+
+# Simulate observed group
+group_num <- rbinom(n, 1, prob)
+
+group_factor <- factor(
+  group_num,
+  levels = c(0, 1),
+  labels = c("Control", "Cognitive Impaired")
+)
+
+# Create data
+data <- data.frame(
+  Amyloid_Beta = amyloid_beta,
+  Group_Num = group_num,
+  Group = group_factor
+)
+
+# Fit logistic regression
+model <- glm(
+  Group_Num ~ Amyloid_Beta,
+  data = data,
+  family = binomial
+)
+
+# Model-predicted probability for each observation
+data$prob_impaired <- predict(
+  model,
+  newdata = data,
+  type = "response"
+)
+
+y_prob_threshold <- 0.50
+
+# Plot
+data |>
+    ggplot(aes(x = Amyloid_Beta, y = prob_impaired)) +
+  # Each dot is positioned according to its predicted probability
+  geom_point(
+    aes(color = Group),
+    size = 3,
+    alpha = 0.8
+  ) +
+  # Logistic regression curve
+  geom_smooth(
+    method = "glm",
+    method.args = list(family = "binomial"),
+    color = "#2c3e50",
+    linewidth = 1.2,
+    se = FALSE
+  ) +
+  # 50% classification threshold
+  geom_hline(
+    yintercept = y_prob_threshold,
+    linetype = "dashed",
+    color = "grey40"
+  ) +
+  scale_y_continuous(
+    limits = c(0, 1),
+    breaks = seq(0, 1, by = 0.25),
+    labels = c(
+      "0.00 (Control)",
+      "0.25",
+      "0.50",
+      "0.75",
+      "1.00 (Impaired)"
+    )
+  ) +
+  scale_color_manual(
+    values = c(
+      "Control" = "#27ae60",
+      "Cognitive Impaired" = "#e74c3c"
+    )
+  ) +
+  labs(
+    title = "Predicted Probability of Cognitive Impairment",
+    x = "Amyloid Beta",
+    y = "Model probability | Impaired",
+    color = "Observed group"
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(
+    plot.title = element_text(face = "bold", hjust = 0.5),
+    legend.position = "bottom"
+  ) +
+  geom_ribbon(aes(ymin = y_prob_threshold, ymax = 1), fill = "red", alpha = 0.1) +
+  geom_ribbon(aes(ymin = 0, ymax = y_prob_threshold), fill = "green", alpha = 0.1)
+```
+
+```{r}
+#| label: change-threshold
+#| echo: false
+#| warning: false
+#| fig-cap: "Threshold at 75%"
+
+y_prob_threshold <- 0.75
+
+data |>
+    ggplot(aes(x = Amyloid_Beta, y = prob_impaired)) +
+  # Each dot is positioned according to its predicted probability
+  geom_point(
+    aes(color = Group),
+    size = 3,
+    alpha = 0.8
+  ) +
+  # Logistic regression curve
+  geom_smooth(
+    method = "glm",
+    method.args = list(family = "binomial"),
+    color = "#2c3e50",
+    linewidth = 1.2,
+    se = FALSE
+  ) +
+  # 50% classification threshold
+  geom_hline(
+    yintercept = y_prob_threshold,
+    linetype = "dashed",
+    color = "grey40"
+  ) +
+  scale_y_continuous(
+    limits = c(0, 1),
+    breaks = seq(0, 1, by = 0.25),
+    labels = c(
+      "0.00 (Control)",
+      "0.25",
+      "0.50",
+      "0.75",
+      "1.00 (Impaired)"
+    )
+  ) +
+  scale_color_manual(
+    values = c(
+      "Control" = "#27ae60",
+      "Cognitive Impaired" = "#e74c3c"
+    )
+  ) +
+  labs(
+    title = "Predicted Probability of Cognitive Impairment",
+    x = "Amyloid Beta",
+    y = "Model probability | Impaired",
+    color = "Observed group"
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(
+    plot.title = element_text(face = "bold", hjust = 0.5),
+    legend.position = "bottom"
+  ) +
+  geom_ribbon(aes(ymin = y_prob_threshold, ymax = 1), fill = "red", alpha = 0.1) +
+  geom_ribbon(aes(ymin = 0, ymax = y_prob_threshold), fill = "green", alpha = 0.1)
+```
+
+As you can see, this changes the confusion matrix from:
+
+<!-- panache-ignore-format-start -->
+|                 | True: impaired | True: control |
+|-----------------|----------------|---------------|
+| Predicted: impaired |       4        |       1       |
+| Predicted: control  |       0        |       4       |
+<!-- panache-ignore-format-end -->
+
+to
+
+<!-- panache-ignore-format-start -->
+|                 | True: impaired | True: control |
+|-----------------|----------------|---------------|
+| Predicted: impaired |       2        |       0       |
+| Predicted: control  |       2        |       5       |
+<!-- panache-ignore-format-end -->
+
+So we improved the model specificity (from 80% to 100%) at the cost of its
+sensitivity (from 100% to 50%).
+
+Imagine computing the sensitivity and specificity for every possible threshold
+the data could have. This would indeed require a lot of confusion matrixes and a
+lot of computations. We will settle with only computing the sensitivity and the
+$1 - specificity$, which is called **false positive rate**. We do this for an
+imaginary model in @fig-roc-example with the corresponding confusion matrices in
+@fig-iterative-confusion-matrix-table.
+
+```{r}
+#| label: fig-roc-example
+#| echo: false
+#| warning: false
+#| fig-cap: "Threshold at 14 different threshold: 100%, 95%, 82%, 78% ... 0%"
 
 library(tidyverse)
 library(yardstick)
@@ -932,7 +1120,7 @@ make_cm_table <- function(cm, threshold) {
 ```
 
 ```{r}
-#| label: iterative-confusion-matrix-table
+#| label: fig-iterative-confusion-matrix-table
 #| echo: false
 
 cm_plot <- function(cm) {
@@ -974,7 +1162,12 @@ confusion_matrices |>
 
 ```
 
-The ROC curve shows sensitivity against 1 − specificity.
+Now, that is indeed a lot of output --- and this is only for a dataset of 12! 👀
+
+To wrap it all up, instead of plotting all the dots in different coordinate
+systems, we can draw a line connecting the dots in one plot.
+
+Luckily, there's a nice function for this in `{yardstick}`:
 
 ```{r}
 #| label: roc
@@ -983,9 +1176,17 @@ roc_curve(ad_validation_logistic, Class, .pred_impaired, event_level = "first" )
     autoplot()
 ```
 
+> Hurray! 🎉
+
+We made a ROC plot showing all possible combinations of sensitivity and false
+positive rate, conditioned on where the classification threshold is set.
+
+The dotted line in the middle is the 50% --- essentially a random guess.
+
 ### Area under the curve (AUC)
 
-The area under this curve is the AUC.
+The area under this curve is the AUC. Area under the curve is computed as the
+integral. Instead of doing this by hand, we can use `{yardstick}` again:
 
 ```{r}
 #| label: auc
@@ -998,103 +1199,198 @@ predicted probability to a randomly chosen "impaired" observation than to a
 randomly chosen "control" observation.
 
 AUC measures discrimination. It does not tell us whether the predicted
-probabilities themselves are accurate.
+probabilities themselves are accurate. For this, we need to assess calibration,
+which is covered in the next section.
 
 ## Calibration
 
-Calibration refers to the agreement between observed endpoints and predictions.
-For example, if we predict a 15% risk that a patient will have cognitive
-decline, the observed proportion should be 15 MCDs per 100 with such a
-prediction. As always, we recommend visualizing this in a plot with predictions
-on the x-axis and the observed endpoint on the y-axis, see @fig-calibration. The
-observed values on the y-axis are 0 or 1 (cognitive impairment/ control), while
-the predictions on the x-axis range between 0 and 100%.
+Now, we move away from the world of confusion matrices. Recall that the
+prediction model initially only had probabilities (that is, before we made a
+decision threshold for a class).
 
-Perfect predictions should be on the ideal line, described with an intercept
-alpha ('A') of 0 and slope beta ('B') of 1. The log odds of predictions are used
-as the predictor of the 0/1 outcome.
+Calibration refers to the agreement between predicted probabilities and observed
+outcome frequencies. For example, among patients assigned a predicted risk of
+cognitive decline of 15%, approximately 15% should experience cognitive decline.
 
-### Alpha: calibration-in-the-large
+In other words:
 
-The intercept A relates to calibration-in-the-large, which compares the mean of
-all predicted risks with the mean observed risk. The parameter hence indicates
-the extent that predictions are systematically too low or too high.
+> Are the probabilities generated from the prediction model actually useful as
+> probabilities in reality?
 
-When assessing external validity, some countries might have higher prevalence,
-which will invalidate the model. This test is called geographical validation.
-Another type of validation, called temporal validation, use data from a
-different year (or century). It is often the case that prevalences change over
-the course of time and outdated data cannot generalize to the modern medical
-standards and practices.
+If the answer is no, then any further decisions based on it's probabilities
+(threshold, confusion matrix, ROC, AUC, etc) is basically meaningless 😅
 
-Calibration-in-the-large measures the overall calibration between observed and
-predicted risks in the validation dataset. 19A fundamental measure of
-calibration-in-the-large is O/E, which is the ratio of the total number of
-observed outcomeevents, divided by the total number of expected (predicted)
-outcome events. Equivalently, O/E is the observed risk ofhaving the outcome
-event in the entire validation dataset (ie, O/N) divided by the average risk
-predicted by the model:
+So let's try to evaluate this!
+
+### A: Calibration in the large
+
+Calibration-in-the-large (CITL) assesses whether predicted risks are
+systematically too high or too low overall. It is commonly estimated using
+logistic regression with the logit of the predicted risk as an offset, fixing
+its coefficient at 1. The estimated intercept quantifies the overall calibration
+error.
+
+To estimate the **CITL**, we use the following logistic regression model:
 
 $$
-  \frac{\sum^n_{i=1}p_{P_{RED_i}}}{N}
+  logit(P(Y = 1)) = α + offset(logit(\hat{p}_i))
 $$
-∑Ni=1 pPREDiN
 
-### Beta: calibration slope
+where $\hat{p}_i$ the predicted risk from the original model and the coefficient
+of logit($\hat{p}_i$) is fixed at 1. The estimated intercept α is the
+calibration-in-the-large.
 
-The calibration slope B is often smaller than 1 if a model was developed in a
-relatively small data set. Such a finding reflects that predictions were too
-extreme: low prediction too low, and high predictions too high.
+- citl = 1: no overall calibration-in-the-large error.
+- citl < 1: predicted risks are too high on average.
+- citl > 1: predicted risks are too low on average.
 
-For the model based on 167 patients, the slope was 0.639 among the internal
-validation patients, in line with what was expected at internal validation
-(shrinkage factor 0.82). For the model based on **MORE?**, B was close to one at
-internal validation by cross-validation or bootstrapping, as well as at external
-validation in non-US patients (slope 0.99, *p* = 0.55 for comparison with slope =
-1), see @fig-calibration.
+Remember the **offset** from @sec-poisson? The key difference is that an offset
+in Poisson regression adjusts the expected count for exposure, whereas an offset
+in logistic regression contributes a known term to the log-odds, with its
+coefficient fixed at 1.
 
-In R, the calibration model can be written as a normal logistic regression using
-`{glm}`:
+An offset adds a term with its coefficient fixed at 1, rather than estimated.
+Our model is:
+
+$$
+  logit(q_i) = α + o_i
+$$
+where $o_i$ are the logit of the prediction-model's estimated probabilities,
+
+$$
+  o_i = logit(\hat{p}_i)
+$$
+
+**The interpretation**
+
+The model assumes that the known baseline odds, $\frac{p_i}{1 - p_i}$, enter
+with exactly the specified probabilities. The regression estimates the
+adjustment to those odds from the model-predicted odds.
+
+::: {.callout-note}
+## Calibration is more than the CITL!
+
+A CITL = 0 does not mean the model is perfectly calibrated. It means there is no
+overall calibration-in-the-large error. The predictions can still be poorly
+calibrated across the range of predicted risks, which is why calibration slope
+and calibration plots are useful complementary assessments.
+:::
+
+### B: The calibration slope
+
+To estimate the calibration **slope**, we use another logistic regression model:
+
+$$
+  logit(P(Y = 1)) = α + ζlogit(\hat{p})
+$$
+
+Here, we are interested in estimating ζ (*"zeta"*), while the model also
+estimates a separate intercept α. This model is straight forward to interpret
+and works similarly to other logistic regression models you have worked with.
+
+- ζ = 1: ideal calibration slope.
+- ζ < 1: typically indicates overfitting, with predictions that are too extreme.
+- ζ > 1: typically indicates underfitting, with predictions that are not extreme
+  enough.
+
+::: {.callout-warning}
+## Intercept from the slope model
+
+One important distinction: the intercept from this model is not the same as the
+calibration-in-the-large.
+:::
+
+### Running the models in R
+
+The following code demonstrates how to estimate CITL and the calibration slope
+in R:
 
 ```{r}
-#| label: cal-model
+#| label: cal-model-confusion
 
-calibration_model <- ad_validation_logistic |>
+citl_model <- ad_validation_logistic |>
+  mutate(
+    outcome = Class == "impaired",
+    logit_p = log(.pred_impaired / (1 - .pred_impaired))
+  ) |>
+  glm(outcome ~ 1 + offset(logit_p),
+      data = _, family = binomial())
+
+broom::tidy(citl_model, conf.int = TRUE, exponentiate = TRUE)
+
+slope_model <- ad_validation_logistic |>
     mutate(
         outcome = Class == "impaired",
         logit_p = log(.pred_impaired / (1 - .pred_impaired))
     ) |>
         glm(outcome ~ logit_p, data = _, family = binomial)
 
-broom::tidy(calibration_model)
+broom::tidy(slope_model, conf.int = TRUE) # don't exponentiate!
 ```
-
-The intercept is related to calibration-in-the-large (A) and the coefficient of
-`logit_p` is the calibration slope (B).
-
-Ideally, we'd see that the calibration-in-the-large is (close to) 0 and that the
-calibration slope is (close to) 1.
 
 ### Visualizing calibration
 
-Calibration asks a different question:
+As always, we recommend visualizing any statistical procedure. We can do this in
+a plot with predictions on the x-axis and the observed endpoint on the y-axis,
+see @fig-calibration. In a calibration plot, the x-axis shows predicted
+probabilities and the y-axis shows observed outcome proportions. Both axes range
+from 0 to 100%. The diagonal ideal line represents perfect calibration: for
+example, a predicted risk of 15% corresponds to an observed outcome proportion
+of 15%.
 
-When the model says 70%, does the event happen about 70% of the time?
+Because the outcome is binary, we cannot directly compare each individual's
+predicted probability with an observed proportion: each individual either
+experiences the outcome or does not. Instead, calibration plots often group
+individuals into bins based on their predicted risks. Within each bin, we
+calculate the mean predicted risk and the observed proportion of individuals who
+experienced the outcome. These values provide a summary of predicted and
+observed risk for that group.
 
-A simple calibration plot compares predicted probability with the observed
-proportion.
+For example, consider a validation dataset divided into five bins according to
+predicted risk:
 
-The probably package provides this directly:
+<!--panache-ignore-start-->
+| Bin | Mean predicted risk | Observed outcome proportion | Interpretation |
+|:---|---:|---:|:---|
+| 1 (0%---19%) | 5% | 4% | Slight overprediction |
+| 2 (20%---39%)| 15% | 15% | Perfect calibration |
+| 3 (40%---59%) | 30% | 35% | Underprediction |
+| 4 (60%---79%) | 50% | 45% | Overprediction |
+| 5 (80%---100%) | 80% | 75% | Overprediction |
+<!--panache-ignore-end-->
+
+Each row corresponds to a point in the calibration plot, with mean predicted
+risk on the x-axis and observed outcome proportion on the y-axis. Points below
+the diagonal indicate overprediction, while points above the diagonal indicate
+underprediction. In practice, the number of bins and their boundaries affect the
+plot, and the observed proportions can be imprecise when bins contain few
+individuals.
+
+Perfect predictions should lie on the ideal diagonal line. In a logistic
+calibration model, perfect calibration corresponds to an intercept α of 0 and a
+slope β of 1. The logit of each individual's predicted risk is used as the
+predictor of their observed 0/1 outcome:
+
+$$
+  logit(P(Y = 1)) = α + ζlogit(\hat{p})
+$$
+
+Here, α measures calibration-in-the-large when the slope is fixed at 1, while β
+measures how strongly the predicted log-odds are associated with the observed
+outcomes relative to the ideal slope of 1.
+
+The `{probably}` package provides this directly:
 
 ```{r}
 #| label: fig-calibration
 
-cal_plot_breaks(ad_validation_logistic, Class, .pred_impaired)
+cal_plot_breaks(ad_validation_logistic, Class, .pred_impaired, num_breaks = 5)
 ```
 
 A well-calibrated model follows the diagonal line.
 
-We can also fit a smooth calibration curve:
+We can also visualize a smooth calibration curve, which assesses calibration
+across the range of predicted risks without relying on fixed bins:
 
 ```{r}
 #| label: cal-smooth
@@ -1102,8 +1398,19 @@ We can also fit a smooth calibration curve:
 cal_plot_logistic(ad_validation_logistic, Class, .pred_impaired, smooth = FALSE)
 ```
 
-Calibration is about the accuracy of the probabilities. A model can have
-excellent discrimination and poor calibration.
+The black curve in your plot is the estimated **observed event rate**, not the
+*predicted event rate*. This means that being below the diagonal is "reality"
+being lower than the prediction-model expectations. In other words: below the
+diagonal is over-predicting.
+
+Notice how the prediction-model we are validating is generally over-predicting?
+
+This also corresponds to our CITL being below 1 and our slope being below 1.
+
+Calibration is about the accuracy of the predicted probabilities. A model can
+have excellent discrimination and poor calibration: it may correctly rank
+individuals from lower to higher risk while systematically overestimating or
+underestimating their absolute risks.
 
 ## Discrimination using the concordance statistic
 
@@ -1518,3 +1825,115 @@ The key idea is that no single metric evaluates a prediction model completely.
 
 A useful model should discriminate well, produce sensible probabilities, and ---
 most importantly --- lead to better decisions.
+
+<!--
+
+In R, the calibration model can be written as a normal logistic regression using
+`{glm}`:
+
+```r
+#| label: cal-model
+# Prepare data
+calibration_data <- ad_validation_logistic %>%
+  mutate(
+    y = as.integer(Class == "impaired"), # P(Y=1) selecting impaired.
+    p = pmin(
+            pmax(.pred_impaired, 1e-15),
+            1 - 1e-15
+        ), # the probability, not allowing 0 or 1.
+    lp = qlogis(p) # the logit for the model-estimated probability
+  )
+
+# 1. Calibration-in-the-large
+fit_citl <- glm(
+  y ~ 1 + offset(lp),
+  data = calibration_data,
+  family = binomial()
+)
+
+# 2. Calibration slope
+fit_slope <- glm(
+  y ~ lp,
+  data = calibration_data,
+  family = binomial()
+)
+
+# Extract estimates
+citl <- coef(fit_citl)["(Intercept)"]
+calibration_slope <- coef(fit_slope)["lp"]
+
+citl
+calibration_slope
+
+## Other approach
+
+citl_model <- ad_validation_logistic |>
+  mutate(
+    outcome = Class == "impaired",
+    logit_p = log(.pred_impaired / (1 - .pred_impaired))
+  ) |>
+  glm(outcome ~ 1 + offset(logit_p),
+      data = _, family = binomial())
+
+broom::tidy(citl_model, conf.int = TRUE)
+
+slope_model <- ad_validation_logistic |>
+    mutate(
+        outcome = Class == "impaired",
+        logit_p = log(.pred_impaired / (1 - .pred_impaired))
+    ) |>
+        glm(outcome ~ logit_p, data = _, family = binomial)
+
+broom::tidy(calibration_model, conf.int = TRUE)
+```
+-->
+
+::: {.hidden}
+<!--
+This is ALL WRONG, isn't it??
+
+### Alpha: calibration-in-the-large
+
+The intercept *A* relates to calibration-in-the-large, which compares the mean
+of all predicted risks with the mean observed risk. The parameter hence
+indicates the extent that predictions are systematically too low or too high.
+
+When assessing external validity, some countries might have higher prevalence,
+which will invalidate the model. This test is called geographical validation.
+Another type of validation, called temporal validation, use data from a
+different year (or century). It is often the case that prevalences change over
+the course of time and outdated data cannot generalize to the modern medical
+standards and practices.
+
+Calibration-in-the-large measures the overall calibration between observed and
+predicted risks in the validation dataset. A fundamental measure of
+calibration-in-the-large is O/E, which is the ratio of the total number of
+observed outcomeevents, divided by the total number of expected (predicted)
+outcome events. Equivalently, O/E is the observed risk of having the outcome
+event in the entire validation dataset (ie, O/N) divided by the average risk
+predicted by the model:
+
+$$
+  \frac{\sum^n_{i=1}p_{P_{RED_i}}}{N}
+$$
+
+### Beta: calibration slope
+
+The calibration slope B is often smaller than 1 if a model was developed in a
+relatively small data set. Such a finding reflects that predictions were too
+extreme: low prediction too low, and high predictions too high.
+
+For the model based on 167 patients, the slope was 0.639 among the internal
+validation patients, in line with what was expected at internal validation
+(shrinkage factor 0.82). For the model based on **MORE?**, B was close to one at
+internal validation by cross-validation or bootstrapping, as well as at external
+validation in non-US patients (slope 0.99, *p* = 0.55 for comparison with slope =
+1), see @fig-calibration.
+
+The intercept is related to calibration-in-the-large (A) and the coefficient of
+`logit_p` is the calibration slope (B).
+
+Ideally, we'd see that the calibration-in-the-large is (close to) 0 and that the
+calibration slope is (close to) 1.
+-->
+:::

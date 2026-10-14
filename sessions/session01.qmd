@@ -570,6 +570,7 @@ function and provide for example a website:
 ```{r}
 #| label: read-data
 #| filename: ".../hallo-medical-statistics/R/learning.R"
+#| eval: false
 
 SUA_data <- readr::read_csv(
   "https://zenodo.org/records/8292712/files/SUA_CVDs_risk_factors.csv"
@@ -606,9 +607,9 @@ As R is case sensitive, `view()` will now work - try it!
 
 ```r
 # This will produce an error:
-view(SUA_data)
+view(hd_data)
 # Instead try:
-View(SUA_data)
+View(hd_data)
 ```
 
 ## Using functions on datasets
@@ -621,7 +622,7 @@ We do this by either selecting it with the `$` sign:
 ```{r}
 #| label: mean-base
 
-mean(SUA_data$Age)
+mean(hd_data$Age)
 ```
 
 Another approach is to use the `{dplyr}` function `pull()`:
@@ -631,7 +632,7 @@ Another approach is to use the `{dplyr}` function `pull()`:
 
 library(dplyr) # pull is from dplyr
 
-SUA_data |>
+hd_data |>
   pull(Age) |> # this will error if you did not load the package as above!
   mean()
 ```

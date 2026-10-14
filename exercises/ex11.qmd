@@ -8,12 +8,6 @@ Prerequisite for these exercises was covered within the
 exercises build on this material.
 :::
 
-## Learning objectives
-
-The learning objectives for this session are:
-
-{{< include /includes/objectives/_session1.qmd >}}
-
 ## Exercises: The Zhejiang diabites experiment
 
 > Does the association between uric acid and blood glucose differ across patient
@@ -202,8 +196,8 @@ plot_predictions(
 
 Suppose the fitted model produced:
 
-  | Term             | Estimate            |
-  | ---------------- | ------------------: |
+  | Term             | Estimate                        |
+  | ---------------- | ------------------------------: |
   | Intercept        | `r coef(model1)[1] |> round(4)` |
   | UA               | `r coef(model1)[2] |> round(4)` |
   | Sex(Female)      | `r coef(model1)[3] |> round(4)` |

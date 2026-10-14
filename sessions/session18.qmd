@@ -71,9 +71,9 @@ causal on a population level.
 Most scientific fields bennefit from both approaches. Take the weather, for
 example. The majority of people don't care why it will rain or why the
 temperature drops 10 degrees over night. But it is expremely useful information
-the industry (formers, sailors, outdoor events, public transportation). And most
-people want to know the weather in their specific part of the world. But in the
-face of climate change, we also need to know *why* the earth is experiencing
+to the industry (formers, sailors, outdoor events, public transportation). And
+most people want to know the weather in their specific part of the world. But in
+the face of climate change, we also need to know *why* the earth is experiencing
 global warming. Just knowing that the earth will be 1.2 degrees warmer in 10
 years will not help us keep the temperature lower or prevent the disaster.
 
@@ -96,22 +96,31 @@ Prediction models cannot inform intervention. Only risk assessment and potential
 willingness to act --- but what to act on?
 :::
 
-## Content (still being worked on)
+## Discussion task: Recall the framework
 
-The established ABCD framework is
+You have read the paper by Steyerberg & Vergouwe, 2014 [@steyerberg2014towards]
+in which they propose an **ABCD framework** for validating prediction models.
+The acronym is:
 
 - A = calibration-in-the-large,
 - B = calibration slope,
 - C = discrimination/C-statistic,
 - D = clinical usefulness/decision-curve analysis.
 
-[see framework here](https://pmc.ncbi.nlm.nih.gov/articles/PMC4155437/)
+[see the framework here](https://pmc.ncbi.nlm.nih.gov/articles/PMC4155437/)
+
+**Discuss with your neighbour:**
+
+1. What does each step help answer?
+2. Were you unsure about a concept or step?
+3. Collect the questions and see whether they're addressed by the end of the
+   session --- otherwise, ask!
+
+### Dataset context:
 
 The `ad_validation_logistic` data are particularly convenient because they
 already contain observed classes and out-of-sample predicted probabilities from
 a logistic regression model.
-
-### Dataset context:
 
 ```{r}
 #| label: prep-dataset
@@ -123,7 +132,7 @@ ad_data <- medisr::ad_data
 
 ad_data$diagnosis <- factor(ad_data$diagnosis,
   levels = c("Impaired", "Control"),
-  labels = c("impaired", "control"),
+  labels = c("impaired", "control")
 )
 
 ad_data$Genotype <- factor(ad_data$Genotype,
@@ -156,7 +165,7 @@ model <- glm(
 So
 
 $$
-  impairment_i \sim age + male + tau + p\_tau + Ab\_42 + genotype
+  \text{impairment}_i \sim age + male + tau + p\_tau + Ab\_42 + genotype
 $$
 where:
 
@@ -368,7 +377,24 @@ predictions <- ad_validation_logistic |>
 
 ## Quantifying binary prediction success
 
-dd
+In binary outcomes, there's really only four cases:
+
+1. The model predicted class A, which was correct
+2. The model predicted class A, which was incorrect (it was B)
+3. The model predicted class B, which was correct
+4. The model predicted class B, which was incorrect (it was A)
+
+We need to work with these four cases in a clever way.
+
+As you will see from this session, the field has defined countless of
+interesting and sophisticated ways to work with this type of data.
+
+We'll start by organizing the raw data in a matrix. This matrix is the
+foundation for almost all outcomes we'll work with, such as accuracy,
+specificity, sensitivity.
+
+This will also lead to the idea of the receiver operating characteristic (ROC)
+and area under its curve (AUC).
 
 ## It all starts with the confusion matrix
 

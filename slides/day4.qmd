@@ -5,7 +5,7 @@ search: false
 
 # Data visualizations {.center .align-center}
 
-Start after section 13.3 Proceed with section 13.4
+Start after section 12.5 Proceed with section 12.6
 
 ## Why Visualize Data? {.r-stretch .center style="text-align: center;"}
 

@@ -193,7 +193,7 @@ Project". Type out `plotting-data` as the directory name and save it to the
 Finally, while you're in the project (see top right `plotting-data`), run:
 
 ```r
-medisr::medisr_init_project
+medisr::medisr_init_project()
 ```
 
 ### Terminology
@@ -396,7 +396,7 @@ Try flipping the coordinates of the histogram of the max heart rate.
 
 ```r
 hd_data |>
-    ggplot((___ = ___)) +
+    ggplot(__(__ = __)) +
     ____histogram() +
     coord_flip()
 ```
@@ -411,8 +411,8 @@ hd_data |>
 # The solution:
 hd_data |>
   ggplot(aes(x = MaxHR)) +
-  geom_histogram()
-coord_flip()
+  geom_histogram() +
+  coord_flip()
 ```
 
 </details>

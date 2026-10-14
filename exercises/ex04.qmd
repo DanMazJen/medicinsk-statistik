@@ -112,17 +112,23 @@ factor with meaningful labels:
 
 ```{r A4}
 
-height_data <- height_data |>
-  dplyr::mutate(
-    male = factor(
-      male,
+height_data$male <- factor(
+      height_data$male,
+      levels = c(0, 1),
+      labels = c("no", "yes")
+)
+
+height_data$male
+
+# or try making a new column named sex:
+
+height_data$sex <- factor(
+      height_data$male,
       levels = c(0, 1),
       labels = c("Female", "Male")
-    )
-  )
+)
 
-height_data  |>
-  dplyr::pull(male)
+height_data$sex
 ```
 
 </details>
@@ -228,10 +234,13 @@ height_data |>
   ggplot(
     aes(
       x = height,
-      color = male
+      fill = male # a valid choice instead of color
     )
   ) +
-  geom_density()
+  geom_histogram(
+    alpha = 0.5, # makes the color transparent
+    position = "identity" # shows where bins overlap
+    )
 ```
 
 </details>
@@ -294,7 +303,7 @@ height_data |>
   ) +
   geom_point() +
   geom_smooth() +
-  xlim(c(0,20)) # this line helps a lot by zooming in at the age of interest!
+  xlim(c(0,20)) # Tip: this line helps a lot by zooming in at the age of interest!
 ```
 
 </details>

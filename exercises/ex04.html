@@ -517,79 +517,102 @@ male is obviously not continuous but rather a yes/no factor. So we should consid
 </ul>
 <details><summary><strong>Click for the solution</strong>
 </summary><div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">height_data</span> <span class="op">&lt;-</span> <span class="va">height_data</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
-<span>    male <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span></span>
-<span>      <span class="va">male</span>,</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">height_data</span><span class="op">$</span><span class="va">male</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span></span>
+<span>      <span class="va">height_data</span><span class="op">$</span><span class="va">male</span>,</span>
+<span>      levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>,</span>
+<span>      labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"no"</span>, <span class="st">"yes"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">height_data</span><span class="op">$</span><span class="va">male</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  [1] yes no  no  yes no  yes no  yes no  yes no  yes no  no  no  yes
+ [17] yes no  yes no  no  yes no  yes no  yes no  no  yes no  yes yes
+ [33] yes no  no  no  no  no  no  yes yes yes yes no  no  no  yes no 
+ [49] no  yes no  yes yes yes no  no  yes no  no  no  no  yes no  yes
+ [65] no  no  no  yes yes no  yes no  yes no  no  yes no  yes yes no 
+ [81] no  no  no  yes yes no  yes yes no  no  yes no  yes yes no  yes
+ [97] no  no  yes no  yes no  yes no  no  yes yes no  no  yes yes yes
+[113] no  no  yes yes yes no  yes no  yes yes yes yes no  no  yes yes
+[129] yes no  no  yes yes yes no  yes no  no  yes yes no  yes no  yes
+[145] no  no  no  no  yes yes no  no  yes yes no  no  no  yes yes no 
+[161] yes yes no  no  no  yes no  yes no  no  no  no  no  no  yes no 
+[177] no  yes yes no  yes no  yes yes yes no  no  yes yes no  yes no 
+[193] no  no  no  no  no  yes no  yes yes no  yes yes no  yes no  yes
+[209] no  yes no  no  no  yes yes no  yes yes no  no  yes yes yes yes
+[225] yes no  yes yes no  no  no  no  no  yes no  yes no  yes no  no 
+[241] no  no  no  yes no  yes yes no  no  no  no  yes yes no  yes no 
+[257] yes yes no  yes no  yes no  no  no  no  no  yes yes no  yes yes
+[273] no  no  yes no  yes no  no  no  no  no  no  yes yes yes no  yes
+[289] yes no  no  no  yes no  yes no  no  yes no  no  no  no  yes no 
+[305] yes no  no  no  no  yes no  yes yes yes no  no  yes yes yes no 
+[321] yes no  no  yes yes no  yes no  no  no  no  no  yes no  yes no 
+[337] yes yes no  yes no  yes no  no  no  yes no  no  yes yes yes yes
+[353] yes no  yes yes no  no  yes no  yes no  no  yes no  no  no  yes
+[369] yes no  no  yes no  no  yes yes yes no  no  yes no  no  yes yes
+[385] no  no  no  no  yes no  yes yes no  yes yes no  yes no  yes no 
+[401] yes yes yes no  yes yes no  yes yes no  yes yes no  yes no  no 
+[417] no  yes no  no  yes yes no  yes no  yes yes yes yes yes no  yes
+[433] yes yes yes yes yes yes no  yes no  yes no  no  no  yes yes no 
+[449] yes yes yes no  no  yes no  no  yes yes yes yes yes no  no  no 
+[465] no  yes no  yes no  no  no  no  yes no  no  yes yes no  yes no 
+[481] no  yes no  yes yes no  yes yes yes no  yes no  yes no  no  no 
+[497] no  yes yes yes yes yes no  yes no  yes no  no  yes yes no  no 
+[513] yes no  no  no  no  no  no  no  yes yes no  yes no  yes no  no 
+[529] yes no  no  no  yes no  no  yes no  no  yes yes yes no  yes yes
+Levels: no yes</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># or try making a new column named sex:</span></span>
+<span></span>
+<span><span class="va">height_data</span><span class="op">$</span><span class="va">sex</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span></span>
+<span>      <span class="va">height_data</span><span class="op">$</span><span class="va">male</span>,</span>
 <span>      levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>,</span>
 <span>      labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Female"</span>, <span class="st">"Male"</span><span class="op">)</span></span>
-<span>    <span class="op">)</span></span>
-<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">height_data</span>  <span class="op">|&gt;</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">male</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span><span class="va">height_data</span><span class="op">$</span><span class="va">sex</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  [1] Male   Female Female Male   Female Male   Female Male   Female
- [10] Male   Female Male   Female Female Female Male   Male   Female
- [19] Male   Female Female Male   Female Male   Female Male   Female
- [28] Female Male   Female Male   Male   Male   Female Female Female
- [37] Female Female Female Male   Male   Male   Male   Female Female
- [46] Female Male   Female Female Male   Female Male   Male   Male  
- [55] Female Female Male   Female Female Female Female Male   Female
- [64] Male   Female Female Female Male   Male   Female Male   Female
- [73] Male   Female Female Male   Female Male   Male   Female Female
- [82] Female Female Male   Male   Female Male   Male   Female Female
- [91] Male   Female Male   Male   Female Male   Female Female Male  
-[100] Female Male   Female Male   Female Female Male   Male   Female
-[109] Female Male   Male   Male   Female Female Male   Male   Male  
-[118] Female Male   Female Male   Male   Male   Male   Female Female
-[127] Male   Male   Male   Female Female Male   Male   Male   Female
-[136] Male   Female Female Male   Male   Female Male   Female Male  
-[145] Female Female Female Female Male   Male   Female Female Male  
-[154] Male   Female Female Female Male   Male   Female Male   Male  
-[163] Female Female Female Male   Female Male   Female Female Female
-[172] Female Female Female Male   Female Female Male   Male   Female
-[181] Male   Female Male   Male   Male   Female Female Male   Male  
-[190] Female Male   Female Female Female Female Female Female Male  
-[199] Female Male   Male   Female Male   Male   Female Male   Female
-[208] Male   Female Male   Female Female Female Male   Male   Female
-[217] Male   Male   Female Female Male   Male   Male   Male   Male  
-[226] Female Male   Male   Female Female Female Female Female Male  
-[235] Female Male   Female Male   Female Female Female Female Female
-[244] Male   Female Male   Male   Female Female Female Female Male  
-[253] Male   Female Male   Female Male   Male   Female Male   Female
-[262] Male   Female Female Female Female Female Male   Male   Female
-[271] Male   Male   Female Female Male   Female Male   Female Female
-[280] Female Female Female Female Male   Male   Male   Female Male  
-[289] Male   Female Female Female Male   Female Male   Female Female
-[298] Male   Female Female Female Female Male   Female Male   Female
-[307] Female Female Female Male   Female Male   Male   Male   Female
-[316] Female Male   Male   Male   Female Male   Female Female Male  
-[325] Male   Female Male   Female Female Female Female Female Male  
-[334] Female Male   Female Male   Male   Female Male   Female Male  
-[343] Female Female Female Male   Female Female Male   Male   Male  
-[352] Male   Male   Female Male   Male   Female Female Male   Female
-[361] Male   Female Female Male   Female Female Female Male   Male  
-[370] Female Female Male   Female Female Male   Male   Male   Female
-[379] Female Male   Female Female Male   Male   Female Female Female
-[388] Female Male   Female Male   Male   Female Male   Male   Female
-[397] Male   Female Male   Female Male   Male   Male   Female Male  
-[406] Male   Female Male   Male   Female Male   Male   Female Male  
-[415] Female Female Female Male   Female Female Male   Male   Female
-[424] Male   Female Male   Male   Male   Male   Male   Female Male  
-[433] Male   Male   Male   Male   Male   Male   Female Male   Female
-[442] Male   Female Female Female Male   Male   Female Male   Male  
-[451] Male   Female Female Male   Female Female Male   Male   Male  
-[460] Male   Male   Female Female Female Female Male   Female Male  
-[469] Female Female Female Female Male   Female Female Male   Male  
-[478] Female Male   Female Female Male   Female Male   Male   Female
-[487] Male   Male   Male   Female Male   Female Male   Female Female
-[496] Female Female Male   Male   Male   Male   Male   Female Male  
-[505] Female Male   Female Female Male   Male   Female Female Male  
-[514] Female Female Female Female Female Female Female Male   Male  
-[523] Female Male   Female Male   Female Female Male   Female Female
-[532] Female Male   Female Female Male   Female Female Male   Male  
-[541] Male   Female Male   Male  
+<pre><code>  [1] &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt;
+ [14] &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt;
+ [27] &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt;
+ [40] &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt;
+ [53] &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt;
+ [66] &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt;
+ [79] &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt;
+ [92] &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt;
+[105] &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt;
+[118] &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt;
+[131] &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt;
+[144] &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt;
+[157] &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt;
+[170] &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt;
+[183] &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt;
+[196] &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt;
+[209] &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt;
+[222] &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt;
+[235] &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt;
+[248] &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt;
+[261] &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt;
+[274] &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt;
+[287] &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt;
+[300] &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt;
+[313] &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt;
+[326] &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt;
+[339] &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt;
+[352] &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt;
+[365] &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt;
+[378] &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt;
+[391] &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt;
+[404] &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt;
+[417] &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt;
+[430] &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt;
+[443] &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt;
+[456] &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt;
+[469] &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt;
+[482] &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt;
+[495] &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt;
+[508] &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt;
+[521] &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt;
+[534] &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt;
 Levels: Female Male</code></pre>
 </div>
 </div>
@@ -605,7 +628,7 @@ Levels: Female Male</code></pre>
 <p><strong>Second</strong> implement the plot in R.</p>
 <details><summary><strong>Click for the solution</strong>
 </summary><div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">height_data</span> <span class="op">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">height_data</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">ggplot</span><span class="op">(</span></span>
 <span>    <span class="fu">aes</span><span class="op">(</span></span>
 <span>      x <span class="op">=</span> <span class="va">male</span>,</span>
@@ -638,7 +661,7 @@ Levels: Female Male</code></pre>
 </ul>
 <details><summary><strong>Click for the solution</strong>
 </summary><div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">height_data</span> <span class="op">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">height_data</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">ggplot</span><span class="op">(</span></span>
 <span>    <span class="fu">aes</span><span class="op">(</span></span>
 <span>      x <span class="op">=</span> <span class="va">height</span>,</span>
@@ -673,14 +696,20 @@ Levels: Female Male</code></pre>
 </summary><p>Code depends on your plot of choice 👀</p>
 <p>Example:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">height_data</span> <span class="op">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">height_data</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">ggplot</span><span class="op">(</span></span>
 <span>    <span class="fu">aes</span><span class="op">(</span></span>
 <span>      x <span class="op">=</span> <span class="va">height</span>,</span>
-<span>      color <span class="op">=</span> <span class="va">male</span></span>
+<span>      fill <span class="op">=</span> <span class="va">male</span> <span class="co"># a valid choice instead of color</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_density</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span>  <span class="fu">geom_histogram</span><span class="op">(</span></span>
+<span>    alpha <span class="op">=</span> <span class="fl">0.5</span>, <span class="co"># makes the color transparent</span></span>
+<span>    position <span class="op">=</span> <span class="st">"identity"</span> <span class="co"># shows where bins overlap</span></span>
+<span>    <span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value `binwidth`.</code></pre>
+</div>
 <div class="cell-output-display">
 <div>
 <figure class="figure"><p><img src="ex04_files/figure-html/ex-c1-1.png" class="img-fluid figure-img" width="672"></p>
@@ -699,7 +728,7 @@ Levels: Female Male</code></pre>
 </summary><p>Did you choose box plot? 👀</p>
 <p>Example:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">height_data</span> <span class="op">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">height_data</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">ggplot</span><span class="op">(</span></span>
 <span>    <span class="fu">aes</span><span class="op">(</span></span>
 <span>      x <span class="op">=</span> <span class="va">male</span>,</span>
@@ -725,7 +754,7 @@ Levels: Female Male</code></pre>
 <details><summary><strong>Click for the solution</strong>
 </summary><p>example:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">height_data</span> <span class="op">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">height_data</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">ggplot</span><span class="op">(</span></span>
 <span>    <span class="fu">aes</span><span class="op">(</span></span>
 <span>      x <span class="op">=</span> <span class="va">age</span>,</span>
@@ -735,7 +764,7 @@ Levels: Female Male</code></pre>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_smooth</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">xlim</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">20</span><span class="op">)</span><span class="op">)</span> <span class="co"># this line helps a lot by zooming in at the age of interest!</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span>  <span class="fu">xlim</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">20</span><span class="op">)</span><span class="op">)</span> <span class="co"># Tip: this line helps a lot by zooming in at the age of interest!</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`geom_smooth()` using method = 'loess' and formula = 'y ~ x'</code></pre>
 </div>
@@ -766,7 +795,7 @@ Click for the solution
 </summary><p>Can you compare the two trends and see how individuals fall above or below the other group’s trend line? 👀</p>
 <p>Example:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">height_data</span> <span class="op">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">height_data</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">ggplot</span><span class="op">(</span></span>
 <span>    <span class="fu">aes</span><span class="op">(</span></span>
 <span>      x <span class="op">=</span> <span class="va">age</span>,</span>
@@ -800,7 +829,7 @@ Click for the solution
 </summary><p>Look at how the spread of the data points changes as age increases. 👀</p>
 <p>Example:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">weight_plot</span> <span class="op">&lt;-</span> <span class="va">height_data</span> <span class="op">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">weight_plot</span> <span class="op">&lt;-</span> <span class="va">height_data</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">ggplot</span><span class="op">(</span></span>
 <span>    <span class="fu">aes</span><span class="op">(</span></span>
 <span>      x <span class="op">=</span> <span class="va">age</span>,</span>
@@ -827,7 +856,7 @@ Click for the solution
 </div>
 </div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggsave</span><span class="op">(</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggsave</span><span class="op">(</span></span>
 <span>    filename <span class="op">=</span> <span class="st">"figures/subgroup-association.png"</span>,</span>
 <span>    plot <span class="op">=</span> <span class="va">weight_plot</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details><p><strong>Exercise 6C:</strong></p>
@@ -842,7 +871,7 @@ Click for the solution
 <details><summary><strong>Click for the solution</strong>
 </summary><p>This plot doesn’t make sense because we include all ages. Thus, we have huge variability at lower heights (children growing up) and a cluster in the top representing adults. You can easily notice this by adding the jitter. This would have been difficult only from the use of <code>geom_col</code>.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">height_data</span> <span class="op">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">height_data</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">male</span>, <span class="va">height</span>, color<span class="op">=</span><span class="va">male</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">stat_summary</span><span class="op">(</span>geom <span class="op">=</span> <span class="st">"col"</span>, fun <span class="op">=</span> <span class="va">mean</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_jitter</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -857,7 +886,7 @@ Click for the solution
 <p>In the compendium, <strong>chapter 1.8 Exercises</strong>, exercise 12 and 16 used <code><a href="https://rdrr.io/r/graphics/lines.html">lines()</a></code> on top of a <code><a href="https://rdrr.io/r/graphics/hist.html">hist()</a></code> to show the density of a parametric function.</p>
 <p>The solution was:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu">medisr</span><span class="fu">::</span><span class="va"><a href="https://danmazjen.github.io/medisr/reference/dns.html">dns</a></span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu">medisr</span><span class="fu">::</span><span class="va"><a href="https://danmazjen.github.io/medisr/reference/dns.html">dns</a></span></span>
 <span></span>
 <span><span class="va">alc_mean</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">alcoholweek</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
@@ -886,7 +915,7 @@ Now, implement this using <a href="https://ggplot2.tidyverse.org">ggplot2</a>.
 <li>Consider using <code>stat_function()</code> for the parametric function.</li>
 </ol></details><details><summary><strong>Click for the solution</strong>
 </summary><div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">data</span> <span class="op">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">data</span> <span class="op">|&gt;</span></span>
 <span><span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">alcoholweek</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_histogram</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>y <span class="op">=</span> <span class="fu">after_stat</span><span class="op">(</span><span class="va">density</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">stat_function</span><span class="op">(</span>fun <span class="op">=</span> <span class="va">dexp</span>, args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>rate <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="va">alc_mean</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>

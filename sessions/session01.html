@@ -882,15 +882,6 @@ Attaching package: 'dplyr'</code></pre>
 <span>  <span class="st">"https://zenodo.org/records/8292712/files/SUA_CVDs_risk_factors.csv"</span></span>
 <span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Rows: 25744 Columns: 15
-── Column specification ────────────────────────────────────────────────
-Delimiter: ","
-dbl (15): ID, sex, Age, BMI, SBP, DBP, FBG, TC, Cr, GFR, UA, Times, ...
-
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-</div>
 </div>
 <p>Here, we used the <a href="https://readr.tidyverse.org">readr</a> package to read a csv file from the course website using the function <code>read_csv()</code>. As we haven’t loaded the <a href="https://readr.tidyverse.org">readr</a> package, R doesn’t know that there’s a function called <code>read_csv()</code>. Instead of loading the entire library of functions (using <code><a href="https://readr.tidyverse.org">library(readr)</a></code>), we simply tell R to find the <a href="https://readr.tidyverse.org">readr</a> package and look for the function <code>read_csv()</code> using colon-colon <code>package::function</code>.</p>
 <p>If you wanted to store or save a csv-file, you could write the csv file to your computer using <code>write_csv()</code>. Here, you need to specify where you want the file. For now, we will store it in the <code>medical-statistics/data-raw/</code> folder and name the file <code>SUA_data</code>:</p>
@@ -899,7 +890,7 @@ dbl (15): ID, sex, Age, BMI, SBP, DBP, FBG, TC, Cr, GFR, UA, Times, ...
 <div class="code-with-filename-file">
 <pre><strong>.../hallo-medical-statistics/R/learning.R</strong></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html">write_csv</a></span><span class="op">(</span><span class="va">SUA_data</span>, <span class="st">"data-raw/SUA_data.csv"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html">write_csv</a></span><span class="op">(</span><span class="va">SUA_data</span>, <span class="st">"data-raw/SUA_data.csv"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <p>You can always read more about the function using <code><a href="https://readr.tidyverse.org/reference/write_delim.html">?readr::write_csv</a></code></p>
@@ -907,29 +898,29 @@ dbl (15): ID, sex, Age, BMI, SBP, DBP, FBG, TC, Cr, GFR, UA, Times, ...
 <span class="header-section-number">11.14</span> Overview of data</h2>
 <p><code><a href="https://rdrr.io/r/utils/View.html">View()</a></code> function.</p>
 <p>As R is case sensitive, <code>view()</code> will now work - try it!</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># This will produce an error:</span></span>
-<span><span class="fu">view</span><span class="op">(</span><span class="va">SUA_data</span><span class="op">)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># This will produce an error:</span></span>
+<span><span class="fu">view</span><span class="op">(</span><span class="va">hd_data</span><span class="op">)</span></span>
 <span><span class="co"># Instead try:</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/View.html">View</a></span><span class="op">(</span><span class="va">SUA_data</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/View.html">View</a></span><span class="op">(</span><span class="va">hd_data</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section><section id="using-functions-on-datasets" class="level2" data-number="11.15"><h2 data-number="11.15" class="anchored" data-anchor-id="using-functions-on-datasets">
 <span class="header-section-number">11.15</span> Using functions on datasets</h2>
 <p>The <code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code> function also works on datasets. However, we need to specify which variable it should take the mean of.</p>
 <p>We do this by either selecting it with the <code>$</code> sign:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">SUA_data</span><span class="op">$</span><span class="va">Age</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">hd_data</span><span class="op">$</span><span class="va">Age</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 69.38102</code></pre>
+<pre><code>[1] 54.43894</code></pre>
 </div>
 </div>
 <p>Another approach is to use the <a href="https://dplyr.tidyverse.org">dplyr</a> function <code><a href="https://dplyr.tidyverse.org/reference/pull.html">pull()</a></code>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span> <span class="co"># pull is from dplyr</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span> <span class="co"># pull is from dplyr</span></span>
 <span></span>
-<span><span class="va">SUA_data</span> <span class="op">|&gt;</span></span>
+<span><span class="va">hd_data</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">Age</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="co"># this will error if you did not load the package as above!</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 69.38102</code></pre>
+<pre><code>[1] 54.43894</code></pre>
 </div>
 </div>
 <p>Both yield the same result. The first is quick but can be difficult to extend or even read.</p>

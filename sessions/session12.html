@@ -643,7 +643,7 @@ Baseline seizures ─────► Outcome (Seizures)
 <details><summary><strong>Click for a potential solution</strong>
 </summary><div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-dag" class="quarto-float quarto-figure quarto-figure-center anchored" width="70%" data-fig-align="center">
+<div id="fig-dag" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" width="70%">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-dag-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="session12_files/figure-html/fig-dag-1.png" id="fig-dag" class="img-fluid quarto-figure quarto-figure-center anchored figure-img" style="width:70.0%">
 </div>
@@ -739,7 +739,7 @@ $ log_age           &lt;dbl&gt; 0.11420370, 0.08141387, -0.10090768, 0.26373…<
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com">patchwork</a></span><span class="op">)</span></span>
 <span><span class="va">baseline_data_plot</span> <span class="op">+</span> <span class="va">posttrial_data_plot</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div id="fig-explore1" class="quarto-float quarto-figure quarto-figure-center anchored" width="70%" data-fig-align="center">
+<div id="fig-explore1" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" width="70%">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-explore1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="session12_files/figure-html/fig-explore1-1.png" id="fig-explore1" class="img-fluid quarto-figure quarto-figure-center anchored figure-img" style="width:70.0%">
 </div>
@@ -796,7 +796,7 @@ Figure&nbsp;14.2
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html">rbinom</a></span><span class="op">(</span><span class="fl">1e5</span>, <span class="fl">1000</span>, <span class="fl">1</span><span class="op">/</span><span class="fl">1000</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">var</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.9992200 0.9997694</code></pre>
+<pre><code>[1] 0.9987300 0.9965184</code></pre>
 </div>
 </div>
 <p>As a result, the distribution only has one parameter, λ (pronounced <em>lambda</em>).</p>
@@ -1216,7 +1216,7 @@ plot_baseline_pred
 <span>    <span class="fu">labs</span><span class="op">(</span></span>
 <span>    y<span class="op">=</span><span class="st">"Count outcome space"</span></span>
 <span><span class="op">)</span> <span class="op">+</span> <span class="fu">coord_cartesian</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">5</span>,<span class="fl">150</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">5</span>,<span class="fl">150</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell quarto-layout-panel" data-layout-align="center" data-layout-ncol="2">
+<div class="cell quarto-layout-panel" data-layout-ncol="2" data-layout-align="center">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
@@ -1665,29 +1665,21 @@ how Student-t is a mixture of Gaussians).
 <span class="header-section-number">14.17.2</span> The practice</h3>
 <p>Before fitting a negative binomial model, it is useful to check whether the Poisson assumptions appear reasonable. The <code><a href="https://easystats.github.io/performance/reference/check_overdispersion.html">performance::check_overdispersion()</a></code> function compares the observed variability with the variability expected under the fitted Poisson model. Evidence of substantial overdispersion suggests that the Poisson model is likely underestimating uncertainty.</p>
 <p>The <code><a href="https://easystats.github.io/performance/reference/check_model.html">performance::check_model()</a></code> function provides additional diagnostic plots for evaluating the adequacy of the fitted model. If overdispersion is present, we can fit a negative binomial model using <code><a href="https://rdrr.io/pkg/MASS/man/glm.nb.html">MASS::glm.nb()</a></code>. The interpretation of the regression coefficients remains unchanged: exponentiating a coefficient gives the multiplicative change in the expected seizure rate, just as in the Poisson model. The only difference is that the negative binomial model explicitly allows for unexplained patient-to-patient variability.</p>
-<div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb40"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">performance</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/performance/reference/check_overdispersion.html">check_overdispersion</a></span><span class="op">(</span><span class="va">m2_baseline</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># Overdispersion test
-
-       dispersion ratio =   2.526
-  Pearson's Chi-Squared = 141.437
-                p-value = &lt; 0.001</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Overdispersion detected.</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb43"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">performance</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/performance/reference/check_model.html">check_model</a></span><span class="op">(</span><span class="va">m2_baseline</span><span class="op">)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb40"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#| label: assumptions</span></span>
+<span></span>
+<span><span class="fu">performance</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/performance/reference/check_overdispersion.html">check_overdispersion</a></span><span class="op">(</span><span class="va">m2_baseline</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">performance</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/performance/reference/check_model.html">check_model</a></span><span class="op">(</span><span class="va">m2_baseline</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">m3_nb</span> <span class="op">&lt;-</span> <span class="fu">MASS</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/MASS/man/glm.nb.html">glm.nb</a></span><span class="op">(</span><span class="va">seizure_count</span> <span class="op">~</span> <span class="va">drug</span> <span class="op">*</span> <span class="va">baseline_seizures</span>,</span>
 <span>    data <span class="op">=</span> <span class="va">epil</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">performance</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/performance/reference/check_model.html">check_model</a></span><span class="op">(</span><span class="va">m3_nb</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
 <p>To illustrate the difference between these distributions, the figure below simulates data using the observed mean and standard deviation of the epilepsy data. The Gaussian distribution allows impossible negative seizure counts, while the Poisson distribution is restricted to non-negative integers but produces too little variability because its variance equals its mean. The negative binomial distribution remains discrete and non-negative while accommodating the larger variance observed in the data, making it a much more realistic model for seizure counts.</p>
-<div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb44"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">epil</span><span class="op">$</span><span class="va">seizure_count</span><span class="op">)</span> <span class="co"># 7.305085</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb41"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#| label: draws-nb</span></span>
+<span></span>
+<span><span class="va">mu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">epil</span><span class="op">$</span><span class="va">seizure_count</span><span class="op">)</span> <span class="co"># 7.305085</span></span>
 <span><span class="va">sigma</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">epil</span><span class="op">$</span><span class="va">seizure_count</span><span class="op">)</span> <span class="co"># 9.649467</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">363461174</span><span class="op">)</span></span>
 <span><span class="va">dist_draws</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
@@ -1706,13 +1698,6 @@ how Student-t is a mixture of Gaussians).
 <span>    <span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">facet_wrap</span><span class="op">(</span><span class="op">~</span><span class="va">dist</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">labs</span><span class="op">(</span>x<span class="op">=</span><span class="st">"seizures"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="session12_files/figure-html/draws-nb-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></p>
-</figure>
-</div>
-</div>
-</div>
 <p>This time, what do you notice? Compare the plots to the observed data we plotted juin the beginning of the session.</p>
 <ul>
 <li>Which best captures the data?</li>
@@ -1723,8 +1708,9 @@ how Student-t is a mixture of Gaussians).
 <div class="hidden">
 <p>Hidden material on prediction</p>
 <p>manual predictions:</p>
-<div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb45"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x_seq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">epil</span><span class="op">$</span><span class="va">base</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">epil</span><span class="op">$</span><span class="va">base</span><span class="op">)</span>, length.out <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb42"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#| label: manual-predict</span></span>
+<span></span>
+<span><span class="va">x_seq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">epil</span><span class="op">$</span><span class="va">base</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">epil</span><span class="op">$</span><span class="va">base</span><span class="op">)</span>, length.out <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">m2_baseline</span><span class="op">)</span></span>
 <span></span>
@@ -1735,14 +1721,9 @@ how Student-t is a mixture of Gaussians).
 <span>  <span class="co">#b["base"] * mean(epil$lbase)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">x_seq</span>, <span class="va">mu_hat</span>, type <span class="op">=</span> <span class="st">"l"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="session12_files/figure-html/manual-predict-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></p>
-</figure>
-</div>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb46"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># placebo</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">x_seq</span>, <span class="va">mu_hat</span>, type <span class="op">=</span> <span class="st">"l"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># placebo</span></span>
 <span><span class="va">newdata</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
 <span>  baseline_seizures <span class="op">=</span> <span class="va">x_seq</span>,</span>
 <span>  drug <span class="op">=</span> <span class="st">"placebo"</span></span>
@@ -1758,58 +1739,18 @@ how Student-t is a mixture of Gaussians).
 <span>    baseline_seizures <span class="op">=</span> <span class="va">x_seq</span>,</span>
 <span>    drug <span class="op">=</span> <span class="st">"progabide"</span></span>
 <span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">m2_baseline</span>, <span class="va">newdata2</span>, type <span class="op">=</span> <span class="st">"response"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>        1         2         3         4         5         6         7 
- 2.797788  2.887444  2.979973  3.075467  3.174021  3.275734  3.380705 
-        8         9        10        11        12        13        14 
- 3.489041  3.600848  3.716238  3.835326  3.958230  4.085073  4.215980 
-       15        16        17        18        19        20        21 
- 4.351082  4.490514  4.634414  4.782925  4.936195  5.094376  5.257627 
-       22        23        24        25        26        27        28 
- 5.426109  5.599990  5.779443  5.964647  6.155786  6.353050  6.556635 
-       29        30        31        32        33        34        35 
- 6.766744  6.983586  7.207377  7.438339  7.676703  7.922705  8.176590 
-       36        37        38        39        40        41        42 
- 8.438611  8.709028  8.988112  9.276138  9.573394  9.880176 10.196789 
-       43        44        45        46        47        48        49 
-10.523548 10.860778 11.208814 11.568004 11.938704 12.321283 12.716121 
-       50        51        52        53        54        55        56 
-13.123613 13.544163 13.978189 14.426124 14.888413 15.365516 15.857908 
-       57        58        59        60        61        62        63 
-16.366079 16.890534 17.431796 17.990402 18.566910 19.161891 19.775939 
-       64        65        66        67        68        69        70 
-20.409664 21.063697 21.738689 22.435311 23.154257 23.896241 24.662003 
-       71        72        73        74        75        76        77 
-25.452303 26.267929 27.109692 27.978429 28.875005 29.800312 30.755271 
-       78        79        80        81        82        83        84 
-31.740832 32.757976 33.807714 34.891091 36.009185 37.163109 38.354011 
-       85        86        87        88        89        90        91 
-39.583075 40.851526 42.160624 43.511672 44.906015 46.345040 47.830180 
-       92        93        94        95        96        97        98 
-49.362911 50.944758 52.577297 54.262150 56.000995 57.795562 59.647636 
-       99       100 
-61.559061 63.531737 </code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb48"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mu_prog</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">m2_baseline</span>, <span class="va">newdata2</span>, type <span class="op">=</span> <span class="st">"response"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">mu_prog</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span></span>
 <span>    <span class="va">b</span><span class="op">[</span><span class="st">"(Intercept)"</span><span class="op">]</span> <span class="op">+</span></span>
 <span>    <span class="va">b</span><span class="op">[</span><span class="st">"drugprogabide"</span><span class="op">]</span> <span class="op">+</span></span>
 <span>    <span class="op">(</span><span class="va">b</span><span class="op">[</span><span class="st">"baseline_seizures"</span><span class="op">]</span> <span class="op">+</span> <span class="va">b</span><span class="op">[</span><span class="st">"drugprogabide:baseline_seizures"</span><span class="op">]</span><span class="op">)</span> <span class="op">*</span> <span class="va">x_seq</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">x_seq</span>,y<span class="op">=</span><span class="va">mu_prog</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x<span class="op">=</span><span class="va">x</span>,y<span class="op">=</span><span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu">geom_line</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 100 rows containing missing values or values outside the scale
-range (`geom_line()`).</code></pre>
-</div>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="session12_files/figure-html/manual-predict-2.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></p>
-</figure>
-</div>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb50"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#X &lt;- model.matrix(~ trt + base + `trtprogabide:base`, newdata)</span></span>
+<span>    <span class="fu">geom_line</span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#X &lt;- model.matrix(~ trt + base + `trtprogabide:base`, newdata)</span></span>
 <span><span class="co">#X &lt;- model.matrix(~ trt * base, newdata)</span></span>
 <span><span class="va">tt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/delete.response.html">delete.response</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/terms.html">terms</a></span><span class="op">(</span><span class="va">m2_baseline</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
@@ -1826,110 +1767,6 @@ range (`geom_line()`).</code></pre>
 <span>  newdata <span class="op">=</span> <span class="va">newdata</span>,</span>
 <span>  type <span class="op">=</span> <span class="st">"response"</span></span>
 <span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>    [,1]
-1   TRUE
-2   TRUE
-3   TRUE
-4   TRUE
-5   TRUE
-6   TRUE
-7   TRUE
-8   TRUE
-9   TRUE
-10  TRUE
-11  TRUE
-12  TRUE
-13  TRUE
-14  TRUE
-15  TRUE
-16  TRUE
-17  TRUE
-18  TRUE
-19  TRUE
-20  TRUE
-21  TRUE
-22  TRUE
-23  TRUE
-24  TRUE
-25  TRUE
-26  TRUE
-27  TRUE
-28  TRUE
-29  TRUE
-30  TRUE
-31  TRUE
-32  TRUE
-33  TRUE
-34  TRUE
-35  TRUE
-36  TRUE
-37  TRUE
-38  TRUE
-39  TRUE
-40  TRUE
-41  TRUE
-42  TRUE
-43  TRUE
-44  TRUE
-45  TRUE
-46  TRUE
-47  TRUE
-48  TRUE
-49  TRUE
-50  TRUE
-51  TRUE
-52  TRUE
-53  TRUE
-54  TRUE
-55  TRUE
-56  TRUE
-57  TRUE
-58  TRUE
-59  TRUE
-60  TRUE
-61  TRUE
-62  TRUE
-63  TRUE
-64  TRUE
-65  TRUE
-66  TRUE
-67  TRUE
-68  TRUE
-69  TRUE
-70  TRUE
-71  TRUE
-72  TRUE
-73  TRUE
-74  TRUE
-75  TRUE
-76  TRUE
-77  TRUE
-78  TRUE
-79  TRUE
-80  TRUE
-81  TRUE
-82  TRUE
-83  TRUE
-84  TRUE
-85  TRUE
-86  TRUE
-87  TRUE
-88  TRUE
-89  TRUE
-90  TRUE
-91  TRUE
-92  TRUE
-93  TRUE
-94  TRUE
-95  TRUE
-96  TRUE
-97  TRUE
-98  TRUE
-99  TRUE
-100 TRUE</code></pre>
-</div>
-</div>
 <p>This last expression,</p>
 <p><code>exp(X %*% coef(fit))</code></p>
 <p>is essentially what predict.glm(type = “response”) computes internally. It’s the most general way to think about GLM predictions: construct the design matrix X, multiply by the coefficient vector β to get the linear predictor η=Xβ, then apply the inverse link function. For a Poisson model with the log link, the inverse link is simply exp().</p>
@@ -1957,7 +1794,7 @@ range (`geom_line()`).</code></pre>
   \eta = X\hat{\beta}.
 \]</span></p>
 <p>In R, this is computed as</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb52"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">eta</span> <span class="op">&lt;-</span> <span class="va">X</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html">%*%</a></span> <span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb43"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">eta</span> <span class="op">&lt;-</span> <span class="va">X</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html">%*%</a></span> <span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Here,</p>
 <ul>
 <li>
@@ -2003,7 +1840,7 @@ range (`geom_line()`).</code></pre>
   \hat{\mu} = \exp(\eta).
 \]</span></p>
 <p>In R:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb53"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">eta</span> <span class="op">&lt;-</span> <span class="va">X</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html">%*%</a></span> <span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span>   <span class="co"># matrix multiplication</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb44"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">eta</span> <span class="op">&lt;-</span> <span class="va">X</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html">%*%</a></span> <span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span>   <span class="co"># matrix multiplication</span></span>
 <span><span class="va">mu</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="va">eta</span><span class="op">)</span>          <span class="co"># inverse log link</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>A <strong>cross product</strong> is <strong>not</strong> being computed here. In vector algebra, the cross product is defined only for three-dimensional vectors and produces another vector. Although R has a function named <code><a href="https://rdrr.io/r/base/crossprod.html">crossprod()</a></code>, it computes</p>
 <p><span class="math display">\[

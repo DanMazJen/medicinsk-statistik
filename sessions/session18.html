@@ -130,7 +130,8 @@ div.csl-indent {
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script><script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script><script type="text/javascript">
+}</script><script src="../site_libs/quarto-diagram/mermaid.min.js"></script><script src="../site_libs/quarto-diagram/mermaid-init.js"></script><link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script><script type="text/javascript">
 const typesetMath = (el) => {
   if (window.MathJax) {
     // MathJax Typeset
@@ -461,7 +462,7 @@ window.Quarto = {
   <li><a href="#sensitivity" id="toc-sensitivity" class="nav-link" data-scroll-target="#sensitivity"><span class="header-section-number">16.8.4</span> Sensitivity</a></li>
   <li><a href="#discussion-task-setting-a-proability-threshold" id="toc-discussion-task-setting-a-proability-threshold" class="nav-link" data-scroll-target="#discussion-task-setting-a-proability-threshold"><span class="header-section-number">16.8.5</span> Discussion task: Setting a proability threshold</a></li>
   <li><a href="#the-receiver-operating-characteristic-roc" id="toc-the-receiver-operating-characteristic-roc" class="nav-link" data-scroll-target="#the-receiver-operating-characteristic-roc"><span class="header-section-number">16.8.6</span> The receiver operating characteristic (ROC)</a></li>
-  <li><a href="#area-under-the-curve-auc" id="toc-area-under-the-curve-auc" class="nav-link" data-scroll-target="#area-under-the-curve-auc"><span class="header-section-number">16.8.7</span> Area under the curve (AUC)</a></li>
+  <li><a href="#sec-binary-auc" id="toc-sec-binary-auc" class="nav-link" data-scroll-target="#sec-binary-auc"><span class="header-section-number">16.8.7</span> Area under the curve (AUC)</a></li>
   </ul>
 </li>
   <li>
@@ -484,9 +485,9 @@ window.Quarto = {
   </ul>
 </li>
   <li>
-<a href="#effect-size-estimation" id="toc-effect-size-estimation" class="nav-link" data-scroll-target="#effect-size-estimation"><span class="header-section-number">16.13</span> Effect size estimation</a>
+<a href="#sample-size-calculation-in-binary-prediction-studies" id="toc-sample-size-calculation-in-binary-prediction-studies" class="nav-link" data-scroll-target="#sample-size-calculation-in-binary-prediction-studies"><span class="header-section-number">16.13</span> Sample size calculation in binary prediction studies</a>
   <ul class="collapse">
-<li><a href="#the-mathematics-of-it" id="toc-the-mathematics-of-it" class="nav-link" data-scroll-target="#the-mathematics-of-it"><span class="header-section-number">16.13.1</span> The mathematics of it</a></li>
+<li><a href="#manual-estimation-using-the-c-statistic" id="toc-manual-estimation-using-the-c-statistic" class="nav-link" data-scroll-target="#manual-estimation-using-the-c-statistic"><span class="header-section-number">16.13.1</span> Manual estimation using the <em>c</em>-statistic</a></li>
   <li><a href="#effect-size-calculation-in-r" id="toc-effect-size-calculation-in-r" class="nav-link" data-scroll-target="#effect-size-calculation-in-r"><span class="header-section-number">16.13.2</span> Effect size calculation in R:</a></li>
   <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">16.13.3</span> Summary</a></li>
   </ul>
@@ -788,23 +789,23 @@ Warning
 <div class="cell">
 <div id="fig-workflow" class="cell-output-display quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-workflow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div id="dsqcnvxkyk" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#dsqcnvxkyk table {
+<div id="jfhbizpwuy" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#jfhbizpwuy table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#dsqcnvxkyk thead, #dsqcnvxkyk tbody, #dsqcnvxkyk tfoot, #dsqcnvxkyk tr, #dsqcnvxkyk td, #dsqcnvxkyk th {
+#jfhbizpwuy thead, #jfhbizpwuy tbody, #jfhbizpwuy tfoot, #jfhbizpwuy tr, #jfhbizpwuy td, #jfhbizpwuy th {
   border-style: none;
 }
 
-#dsqcnvxkyk p {
+#jfhbizpwuy p {
   margin: 0;
   padding: 0;
 }
 
-#dsqcnvxkyk .gt_table {
+#jfhbizpwuy .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -830,12 +831,12 @@ Warning
   border-left-color: #D3D3D3;
 }
 
-#dsqcnvxkyk .gt_caption {
+#jfhbizpwuy .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#dsqcnvxkyk .gt_title {
+#jfhbizpwuy .gt_title {
   color: #333333;
   font-size: 16px;
   font-weight: initial;
@@ -847,7 +848,7 @@ Warning
   border-bottom-width: 0;
 }
 
-#dsqcnvxkyk .gt_subtitle {
+#jfhbizpwuy .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -859,7 +860,7 @@ Warning
   border-top-width: 0;
 }
 
-#dsqcnvxkyk .gt_heading {
+#jfhbizpwuy .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -871,13 +872,13 @@ Warning
   border-right-color: #D3D3D3;
 }
 
-#dsqcnvxkyk .gt_bottom_border {
+#jfhbizpwuy .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#dsqcnvxkyk .gt_col_headings {
+#jfhbizpwuy .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -892,7 +893,7 @@ Warning
   border-right-color: #D3D3D3;
 }
 
-#dsqcnvxkyk .gt_col_heading {
+#jfhbizpwuy .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -912,7 +913,7 @@ Warning
   overflow-x: hidden;
 }
 
-#dsqcnvxkyk .gt_column_spanner_outer {
+#jfhbizpwuy .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -924,15 +925,15 @@ Warning
   padding-right: 4px;
 }
 
-#dsqcnvxkyk .gt_column_spanner_outer:first-child {
+#jfhbizpwuy .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#dsqcnvxkyk .gt_column_spanner_outer:last-child {
+#jfhbizpwuy .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#dsqcnvxkyk .gt_column_spanner {
+#jfhbizpwuy .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -944,11 +945,11 @@ Warning
   width: 100%;
 }
 
-#dsqcnvxkyk .gt_spanner_row {
+#jfhbizpwuy .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#dsqcnvxkyk .gt_group_heading {
+#jfhbizpwuy .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -974,7 +975,7 @@ Warning
   text-align: left;
 }
 
-#dsqcnvxkyk .gt_empty_group_heading {
+#jfhbizpwuy .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -989,15 +990,15 @@ Warning
   vertical-align: middle;
 }
 
-#dsqcnvxkyk .gt_from_md > :first-child {
+#jfhbizpwuy .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#dsqcnvxkyk .gt_from_md > :last-child {
+#jfhbizpwuy .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#dsqcnvxkyk .gt_row {
+#jfhbizpwuy .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1016,7 +1017,7 @@ Warning
   overflow-x: hidden;
 }
 
-#dsqcnvxkyk .gt_stub {
+#jfhbizpwuy .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1029,7 +1030,7 @@ Warning
   padding-right: 5px;
 }
 
-#dsqcnvxkyk .gt_stub_row_group {
+#jfhbizpwuy .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1043,15 +1044,15 @@ Warning
   vertical-align: top;
 }
 
-#dsqcnvxkyk .gt_row_group_first td {
+#jfhbizpwuy .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#dsqcnvxkyk .gt_row_group_first th {
+#jfhbizpwuy .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#dsqcnvxkyk .gt_summary_row {
+#jfhbizpwuy .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1061,16 +1062,16 @@ Warning
   padding-right: 5px;
 }
 
-#dsqcnvxkyk .gt_first_summary_row {
+#jfhbizpwuy .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#dsqcnvxkyk .gt_first_summary_row.thick {
+#jfhbizpwuy .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#dsqcnvxkyk .gt_last_summary_row {
+#jfhbizpwuy .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1080,7 +1081,7 @@ Warning
   border-bottom-color: #D3D3D3;
 }
 
-#dsqcnvxkyk .gt_grand_summary_row {
+#jfhbizpwuy .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1090,7 +1091,7 @@ Warning
   padding-right: 5px;
 }
 
-#dsqcnvxkyk .gt_first_grand_summary_row {
+#jfhbizpwuy .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1100,7 +1101,7 @@ Warning
   border-top-color: #D3D3D3;
 }
 
-#dsqcnvxkyk .gt_last_grand_summary_row_top {
+#jfhbizpwuy .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1110,11 +1111,11 @@ Warning
   border-bottom-color: #D3D3D3;
 }
 
-#dsqcnvxkyk .gt_striped {
+#jfhbizpwuy .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#dsqcnvxkyk .gt_table_body {
+#jfhbizpwuy .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1123,7 +1124,7 @@ Warning
   border-bottom-color: #D3D3D3;
 }
 
-#dsqcnvxkyk .gt_footnotes {
+#jfhbizpwuy .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1137,7 +1138,7 @@ Warning
   border-right-color: #D3D3D3;
 }
 
-#dsqcnvxkyk .gt_footnote {
+#jfhbizpwuy .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1146,7 +1147,7 @@ Warning
   padding-right: 5px;
 }
 
-#dsqcnvxkyk .gt_sourcenotes {
+#jfhbizpwuy .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1160,7 +1161,7 @@ Warning
   border-right-color: #D3D3D3;
 }
 
-#dsqcnvxkyk .gt_sourcenote {
+#jfhbizpwuy .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1168,72 +1169,72 @@ Warning
   padding-right: 5px;
 }
 
-#dsqcnvxkyk .gt_left {
+#jfhbizpwuy .gt_left {
   text-align: left;
 }
 
-#dsqcnvxkyk .gt_center {
+#jfhbizpwuy .gt_center {
   text-align: center;
 }
 
-#dsqcnvxkyk .gt_right {
+#jfhbizpwuy .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#dsqcnvxkyk .gt_font_normal {
+#jfhbizpwuy .gt_font_normal {
   font-weight: normal;
 }
 
-#dsqcnvxkyk .gt_font_bold {
+#jfhbizpwuy .gt_font_bold {
   font-weight: bold;
 }
 
-#dsqcnvxkyk .gt_font_italic {
+#jfhbizpwuy .gt_font_italic {
   font-style: italic;
 }
 
-#dsqcnvxkyk .gt_super {
+#jfhbizpwuy .gt_super {
   font-size: 65%;
 }
 
-#dsqcnvxkyk .gt_footnote_marks {
+#jfhbizpwuy .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#dsqcnvxkyk .gt_asterisk {
+#jfhbizpwuy .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#dsqcnvxkyk .gt_indent_1 {
+#jfhbizpwuy .gt_indent_1 {
   text-indent: 5px;
 }
 
-#dsqcnvxkyk .gt_indent_2 {
+#jfhbizpwuy .gt_indent_2 {
   text-indent: 10px;
 }
 
-#dsqcnvxkyk .gt_indent_3 {
+#jfhbizpwuy .gt_indent_3 {
   text-indent: 15px;
 }
 
-#dsqcnvxkyk .gt_indent_4 {
+#jfhbizpwuy .gt_indent_4 {
   text-indent: 20px;
 }
 
-#dsqcnvxkyk .gt_indent_5 {
+#jfhbizpwuy .gt_indent_5 {
   text-indent: 25px;
 }
 
-#dsqcnvxkyk .katex-display {
+#jfhbizpwuy .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#dsqcnvxkyk div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#jfhbizpwuy div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -2199,7 +2200,7 @@ Figure&nbsp;16.4
 </blockquote>
 <p>We made a ROC plot showing all possible combinations of sensitivity and false positive rate, conditioned on where the classification threshold is set.</p>
 <p>The dotted line in the middle is the 50% — essentially a random guess.</p>
-</section><section id="area-under-the-curve-auc" class="level3" data-number="16.8.7"><h3 data-number="16.8.7" class="anchored" data-anchor-id="area-under-the-curve-auc">
+</section><section id="sec-binary-auc" class="level3" data-number="16.8.7"><h3 data-number="16.8.7" class="anchored" data-anchor-id="sec-binary-auc">
 <span class="header-section-number">16.8.7</span> Area under the curve (AUC)</h3>
 <p>The area under this curve is the AUC. Area under the curve is computed as the integral. Instead of doing this by hand, we can use <a href="https://github.com/tidymodels/yardstick">yardstick</a> again:</p>
 <div class="cell">
@@ -2261,6 +2262,7 @@ Figure&nbsp;16.4
 </div>
 </section><section id="b-the-calibration-slope" class="level3" data-number="16.9.2"><h3 data-number="16.9.2" class="anchored" data-anchor-id="b-the-calibration-slope">
 <span class="header-section-number">16.9.2</span> B: The calibration slope</h3>
+<p>So the CITL measures a systematic bias: the average predicted probability is too large. The calibration slope is a measure of the association between observed and predicted tisk of the outcome event across the whole range of predicted risks. So not a systematic error, but a errors across the prediction range.</p>
 <p>To estimate the calibration <strong>slope</strong>, we use another logistic regression model:</p>
 <p><span class="math display">\[
   logit(P(Y = 1)) = α + ζlogit(\hat{p})
@@ -2321,8 +2323,8 @@ Figure&nbsp;16.4
 </div>
 </section><section id="visualizing-calibration" class="level3" data-number="16.9.4"><h3 data-number="16.9.4" class="anchored" data-anchor-id="visualizing-calibration">
 <span class="header-section-number">16.9.4</span> Visualizing calibration</h3>
-<p>As always, we recommend visualizing any statistical procedure. We can do this in a plot with predictions on the x-axis and the observed endpoint on the y-axis, see <a href="#fig-calibration" class="quarto-xref">Figure&nbsp;<span>16.5</span></a>. In a calibration plot, the x-axis shows predicted probabilities and the y-axis shows observed outcome proportions. Both axes range from 0 to 100%. The diagonal ideal line represents perfect calibration: for example, a predicted risk of 15% corresponds to an observed outcome proportion of 15%.</p>
-<p>Because the outcome is binary, we cannot directly compare each individual’s predicted probability with an observed proportion: each individual either experiences the outcome or does not. Instead, calibration plots often group individuals into bins based on their predicted risks. Within each bin, we calculate the mean predicted risk and the observed proportion of individuals who experienced the outcome. These values provide a summary of predicted and observed risk for that group.</p>
+<p>As always, we recommend visualizing any statistical procedure. We can do this in a plot like <a href="#fig-calibration" class="quarto-xref">Figure&nbsp;<span>16.5</span></a>. In a calibration plot, the x-axis shows predicted probabilities and the y-axis shows observed outcome proportions. Both axes range from 0 to 100%. The diagonal ideal line represents perfect calibration: for example, a predicted risk of 15% corresponds to an observed outcome proportion of 15%.</p>
+<p>Because the outcome is binary, we cannot directly compare each individual’s predicted probability with an observed proportion: each individual either experiences the outcome or does not. Instead, calibration plots often group individuals into bins/bockets based on their predicted risks. Within each bin, we calculate the mean predicted risk and the observed proportion of individuals who experienced the outcome. These values provide a summary of predicted and observed risk for that group.</p>
 <p>For example, consider a validation dataset divided into five bins according to predicted risk:</p>
 <!--panache-ignore-start-->
 <table class="caption-top table">
@@ -2334,8 +2336,8 @@ Figure&nbsp;16.4
 </colgroup>
 <thead><tr class="header">
 <th style="text-align: left;">Bin</th>
-<th style="text-align: right;">Mean predicted risk</th>
-<th style="text-align: right;">Observed outcome proportion</th>
+<th style="text-align: right;">Mean predicted risk (x-axis)</th>
+<th style="text-align: right;">Observed outcome proportion (y-axis)</th>
 <th style="text-align: left;">Interpretation</th>
 </tr></thead>
 <tbody>
@@ -2372,14 +2374,31 @@ Figure&nbsp;16.4
 </tbody>
 </table>
 <!--panache-ignore-end--><p>Each row corresponds to a point in the calibration plot, with mean predicted risk on the x-axis and observed outcome proportion on the y-axis. Points below the diagonal indicate overprediction, while points above the diagonal indicate underprediction. In practice, the number of bins and their boundaries affect the plot, and the observed proportions can be imprecise when bins contain few individuals.</p>
-<p>Perfect predictions should lie on the ideal diagonal line. In a logistic calibration model, perfect calibration corresponds to an intercept α of 0 and a slope β of 1. The logit of each individual’s predicted risk is used as the predictor of their observed 0/1 outcome:</p>
-<p><span class="math display">\[
+<!--
+What about this??
+:::{.hidden}
+Perfect predictions should lie on the ideal diagonal line. In a logistic
+calibration model, perfect calibration corresponds to an intercept α of 0 and a
+slope β of 1. The logit of each individual's predicted risk is used as the
+predictor of their observed 0/1 outcome:
+
+$$
   logit(P(Y = 1)) = α + ζlogit(\hat{p})
-\]</span></p>
-<p>Here, α measures calibration-in-the-large when the slope is fixed at 1, while β measures how strongly the predicted log-odds are associated with the observed outcomes relative to the ideal slope of 1.</p>
-<p>The <a href="https://github.com/tidymodels/probably">probably</a> package provides this directly:</p>
+$$
+
+Here, α measures calibration-in-the-large when the slope is fixed at 1, while β
+measures how strongly the predicted log-odds are associated with the observed
+outcomes relative to the ideal slope of 1.
+:::
+-->
+<p>The <a href="https://github.com/tidymodels/probably">probably</a> package provides a nice function for plotting the calibration curve:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">cal_plot_breaks</span><span class="op">(</span><span class="va">ad_validation_logistic</span>, <span class="va">Class</span>, <span class="va">.pred_impaired</span>, num_breaks <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">cal_plot_breaks</span><span class="op">(</span></span>
+<span>    <span class="va">ad_validation_logistic</span>,</span>
+<span>    <span class="va">Class</span>,</span>
+<span>    <span class="va">.pred_impaired</span>,</span>
+<span>    num_breaks <span class="op">=</span> <span class="fl">5</span> <span class="co"># number of bins we want</span></span>
+<span>    <span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div id="fig-calibration" class="quarto-float quarto-figure quarto-figure-center anchored" width="672">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-calibration-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -2394,7 +2413,7 @@ Figure&nbsp;16.5
 <p>A well-calibrated model follows the diagonal line.</p>
 <p>We can also visualize a smooth calibration curve, which assesses calibration across the range of predicted risks without relying on fixed bins:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">cal_plot_logistic</span><span class="op">(</span><span class="va">ad_validation_logistic</span>, <span class="va">Class</span>, <span class="va">.pred_impaired</span>, smooth <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">cal_plot_logistic</span><span class="op">(</span><span class="va">ad_validation_logistic</span>, <span class="va">Class</span>, <span class="va">.pred_impaired</span>, smooth <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure"><p><img src="session18_files/figure-html/cal-smooth-1.png" class="img-fluid figure-img" width="672"></p>
@@ -2402,24 +2421,27 @@ Figure&nbsp;16.5
 </div>
 </div>
 </div>
-<p>The black curve in your plot is the estimated <strong>observed event rate</strong>, not the <em>predicted event rate</em>. This means that being below the diagonal is “reality” being lower than the prediction-model expectations. In other words: below the diagonal is over-predicting.</p>
-<p>Notice how the prediction-model we are validating is generally over-predicting?</p>
+<blockquote class="blockquote">
+<p>Now, how does the plot look? 👀</p>
+</blockquote>
+<p>Notice how the prediction-model we are validating is generally over-predicting? You can tell from, e.g., bin two in <a href="#fig-calibration" class="quarto-xref">Figure&nbsp;<span>16.5</span></a> — the model (x-axis) give ~30% probability for a bunch of predictions that have an event rate of ~13% probability. So the model is giving predictions far above what it should!</p>
 <p>This also corresponds to our CITL being below 1 and our slope being below 1.</p>
-<p>Calibration is about the accuracy of the predicted probabilities. A model can have excellent discrimination and poor calibration: it may correctly rank individuals from lower to higher risk while systematically overestimating or underestimating their absolute risks.</p>
+<p>So we’ve covered calibration 🎉</p>
+<p>Calibration is about the accuracy of the predicted probabilities. But a model can have excellent discrimination and poor calibration — that is, it may correctly rank individuals from lower to higher risk while systematically overestimating or underestimating their absolute risks. To evaluate discrimination, we use the C-statistic.</p>
 </section></section><section id="discrimination-using-the-concordance-statistic" class="level2" data-number="16.10"><h2 data-number="16.10" class="anchored" data-anchor-id="discrimination-using-the-concordance-statistic">
 <span class="header-section-number">16.10</span> Discrimination using the concordance statistic</h2>
 <p>Discrimination refers to the ability of the model to distinguish a patient with the endpoint (cognitive impairment) from a patient without (control). A better discriminating model has more spread between the predictions than a poorly discriminating model.</p>
 <p>Consider the extreme example where a model predicts all subjects to have the same predicted risk as the incidence. This model would have perfect calibration — but it would be useless since it does not discriminate between patients! 😅</p>
 <p>A validation plot showing a wide spread between predictions as a histogram, or between deciles of predicted risk, indicates a good discriminating model, see <a href="#fig-calibration" class="quarto-xref">Figure&nbsp;<span>16.5</span></a>.</p>
-<p>We use the concordance (<em>c</em>) statistic as an outcome for the models ability to discriminate between groups. For a binary endpoint, <em>c</em> is identical to the area under the receiver operating characteristic (ROC) curve, which plots the sensitivity (true-positive rate) against 1 – specificity (false-positive rate) for consecutive cut-offs for the predicted risk.</p>
-<p>In our data, we have a AUC of 0.840</p>
+<p>We use the concordance (<em>c</em>) statistic as an outcome for the models ability to discriminate between groups. For a binary endpoint, <em>c</em> is identical to the AUC <a href="#sec-binary-auc" class="quarto-xref"><span>Section 16.8.7</span></a>.</p>
+<p>In our data, we have a AUC of 0.840 — so the <em>c</em>-statistic (i.e., concordance) is also 0.84.</p>
 <p><strong>Intuition of C-statistic</strong></p>
-<p>Imagine you play a game with your model. You pick every possible pair of people from your data where one person had the event (1) and the other person did not (0).&nbsp;</p>
+<p>Imagine you play a game with your model. You pick every possible pair of people from your data where one person had the event (1) and the other person did not (0).</p>
 <p>You ask your model:</p>
 <blockquote class="blockquote">
 <p>“Which of these two people had a higher predicted probability of the event?</p>
 </blockquote>
-<p>There are three possible outcomes for each pair:&nbsp;</p>
+<p>There are three possible outcomes for each pair:</p>
 <ol type="1">
 <li>Concordant pair: The model assigns a higher predicted probability to the person who actually had the event (1) than to the person who did not (0).</li>
 <li>Discordant pair: The model gets it backward and assigns a higher probability to the person who did not have the event (0).</li>
@@ -2432,14 +2454,12 @@ Figure&nbsp;16.5
 \]</span></p>
 </section><section id="decision-curve-analysis" class="level2" data-number="16.11"><h2 data-number="16.11" class="anchored" data-anchor-id="decision-curve-analysis">
 <span class="header-section-number">16.11</span> Decision-curve analysis</h2>
-<p>While calibration and discrimination are important for validating prediction model, neither reflect real clinical usefulness. Clinical usefulness can be boiled down to <strong>the ability to make better decisions with a model than without</strong>.</p>
+<p>While calibration and discrimination are important for validating prediction model, neither reflect real <strong>clinical usefulness</strong>. Clinical usefulness can be boiled down to <strong>the ability to make better decisions with a model than without</strong>.</p>
 <p>If a prediction model aims to guide treatment decisions, a cut-off is required to classify patients as either low risk (no treatment) or high risk (treatment is indicated). The cut-off is a decision threshold.</p>
-<p>You will learn about decision-curve analysis in <strong>Workshop 3</strong>.</p>
-<p><strong>D</strong></p>
-<p>The D component asks whether the predictions are useful for making decisions. That requires specifying a clinical action and the range of probability thresholds at which that action would be taken.</p>
+<p>You will learn about decision-curve analysis in <strong>Workshop 3</strong>, where you will learn to specify a clinical action and the range of probability thresholds at which that action would be taken.</p>
 </section><section id="internal-and-external-validation" class="level2" data-number="16.12"><h2 data-number="16.12" class="anchored" data-anchor-id="internal-and-external-validation">
 <span class="header-section-number">16.12</span> Internal and external validation</h2>
-<p>Everything we’ve done so far has been an internal validation — what do I mean by that?</p>
+<p>Everything we’ve done so far has been an internal validation — what do we mean by “internal”?</p>
 <p>Recall that we initially made an arbitrary split of the data: all odd-numbered patient <code>ID</code>s were assigned to a <em>test</em> set and the even-numbered <code>ID</code>s to a <em>validation</em> set. Had we used all the data for our model, we could not have performed any independent validation!</p>
 <section id="internal-validation" class="level3" data-number="16.12.1"><h3 data-number="16.12.1" class="anchored" data-anchor-id="internal-validation">
 <span class="header-section-number">16.12.1</span> Internal validation</h3>
@@ -2451,12 +2471,83 @@ Figure&nbsp;16.5
 <ol type="1">
 <li>Fit the model using <span class="math inline">\(k - 1\)</span> folds.</li>
 <li>Evaluate the model on the remaining fold.</li>
-<li>Repeat this process until every fold has been used as the validation data.</li>
+<li>Repeat this process <em>k</em> times, until every fold has been used as the validation data.</li>
 <li>Average the results across all folds to obtain an estimate of model performance.</li>
 </ol>
-<p>For example, in 5-fold cross-validation, each patient is used for validation once and for model development four times.</p>
+<p>For example, in 5-fold cross-validation (see <a href="#fig-cross-validation" class="quarto-xref">Figure&nbsp;<span>16.6</span></a>), each patient is used for validation once and for model development four times.</p>
 <p>Cross-validation therefore makes more efficient use of a limited dataset than a single train/test split. It is particularly useful when the available dataset is relatively small.</p>
+<p>To get the <em>k</em>-fold cross-validation AUC, you would have to run the regression model <em>k</em> times, each time splitting the data in a new way (see <a href="#fig-cross-validation" class="quarto-xref">Figure&nbsp;<span>16.6</span></a>). Thereby, you would get <em>k</em> AUC estimates. The AUC you would report would be:</p>
+<p><span class="math display">\[
+  \frac{1}{k}\sum^k_{k=1}\text{AUC}_k
+\]</span></p>
+<p>It is common to use 5 or 10 folds.</p>
 <p>Importantly, cross-validation is still <strong>internal validation</strong>. The patients used to evaluate the model come from the same underlying study and therefore may share characteristics with the patients used to develop the model.</p>
+<div class="cell" data-eval="true" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-cross-validation" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-cross-validation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div>
+<pre class="mermaid mermaid-js" data-label="fig-cross-validation">flowchart LR
+    subgraph CV["5-Fold Cross-Validation"]
+        direction TB
+
+        subgraph R1["Iteration 1"]
+            direction LR
+            A11["Test"]:::test --- A12["Train"]:::train --- A13["Train"]:::train --- A14["Train"]:::train --- A15["Train"]:::train
+        end
+
+        subgraph R2["Iteration 2"]
+            direction LR
+            A21["Train"]:::train --- A22["Test"]:::test --- A23["Train"]:::train --- A24["Train"]:::train --- A25["Train"]:::train
+        end
+
+        subgraph R3["Iteration 3"]
+            direction LR
+            A31["Train"]:::train --- A32["Train"]:::train --- A33["Test"]:::test --- A34["Train"]:::train --- A35["Train"]:::train
+        end
+
+        subgraph R4["Iteration 4"]
+            direction LR
+            A41["Train"]:::train --- A42["Train"]:::train --- A43["Train"]:::train --- A44["Test"]:::test --- A45["Train"]:::train
+        end
+
+        subgraph R5["Iteration 5"]
+            direction LR
+            A51["Train"]:::train --- A52["Train"]:::train --- A53["Train"]:::train --- A54["Train"]:::train --- A55["Test"]:::test
+        end
+    end
+
+    A15 ~~~ M1["Metric 1"]:::metric
+    A25 ~~~ M2["Metric 2"]:::metric
+    A35 ~~~ M3["Metric 3"]:::metric
+    A45 ~~~ M4["Metric 4"]:::metric
+    A55 ~~~ M5["Metric 5"]:::metric
+
+    M1 --&gt; AVG["Average&lt;br/&gt;performance"]:::average
+    M2 --&gt; AVG
+    M3 --&gt; AVG
+    M4 --&gt; AVG
+    M5 --&gt; AVG
+
+    classDef train fill:#55c5d5,stroke:#55c5d5,color:#000
+    classDef test fill:#d91b91,stroke:#d91b91,color:#fff
+    classDef metric fill:#8cf4f5,stroke:#8cf4f5,color:#000
+    classDef average fill:#8cf4f5,stroke:#8cf4f5,color:#000
+    style CV fill:transparent,stroke:transparent
+    style R1 fill:transparent,stroke:transparent
+    style R2 fill:transparent,stroke:transparent
+    style R3 fill:transparent,stroke:transparent
+    style R4 fill:transparent,stroke:transparent
+    style R5 fill:transparent,stroke:transparent
+</pre>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-cross-validation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;16.6: Cross-validation for internal validation’.
+</figcaption></figure>
+</div>
+</div>
+</div>
 </section><section id="external-validation" class="level3" data-number="16.12.2"><h3 data-number="16.12.2" class="anchored" data-anchor-id="external-validation">
 <span class="header-section-number">16.12.2</span> External validation</h3>
 <p>Validating externally — using data from <strong>other studies, hospitals, populations, or settings</strong> — is necessary if we want to know whether a model generalises beyond the data on which it was developed.</p>
@@ -2477,7 +2568,7 @@ Develop the model using one study and evaluate it using an entirely independent 
 </section><section id="when-to-use-internal-and-external-validation" class="level3" data-number="16.12.3"><h3 data-number="16.12.3" class="anchored" data-anchor-id="when-to-use-internal-and-external-validation">
 <span class="header-section-number">16.12.3</span> When to use internal and external validation?</h3>
 <p>Internal and external validation can be seen as two levels of evidence:</p>
-<p><strong>Internal validation</strong> as the initial an inexpensive validation:</p>
+<p><strong>Internal validation</strong> as the initial and inexpensive validation:</p>
 <ul>
 <li>Statistical estimation of overfitting/underfitting</li>
 <li>Best guess for future external validation and generalizability</li>
@@ -2488,141 +2579,202 @@ Develop the model using one study and evaluate it using an entirely independent 
 <li>Does my model still perform well when applied to genuinely new data from &gt; another time, place, setting, or study?</li>
 </ul>
 <p>A model should therefore not be considered ready for widespread clinical use simply because it performs well on its development data or under internal validation. External validation is needed to establish whether the model generalises to the population and setting in which we ultimately want to use it.</p>
-</section></section><section id="effect-size-estimation" class="level2" data-number="16.13"><h2 data-number="16.13" class="anchored" data-anchor-id="effect-size-estimation">
-<span class="header-section-number">16.13</span> Effect size estimation</h2>
-<p>Prediction performance and effect estimation are different questions.</p>
-<p>A logistic regression coefficient describes the association between a predictor and the outcome. For example:</p>
-<p>How much does the odds of “impaired” change for a one-unit increase in age?</p>
-<p>The dataset used here contains only the predictions, not the original predictors. Therefore, we cannot recover the original regression coefficients or their odds ratios from <code>ad_validation_logistic</code>.</p>
-<p>What we can estimate is the association between the model’s predicted risk and the observed outcome. The calibration slope above is one such measure.</p>
-<p>This distinction is important:</p>
-<p>Prediction asks: How accurately can we predict what will happen?</p>
-<p>Effect estimation asks: How does changing a particular variable relate to what happens?</p>
-<p>A model can be excellent for prediction without giving an unbiased estimate of a causal effect.</p>
-<section id="the-mathematics-of-it" class="level3" data-number="16.13.1"><h3 data-number="16.13.1" class="anchored" data-anchor-id="the-mathematics-of-it">
-<span class="header-section-number">16.13.1</span> The mathematics of it</h3>
-<p>how to determine the minimum sample size needed for a new external validation study of a prediction model for a binary outcome.</p>
-<p>The calculations can also be used to inform whether the sample size of an existing(already collected) dataset is adequate for external validation</p>
-<p>When externally validating a prediction model, sample size should be large enough to estimate model performance with sufficient precision. Riley et al. (2021) propose calculating the required sample size separately for several performance measures and then using the largest required sample size.</p>
-<ol type="1">
-<li>O/E ratio</li>
-</ol>
-<p>The observed-to-expected ratio is</p>
-<p><span class="math display">\[
+</section></section><section id="sample-size-calculation-in-binary-prediction-studies" class="level2" data-number="16.13"><h2 data-number="16.13" class="anchored" data-anchor-id="sample-size-calculation-in-binary-prediction-studies">
+<span class="header-section-number">16.13</span> Sample size calculation in binary prediction studies</h2>
+<p>Before investing money and time in a prediction study, it’s often relevant to make inexpensive and sophisticated guesses on how many participants one needs to include before being able to say with confidence whether the model has potential or is useless.</p>
+<p>Sample size calculations for prediction models need special care and are slightly different from causal effect studies.</p>
+<section id="manual-estimation-using-the-c-statistic" class="level3" data-number="16.13.1"><h3 data-number="16.13.1" class="anchored" data-anchor-id="manual-estimation-using-the-c-statistic">
+<span class="header-section-number">16.13.1</span> Manual estimation using the <em>c</em>-statistic</h3>
+<p>Let’s define how we can determine the minimum sample size needed for a new external validation study of a prediction model for a binary outcome.</p>
+<p>The calculations can also be used to inform whether the sample size of an existing (i.e., already collected) dataset is adequate for external validation</p>
+<p>When externally validating a prediction model, sample size should be large enough to estimate model performance with sufficient precision. Riley et al. <span class="citation" data-cites="riley2021minimum">(<a href="../appendix/references.html#ref-riley2021minimum" role="doc-biblioref">2</a>)</span> propose calculating the required sample size separately for several performance measures and then using the largest required sample size.</p>
+<p>In this course, however, you’ll learn to compute only one estimate by hand, but three methods using R code.</p>
+<!--
+1. O/E ratio
+
+The observed-to-expected ratio is
+
+$$
   \frac{\text{\# observed events}}{\text{\# predicted events}}
-\]</span></p>
-<p>An ideal value is <span class="math inline">\(O/E = 1\)</span>, meaning that the model predicts the correct overall amount of risk.</p>
-<p>For sample-size planning, Riley et al.&nbsp;focus on the precision of <span class="math inline">\(\ln(O/E)\)</span>. The required sample size is</p>
-<p><span class="math display">\[
+$$
+
+An ideal value is $O/E = 1$, meaning that the model predicts the correct overall
+amount of risk.
+
+For sample-size planning, Riley et al. focus on the precision of $\ln(O/E)$. The
+required sample size is
+
+$$
   𝑁 = \frac{1 − 𝜙}{𝜙(𝑆𝐸 \{{ln(𝑂/𝐸)\}})^2}
-\]</span></p>
-<p>where:</p>
-<ul>
-<li>
-<span class="math inline">\(N\)</span> = total validation sample size</li>
-<li>
-<span class="math inline">\(\phi\)</span> = anticipated event proportion</li>
-<li>
-<span class="math inline">\(SE{\ln(O/E)}\)</span> = desired standard error of <span class="math inline">\(\ln(O/E)\)</span>.</li>
-</ul>
-<p>The logic is simple: more events give a more precise estimate of O/E.</p>
-<p>For example, if the anticipated event rate is 10% (<span class="math inline">\(\phi = 0.10\)</span>) and the desired standard error is 0.10:</p>
-<p><span class="math display">\[
+$$
+
+where:
+
+- $N$ = total validation sample size
+- $\phi$ = anticipated event proportion
+- $SE{\ln(O/E)}$ = desired standard error of $\ln(O/E)$.
+
+The logic is simple: more events give a more precise estimate of O/E.
+
+For example, if the anticipated event rate is 10% ($\phi = 0.10$) and the
+desired standard error is 0.10:
+
+$$
   𝑁 = \frac{1 − 0.10}{0.10(0.10)^2} = 900.
-\]</span></p>
-<p>Thus, approximately 900 patients are required, corresponding to about <span class="math inline">\(900 × 0.10 = 90\)</span> expected events.</p>
-<p>The desired standard error is chosen based on how narrow we want the confidence interval for O/E to be. Because O/E is estimated on the log scale, the confidence interval is calculated as</p>
-<p><span class="math display">\[
+$$
+
+Thus, approximately 900 patients are required, corresponding to about
+$900 × 0.10 = 90$ expected events.
+
+The desired standard error is chosen based on how narrow we want the confidence
+interval for O/E to be. Because O/E is estimated on the log scale, the
+confidence interval is calculated as
+
+$$
   ln(𝑂/𝐸) ± 1.96 × 𝑆𝐸{ln(𝑂/𝐸)},
-\]</span></p>
-<p>and then exponentiated.</p>
-<p>For example, if <span class="math inline">\(SE{\ln(O/E)} = 0.051\)</span> and the estimated O/E is 1:</p>
-<p><span class="math display">\[
+$$
+
+and then exponentiated.
+
+For example, if $SE{\ln(O/E)} = 0.051$ and the estimated O/E is 1:
+
+$$
   exp(±1.96 × 0.051) ≈ (0.90,1.10).
-\]</span></p>
-<p>Thus, the sample-size calculation can be interpreted as:</p>
-<blockquote class="blockquote">
-<p>How many patients do I need to estimate the overall agreement between observed and predicted risk with the desired precision?</p>
-</blockquote>
-<ol start="2" type="1">
-<li>C-statistic</li>
-</ol>
-<p>For sample-size planning, we specify:</p>
+$$
+
+Thus, the sample-size calculation can be interpreted as:
+
+> How many patients do I need to estimate the overall agreement between observed
+> and predicted risk with the desired precision?
+
+-->
+<p>For sample-size planning, we need to select:</p>
 <ul>
-<li>the anticipated C-statistic, <span class="math inline">\(C\)</span>;</li>
+<li>the anticipated <em>C</em>-statistic, <span class="math inline">\(C\)</span>;</li>
 <li>the anticipated event proportion, <span class="math inline">\(\phi\)</span>; and</li>
 <li>the desired precision, expressed as <span class="math inline">\(SE(C)\)</span>.</li>
 </ul>
-<p>Riley et al.&nbsp;use an approximate formula for the standard error:</p>
+<p>Riley et al. <span class="citation" data-cites="riley2021minimum">(<a href="../appendix/references.html#ref-riley2021minimum" role="doc-biblioref">2</a>)</span> use an approximate formula for the standard error:</p>
 <p><span class="math display">\[
   𝑆𝐸(𝐶)
   ≈ \frac{\sqrt{𝐶(1 − 𝐶) (1 + (𝑁𝜙 − 1)1 − 𝐶2 − 𝐶 + (𝑁(1 − 𝜙) − 1)𝐶1 + 𝐶)}} {𝑁2𝜙(1 − 𝜙)}.
 \]</span></p>
-<p>Unlike the O/E formula, this equation is not conveniently rearranged to give <span class="math inline">\(N\)</span> directly. Instead, we try different values of <span class="math inline">\(N\)</span> until the resulting <span class="math inline">\(SE(C)\)</span> is sufficiently small.</p>
+<p>This equation is not conveniently rearranged to give <span class="math inline">\(N\)</span> directly. Instead, we will have to try different values of <span class="math inline">\(N\)</span> until the resulting <span class="math inline">\(SE(C)\)</span> is sufficiently small.</p>
 <p>For example, suppose:</p>
 <p><span class="math display">\[
   𝐶 = 0.70, \\
   𝜙 = 0.10.
 \]</span></p>
-<p>If we want the C-statistic to have an approximate 95% confidence interval of <span class="math inline">\(\pm0.05\)</span>, we need approximately</p>
+<p>If we want the <em>C</em>-statistic to have an approximate 95% confidence interval of <span class="math inline">\(\pm0.05\)</span>, we need approximately</p>
 <p><span class="math display">\[
   𝑆𝐸(𝐶) = \frac{0.05}{1.96} ≈ 0.0255.
 \]</span></p>
 <p>We then increase <span class="math inline">\(N\)</span> until the formula gives <span class="math inline">\(SE(C) \approx 0.0255\)</span>.</p>
 <p>The resulting <span class="math inline">\(N\)</span> is the required validation sample size for the C-statistic criterion.</p>
+<p>In this case, it is:</p>
+<p><span class="math display">\[
+  SE(C)
+  \approx \sqrt{\frac{0.70(1 - 0.70)}{1413^2(0.10)(1 - 0.10)} \Bigg[1 + (1413 \times 0.10 - 1)\frac{1 - 0.70}{2 - 0.70} + (1413 \times (1 - 0.10) - 1)\frac{0.70}{1 + 0.70}\Bigg]}
+  \approx 0.0255
+\]</span></p>
+<!--
+Simplifying to:
+
+$$
+  SE(C)
+  \approx \sqrt{\frac{0.70 \times 0.30}{1413^2 \times 0.10 \times 0.90} \Bigg[1 + (141.3 - 1)\frac{0.30}{1.30} + (1271.7 - 1)\frac{0.70}{1.70}\Bigg]}
+  \approx 0.0255.
+$$
+-->
+<p>so <span class="math inline">\(N = 1413\)</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Our selected values</span></span>
+<span><span class="va">p</span>  <span class="op">&lt;-</span> <span class="fl">0.70</span></span>
+<span><span class="va">n</span>  <span class="op">&lt;-</span> <span class="fl">1000</span><span class="op">:</span><span class="fl">1500</span></span>
+<span><span class="va">pi</span> <span class="op">&lt;-</span> <span class="fl">0.10</span></span>
+<span></span>
+<span><span class="co"># Compute the first fraction</span></span>
+<span><span class="va">broek</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">p</span> <span class="op">*</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="va">p</span><span class="op">)</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="va">n</span><span class="op">^</span><span class="fl">2</span> <span class="op">*</span> <span class="va">pi</span> <span class="op">*</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="va">pi</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Break up the large formula insude the square brackets [ ] at every plus sign</span></span>
+<span><span class="va">led_1</span> <span class="op">&lt;-</span> <span class="fl">1</span></span>
+<span><span class="va">led_2</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">n</span> <span class="op">*</span> <span class="va">pi</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span> <span class="op">*</span> <span class="op">(</span><span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="va">p</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="fl">2</span> <span class="op">-</span> <span class="va">p</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">led_3</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">n</span> <span class="op">*</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="va">pi</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span> <span class="op">*</span> <span class="op">(</span><span class="va">p</span> <span class="op">/</span> <span class="op">(</span><span class="fl">1</span> <span class="op">+</span> <span class="va">p</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Take the sqrt of it all</span></span>
+<span><span class="va">SE_C</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="va">broek</span> <span class="op">*</span> <span class="op">(</span><span class="va">led_1</span> <span class="op">+</span> <span class="va">led_2</span> <span class="op">+</span> <span class="va">led_3</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Visualize values</span></span>
+<span><span class="fu">ggplot</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="va">n</span>,<span class="va">SE_C</span><span class="op">)</span>,<span class="fu">aes</span><span class="op">(</span><span class="va">n</span>,<span class="va">SE_C</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">geom_line</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">geom_hline</span><span class="op">(</span>yintercept<span class="op">=</span><span class="fl">0.0255</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">geom_text</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>label <span class="op">=</span> <span class="st">"x"</span><span class="op">)</span>, x <span class="op">=</span> <span class="fl">1413</span>, y <span class="op">=</span> <span class="fl">0.0255</span>, size <span class="op">=</span> <span class="fl">5</span>, color <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="session18_files/figure-html/manual-ssc-in-r-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 <p>The interpretation is:</p>
 <blockquote class="blockquote">
 <p>How many patients do I need to estimate the model’s ability to discriminate between patients with and without the outcome with the desired precision?</p>
 </blockquote>
 <p>Because the C-statistic depends on comparisons between events and non-events, both the number of events and the number of non-events contribute information.</p>
-<p><strong>Putting the two together</strong></p>
-<p>The two calculations answer different questions:</p>
-<p>Performance measure Main question Sample-size driver O/E Is the overall amount of predicted risk correct? Mainly the number of events C-statistic Does the model correctly rank patients by risk? Events + non-events + anticipated discrimination</p>
-<p>For an external validation study, calculate the required <span class="math inline">\(N\)</span> for each performance measure and use the largest value as the minimum required sample size.</p>
-<p>For example:</p>
-<p><span class="math display">\[
+<!--
+**Putting the two together**
+
+The two calculations answer different questions:
+
+Performance measure Main question Sample-size driver O/E Is the overall amount
+of predicted risk correct? Mainly the number of events C-statistic Does the
+model correctly rank patients by risk? Events + non-events + anticipated
+discrimination
+
+For an external validation study, calculate the required $N$ for each
+performance measure and use the largest value as the minimum required sample
+size.
+
+For example:
+
+$$
   𝑁_{𝑂/𝐸} = 900
-\]</span></p>
-<p>and</p>
-<p><span class="math display">\[
+$$
+
+and
+
+$$
   𝑁_{𝐶} = 1,200
-\]</span></p>
-<p>then the study should aim for at least <span class="math inline">\(𝑁 = 1,200\)</span></p>
-<p>This ensures that both O/E and the C-statistic can be estimated with the desired precision.</p>
-<p>Be aware that many more sample size calculation methods exists! These are in fact the two most simple ones. Lucily for us, R provides easy access to the more complicated ones.</p>
+$$
+
+then the study should aim for at least $𝑁 = 1,200$
+
+This ensures that both O/E and the C-statistic can be estimated with the desired
+precision.
+
+-->
+<p>Be aware that many more sample size calculation methods exists! Best practice is to use several estimators and take the most conservative number (i.e., the largest value). But some of the other estimators are quite complicated and out of the scope of this course. Luckily for us, <strong>R</strong> provides easy access to the more complicated estimators.</p>
 </section><section id="effect-size-calculation-in-r" class="level3" data-number="16.13.2"><h3 data-number="16.13.2" class="anchored" data-anchor-id="effect-size-calculation-in-r">
 <span class="header-section-number">16.13.2</span> Effect size calculation in R:</h3>
-<p><strong>Binary and survival outcomes have three criteria:</strong></p>
+<p>We’ll be using the <code>{pmsampsize}</code> pmsampsize, developed based on the Riley paper <span class="citation" data-cites="riley2021minimum">(<a href="../appendix/references.html#ref-riley2021minimum" role="doc-biblioref">2</a>)</span>.</p>
+<p>The package uses a more complex implementation of the manual <em>C</em>-statistic sample size calculation we covered.</p>
+<p><strong>Binary outcomes need to provide three criteria:</strong></p>
 <ul>
-<li>Small overfitting: expected shrinkage of predictor effects ≤ 10%</li>
-<li>Small absolute difference (≤ 0.05) between apparent and adjusted Nagelkerke’s R²</li>
-<li>Precise estimation (within ± 0.05) of the average outcome risk at the timepoint of interest</li>
+<li>
+<code>type</code> should be <code>b</code> (for binary)</li>
+<li>
+<code>cstatistic</code> is the C-statistic</li>
+<li>
+<code>parameters</code> is the number of parameters in the model (we had 5 binary/continuous parameters + 6 dummy coded nominal genotypes = 11 parameters)</li>
 </ul>
-<p>Calculate the minimum sample size for a logistic prediction model with 24 candidate predictor parameters, an anticipated outcome prevalence of 17.4%, and a Cox-Snell <span class="math inline">\(R^2\)</span> of 0.288 (taken from an existing model):</p>
+<p>Calculate the minimum sample size for a logistic prediction model with 24 candidate predictor parameters, an anticipated outcome prevalence of 17.4%, and a <em>C</em>-statistic of 0.89 would look like this:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">pmsampsize</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/pmsampsize/man/pmsampsize.html">pmsampsize</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"b"</span>, csrsquared <span class="op">=</span> <span class="fl">0.288</span>, parameters <span class="op">=</span> <span class="fl">24</span>, prevalence <span class="op">=</span> <span class="fl">0.174</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>NB: Assuming 0.05 acceptable difference in apparent &amp; adjusted R-squared 
-NB: Assuming 0.05 margin of error in estimation of intercept 
-NB: Events per Predictor Parameter (EPP) assumes prevalence = 0.174  
- 
-           Samp_size Shrinkage Parameter CS_Rsq Max_Rsq Nag_Rsq  EPP
-Criteria 1       623     0.900        24  0.288   0.603   0.477 4.52
-Criteria 2       662     0.905        24  0.288   0.603   0.477 4.80
-Criteria 3       221     0.905        24  0.288   0.603   0.477 1.60
-Final            662     0.905        24  0.288   0.603   0.477 4.80
- 
- Minimum sample size required for new model development based on user inputs = 662, 
- with 116 events (assuming an outcome prevalence = 0.174) and an EPP = 4.8 
- 
- </code></pre>
-</div>
-</div>
-<p>If only a C-statistic (rather than <span class="math inline">\(R^2\)</span>) is available from an existing model, use the cstatistic argument instead:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">pmsampsize</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pmsampsize/man/pmsampsize.html">pmsampsize</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"b"</span>, cstatistic <span class="op">=</span> <span class="fl">0.89</span>, parameters <span class="op">=</span> <span class="fl">24</span>, prevalence <span class="op">=</span> <span class="fl">0.174</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">pmsampsize</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pmsampsize/man/pmsampsize.html">pmsampsize</a></span><span class="op">(</span></span>
+<span>    type <span class="op">=</span> <span class="st">"b"</span>, <span class="co"># binary</span></span>
+<span>    cstatistic <span class="op">=</span> <span class="fl">0.89</span>, <span class="co"># concordance/AUC</span></span>
+<span>    parameters <span class="op">=</span> <span class="fl">24</span>, <span class="co"># covariates</span></span>
+<span>    prevalence <span class="op">=</span> <span class="fl">0.174</span> <span class="co"># cognitive impairment</span></span>
+<span>    <span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Given input C-statistic = 0.89  &amp; prevalence = 0.174  
 Cox-Snell R-sq = 0.2902  
@@ -2643,6 +2795,13 @@ Final            661     0.906        24 0.2902   0.603   0.481 4.79
  </code></pre>
 </div>
 </div>
+<p>You can see 3 criteria:</p>
+<ol type="1">
+<li>The first criteria relates to calibration-in-the-large</li>
+<li>The second criteria relates to the calibration slope</li>
+<li>The third criteria relates to the <em>C</em>-statistic</li>
+</ol>
+<p>The final recommendation is the largest <strong>N</strong>.</p>
 </section><section id="summary" class="level3" data-number="16.13.3"><h3 data-number="16.13.3" class="anchored" data-anchor-id="summary">
 <span class="header-section-number">16.13.3</span> Summary</h3>
 <p>A useful way to remember prediction-model evaluation is the ABCD framework:</p>
@@ -2806,6 +2965,93 @@ The intercept is related to calibration-in-the-large (A) and the coefficient of
 Ideally, we'd see that the calibration-in-the-large is (close to) 0 and that the
 calibration slope is (close to) 1.
 -->
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">required_N</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">C</span>, <span class="va">phi</span>, <span class="va">desired_SE</span><span class="op">)</span> <span class="op">{</span></span>
+<span></span>
+<span>  <span class="co"># Check inputs</span></span>
+<span>  <span class="kw">if</span> <span class="op">(</span><span class="va">C</span> <span class="op">&lt;=</span> <span class="fl">0.5</span> <span class="op">||</span> <span class="va">C</span> <span class="op">&gt;=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="kw"><a href="https://rdrr.io/r/base/stop.html">stop</a></span><span class="op">(</span><span class="st">"C must be greater than 0.5 and less than 1."</span><span class="op">)</span></span>
+<span>  <span class="op">}</span></span>
+<span></span>
+<span>  <span class="kw">if</span> <span class="op">(</span><span class="va">phi</span> <span class="op">&lt;=</span> <span class="fl">0</span> <span class="op">||</span> <span class="va">phi</span> <span class="op">&gt;=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="kw"><a href="https://rdrr.io/r/base/stop.html">stop</a></span><span class="op">(</span><span class="st">"phi must be between 0 and 1."</span><span class="op">)</span></span>
+<span>  <span class="op">}</span></span>
+<span></span>
+<span>  <span class="kw">if</span> <span class="op">(</span><span class="va">desired_SE</span> <span class="op">&lt;=</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="kw"><a href="https://rdrr.io/r/base/stop.html">stop</a></span><span class="op">(</span><span class="st">"desired_SE must be positive."</span><span class="op">)</span></span>
+<span>  <span class="op">}</span></span>
+<span></span>
+<span>  <span class="co"># Standard error as a function of N</span></span>
+<span>  <span class="va">se_fun</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">N</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span></span>
+<span>      <span class="va">C</span> <span class="op">*</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="va">C</span><span class="op">)</span> <span class="op">/</span></span>
+<span>        <span class="op">(</span><span class="va">N</span><span class="op">^</span><span class="fl">2</span> <span class="op">*</span> <span class="va">phi</span> <span class="op">*</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="va">phi</span><span class="op">)</span><span class="op">)</span> <span class="op">*</span></span>
+<span>        <span class="op">(</span></span>
+<span>          <span class="fl">1</span> <span class="op">+</span></span>
+<span>            <span class="op">(</span><span class="va">N</span> <span class="op">*</span> <span class="va">phi</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span> <span class="op">*</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="va">C</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="fl">2</span> <span class="op">-</span> <span class="va">C</span><span class="op">)</span> <span class="op">+</span></span>
+<span>            <span class="op">(</span><span class="va">N</span> <span class="op">*</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="va">phi</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span> <span class="op">*</span> <span class="va">C</span> <span class="op">/</span> <span class="op">(</span><span class="fl">1</span> <span class="op">+</span> <span class="va">C</span><span class="op">)</span></span>
+<span>        <span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">}</span></span>
+<span></span>
+<span>  <span class="co"># Find N such that SE(C) equals desired_SE</span></span>
+<span>  <span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/uniroot.html">uniroot</a></span><span class="op">(</span></span>
+<span>    <span class="kw">function</span><span class="op">(</span><span class="va">N</span><span class="op">)</span> <span class="fu">se_fun</span><span class="op">(</span><span class="va">N</span><span class="op">)</span> <span class="op">-</span> <span class="va">desired_SE</span>,</span>
+<span>    interval <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">1e9</span><span class="op">)</span></span>
+<span>  <span class="op">)</span><span class="op">$</span><span class="va">root</span></span>
+<span></span>
+<span>  <span class="co"># Round up to the next whole participant</span></span>
+<span>  <span class="va">N</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">ceiling</a></span><span class="op">(</span><span class="va">result</span><span class="op">)</span></span>
+<span></span>
+<span>  <span class="co"># Return sample size and expected event counts</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
+<span>    N <span class="op">=</span> <span class="va">N</span>,</span>
+<span>    expected_events <span class="op">=</span> <span class="va">N</span> <span class="op">*</span> <span class="va">phi</span>,</span>
+<span>    expected_non_events <span class="op">=</span> <span class="va">N</span> <span class="op">*</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="va">phi</span><span class="op">)</span>,</span>
+<span>    achieved_SE <span class="op">=</span> <span class="fu">se_fun</span><span class="op">(</span><span class="va">N</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu">required_N</span><span class="op">(</span>C<span class="op">=</span><span class="fl">0.75</span>, <span class="fl">0.1</span>, <span class="fl">0.05</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$N
+[1] 340
+
+$expected_events
+[1] 34
+
+$expected_non_events
+[1] 306
+
+$achieved_SE
+[1] 0.04992683</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">pmsampsize</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pmsampsize/man/pmsampsize.html">pmsampsize</a></span><span class="op">(</span></span>
+<span>    type <span class="op">=</span> <span class="st">"b"</span>, <span class="co"># binary</span></span>
+<span>    cstatistic <span class="op">=</span> <span class="fl">0.75</span>, <span class="co"># concordance/AUC</span></span>
+<span>    parameters <span class="op">=</span> <span class="fl">24</span>, <span class="co"># covariates</span></span>
+<span>    prevalence <span class="op">=</span> <span class="fl">0.10</span> <span class="co"># cognitive impairment</span></span>
+<span>    <span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Given input C-statistic = 0.75  &amp; prevalence = 0.1  
+Cox-Snell R-sq = 0.0746  
+ 
+NB: Assuming 0.05 acceptable difference in apparent &amp; adjusted R-squared 
+NB: Assuming 0.05 margin of error in estimation of intercept 
+NB: Events per Predictor Parameter (EPP) assumes prevalence = 0.1  
+ 
+           Samp_size Shrinkage Parameter CS_Rsq Max_Rsq Nag_Rsq   EPP
+Criteria 1      2774     0.900        24 0.0746   0.478   0.156 11.56
+Criteria 2       954     0.757        24 0.0746   0.478   0.156  3.98
+Criteria 3       139     0.900        24 0.0746   0.478   0.156  0.58
+Final           2774     0.900        24 0.0746   0.478   0.156 11.56
+ 
+ Minimum sample size required for new model development based on user inputs = 2774, 
+ with 278 events (assuming an outcome prevalence = 0.1) and an EPP = 11.56 
+ 
+ </code></pre>
+</div>
+</div>
 </div>
 
 
@@ -2813,6 +3059,10 @@ calibration slope is (close to) 1.
 <div id="ref-steyerberg2014towards" class="csl-entry" role="listitem">
 <div class="csl-left-margin">1. </div>
 <div class="csl-right-inline">Steyerberg EW, Vergouwe Y. Towards better clinical prediction models: Seven steps for development and an ABCD for validation. European heart journal. 2014;35(29):1925–31. </div>
+</div>
+<div id="ref-riley2021minimum" class="csl-entry" role="listitem">
+<div class="csl-left-margin">2. </div>
+<div class="csl-right-inline">Riley RD, Debray TP, Collins GS, Archer L, Ensor J, Smeden M van, et al. Minimum sample size for external validation of a clinical prediction model with a binary outcome. Statistics in medicine. 2021;40(19):4230–51. </div>
 </div>
 </div>
 </section></section><script async="" src="https://scripts.simpleanalyticscdn.com/latest.js"></script></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">

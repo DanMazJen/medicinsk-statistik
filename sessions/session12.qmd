@@ -1567,7 +1567,7 @@ gives the multiplicative change in the expected seizure rate, just as in the
 Poisson model. The only difference is that the negative binomial model
 explicitly allows for unexplained patient-to-patient variability.
 
-```{r}
+```r
 #| label: assumptions
 
 performance::check_overdispersion(m2_baseline)
@@ -1590,7 +1590,7 @@ distribution remains discrete and non-negative while accommodating the larger
 variance observed in the data, making it a much more realistic model for seizure
 counts.
 
-```{r}
+```r
 #| label: draws-nb
 
 mu <- mean(epil$seizure_count) # 7.305085
@@ -1627,7 +1627,7 @@ Hidden material on prediction
 
 manual predictions:
 
-```{r}
+```r
 #| label: manual-predict
 
 x_seq <- seq(min(epil$base), max(epil$base), length.out = 100)

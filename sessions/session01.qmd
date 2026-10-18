@@ -178,7 +178,20 @@ Click "New directory" and select "New Project". Type out
 `hallo-medical-statistics` as the directory name and save it to the `Desktop/`
 (or where you want to store your project).
 
+Finally, when you've opened your new project type the following into the
+console:
+
+```{r}
+#| label: project-setup-easy
+#| filename: "Console"
+#| eval: false
+
+medisr::medisr_init_project()
+```
+
 ::: {.callout-tip appearance="default"}
+## No need for the manual "new project" GUI
+
 You can also type the below function into the Console, but we won't do that in
 this session.
 
@@ -186,9 +199,13 @@ this session.
 #| label: project-setup
 #| filename: "Console"
 #| eval: false
-
-medisr::medisr_init_project("~/Desktop/medicinsk-statistik-session1")
+#|
+medisr::medisr_init_project("/path/more-path/my-project-folder")
 ```
+
+Now, the project is made programmatically, without you clicking any buttons. But
+you need to be aware of where you want to place your project and be able to find
+it afterwards!
 :::
 
 After we've created a New Project in RStudio, we'll have a bunch of new files

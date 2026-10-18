@@ -1183,7 +1183,7 @@ positive rate, conditioned on where the classification threshold is set.
 
 The dotted line in the middle is the 50% --- essentially a random guess.
 
-### Area under the curve (AUC)
+### Area under the curve (AUC) {#sec-binary-auc}
 
 The area under this curve is the AUC. Area under the curve is computed as the
 integral. Instead of doing this by hand, we can use `{yardstick}` again:
@@ -1268,7 +1268,7 @@ with exactly the specified probabilities. The regression estimates the
 adjustment to those odds from the model-predicted odds.
 
 ::: {.callout-note}
-## Calibration is more than the CITL!
+#### Calibration is more than the CITL!
 
 A CITL = 0 does not mean the model is perfectly calibrated. It means there is no
 overall calibration-in-the-large error. The predictions can still be poorly
@@ -1277,6 +1277,11 @@ and calibration plots are useful complementary assessments.
 :::
 
 ### B: The calibration slope
+
+So the CITL measures a systematic bias: the average predicted probability is too
+large. The calibration slope is a measure of the association between observed
+and predicted tisk of the outcome event across the whole range of predicted
+risks. So not a systematic error, but a errors across the prediction range.
 
 To estimate the calibration **slope**, we use another logistic regression model:
 
@@ -1294,7 +1299,7 @@ and works similarly to other logistic regression models you have worked with.
   enough.
 
 ::: {.callout-warning}
-## Intercept from the slope model
+#### Intercept from the slope model
 
 One important distinction: the intercept from this model is not the same as the
 calibration-in-the-large.
@@ -1331,8 +1336,7 @@ broom::tidy(slope_model, conf.int = TRUE) # don't exponentiate!
 ### Visualizing calibration
 
 As always, we recommend visualizing any statistical procedure. We can do this in
-a plot with predictions on the x-axis and the observed endpoint on the y-axis,
-see @fig-calibration. In a calibration plot, the x-axis shows predicted
+a plot like @fig-calibration. In a calibration plot, the x-axis shows predicted
 probabilities and the y-axis shows observed outcome proportions. Both axes range
 from 0 to 100%. The diagonal ideal line represents perfect calibration: for
 example, a predicted risk of 15% corresponds to an observed outcome proportion
@@ -1341,16 +1345,16 @@ of 15%.
 Because the outcome is binary, we cannot directly compare each individual's
 predicted probability with an observed proportion: each individual either
 experiences the outcome or does not. Instead, calibration plots often group
-individuals into bins based on their predicted risks. Within each bin, we
-calculate the mean predicted risk and the observed proportion of individuals who
-experienced the outcome. These values provide a summary of predicted and
+individuals into bins/bockets based on their predicted risks. Within each bin,
+we calculate the mean predicted risk and the observed proportion of individuals
+who experienced the outcome. These values provide a summary of predicted and
 observed risk for that group.
 
 For example, consider a validation dataset divided into five bins according to
 predicted risk:
 
 <!--panache-ignore-start-->
-| Bin | Mean predicted risk | Observed outcome proportion | Interpretation |
+| Bin | Mean predicted risk (x-axis) | Observed outcome proportion (y-axis) | Interpretation |
 |:---|---:|---:|:---|
 | 1 (0%---19%) | 5% | 4% | Slight overprediction |
 | 2 (20%---39%)| 15% | 15% | Perfect calibration |
@@ -1366,6 +1370,9 @@ underprediction. In practice, the number of bins and their boundaries affect the
 plot, and the observed proportions can be imprecise when bins contain few
 individuals.
 
+<!--
+What about this??
+:::{.hidden}
 Perfect predictions should lie on the ideal diagonal line. In a logistic
 calibration model, perfect calibration corresponds to an intercept α of 0 and a
 slope β of 1. The logit of each individual's predicted risk is used as the
@@ -1378,13 +1385,21 @@ $$
 Here, α measures calibration-in-the-large when the slope is fixed at 1, while β
 measures how strongly the predicted log-odds are associated with the observed
 outcomes relative to the ideal slope of 1.
+:::
+-->
 
-The `{probably}` package provides this directly:
+The `{probably}` package provides a nice function for plotting the calibration
+curve:
 
 ```{r}
 #| label: fig-calibration
 
-cal_plot_breaks(ad_validation_logistic, Class, .pred_impaired, num_breaks = 5)
+cal_plot_breaks(
+    ad_validation_logistic,
+    Class,
+    .pred_impaired,
+    num_breaks = 5 # number of bins we want
+    )
 ```
 
 A well-calibrated model follows the diagonal line.
@@ -1395,22 +1410,25 @@ across the range of predicted risks without relying on fixed bins:
 ```{r}
 #| label: cal-smooth
 
-cal_plot_logistic(ad_validation_logistic, Class, .pred_impaired, smooth = FALSE)
+cal_plot_logistic(ad_validation_logistic, Class, .pred_impaired, smooth = TRUE)
 ```
 
-The black curve in your plot is the estimated **observed event rate**, not the
-*predicted event rate*. This means that being below the diagonal is "reality"
-being lower than the prediction-model expectations. In other words: below the
-diagonal is over-predicting.
+> Now, how does the plot look? 👀
 
 Notice how the prediction-model we are validating is generally over-predicting?
+You can tell from, e.g., bin two in @fig-calibration --- the model (x-axis) give
+~30% probability for a bunch of predictions that have an event rate of ~13%
+probability. So the model is giving predictions far above what it should!
 
 This also corresponds to our CITL being below 1 and our slope being below 1.
 
-Calibration is about the accuracy of the predicted probabilities. A model can
-have excellent discrimination and poor calibration: it may correctly rank
-individuals from lower to higher risk while systematically overestimating or
-underestimating their absolute risks.
+So we've covered calibration 🎉
+
+Calibration is about the accuracy of the predicted probabilities. But a model
+can have excellent discrimination and poor calibration --- that is, it may
+correctly rank individuals from lower to higher risk while systematically
+overestimating or underestimating their absolute risks. To evaluate
+discrimination, we use the C-statistic.
 
 ## Discrimination using the concordance statistic
 
@@ -1428,24 +1446,23 @@ between deciles of predicted risk, indicates a good discriminating model, see
 @fig-calibration.
 
 We use the concordance (*c*) statistic as an outcome for the models ability to
-discriminate between groups. For a binary endpoint, *c* is identical to the area
-under the receiver operating characteristic (ROC) curve, which plots the
-sensitivity (true-positive rate) against 1 -- specificity (false-positive rate)
-for consecutive cut-offs for the predicted risk.
+discriminate between groups. For a binary endpoint, *c* is identical to the AUC
+@sec-binary-auc.
 
-In our data, we have a AUC of 0.840
+In our data, we have a AUC of 0.840 --- so the *c*-statistic (i.e., concordance)
+is also 0.84.
 
 **Intuition of C-statistic**
 
 Imagine you play a game with your model. You pick every possible pair of people
 from your data where one person had the event (1) and the other person did not
-(0). 
+(0).
 
 You ask your model:
 
 > "Which of these two people had a higher predicted probability of the event?
 
-There are three possible outcomes for each pair: 
+There are three possible outcomes for each pair:
 
 1. Concordant pair: The model assigns a higher predicted probability to the
    person who actually had the event (1) than to the person who did not (0).
@@ -1464,7 +1481,7 @@ $$
 ## Decision-curve analysis
 
 While calibration and discrimination are important for validating prediction
-model, neither reflect real clinical usefulness. Clinical usefulness can be
+model, neither reflect real **clinical usefulness**. Clinical usefulness can be
 boiled down to **the ability to make better decisions with a model than
 without**.
 
@@ -1472,18 +1489,14 @@ If a prediction model aims to guide treatment decisions, a cut-off is required
 to classify patients as either low risk (no treatment) or high risk (treatment
 is indicated). The cut-off is a decision threshold.
 
-You will learn about decision-curve analysis in **Workshop 3**.
-
-**D**
-
-The D component asks whether the predictions are useful for making decisions.
-That requires specifying a clinical action and the range of probability
-thresholds at which that action would be taken.
+You will learn about decision-curve analysis in **Workshop 3**, where you will
+learn to specify a clinical action and the range of probability thresholds at
+which that action would be taken.
 
 ## Internal and external validation
 
-Everything we've done so far has been an internal validation --- what do I mean
-by that?
+Everything we've done so far has been an internal validation --- what do we mean
+by "internal"?
 
 Recall that we initially made an arbitrary split of the data: all odd-numbered
 patient `ID`s were assigned to a *test* set and the even-numbered `ID`s to a
@@ -1511,20 +1524,92 @@ groups, or *folds*. We then:
 
 1. Fit the model using $k - 1$ folds.
 2. Evaluate the model on the remaining fold.
-3. Repeat this process until every fold has been used as the validation data.
+3. Repeat this process *k* times, until every fold has been used as the
+   validation data.
 4. Average the results across all folds to obtain an estimate of model
    performance.
 
-For example, in 5-fold cross-validation, each patient is used for validation
-once and for model development four times.
+For example, in 5-fold cross-validation (see @fig-cross-validation), each
+patient is used for validation once and for model development four times.
 
 Cross-validation therefore makes more efficient use of a limited dataset than a
 single train/test split. It is particularly useful when the available dataset is
 relatively small.
 
+To get the *k*-fold cross-validation AUC, you would have to run the regression
+model *k* times, each time splitting the data in a new way (see
+@fig-cross-validation). Thereby, you would get *k* AUC estimates. The AUC you
+would report would be:
+
+$$
+  \frac{1}{k}\sum^k_{k=1}\text{AUC}_k
+$$
+
+It is common to use 5 or 10 folds.
+
 Importantly, cross-validation is still **internal validation**. The patients
 used to evaluate the model come from the same underlying study and therefore may
 share characteristics with the patients used to develop the model.
+
+```{mermaid}
+%%| label: fig-cross-validation
+%%| fig-cap: Cross-validation for internal validation'.
+%%| echo: false
+%%| eval: true
+
+flowchart LR
+    subgraph CV["5-Fold Cross-Validation"]
+        direction TB
+
+        subgraph R1["Iteration 1"]
+            direction LR
+            A11["Test"]:::test --- A12["Train"]:::train --- A13["Train"]:::train --- A14["Train"]:::train --- A15["Train"]:::train
+        end
+
+        subgraph R2["Iteration 2"]
+            direction LR
+            A21["Train"]:::train --- A22["Test"]:::test --- A23["Train"]:::train --- A24["Train"]:::train --- A25["Train"]:::train
+        end
+
+        subgraph R3["Iteration 3"]
+            direction LR
+            A31["Train"]:::train --- A32["Train"]:::train --- A33["Test"]:::test --- A34["Train"]:::train --- A35["Train"]:::train
+        end
+
+        subgraph R4["Iteration 4"]
+            direction LR
+            A41["Train"]:::train --- A42["Train"]:::train --- A43["Train"]:::train --- A44["Test"]:::test --- A45["Train"]:::train
+        end
+
+        subgraph R5["Iteration 5"]
+            direction LR
+            A51["Train"]:::train --- A52["Train"]:::train --- A53["Train"]:::train --- A54["Train"]:::train --- A55["Test"]:::test
+        end
+    end
+
+    A15 ~~~ M1["Metric 1"]:::metric
+    A25 ~~~ M2["Metric 2"]:::metric
+    A35 ~~~ M3["Metric 3"]:::metric
+    A45 ~~~ M4["Metric 4"]:::metric
+    A55 ~~~ M5["Metric 5"]:::metric
+
+    M1 --> AVG["Average<br/>performance"]:::average
+    M2 --> AVG
+    M3 --> AVG
+    M4 --> AVG
+    M5 --> AVG
+
+    classDef train fill:#55c5d5,stroke:#55c5d5,color:#000
+    classDef test fill:#d91b91,stroke:#d91b91,color:#fff
+    classDef metric fill:#8cf4f5,stroke:#8cf4f5,color:#000
+    classDef average fill:#8cf4f5,stroke:#8cf4f5,color:#000
+    style CV fill:transparent,stroke:transparent
+    style R1 fill:transparent,stroke:transparent
+    style R2 fill:transparent,stroke:transparent
+    style R3 fill:transparent,stroke:transparent
+    style R4 fill:transparent,stroke:transparent
+    style R5 fill:transparent,stroke:transparent
+```
 
 ### External validation
 
@@ -1571,7 +1656,7 @@ demanding the test of generalisability becomes.
 
 Internal and external validation can be seen as two levels of evidence:
 
-**Internal validation** as the initial an inexpensive validation:
+**Internal validation** as the initial and inexpensive validation:
 
 - Statistical estimation of overfitting/underfitting
 - Best guess for future external validation and generalizability
@@ -1587,45 +1672,33 @@ simply because it performs well on its development data or under internal
 validation. External validation is needed to establish whether the model
 generalises to the population and setting in which we ultimately want to use it.
 
-## Effect size estimation
+## Sample size calculation in binary prediction studies
 
-Prediction performance and effect estimation are different questions.
+Before investing money and time in a prediction study, it's often relevant to
+make inexpensive and sophisticated guesses on how many participants one needs to
+include before being able to say with confidence whether the model has potential
+or is useless.
 
-A logistic regression coefficient describes the association between a predictor
-and the outcome. For example:
+Sample size calculations for prediction models need special care and are
+slightly different from causal effect studies.
 
-How much does the odds of "impaired" change for a one-unit increase in age?
+### Manual estimation using the *c*-statistic
 
-The dataset used here contains only the predictions, not the original
-predictors. Therefore, we cannot recover the original regression coefficients or
-their odds ratios from `ad_validation_logistic`.
-
-What we can estimate is the association between the model's predicted risk and
-the observed outcome. The calibration slope above is one such measure.
-
-This distinction is important:
-
-Prediction asks: How accurately can we predict what will happen?
-
-Effect estimation asks: How does changing a particular variable relate to what
-happens?
-
-A model can be excellent for prediction without giving an unbiased estimate of a
-causal effect.
-
-### The mathematics of it
-
-how to determine the minimum sample size needed for a new external validation
-study of a prediction model for a binary outcome.
+Let's define how we can determine the minimum sample size needed for a new
+external validation study of a prediction model for a binary outcome.
 
 The calculations can also be used to inform whether the sample size of an
-existing(already collected) dataset is adequate for external validation
+existing (i.e., already collected) dataset is adequate for external validation
 
 When externally validating a prediction model, sample size should be large
 enough to estimate model performance with sufficient precision. Riley et al.
-(2021) propose calculating the required sample size separately for several
-performance measures and then using the largest required sample size.
+[@riley2021minimum] propose calculating the required sample size separately for
+several performance measures and then using the largest required sample size.
 
+In this course, however, you'll learn to compute only one estimate by hand, but
+three methods using R code.
+
+<!--
 1. O/E ratio
 
 The observed-to-expected ratio is
@@ -1683,23 +1756,24 @@ Thus, the sample-size calculation can be interpreted as:
 > How many patients do I need to estimate the overall agreement between observed
 > and predicted risk with the desired precision?
 
-2. C-statistic
+-->
 
-For sample-size planning, we specify:
+For sample-size planning, we need to select:
 
-- the anticipated C-statistic, $C$;
+- the anticipated *C*-statistic, $C$;
 - the anticipated event proportion, $\phi$; and
 - the desired precision, expressed as $SE(C)$.
 
-Riley et al. use an approximate formula for the standard error:
+Riley et al. [@riley2021minimum] use an approximate formula for the standard
+error:
 
 $$
   𝑆𝐸(𝐶)
   ≈ \frac{\sqrt{𝐶(1 − 𝐶) (1 + (𝑁𝜙 − 1)1 − 𝐶2 − 𝐶 + (𝑁(1 − 𝜙) − 1)𝐶1 + 𝐶)}} {𝑁2𝜙(1 − 𝜙)}.
 $$
 
-Unlike the O/E formula, this equation is not conveniently rearranged to give $N$
-directly. Instead, we try different values of $N$ until the resulting $SE(C)$ is
+This equation is not conveniently rearranged to give $N$ directly. Instead, we
+will have to try different values of $N$ until the resulting $SE(C)$ is
 sufficiently small.
 
 For example, suppose:
@@ -1709,7 +1783,7 @@ $$
   𝜙 = 0.10.
 $$
 
-If we want the C-statistic to have an approximate 95% confidence interval of
+If we want the *C*-statistic to have an approximate 95% confidence interval of
 $\pm0.05$, we need approximately
 
 $$
@@ -1721,6 +1795,53 @@ We then increase $N$ until the formula gives $SE(C) \approx 0.0255$.
 The resulting $N$ is the required validation sample size for the C-statistic
 criterion.
 
+In this case, it is:
+
+$$
+  SE(C)
+  \approx \sqrt{\frac{0.70(1 - 0.70)}{1413^2(0.10)(1 - 0.10)} \Bigg[1 + (1413 \times 0.10 - 1)\frac{1 - 0.70}{2 - 0.70} + (1413 \times (1 - 0.10) - 1)\frac{0.70}{1 + 0.70}\Bigg]}
+  \approx 0.0255
+$$
+
+<!--
+Simplifying to:
+
+$$
+  SE(C)
+  \approx \sqrt{\frac{0.70 \times 0.30}{1413^2 \times 0.10 \times 0.90} \Bigg[1 + (141.3 - 1)\frac{0.30}{1.30} + (1271.7 - 1)\frac{0.70}{1.70}\Bigg]}
+  \approx 0.0255.
+$$
+-->
+
+so $N = 1413$
+
+```{r}
+#| label: manual-ssc-in-r
+#| warning: false
+
+# Our selected values
+p  <- 0.70
+n  <- 1000:1500
+pi <- 0.10
+
+# Compute the first fraction
+broek <- (p * (1 - p)) / (n^2 * pi * (1 - pi))
+
+# Break up the large formula insude the square brackets [ ] at every plus sign
+led_1 <- 1
+led_2 <- (n * pi - 1) * ((1 - p) / (2 - p))
+led_3 <- (n * (1 - pi) - 1) * (p / (1 + p))
+
+# Take the sqrt of it all
+SE_C <- sqrt(broek * (led_1 + led_2 + led_3))
+
+# Visualize values
+ggplot(data.frame(n,SE_C),aes(n,SE_C)) +
+    geom_line() +
+    geom_hline(yintercept=0.0255) +
+    geom_text(aes(label = "x"), x = 1413, y = 0.0255, size = 5, color = "red")
+```
+
 The interpretation is:
 
 > How many patients do I need to estimate the model's ability to discriminate
@@ -1729,6 +1850,7 @@ The interpretation is:
 Because the C-statistic depends on comparisons between events and non-events,
 both the number of events and the number of non-events contribute information.
 
+<!--
 **Putting the two together**
 
 The two calculations answer different questions:
@@ -1759,40 +1881,52 @@ then the study should aim for at least $𝑁 = 1,200$
 This ensures that both O/E and the C-statistic can be estimated with the desired
 precision.
 
-Be aware that many more sample size calculation methods exists! These are in
-fact the two most simple ones. Lucily for us, R provides easy access to the more
-complicated ones.
+-->
+
+Be aware that many more sample size calculation methods exists! Best practice is
+to use several estimators and take the most conservative number (i.e., the
+largest value). But some of the other estimators are quite complicated and out
+of the scope of this course. Luckily for us, **R** provides easy access to the
+more complicated estimators.
 
 ### Effect size calculation in R:
 
-**Binary and survival outcomes have three criteria:**
+We'll be using the `{pmsampsize}` pmsampsize, developed based on the Riley paper
+[@riley2021minimum].
 
-- Small overfitting: expected shrinkage of predictor effects ≤ 10%
-- Small absolute difference (≤ 0.05) between apparent and adjusted Nagelkerke's
-  R²
-- Precise estimation (within ± 0.05) of the average outcome risk at the
-  timepoint of interest
+The package uses a more complex implementation of the manual *C*-statistic
+sample size calculation we covered.
+
+**Binary outcomes need to provide three criteria:**
+
+- `type` should be `b` (for binary)
+- `cstatistic` is the C-statistic
+- `parameters` is the number of parameters in the model (we had 5
+  binary/continuous parameters + 6 dummy coded nominal genotypes = 11
+  parameters)
 
 Calculate the minimum sample size for a logistic prediction model with 24
 candidate predictor parameters, an anticipated outcome prevalence of 17.4%, and
-a Cox-Snell $R^2$ of 0.288 (taken from an existing model):
-
-```{r}
-#| label: effect-size-r
-
-library(pmsampsize)
-
-pmsampsize(type = "b", csrsquared = 0.288, parameters = 24, prevalence = 0.174)
-```
-
-If only a C-statistic (rather than $R^2$) is available from an existing model,
-use the cstatistic argument instead:
+a *C*-statistic of 0.89 would look like this:
 
 ```{r}
 #| label: effect-size-on-c-score
 
-pmsampsize::pmsampsize(type = "b", cstatistic = 0.89, parameters = 24, prevalence = 0.174)
+pmsampsize::pmsampsize(
+    type = "b", # binary
+    cstatistic = 0.89, # concordance/AUC
+    parameters = 24, # covariates
+    prevalence = 0.174 # cognitive impairment
+    )
 ```
+
+You can see 3 criteria:
+
+1. The first criteria relates to calibration-in-the-large
+2. The second criteria relates to the calibration slope
+3. The third criteria relates to the *C*-statistic
+
+The final recommendation is the largest **N**.
 
 ### Summary
 
@@ -1936,4 +2070,63 @@ The intercept is related to calibration-in-the-large (A) and the coefficient of
 Ideally, we'd see that the calibration-in-the-large is (close to) 0 and that the
 calibration slope is (close to) 1.
 -->
+
+```{r}
+#| label: manual-es-using-c
+
+required_N <- function(C, phi, desired_SE) {
+
+  # Check inputs
+  if (C <= 0.5 || C >= 1) {
+    stop("C must be greater than 0.5 and less than 1.")
+  }
+
+  if (phi <= 0 || phi >= 1) {
+    stop("phi must be between 0 and 1.")
+  }
+
+  if (desired_SE <= 0) {
+    stop("desired_SE must be positive.")
+  }
+
+  # Standard error as a function of N
+  se_fun <- function(N) {
+    sqrt(
+      C * (1 - C) /
+        (N^2 * phi * (1 - phi)) *
+        (
+          1 +
+            (N * phi - 1) * (1 - C) / (2 - C) +
+            (N * (1 - phi) - 1) * C / (1 + C)
+        )
+    )
+  }
+
+  # Find N such that SE(C) equals desired_SE
+  result <- uniroot(
+    function(N) se_fun(N) - desired_SE,
+    interval = c(2, 1e9)
+  )$root
+
+  # Round up to the next whole participant
+  N <- ceiling(result)
+
+  # Return sample size and expected event counts
+  list(
+    N = N,
+    expected_events = N * phi,
+    expected_non_events = N * (1 - phi),
+    achieved_SE = se_fun(N)
+  )
+}
+
+required_N(C=0.75, 0.1, 0.05)
+
+pmsampsize::pmsampsize(
+    type = "b", # binary
+    cstatistic = 0.75, # concordance/AUC
+    parameters = 24, # covariates
+    prevalence = 0.10 # cognitive impairment
+    )
+```
 :::

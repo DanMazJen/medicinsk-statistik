@@ -5,23 +5,11 @@ slide-number: true
 smaller: true
 ---
 
-## Evaluating a crystal ball - part 1
+# Evaluating a crystal ball - part 1 {.center .align-center}
 
-# {.center}
+![caption](../slides/images/crystal_ball_future.jpeg)
 
-The future is now
-
-## {.center}
-
-::: {.notes}
-Session 18: Evaluating classification models for cognitive impairment
-prediction.
-
-Key dataset: ad_validation_logistic with observed classes and predicted
-probabilities.
-:::
-
-# The ABCD Framework {.center}
+## The ABCD Framework {.center .align-center}
 
 A useful way to remember prediction-model evaluation:
 
@@ -29,12 +17,6 @@ A useful way to remember prediction-model evaluation:
 - **B** = Calibration slope
 - **C** = C-statistic / Discrimination
 - **D** = Decision curve / Clinical usefulness
-
-::: {.notes}
-This framework separates statistical performance from clinical usefulness.
-
-Reference: https://pmc.ncbi.nlm.nih.gov/articles/PMC4155437/
-:::
 
 ## Case Study: Cognitive Impairment Prediction
 
@@ -45,9 +27,9 @@ We evaluate a logistic regression model predicting cognitive impairment from:
 - Tau protein
 - Phosphorylated tau
 - Amyloid beta 42
-- APOE genotype
+- APOE genotype (6 variants)
 
-**Outcome**: Impaired vs Control (gold-standard neurophyschological test)
+**Outcome**: Impaired vs Control (gold-standard neuropsychological testing)
 
 ## The Prediction Model
 
@@ -76,9 +58,10 @@ library(ggplot2)
 
 ad_data <- medisr::ad_data
 
-ad_data$diagnosis <- factor(ad_data$diagnosis,
-  levels = c("Impaired", "Control"),
-  labels = c("impaired", "control"),
+ad_data$diagnosis <- factor(
+    ad_data$diagnosis,
+    levels = c("Impaired", "Control"),
+    labels = c("impaired", "control")
 )
 
 ad_data$Genotype <- factor(ad_data$Genotype,
@@ -377,8 +360,6 @@ The "right" threshold depends on the costs of false positives vs false
 negatives.
 :::
 
-# Discrimination
-
 ## ROC and AUC
 
 Instead of choosing one threshold, we can look at model discrimination across
@@ -414,7 +395,106 @@ classes). It does NOT tell us whether the predicted probabilities themselves are
 accurate.
 :::
 
-# Calibration
+## Key Idea
+
+> No single metric evaluates a prediction model completely.
+
+A useful model should:
+
+- Discriminate well - Produce sensible probabilities
+- Lead to better decisions
+
+## From Data to Probability {.center}
+
+```{mermaid}
+%%| label: bug-in-prop-out
+
+flowchart LR
+    A["🐛"] --> B["Model prediction"] --> C["0.18"]
+
+    style B fill:#FFF0D9,stroke:#D99024,color:#222
+    style C fill:#E2F0D9,stroke:#548235,color:#222
+```
+
+## From Data to Probability {.center}
+
+```{mermaid}
+%%| label: smiley-in-prop-out
+
+flowchart LR
+    A["😄"] --> B["Model prediction"] --> C["0.84"]
+
+    style B fill:#FFF0D9,stroke:#D99024,color:#222
+    style C fill:#E2F0D9,stroke:#548235,color:#222
+```
+
+## ABCD Framework in Detail {.center .align-center}
+
+::: {layout-ncol=2}
+![](../slides/images/poor_calibration_slope.png){fig-align="center"}
+![](../slides/images/poor_citl.png){fig-align="center"}
+:::
+
+## Model calibration
+
+So the CITL measures a systematic bias: the average predicted probability is too
+large. The calibration slope is a measure of the association between observed
+and predicted tisk of the outcome event across the whole range of predicted
+risks. So not a systematic error, but a errors across the prediction range.
+
+```{r}
+#| label: calibration-ggplot
+
+# Create calibration curves
+calibration_data <- tibble(
+  x = seq(0, 1, length.out = 300)
+) |>
+  mutate(
+    `Calibration slope issue at edges` = x^1.5 + 0.1,
+    `Systematic underconfidence` = x + 0.6 * sin(2 * pi * x)
+  ) |>
+  pivot_longer(
+    cols = -x,
+    names_to = "model",
+    values_to = "event_proportion"
+  )
+
+# Plot
+ggplot(calibration_data,
+       aes(x = x, y = event_proportion)) +
+  geom_abline(
+    slope = 1, intercept = 0,
+    linetype = "dashed",
+    color = "grey50",
+    linewidth = 0.8
+  ) +
+  geom_line(
+    color = "#2878B5",
+    linewidth = 1.2
+  ) +
+  facet_wrap(~ model, nrow = 1) +
+  scale_x_continuous(
+    limits = c(0, 1),
+    breaks = seq(0, 1, 0.2),
+    expand = c(0, 0)
+  ) +
+  scale_y_continuous(
+    limits = c(0, 1),
+    breaks = seq(0, 1, 0.2),
+    expand = c(0, 0)
+  ) +
+  coord_equal() +
+  labs(
+    x = "Predicted probability",
+    y = "Observed event proportion"
+  ) +
+  theme_minimal(base_size = 13) +
+  theme(
+    panel.grid.minor = element_blank(),
+    strip.text = element_text(face = "bold"),
+    panel.spacing = grid::unit(1.5, "lines")
+  )
+```
 
 ## Are the Probabilities Accurate? {.center}
 
@@ -424,28 +504,6 @@ Calibration asks a different question:
 
 A simple calibration plot compares predicted probability with the observed
 proportion.
-
-## Calibration Plot {.r-stretch}
-
-```{r}
-#| label: calibration
-#| fig-cap: "Calibration plot with breaks"
-
-library(probably)
-
-cal_plot_breaks(ad_validation_logistic, Class, .pred_impaired)
-```
-
-A well-calibrated model follows the diagonal line.
-
-## Smooth Calibration Curve {.r-stretch}
-
-```{r}
-#| label: cal-smooth
-#| fig-cap: "Smooth calibration curve"
-
-cal_plot_logistic(ad_validation_logistic, Class, .pred_impaired, smooth = FALSE)
-```
 
 ::: {.notes}
 Calibration is about the **accuracy of the probabilities**, not just the
@@ -458,89 +516,337 @@ The calibration model can be written as a logistic regression of the outcome on
 the logit of the predicted probability.
 :::
 
-# ABCD Framework in Detail
+## A: Calibration in the large
 
-## A: Calibration-in-the-large
+<!-- TODO: meme -->
 
-Are predictions systematically too high or too low?
+> Are predictions systematically too high or too low?
 
-## B: Calibration Slope
+Calibration-in-the-large (CITL) assesses whether predicted risks are
+systematically too high or too low overall.
 
-Are predictions too extreme or not extreme enough?
+## Calibration-in-the-large
 
-## C: C-statistic
+To estimate the **CITL**, we use the following logistic regression model:
 
-How well does the model discriminate between outcomes? (AUC)
+$$
+  logit(P(Y = 1)) = α + \text{offset}(logit(\hat{p}_i))
+$$
 
-## D: Decision Curve
+- $\hat{p}_i$ is the predicted risk from the prediction model
+- the coefficient of logit($\hat{p}_i$) is fixed at 1.
 
-Does using the model improve clinical decisions?
+The estimated intercept α is the calibration-in-the-large.
+
+- citl = 1: no overall calibration-in-the-large error.
+- citl < 1: predicted risks are too high on average.
+- citl > 1: predicted risks are too low on average.
+
+## Calibration-in-the-large part 2 (repeat?)
+
+- Poisson regression offset: adjusts the expected count for exposure,
+- Logistic regression contributes a known term to the log-odds, with its
+  coefficient fixed at 1.
+
+Our model is:
+
+$$
+  logit(q_i) = α + \text{offset}(o_i)
+$$
+where $o_i$ are the logit-transformed estimated probabilities from the
+prediction-model,
+
+$$
+  o_i = logit(\hat{p}_i)
+$$
 
 ```{r}
-#| label: cal-model
+#| label: cal-model-confusion
 #| echo: false
 
-calibration_model <- ad_validation_logistic |>
+citl_model <- ad_validation_logistic |>
+  mutate(
+    outcome = Class == "impaired",
+    logit_p = log(.pred_impaired / (1 - .pred_impaired))
+  ) |>
+  glm(outcome ~ 1 + offset(logit_p),
+      data = _, family = binomial())
+
+broom::tidy(citl_model, conf.int = TRUE, exponentiate = TRUE)
+```
+
+## B: The calibration slope
+
+> Are predictions too extreme or not extreme enough?
+
+To estimate the calibration **slope**, we use another logistic regression model:
+
+$$
+  logit(P(Y = 1)) = α + ζlogit(\hat{p})
+$$
+
+- estimating ζ (*"zeta"*),
+
+also estimates a separate intercept α.
+
+- ζ = 1: ideal calibration slope.
+- ζ < 1: typically indicates overfitting, with predictions that are too extreme.
+- ζ > 1: typically indicates underfitting, with predictions that are not extreme
+  enough.
+
+```{r}
+#| label: cal-model-confusion1
+#| echo: false
+
+slope_model <- ad_validation_logistic |>
     mutate(
         outcome = Class == "impaired",
         logit_p = log(.pred_impaired / (1 - .pred_impaired))
     ) |>
         glm(outcome ~ logit_p, data = _, family = binomial)
 
-broom::tidy(calibration_model)
+broom::tidy(slope_model, conf.int = TRUE) # don't exponentiate!
 ```
 
-::: {.notes}
-The intercept is related to calibration-in-the-large (A) and the coefficient of
-logit_p is the calibration slope (B).
+## Visualizing calibration
 
-Ideally: calibration-in-the-large ≈ 0 and calibration slope ≈ 1.
+<!--panache-ignore-start-->
+| Bin | Mean predicted risk (x-axis) | Observed outcome proportion (y-axis) | Interpretation |
+|:---|---:|---:|:---|
+| 1 (0%---19%) | 5% | 4% | Slight overprediction |
+| 2 (20%---39%)| 15% | 15% | Perfect calibration |
+| 3 (40%---59%) | 30% | 35% | Underprediction |
+| 4 (60%---79%) | 50% | 45% | Overprediction |
+| 5 (80%---100%) | 80% | 75% | Overprediction |
+<!--panache-ignore-end-->
 
-This is called the C-statistic of the AUC.
+## Calibration plot
+
+```{r}
+#| label: fig-calibration
+#| echo: false
+
+cal_plot_breaks(
+    ad_validation_logistic,
+    Class,
+    .pred_impaired,
+    num_breaks = 5 # number of bins we want
+    )
+```
+
+## Discrimination using the concordance statistic
+
+<!-- TODO: insert jan's picture of concordance + AUC! -->
+
+![](../slides/images/jan_concordance_fig.png){fig-align="center"}
+
+## D: Decision Curve
+
+> Does using the model improve clinical decisions?
+
+*More in Case 3* - not discussed in this session!
+
+## Internal validation
+
+![What if one image is more
+difficult?](../slides/images/binary_class_task.jpeg){fig-align="center"}
+
+## Cross-validation
+
+```{mermaid}
+%%| label: fig-cross-validation
+%%| fig-cap: Cross-validation for internal validation'.
+%%| echo: false
+%%| eval: true
+
+flowchart LR
+    subgraph CV["5-Fold Cross-Validation"]
+        direction TB
+
+        subgraph R1["Iteration 1"]
+            direction LR
+            A11["Test"]:::test --- A12["Train"]:::train --- A13["Train"]:::train --- A14["Train"]:::train --- A15["Train"]:::train
+        end
+
+        subgraph R2["Iteration 2"]
+            direction LR
+            A21["Train"]:::train --- A22["Test"]:::test --- A23["Train"]:::train --- A24["Train"]:::train --- A25["Train"]:::train
+        end
+
+        subgraph R3["Iteration 3"]
+            direction LR
+            A31["Train"]:::train --- A32["Train"]:::train --- A33["Test"]:::test --- A34["Train"]:::train --- A35["Train"]:::train
+        end
+
+        subgraph R4["Iteration 4"]
+            direction LR
+            A41["Train"]:::train --- A42["Train"]:::train --- A43["Train"]:::train --- A44["Test"]:::test --- A45["Train"]:::train
+        end
+
+        subgraph R5["Iteration 5"]
+            direction LR
+            A51["Train"]:::train --- A52["Train"]:::train --- A53["Train"]:::train --- A54["Train"]:::train --- A55["Test"]:::test
+        end
+    end
+
+    A15 ~~~ M1["Metric 1"]:::metric
+    A25 ~~~ M2["Metric 2"]:::metric
+    A35 ~~~ M3["Metric 3"]:::metric
+    A45 ~~~ M4["Metric 4"]:::metric
+    A55 ~~~ M5["Metric 5"]:::metric
+
+    M1 --> AVG["Average<br/>performance"]:::average
+    M2 --> AVG
+    M3 --> AVG
+    M4 --> AVG
+    M5 --> AVG
+
+    classDef train fill:#55c5d5,stroke:#55c5d5,color:#000
+    classDef test fill:#d91b91,stroke:#d91b91,color:#fff
+    classDef metric fill:#8cf4f5,stroke:#8cf4f5,color:#000
+    classDef average fill:#8cf4f5,stroke:#8cf4f5,color:#000
+    style CV fill:transparent,stroke:transparent
+    style R1 fill:transparent,stroke:transparent
+    style R2 fill:transparent,stroke:transparent
+    style R3 fill:transparent,stroke:transparent
+    style R4 fill:transparent,stroke:transparent
+    style R5 fill:transparent,stroke:transparent
+```
+
+## External validation {.smaller}
+
+1. **Temporal validation:**\
+   Develop the model using data from an earlier time period and evaluate it
+   using patients from a later time period. This tests whether the model
+   continues to work as patients and clinical practice change over time.
+
+2. **Geographical validation:**\
+   Develop the model using data from one geographical location, such as a
+   hospital or country, and evaluate it using data from another location. This
+   tests whether the model generalises to a different population or healthcare
+   setting.
+
+3. **Domain validation:**\
+   Develop the model in one type of healthcare setting and evaluate it in
+   another. For example, a model developed using patients from a specialist
+   hospital could be evaluated in primary care.
+
+4. **Cross-setting validation:**\
+   Develop the model using one study and evaluate it using an entirely
+   independent study. This is often the strongest form of external validation
+   because the validation data were collected independently of the model
+   development process.
+
+## When to use internal and external validation? {.center style="text-align: center;"}
+
+<!-- TODO: find meme -->
+
+![](../slides/images/cultural_diff_prediction.jpeg){fig-align="center"}
+
+## Sample size calculation in binary prediction studies {.center style="text-align: center;"}
+
+<!-- TODO: find meme -->
+![](../slides/images/rstudio-introduction.png){fig-align="center"}
+
+## Manual SSC {.center .align-center}
+
+For sample-size planning, we need to select:
+
+- the anticipated *C*-statistic, $C$;
+- the anticipated event proportion, $\phi$; and
+- the desired precision, expressed as $SE(C)$.
+
+## Using the C-statistic {.smaller}
+
+$$
+  𝑆𝐸(𝐶)
+  ≈ \frac{\sqrt{𝐶(1 − 𝐶) (1 + (𝑁𝜙 − 1)1 − 𝐶2 − 𝐶 + (𝑁(1 − 𝜙) − 1)𝐶1 + 𝐶)}} {𝑁2𝜙(1 − 𝜙)}.
+$$
+
+$$
+  𝐶 = 0.70, \\
+  𝜙 = 0.10.
+$$
+
+If we want the *C*-statistic to have an approximate 95% confidence interval of
+$\pm0.05$, we need approximately
+
+$$
+  𝑆𝐸(𝐶) = \frac{0.05}{1.96} ≈ 0.0255.
+$$
+## Rewritten {.center .align-center}
+
+::: {.r-fit-text}
+$$
+  SE(C)
+  \approx \sqrt{\frac{0.70(1 - 0.70)}{1413^2(0.10)(1 - 0.10)} \Bigg[1 + (1413 \times 0.10 - 1)\frac{1 - 0.70}{2 - 0.70} + (1413 \times (1 - 0.10) - 1)\frac{0.70}{1 + 0.70}\Bigg]}
+  \approx 0.0255
+$$
 :::
 
-# Prediction vs Effect Estimation
+## In practice:
 
-## Different Questions {.center}
+- Here, we try values `N  <- 1000:1500`
+- confidence bound = 0.10
+- prevalence = 0.70
 
-::: {.columns}
-::::: {.column}
-### Prediction
+```{r}
+#| label: manual-ssc-in-r
+#| warning: false
 
-> How accurately can we predict what will happen?
+# Our selected values
+p  <- 0.70
+n  <- 1000:1500
+pi <- 0.10
 
-- Focus: accuracy of predictions
-- Tools: accuracy, sensitivity, specificity, AUC, calibration
-:::::
-::::: {.column}
-### Effect Estimation
+# Compute the first fraction
+broek <- (p * (1 - p)) / (n^2 * pi * (1 - pi))
 
-> How does changing a variable relate to what happens?
+# Break up the large formula insude the square brackets [ ] at every plus sign
+led_1 <- 1
+led_2 <- (n * pi - 1) * ((1 - p) / (2 - p))
+led_3 <- (n * (1 - pi) - 1) * (p / (1 + p))
 
-- Focus: causal associations
-- Tools: regression coefficients, odds ratios
-:::::
-:::
+# Take the sqrt of it all
+SE_C <- sqrt(broek * (led_1 + led_2 + led_3))
 
-::: {.notes}
-Important distinction:
+# Visualize values
+ggplot(data.frame(n,SE_C),aes(n,SE_C)) +
+    geom_line() +
+    geom_hline(yintercept=0.0255) +
+    geom_text(aes(label = "x"), x = 1413, y = 0.0255, size = 5, color = "red")
+```
 
-A model can be excellent for prediction without giving an unbiased estimate of a
-causal effect.
+## R's `pmsampsize` library {.center .r-fit-text}
 
-The dataset ad_validation_logistic contains only predictions, not the original
-predictors, so we cannot recover the original regression coefficients.
+```{r}
+#| label: effect-size-on-c-score
+#| code-line-numbers: "2|3|4|5"
+#| output: false
+#| echo: true
 
-What we can estimate is the association between the model's predicted risk and
-the observed outcome (the calibration slope is one such measure).
-:::
+pmsampsize::pmsampsize(
+    type = "b", # binary
+    cstatistic = 0.89, # concordance/AUC
+    parameters = 24, # covariates
+    prevalence = 0.174 # cognitive impairment
+    )
+```
 
-## Key Idea
+## R's `pmsampsize` output {.center .r-fit-text}
 
-> No single metric evaluates a prediction model completely.
+```{r}
+#| label: effect-size-on-c-score2
+#| echo: false
+#| output: true
 
-A useful model should: - Discriminate well - Produce sensible probabilities -
-Lead to better decisions
+pmsampsize::pmsampsize(
+    type = "b", # binary
+    cstatistic = 0.89, # concordance/AUC
+    parameters = 24, # covariates
+    prevalence = 0.174 # cognitive impairment
+    )
+```
 
 # Summary: Evaluation Toolkit {.smaller}
 
@@ -553,12 +859,3 @@ Lead to better decisions
   | Are the probabilities accurate?                      | Calibration     |
   | Does it improve clinical decisions?                  | Decision curve  |
   | What is the effect of a predictor?                   | Effect estimate |
-
-## {.center}
-
-::: {.callout-important appearance="simple" icon=false}
-The key idea: **No single metric tells the whole story.**
-
-A useful model discriminates well, produces accurate probabilities, and improves
-decisions.
-:::

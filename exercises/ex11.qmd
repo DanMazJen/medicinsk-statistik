@@ -1,4 +1,4 @@
-# Exercises: Conditional and polynomial madness {#sec-ex-interaction}
+# Exercises: Bending the rules {#sec-ex-interaction}
 
 ::: {.callout-tip collapse="false"}
 ## Conditional variables
@@ -539,6 +539,14 @@ model_logit <- glm(
 4. Use `{marginaleffects}` to plot predicted probabilities of hyperglycemia
    across UA separately for men and women.
 
+<details>
+<summary>**Click for the solution**</summary>
+
+1. P(hyperglycemia | UA, sex)
+2. UA level differently contribute to probability of hyperglycemia for males and females.
+3. Higher UA levels increase probability for hyperglycemia in females. (no effect in males).
+4. see:
+
 ```{r}
 #| label: sol-6c
 
@@ -549,6 +557,9 @@ plot_predictions(
 )
 ```
 
+</details>
+
+<!--
 *is this a leftover?*
 
 Suppose the predicted probabilities are:
@@ -562,3 +573,5 @@ What evidence do these values provide regarding interaction?
 
 Explain why interaction effects on the log-odds scale and interaction effects on
 the probability scale are not the same thing.
+
+-->

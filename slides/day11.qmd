@@ -124,7 +124,7 @@ Is it the synergy of two damaging effects? Or because non-smokers are faster to
 spot lung anomalies?
 :::
 
-## Conditional bells or cigarrts {.center .align-center}
+## Conditional bells or cigarettes {.center .align-center}
 
 - *conditioning*: Dependence on state
 - everything is conditional
@@ -150,13 +150,14 @@ Talk to your neighbor!
 
 The additivity assumption
 
-- the association between a predictor $X_j$ and the response Y does linear not
-  depend on the values of the other predictors.
+- Each predictor affects Y independently of the other predictors. In other
+  words, the effect of $X$ ​does not depend on the values of any other exposure
+  variable.
 
 The linearity assumption
 
-- the change in the response Y associated with a one-unit change in $X_j$ is
-  constant, regardless of the value of $X_j$.
+- the change in the response Y associated with a one-unit change in $X$ is
+  constant, regardless of the value of $X$.
 
 ## Making a regression model {.smaller}
 
@@ -264,10 +265,11 @@ plot_predictions(       # <4>
 #| output-location: slide
 #| echo: false
 #| output: True
+#| fig-cap: "Notice the additive and linear effects 👀"
 
-plot_predictions(       # <4>
-    model_additive,      # <4>
-    condition = c("Age", "HD") # <4>
+plot_predictions(
+    model_additive,
+    condition = c("Age", "HD")
 )
 ```
 
@@ -394,7 +396,8 @@ Let's try it together:
 
 We model quality of life.
 
-Sick = {0,1} no/yes Age = continuous
+- Sick = {0,1} no/yes
+- Age = continuous
 
 We get:
 
@@ -505,14 +508,14 @@ $$
 
 ::: {.columns}
 ::::: {.column}
-*Change in Y per unit change in x*
+*Change in `Y` per unit change in `x`*
 
 $$
   \frac{\partial μ}{\partial x} = β_x + β_{xz}x
 $$
 :::::
 ::::: {.column}
-*Change in Y per unit change in x*
+*Change in `Y` per unit change in `z`*
 
 $$
   \frac{\partial μ}{\partial z} = β_z + β_{xz}z
@@ -543,7 +546,7 @@ x: change in y per unit change x, when z = 0.
 
 xz: interaction. Don't even try... Just plot!
 
-## Pain relief as an example
+## Continuous variables interacting in R
 
 ```{r}
 #| label: coef-pain-model
@@ -551,7 +554,7 @@ xz: interaction. Don't even try... Just plot!
 lm(MaxHR ~ Age + Chol + Age:Chol, data=hd_data)
 ```
 
-Unlike the `HD` condition `{yes/no}`, both `Chol` and `Age` have infinite
+Unlike the `HD` condition `{yes/no}`, both `Chol` and `Age` have continuous
 values!
 
 ::: {.r-fit-text}
@@ -747,7 +750,7 @@ Think for yourself for 3 minutes:
 - What makes some models better or worse?
 - Would you trust predictions from these models? Which would you (not)?
 
-Talk to your neiggbour and try to come to agreement.
+Talk to your neighbour and try to come to agreement.
 
 ## Interaction madness {.r-stretch}
 
@@ -788,16 +791,15 @@ five_way_model <- glm(
 parameters::parameters(five_way_model)[,c(1,2)] |> print(n=Inf)
 ```
 
+*remember to scroll...*
+
 ## Interaction madness {.center .smaller}
 
-Oh my, that's a lot of coefficients! 👀
-
-How in the world are we ever going to interpret this monster?! And now it's a
-logistic regression, so the coefficients are in log-odds! 😅
-
-Truth is --- we can't infer much (if anything at all) from the coefficients
-alone. We would need to do a marginal effect estimate, which we'll cover in
-@sec-marginal-effects.
+- that's a lot of coefficients! 👀
+- the coefficients are in log-odds! 😅
+- Truth is --- we can't infer much (if anything at all) from the coefficients
+  alone...
+- Use marginal effects! (more on this next week)
 
 ## Example of interaction madness
 

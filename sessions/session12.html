@@ -339,7 +339,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/ex11.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Exercises: Conditional and polynomial madness</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Exercises: Bending the rules</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -629,7 +629,7 @@ Baseline seizures ─────► Outcome (Seizures)
 <details><summary><strong>Click for a potential solution</strong>
 </summary><div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-dag" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" width="70%">
+<div id="fig-dag" class="quarto-float quarto-figure quarto-figure-center anchored" width="70%" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-dag-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="session12_files/figure-html/fig-dag-1.png" id="fig-dag" class="img-fluid quarto-figure quarto-figure-center anchored figure-img" style="width:70.0%">
 </div>
@@ -725,7 +725,7 @@ $ log_age           &lt;dbl&gt; 0.11420370, 0.08141387, -0.10090768, 0.26373…<
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com">patchwork</a></span><span class="op">)</span></span>
 <span><span class="va">baseline_data_plot</span> <span class="op">+</span> <span class="va">posttrial_data_plot</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div id="fig-explore1" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" width="70%">
+<div id="fig-explore1" class="quarto-float quarto-figure quarto-figure-center anchored" width="70%" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-explore1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="session12_files/figure-html/fig-explore1-1.png" id="fig-explore1" class="img-fluid quarto-figure quarto-figure-center anchored figure-img" style="width:70.0%">
 </div>
@@ -782,7 +782,7 @@ Figure&nbsp;14.2
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html">rbinom</a></span><span class="op">(</span><span class="fl">1e5</span>, <span class="fl">1000</span>, <span class="fl">1</span><span class="op">/</span><span class="fl">1000</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">var</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.9992800 0.9965294</code></pre>
+<pre><code>[1] 1.0011500 0.9926586</code></pre>
 </div>
 </div>
 <p>As a result, the distribution only has one parameter, λ (pronounced <em>lambda</em>).</p>
@@ -1551,7 +1551,7 @@ plot_baseline_pred
 <span>                variables <span class="op">=</span> <span class="st">"smoke"</span>,</span>
 <span>                comparison <span class="op">=</span> <span class="st">"lnratioavg"</span>, <span class="co"># Calculates adjusted Risk Ratio</span></span>
 <span>                transform <span class="op">=</span> <span class="va">exp</span>, <span class="co"># then exponentiates</span></span>
-<span>                vcov <span class="op">=</span> <span class="fu">sandwich</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sandwich/man/vcovHC.html">vcovHC</a></span><span class="op">(</span><span class="va">model_rr</span>, type <span class="op">=</span> <span class="st">"HC3"</span><span class="op">)</span><span class="op">)</span> <span class="co"># Applies robust standard errors due to poisson regression approach</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span>                vcov <span class="op">=</span> <span class="fu">sandwich</span><span class="fu">::</span><span class="fu"><a href="https://zeileis.codeberg.page/sandwich/reference/vcovHC.html">vcovHC</a></span><span class="op">(</span><span class="va">model_rr</span>, type <span class="op">=</span> <span class="st">"HC3"</span><span class="op">)</span><span class="op">)</span> <span class="co"># Applies robust standard errors due to poisson regression approach</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Note the two important parameters:</p>
 <ul>

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.11.9">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>20&nbsp; Exercises: Conditional and polynomial madness – Medical Statistics, MEDMS24B5_1</title>
+<title>20&nbsp; Exercises: Bending the rules – Medical Statistics, MEDMS24B5_1</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -159,7 +159,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="Breadcrumbs"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../exercises/data.html">Exercises</a></li><li class="breadcrumb-item"><a href="../exercises/ex11.html"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Exercises: Conditional and polynomial madness</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="Breadcrumbs"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../exercises/data.html">Exercises</a></li><li class="breadcrumb-item"><a href="../exercises/ex11.html"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Exercises: Bending the rules</span></a></li></ol></nav>
         <a class="flex-grow-1" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -320,7 +320,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/ex11.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Exercises: Conditional and polynomial madness</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Exercises: Bending the rules</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -418,8 +418,8 @@ window.Quarto = {
   </ul><div class="toc-actions"><ul><li><a href="https://github.com/DanMazJen/medicinsk-statistik/edit/main/exercises/ex11.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/blob/main/exercises/ex11.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content" tabindex="-1"><script data-goatcounter="https://DanMazJen-medicinsk-statistik.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="Breadcrumbs"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../exercises/data.html">Exercises</a></li><li class="breadcrumb-item"><a href="../exercises/ex11.html"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Exercises: Conditional and polynomial madness</span></a></li></ol></nav><div class="quarto-title">
-<h1 class="title"><span id="sec-ex-interaction" class="quarto-section-identifier"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Exercises: Conditional and polynomial madness</span></span></h1>
+<main class="content" id="quarto-document-content" tabindex="-1"><script data-goatcounter="https://DanMazJen-medicinsk-statistik.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="Breadcrumbs"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../exercises/data.html">Exercises</a></li><li class="breadcrumb-item"><a href="../exercises/ex11.html"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Exercises: Bending the rules</span></a></li></ol></nav><div class="quarto-title">
+<h1 class="title"><span id="sec-ex-interaction" class="quarto-section-identifier"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Exercises: Bending the rules</span></span></h1>
 </div>
 
 
@@ -890,6 +890,13 @@ UA was positively associated with the outcome among females, with a 100-unit inc
 <li>What is the interpretation of the interaction coefficient? (hint: <em>the next plot will help</em>)</li>
 <li>Use <a href="https://marginaleffects.com/">marginaleffects</a> to plot predicted probabilities of hyperglycemia across UA separately for men and women.</li>
 </ol>
+<details><summary><strong>Click for the solution</strong>
+</summary><ol type="1">
+<li>P(hyperglycemia | UA, sex)</li>
+<li>UA level differently contribute to probability of hyperglycemia for males and females.</li>
+<li>Higher UA levels increase probability for hyperglycemia in females. (no effect in males).</li>
+<li>see:</li>
+</ol>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/marginaleffects/man/plot_predictions.html">plot_predictions</a></span><span class="op">(</span></span>
 <span>    <span class="va">model_logit</span>,</span>
@@ -903,30 +910,22 @@ UA was positively associated with the outcome among females, with a 100-unit inc
 </div>
 </div>
 </div>
-<p><em>is this a leftover?</em></p>
-<p>Suppose the predicted probabilities are:</p>
-<table class="caption-top table">
-<thead><tr class="header">
-<th>UA</th>
-<th>Male</th>
-<th>Female</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td>200</td>
-<td>0.10</td>
-<td>0.08</td>
-</tr>
-<tr class="even">
-<td>600</td>
-<td>0.03</td>
-<td>0.25</td>
-</tr>
-</tbody>
-</table>
-<p>What evidence do these values provide regarding interaction?</p>
-<p>Explain why interaction effects on the log-odds scale and interaction effects on the probability scale are not the same thing.</p>
+</details><!--
+*is this a leftover?*
 
+Suppose the predicted probabilities are:
+
+  | UA  | Male | Female |
+  | --- | ---- | ------ |
+  | 200 | 0.10 | 0.08   |
+  | 600 | 0.03 | 0.25   |
+
+What evidence do these values provide regarding interaction?
+
+Explain why interaction effects on the log-odds scale and interaction effects on
+the probability scale are not the same thing.
+
+-->
 
 </section></section><script async="" src="https://scripts.simpleanalyticscdn.com/latest.js"></script></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {

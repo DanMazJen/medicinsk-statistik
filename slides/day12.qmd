@@ -65,6 +65,23 @@ filters:
 
 ![Can you solve the task? Can a regression model?](images/counts_children.gif){.r-stretch fig-align="center"}
 
+## Normal distribution...
+
+```{r}
+#| label: norm-count-issue
+
+dat <- c(1,4,3,8,9)
+mean(dat)
+sd(dat)
+
+data.frame(x = c(-10, 20)) |>
+  ggplot(aes(x)) +
+  stat_function(fun = dnorm, n = 101, args = list(mean = mean(dat), sd = sd(dat))) + ylab("") +
+  scale_y_continuous(breaks = NULL) +
+  theme_minimal() #+
+  #geom_vline(aes(xintercept=0), alpha=0.5)
+```
+
 ## Case Session 12: "Why are seizure data always right-skewed?" {.smaller .scrollable}
 
 At PhaRmacy Inc., excitement is growing over a new anti-seizure medication,
@@ -117,6 +134,7 @@ Take 5 minutes for this.
 
 dag <- dagitty::dagitty("dag { severity -> GABA; severity -> preSeizures; GABA -> postSeizures; GABA -> preSeizures; preSeizures -> postSeizures; drug -> GABA }")
 dag |> ggdag::tidy_dagitty() |> ggdag::ggdag(text = FALSE) + ggdag::geom_dag_text(size = 2.5) + theme_void()
+# adjustment_set <- dagitty::adjustmentSets(dag,"drug", "postSeizures")
 ```
 
 ## The dataset {.smaller}
@@ -135,7 +153,7 @@ You read about the data for today. We clean the data as such:
 
 ##
 
-::: {.r-stretch-text}
+::: {.r-fit-text}
 What would we like to check before making a model?
 :::
 
@@ -318,7 +336,7 @@ m1_drug <- glm(seizure_count ~ drug,  # <1>
 ```
 
 1. `glm()` function modeling `seizure_count` as a function of `drug`
-2. `fimaly` is Poisson distribution with log link
+2. `fimaly` is `___` 👀
 3. data is the `epil` `data.frame`
 4. to extract the parameters
 
@@ -423,36 +441,16 @@ parameters::parameters(m1_drug, exponentiate = TRUE)
 **Interpretation**:
 
 - Intercept: Expected `seizure_count` for the placebo group.
-- Drug coefficient: Incidence rate ratio (IRR) for progabide vs. placebo.
+- Drug coefficient: Count ratio for progabide vs. placebo.
 :::
 
 ## Fitting more covariates {.center .align-center}
 
-```r
-m2_baseline <- glm(
-    seizure_count ~ drug + baseline_seizures,
-    family = poisson(link="log"),
-    data = epil
-)
-```
-
-## Fitting more covariates
-
-General thoughts on this:
-
-- Adjusting for baseline seizure count is not necessary for this model...
-- But it will increase precision and give us the direct effect of `drug`
-- It would also be necessary for predicting individual effects
-- It provides the "direct effect" of `drug`
-- Small *N* --- randomization might not have been successful
-
-*Making adjustment sets are no simple game!*
-
 ## Fitting more covariates {.center .align-center}
 
-```r
-#| label: model-fit
+Easy in R:
 
+```r
 m2_baseline <- glm(
     seizure_count ~ drug + baseline_seizures,
     family = poisson(link="log"),
@@ -461,6 +459,21 @@ m2_baseline <- glm(
 
 parameters::parameters(m2_baseline, exponentiate = TRUE)
 ```
+
+## Fitting more covariates
+
+Difficult in science:
+
+*What is the estimand?*
+
+- Adjusting for baseline seizure count is not necessarily correct for this
+  model...
+- But it will increase precision (noise from unexplained variability)
+- It would also be necessary for predicting individual effects
+- It provides the "direct effect" of `drug`
+- Small *N* --- randomization might not have been successful
+
+*Making an adjustment set is no simple game!*
 
 ## Fitting more covariates {.center .align-center}
 
@@ -515,7 +528,7 @@ ggplot(coef_df, aes(x = estimate, y = model)) +
 ##
 
 ::: {.r-fit-text}
-Section 14.12.1 *Making sense of Poisson coefficients*
+Section 14.11 *Fitting a Poisson regression model with covariates*
 :::
 
 ##
@@ -591,6 +604,7 @@ $$
   E[Y] = e^{\beta_0+\beta_1\,drug+\beta_2\,baseline\_seizures}
 $$
 
+::: {.hidden}
 ## Effects depend on the scale
 
 We model the log of the expected count:
@@ -613,7 +627,9 @@ Why? 👀
 
 The Poisson model uses a log link: adding effects on the log scale becomes
 multiplying effects on the count scale.
+:::
 
+::: {.hidden}
 ## Why does the drug effect vary?
 
 For a Poisson model:
@@ -633,6 +649,23 @@ So:
 
 This is why the plots can show different drug effects at different baseline
 seizure counts --- even without an interaction.
+:::
+
+## A math intuition
+
+Think of it this way:
+
+1. On the log scale, the model adds effects:
+   $$
+     \log(E[Y]) = \beta_0 + \beta_1 drug + \beta_2 baseline
+   $$
+
+2. When we exponentiate, addition becomes multiplication:
+   $$
+     E[Y] = e^{\beta_0} \times e^{\beta_1 drug} \times e^{\beta_2 baseline}
+   $$
+
+3. This means the drug effect is a multiplicative effect on expected seizures.
 
 ## Making Sense of Poisson Coefficients
 
@@ -682,7 +715,7 @@ m2_baseline |>
 ##
 
 ::: {.r-stretch-text}
-Read section 14.13 *Shifting perspectives - from absolute counts to relative
+Read section 14.12 *Shifting perspectives - from absolute counts to relative
 rates*
 :::
 
@@ -826,8 +859,8 @@ broom::tidy(sim_m2,exponentiate = TRUE)
 
 Therefore, we expect a correct fitted model to recover:
 
-- An intercept corresponding to approximately 1.5 events per day
-- An exponentiated coefficient for hospital_idEsborg of approximately
+- An `intercept` corresponding to approximately 1.5 events per day
+- An exponentiated coefficient for `hospital_idEsborg` of approximately
 
 $$
   \frac{0.50}{1.50} \approx 0.33
@@ -838,7 +871,8 @@ We interpret this as the **Incidence rate ratio** (count per uni-time observed).
 ## Making sound inference:
 
 ::: {.r-stack}
-- Would you expect Aalbjerg or Esborg to have higher IRR without an offset?
+- Would you expect Aalbjerg or Esborg to have higher count ratio without an
+  offset?
 :::
 
 ::: {.fragment}
@@ -915,13 +949,13 @@ Wait... death is a count variable? 👀
 
 - mean is $λ$ (count scale),
 - variance is $λ$ (assumption: low rate)
-- we get risk ratio
+- we get risk (rate) ratio
 :::::
 :::
 
 ##
 
-![](images/poisson_output.png)
+![](images/poisson_output.png){.r-stretch fig-align="center"}
 
 ##
 
@@ -968,9 +1002,28 @@ So, hospital A has 2 times the risk of death.
 
 ## Adjusting a risk ratio from Poisson
 
-Poisson variance is not robust for binomial outcomes.
+::: {.callout-warning}
+## This part is very technical
 
-Therefore, we need to adjust the standard errors!
+This shit is difficult - just remember this for the exam...
+:::
+
+- Poisson variance is not robust for binomial outcomes.
+
+> recall, when *N* is large and *p* is small `Poisson ≈ binomial`
+
+- Often, this is not entirely true and we violate the assumption!
+  - This affects our uncertainty (variance).
+
+- Therefore, we need to adjust the standard errors!
+  - Often *p* is not small enough and our true variance is much lower!
+
+## Example
+
+- `MASS::birthwt`
+- `low` is too low birth weight (less than 2.5 kg)
+- smoking during pregnancy, mother's age, history of hypertension, uterine
+  irritability
 
 ## In R {.smaller}
 
@@ -1015,8 +1068,8 @@ sample, and then transforms them back to the risk ratio scale.
 - `vcov = vcovHC(...)`
 
 This step is crucial for the Poisson model. It corrects the standard errors for
-the binomial nature of your binary data, preventing falsely narrow confidence
-intervals.
+the binomial nature of your binary data, preventing conservative (too wide)
+confidence intervals.
 
 ## {.center}
 
@@ -1044,16 +1097,30 @@ ggplot(df, aes(estimate, measure)) +
   geom_vline(xintercept = 1)
 ```
 
+## Adjusting a risk ratio from Poisson
+
+::: {.fit-text}
+When using Poisson regression for `binary outcomes`
+
+- We assume *N* is large and *p* is small.
+- This assumption is often violated and we make the inference robust by adjust
+  the standard errors!
+:::
+
 ## Summary
 
 ::: {.fragment}
 Key Takeaways:
 
 - **Poisson Regression**: For count data with unknown trial counts.
-- **Log Link**: Ensures positive predictions. Interpretation:
-- Exponentiate coefficients to get **incidence rate ratios** (IRR).
-- **Overdispersion**: Use Negative Binomial if variance > mean.
+- **Log Link**: Ensures positive predictions.
+
+Interpretation:
+
+- Exponentiate coefficients to get outcome scale.
 - **Offset**: Adjust for varying exposure times.
+- count ratio, incidence rate ratio for 0 to inf
+- risk ratio for binary outcomes (risk rate ratio if using an offset)
 :::
 
 ## The history of a dataset {.r-fit}
@@ -1088,10 +1155,12 @@ smoking causing lung cancer.
 :::
 
 ::: {.notes}
-Ronald A. Fisher and the tobaco industry
+A study by Hill and Doll asking British doctors whether they were smoking or
+not.
 
-Jerry Cornfield as the man collecting all evidence for causal inference of
-smoking causing lung cancer.
+Longitudinal study following them for many years. This was one of the few
+studies in the world that was prospective! Made a huge difference in the causal
+inferene discussion with the health authorities.
 :::
 
 ##
@@ -1129,3 +1198,4 @@ $$
 $$
 :::
 -->
+:::

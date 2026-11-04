@@ -482,7 +482,7 @@ window.Quarto = {
 <li>Positive real numbers. Exponential. Mean and variance is the same.</li>
 <li>Logistic regression.</li>
 <li>Poisson.</li>
-</ol></details><p><strong>Exercise 1B</strong>: Reviewing a colleagues paper.</p>
+</ol></details><p><strong>Exercise 2A</strong>: Reviewing a colleagues paper.</p>
 <p>You’re assigned as an internal peer reviewer for a study titled:</p>
 <blockquote class="blockquote">
 <p>Association Between Corticosteroid Therapy and Hospital-Acquired Infections in an Intensive Care Unit</p>
@@ -590,27 +590,13 @@ window.Quarto = {
 <ul>
 <li>How many died?</li>
 </ul>
-;
 <details><summary><strong>Click for the solution</strong>
 </summary><div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Attaching package: 'dplyr'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following objects are masked from 'package:stats':
-
-    filter, lag</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following objects are masked from 'package:base':
-
-    intersect, setdiff, setequal, union</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">doctors</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">smoking</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>n_deaths <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">deaths</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#library(dplyr)</span></span>
+<span></span>
+<span><span class="va">doctors</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu">group_by</span><span class="op">(</span><span class="va">smoking</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu">summarise</span><span class="op">(</span>n_deaths <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">deaths</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 2
   smoking    n_deaths
@@ -627,12 +613,11 @@ Attaching package: 'dplyr'</code></pre>
 <ul>
 <li>How many years in total did the researchers follow the smoking group and how many the non-smoking group?</li>
 </ul>
-;
 <details><summary><strong>Click for the solution</strong>
 </summary><div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">doctors</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">smoking</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>n_years <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">personyears</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">doctors</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu">group_by</span><span class="op">(</span><span class="va">smoking</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu">summarise</span><span class="op">(</span>n_years <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">personyears</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 2
   smoking    n_years
@@ -651,14 +636,13 @@ Attaching package: 'dplyr'</code></pre>
 <li>In the other group, how many of the age categories has higher percent distribution?</li>
 </ol>
 <p><em>Tip</em>: For each group, compute the percent of all participants belonging to each of the five age groups and visually compare them one by one.</p>
-;
 <details><summary><strong>Click for the solution</strong>
 </summary><div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">doctors</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">smoking</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>percent <span class="op">=</span> <span class="fl">100</span> <span class="op">*</span> <span class="va">personyears</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">personyears</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">age</span>, <span class="va">smoking</span>, <span class="va">percent</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">doctors</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">smoking</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">mutate</span><span class="op">(</span>percent <span class="op">=</span> <span class="fl">100</span> <span class="op">*</span> <span class="va">personyears</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">personyears</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">ungroup</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">select</span><span class="op">(</span><span class="va">age</span>, <span class="va">smoking</span>, <span class="va">percent</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 10 × 3
      age smoking    percent
@@ -719,11 +703,10 @@ Attaching package: 'dplyr'</code></pre>
 <p><span class="math display">\[
   deaths = Poisson(λ) \\
   log(λ) = β0 + β1_{smoking}
-\]</span> Report the (incorrect) estimand for incidence rate ratio for smoking vs. non-smoking.</p>
-;
+\]</span> Report the (incorrect) estimand for risk ratio for smoking vs.&nbsp;non-smoking.</p>
 <details><summary><strong>Click for the solution</strong>
 </summary><div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">m4b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span><span class="va">deaths</span> <span class="op">~</span> <span class="va">smoking</span>,</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">m4b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span><span class="va">deaths</span> <span class="op">~</span> <span class="va">smoking</span>,</span>
 <span>                     family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html">poisson</a></span><span class="op">(</span>link <span class="op">=</span> <span class="st">"log"</span><span class="op">)</span>,</span>
 <span>                     data <span class="op">=</span> <span class="va">doctors</span><span class="op">)</span></span>
 <span></span>
@@ -766,9 +749,10 @@ Attaching package: 'dplyr'</code></pre>
 </tr>
 </tbody>
 </table>
-<!-- panache-ignore-end--></details><p><strong>Exercise 5B</strong></p>
+<!-- panache-ignore-end--><p>Smokers die at a 6.24 rate compared to non-smokers — that’s bad! 👀 So 6.24 higher rate.</p>
+</details><p><strong>Exercise 5B</strong></p>
 <p>Let’s try to correct for these issues.</p>
-<p>Provide the scientific regression equation we will run</p>
+<p>Provide the scientific regression equation we will run. In other words: You should write, with pen an paper, the mathematical equation for the Poisson model we’ll fit.</p>
 <details><summary><strong>Click for the solution</strong>
 </summary><p>The model will be:</p>
 <p><span class="math display">\[
@@ -777,14 +761,14 @@ Attaching package: 'dplyr'</code></pre>
 \]</span></p>
 <p><em>Note that the offset does not have a β coefficient associated with it!</em></p>
 </details><p><strong>Exercise 6B</strong></p>
-<p>The following R code contains two mistakes. Identify and fix them:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">m5b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span><span class="va">deaths</span> <span class="op">~</span> <span class="va">smoking</span> <span class="op">+</span> <span class="va">age</span>,</span>
+<p>Now, we implement the mathematical equation from <em>5B</em>. You ask a colleague to do it. Now, we receive the code and review it. Unfortunately, the R code contains two mistakes. Identify and fix them:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">m5b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span><span class="va">deaths</span> <span class="op">~</span> <span class="va">smoking</span> <span class="op">+</span> <span class="va">age</span>,</span>
 <span>                     family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html">poisson</a></span><span class="op">(</span>link <span class="op">=</span> <span class="st">"logit"</span><span class="op">)</span>,</span>
 <span>                     offset <span class="op">=</span> <span class="va">personyears</span>,</span>
 <span>                     data <span class="op">=</span> <span class="va">doctors</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <details><summary><strong>Click for the solution</strong>
 </summary><div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Mistake 1: the offset should be log-personyears!</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Mistake 1: the offset should be log-personyears!</span></span>
 <span><span class="co"># Mistake 2: the link should be log (logit is for logistic regression)!</span></span>
 <span><span class="va">m6b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span><span class="va">deaths</span> <span class="op">~</span> <span class="va">smoking</span> <span class="op">+</span> <span class="va">age</span>,</span>
 <span>                     family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html">poisson</a></span><span class="op">(</span>link <span class="op">=</span> <span class="st">"log"</span><span class="op">)</span>,</span>
@@ -793,7 +777,7 @@ Attaching package: 'dplyr'</code></pre>
 </div>
 </details></section><section id="c-writing-a-clinical-report" class="level3" data-number="21.1.3"><h3 data-number="21.1.3" class="anchored" data-anchor-id="c-writing-a-clinical-report">
 <span class="header-section-number">21.1.3</span> C: Writing a Clinical Report</h3>
-<p><strong>Exercise 3A:</strong></p>
+<p><strong>Exercise 1C:</strong></p>
 <p>The final model is provided in <strong>Exercise 6B</strong>. If you didn’t make that exercise, go ahead and see the solution and copy the code. You will not make inference based on the model.</p>
 <p>You will write a clincal report based on the inference we got from the model.</p>
 <blockquote class="blockquote">

@@ -1,5 +1,13 @@
 # Exercises: A fishy counting trick {#sec-ex-poisson}
 
+```{r}
+#| label: setup
+#| output: false
+#| echo: false
+
+library(dplyr)
+```
+
 ::: {.callout-tip collapse="false"}
 ## Conditional variables
 
@@ -75,7 +83,7 @@ heart failure patients within 30 days of discharge.
 
 </details>
 
-**Exercise 1B**: Reviewing a colleagues paper.
+**Exercise 2A**: Reviewing a colleagues paper.
 
 You're assigned as an internal peer reviewer for a study titled:
 
@@ -192,13 +200,13 @@ smokers and non-smokers.
 
 - How many died?
 
-;<details>
+<details>
 <summary>**Click for the solution**</summary>
 
 ```{r}
 #| label: 1b
 
-library(dplyr)
+#library(dplyr)
 
 doctors |>
     group_by(smoking) |>
@@ -217,7 +225,7 @@ Check the balance in the groups.
 - How many years in total did the researchers follow the smoking group and how
   many the non-smoking group?
 
-;<details>
+<details>
 <summary>**Click for the solution**</summary>
 
 ```{r}
@@ -245,7 +253,7 @@ comparable between the smoking groups.
 *Tip*: For each group, compute the percent of all participants belonging to each
 of the five age groups and visually compare them one by one.
 
-;<details>
+<details>
 <summary>**Click for the solution**</summary>
 
 ```{r}
@@ -283,10 +291,9 @@ $$
   deaths = Poisson(λ) \\
   log(λ) = β0 + β1_{smoking}
 $$
-Report the (incorrect) estimand for incidence rate ratio for smoking vs.
-non-smoking.
+Report the (incorrect) estimand for risk ratio for smoking vs. non-smoking.
 
-;<details>
+<details>
 <summary>**Click for the solution**</summary>
 
 ```{r}
@@ -306,13 +313,18 @@ m4b |> parameters::parameters(exponentiate=TRUE)
 | smoking [smoker] |  6.24 | 0.67 | [5.08, 7.74]   | 17.08 | < .001 |
 <!-- panache-ignore-end-->
 
+Smokers die at a 6.24 rate compared to non-smokers --- that's bad! 👀
+So 6.24 higher rate.
+
 </details>
 
 **Exercise 5B**
 
 Let's try to correct for these issues.
 
-Provide the scientific regression equation we will run
+Provide the scientific regression equation we will run. In other words: You
+should write, with pen an paper, the mathematical equation for the Poisson model
+we'll fit.
 
 <details>
 <summary>**Click for the solution**</summary>
@@ -330,7 +342,9 @@ $$
 
 **Exercise 6B**
 
-The following R code contains two mistakes. Identify and fix them:
+Now, we implement the mathematical equation from *5B*. You ask a colleague to do
+it. Now, we receive the code and review it. Unfortunately, the R code contains
+two mistakes. Identify and fix them:
 
 ```r
 m5b <- glm(deaths ~ smoking + age,
@@ -357,7 +371,7 @@ m6b <- glm(deaths ~ smoking + age,
 
 ### C: Writing a Clinical Report
 
-**Exercise 3A:**
+**Exercise 1C:**
 
 The final model is provided in **Exercise 6B**. If you didn't make that
 exercise, go ahead and see the solution and copy the code. You will not make

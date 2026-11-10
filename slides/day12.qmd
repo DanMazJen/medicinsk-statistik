@@ -336,7 +336,7 @@ m1_drug <- glm(seizure_count ~ drug,  # <1>
 ```
 
 1. `glm()` function modeling `seizure_count` as a function of `drug`
-2. `fimaly` is `___` 👀
+2. `family` is `___` 👀
 3. data is the `epil` `data.frame`
 4. to extract the parameters
 
@@ -351,7 +351,7 @@ m1_drug <- glm(seizure_count ~ drug,  # <1>
 ```
 
 1. `glm()` function modeling `seizure_count` as a function of `drug`
-2. `fimaly` is Poisson distribution with log link
+2. `family` is Poisson distribution with log link
 3. data is the `epil` `data.frame`
 4. to extract the parameters
 
@@ -605,7 +605,7 @@ $$
 $$
 
 ::: {.hidden}
-## Effects depend on the scale
+Effects depend on the scale
 
 We model the log of the expected count:
 
@@ -630,7 +630,7 @@ multiplying effects on the count scale.
 :::
 
 ::: {.hidden}
-## Why does the drug effect vary?
+Why does the drug effect vary?
 
 For a Poisson model:
 
@@ -669,7 +669,7 @@ Think of it this way:
 
 ## Making Sense of Poisson Coefficients
 
-Let's plot the model we have fitting
+Let's plot the model we have fitted.
 
 Recall the link function we used:
 
@@ -714,20 +714,22 @@ m2_baseline |>
 
 ##
 
-::: {.r-stretch-text}
+::: {.r-fit-text}
 Read section 14.12 *Shifting perspectives - from absolute counts to relative
 rates*
 :::
 
 ## Shifting perspectives - from absolute counts to relative rates {.smaller}
 
+::: {.r-fit-text}
 $$
   rate = \frac{{\text{change in Y}}}{\text{for X unit}}
 $$
+:::
 
 ## Poisson as a rate
 
-::: {.r-stretch}
+::: {.r-fit-text}
 $$
   y_i \sim Poisson(λ_i) \\
   log λ_i = log \frac{μ_i}{τ_i} = α + βx_i
@@ -771,8 +773,8 @@ seven days).
 ```r
 set.seed(636961739)
 
-num_weeks <- 8 # weeks of the experiment
-num_days <- 8*7 # days of the experiment
+num_weeks <- 4 # weeks of the experiment
+num_days <- 30 # days of the experiment
 
 hospital1 <- rpois (num_days, 1.5) # 1.5 events per day
 
@@ -930,7 +932,7 @@ $$
 
 ##
 
-::: {.r-stretch}
+::: {.r-fit-text}
 Wait... death is a count variable? 👀
 :::
 
@@ -959,7 +961,7 @@ Wait... death is a count variable? 👀
 
 ##
 
-::: {.r-stretch}
+::: {.r-fit-text}
 > count ratio, incidence rate ratio, risk ratio, odds ratio...
 
 What, when, how? 👀
@@ -1070,6 +1072,27 @@ sample, and then transforms them back to the risk ratio scale.
 This step is crucial for the Poisson model. It corrects the standard errors for
 the binomial nature of your binary data, preventing conservative (too wide)
 confidence intervals.
+
+## Example: var is too high!
+
+```{r}
+#| label: var-too-high
+#| echo: true
+#| code-line-numbers: "11-13"
+
+vcov_rr <- vcov(model_rr)
+vcov_rr_robust <- sandwich::vcovHC(
+  model_rr,
+  type = "HC3"
+)
+# grab vars
+variance_rr <- diag(vcov_rr)
+variance_rr_robust <- diag(vcov_rr_robust)
+
+variance_rr[1]
+variance_rr_robust[1]
+mean(birthwt$low)
+```
 
 ## {.center}
 
@@ -1198,4 +1221,3 @@ $$
 $$
 :::
 -->
-:::

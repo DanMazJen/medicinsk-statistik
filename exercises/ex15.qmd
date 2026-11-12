@@ -10,6 +10,164 @@ exercises build on this material.
 
 ## Exercises:
 
+A doctor or pharmaceutical company sends a request to the research team. You are
+responsible for translating that request into a statistical analysis plan. You
+must identify the estimand, decide which predictions or transformations are
+needed, and formulate a precise request to the statistician.
+
+Below are discussion cases based specifically on sections 15.11.1--15.11.4.
+
+**A1. Does the average patient exist?**
+
+A pharmaceutical company asks:
+
+We have developed a new treatment for stroke. We would like to know the
+probability of death for the average patient receiving the treatment.
+
+The statistician proposes to calculate the predicted probability of death for a
+patient with:
+
+- Average age
+- Average BMI
+- Diabetes = balanced
+- Hypertension = balanced
+- Sex = balanced
+
+**Questions for discussion**
+
+1. Does this describe a clinically meaningful patient?
+2. What does it mean for our study that we balance diabetes?
+3. What is the difference between predicting the outcome for an average patient
+   and averaging predictions across all patients?
+4. Imagine that the population consists of two distinct groups: young patients
+   with low mortality and older patients with high mortality. How does that
+   affect your response on question 3?
+
+<details>
+<summary>**Click for the solution**</summary>
+
+1. No.
+2. 50% of stroke population has diabetes --- which is probably not correct.
+3. Briefly:
+  - predicting the outcome for an average patient: represents one imaginary profile's estimate.
+  - averaging predictions across all patients: the average effect for all profiles in our sample.
+4. The average person is now useless. The average effect is still useful, but we should consider and interaction effect.
+</details>
+
+**A2: The company wants a risk ratio, not an odds ratio**
+
+The statistician in your company has made a statistically correct and meaningful
+analysis on your dataset. You receive a Table 2 of the outcomes:
+
+<!-- TODO: Write text here -->
+
+The company asks:
+
+> We need to communicate the relative reduction in mortality risk associated
+> with our treatment. Please report the risk ratio rather than the odds ratio.
+
+The statistician explains that the correct estimator is logistic regression.
+
+**Questions:**
+
+1. What is the coefficients reporting?
+2. What does exponentiating do?
+3. Will it be possible to give the company the effect measure they want with the
+   estimator the statistician chose?
+4. The statistician proposes to use marginal effects to get the probability of
+   mortality for each group. Suppose the model produces the following average
+   predicted probabilities:
+
+- Treatment A: 20% mortality.
+- Treatment B: 30% mortality.
+
+Calculate: the Risk difference and risk ratio.
+
+<details>
+<summary>**Click for the solution**</summary>
+1. log-odds ratios (log-OR)
+2. Odds ratios (OR)
+3. Yes, we can compute relative risk (RR) using marginal effects.
+4. RD = -10%. RR = 0.66
+</details>
+
+**A3. The doctor wants to know whether treatment works**
+
+A doctor contacts the research team:
+
+> We have followed 500 patients with hypertension for 12 weeks. Some received
+> Drug A and others received Drug B. The company wants to know whether Drug A is
+> better than drug be on patients hypertension af 12 weeks of taking the drug.
+
+The available variables are:
+
+- Treatment (A/B)
+- Age
+- Sex
+- Baseline systolic blood pressure (before drug initiation)
+- Systolic blood pressure at 12 weeks (after taking the drug)
+- BMI
+- Presence of hypertension (yes/no)
+
+Your tasks:
+
+1. What is the scientific research question?
+2. What is the target population?
+3. What exactly do we want to estimate?
+4. What effect measure do you recommend?
+5. Write a regression equation that could address the question.
+6. Which variables would you consider adjusting for, and why?
+
+<details>
+<summary>**Click for the solution**</summary>
+
+1. We want to know whether Drug A results in a greater
+> reduction in systolic blood pressure after 12 weeks.
+2. Only patients with hypertension
+3. The effect of the drug for all patients with hypertension.
+4. Maybe a difference in mean blood pressure at 12 weeks or a difference
+  in mean change from baseline? Notice that they mean quite different things!
+5. Depends on you choice...
+6. This is a medical question...
+</details>
+
+**A2. The doctor wants to know whether age modifies treatment effect**
+
+A doctor suspects that Drug A works better in younger patients than in older
+patients.
+
+The research team has data on:
+
+- Treatment (A/B)
+- Age
+- Baseline disease severity
+- Outcome: death (yes/no)
+
+The doctor asks:
+
+> Can you tell me whether Drug A is more effective in younger patients?
+
+Your tasks:
+
+1. How do we get information from younger and older patients with our dataset?
+2. Write a regression equation including an interaction term.
+3. What does the interaction coefficient tell us?
+4. Does the interaction coefficient directly tell us the treatment effect in
+   younger patients?
+5. What estimates should the statistician report to make the results clinically
+   meaningful?
+
+<details>
+<summary>**Click for the solution**</summary>
+
+1. There is, to my knowledge, no good way to split age in groups. Keep it continuous.
+2. death ~ treatment + age + treatment:age + baseline_disease_severity
+3. For each additional lifetime year (age), how does the treatment effect alter odds of survival.
+4. No, that's a post-hoc calculation and we don't get incertanties.
+5. Probability for death in a specified age-group, e.g., 30-40 and 65-75 and compare them directly.
+</details>
+
+<!--
 use
 
 ```{r}
@@ -33,3 +191,5 @@ th_model <- glm(
 ```
 
 ### A: Let's start by considering what a regression coefficient tells us
+
+-->

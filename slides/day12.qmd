@@ -1143,7 +1143,7 @@ Interpretation:
 - Exponentiate coefficients to get outcome scale.
 - **Offset**: Adjust for varying exposure times.
 - count ratio, incidence rate ratio for 0 to inf
-- risk ratio for binary outcomes (risk rate ratio if using an offset)
+- risk ratio for binary outcomes (incidence rate ratio if using an offset)
 :::
 
 ## The history of a dataset {.r-fit}

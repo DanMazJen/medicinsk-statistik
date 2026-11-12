@@ -23,41 +23,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -382,12 +347,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <nav id="TOC" role="doc-toc" aria-labelledby="toc-title" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-<li>
-<a href="#exercises" id="toc-exercises" class="nav-link active" data-scroll-target="#exercises"><span class="header-section-number">22.1</span> Exercises:</a>
-  <ul class="collapse">
-<li><a href="#a-lets-start-by-considering-what-a-regression-coefficient-tells-us" id="toc-a-lets-start-by-considering-what-a-regression-coefficient-tells-us" class="nav-link" data-scroll-target="#a-lets-start-by-considering-what-a-regression-coefficient-tells-us"><span class="header-section-number">22.1.1</span> A: Let’s start by considering what a regression coefficient tells us</a></li>
-  </ul>
-</li>
+<li><a href="#exercises" id="toc-exercises" class="nav-link active" data-scroll-target="#exercises"><span class="header-section-number">22.1</span> Exercises:</a></li>
   </ul><div class="toc-actions"><ul><li><a href="https://github.com/DanMazJen/medicinsk-statistik/edit/main/exercises/ex15.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/blob/main/exercises/ex15.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
     </div>
 <!-- main -->
@@ -424,29 +384,155 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <section id="exercises" class="level2" data-number="22.1"><h2 data-number="22.1" class="anchored" data-anchor-id="exercises">
 <span class="header-section-number">22.1</span> Exercises:</h2>
-<p>use</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">thrombectomy</span> <span class="op">&lt;-</span> <span class="fu">medisr</span><span class="fu">::</span><span class="va"><a href="https://danmazjen.github.io/medisr/reference/thrombectomy.html">thrombectomy</a></span></span>
-<span></span>
-<span><span class="va">th_model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span></span>
-<span>  <span class="va">LoS</span> <span class="op">~</span> <span class="va">thrombectomy</span> <span class="op">+</span></span>
-<span>        <span class="va">prior_diabetes</span> <span class="op">+</span></span>
-<span>        <span class="va">age_at_diagnosis</span> <span class="op">+</span></span>
-<span>        <span class="va">prior_hypertention</span> <span class="op">+</span></span>
-<span>        <span class="va">sex</span> <span class="op">+</span></span>
-<span>        <span class="va">thrombectomy</span><span class="op">:</span><span class="va">prior_diabetes</span> <span class="op">+</span></span>
-<span>        <span class="va">thrombectomy</span><span class="op">:</span><span class="va">age_at_diagnosis</span> <span class="op">+</span></span>
-<span>        <span class="va">thrombectomy</span><span class="op">:</span><span class="va">prior_hypertention</span> <span class="op">+</span></span>
-<span>        <span class="va">thrombectomy</span><span class="op">:</span><span class="va">sex</span>,</span>
-<span>  family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html">poisson</a></span><span class="op">(</span>link <span class="op">=</span> <span class="st">"log"</span><span class="op">)</span>,</span>
-<span>  data <span class="op">=</span> <span class="va">thrombectomy</span></span>
-<span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<section id="a-lets-start-by-considering-what-a-regression-coefficient-tells-us" class="level3" data-number="22.1.1"><h3 data-number="22.1.1" class="anchored" data-anchor-id="a-lets-start-by-considering-what-a-regression-coefficient-tells-us">
-<span class="header-section-number">22.1.1</span> A: Let’s start by considering what a regression coefficient tells us</h3>
+<p>A doctor or pharmaceutical company sends a request to the research team. You are responsible for translating that request into a statistical analysis plan. You must identify the estimand, decide which predictions or transformations are needed, and formulate a precise request to the statistician.</p>
+<p>Below are discussion cases based specifically on sections 15.11.1–15.11.4.</p>
+<p><strong>A1. Does the average patient exist?</strong></p>
+<p>A pharmaceutical company asks:</p>
+<p>We have developed a new treatment for stroke. We would like to know the probability of death for the average patient receiving the treatment.</p>
+<p>The statistician proposes to calculate the predicted probability of death for a patient with:</p>
+<ul>
+<li>Average age</li>
+<li>Average BMI</li>
+<li>Diabetes = balanced</li>
+<li>Hypertension = balanced</li>
+<li>Sex = balanced</li>
+</ul>
+<p><strong>Questions for discussion</strong></p>
+<ol type="1">
+<li>Does this describe a clinically meaningful patient?</li>
+<li>What does it mean for our study that we balance diabetes?</li>
+<li>What is the difference between predicting the outcome for an average patient and averaging predictions across all patients?</li>
+<li>Imagine that the population consists of two distinct groups: young patients with low mortality and older patients with high mortality. How does that affect your response on question 3?</li>
+</ol>
+<details><summary><strong>Click for the solution</strong>
+</summary><ol type="1">
+<li>No.</li>
+<li>50% of stroke population has diabetes — which is probably not correct.</li>
+<li>Briefly:</li>
+</ol>
+<ul>
+<li>predicting the outcome for an average patient: represents one imaginary profile’s estimate.</li>
+<li>averaging predictions across all patients: the average effect for all profiles in our sample.</li>
+</ul>
+<ol start="4" type="1">
+<li>The average person is now useless. The average effect is still useful, but we should consider and interaction effect.</li>
+</ol></details><p><strong>A2: The company wants a risk ratio, not an odds ratio</strong></p>
+<p>The statistician in your company has made a statistically correct and meaningful analysis on your dataset. You receive a Table 2 of the outcomes:</p>
+<!-- TODO: Write text here -->
+<p>The company asks:</p>
+<blockquote class="blockquote">
+<p>We need to communicate the relative reduction in mortality risk associated with our treatment. Please report the risk ratio rather than the odds ratio.</p>
+</blockquote>
+<p>The statistician explains that the correct estimator is logistic regression.</p>
+<p><strong>Questions:</strong></p>
+<ol type="1">
+<li>What is the coefficients reporting?</li>
+<li>What does exponentiating do?</li>
+<li>Will it be possible to give the company the effect measure they want with the estimator the statistician chose?</li>
+<li>The statistician proposes to use marginal effects to get the probability of mortality for each group. Suppose the model produces the following average predicted probabilities:</li>
+</ol>
+<ul>
+<li>Treatment A: 20% mortality.</li>
+<li>Treatment B: 30% mortality.</li>
+</ul>
+<p>Calculate: the Risk difference and risk ratio.</p>
+<details><summary><strong>Click for the solution</strong>
+</summary><ol type="1">
+<li>log-odds ratios (log-OR)</li>
+<li>Odds ratios (OR)</li>
+<li>Yes, we can compute relative risk (RR) using marginal effects.</li>
+<li>RD = -10%. RR = 0.66</li>
+</ol></details><p><strong>A3. The doctor wants to know whether treatment works</strong></p>
+<p>A doctor contacts the research team:</p>
+<blockquote class="blockquote">
+<p>We have followed 500 patients with hypertension for 12 weeks. Some received Drug A and others received Drug B. The company wants to know whether Drug A is better than drug be on patients hypertension af 12 weeks of taking the drug.</p>
+</blockquote>
+<p>The available variables are:</p>
+<ul>
+<li>Treatment (A/B)</li>
+<li>Age</li>
+<li>Sex</li>
+<li>Baseline systolic blood pressure (before drug initiation)</li>
+<li>Systolic blood pressure at 12 weeks (after taking the drug)</li>
+<li>BMI</li>
+<li>Presence of hypertension (yes/no)</li>
+</ul>
+<p>Your tasks:</p>
+<ol type="1">
+<li>What is the scientific research question?</li>
+<li>What is the target population?</li>
+<li>What exactly do we want to estimate?</li>
+<li>What effect measure do you recommend?</li>
+<li>Write a regression equation that could address the question.</li>
+<li>Which variables would you consider adjusting for, and why?</li>
+</ol>
+<details><summary><strong>Click for the solution</strong>
+</summary><ol type="1">
+<li>We want to know whether Drug A results in a greater &gt; reduction in systolic blood pressure after 12 weeks.</li>
+<li>Only patients with hypertension</li>
+<li>The effect of the drug for all patients with hypertension.</li>
+<li>Maybe a difference in mean blood pressure at 12 weeks or a difference in mean change from baseline? Notice that they mean quite different things!</li>
+<li>Depends on you choice…</li>
+<li>This is a medical question…</li>
+</ol></details><p><strong>A2. The doctor wants to know whether age modifies treatment effect</strong></p>
+<p>A doctor suspects that Drug A works better in younger patients than in older patients.</p>
+<p>The research team has data on:</p>
+<ul>
+<li>Treatment (A/B)</li>
+<li>Age</li>
+<li>Baseline disease severity</li>
+<li>Outcome: death (yes/no)</li>
+</ul>
+<p>The doctor asks:</p>
+<blockquote class="blockquote">
+<p>Can you tell me whether Drug A is more effective in younger patients?</p>
+</blockquote>
+<p>Your tasks:</p>
+<ol type="1">
+<li>How do we get information from younger and older patients with our dataset?</li>
+<li>Write a regression equation including an interaction term.</li>
+<li>What does the interaction coefficient tell us?</li>
+<li>Does the interaction coefficient directly tell us the treatment effect in younger patients?</li>
+<li>What estimates should the statistician report to make the results clinically meaningful?</li>
+</ol>
+<details><summary><strong>Click for the solution</strong>
+</summary><ol type="1">
+<li>There is, to my knowledge, no good way to split age in groups. Keep it continuous.</li>
+<li>death ~ treatment + age + treatment:age + baseline_disease_severity</li>
+<li>For each additional lifetime year (age), how does the treatment effect alter odds of survival.</li>
+<li>No, that’s a post-hoc calculation and we don’t get incertanties.</li>
+<li>Probability for death in a specified age-group, e.g., 30-40 and 65-75 and compare them directly.</li>
+</ol></details><!--
+use
 
 
-</section></section><script async="" src="https://scripts.simpleanalyticscdn.com/latest.js"></script></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+::: {.cell}
+
+```{.r .cell-code}
+thrombectomy <- medisr::thrombectomy
+
+th_model <- glm(
+  LoS ~ thrombectomy +
+        prior_diabetes +
+        age_at_diagnosis +
+        prior_hypertention +
+        sex +
+        thrombectomy:prior_diabetes +
+        thrombectomy:age_at_diagnosis +
+        thrombectomy:prior_hypertention +
+        thrombectomy:sex,
+  family = poisson(link = "log"),
+  data = thrombectomy
+)
+```
+:::
+
+
+### A: Let's start by considering what a regression coefficient tells us
+
+-->
+
+</section><script async="" src="https://scripts.simpleanalyticscdn.com/latest.js"></script></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
     const anchorJS = new window.AnchorJS();

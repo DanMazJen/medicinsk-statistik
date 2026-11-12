@@ -62,7 +62,7 @@ th_model <- glm(
 
 ![Reflection points](images/estimand_things.png){.r-stretch fig-align="center"}
 
-## It's common...
+## It's common... {.smaller .scrollable}
 
 - Oral heath literature
   - Out of 421 articles, 189 (45%) committed Table 2 fallacy.
@@ -81,16 +81,16 @@ th_model <- glm(
 
 ![Journal papers...](../slides/images/misinterpretation_everywhere.png){fig-align="center"}
 
-## Case 15: "The odds ratio is 0.65... and so what? {.smaller .scrollable}
+## Case 15: "The coefficient is 0.65... and so what? {.smaller .scrollable}
 
 At the stroke research meeting, the biostatistician puts a slide on the screen.
 
-> Thrombectomy vs. no thrombectomy: OR = 0.65
+> Thrombectomy vs. no thrombectomy: OR = 9
 
 The clinical team pauses.
 
-> "That sounds promising," someone says. "But what does 0.65 actually mean for a
-> patient?"
+> "That sounds promising," someone says. "But what does it actually mean for our
+> patient group?"
 
 The analysis comes from an observational study of patients with acute stroke.
 The outcome is death within one year, and the researchers have fitted a logistic
@@ -98,20 +98,22 @@ regression model to account for differences between patients who received
 thrombectomy and those who did not.
 
 The statistician explains that the regression coefficient corresponds to an odds
-ratio of 0.65.
+ratio of 9.
 
 Another question immediately follows:
 
-> "But what we really want to know is whether patients have a lower probability
-> of dying if they receive thrombectomy. Why are we talking about odds?"
+> "But what we really want to know is whether our patients have a lower
+> probability of dying if they receive thrombectomy. Can someone translate,
+> please?"
 
 Now the room gets filled with discussion.
 
 Suppose 20% of patients in the control group die within one year. What would you
-actually want to show a clinician---or a patient?
+actually want to show a clinician --- or a patient --- about the treatment
+group?
 
-- An odds ratio of 0.65?
-- The probability of death under each treatment?
+- An odds ratio?
+- The probability of death under treatment?
 - The absolute difference in probability of death?
 - Something else?
 
@@ -124,7 +126,7 @@ And whose probability are we talking about?
 - Or the population-level probability we would see if everyone received
   thrombectomy, compared with what we would see if no one received it?
 
-These are related questions, but they are not the same question. The clinical
+These are related questions, but they all have different answers. The clinical
 team decides to work through the problem one scientific question at a time.
 
 1. Is thrombectomy associated with a different probability of death?
@@ -138,7 +140,7 @@ coefficient, but the researchers have several different scientific questions.
 
 So they ask:
 
-> What exactly is the model estimating---and how do we turn that into the
+> What exactly is the model estimating --- and how do we turn that into the
 > quantity we actually want to know?
 
 Your task is to make sure that the quantity we calculate and communicate answers
@@ -179,15 +181,15 @@ Reading Task: 15.4
 > An observational study retrospecively investigates whether a new treatment
 > reduces the occurrence of a particular complication after surgery. Because
 > it's retrospective, it's not a randomized clinical trial. The researchers fit
-> a logistic regression model and obtain 𝛽1 (odds ratio) as 0.65 for treatment
-> vs. control. They also get other coefficients for the other variables in the
+> a logistic regression model and obtain 𝛽1 (odds ratio) as 9 for treatment vs.
+> control. They also get other coefficients for the other variables in the
 > model.
 
 **Discuss with our neighbor:**
 
 1. What is the scientific question? What would you actually want to know about
    the treatment?
-2. What is the model giving us? What exactly is the odds ratio of 0.65? Is it
+2. What is the model giving us? What exactly is the odds ratio of 9? Is it
    itself a clinical outcome or something else?
 3. What would be easier to interpret? Imagine the complication occurs in 20% of
    patients in the control group. What kind of result would you rather show a
@@ -208,7 +210,10 @@ Reading Task: 15.4
 ?medisr::thrombectomy
 ```
 
-Read for yourself...
+Danish Stroke Register (DanStroke) and the Danish National Patient Registry.
+
+Patients with acute ischemic stroke who were eligible for thrombectomy in
+Denmark between 2011 and 2016.
 
 ## Scientific questions
 
@@ -216,12 +221,15 @@ Read for yourself...
 1. Does the population who got thrombectory have lower probability of death at
    1-year follow-up after stroke compared to the population who did not get
    thrombectomy?
-
+:::
+::: {.r-fit-text}
 2. What is the effect of thrombectory in older adults with diabetes, compared to
    older adults without diabetes?
-
+:::
+::: {.r-fit-text}
 3. What is effect of the average person profile in the sample?
-
+:::
+::: {.r-fit-text}
 4. What would be the average probability of death, had all participants received
    thrombectomy, compared to not receiving it?
 :::
@@ -284,13 +292,17 @@ ggdag::ggdag(dag) +
 # dagitty::adjustmentSets(dag,exposure="trt","death")
 ```
 
-##
+## Multiple estimands in our study...
 
+::: {.r-fit-text}
 We return to the estimand later...
+:::
 
 ## Workflow recap
 
 ![](images/marginal_workflow.png){.r-stretch fig-align="center"}
+
+- Continuing with step 2
 
 ## The estimator
 
@@ -418,7 +430,7 @@ th_model <- glm(
 ## The coefficients
 
 ```{r}
-#| label: smoking-output
+#| label: smoking-output2
 
 th_model |>
     parameters::parameters(exponentiate=TRUE) |>
@@ -443,6 +455,8 @@ th_model |>
 
 ![](images/marginal_workflow.png){.r-stretch fig-align="center"}
 
+- Continuing with step 3
+
 ## {.r-stretch fig-align="center"}
 
 ::: {.r-fit-text}
@@ -451,49 +465,138 @@ Read *Step 3: Stock with regression coefficients...*
 
 ## Mistake #1
 
+::: {.fragment}
 > Don't read coefficient, thinking it generalizes to the sample!
+:::
+
+```{r}
+#| label: mistake-1
+#| echo: false
+#| output: true
+
+th_model |>
+    parameters::parameters(exponentiate=TRUE) |>
+    select(Parameter, Coefficient, SE) |>
+    rename(Odds_ratio=Coefficient)
+```
+
+- is OR: 9.06 a good estimate for treatment effect for our sample?
 
 ## Mistake #2
 
+::: {.fragment}
 > Confusing OR for a probability
+:::
+
+```{r}
+#| label: mistake-2
+#| echo: false
+#| output: true
+
+th_model |>
+    parameters::parameters(exponentiate=TRUE) |>
+    select(Parameter, Coefficient, SE) |>
+    rename(Odds_ratio=Coefficient)
+```
+
+- what is the increase in probability of death?
 
 ## Mistake #3
 
-> 1-unit change OR gives different probability for two individuals
+::: {.fragment}
+> 1-unit change OR gives different probability dependent on covariates
+:::
+
+```{r}
+#| label: mistake-3
+#| echo: false
+#| output: true
+
+th_model |>
+    parameters::parameters(exponentiate=TRUE) |>
+    select(Parameter, Coefficient, SE) |>
+    rename(Odds_ratio=Coefficient)
+```
+
+- Is OR: 9 an additive effect applicable for all patient profiles?
+
+## Visualizing the mistake 3
+
+```{r}
+#| label: slopes-change-effect-in-logistic-reg
+#| output: true
+#| echo: false
+
+p1 <- plot_slopes(
+  th_model,
+  condition = "age_at_diagnosis",
+  variables = "age_at_diagnosis",
+  type = "link"
+) +
+    labs(
+        y = "log-odds increase per unit change (slope)",
+        x = "Age at incidence (years)",
+        caption = "log-odds scale"
+)
+p2 <- plot_slopes(
+  th_model,
+  condition = "age_at_diagnosis",
+  variables = "age_at_diagnosis",
+  type = "response"
+) +
+    labs(
+        y = "probability increase per unit change (slope)",
+        x = "Age at incidence (years)",
+        caption = "Outcomes scale"
+)
+
+library(patchwork)
+p1+p2
+```
 
 ## Workflow recap
 
 ![](images/marginal_workflow.png){.r-stretch fig-align="center"}
+
+- Continuing with step 4
 
 ## Read 15.10 Step 4: Clear communication --- transforming coefficient {.r-stretch fig-align="center"}
 
 1. Run all code examples and
 2. Make predictions for
 
-- A 70 year-old female without diabetes, hyptersions and thrombectomy
-- A 70 year-old male without diabetes but having hyptersions and received
-  thrombectomy
+- A 70 year-old female without prior diabetes and hyptertension status and not
+  receiving thrombectomy
+- A 70 year-old male without prior diabetes but having known hyptertension and
+  received thrombectomy
 
 ## Workflow recap
 
 ![](images/marginal_workflow.png){.r-stretch fig-align="center"}
 
-## Step 5-7: Model-based transformations
+- Continuing with step 5-7 using four different RQ's as examples.
 
+## Step 5-7: Model-based transformations {.smaller .scrollable}
+
+::: {.r-fit-text}
 - A model is conditional on it's sample
 
-- Regression coefficients let's us predict any arbitrary sample *that is
-  conditional on being explained by the model!*
+- Model oefficients allows predicting any unit (consider model fit)
 
 - post-hoc weights on certain participant profiles, so that our estimate is
   targeting a specific aspect of the model inference.
+:::
 
-Questions that form such discussions can be:
+> `shiny::runApp("apps/polynomial-app/app.R")`
 
+## Questions that form such discussions can be:
+
+::: {.r-fit-text}
 - A particular patient?
 - A clinically meaningful scenario?
 - The average population?
 - Different levels of an interacting variable?
+:::
 
 ## RQ 1: Our sample as reality
 
@@ -522,7 +625,7 @@ th_model |>
 
 ##
 
-Here, the odds ratio is 2.20 ...
+Here, the odds ratio is 9.06 ...
 
 ::: {.fragment}
 > when all interacting variables are at their reference/zero values. In
@@ -601,9 +704,9 @@ p1 + p2
 table(thrombectomy$thrombectomy)
 ```
 
-about 0.4301075 received thrombectomy.
+about 43% received thrombectomy.
 
-## Marginalizing the problem
+## Marginalizing the problem {.smaller}
 
 We can compute the average for them by using avg_predictions()
 
@@ -614,20 +717,19 @@ We can compute the average for them by using avg_predictions()
 avg_predictions(th_model)
 ```
 
-So the average probability of death at the 1-year follow-up is 26.7%.
+So the sample-average probability of death at the 1-year follow-up is 26.7%.
 
 This is a reasonable estimate for answering the question
 
-> "how many Danes die at 1-year follow-up after stroke?"
+> "how many Danes eligible for thrombectomy died at 1-year follow-up after
+> stroke between 2011-2016?"
 
-##
+## What about treatment effect?
 
-However, as we now know that the groups are unbalanced, this is not a good
-estimate for the treatment effect! And it doesn't have the granularity to
-address more nuanced questions of sub-population level.
+- we're interested in $p(d = 1|t = 1)$ and it would be relevant to compare
+  $p(d = 1|t = 0)$
 
-Finally, to compute the average for the patients receiving thrombectomy and
-those who did not, we can group the average for these conditions
+In R, using `{marginaleffects}` we can simply:
 
 ```{r}
 #| label: avg-pred2
@@ -652,7 +754,7 @@ or a 30% lower predicted risk of death on the relative scale.
 
 So we conclude that:
 
-## Clear communication
+## Clear communication {.center}
 
 ::: {.r-fit-text}
 > The model-estimated 1-year mortality was 30.7% in the absence of thrombectomy
@@ -668,7 +770,7 @@ So we conclude that:
 ::: {.fragment}
 Here, we're interested specifically in a sub-population.
 
-we need to consider multiple variables (`diabetes` and `thrombectory`) *and the
+We need to consider multiple variables (`diabetes` and `thrombectory`) *and the
 proportions* who have this profile in our sample.
 :::
 
@@ -695,14 +797,29 @@ p = predictions(
     )
 )
 
-p |> head()
+p |>
+    head() |>
+    select(-c(rowid,p.value,s.value,df, conf.high, conf.low)) |>
+    knitr::kable()
 ```
 
 ## Estimated Marginal Mean
 
+```r
+grid_oi <- datagrid(
+    age_at_diagnosis=c(80:90),
+    prior_diabetes = unique,
+    thrombectomy = unique,
+    model = th_model
+)
+
+plot_predictions(th_model, newdata = grid_oi, by = "thrombectomy")
+plot_predictions(th_model, newdata = grid_oi, by = c("thrombectomy", "prior_diabetes"))
+```
+
 ```{r}
 #| label: diabetes-result
-#| echo: true
+#| echo: false
 
 grid_oi <- datagrid(
     age_at_diagnosis=c(80:90),
@@ -733,13 +850,24 @@ avg_predictions(
 )
 ```
 
-- from 42.3% probability of death without treatment to 26.7% for non-diabetic.
+- from 42.3% probability of death without treatment to 26.7% with treatment for
+  non-diabetic.
 
-- from 66.2% probability of death without treatment to 61.6% for non-diabetic.
+- from 66.2% probability of death without treatment to 61.6% with treatment for
+  diabetic.
 
 ## RQ:3 "The average person"
 
 > What is effect of the average person profile in the sample?
+
+## Who's the average person in our sample?
+
+::: {.r-fit-text}
+- How can we find out?
+- What should we consider?
+- What can go wrong here?
+- Why could be good about this approach?
+:::
 
 ## Our sample is unbalanced
 
@@ -860,7 +988,7 @@ avg_predictions(th_model, variables = list(thrombectomy = 0:1))
 > thrombectory, and where they did not?
 :::
 
-## Can we do better? {.smaller}
+## Can we do better?
 
 **Risk difference**
 
@@ -874,17 +1002,20 @@ avg_comparisons(
     )
 ```
 
-> A risk difference of -0.0317, favoring thrombectomy
+> A risk difference of -3.17%, favoring thrombectomy
 
+::: {.notes}
 The `comparisons()` function above computed the predicted probability of
 mortality (`death_1year_followup == 1`) for each observed row of the data in two
 counterfactual cases: when `thrombectomy == 1`, and when `thrombectomy == 0`.
 Then, it computed the differences between these two sets of predictions.
 Finally, it computed the population-average of risk differences.
+:::
 
-##
+## The average treatment effect
 
-**population-averaged (marginal) adjusted risk ratios:**
+The average treatment effect in our sample, computes as (marginal) adjusted risk
+ratios:\*\*
 
 ```{r}
 #| echo: true
@@ -900,6 +1031,13 @@ avg_comparisons(
 > The model-estimated 1-year mortality was 27.1% in the absence of thrombectomy
 > and 23.9% under thrombectomy, corresponding to an adjusted risk ratio of
 > 0.883.
+
+## Notice what we did there 👀
+
+::: {.r-fit-text}
+> Using marginal effects, we can take a logistic regression model and transform
+> it's coefficients to the effect measure we wanted: *a risk ratio*.
+:::
 
 ##
 

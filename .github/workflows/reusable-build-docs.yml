@@ -22,7 +22,7 @@ on:
 
 jobs:
   build-deploy:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04 # ubuntu-latest see https://github.com/actions/runner-images/issues/14748"
     concurrency:
       group: build-website-group
       cancel-in-progress: true

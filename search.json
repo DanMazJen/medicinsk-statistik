@@ -1152,7 +1152,7 @@
     "href": "sessions/session12.html#sec-whenpoisson",
     "title": "14  A fishy counting trick",
     "section": "\n14.6 Reading Task: When the odds are low, go Poisson!",
-    "text": "14.6 Reading Task: When the odds are low, go Poisson!\nAs the case states, we did not manipulate how many seizures the patients were able to get in the trial period. While we could assume that the baseline was the maximum, it would completely break the logistic regression if we got more seizures after — aka higher than 100% probability 😅\nWhile the binomail distribution is great when N is known (trial count), there exists studies where you don’t know the upper limit (counting fish, selling a product, etc.) — what is the upper bound of fish in a lake we haven’t fully accounted for?\n\nIf we don’t know N, we cannot use the binomial!\n\nLuckily, there’s a trick for this. When N becomes huge and p becomes really small, the binomial distribution takes a special shape — the Poisson distribution.\nExplained mathematically:\nThe expected value of a binomial distribution is just \\(Np\\) (probability scale), and its variance \\(Np(1 - p)\\). But when N is very large and p is very small, the variance and expected value is the same.\nE.g., you have 1 in 1000 probability of getting a price.\n\ny &lt;- rbinom(1e5, 1000, 1/1000)\nc( mean(y), var(y))\n\n[1] 1.002420 1.005504\n\n\nAs a result, the distribution only has one parameter, λ (pronounced lambda).\n\\[\n  y_i \\sim Poisson(λ)\n\\]\nThis solves several issues:\n\nWe can now model counts and probabilities (actually, rates, but more on this later) without being in control of the experiment and knowing the finite trial count\nWe can model events with extremely low probability in counts per sample instead of probability per trial\nWe only need one parameter for both the mean and the variance, effectively saving a degree of freedom.\n\nBut how can we do this in practice?\n\n14.6.1 Which link?\nAs a link function, we often use log.\n\\[\n  y_i \\sim Poisson(λ_i) \\\\\n  log(λ_i) = α + β(x_i - \\bar{x})\n\\] Why log?\n\n\n\n\n\n\n\nFigure 14.3: While the log-linear scale can take any real value, the ouctome scale is only positive real numbers.\n\n\n\n\nAs illustrated in Figure 14.3, taking the log of any positive number is free to take any value between \\(-\\inf \\to \\inf\\). This space is called log-linear because it is linear in log-space. Importantly, we want the outcome space to be bounded between \\(0 \\to \\inf\\). We get back to outcome space using the inverse-log transform (more on this in Section 14.10). So the trick is similar to the logistic regression, but without ceiling to 1.\n\nNotice that the log space is linear (what we model)\nThe logistic space has an exponential shape (the transformation we apply)\n\nNote that the log-link has the same flaws and benefits from the binomial distribution.\n\nPros:\n\n\nensures positive values (for prediction)\n\n\nCons:\n\n\nimplies exponential relationship with predictors\n\nGrow very rapidly — therefore, very sensitive to range\nit cannot keep being exponential!",
+    "text": "14.6 Reading Task: When the odds are low, go Poisson!\nAs the case states, we did not manipulate how many seizures the patients were able to get in the trial period. While we could assume that the baseline was the maximum, it would completely break the logistic regression if we got more seizures after — aka higher than 100% probability 😅\nWhile the binomail distribution is great when N is known (trial count), there exists studies where you don’t know the upper limit (counting fish, selling a product, etc.) — what is the upper bound of fish in a lake we haven’t fully accounted for?\n\nIf we don’t know N, we cannot use the binomial!\n\nLuckily, there’s a trick for this. When N becomes huge and p becomes really small, the binomial distribution takes a special shape — the Poisson distribution.\nExplained mathematically:\nThe expected value of a binomial distribution is just \\(Np\\) (probability scale), and its variance \\(Np(1 - p)\\). But when N is very large and p is very small, the variance and expected value is the same.\nE.g., you have 1 in 1000 probability of getting a price.\n\ny &lt;- rbinom(1e5, 1000, 1/1000)\nc( mean(y), var(y))\n\n[1] 0.9986500 0.9966381\n\n\nAs a result, the distribution only has one parameter, λ (pronounced lambda).\n\\[\n  y_i \\sim Poisson(λ)\n\\]\nThis solves several issues:\n\nWe can now model counts and probabilities (actually, rates, but more on this later) without being in control of the experiment and knowing the finite trial count\nWe can model events with extremely low probability in counts per sample instead of probability per trial\nWe only need one parameter for both the mean and the variance, effectively saving a degree of freedom.\n\nBut how can we do this in practice?\n\n14.6.1 Which link?\nAs a link function, we often use log.\n\\[\n  y_i \\sim Poisson(λ_i) \\\\\n  log(λ_i) = α + β(x_i - \\bar{x})\n\\] Why log?\n\n\n\n\n\n\n\nFigure 14.3: While the log-linear scale can take any real value, the ouctome scale is only positive real numbers.\n\n\n\n\nAs illustrated in Figure 14.3, taking the log of any positive number is free to take any value between \\(-\\inf \\to \\inf\\). This space is called log-linear because it is linear in log-space. Importantly, we want the outcome space to be bounded between \\(0 \\to \\inf\\). We get back to outcome space using the inverse-log transform (more on this in Section 14.10). So the trick is similar to the logistic regression, but without ceiling to 1.\n\nNotice that the log space is linear (what we model)\nThe logistic space has an exponential shape (the transformation we apply)\n\nNote that the log-link has the same flaws and benefits from the binomial distribution.\n\nPros:\n\n\nensures positive values (for prediction)\n\n\nCons:\n\n\nimplies exponential relationship with predictors\n\nGrow very rapidly — therefore, very sensitive to range\nit cannot keep being exponential!",
     "crumbs": [
       "Sessions",
       "<span class='chapter-number'>14</span>  <span class='chapter-title'>A fishy counting trick</span>"
@@ -1361,7 +1361,7 @@
     "href": "sessions/session15.html#step-2-the-estimator",
     "title": "15  Marginalizing the problem",
     "section": "\n15.8 Step 2: The estimator",
-    "text": "15.8 Step 2: The estimator\nWe follow individuals for one year and there is no censoring. The probability of death is relative high (as we’ll see in a minute) and n can be defined as the sample size. So we are able to use logistic regression.\n\n\n\n\n\n\nWarningWhat about Poisson regression?\n\n\n\nIn many ways, this would actually have been the natural choice here, as the dataset has a time aspect and we follow people for longer and some may become censored my migrating etc.\nHere, the choice was purely educational — you’ll use poisson regression on the length of stay in the exercises 😄\n\n\n\\[\n  y_i = Binomial(n,p_i) \\\\\n  logit(p_i) = α + βx_i\n\\] where n is the number of observations and p is the probability of death.\nThe logit function is defined as the log-odds:\n\\[\n  logit(p_i) = log(\\frac{p_i}{1 - p_i})\n\\]\nThe “odds” of an event is just the probability it happens divided by the probability it does not happen. In other words:\n\\[\n  log(\\frac{p_i}{1 - p_i}) = α + βx_i\n\\] To figure out the definition of p_i, we do some algebra to solve for \\(p_i\\):\n\\[\n  p_i = \\frac{exp( α + βx_i)}{1 + exp(α + βx_i)}\n\\] The above function is the logistic\n\nNote that the log-odds space is linear (what we model)\nThe logistic space is the sigmoidal shape (the transformation)\n\n\n15.8.1 The statistical models\nWe want to adjust for competing predictors of death and potential counfounders in our model.\n\\[\n  logit( \\text{death at 1 year followup}) = α + β1_{thrombectomy}\n                                            + β2_{diabites} + β3_{age} \\\\\n  + β4_{hypertention} + β5_{sex} + β6_{thrombectomy×diabites} \\\\\n  + β7_{thrombectomy×age}\n  + β8_{thrombectomy×hyptertension} + β9_{thrombectomy×sex} \\\\\n\\]\nWe implement this model in R using glm():\n\nthrombectomy &lt;- medisr::thrombectomy |&gt;\n    mutate(death_1year_followup = if_else(time_to_death &lt; 365 & death ==1,1,0),\n    age_at_diagnosis = as.numeric(age_at_diagnosis)\n    )\n\nth_model &lt;- glm(\n  death_1year_followup ~ thrombectomy +\n        prior_diabetes +\n        age_at_diagnosis +\n        prior_hypertention +\n        sex +\n        thrombectomy:prior_diabetes +\n        thrombectomy:age_at_diagnosis +\n        thrombectomy:prior_hypertention +\n        thrombectomy:sex,\n        family = binomial(link = \"logit\"),\n  data = thrombectomy\n)",
+    "text": "15.8 Step 2: The estimator\nWe follow individuals for one year and there is no censoring. The probability of death is relative high (as we’ll see in a minute) and n can be defined as the sample size. So we are able to use logistic regression.\n\n\n\n\n\n\nWarningWhat about Poisson regression?\n\n\n\nIn many ways, this would actually have been the natural choice here, as the dataset has a time aspect and we follow people for longer and some may become censored my migrating etc.\nHere, the choice was purely educational — you’ll use poisson regression on the length of stay in the exercises 😄\n\n\n\\[\n  y_i = Binomial(1,p_i) \\\\\n  logit(p_i) = α + βx_i\n\\] where p is the probability of death.\nThe logit function is defined as the log-odds:\n\\[\n  logit(p_i) = log(\\frac{p_i}{1 - p_i})\n\\]\nThe “odds” of an event is just the probability it happens divided by the probability it does not happen. In other words:\n\\[\n  log(\\frac{p_i}{1 - p_i}) = α + βx_i\n\\] To figure out the definition of p_i, we do some algebra to solve for \\(p_i\\):\n\\[\n  p_i = \\frac{exp( α + βx_i)}{1 + exp(α + βx_i)}\n\\] The above function is the logistic\n\nNote that the log-odds space is linear (what we model)\nThe logistic space is the sigmoidal shape (the transformation)\n\n\n15.8.1 The statistical models\nWe want to adjust for competing predictors of death and potential counfounders in our model.\n\\[\n  logit( \\text{death at 1 year followup}) = α + β1_{thrombectomy}\n                                            + β2_{diabites} + β3_{age} \\\\\n  + β4_{hypertention} + β5_{sex} + β6_{thrombectomy×diabites} \\\\\n  + β7_{thrombectomy×age}\n  + β8_{thrombectomy×hyptertension} + β9_{thrombectomy×sex} \\\\\n\\]\nWe implement this model in R using glm():\n\nthrombectomy &lt;- medisr::thrombectomy |&gt;\n    mutate(death_1year_followup = if_else(time_to_death &lt; 365 & death ==1,1,0),\n    age_at_diagnosis = as.numeric(age_at_diagnosis)\n    )\n\nth_model &lt;- glm(\n  death_1year_followup ~ thrombectomy +\n        prior_diabetes +\n        age_at_diagnosis +\n        prior_hypertention +\n        sex +\n        thrombectomy:prior_diabetes +\n        thrombectomy:age_at_diagnosis +\n        thrombectomy:prior_hypertention +\n        thrombectomy:sex,\n        family = binomial(link = \"logit\"),\n  data = thrombectomy\n)",
     "crumbs": [
       "Sessions",
       "<span class='chapter-number'>15</span>  <span class='chapter-title'>Marginalizing the problem</span>"
@@ -1856,7 +1856,7 @@
     "href": "exercises/ex15.html",
     "title": "22  Exercises: Marginalizing the problem",
     "section": "",
-    "text": "22.1 Exercises:\nA doctor or pharmaceutical company sends a request to the research team. You are responsible for translating that request into a statistical analysis plan. You must identify the estimand, decide which predictions or transformations are needed, and formulate a precise request to the statistician.\nBelow are discussion cases based specifically on sections 15.11.1–15.11.4.\nA1. Does the average patient exist?\nA pharmaceutical company asks:\nWe have developed a new treatment for stroke. We would like to know the probability of death for the average patient receiving the treatment.\nThe statistician proposes to calculate the predicted probability of death for a patient with:\nQuestions for discussion\nA2: The company wants a risk ratio, not an odds ratio\nThe statistician in your company has made a statistically correct and meaningful analysis on your dataset. You receive a Table 2 of the outcomes:\nThe company asks:\nThe statistician explains that the correct estimator is logistic regression.\nQuestions:\nCalculate: the Risk difference and risk ratio.\nA3. The doctor wants to know whether treatment works\nA doctor contacts the research team:\nThe available variables are:\nYour tasks:\nA2. The doctor wants to know whether age modifies treatment effect\nA doctor suspects that Drug A works better in younger patients than in older patients.\nThe research team has data on:\nThe doctor asks:\nYour tasks:",
+    "text": "22.1 Exercises:\nNB! These exercises are different from the rest of the course. They are more conceptual and are better if you can discuss with a friend or group. In your future job as a medIS specialist, doctors or pharmaceutical company will send scientific requests to you. You are responsible for translating that request into a statistical analysis plan. You must identify the estimand, decide which predictions or transformations are needed, and formulate a precise request to the statistician.\nBelow are discussion cases based specifically on sections 15.11.1–15.11.4.\nA1. Does the average patient exist?\nA pharmaceutical company asks:\nWe have developed a new drug for stroke. As an expert, you know what the risk predictors are. We would like to know the probability of death for the average stroke patient, and these patients receiving the drug, in order to compute the average treatment effect.\nThe statistician proposes to calculate the predicted probability of death for a patient with:\nQuestions for discussion\nA2: The company wants a risk ratio, not an odds ratio\nThe statistician in your company has made a statistically correct and meaningful analysis on your dataset.\nYou receive a Table 2 of the outcomes:\nThe company asks:\nThe statistician explains that the correct estimator is logistic regression and that you should’nt change this.\nQuestions:\nCalculate: the Risk difference and risk ratio.\nA3. The doctor wants to know whether treatment works\nA doctor contacts you as part of the research team:\nThe available variables are:\nYour tasks:\nA4. The doctor wants to know whether age modifies treatment effect\nA doctor suspects that Drug A works better in younger patients than in older patients.\nThe research team has data on:\nThe doctor asks:\nYour tasks:",
     "crumbs": [
       "Exercises",
       "<span class='chapter-number'>22</span>  <span class='chapter-title'>Exercises: Marginalizing the problem</span>"
@@ -1867,7 +1867,7 @@
     "href": "exercises/ex15.html#exercises",
     "title": "22  Exercises: Marginalizing the problem",
     "section": "",
-    "text": "Average age\nAverage BMI\nDiabetes = balanced\nHypertension = balanced\nSex = balanced\n\n\n\nDoes this describe a clinically meaningful patient?\nWhat does it mean for our study that we balance diabetes?\nWhat is the difference between predicting the outcome for an average patient and averaging predictions across all patients?\nImagine that the population consists of two distinct groups: young patients with low mortality and older patients with high mortality. How does that affect your response on question 3?\n\nClick for the solution\n\nNo.\n50% of stroke population has diabetes — which is probably not correct.\nBriefly:\n\n\npredicting the outcome for an average patient: represents one imaginary profile’s estimate.\naveraging predictions across all patients: the average effect for all profiles in our sample.\n\n\nThe average person is now useless. The average effect is still useful, but we should consider and interaction effect.\n\n\n\n\n\nWe need to communicate the relative reduction in mortality risk associated with our treatment. Please report the risk ratio rather than the odds ratio.\n\n\n\n\nWhat is the coefficients reporting?\nWhat does exponentiating do?\nWill it be possible to give the company the effect measure they want with the estimator the statistician chose?\nThe statistician proposes to use marginal effects to get the probability of mortality for each group. Suppose the model produces the following average predicted probabilities:\n\n\nTreatment A: 20% mortality.\nTreatment B: 30% mortality.\n\n\nClick for the solution\n\nlog-odds ratios (log-OR)\nOdds ratios (OR)\nYes, we can compute relative risk (RR) using marginal effects.\nRD = -10%. RR = 0.66\n\n\n\nWe have followed 500 patients with hypertension for 12 weeks. Some received Drug A and others received Drug B. The company wants to know whether Drug A is better than drug be on patients hypertension af 12 weeks of taking the drug.\n\n\n\nTreatment (A/B)\nAge\nSex\nBaseline systolic blood pressure (before drug initiation)\nSystolic blood pressure at 12 weeks (after taking the drug)\nBMI\nPresence of hypertension (yes/no)\n\n\n\nWhat is the scientific research question?\nWhat is the target population?\nWhat exactly do we want to estimate?\nWhat effect measure do you recommend?\nWrite a regression equation that could address the question.\nWhich variables would you consider adjusting for, and why?\n\nClick for the solution\n\nWe want to know whether Drug A results in a greater &gt; reduction in systolic blood pressure after 12 weeks.\nOnly patients with hypertension\nThe effect of the drug for all patients with hypertension.\nMaybe a difference in mean blood pressure at 12 weeks or a difference in mean change from baseline? Notice that they mean quite different things!\nDepends on you choice…\nThis is a medical question…\n\n\n\n\nTreatment (A/B)\nAge\nBaseline disease severity\nOutcome: death (yes/no)\n\n\n\nCan you tell me whether Drug A is more effective in younger patients?\n\n\n\nHow do we get information from younger and older patients with our dataset?\nWrite a regression equation including an interaction term.\nWhat does the interaction coefficient tell us?\nDoes the interaction coefficient directly tell us the treatment effect in younger patients?\nWhat estimates should the statistician report to make the results clinically meaningful?\n\nClick for the solution\n\nThere is, to my knowledge, no good way to split age in groups. Keep it continuous.\ndeath ~ treatment + age + treatment:age + baseline_disease_severity\nFor each additional lifetime year (age), how does the treatment effect alter odds of survival.\nNo, that’s a post-hoc calculation and we don’t get incertanties.\nProbability for death in a specified age-group, e.g., 30-40 and 65-75 and compare them directly.",
+    "text": "Average age\nAverage BMI\nDiabetes = balanced (i.e., 50%-50%)\nHypertension = balanced (i.e., 50%-50%)\nSex = balanced (i.e., 50%-50%)\n\n\n\nDoes this describe a clinically meaningful patient?\nWhat does it mean for our study that we balance diabetes?\nWhat is the difference between predicting the outcome for an average patient and averaging predictions across all patients?\nImagine that the population consists of two distinct groups: young patients with low mortality and older patients with high mortality. How does that affect your response on question 3?\nConsider the difference between the average patient receiving the treatment and the average Dane. What do you think would differ?\n\nClick for the solution\n\nNo.\n50% of stroke population has diabetes — which is probably not correct.\nBriefly:\n\n\npredicting the outcome for an average patient: represents one imaginary profile’s estimate.\naveraging predictions across all patients: the average effect for all profiles in our sample.\n\n\nThe average person is now useless. The average effect is still useful, but we should consider and interaction effect.\nAverage patient has more disease disease predictors than average Dane.\n\n\n\n\n\nParameter\nLog-odds\nSE\n\n\n\n(Intercept)\n-6.3099\n0.00155\n\n\nthrombectomy\n2.2030\n10.3\n\n\nprior_diabetes\n0.9933\n0.743\n\n\nage_at_diagnosis\n0.0677\n0.0110\n\n\nprior_hypertention\n0.3920\n0.299\n\n\nsex\n0.0392\n0.209\n\n\n\n\n\nWe need to communicate the relative reduction in mortality risk associated with our treatment. Please report the risk ratio rather than the odds ratio.\n\n\n\n\nWhat is the coefficients reporting?\nWhat does exponentiating do?\nWill it be possible to give the company the effect measure they want with the estimator the statistician chose?\nThe statistician proposes to use marginal effects to get the probability of mortality for each group. Suppose the model produces the following average predicted probabilities:\n\n\nTreatment A: 20% mortality.\nTreatment B: 30% mortality.\n\n\nClick for the solution\n\nlog-odds ratios (log-OR)\nOdds ratios (OR)\n\n\n\nParameter\nOdds ratio\nSE\n\n\n\n(Intercept)\n0.00182\n0.00155\n\n\nthrombectomy\n9.06\n10.3\n\n\nprior_diabetes\n2.70\n0.743\n\n\nage_at_diagnosis\n1.07\n0.0110\n\n\nprior_hypertention\n1.48\n0.299\n\n\nsex\n1.04\n0.209\n\n\n\n\nYes, we can compute relative risk (RR) using marginal effects.\nRD = -10%. RR = 0.66\n\n\n\nWe have followed 500 patients with hypertension for 12 weeks. Some received Drug A and others received Drug B. The company wants to know whether Drug A is better than drug be on patients hypertension af 12 weeks of taking the drug.\n\n\n\nTreatment (A/B)\nAge\nSex\nBaseline systolic blood pressure (before drug initiation)\nSystolic blood pressure at 12 weeks (after taking the drug)\nBMI\nPresence of hypertension (yes/no)\n\n\n\nWhat is the scientific research question?\nWhat is the target population?\nWhat exactly do we want to estimate?\nWhat effect measure do you recommend?\nWrite a regression equation that could address the question.\nWhich variables would you consider adjusting for, and why?\n\nClick for the solution\n\nWe want to know whether Drug A results in a greater reduction in systolic blood pressure after 12 weeks.\nOnly patients with hypertension\nThe effect of the drug for all patients with hypertension.\nMaybe a difference in mean blood pressure at 12 weeks or a difference in mean change from baseline? Notice that they mean quite different things!\nDepends on you choice…\nThis is a medical question…\n\n\nBut note that adjusting for presence of hypertension is always wrong.\n\n\n\n\nTreatment (A/B)\nAge (continuous 18-99 years old)\nBaseline disease severity\nOutcome: death (yes/no)\n\n\n\nCan you tell me whether Drug A is more effective in younger patients?\n\n\n\nHow do we get information from younger and older patients with our dataset?\nWrite a regression equation including an interaction term.\nWhat does the interaction coefficient tell us?\nDoes the interaction coefficient directly tell us the treatment effect in younger patients?\nWhat estimates should the statistician report to make the results easier to interpret for you hypothesis for younger and older patients?\n\nClick for the solution\n\nThere is, to my knowledge, no good way to split age in groups. Keep it continuous.\nExample (not only correct response):\n\n\ndeath ~ treatment + age + treatment:age + baseline_disease_severity\n\n\\[\n  \\text{death_i} \\sim Binomial(1,p_i) \\\\\n  logit(p_i) = \\text{treatment} + \\text{age} + \\text{treatment:age} + \\text{baseline_disease_severity}\n\\]\n\nFor each additional lifetime year (age), how does the treatment effect alter odds of survival.\nNo, that’s a post-hoc calculation and we don’t get uncertanties.\nProbability for death in a specified age-group, e.g., 30-40 and 65-75 and compare them directly. Marginal effects does include uncertanties for confidence intervals and p-values. But this is beyond your curriculum 😄",
     "crumbs": [
       "Exercises",
       "<span class='chapter-number'>22</span>  <span class='chapter-title'>Exercises: Marginalizing the problem</span>"
@@ -2043,7 +2043,18 @@
     "href": "appendix/exam-questions.html",
     "title": "Appendix C — Exam Questions",
     "section": "",
-    "text": "C.1 1. Betinget uafhængighed og confounding\nThis section provides all exam questions that you could be asked to answer during the examination.\nDK:\nENG:",
+    "text": "C.1 How should I answer?\nThis section provides all exam questions that you could be asked to answer during the examination.\nExplain what a 95% confidence interval represents. a. How is a confidence interval that includes the null value interpreted?\nModel answer:\nA 95% confidence interval describes the uncertainty around an estimated parameter. In repeated sampling, 95% of confidence intervals constructed using the same procedure would contain the true parameter.\nIf the interval includes the null value (0 for a difference, 1 for a ratio), the result is not statistically significant at the 5% level in a corresponding two-sided test.\nExplain why a log-link function is used in Poisson regression.\nModel answer:\nThe log-link ensures that predicted mean values are positive, as required for count data, while allowing the model to be linear in log-space.\nExponentiated regression coefficients are interpreted as incidence rate ratios (IRRs), assuming an appropriate offset when modelling rates. An IRR above 1 indicates an increased rate, whereas an IRR below 1 indicates a decreased rate.\nStay brief and concise:",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>C</span>  <span class='chapter-title'>Exam Questions</span>"
+    ]
+  },
+  {
+    "objectID": "appendix/exam-questions.html#how-should-i-answer",
+    "href": "appendix/exam-questions.html#how-should-i-answer",
+    "title": "Appendix C — Exam Questions",
+    "section": "",
+    "text": "A Konfidensintervaller\n\n\n\n\n\n\nB Poisson-regression og log-link\n\n\n\nHow are the regression coefficients interpreted in a Poisson regression model with a log-link and offset?\n\n\n\n\n\nGeneral recommendations:\n\n\n\nImagine a medical doctor being asked what the active compound is. You would hope for a short and concise answer, e.g. “The active compound is methylphenidate, which is a central stimulant.”\nStating anything more will not demonstrate more expertise in the subject.\nYou are always allowed to say more, in order to “ease into” the answer. But this is not rewarded with a higher grade.",
     "crumbs": [
       "Appendices",
       "<span class='chapter-number'>C</span>  <span class='chapter-title'>Exam Questions</span>"
@@ -2053,8 +2064,8 @@
     "objectID": "appendix/exam-questions.html#betinget-uafhængighed-og-confounding",
     "href": "appendix/exam-questions.html#betinget-uafhængighed-og-confounding",
     "title": "Appendix C — Exam Questions",
-    "section": "",
-    "text": "Redegør for betinget uafhængighed og dens relation til confounding, og illustrer med et eksempel.\n\n\n\nExplain conditional independence and its relationship to confounding, using an example.",
+    "section": "C.2 1. Betinget uafhængighed og confounding",
+    "text": "C.2 1. Betinget uafhængighed og confounding\nDK:\n\nRedegør for betinget uafhængighed og dens relation til confounding, og illustrer med et eksempel.\n\nENG:\n\nExplain conditional independence and its relationship to confounding, using an example.",
     "crumbs": [
       "Appendices",
       "<span class='chapter-number'>C</span>  <span class='chapter-title'>Exam Questions</span>"
@@ -2064,8 +2075,8 @@
     "objectID": "appendix/exam-questions.html#betinget-uafhængighed-produktreglen-og-bayes-formel",
     "href": "appendix/exam-questions.html#betinget-uafhængighed-produktreglen-og-bayes-formel",
     "title": "Appendix C — Exam Questions",
-    "section": "C.2 2. Betinget uafhængighed, produktreglen og Bayes’ formel",
-    "text": "C.2 2. Betinget uafhængighed, produktreglen og Bayes’ formel\nDK:\n\nRedegør for betinget uafhængighed og dens betydning for produktreglen og Bayes’ formel.\n\nENG:\n\nExplain conditional independence and its implications for the product rule and Bayes’ theorem.",
+    "section": "C.3 2. Betinget uafhængighed, produktreglen og Bayes’ formel",
+    "text": "C.3 2. Betinget uafhængighed, produktreglen og Bayes’ formel\nDK:\n\nRedegør for betinget uafhængighed og dens betydning for produktreglen og Bayes’ formel.\n\nENG:\n\nExplain conditional independence and its implications for the product rule and Bayes’ theorem.",
     "crumbs": [
       "Appendices",
       "<span class='chapter-number'>C</span>  <span class='chapter-title'>Exam Questions</span>"
@@ -2075,8 +2086,8 @@
     "objectID": "appendix/exam-questions.html#ubetinget-afhængighed-og-selektionsbias",
     "href": "appendix/exam-questions.html#ubetinget-afhængighed-og-selektionsbias",
     "title": "Appendix C — Exam Questions",
-    "section": "C.3 3. Ubetinget afhængighed og selektionsbias",
-    "text": "C.3 3. Ubetinget afhængighed og selektionsbias\nDK:\n\nRedegør for ubetinget afhængighed og dens relation til selektionsbias, og illustrer med et eksempel.\n\nENG:\n\nExplain unconditional dependence and its relation to selection bias, using an example.",
+    "section": "C.4 3. Ubetinget afhængighed og selektionsbias",
+    "text": "C.4 3. Ubetinget afhængighed og selektionsbias\nDK:\n\nRedegør for ubetinget afhængighed og dens relation til selektionsbias, og illustrer med et eksempel.\n\nENG:\n\nExplain unconditional dependence and its relation to selection bias, using an example.",
     "crumbs": [
       "Appendices",
       "<span class='chapter-number'>C</span>  <span class='chapter-title'>Exam Questions</span>"
@@ -2086,8 +2097,8 @@
     "objectID": "appendix/exam-questions.html#kontinuerte-sandsynlighedsfordelinger",
     "href": "appendix/exam-questions.html#kontinuerte-sandsynlighedsfordelinger",
     "title": "Appendix C — Exam Questions",
-    "section": "C.4 4. Kontinuerte sandsynlighedsfordelinger",
-    "text": "C.4 4. Kontinuerte sandsynlighedsfordelinger\nDK:\n\nRedegør for kontinuerte sandsynlighedsfordelinger.\n\na. Angiv, hvilke datatyper de forskellige fordelinger (herunder normal-, gamma- og log-normalfordelingen) typisk anvendes til.\n\n\nENG:\n\nDescribe continuous probability distributions.\n\na. Specify the types of data for which the various distributions (including normal, gamma, and log-normal) are typically used.",
+    "section": "C.5 4. Kontinuerte sandsynlighedsfordelinger",
+    "text": "C.5 4. Kontinuerte sandsynlighedsfordelinger\nDK:\n\nRedegør for kontinuerte sandsynlighedsfordelinger.\n\na. Angiv, hvilke datatyper de forskellige fordelinger (herunder normal-, gamma- og log-normalfordelingen) typisk anvendes til.\n\n\nENG:\n\nDescribe continuous probability distributions.\n\na. Specify the types of data for which the various distributions (including normal, gamma, and log-normal) are typically used.",
     "crumbs": [
       "Appendices",
       "<span class='chapter-number'>C</span>  <span class='chapter-title'>Exam Questions</span>"
@@ -2097,8 +2108,8 @@
     "objectID": "appendix/exam-questions.html#mann-whitney-u-test",
     "href": "appendix/exam-questions.html#mann-whitney-u-test",
     "title": "Appendix C — Exam Questions",
-    "section": "C.5 5. Mann-Whitney U-test",
-    "text": "C.5 5. Mann-Whitney U-test\nDK:\n\nRedegør for, hvad der undersøges med en Mann-Whitney U-test.\n\na. Hvad er test-statistikken for Mann-Whitney U-testen?\nb. Hvorfor er denne test ikke relevant ved undersøgelse af omkostningsforskelle?\n\n\nENG:\n\nExplain what is investigated with a Mann-Whitney U test.\n\na. What is the test statistic for the Mann-Whitney U test?\nb. Why is this test statistic not relevant when analyzing differences in costs?",
+    "section": "C.6 5. Mann-Whitney U-test",
+    "text": "C.6 5. Mann-Whitney U-test\nDK:\n\nRedegør for, hvad der undersøges med en Mann-Whitney U-test.\n\na. Hvad er test-statistikken for Mann-Whitney U-testen?\nb. Hvorfor er denne test ikke relevant ved undersøgelse af omkostningsforskelle?\n\n\nENG:\n\nExplain what is investigated with a Mann-Whitney U test.\n\na. What is the test statistic for the Mann-Whitney U test?\nb. Why is this test statistic not relevant when analyzing differences in costs?",
     "crumbs": [
       "Appendices",
       "<span class='chapter-number'>C</span>  <span class='chapter-title'>Exam Questions</span>"
@@ -2108,8 +2119,8 @@
     "objectID": "appendix/exam-questions.html#permutationstest",
     "href": "appendix/exam-questions.html#permutationstest",
     "title": "Appendix C — Exam Questions",
-    "section": "C.6 6. Permutationstest",
-    "text": "C.6 6. Permutationstest\nDK:\n\nRedegør for, hvordan en permutationstest udføres for et forsøg med to eksponeringsgrupper.\n\na. Under hvilken hypotese simuleres data i en permutationstest?\n\n\nENG:\n\nExplain how to perform a permutation test for an experiment with two exposure groups.\n\na. Under which hypothesis is data simulated in a permutation test?",
+    "section": "C.7 6. Permutationstest",
+    "text": "C.7 6. Permutationstest\nDK:\n\nRedegør for, hvordan en permutationstest udføres for et forsøg med to eksponeringsgrupper.\n\na. Under hvilken hypotese simuleres data i en permutationstest?\n\n\nENG:\n\nExplain how to perform a permutation test for an experiment with two exposure groups.\n\na. Under which hypothesis is data simulated in a permutation test?",
     "crumbs": [
       "Appendices",
       "<span class='chapter-number'>C</span>  <span class='chapter-title'>Exam Questions</span>"
@@ -2119,8 +2130,8 @@
     "objectID": "appendix/exam-questions.html#antagelser-for-t-test",
     "href": "appendix/exam-questions.html#antagelser-for-t-test",
     "title": "Appendix C — Exam Questions",
-    "section": "C.7 7. Antagelser for t-test",
-    "text": "C.7 7. Antagelser for t-test\nDK:\n\nHvilke antagelser ligger til grund for en t-test?\n\na. Hvad betyder grænseværdisætningen for disse antagelser?\n\n\nENG:\n\nWhat are the underlying assumptions of a t-test?\n\na. What is the significance of the central limit theorem for these assumptions?",
+    "section": "C.8 7. Antagelser for t-test",
+    "text": "C.8 7. Antagelser for t-test\nDK:\n\nHvilke antagelser ligger til grund for en t-test?\n\na. Hvad betyder grænseværdisætningen for disse antagelser?\n\n\nENG:\n\nWhat are the underlying assumptions of a t-test?\n\na. What is the significance of the central limit theorem for these assumptions?",
     "crumbs": [
       "Appendices",
       "<span class='chapter-number'>C</span>  <span class='chapter-title'>Exam Questions</span>"
@@ -2130,8 +2141,8 @@
     "objectID": "appendix/exam-questions.html#selektionsbias-og-confounding-i-effektstudier",
     "href": "appendix/exam-questions.html#selektionsbias-og-confounding-i-effektstudier",
     "title": "Appendix C — Exam Questions",
-    "section": "C.8 8. Selektionsbias og confounding i effektstudier",
-    "text": "C.8 8. Selektionsbias og confounding i effektstudier\nDK:\n\nRedegør for selektionsbias og confounding i et effektstudie, eventuelt understøttet af et kausalt diagram.\n\nENG:\n\nExplain selection bias and confounding in an effect study, optionally using a causal diagram.",
+    "section": "C.9 8. Selektionsbias og confounding i effektstudier",
+    "text": "C.9 8. Selektionsbias og confounding i effektstudier\nDK:\n\nRedegør for selektionsbias og confounding i et effektstudie, eventuelt understøttet af et kausalt diagram.\n\nENG:\n\nExplain selection bias and confounding in an effect study, optionally using a causal diagram.",
     "crumbs": [
       "Appendices",
       "<span class='chapter-number'>C</span>  <span class='chapter-title'>Exam Questions</span>"
@@ -2141,8 +2152,8 @@
     "objectID": "appendix/exam-questions.html#tolkning-af-bland-altman-plot",
     "href": "appendix/exam-questions.html#tolkning-af-bland-altman-plot",
     "title": "Appendix C — Exam Questions",
-    "section": "C.9 9. Tolkning af Bland-Altman-plot",
-    "text": "C.9 9. Tolkning af Bland-Altman-plot\nDK:\n\nRedegør for, hvordan et Bland-Altman-plot tolkes.\n\na. Hvordan identificeres systematisk og tilfældig variation?\n\n\nENG:\n\nExplain how to interpret a Bland-Altman plot.\n\na. How can systematic and random variation be identified?",
+    "section": "C.10 9. Tolkning af Bland-Altman-plot",
+    "text": "C.10 9. Tolkning af Bland-Altman-plot\nDK:\n\nRedegør for, hvordan et Bland-Altman-plot tolkes.\n\na. Hvordan identificeres systematisk og tilfældig variation?\n\n\nENG:\n\nExplain how to interpret a Bland-Altman plot.\n\na. How can systematic and random variation be identified?",
     "crumbs": [
       "Appendices",
       "<span class='chapter-number'>C</span>  <span class='chapter-title'>Exam Questions</span>"
@@ -2152,8 +2163,8 @@
     "objectID": "appendix/exam-questions.html#intra-klass-korrelation",
     "href": "appendix/exam-questions.html#intra-klass-korrelation",
     "title": "Appendix C — Exam Questions",
-    "section": "C.10 10. Intra-klass korrelation",
-    "text": "C.10 10. Intra-klass korrelation\nDK:\n\nRedegør for forskellen på relativ (konsistens) og absolut (overensstemmelse) intra-klass korrelation.\n\na. Hvilken type variation afspejler de to mål?\n\n\nENG:\n\nExplain the difference between relative (consistency) and absolute (agreement) intra-class correlation.\n\na. What type of variation do these two measures represent?",
+    "section": "C.11 10. Intra-klass korrelation",
+    "text": "C.11 10. Intra-klass korrelation\nDK:\n\nRedegør for forskellen på relativ (konsistens) og absolut (overensstemmelse) intra-klass korrelation.\n\na. Hvilken type variation afspejler de to mål?\n\n\nENG:\n\nExplain the difference between relative (consistency) and absolute (agreement) intra-class correlation.\n\na. What type of variation do these two measures represent?",
     "crumbs": [
       "Appendices",
       "<span class='chapter-number'>C</span>  <span class='chapter-title'>Exam Questions</span>"
@@ -2163,8 +2174,8 @@
     "objectID": "appendix/exam-questions.html#statistisk-styrke-og-stikprøvestørrelse",
     "href": "appendix/exam-questions.html#statistisk-styrke-og-stikprøvestørrelse",
     "title": "Appendix C — Exam Questions",
-    "section": "C.11 11. Statistisk styrke og stikprøvestørrelse",
-    "text": "C.11 11. Statistisk styrke og stikprøvestørrelse\nDK:\n\nRedegør for, hvad der forstås ved statistisk styrke (power) ved planlægning af et klinisk forsøg.\n\na. Angiv, hvilke oplysninger der indgår i beregningen af stikprøvestørrelsen.\n\n\nENG:\n\nExplain the concept of statistical power when designing a clinical trial.\n\na. Specify the information required for calculating sample size.",
+    "section": "C.12 11. Statistisk styrke og stikprøvestørrelse",
+    "text": "C.12 11. Statistisk styrke og stikprøvestørrelse\nDK:\n\nRedegør for, hvad der forstås ved statistisk styrke (power) ved planlægning af et klinisk forsøg.\n\na. Angiv, hvilke oplysninger der indgår i beregningen af stikprøvestørrelsen.\n\n\nENG:\n\nExplain the concept of statistical power when designing a clinical trial.\n\na. Specify the information required for calculating sample size.",
     "crumbs": [
       "Appendices",
       "<span class='chapter-number'>C</span>  <span class='chapter-title'>Exam Questions</span>"
@@ -2174,8 +2185,8 @@
     "objectID": "appendix/exam-questions.html#multipel-lineær-regression-i-effektstudier",
     "href": "appendix/exam-questions.html#multipel-lineær-regression-i-effektstudier",
     "title": "Appendix C — Exam Questions",
-    "section": "C.12 12. Multipel lineær regression i effektstudier",
-    "text": "C.12 12. Multipel lineær regression i effektstudier\nDK:\n\nRedegør for multipel lineær regression i et effektstudie.\n\na. Hvordan tolkes resultaterne?\n\n\nENG:\n\nDescribe multiple linear regression in an effect study.\n\na. How are the results interpreted?",
+    "section": "C.13 12. Multipel lineær regression i effektstudier",
+    "text": "C.13 12. Multipel lineær regression i effektstudier\nDK:\n\nRedegør for multipel lineær regression i et effektstudie.\n\na. Hvordan tolkes resultaterne?\n\n\nENG:\n\nDescribe multiple linear regression in an effect study.\n\na. How are the results interpreted?",
     "crumbs": [
       "Appendices",
       "<span class='chapter-number'>C</span>  <span class='chapter-title'>Exam Questions</span>"
@@ -2185,8 +2196,8 @@
     "objectID": "appendix/exam-questions.html#antagelser-for-lineær-regression-i-effektstudier",
     "href": "appendix/exam-questions.html#antagelser-for-lineær-regression-i-effektstudier",
     "title": "Appendix C — Exam Questions",
-    "section": "C.13 13. Antagelser for lineær regression i effektstudier",
-    "text": "C.13 13. Antagelser for lineær regression i effektstudier\nDK:\n\nHvilke antagelser ligger til grund for lineær regression i et effektstudie?\n\nENG:\n\nWhat are the underlying assumptions of linear regression in an effect study?",
+    "section": "C.14 13. Antagelser for lineær regression i effektstudier",
+    "text": "C.14 13. Antagelser for lineær regression i effektstudier\nDK:\n\nHvilke antagelser ligger til grund for lineær regression i et effektstudie?\n\nENG:\n\nWhat are the underlying assumptions of linear regression in an effect study?",
     "crumbs": [
       "Appendices",
       "<span class='chapter-number'>C</span>  <span class='chapter-title'>Exam Questions</span>"
@@ -2196,8 +2207,8 @@
     "objectID": "appendix/exam-questions.html#multipel-logistisk-regression-i-effektstudier",
     "href": "appendix/exam-questions.html#multipel-logistisk-regression-i-effektstudier",
     "title": "Appendix C — Exam Questions",
-    "section": "C.14 14. Multipel logistisk regression i effektstudier",
-    "text": "C.14 14. Multipel logistisk regression i effektstudier\nDK:\n\nRedegør for multipel logistisk regression i et effektstudie.\n\na. Hvordan tolkes resultaterne?\n\n\nENG:\n\nDescribe multiple logistic regression in an effect study.\n\na. How are the results interpreted?",
+    "section": "C.15 14. Multipel logistisk regression i effektstudier",
+    "text": "C.15 14. Multipel logistisk regression i effektstudier\nDK:\n\nRedegør for multipel logistisk regression i et effektstudie.\n\na. Hvordan tolkes resultaterne?\n\n\nENG:\n\nDescribe multiple logistic regression in an effect study.\n\na. How are the results interpreted?",
     "crumbs": [
       "Appendices",
       "<span class='chapter-number'>C</span>  <span class='chapter-title'>Exam Questions</span>"
@@ -2207,8 +2218,8 @@
     "objectID": "appendix/exam-questions.html#antagelser-for-logistisk-regression-i-effektstudier",
     "href": "appendix/exam-questions.html#antagelser-for-logistisk-regression-i-effektstudier",
     "title": "Appendix C — Exam Questions",
-    "section": "C.15 15. Antagelser for logistisk regression i effektstudier",
-    "text": "C.15 15. Antagelser for logistisk regression i effektstudier\nDK:\n\nHvilke antagelser ligger til grund for logistisk regression i et effektstudie?\n\nENG:\n\nWhat are the underlying assumptions of logistic regression in an effect study?",
+    "section": "C.16 15. Antagelser for logistisk regression i effektstudier",
+    "text": "C.16 15. Antagelser for logistisk regression i effektstudier\nDK:\n\nHvilke antagelser ligger til grund for logistisk regression i et effektstudie?\n\nENG:\n\nWhat are the underlying assumptions of logistic regression in an effect study?",
     "crumbs": [
       "Appendices",
       "<span class='chapter-number'>C</span>  <span class='chapter-title'>Exam Questions</span>"
@@ -2218,8 +2229,8 @@
     "objectID": "appendix/exam-questions.html#poisson-regression-på-binært-udfald",
     "href": "appendix/exam-questions.html#poisson-regression-på-binært-udfald",
     "title": "Appendix C — Exam Questions",
-    "section": "C.16 16. Poisson-regression på binært udfald",
-    "text": "C.16 16. Poisson-regression på binært udfald\nDK:\n\nRedegør for, hvilket effektmål der opnås ved anvendelse af Poisson-regression på et binært udfald (ikke tid-til-event).\n\na. Hvad skal man være opmærksom på i forbindelse med sikkerhedsintervaller, og hvorfor?\n\n\nENG:\n\nExplain which effect measure is obtained when using Poisson regression for a binary outcome (not time-to-event).\n\na. How does this affect the confidence intervals, and why?",
+    "section": "C.17 16. Poisson-regression på binært udfald",
+    "text": "C.17 16. Poisson-regression på binært udfald\nDK:\n\nRedegør for, hvilket effektmål der opnås ved anvendelse af Poisson-regression på et binært udfald (ikke tid-til-event).\n\na. Hvad skal man være opmærksom på i forbindelse med sikkerhedsintervaller, og hvorfor?\n\n\nENG:\n\nExplain which effect measure is obtained when using Poisson regression for a binary outcome (not time-to-event).\n\na. How does this affect the confidence intervals, and why?",
     "crumbs": [
       "Appendices",
       "<span class='chapter-number'>C</span>  <span class='chapter-title'>Exam Questions</span>"
@@ -2229,8 +2240,8 @@
     "objectID": "appendix/exam-questions.html#poisson-regression-på-tid-til-event-udfald",
     "href": "appendix/exam-questions.html#poisson-regression-på-tid-til-event-udfald",
     "title": "Appendix C — Exam Questions",
-    "section": "C.17 17. Poisson-regression på tid-til-event udfald",
-    "text": "C.17 17. Poisson-regression på tid-til-event udfald\nDK:\n\nRedegør for Poisson-regression anvendt på et tid-til-event udfald i et effektstudie.\n\nENG:\n\nDescribe Poisson regression applied to a time-to-event outcome in an effect study.",
+    "section": "C.18 17. Poisson-regression på tid-til-event udfald",
+    "text": "C.18 17. Poisson-regression på tid-til-event udfald\nDK:\n\nRedegør for Poisson-regression anvendt på et tid-til-event udfald i et effektstudie.\n\nENG:\n\nDescribe Poisson regression applied to a time-to-event outcome in an effect study.",
     "crumbs": [
       "Appendices",
       "<span class='chapter-number'>C</span>  <span class='chapter-title'>Exam Questions</span>"
@@ -2240,8 +2251,8 @@
     "objectID": "appendix/exam-questions.html#f-test-anova",
     "href": "appendix/exam-questions.html#f-test-anova",
     "title": "Appendix C — Exam Questions",
-    "section": "C.18 18. F-test (ANOVA)",
-    "text": "C.18 18. F-test (ANOVA)\nDK:\n\nRedegør for en F-test (ANOVA).\n\na. Hvilken nulhypotese og antagelser ligger til grund for testen?\n\n\nENG:\n\nDescribe an F-test (ANOVA).\n\na. What are the null hypothesis and underlying assumptions of the test?",
+    "section": "C.19 18. F-test (ANOVA)",
+    "text": "C.19 18. F-test (ANOVA)\nDK:\n\nRedegør for en F-test (ANOVA).\n\na. Hvilken nulhypotese og antagelser ligger til grund for testen?\n\n\nENG:\n\nDescribe an F-test (ANOVA).\n\na. What are the null hypothesis and underlying assumptions of the test?",
     "crumbs": [
       "Appendices",
       "<span class='chapter-number'>C</span>  <span class='chapter-title'>Exam Questions</span>"
@@ -2251,8 +2262,8 @@
     "objectID": "appendix/exam-questions.html#interaktion-i-repeated-measures-anova",
     "href": "appendix/exam-questions.html#interaktion-i-repeated-measures-anova",
     "title": "Appendix C — Exam Questions",
-    "section": "C.19 19. Interaktion i repeated measures ANOVA",
-    "text": "C.19 19. Interaktion i repeated measures ANOVA\nDK:\n\nRedegør for begrebet interaktion i en repeated measures ANOVA.\n\na. Hvordan tolkes resultaterne?\n\n\nENG:\n\nExplain the concept of interaction in a repeated measures ANOVA.\n\na. How should the results be interpreted?",
+    "section": "C.20 19. Interaktion i repeated measures ANOVA",
+    "text": "C.20 19. Interaktion i repeated measures ANOVA\nDK:\n\nRedegør for begrebet interaktion i en repeated measures ANOVA.\n\na. Hvordan tolkes resultaterne?\n\n\nENG:\n\nExplain the concept of interaction in a repeated measures ANOVA.\n\na. How should the results be interpreted?",
     "crumbs": [
       "Appendices",
       "<span class='chapter-number'>C</span>  <span class='chapter-title'>Exam Questions</span>"
@@ -2262,8 +2273,8 @@
     "objectID": "appendix/exam-questions.html#antagelser-i-repeated-measures-anova",
     "href": "appendix/exam-questions.html#antagelser-i-repeated-measures-anova",
     "title": "Appendix C — Exam Questions",
-    "section": "C.20 20. Antagelser i repeated measures ANOVA",
-    "text": "C.20 20. Antagelser i repeated measures ANOVA\nDK:\n\nRedegør for antagelserne i en repeated measures ANOVA.\n\nENG:\n\nDescribe the assumptions underlying a repeated measures ANOVA.",
+    "section": "C.21 20. Antagelser i repeated measures ANOVA",
+    "text": "C.21 20. Antagelser i repeated measures ANOVA\nDK:\n\nRedegør for antagelserne i en repeated measures ANOVA.\n\nENG:\n\nDescribe the assumptions underlying a repeated measures ANOVA.",
     "crumbs": [
       "Appendices",
       "<span class='chapter-number'>C</span>  <span class='chapter-title'>Exam Questions</span>"
@@ -2273,8 +2284,8 @@
     "objectID": "appendix/exam-questions.html#marginale-effekter-vs.-regressionskoefficienter",
     "href": "appendix/exam-questions.html#marginale-effekter-vs.-regressionskoefficienter",
     "title": "Appendix C — Exam Questions",
-    "section": "C.21 21. Marginale effekter vs. regressionskoefficienter",
-    "text": "C.21 21. Marginale effekter vs. regressionskoefficienter\nDK:\n\nRedegør for, hvad en marginal effekt er, og hvordan den adskiller sig fra en regressionskoefficient.\n\na. Giv et eksempel på en tilgang til udvælgelse af estimerede marginalgennemsnit i et effektstudie.\n\n\nENG:\n\nExplain what a marginal effect is and how it differs from a regression coefficient.\n\na. Provide an example of an approach to selecting estimated marginal means in an effect study.",
+    "section": "C.22 21. Marginale effekter vs. regressionskoefficienter",
+    "text": "C.22 21. Marginale effekter vs. regressionskoefficienter\nDK:\n\nRedegør for, hvad en marginal effekt er, og hvordan den adskiller sig fra en regressionskoefficient.\n\na. Giv et eksempel på en tilgang til udvælgelse af estimerede marginalgennemsnit i et effektstudie.\n\n\nENG:\n\nExplain what a marginal effect is and how it differs from a regression coefficient.\n\na. Provide an example of an approach to selecting estimated marginal means in an effect study.",
     "crumbs": [
       "Appendices",
       "<span class='chapter-number'>C</span>  <span class='chapter-title'>Exam Questions</span>"
@@ -2284,8 +2295,8 @@
     "objectID": "appendix/exam-questions.html#marginale-effekter-og-logistisk-regression",
     "href": "appendix/exam-questions.html#marginale-effekter-og-logistisk-regression",
     "title": "Appendix C — Exam Questions",
-    "section": "C.22 22. Marginale effekter og logistisk regression",
-    "text": "C.22 22. Marginale effekter og logistisk regression\nDK:\n\nRedegør for, hvordan en logistisk regression kan anvendes til at estimere en justeret relativ risiko eller risikodifference.\n\nENG:\n\nExplain how logistic regression can be used to estimate an adjusted relative risk or risk difference.",
+    "section": "C.23 22. Marginale effekter og logistisk regression",
+    "text": "C.23 22. Marginale effekter og logistisk regression\nDK:\n\nRedegør for, hvordan en logistisk regression kan anvendes til at estimere en justeret relativ risiko eller risikodifference.\n\nENG:\n\nExplain how logistic regression can be used to estimate an adjusted relative risk or risk difference.",
     "crumbs": [
       "Appendices",
       "<span class='chapter-number'>C</span>  <span class='chapter-title'>Exam Questions</span>"
@@ -2295,8 +2306,8 @@
     "objectID": "appendix/exam-questions.html#overlevelsestabel-og-censurering",
     "href": "appendix/exam-questions.html#overlevelsestabel-og-censurering",
     "title": "Appendix C — Exam Questions",
-    "section": "C.23 23. Overlevelsestabel og censurering",
-    "text": "C.23 23. Overlevelsestabel og censurering\nDK:\n\nRedegør for, hvordan en overlevelsestabel konstrueres.\n\na. Beskriv typer af censurering.\n\n\nENG:\n\nExplain how to construct a survival table.\n\na. Describe the types of censoring.",
+    "section": "C.24 23. Overlevelsestabel og censurering",
+    "text": "C.24 23. Overlevelsestabel og censurering\nDK:\n\nRedegør for, hvordan en overlevelsestabel konstrueres.\n\na. Beskriv typer af censurering.\n\n\nENG:\n\nExplain how to construct a survival table.\n\na. Describe the types of censoring.",
     "crumbs": [
       "Appendices",
       "<span class='chapter-number'>C</span>  <span class='chapter-title'>Exam Questions</span>"
@@ -2306,8 +2317,8 @@
     "objectID": "appendix/exam-questions.html#sammenligning-af-overlevelseskurver",
     "href": "appendix/exam-questions.html#sammenligning-af-overlevelseskurver",
     "title": "Appendix C — Exam Questions",
-    "section": "C.24 24. Sammenligning af overlevelseskurver",
-    "text": "C.24 24. Sammenligning af overlevelseskurver\nDK:\n\nHvilke metoder findes der til at opsummere forskellen mellem to overlevelseskurver i et enkelt mål?\n\na. Hvilke antagelser ligger til grund herfor?\n\n\nENG:\n\nWhat methods are available to summarize the difference between two survival curves in a single value?\n\na. What are the underlying assumptions?",
+    "section": "C.25 24. Sammenligning af overlevelseskurver",
+    "text": "C.25 24. Sammenligning af overlevelseskurver\nDK:\n\nHvilke metoder findes der til at opsummere forskellen mellem to overlevelseskurver i et enkelt mål?\n\na. Hvilke antagelser ligger til grund herfor?\n\n\nENG:\n\nWhat methods are available to summarize the difference between two survival curves in a single value?\n\na. What are the underlying assumptions?",
     "crumbs": [
       "Appendices",
       "<span class='chapter-number'>C</span>  <span class='chapter-title'>Exam Questions</span>"
@@ -2317,8 +2328,8 @@
     "objectID": "appendix/exam-questions.html#forskelle-mellem-prædiktions--og-effektstudier",
     "href": "appendix/exam-questions.html#forskelle-mellem-prædiktions--og-effektstudier",
     "title": "Appendix C — Exam Questions",
-    "section": "C.25 25. Forskelle mellem prædiktions- og effektstudier",
-    "text": "C.25 25. Forskelle mellem prædiktions- og effektstudier\nDK:\n\nRedegør for de centrale forskelle mellem et prædiktionsstudie og et effektstudie.\n\na. Vær særligt opmærksom på studiernes rolle i klinisk beslutningstagning.\n\n\nENG:\n\nExplain the key differences between a prediction study and an effect study.\n\na. Pay particular attention to the role of these studies in clinical decision-making.",
+    "section": "C.26 25. Forskelle mellem prædiktions- og effektstudier",
+    "text": "C.26 25. Forskelle mellem prædiktions- og effektstudier\nDK:\n\nRedegør for de centrale forskelle mellem et prædiktionsstudie og et effektstudie.\n\na. Vær særligt opmærksom på studiernes rolle i klinisk beslutningstagning.\n\n\nENG:\n\nExplain the key differences between a prediction study and an effect study.\n\na. Pay particular attention to the role of these studies in clinical decision-making.",
     "crumbs": [
       "Appendices",
       "<span class='chapter-number'>C</span>  <span class='chapter-title'>Exam Questions</span>"
@@ -2328,8 +2339,8 @@
     "objectID": "appendix/exam-questions.html#logistisk-regression-i-effekt--vs.-prædiktionsstudier",
     "href": "appendix/exam-questions.html#logistisk-regression-i-effekt--vs.-prædiktionsstudier",
     "title": "Appendix C — Exam Questions",
-    "section": "C.26 26. Logistisk regression i effekt- vs. prædiktionsstudier",
-    "text": "C.26 26. Logistisk regression i effekt- vs. prædiktionsstudier\nDK:\n\nRedegør for forskellene i anvendelsen af logistisk regression i henholdsvis effekt- og prædiktionsstudier.\n\na. Hvilke overvejelser ligger til grund for valget af regressionsmodel i de to studietyper?\n\n\nENG:\n\nExplain the differences in how logistic regression is used in effect and prediction studies, respectively.\n\na. What should be considered when choosing a regression model in these two types of studies?",
+    "section": "C.27 26. Logistisk regression i effekt- vs. prædiktionsstudier",
+    "text": "C.27 26. Logistisk regression i effekt- vs. prædiktionsstudier\nDK:\n\nRedegør for forskellene i anvendelsen af logistisk regression i henholdsvis effekt- og prædiktionsstudier.\n\na. Hvilke overvejelser ligger til grund for valget af regressionsmodel i de to studietyper?\n\n\nENG:\n\nExplain the differences in how logistic regression is used in effect and prediction studies, respectively.\n\na. What should be considered when choosing a regression model in these two types of studies?",
     "crumbs": [
       "Appendices",
       "<span class='chapter-number'>C</span>  <span class='chapter-title'>Exam Questions</span>"
@@ -2339,8 +2350,8 @@
     "objectID": "appendix/exam-questions.html#validering-af-prædiktionsmodeller",
     "href": "appendix/exam-questions.html#validering-af-prædiktionsmodeller",
     "title": "Appendix C — Exam Questions",
-    "section": "C.27 27. Validering af prædiktionsmodeller",
-    "text": "C.27 27. Validering af prædiktionsmodeller\nDK:\n\nRedegør for krydsvalidering og ekstern validering af prædiktionsmodeller, og forklar, hvorfor begge er relevante.\n\na. Hvilke typer ekstern validering findes der?\n\n\nENG:\n\nDescribe cross-validation and external validation of prediction models, and explain why both are relevant.\n\na. What types of external validation exist?",
+    "section": "C.28 27. Validering af prædiktionsmodeller",
+    "text": "C.28 27. Validering af prædiktionsmodeller\nDK:\n\nRedegør for krydsvalidering og ekstern validering af prædiktionsmodeller, og forklar, hvorfor begge er relevante.\n\na. Hvilke typer ekstern validering findes der?\n\n\nENG:\n\nDescribe cross-validation and external validation of prediction models, and explain why both are relevant.\n\na. What types of external validation exist?",
     "crumbs": [
       "Appendices",
       "<span class='chapter-number'>C</span>  <span class='chapter-title'>Exam Questions</span>"
@@ -2350,8 +2361,8 @@
     "objectID": "appendix/exam-questions.html#kalibrering-af-binær-prædiktionsmodel",
     "href": "appendix/exam-questions.html#kalibrering-af-binær-prædiktionsmodel",
     "title": "Appendix C — Exam Questions",
-    "section": "C.28 28. Kalibrering af binær prædiktionsmodel",
-    "text": "C.28 28. Kalibrering af binær prædiktionsmodel\nDK:\n\nRedegør for kalibrering af en binær prædiktionsmodel, og giv eksempler på, hvordan kalibrering kan kvantificeres.\n\nENG:\n\nExplain calibration of a binary prediction model, and provide examples of how calibration can be quantified.",
+    "section": "C.29 28. Kalibrering af binær prædiktionsmodel",
+    "text": "C.29 28. Kalibrering af binær prædiktionsmodel\nDK:\n\nRedegør for kalibrering af en binær prædiktionsmodel, og giv eksempler på, hvordan kalibrering kan kvantificeres.\n\nENG:\n\nExplain calibration of a binary prediction model, and provide examples of how calibration can be quantified.",
     "crumbs": [
       "Appendices",
       "<span class='chapter-number'>C</span>  <span class='chapter-title'>Exam Questions</span>"
@@ -2361,8 +2372,8 @@
     "objectID": "appendix/exam-questions.html#roc-kurve-og-auc",
     "href": "appendix/exam-questions.html#roc-kurve-og-auc",
     "title": "Appendix C — Exam Questions",
-    "section": "C.29 29. ROC-kurve og AUC",
-    "text": "C.29 29. ROC-kurve og AUC\nDK:\n\nRedegør for en receiver operating characteristic (ROC)-kurve og tolkningen af arealet under kurven.\n\nENG:\n\nExplain a receiver operating characteristic (ROC) curve and how to interpret the area under the curve.",
+    "section": "C.30 29. ROC-kurve og AUC",
+    "text": "C.30 29. ROC-kurve og AUC\nDK:\n\nRedegør for en receiver operating characteristic (ROC)-kurve og tolkningen af arealet under kurven.\n\nENG:\n\nExplain a receiver operating characteristic (ROC) curve and how to interpret the area under the curve.",
     "crumbs": [
       "Appendices",
       "<span class='chapter-number'>C</span>  <span class='chapter-title'>Exam Questions</span>"
@@ -2372,8 +2383,8 @@
     "objectID": "appendix/exam-questions.html#tærskelværdi-for-klinisk-binær-prædiktionsmodel",
     "href": "appendix/exam-questions.html#tærskelværdi-for-klinisk-binær-prædiktionsmodel",
     "title": "Appendix C — Exam Questions",
-    "section": "C.30 30. Tærskelværdi for klinisk binær prædiktionsmodel",
-    "text": "C.30 30. Tærskelværdi for klinisk binær prædiktionsmodel\nDK:\n\nRedegør for de centrale overvejelser ved fastsættelse af tærskelværdien (cut-off) for en klinisk binær prædiktionsmodel.\n\na. Hvordan omsættes disse overvejelser til en konkret tærskelværdi? Brug eventuelt nakkefoldsskanning som eksempel.\n\n\nENG:\n\nDescribe the key considerations in determining the threshold (cut-off) for a clinical binary prediction model.\n\na. How are these considerations translated into a specific threshold value? You may use the neck fold scan as an example.",
+    "section": "C.31 30. Tærskelværdi for klinisk binær prædiktionsmodel",
+    "text": "C.31 30. Tærskelværdi for klinisk binær prædiktionsmodel\nDK:\n\nRedegør for de centrale overvejelser ved fastsættelse af tærskelværdien (cut-off) for en klinisk binær prædiktionsmodel.\n\na. Hvordan omsættes disse overvejelser til en konkret tærskelværdi? Brug eventuelt nakkefoldsskanning som eksempel.\n\n\nENG:\n\nDescribe the key considerations in determining the threshold (cut-off) for a clinical binary prediction model.\n\na. How are these considerations translated into a specific threshold value? You may use the neck fold scan as an example.",
     "crumbs": [
       "Appendices",
       "<span class='chapter-number'>C</span>  <span class='chapter-title'>Exam Questions</span>"
@@ -2383,8 +2394,8 @@
     "objectID": "appendix/exam-questions.html#beslutningskurveanalyse",
     "href": "appendix/exam-questions.html#beslutningskurveanalyse",
     "title": "Appendix C — Exam Questions",
-    "section": "C.31 31. Beslutningskurveanalyse",
-    "text": "C.31 31. Beslutningskurveanalyse\nDK:\n\nRedegør for, hvordan en beslutningskurveanalyse tolkes.\n\nENG:\n\nExplain how to interpret a decision curve analysis.",
+    "section": "C.32 31. Beslutningskurveanalyse",
+    "text": "C.32 31. Beslutningskurveanalyse\nDK:\n\nRedegør for, hvordan en beslutningskurveanalyse tolkes.\n\nENG:\n\nExplain how to interpret a decision curve analysis.",
     "crumbs": [
       "Appendices",
       "<span class='chapter-number'>C</span>  <span class='chapter-title'>Exam Questions</span>"
@@ -2394,8 +2405,8 @@
     "objectID": "appendix/exam-questions.html#stikprøvestørrelse-for-ekstern-validering",
     "href": "appendix/exam-questions.html#stikprøvestørrelse-for-ekstern-validering",
     "title": "Appendix C — Exam Questions",
-    "section": "C.32 32. Stikprøvestørrelse for ekstern validering",
-    "text": "C.32 32. Stikprøvestørrelse for ekstern validering\nDK:\n\nRedegør for beregningen af stikprøvestørrelsen ved ekstern validering af en binær prædiktionsmodel.\n\nENG:\n\nDescribe the calculation of sample size for external validation of a binary prediction model.",
+    "section": "C.33 32. Stikprøvestørrelse for ekstern validering",
+    "text": "C.33 32. Stikprøvestørrelse for ekstern validering\nDK:\n\nRedegør for beregningen af stikprøvestørrelsen ved ekstern validering af en binær prædiktionsmodel.\n\nENG:\n\nDescribe the calculation of sample size for external validation of a binary prediction model.",
     "crumbs": [
       "Appendices",
       "<span class='chapter-number'>C</span>  <span class='chapter-title'>Exam Questions</span>"
@@ -2405,8 +2416,8 @@
     "objectID": "appendix/exam-questions.html#validering-af-prædiktionsmodel-for-kontinuert-udfald",
     "href": "appendix/exam-questions.html#validering-af-prædiktionsmodel-for-kontinuert-udfald",
     "title": "Appendix C — Exam Questions",
-    "section": "C.33 33. Validering af prædiktionsmodel for kontinuert udfald",
-    "text": "C.33 33. Validering af prædiktionsmodel for kontinuert udfald\nDK:\n\nRedegør for valideringen af en prædiktionsmodel for et kontinuert udfald.\n\nENG:\n\nDescribe the validation of a prediction model for a continuous outcome.",
+    "section": "C.34 33. Validering af prædiktionsmodel for kontinuert udfald",
+    "text": "C.34 33. Validering af prædiktionsmodel for kontinuert udfald\nDK:\n\nRedegør for valideringen af en prædiktionsmodel for et kontinuert udfald.\n\nENG:\n\nDescribe the validation of a prediction model for a continuous outcome.",
     "crumbs": [
       "Appendices",
       "<span class='chapter-number'>C</span>  <span class='chapter-title'>Exam Questions</span>"
@@ -2416,8 +2427,8 @@
     "objectID": "appendix/exam-questions.html#funnelplot-i-metaanalyse",
     "href": "appendix/exam-questions.html#funnelplot-i-metaanalyse",
     "title": "Appendix C — Exam Questions",
-    "section": "C.34 34. Funnelplot i metaanalyse",
-    "text": "C.34 34. Funnelplot i metaanalyse\nDK:\n\nRedegør for, hvordan et funnelplot konstrueres og tolkes i en metaanalyse.\n\nENG:\n\nDescribe how to construct and interpret a funnel plot in a meta-analysis.",
+    "section": "C.35 34. Funnelplot i metaanalyse",
+    "text": "C.35 34. Funnelplot i metaanalyse\nDK:\n\nRedegør for, hvordan et funnelplot konstrueres og tolkes i en metaanalyse.\n\nENG:\n\nDescribe how to construct and interpret a funnel plot in a meta-analysis.",
     "crumbs": [
       "Appendices",
       "<span class='chapter-number'>C</span>  <span class='chapter-title'>Exam Questions</span>"
@@ -2427,8 +2438,8 @@
     "objectID": "appendix/exam-questions.html#forest-plot-og-heterogenitet-i-metaanalyse",
     "href": "appendix/exam-questions.html#forest-plot-og-heterogenitet-i-metaanalyse",
     "title": "Appendix C — Exam Questions",
-    "section": "C.35 35. Forest plot og heterogenitet i metaanalyse",
-    "text": "C.35 35. Forest plot og heterogenitet i metaanalyse\nDK:\n\nRedegør for, hvordan et forest plot tolkes i en metaanalyse.\n\na. Redegør for heterogenitetsbegrebet og måling heraf.\nb. Hvad skal man være opmærksom på, når observationsstudier indgår i analysen?\n\n\nENG:\n\nDescribe how to interpret a forest plot in a meta-analysis.\n\na. Explain the concept of heterogeneity and how it is measured.\nb. What should be considered when observational studies are included in the analysis?",
+    "section": "C.36 35. Forest plot og heterogenitet i metaanalyse",
+    "text": "C.36 35. Forest plot og heterogenitet i metaanalyse\nDK:\n\nRedegør for, hvordan et forest plot tolkes i en metaanalyse.\n\na. Redegør for heterogenitetsbegrebet og måling heraf.\nb. Hvad skal man være opmærksom på, når observationsstudier indgår i analysen?\n\n\nENG:\n\nDescribe how to interpret a forest plot in a meta-analysis.\n\na. Explain the concept of heterogeneity and how it is measured.\nb. What should be considered when observational studies are included in the analysis?",
     "crumbs": [
       "Appendices",
       "<span class='chapter-number'>C</span>  <span class='chapter-title'>Exam Questions</span>"
@@ -2438,8 +2449,8 @@
     "objectID": "appendix/exam-questions.html#random--og-fixed-effects-i-metaanalyse",
     "href": "appendix/exam-questions.html#random--og-fixed-effects-i-metaanalyse",
     "title": "Appendix C — Exam Questions",
-    "section": "C.36 36. Random- og fixed-effects i metaanalyse",
-    "text": "C.36 36. Random- og fixed-effects i metaanalyse\nDK:\n\nRedegør for random- og fixed-effects i meta-analyser.\n\na. Hvornår bør random-effects anvendes, og hvad er ulemperne herved?\n\n\nENG:\n\nDescribe random- and fixed-effects in meta-analyses.\n\na. When should random-effects be used, and what are their disadvantages?",
+    "section": "C.37 36. Random- og fixed-effects i metaanalyse",
+    "text": "C.37 36. Random- og fixed-effects i metaanalyse\nDK:\n\nRedegør for random- og fixed-effects i meta-analyser.\n\na. Hvornår bør random-effects anvendes, og hvad er ulemperne herved?\n\n\nENG:\n\nDescribe random- and fixed-effects in meta-analyses.\n\na. When should random-effects be used, and what are their disadvantages?",
     "crumbs": [
       "Appendices",
       "<span class='chapter-number'>C</span>  <span class='chapter-title'>Exam Questions</span>"

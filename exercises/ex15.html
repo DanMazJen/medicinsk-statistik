@@ -46,9 +46,9 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-63e6cf94219cbf673df27f72823d3c16.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-167caceb79d943de669e658188e69319.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-49d44996144df8c5e3645a9854fa3a96.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-167caceb79d943de669e658188e69319.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-056c2a96e496cc96548c0e4d00b5295c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-d8292e4f31fee861f9d14a90d8505ca2.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-056c2a96e496cc96548c0e4d00b5295c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/quarto-contrib/fontawesome6-6.7.2/all.min.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/fontawesome6-6.7.2/latex-fontsize.css" rel="stylesheet">
 <script src="../site_libs/quarto-contrib/kbd/kbd.js"></script>
@@ -77,7 +77,32 @@ ul.task-list li input[type="checkbox"] {
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script>
+}</script><script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script><script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 </head>
 <body class="nav-sidebar floating nav-fixed quarto-light"><a id="quarto-skip-link" class="visually-hidden-focusable" href="#quarto-document-content">Skip to main content</a>
 
@@ -384,18 +409,18 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <section id="exercises" class="level2" data-number="22.1"><h2 data-number="22.1" class="anchored" data-anchor-id="exercises">
 <span class="header-section-number">22.1</span> Exercises:</h2>
-<p>A doctor or pharmaceutical company sends a request to the research team. You are responsible for translating that request into a statistical analysis plan. You must identify the estimand, decide which predictions or transformations are needed, and formulate a precise request to the statistician.</p>
+<p><strong>NB!</strong> These exercises are different from the rest of the course. They are more conceptual and are better if you can discuss with a friend or group. In your future job as a medIS specialist, doctors or pharmaceutical company will send scientific requests to you. You are responsible for translating that request into a statistical analysis plan. You must identify the estimand, decide which predictions or transformations are needed, and formulate a precise request to the statistician.</p>
 <p>Below are discussion cases based specifically on sections 15.11.1–15.11.4.</p>
 <p><strong>A1. Does the average patient exist?</strong></p>
 <p>A pharmaceutical company asks:</p>
-<p>We have developed a new treatment for stroke. We would like to know the probability of death for the average patient receiving the treatment.</p>
+<p>We have developed a new drug for <strong>stroke</strong>. As an expert, you know what the risk predictors are. We would like to know the probability of death for the average stroke patient, and these patients receiving the drug, in order to compute the average treatment effect.</p>
 <p>The statistician proposes to calculate the predicted probability of death for a patient with:</p>
 <ul>
 <li>Average age</li>
 <li>Average BMI</li>
-<li>Diabetes = balanced</li>
-<li>Hypertension = balanced</li>
-<li>Sex = balanced</li>
+<li>Diabetes = balanced (i.e., 50%-50%)</li>
+<li>Hypertension = balanced (i.e., 50%-50%)</li>
+<li>Sex = balanced (i.e., 50%-50%)</li>
 </ul>
 <p><strong>Questions for discussion</strong></p>
 <ol type="1">
@@ -403,6 +428,7 @@ ul.task-list li input[type="checkbox"] {
 <li>What does it mean for our study that we balance diabetes?</li>
 <li>What is the difference between predicting the outcome for an average patient and averaging predictions across all patients?</li>
 <li>Imagine that the population consists of two distinct groups: young patients with low mortality and older patients with high mortality. How does that affect your response on question 3?</li>
+<li>Consider the difference between the average patient receiving the treatment and the average Dane. What do you think would differ?</li>
 </ol>
 <details><summary><strong>Click for the solution</strong>
 </summary><ol type="1">
@@ -416,14 +442,54 @@ ul.task-list li input[type="checkbox"] {
 </ul>
 <ol start="4" type="1">
 <li>The average person is now useless. The average effect is still useful, but we should consider and interaction effect.</li>
+<li>Average patient has more disease disease predictors than average Dane.</li>
 </ol></details><p><strong>A2: The company wants a risk ratio, not an odds ratio</strong></p>
-<p>The statistician in your company has made a statistically correct and meaningful analysis on your dataset. You receive a Table 2 of the outcomes:</p>
-<!-- TODO: Write text here -->
+<p>The statistician in your company has made a statistically correct and meaningful analysis on your dataset.</p>
+<p>You receive a Table 2 of the outcomes:</p>
+<table class="caption-top table">
+<thead><tr class="header">
+<th>Parameter</th>
+<th style="text-align: right;">Log-odds</th>
+<th style="text-align: right;">SE</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>(Intercept)</td>
+<td style="text-align: right;">-6.3099</td>
+<td style="text-align: right;">0.00155</td>
+</tr>
+<tr class="even">
+<td>thrombectomy</td>
+<td style="text-align: right;">2.2030</td>
+<td style="text-align: right;">10.3</td>
+</tr>
+<tr class="odd">
+<td>prior_diabetes</td>
+<td style="text-align: right;">0.9933</td>
+<td style="text-align: right;">0.743</td>
+</tr>
+<tr class="even">
+<td>age_at_diagnosis</td>
+<td style="text-align: right;">0.0677</td>
+<td style="text-align: right;">0.0110</td>
+</tr>
+<tr class="odd">
+<td>prior_hypertention</td>
+<td style="text-align: right;">0.3920</td>
+<td style="text-align: right;">0.299</td>
+</tr>
+<tr class="even">
+<td>sex</td>
+<td style="text-align: right;">0.0392</td>
+<td style="text-align: right;">0.209</td>
+</tr>
+</tbody>
+</table>
 <p>The company asks:</p>
 <blockquote class="blockquote">
 <p>We need to communicate the relative reduction in mortality risk associated with our treatment. Please report the risk ratio rather than the odds ratio.</p>
 </blockquote>
-<p>The statistician explains that the correct estimator is logistic regression.</p>
+<p>The statistician explains that the correct estimator is logistic regression and that you should’nt change this.</p>
 <p><strong>Questions:</strong></p>
 <ol type="1">
 <li>What is the coefficients reporting?</li>
@@ -440,10 +506,51 @@ ul.task-list li input[type="checkbox"] {
 </summary><ol type="1">
 <li>log-odds ratios (log-OR)</li>
 <li>Odds ratios (OR)</li>
+</ol>
+<table class="caption-top table">
+<thead><tr class="header">
+<th>Parameter</th>
+<th style="text-align: right;">Odds ratio</th>
+<th style="text-align: right;">SE</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>(Intercept)</td>
+<td style="text-align: right;">0.00182</td>
+<td style="text-align: right;">0.00155</td>
+</tr>
+<tr class="even">
+<td>thrombectomy</td>
+<td style="text-align: right;">9.06</td>
+<td style="text-align: right;">10.3</td>
+</tr>
+<tr class="odd">
+<td>prior_diabetes</td>
+<td style="text-align: right;">2.70</td>
+<td style="text-align: right;">0.743</td>
+</tr>
+<tr class="even">
+<td>age_at_diagnosis</td>
+<td style="text-align: right;">1.07</td>
+<td style="text-align: right;">0.0110</td>
+</tr>
+<tr class="odd">
+<td>prior_hypertention</td>
+<td style="text-align: right;">1.48</td>
+<td style="text-align: right;">0.299</td>
+</tr>
+<tr class="even">
+<td>sex</td>
+<td style="text-align: right;">1.04</td>
+<td style="text-align: right;">0.209</td>
+</tr>
+</tbody>
+</table>
+<ol start="3" type="1">
 <li>Yes, we can compute relative risk (RR) using marginal effects.</li>
 <li>RD = -10%. RR = 0.66</li>
 </ol></details><p><strong>A3. The doctor wants to know whether treatment works</strong></p>
-<p>A doctor contacts the research team:</p>
+<p>A doctor contacts you as part of the research team:</p>
 <blockquote class="blockquote">
 <p>We have followed 500 patients with hypertension for 12 weeks. Some received Drug A and others received Drug B. The company wants to know whether Drug A is better than drug be on patients hypertension af 12 weeks of taking the drug.</p>
 </blockquote>
@@ -468,18 +575,21 @@ ul.task-list li input[type="checkbox"] {
 </ol>
 <details><summary><strong>Click for the solution</strong>
 </summary><ol type="1">
-<li>We want to know whether Drug A results in a greater &gt; reduction in systolic blood pressure after 12 weeks.</li>
+<li>We want to know whether Drug A results in a greater reduction in systolic blood pressure after 12 weeks.</li>
 <li>Only patients with hypertension</li>
 <li>The effect of the drug for all patients with hypertension.</li>
 <li>Maybe a difference in mean blood pressure at 12 weeks or a difference in mean change from baseline? Notice that they mean quite different things!</li>
 <li>Depends on you choice…</li>
 <li>This is a medical question…</li>
-</ol></details><p><strong>A2. The doctor wants to know whether age modifies treatment effect</strong></p>
+</ol>
+<ul>
+<li>But note that adjusting for <em>presence of hypertension</em> is <strong>always wrong</strong>.</li>
+</ul></details><p><strong>A4. The doctor wants to know whether age modifies treatment effect</strong></p>
 <p>A doctor suspects that Drug A works better in younger patients than in older patients.</p>
 <p>The research team has data on:</p>
 <ul>
 <li>Treatment (A/B)</li>
-<li>Age</li>
+<li>Age (continuous 18-99 years old)</li>
 <li>Baseline disease severity</li>
 <li>Outcome: death (yes/no)</li>
 </ul>
@@ -493,15 +603,24 @@ ul.task-list li input[type="checkbox"] {
 <li>Write a regression equation including an interaction term.</li>
 <li>What does the interaction coefficient tell us?</li>
 <li>Does the interaction coefficient directly tell us the treatment effect in younger patients?</li>
-<li>What estimates should the statistician report to make the results clinically meaningful?</li>
+<li>What estimates should the statistician report to make the results easier to interpret for you hypothesis for younger and older patients?</li>
 </ol>
 <details><summary><strong>Click for the solution</strong>
 </summary><ol type="1">
 <li>There is, to my knowledge, no good way to split age in groups. Keep it continuous.</li>
-<li>death ~ treatment + age + treatment:age + baseline_disease_severity</li>
+<li>Example (not only correct response):</li>
+</ol>
+<ul>
+<li><code>death ~ treatment + age + treatment:age + baseline_disease_severity</code></li>
+</ul>
+<p><span class="math display">\[
+  \text{death_i} \sim Binomial(1,p_i) \\
+  logit(p_i) = \text{treatment} + \text{age} + \text{treatment:age} + \text{baseline_disease_severity}
+\]</span></p>
+<ol start="3" type="1">
 <li>For each additional lifetime year (age), how does the treatment effect alter odds of survival.</li>
-<li>No, that’s a post-hoc calculation and we don’t get incertanties.</li>
-<li>Probability for death in a specified age-group, e.g., 30-40 and 65-75 and compare them directly.</li>
+<li>No, that’s a post-hoc calculation and we don’t get uncertanties.</li>
+<li>Probability for death in a specified age-group, e.g., 30-40 and 65-75 and compare them directly. Marginal effects does include uncertanties for confidence intervals and <em>p</em>-values. But this is beyond your curriculum 😄</li>
 </ol></details><!--
 use
 

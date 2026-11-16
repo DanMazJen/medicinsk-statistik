@@ -100,9 +100,9 @@ div.csl-indent {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-63e6cf94219cbf673df27f72823d3c16.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-167caceb79d943de669e658188e69319.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-49d44996144df8c5e3645a9854fa3a96.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-167caceb79d943de669e658188e69319.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-056c2a96e496cc96548c0e4d00b5295c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-d8292e4f31fee861f9d14a90d8505ca2.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-056c2a96e496cc96548c0e4d00b5295c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/quarto-contrib/fontawesome6-6.7.2/all.min.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/fontawesome6-6.7.2/latex-fontsize.css" rel="stylesheet">
 <script src="../site_libs/quarto-contrib/kbd/kbd.js"></script>
@@ -625,7 +625,7 @@ Baseline seizures ─────► Outcome (Seizures)
 <details><summary><strong>Click for a potential solution</strong>
 </summary><div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-dag" class="quarto-float quarto-figure quarto-figure-center anchored" width="70%" data-fig-align="center">
+<div id="fig-dag" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" width="70%">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-dag-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="session12_files/figure-html/fig-dag-1.png" id="fig-dag" class="img-fluid quarto-figure quarto-figure-center anchored figure-img" style="width:70.0%">
 </div>
@@ -721,7 +721,7 @@ $ log_age           &lt;dbl&gt; 0.11420370, 0.08141387, -0.10090768, 0.26373…<
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com">patchwork</a></span><span class="op">)</span></span>
 <span><span class="va">baseline_data_plot</span> <span class="op">+</span> <span class="va">posttrial_data_plot</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div id="fig-explore1" class="quarto-float quarto-figure quarto-figure-center anchored" width="70%" data-fig-align="center">
+<div id="fig-explore1" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" width="70%">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-explore1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="session12_files/figure-html/fig-explore1-1.png" id="fig-explore1" class="img-fluid quarto-figure quarto-figure-center anchored figure-img" style="width:70.0%">
 </div>
@@ -778,7 +778,7 @@ Figure&nbsp;14.2
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html">rbinom</a></span><span class="op">(</span><span class="fl">1e5</span>, <span class="fl">1000</span>, <span class="fl">1</span><span class="op">/</span><span class="fl">1000</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">var</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1.002420 1.005504</code></pre>
+<pre><code>[1] 0.9986500 0.9966381</code></pre>
 </div>
 </div>
 <p>As a result, the distribution only has one parameter, λ (pronounced <em>lambda</em>).</p>
@@ -1198,7 +1198,7 @@ plot_baseline_pred
 <span>    <span class="fu">labs</span><span class="op">(</span></span>
 <span>    y<span class="op">=</span><span class="st">"Count outcome space"</span></span>
 <span><span class="op">)</span> <span class="op">+</span> <span class="fu">coord_cartesian</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">5</span>,<span class="fl">150</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">5</span>,<span class="fl">150</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell quarto-layout-panel" data-layout-align="center" data-layout-ncol="2">
+<div class="cell quarto-layout-panel" data-layout-ncol="2" data-layout-align="center">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
@@ -1568,7 +1568,7 @@ Notice that:
 <span>                variables <span class="op">=</span> <span class="st">"smoke"</span>,</span>
 <span>                comparison <span class="op">=</span> <span class="st">"lnratioavg"</span>, <span class="co"># Calculates adjusted Risk Ratio</span></span>
 <span>                transform <span class="op">=</span> <span class="va">exp</span>, <span class="co"># then exponentiates</span></span>
-<span>                vcov <span class="op">=</span> <span class="fu">sandwich</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sandwich/man/vcovHC.html">vcovHC</a></span><span class="op">(</span><span class="va">model_rr</span>, type <span class="op">=</span> <span class="st">"HC3"</span><span class="op">)</span><span class="op">)</span> <span class="co"># Applies robust standard errors due to poisson regression approach</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span>                vcov <span class="op">=</span> <span class="fu">sandwich</span><span class="fu">::</span><span class="fu"><a href="https://zeileis.codeberg.page/sandwich/reference/vcovHC.html">vcovHC</a></span><span class="op">(</span><span class="va">model_rr</span>, type <span class="op">=</span> <span class="st">"HC3"</span><span class="op">)</span><span class="op">)</span> <span class="co"># Applies robust standard errors due to poisson regression approach</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Note the two important parameters:</p>
 <ul>

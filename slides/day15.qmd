@@ -570,6 +570,49 @@ p1+p2
 - A 70 year-old male without prior diabetes but having known hyptertension and
   received thrombectomy
 
+## Same procedure as every year...
+
+```{r}
+#| label: step-4
+
+b = coef(th_model)
+
+linpred_treatment_diabetes_50yo_female = b[1] +
+    b[2] * 1 + b[3] * 1 + b[4] * 50 + b[5] * 0 +
+    b[6] * 0 + b[7] * 1 + b[8] * 50 + b[9] * 0 + b[10] * 0
+
+linpred_treatment_diabetes_50yo_female |>
+    unname()
+```
+
+##
+
+```{r}
+#| label: marginal-g-step-4
+
+grid = data.frame(
+    thrombectomy = 1,
+    prior_diabetes = 1,
+    age_at_diagnosis = 50,
+    prior_hypertention = 0,
+    sex = 0
+)
+
+predictions(th_model, newdata = grid, type = "link")
+```
+
+##
+
+```{r}
+#| label: g-function
+
+g = \(x) 1 / (1 + exp(-x)) |> unname()
+
+g(linpred_treatment_diabetes_50yo_female)
+
+predictions(th_model, newdata = grid, type = "response")
+```
+
 ## Workflow recap
 
 ![](images/marginal_workflow.png){.r-stretch fig-align="center"}
@@ -762,6 +805,26 @@ So we conclude that:
 > difference of −9.3 percentage points
 :::
 
+## Even better (but beyond your curriculum)
+
+```{r}
+#| label: delta-method
+#| echo: false
+#| output: true
+#| warning: false
+
+avg_predictions(
+    th_model,
+    by="thrombectomy",
+    hypothesis = "b1 - b2 = 0"
+    )
+```
+
+::: {.r-fit-text}
+> Risk difference (no treatment minus treatment) was 9.34% points (SE = 0.026, z =
+> 3.59, p < .001, 95%CI [0.043, 0.144]).
+:::
+
 ## RQ 2: Treatment effect of older adults conditional on diabetes status
 
 > "What is the effect of thrombectory in older adults with diabetes, compared to
@@ -866,7 +929,6 @@ avg_predictions(
 - How can we find out?
 - What should we consider?
 - What can go wrong here?
-- Why could be good about this approach?
 :::
 
 ## Our sample is unbalanced
@@ -983,7 +1045,7 @@ avg_predictions(th_model, variables = list(thrombectomy = 0:1))
 ```
 
 ::: {.fragment}
-> For each individual in the Synthetic DanStroke {`medisr`} sample, what is the
+> For each individual in the Synthetic DanStroke `{medisr}` sample, what is the
 > predicted probability of death in the counterfactual world where they receive
 > thrombectory, and where they did not?
 :::
@@ -993,8 +1055,8 @@ avg_predictions(th_model, variables = list(thrombectomy = 0:1))
 **Risk difference**
 
 ```{r}
+#| label: counterfactual-comp
 #| echo: true
-#| code-line-numbers: "1"
 
 avg_comparisons(
     th_model,
@@ -1002,7 +1064,7 @@ avg_comparisons(
     )
 ```
 
-> A risk difference of -3.17%, favoring thrombectomy
+> A risk difference of -3.17%, favoring thrombectomy (n.s.).
 
 ::: {.notes}
 The `comparisons()` function above computed the predicted probability of
@@ -1018,6 +1080,7 @@ The average treatment effect in our sample, computes as (marginal) adjusted risk
 ratios:\*\*
 
 ```{r}
+#| label: risk-ratio-counterfatual
 #| echo: true
 
 avg_comparisons(
@@ -1029,8 +1092,8 @@ avg_comparisons(
 ```
 
 > The model-estimated 1-year mortality was 27.1% in the absence of thrombectomy
-> and 23.9% under thrombectomy, corresponding to an adjusted risk ratio of
-> 0.883.
+> and 23.9% under thrombectomy, corresponding to an adjusted risk ratio of 0.883
+> (n.s.).
 
 ## Notice what we did there 👀
 

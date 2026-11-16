@@ -10,10 +10,13 @@ exercises build on this material.
 
 ## Exercises:
 
-A doctor or pharmaceutical company sends a request to the research team. You are
-responsible for translating that request into a statistical analysis plan. You
-must identify the estimand, decide which predictions or transformations are
-needed, and formulate a precise request to the statistician.
+**NB!** These exercises are different from the rest of the course. They are more
+conceptual and are better if you can discuss with a friend or group. In your
+future job as a medIS specialist, doctors or pharmaceutical company will send
+scientific requests to you. You are responsible for translating that request
+into a statistical analysis plan. You must identify the estimand, decide which
+predictions or transformations are needed, and formulate a precise request to
+the statistician.
 
 Below are discussion cases based specifically on sections 15.11.1--15.11.4.
 
@@ -21,17 +24,19 @@ Below are discussion cases based specifically on sections 15.11.1--15.11.4.
 
 A pharmaceutical company asks:
 
-We have developed a new treatment for stroke. We would like to know the
-probability of death for the average patient receiving the treatment.
+We have developed a new drug for **stroke**. As an expert, you know what the
+risk predictors are. We would like to know the probability of death for the
+average stroke patient, and these patients receiving the drug, in order to
+compute the average treatment effect.
 
 The statistician proposes to calculate the predicted probability of death for a
 patient with:
 
 - Average age
 - Average BMI
-- Diabetes = balanced
-- Hypertension = balanced
-- Sex = balanced
+- Diabetes = balanced (i.e., 50%-50%)
+- Hypertension = balanced (i.e., 50%-50%)
+- Sex = balanced (i.e., 50%-50%)
 
 **Questions for discussion**
 
@@ -42,6 +47,8 @@ patient with:
 4. Imagine that the population consists of two distinct groups: young patients
    with low mortality and older patients with high mortality. How does that
    affect your response on question 3?
+5. Consider the difference between the average patient receiving the treatment
+   and the average Dane. What do you think would differ?
 
 <details>
 <summary>**Click for the solution**</summary>
@@ -52,21 +59,32 @@ patient with:
   - predicting the outcome for an average patient: represents one imaginary profile's estimate.
   - averaging predictions across all patients: the average effect for all profiles in our sample.
 4. The average person is now useless. The average effect is still useful, but we should consider and interaction effect.
+5. Average patient has more disease disease predictors than average Dane.
 </details>
 
 **A2: The company wants a risk ratio, not an odds ratio**
 
 The statistician in your company has made a statistically correct and meaningful
-analysis on your dataset. You receive a Table 2 of the outcomes:
+analysis on your dataset.
 
-<!-- TODO: Write text here -->
+You receive a Table 2 of the outcomes:
+
+  | Parameter          | Log-odds | SE      |
+  | ------------------ | -------: | ------: |
+  | (Intercept)        |  -6.3099 | 0.00155 |
+  | thrombectomy       |   2.2030 |    10.3 |
+  | prior_diabetes     |   0.9933 |   0.743 |
+  | age_at_diagnosis   |   0.0677 |  0.0110 |
+  | prior_hypertention |   0.3920 |   0.299 |
+  | sex                |   0.0392 |   0.209 |
 
 The company asks:
 
 > We need to communicate the relative reduction in mortality risk associated
 > with our treatment. Please report the risk ratio rather than the odds ratio.
 
-The statistician explains that the correct estimator is logistic regression.
+The statistician explains that the correct estimator is logistic regression and
+that you should'nt change this.
 
 **Questions:**
 
@@ -87,13 +105,23 @@ Calculate: the Risk difference and risk ratio.
 <summary>**Click for the solution**</summary>
 1. log-odds ratios (log-OR)
 2. Odds ratios (OR)
+
+  | Parameter          | Odds ratio | SE      |
+  | ------------------ | ---------: | ------: |
+  | (Intercept)        |    0.00182 | 0.00155 |
+  | thrombectomy       |       9.06 |    10.3 |
+  | prior_diabetes     |       2.70 |   0.743 |
+  | age_at_diagnosis   |       1.07 |  0.0110 |
+  | prior_hypertention |       1.48 |   0.299 |
+  | sex                |       1.04 |   0.209 |
+
 3. Yes, we can compute relative risk (RR) using marginal effects.
 4. RD = -10%. RR = 0.66
 </details>
 
 **A3. The doctor wants to know whether treatment works**
 
-A doctor contacts the research team:
+A doctor contacts you as part of the research team:
 
 > We have followed 500 patients with hypertension for 12 weeks. Some received
 > Drug A and others received Drug B. The company wants to know whether Drug A is
@@ -121,17 +149,17 @@ Your tasks:
 <details>
 <summary>**Click for the solution**</summary>
 
-1. We want to know whether Drug A results in a greater
-> reduction in systolic blood pressure after 12 weeks.
+1. We want to know whether Drug A results in a greater reduction in systolic blood pressure after 12 weeks.
 2. Only patients with hypertension
 3. The effect of the drug for all patients with hypertension.
 4. Maybe a difference in mean blood pressure at 12 weeks or a difference
   in mean change from baseline? Notice that they mean quite different things!
 5. Depends on you choice...
 6. This is a medical question...
+  - But note that adjusting for *presence of hypertension* is **always wrong**.
 </details>
 
-**A2. The doctor wants to know whether age modifies treatment effect**
+**A4. The doctor wants to know whether age modifies treatment effect**
 
 A doctor suspects that Drug A works better in younger patients than in older
 patients.
@@ -139,7 +167,7 @@ patients.
 The research team has data on:
 
 - Treatment (A/B)
-- Age
+- Age (continuous 18-99 years old)
 - Baseline disease severity
 - Outcome: death (yes/no)
 
@@ -154,17 +182,25 @@ Your tasks:
 3. What does the interaction coefficient tell us?
 4. Does the interaction coefficient directly tell us the treatment effect in
    younger patients?
-5. What estimates should the statistician report to make the results clinically
-   meaningful?
+5. What estimates should the statistician report to make the results easier to
+   interpret for you hypothesis for younger and older patients?
 
 <details>
 <summary>**Click for the solution**</summary>
 
 1. There is, to my knowledge, no good way to split age in groups. Keep it continuous.
-2. death ~ treatment + age + treatment:age + baseline_disease_severity
+2. Example (not only correct response):
+
+- `death ~ treatment + age + treatment:age + baseline_disease_severity`
+
+$$
+  \text{death_i} \sim Binomial(1,p_i) \\
+  logit(p_i) = \text{treatment} + \text{age} + \text{treatment:age} + \text{baseline_disease_severity}
+$$
+
 3. For each additional lifetime year (age), how does the treatment effect alter odds of survival.
-4. No, that's a post-hoc calculation and we don't get incertanties.
-5. Probability for death in a specified age-group, e.g., 30-40 and 65-75 and compare them directly.
+4. No, that's a post-hoc calculation and we don't get uncertanties.
+5. Probability for death in a specified age-group, e.g., 30-40 and 65-75 and compare them directly. Marginal effects does include uncertanties for confidence intervals and *p*-values. But this is beyond your curriculum 😄
 </details>
 
 <!--

@@ -365,10 +365,10 @@ length of stay in the exercises 😄
 :::
 
 $$
-  y_i = Binomial(n,p_i) \\
+  y_i = Binomial(1,p_i) \\
   logit(p_i) = α + βx_i
 $$
-where *n* is the number of observations and *p* is the probability of death.
+where *p* is the probability of death.
 
 The logit function is defined as the *log-odds*:
 

@@ -3,6 +3,52 @@
 This section provides all exam questions that you could be asked to answer
 during the examination.
 
+## How should I answer?
+
+- **A Konfidensintervaller**
+
+Explain what a 95% confidence interval represents. a. How is a confidence
+interval that includes the null value interpreted?
+
+**Model answer:**
+
+A 95% confidence interval describes the uncertainty around an estimated
+parameter. In repeated sampling, 95% of confidence intervals constructed using
+the same procedure would contain the true parameter.
+
+If the interval includes the null value (0 for a difference, 1 for a ratio), the
+result is not statistically significant at the 5% level in a corresponding
+two-sided test.
+
+- **B Poisson-regression og log-link**
+
+Explain why a log-link function is used in Poisson regression.
+
+a. How are the regression coefficients interpreted in a Poisson regression model
+   with a log-link and offset?
+
+**Model answer:**
+
+The log-link ensures that predicted mean values are positive, as required for
+count data, while allowing the model to be linear in log-space.
+
+Exponentiated regression coefficients are interpreted as incidence rate ratios
+(IRRs), assuming an appropriate offset when modelling rates. An IRR above 1
+indicates an increased rate, whereas an IRR below 1 indicates a decreased rate.
+
+- **General recommendations:**
+
+**Stay brief and concise:**
+
+- Imagine a medical doctor being asked what the active compound is. You would
+  hope for a short and concise answer, e.g. *"The active compound is
+  methylphenidate, which is a central stimulant."*
+- Stating anything more will not demonstrate more expertise in the subject.
+- You are always allowed to say more, in order to "ease into" the answer. But
+  this is not rewarded with a higher grade.
+
+--------------------------------------------------------------------------------
+
 ## 1. Betinget uafhængighed og confounding
 
 **DK:**

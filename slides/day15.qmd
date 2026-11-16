@@ -81,7 +81,7 @@ th_model <- glm(
 
 ![Journal papers...](../slides/images/misinterpretation_everywhere.png){fig-align="center"}
 
-## Case 15: "The coefficient is 0.65... and so what? {.smaller .scrollable}
+## Case 15: "The coefficient is 9... and so what? {.smaller .scrollable}
 
 At the stroke research meeting, the biostatistician puts a slide on the screen.
 

@@ -490,6 +490,19 @@ ul.task-list li input[type="checkbox"] {
 <li>Can you recommend Model B based on these results alone?</li>
 <li>What additional information would you need before making a recommendation?</li>
 </ol>
+<details>
+<summary>
+<strong>Click for the solution</strong>
+</summary>
+<ol type="1">
+<li>Proportion of false positives</li>
+<li>B</li>
+<li>A</li>
+<li>Overall more correct in classifying both positive and negative cases.</li>
+<li>No! We need ABCD framework. We have non right now…</li>
+<li>Calibration, discrimination, and decision curve analysis.</li>
+</ol>
+</details>
 <p><strong>A3. The pharmaceutical company wants to know which model is best</strong></p>
 <p>Two research teams have developed prediction models for one-year mortality following stroke.</p>
 <p>The pharmaceutical company asks:</p>
@@ -538,7 +551,21 @@ ul.task-list li input[type="checkbox"] {
 <li>Can a model with an AUC of 0.90 still make poor predictions?</li>
 <li>Which model would you recommend if the only objective is to distinguish between patients who die and patients who survive?</li>
 </ol>
-<p><strong>A5. The doctor wants probabilities that can be trusted</strong></p>
+;
+<details>
+<summary>
+<strong>Click for the solution</strong>
+</summary>
+<ol type="1">
+<li>AUC in binary prediction is discrimination: The probability that the model will correctly assign higher risk to an individual with a disease than an individual without the disease, if it randomly drew to pairs from the binary outcome groups.</li>
+<li>91% of the time, that model would correctly assign higher probability for the sick person than the healthy control (but not necessarily put the correct label on them!).</li>
+<li>Overall, assigns the correct label more often. But this could be due to misbalance in the data (similar to exercise A1).</li>
+<li>No! It’s every possible threshold applied.</li>
+<li>Absolutely! That is a questions that should be answered with calibration!</li>
+<li>AUC.</li>
+</ol>
+</details>
+<p><strong>A4. The doctor wants probabilities that can be trusted</strong></p>
 <p>A hospital has developed a model to predict the probability of death within 30 days after surgery.</p>
 <p>The doctor explains:</p>
 <blockquote class="blockquote">
@@ -581,6 +608,20 @@ ul.task-list li input[type="checkbox"] {
 <li>Which model would you prefer if the purpose is to communicate individual mortality risks to patients?</li>
 <li>Can you conclude that Model B is the better prediction model overall?</li>
 </ol>
+<details>
+<summary>
+<strong>Click for the solution</strong>
+</summary>
+<ol type="1">
+<li>Calibration is whether the predictions can be interpreted as probabilities. If this is not the case, they have no interpretable clinical meaning.</li>
+<li>Overestimating.</li>
+<li>No - on average it is, but any value could be wrong systematically!</li>
+<li>CITL assess marginal prediction. Calibration slope assess every predictions’ correspondence to actual probability.</li>
+<li>Predicted risks too extreme.</li>
+<li>B!</li>
+<li>No, we need a decision curve analysis if the model should be used clincally. But for a statistical model that would not have any cost/ethical decisions, this is actually sufficient.</li>
+</ol>
+</details>
 <!--
 ### A: Reviewing other's models
 

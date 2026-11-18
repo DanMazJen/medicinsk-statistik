@@ -10,6 +10,159 @@ exercises build on this material.
 
 ## Exercises:
 
+NB! These exercises are different from the rest of the course. They are
+conceptual and are best discussed with a friend or in groups.
+
+In your future job as a medIS specialist, doctors, researchers, and
+pharmaceutical companies will ask you whether a prediction model is good enough
+to use in clinical practice.
+
+Your responsibility is to translate their requests into statistical questions.
+You must identify what they actually want to know, which validation measure is
+appropriate, and what conclusions can and cannot be drawn from the results.
+
+Remember: A model can perform well according to one measure and poorly according
+to another. There is no single number that tells us whether a prediction model
+is good.
+
+**A1. The hospital wants a highly accurate model**
+
+A researcher from Phraut University has developed a prediction model to identify
+patients at risk of developing sepsis within 48 hours of admission.
+
+The model has been validated on 1,000 patients:
+
+- 950 patients did not develop sepsis.
+- 50 patients developed sepsis.
+
+The model predicts that every patient will not develop sepsis.
+
+The researcher reports:
+
+> My model has an accuracy of 95%. This is an excellent result, and we recommend
+> implementing the model in clinical practice.
+
+**Questions for discussion**
+
+1. How can the model achieve 95% accuracy without identifying a single patient
+   with sepsis?
+2. Does accuracy tell us whether the model is useful for identifying patients
+   with sepsis?
+3. What happens if the prevalence of sepsis changes from 5% to 30%?
+4. Which additional performance measures would you request from the
+   statistician?
+4. Imagine you are responsible for deciding whether to implement this model.
+   Would you accept the researchers's recommendation?
+
+<details>
+<summary>**Click for the solution**</summary>
+
+1. The 5% inccorect are all the patients...
+2. No.
+3. Then, accuracy becomes 70%.
+4. Sensitivity (or positive predictive value)
+5. Hell no!
+
+</details>
+
+**A2. The doctor wants to avoid false alarms**
+
+A doctor contacts you:
+
+> We have developed a prediction model for identifying patients who will develop
+> acute kidney injury during hospital admission. We want to make sure that the
+> model does not generate too many false alarms. Otherwise, we will
+> unnecessarily perform additional examinations on healthy patients.
+
+The statistician provides the following results:
+
+  | Measure     | Model A | Model B |
+  | ----------: | :-----: | :------ |
+  | Sensitivity |   90%   | 65%     |
+  |   Specificy |   70%   | 95%     |
+  |    Accuracy |   75%   | 85%     |
+
+The doctor asks you which model should be implemented.
+
+Questions for discussion
+
+1. What does specificity measure?
+2. Which model is better at avoiding false positives?
+3. Which model is better at identifying patients who actually develop kidney
+   injury?
+4. Why does Model B have higher accuracy?
+5. Can you recommend Model B based on these results alone?
+6. What additional information would you need before making a recommendation?
+
+**A3. The pharmaceutical company wants to know which model is best**
+
+Two research teams have developed prediction models for one-year mortality
+following stroke.
+
+The pharmaceutical company asks:
+
+> We want to know which model is best at distinguishing between patients who
+> will die and patients who will survive. We do not want to choose a specific
+> classification threshold yet.
+
+The statistician reports:
+
+  | Measure     | Model A | Model B |
+  | ----------: | :-----: | :------ |
+  | Sensitivity |   80%   | 65%     |
+  |   Specificy |   90%   | 95%     |
+  |    Accuracy |   85%   | 89%     |
+  |         AUC |  0.91   | 0.78    |
+
+The company is confused because Model B has higher accuracy, but Model A has
+higher AUC.
+
+Questions for discussion
+
+1. What does AUC measure?
+2. What does an AUC of 0.91 tell us?
+3. Why can Model B have higher accuracy but lower AUC?
+4. Does AUC depend on the classification threshold?
+5. Can a model with an AUC of 0.90 still make poor predictions?
+6. Which model would you recommend if the only objective is to distinguish
+   between patients who die and patients who survive?
+
+**A5. The doctor wants probabilities that can be trusted**
+
+A hospital has developed a model to predict the probability of death within 30
+days after surgery.
+
+The doctor explains:
+
+> We want to use the predicted probabilities to communicate the risk of death to
+> patients and to plan postoperative care. If the model predicts a 20% risk, we
+> want that prediction to mean something clinically.
+
+The statistician evaluates the model and reports the following results:
+
+  | Measure                         | Model A | Model B |
+  | ------------------------------: | :-----: | :------ |
+  |                             AUC |  0.90   | 0.78    |
+  | Calibration-in-the-large (CITL) |  -0.80  | 0.02    |
+  |               Calibration slope |  0.65   | 1.02    |
+
+Questions for discussion
+
+1. What does calibration measure, and why is it important when communicating
+   predicted probabilities to patients?
+2. Model A has a CITL of -0.80. What does this tell us about its predictions? Is
+   it systematically overestimating or underestimating mortality?
+3. Model B has a CITL close to zero. Does this mean that Model B is perfectly
+   calibrated?
+4. What is the difference between calibration-in-the-large and calibration
+   slope?
+5. Model A has a calibration slope of 0.65. What does this tell us about its
+   predictions? Are the predicted risks too extreme or not extreme enough?
+6. Which model would you prefer if the purpose is to communicate individual
+   mortality risks to patients?
+7. Can you conclude that Model B is the better prediction model overall?
+
+<!--
 ### A: Reviewing other's models
 
 **Exercise 1A**: What does "validation" actually mean?
@@ -81,14 +234,17 @@ individuals according to their risk.
 **Exercise 2A**: AUC versus calibration
 
 Consider two models:
+-->
 
 <!-- panache-ignore-format-start-->
-|Model	| AUC	| Calibration |
+<!--|Model	| AUC	| Calibration |
 |-------|-------|-------------|
 |A	    | 0.86	| Poor        |
 |B	    | 0.76	| Excellent   |
+-->
 <!-- panache-ignore-format-end-->
 
+<!--
 A colleague says:
 
 > "Model A is clearly better because its AUC is higher."
@@ -280,3 +436,4 @@ Two models are evaluated in the same external validation dataset.
 Learning goal: Integrate discrimination, calibration, and clinical usefulness
 when evaluating predictive models rather than relying on a single performance
 measure.
+-->

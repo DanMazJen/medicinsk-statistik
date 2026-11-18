@@ -1,9 +1,5 @@
 # Evaluating a crystal ball - part 1 {#sec-classification}
 
-{{< text_snippet wip >}}
-
-> The future is now
-
 ```{r}
 #| label: setup
 #| include: false
@@ -14,7 +10,6 @@ library(dplyr)
 library(ggplot2)
 library(yardstick)
 library(probably)
-library(tidyr)
 library(tidyr)
 #hd_data <- readr::read_csv(
 #  "https://raw.githubusercontent.com/DanMazJen/medicinsk-statistik/main/data/hd_data.csv"
@@ -178,7 +173,8 @@ model <- glm(
 So
 
 $$
-  \text{impairment}_i \sim age + male + tau + p\_tau + Ab\_42 + genotype
+  logit(\text{cognitive impairment}) \sim Binomial(1, p_i) \\
+  p_i \sim age + male + tau + p\_tau + Ab\_42 + genotype
 $$
 where:
 
@@ -1240,9 +1236,9 @@ where $\hat{p}_i$ the predicted risk from the original model and the coefficient
 of logit($\hat{p}_i$) is fixed at 1. The estimated intercept α is the
 calibration-in-the-large.
 
-- citl = 1: no overall calibration-in-the-large error.
-- citl < 1: predicted risks are too high on average.
-- citl > 1: predicted risks are too low on average.
+- citl = 0: no overall calibration-in-the-large error.
+- citl < 0: predicted risks are too high on average.
+- citl > 0: predicted risks are too low on average.
 
 Remember the **offset** from @sec-poisson? The key difference is that an offset
 in Poisson regression adjusts the expected count for exposure, whereas an offset
@@ -1321,7 +1317,7 @@ citl_model <- ad_validation_logistic |>
   glm(outcome ~ 1 + offset(logit_p),
       data = _, family = binomial())
 
-broom::tidy(citl_model, conf.int = TRUE, exponentiate = TRUE)
+broom::tidy(citl_model, conf.int = TRUE, exponentiate = FALSE)
 
 slope_model <- ad_validation_logistic |>
     mutate(
@@ -1330,8 +1326,16 @@ slope_model <- ad_validation_logistic |>
     ) |>
         glm(outcome ~ logit_p, data = _, family = binomial)
 
-broom::tidy(slope_model, conf.int = TRUE) # don't exponentiate!
+broom::tidy(slope_model, conf.int = TRUE, exponentiate = FALSE)
 ```
+
+::: {.callout-tip}
+## Stay in log-odds ratio space!
+
+Note that we do *not* want to exponentiate here. When we interpret the CITL and
+calibration slope, we want to stay in log-odds space. Thus, we keep the sign (±)
+and linear/constant interpretation.
+:::
 
 ### Visualizing calibration
 
@@ -1768,8 +1772,8 @@ Riley et al. [@riley2021minimum] use an approximate formula for the standard
 error:
 
 $$
-  𝑆𝐸(𝐶)
-  ≈ \frac{\sqrt{𝐶(1 − 𝐶) (1 + (𝑁𝜙 − 1)1 − 𝐶2 − 𝐶 + (𝑁(1 − 𝜙) − 1)𝐶1 + 𝐶)}} {𝑁2𝜙(1 − 𝜙)}.
+  SE(C)
+  \approx \frac{\sqrt{C(1 - C) \left( 1 + \left( \frac{N}{2} - 1 \right)\left( \frac{1 - C}{2 - C} \right) + \frac{\left( \frac{N}{2} - 1 \right)C}{1 + C} \right)}}{N\sqrt{\phi(1 - \phi)}}
 $$
 
 This equation is not conveniently rearranged to give $N$ directly. Instead, we
@@ -1798,9 +1802,13 @@ criterion.
 In this case, it is:
 
 $$
-  SE(C)
-  \approx \sqrt{\frac{0.70(1 - 0.70)}{1413^2(0.10)(1 - 0.10)} \Bigg[1 + (1413 \times 0.10 - 1)\frac{1 - 0.70}{2 - 0.70} + (1413 \times (1 - 0.10) - 1)\frac{0.70}{1 + 0.70}\Bigg]}
-  \approx 0.0255
+  \begin{aligned}
+    SE(C)
+     & \approx
+    \sqrt{\frac{0.70(1 - 0.70)}{1154^2(0.10)(1 - 0.10)} \Bigg[ 1 + \left( \frac{1154}{2} - 1 \right) \frac{1 - 0.70}{2 - 0.70} + \frac{\left( \frac{1154}{2} - 1 \right)0.70}{1 + 0.70} \Bigg]}
+     \\[6pt]
+     & \approx 0.0255.
+  \end{aligned}
 $$
 
 <!--
@@ -1821,7 +1829,7 @@ so $N = 1413$
 
 # Our selected values
 p  <- 0.70
-n  <- 1000:1500
+n  <- 800:1300
 pi <- 0.10
 
 # Compute the first fraction
@@ -1829,8 +1837,8 @@ broek <- (p * (1 - p)) / (n^2 * pi * (1 - pi))
 
 # Break up the large formula insude the square brackets [ ] at every plus sign
 led_1 <- 1
-led_2 <- (n * pi - 1) * ((1 - p) / (2 - p))
-led_3 <- (n * (1 - pi) - 1) * (p / (1 + p))
+led_2 <- (n / 2 - 1) * ((1 - p) / (2 - p))
+led_3 <- (n / 2 - 1) * (p / (1 + p))
 
 # Take the sqrt of it all
 SE_C <- sqrt(broek * (led_1 + led_2 + led_3))
@@ -1839,7 +1847,7 @@ SE_C <- sqrt(broek * (led_1 + led_2 + led_3))
 ggplot(data.frame(n,SE_C),aes(n,SE_C)) +
     geom_line() +
     geom_hline(yintercept=0.0255) +
-    geom_text(aes(label = "x"), x = 1413, y = 0.0255, size = 5, color = "red")
+    geom_text(aes(label = "x"), x = 1154, y = 0.0255, size = 5, color = "red")
 ```
 
 The interpretation is:
@@ -1914,9 +1922,9 @@ a *C*-statistic of 0.89 would look like this:
 
 pmsampsize::pmsampsize(
     type = "b", # binary
-    cstatistic = 0.89, # concordance/AUC
-    parameters = 24, # covariates
-    prevalence = 0.174 # cognitive impairment
+    cstatistic = 0.70, # concordance/AUC
+    parameters = 6, # covariates
+    prevalence = 0.10 # cognitive impairment
     )
 ```
 

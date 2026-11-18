@@ -7,21 +7,24 @@ smaller: true
 
 # Evaluating a crystal ball - part 1 {.center .align-center}
 
-![caption](../slides/images/crystal_ball_future.jpeg)
+![](../slides/images/crystal_ball_future.jpeg)
 
 ## The ABCD Framework {.center .align-center}
 
 A useful way to remember prediction-model evaluation:
 
+::: {.r-fit-text}
 - **A** = Calibration-in-the-large
 - **B** = Calibration slope
 - **C** = C-statistic / Discrimination
 - **D** = Decision curve / Clinical usefulness
+:::
 
 ## Case Study: Cognitive Impairment Prediction
 
 We evaluate a logistic regression model predicting cognitive impairment from:
 
+::: {.r-fit-text}
 - Age
 - Sex (male)
 - Tau protein
@@ -30,16 +33,20 @@ We evaluate a logistic regression model predicting cognitive impairment from:
 - APOE genotype (6 variants)
 
 **Outcome**: Impaired vs Control (gold-standard neuropsychological testing)
+:::
 
 ## The Prediction Model
 
+::: {.r-fit-text}
 The model was trained on a separate training set:
 
 $$
-  impairment_i \sim age + male + tau + p\_tau + Ab\_42 + genotype
+  logit(\text{cognitive impairment}) \sim Binomial(1, p_i) \\
+  p_i \sim age + male + tau + p\_tau + Ab\_42 + genotype
 $$
 
 where predictors are measured in cerebrospinal fluid via lumbar puncture.
+:::
 
 ::: {.notes}
 Tau and p_tau: biomarkers related to neurofibrillary tangles Ab_42: Amyloid beta
@@ -150,12 +157,14 @@ p2
 
 ## What We Need
 
+::: {.r-fit-text}
 A prediction model can be evaluated from two things:
 
 - What actually happened (observed outcome)
 - What the model predicted (predicted probabilities)
 
 Here we use predictions from a pre-trained logistic regression model.
+:::
 
 ::: {.notes}
 We work with ad_validation_logistic which contains: - Class: the observed
@@ -164,7 +173,7 @@ outcome - .pred_impaired: predicted probability of impairment
 No need to fit a model; we simply evaluate its predictions.
 :::
 
-## The Validation Data
+## The Validation Data {.r-fit-text}
 
 ```{r}
 #| label: get-data
@@ -173,6 +182,7 @@ No need to fit a model; we simply evaluate its predictions.
 ad_validation_logistic <- medisr::ad_validation_logistic
 ```
 
+::: {.r-fit-text}
 Class = observed outcome. `.pred_impaired` = predicted probability of
 impairment.
 
@@ -182,14 +192,16 @@ impairment.
 
 head(ad_validation_logistic)
 ```
+:::
 
 ::: {.notes}
 The dataset contains 167 observations with: - Class: factor with levels
 "control" and "impaired" - .pred_impaired: numeric predicted probabilities
 :::
 
-## Confusion Matrix
+## Confusion Matrix {.r-fit-text}
 
+::: {.r-fit-text}
 How many were correctly classified?
 
 ```{r}
@@ -219,6 +231,7 @@ conf_mat(
   estimate = .pred_class
 )
 ```
+:::
 
 ::: {.notes}
 Pattern observed: - Many more control participants (123) than cognitively
@@ -328,14 +341,13 @@ This distinction is crucial for understanding model performance.
 - Good at identifying controls
 - Few false positives
 - Conservative about calling impairment
-
-::::::: {.column}
+:::::
+::::: {.column}
 ### Sensitivity = 56.8%
 
 - Misses many impaired cases
 - More false negatives
 - Not aggressive enough
-:::::::
 :::::
 :::
 
@@ -343,11 +355,18 @@ This distinction is crucial for understanding model performance.
 
 **Discuss with your neighbor:**
 
+Until now, we used a threshold of 50%...
+
 - Which diagnosis would you prefer a **lower** probability threshold? Why?
 - Which diagnosis would you prefer a **higher** probability threshold? Why?
 
-Consider consequences: - Cost of treatment - Side-effects - Effectiveness of
-treatment
+Consider consequences:
+
+- Cost of treatment
+- Side-effects
+- Effectiveness of treatment
+
+You will learn more about this is the next workshop.
 
 ::: {.notes}
 Sensitivity and specificity depend on the chosen probability threshold.
@@ -377,6 +396,7 @@ roc_curve(ad_validation_logistic, Class, .pred_impaired, event_level = "first" )
 
 ## Area Under the Curve
 
+::: {.r-fit-text}
 ```{r}
 #| label: auc
 
@@ -384,6 +404,7 @@ roc_auc(ad_validation_logistic, Class, .pred_impaired)
 ```
 
 **AUC** = area under the ROC curve
+:::
 
 ::: {.notes}
 AUC can be interpreted as the probability that the model assigns a higher
@@ -397,12 +418,28 @@ accurate.
 
 ## Key Idea
 
+::: {.r-fit-text}
 > No single metric evaluates a prediction model completely.
 
 A useful model should:
 
-- Discriminate well - Produce sensible probabilities
+- Discriminate well
+- Produce sensible probabilities
 - Lead to better decisions
+:::
+
+## From Data to Probability {.center}
+
+The task: probability of image being a human.
+
+```{mermaid}
+%%| label: bug-in-prop-out
+
+flowchart LR
+    A["🐛"] <--> B["😄"]
+
+    style B fill:#FFF0D9,stroke:#D99024,color:#222
+```
 
 ## From Data to Probability {.center}
 
@@ -435,12 +472,29 @@ flowchart LR
 ![](../slides/images/poor_citl.png){fig-align="center"}
 :::
 
-## Model calibration
+## ABCD Framework in Detail {.center style="text-align: center;"}
 
-So the CITL measures a systematic bias: the average predicted probability is too
-large. The calibration slope is a measure of the association between observed
-and predicted tisk of the outcome event across the whole range of predicted
-risks. So not a systematic error, but a errors across the prediction range.
+::: {.columns}
+::::: {.column}
+![](../slides/images/poor_calibration_slope.png){fig-align="center"}
+:::::
+::::: {.column}
+![](../slides/images/poor_citl.png){fig-align="center"}
+:::::
+:::
+
+## Model calibration - A and B
+
+::: {.r-fit-text}
+CITL measures a *systematic bias*:
+
+- prevalence: the average predicted probability is too large.
+
+The calibration slope is a measure of the association between observed and
+predicted tisk of the outcome event across the whole range of predicted risks.
+
+- Errors across the prediction range.
+:::
 
 ```{r}
 #| label: calibration-ggplot
@@ -498,12 +552,14 @@ ggplot(calibration_data,
 
 ## Are the Probabilities Accurate? {.center}
 
+::: {.r-fit-text}
 Calibration asks a different question:
 
 > When the model says 70%, does the event happen about 70% of the time?
 
 A simple calibration plot compares predicted probability with the observed
 proportion.
+:::
 
 ::: {.notes}
 Calibration is about the **accuracy of the probabilities**, not just the
@@ -538,9 +594,9 @@ $$
 
 The estimated intercept α is the calibration-in-the-large.
 
-- citl = 1: no overall calibration-in-the-large error.
-- citl < 1: predicted risks are too high on average.
-- citl > 1: predicted risks are too low on average.
+- citl = 0: no overall calibration-in-the-large error.
+- citl < 0: predicted risks are too high on average.
+- citl > 0: predicted risks are too low on average.
 
 ## Calibration-in-the-large part 2 (repeat?)
 
@@ -572,7 +628,7 @@ citl_model <- ad_validation_logistic |>
   glm(outcome ~ 1 + offset(logit_p),
       data = _, family = binomial())
 
-broom::tidy(citl_model, conf.int = TRUE, exponentiate = TRUE)
+broom::tidy(citl_model, conf.int = TRUE, exponentiate = FALSE)
 ```
 
 ## B: The calibration slope
@@ -605,8 +661,18 @@ slope_model <- ad_validation_logistic |>
     ) |>
         glm(outcome ~ logit_p, data = _, family = binomial)
 
-broom::tidy(slope_model, conf.int = TRUE) # don't exponentiate!
+broom::tidy(slope_model, conf.int = TRUE,exponentiate = FALSE)
 ```
+
+## Tip
+
+::: {.callout-tip}
+## Stay in log-odds ratio space!
+
+Note that we do *not* want to exponentiate here. When we interpret the CITL and
+calibration slope, we want to stay in log-odds space. Thus, we keep the sign (±)
+and linear/constant interpretation.
+:::
 
 ## Visualizing calibration
 
@@ -635,8 +701,6 @@ cal_plot_breaks(
 ```
 
 ## Discrimination using the concordance statistic
-
-<!-- TODO: insert jan's picture of concordance + AUC! -->
 
 ![](../slides/images/jan_concordance_fig.png){fig-align="center"}
 
@@ -739,14 +803,11 @@ flowchart LR
 
 ## When to use internal and external validation? {.center style="text-align: center;"}
 
-<!-- TODO: find meme -->
-
 ![](../slides/images/cultural_diff_prediction.jpeg){fig-align="center"}
 
 ## Sample size calculation in binary prediction studies {.center style="text-align: center;"}
 
-<!-- TODO: find meme -->
-![](../slides/images/rstudio-introduction.png){fig-align="center"}
+![](../slides/images/sample_size_calculation.jpg){fig-align="center"}
 
 ## Manual SSC {.center .align-center}
 
@@ -758,9 +819,14 @@ For sample-size planning, we need to select:
 
 ## Using the C-statistic {.smaller}
 
-$$
+<!--
   𝑆𝐸(𝐶)
   ≈ \frac{\sqrt{𝐶(1 − 𝐶) (1 + (𝑁𝜙 − 1)1 − 𝐶2 − 𝐶 + (𝑁(1 − 𝜙) − 1)𝐶1 + 𝐶)}} {𝑁2𝜙(1 − 𝜙)}.
+-->
+
+$$
+  SE(C)
+  \approx \frac{\sqrt{C(1 - C) \left( 1 + \left( \frac{N}{2} - 1 \right)\left( \frac{1 - C}{2 - C} \right) + \frac{\left( \frac{N}{2} - 1 \right)C}{1 + C} \right)}}{N\sqrt{\phi(1 - \phi)}}
 $$
 
 $$
@@ -774,13 +840,23 @@ $\pm0.05$, we need approximately
 $$
   𝑆𝐸(𝐶) = \frac{0.05}{1.96} ≈ 0.0255.
 $$
-## Rewritten {.center .align-center}
 
-::: {.r-fit-text}
-$$
+## Rewritten {.center .align-center}
+<!--
   SE(C)
   \approx \sqrt{\frac{0.70(1 - 0.70)}{1413^2(0.10)(1 - 0.10)} \Bigg[1 + (1413 \times 0.10 - 1)\frac{1 - 0.70}{2 - 0.70} + (1413 \times (1 - 0.10) - 1)\frac{0.70}{1 + 0.70}\Bigg]}
   \approx 0.0255
+-->
+
+::: {.r-fit-text}
+$$
+  \begin{aligned}
+    SE(C)
+     & \approx
+    \sqrt{\frac{0.70(1 - 0.70)}{1154^2(0.10)(1 - 0.10)} \Bigg[ 1 + \left( \frac{1154}{2} - 1 \right) \frac{1 - 0.70}{2 - 0.70} + \frac{\left( \frac{1154}{2} - 1 \right)0.70}{1 + 0.70} \Bigg]}
+     \\[6pt]
+     & \approx 0.0255.
+  \end{aligned}
 $$
 :::
 
@@ -796,7 +872,7 @@ $$
 
 # Our selected values
 p  <- 0.70
-n  <- 1000:1500
+n  <- 800:1300
 pi <- 0.10
 
 # Compute the first fraction
@@ -804,8 +880,8 @@ broek <- (p * (1 - p)) / (n^2 * pi * (1 - pi))
 
 # Break up the large formula insude the square brackets [ ] at every plus sign
 led_1 <- 1
-led_2 <- (n * pi - 1) * ((1 - p) / (2 - p))
-led_3 <- (n * (1 - pi) - 1) * (p / (1 + p))
+led_2 <- (n / 2 - 1) * ((1 - p) / (2 - p))
+led_3 <- (n / 2 - 1) * (p / (1 + p))
 
 # Take the sqrt of it all
 SE_C <- sqrt(broek * (led_1 + led_2 + led_3))
@@ -814,7 +890,7 @@ SE_C <- sqrt(broek * (led_1 + led_2 + led_3))
 ggplot(data.frame(n,SE_C),aes(n,SE_C)) +
     geom_line() +
     geom_hline(yintercept=0.0255) +
-    geom_text(aes(label = "x"), x = 1413, y = 0.0255, size = 5, color = "red")
+    geom_text(aes(label = "x"), x = 1154, y = 0.0255, size = 5, color = "red")
 ```
 
 ## R's `pmsampsize` library {.center .r-fit-text}
@@ -827,14 +903,15 @@ ggplot(data.frame(n,SE_C),aes(n,SE_C)) +
 
 pmsampsize::pmsampsize(
     type = "b", # binary
-    cstatistic = 0.89, # concordance/AUC
-    parameters = 24, # covariates
-    prevalence = 0.174 # cognitive impairment
+    cstatistic = 0.70, # concordance/AUC
+    parameters = 6, # covariates
+    prevalence = 0.10 # cognitive impairment
     )
 ```
 
 ## R's `pmsampsize` output {.center .r-fit-text}
 
+::: {.r-fit-text}
 ```{r}
 #| label: effect-size-on-c-score2
 #| echo: false
@@ -842,15 +919,16 @@ pmsampsize::pmsampsize(
 
 pmsampsize::pmsampsize(
     type = "b", # binary
-    cstatistic = 0.89, # concordance/AUC
-    parameters = 24, # covariates
-    prevalence = 0.174 # cognitive impairment
+    cstatistic = 0.70, # concordance/AUC
+    parameters = 6, # covariates
+    prevalence = 0.10 # cognitive impairment
     )
 ```
+:::
 
 # Summary: Evaluation Toolkit {.smaller}
 
-  | Question                                             | Measure         |
+  | Question                                             | Procedure       |
   | ---------------------------------------------------- | --------------- |
   | Does the model classify correctly at this threshold? | Accuracy        |
   | Does it avoid false positives?                       | Specificity     |
@@ -858,4 +936,4 @@ pmsampsize::pmsampsize(
   | Can it distinguish the two outcomes?                 | ROC / AUC       |
   | Are the probabilities accurate?                      | Calibration     |
   | Does it improve clinical decisions?                  | Decision curve  |
-  | What is the effect of a predictor?                   | Effect estimate |
+  | How many participants are necessary?                 | SSC             |

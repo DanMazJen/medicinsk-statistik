@@ -433,7 +433,7 @@ A useful model should:
 The task: probability of image being a human.
 
 ```{mermaid}
-%%| label: bug-in-prop-out
+%%| label: bug-or-face-task
 
 flowchart LR
     A["🐛"] <--> B["😄"]

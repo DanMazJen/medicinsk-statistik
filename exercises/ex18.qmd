@@ -79,7 +79,7 @@ The statistician provides the following results:
   | Measure     | Model A | Model B |
   | ----------: | :-----: | :------ |
   | Sensitivity |   90%   | 65%     |
-  |   Specificy |   70%   | 95%     |
+  | Specificity |   70%   | 95%     |
   |    Accuracy |   75%   | 85%     |
 
 The doctor asks you which model should be implemented.
@@ -110,7 +110,7 @@ The statistician reports:
   | Measure     | Model A | Model B |
   | ----------: | :-----: | :------ |
   | Sensitivity |   80%   | 65%     |
-  |   Specificy |   90%   | 95%     |
+  | Specificity |   90%   | 95%     |
   |    Accuracy |   85%   | 89%     |
   |         AUC |  0.91   | 0.78    |
 

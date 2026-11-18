@@ -94,6 +94,18 @@ Questions for discussion
 5. Can you recommend Model B based on these results alone?
 6. What additional information would you need before making a recommendation?
 
+<details>
+<summary>**Click for the solution**</summary>
+
+1. Proportion of false positives
+2. B
+3. A
+4. Overall more correct in classifying both positive and negative cases.
+5. No! We need ABCD framework. We have non right now...
+6. Calibration, discrimination, and decision curve analysis.
+
+</details>
+
 **A3. The pharmaceutical company wants to know which model is best**
 
 Two research teams have developed prediction models for one-year mortality
@@ -127,7 +139,25 @@ Questions for discussion
 6. Which model would you recommend if the only objective is to distinguish
    between patients who die and patients who survive?
 
-**A5. The doctor wants probabilities that can be trusted**
+;<details>
+<summary>**Click for the solution**</summary>
+
+1. AUC in binary prediction is discrimination: The probability that the model
+   will correctly assign higher risk to an individual with a disease than an
+   individual without the disease, if it randomly drew to pairs from the binary
+   outcome groups.
+2. 91% of the time, that model would correctly assign higher probability for the
+   sick person than the healthy control (but not necessarily put the correct
+   label on them!).
+3. Overall, assigns the correct label more often. But this could be due to
+   misbalance in the data (similar to exercise A1).
+4. No! It's every possible threshold applied.
+5. Absolutely! That is a questions that should be answered with calibration!
+6. AUC.
+
+</details>
+
+**A4. The doctor wants probabilities that can be trusted**
 
 A hospital has developed a model to predict the probability of death within 30
 days after surgery.
@@ -161,6 +191,19 @@ Questions for discussion
 6. Which model would you prefer if the purpose is to communicate individual
    mortality risks to patients?
 7. Can you conclude that Model B is the better prediction model overall?
+
+<details>
+<summary>**Click for the solution**</summary>
+
+1. Calibration is whether the predictions can be interpreted as probabilities. If this is not the case, they have no interpretable clinical meaning.
+2. Overestimating.
+3. No - on average it is, but any value could be wrong systematically!
+4. CITL assess marginal prediction. Calibration slope assess every predictions' correspondence to actual probability.
+5. Predicted risks too extreme.
+6. B!
+7. No, we need a decision curve analysis if the model should be used clincally. But for a statistical model that would not have any cost/ethical decisions, this is actually sufficient.
+
+</details>
 
 <!--
 ### A: Reviewing other's models

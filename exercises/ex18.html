@@ -50,9 +50,9 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-63e6cf94219cbf673df27f72823d3c16.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-056c2a96e496cc96548c0e4d00b5295c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-d8292e4f31fee861f9d14a90d8505ca2.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-056c2a96e496cc96548c0e4d00b5295c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-812f77fdeda991d16dbf3e6c2d5a12d2.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-9aaf02e34d44da4235f47493e63ea22f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-812f77fdeda991d16dbf3e6c2d5a12d2.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/quarto-contrib/fontawesome6-6.7.2/all.min.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/fontawesome6-6.7.2/latex-fontsize.css" rel="stylesheet">
 <script src="../site_libs/quarto-contrib/kbd/kbd.js"></script>
@@ -367,10 +367,7 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#exercises" id="toc-exercises" class="nav-link active" data-scroll-target="#exercises"><span class="header-section-number">23.1</span> Exercises:</a>
-  <ul class="collapse">
-  <li><a href="#a-reviewing-others-models" id="toc-a-reviewing-others-models" class="nav-link" data-scroll-target="#a-reviewing-others-models"><span class="header-section-number">23.1.1</span> A: Reviewing other’s models</a></li>
-  </ul></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link active" data-scroll-target="#exercises"><span class="header-section-number">23.1</span> Exercises:</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/DanMazJen/medicinsk-statistik/edit/main/exercises/ex18.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/DanMazJen/medicinsk-statistik/blob/main/exercises/ex18.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
     </div>
@@ -415,292 +412,450 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <section id="exercises" class="level2" data-number="23.1">
 <h2 data-number="23.1" class="anchored" data-anchor-id="exercises"><span class="header-section-number">23.1</span> Exercises:</h2>
-<section id="a-reviewing-others-models" class="level3" data-number="23.1.1">
-<h3 data-number="23.1.1" class="anchored" data-anchor-id="a-reviewing-others-models"><span class="header-section-number">23.1.1</span> A: Reviewing other’s models</h3>
-<p><strong>Exercise 1A</strong>: What does “validation” actually mean?</p>
-<p>Imagine you have developed a binary classifier that predicts whether a patient will experience an event.</p>
-<p>The development data show excellent performance.</p>
-<p>Questions:</p>
+<p>NB! These exercises are different from the rest of the course. They are conceptual and are best discussed with a friend or in groups.</p>
+<p>In your future job as a medIS specialist, doctors, researchers, and pharmaceutical companies will ask you whether a prediction model is good enough to use in clinical practice.</p>
+<p>Your responsibility is to translate their requests into statistical questions. You must identify what they actually want to know, which validation measure is appropriate, and what conclusions can and cannot be drawn from the results.</p>
+<p>Remember: A model can perform well according to one measure and poorly according to another. There is no single number that tells us whether a prediction model is good.</p>
+<p><strong>A1. The hospital wants a highly accurate model</strong></p>
+<p>A researcher from Phraut University has developed a prediction model to identify patients at risk of developing sepsis within 48 hours of admission.</p>
+<p>The model has been validated on 1,000 patients:</p>
 <ul>
-<li><p>What exactly are you trying to establish when you validate the model?</p></li>
-<li><p>Why isn’t a high accuracy/AUC on the development dataset sufficient?</p></li>
-<li><p>What would make a validation dataset genuinely independent?</p></li>
-<li><p>Give three different ways a model could appear to perform well while actually being poorly validated.</p>
-<p>Learning goal: Distinguish model development from assessment of generalizability.</p></li>
+<li>950 patients did not develop sepsis.</li>
+<li>50 patients developed sepsis.</li>
 </ul>
-<p><strong>Exercise 1B</strong>: Overfitting and generalizability</p>
-<p>A model is developed in 1,000 patients. It achieves an AUC of 0.92 in the development dataset.</p>
-<p>When the model is evaluated in a new dataset of 1,000 patients, the AUC is 0.71.</p>
-<p><strong>Questions:</strong></p>
-<ul>
-<li>What could explain the difference between the development and validation performance?</li>
-<li>What is overfitting?</li>
-<li>Why is development-set performance usually optimistic?</li>
-<li>What is the difference between internal and external validation?</li>
-<li>Why is performance in genuinely new observations more informative about generalizability?</li>
-</ul>
-<p>Learning goal: Understand why validation is necessary and how overfitting can lead to overly optimistic estimates of model performance.</p>
-<p><strong>Exercise 2B</strong>: Understanding discrimination as ranking</p>
-<p>Consider five patients with predicted probabilities:</p>
+<p>The model predicts that every patient will not develop sepsis.</p>
+<p>The researcher reports:</p>
+<blockquote class="blockquote">
+<p>My model has an accuracy of 95%. This is an excellent result, and we recommend implementing the model in clinical practice.</p>
+</blockquote>
+<p><strong>Questions for discussion</strong></p>
+<ol type="1">
+<li>How can the model achieve 95% accuracy without identifying a single patient with sepsis?</li>
+<li>Does accuracy tell us whether the model is useful for identifying patients with sepsis?</li>
+<li>What happens if the prevalence of sepsis changes from 5% to 30%?</li>
+<li>Which additional performance measures would you request from the statistician?</li>
+<li>Imagine you are responsible for deciding whether to implement this model. Would you accept the researchers’s recommendation?</li>
+</ol>
+<details>
+<summary>
+<strong>Click for the solution</strong>
+</summary>
+<ol type="1">
+<li>The 5% inccorect are all the patients…</li>
+<li>No.</li>
+<li>Then, accuracy becomes 70%.</li>
+<li>Sensitivity (or positive predictive value)</li>
+<li>Hell no!</li>
+</ol>
+</details>
+<p><strong>A2. The doctor wants to avoid false alarms</strong></p>
+<p>A doctor contacts you:</p>
+<blockquote class="blockquote">
+<p>We have developed a prediction model for identifying patients who will develop acute kidney injury during hospital admission. We want to make sure that the model does not generate too many false alarms. Otherwise, we will unnecessarily perform additional examinations on healthy patients.</p>
+</blockquote>
+<p>The statistician provides the following results:</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
-<th>Patient</th>
-<th>Predicted probability</th>
-<th>Observed outcome</th>
+<th style="text-align: right;">Measure</th>
+<th style="text-align: center;">Model A</th>
+<th style="text-align: left;">Model B</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>A</td>
-<td>0.90</td>
-<td>1</td>
+<td style="text-align: right;">Sensitivity</td>
+<td style="text-align: center;">90%</td>
+<td style="text-align: left;">65%</td>
 </tr>
 <tr class="even">
-<td>B</td>
-<td>0.75</td>
-<td>1</td>
+<td style="text-align: right;">Specificity</td>
+<td style="text-align: center;">70%</td>
+<td style="text-align: left;">95%</td>
 </tr>
 <tr class="odd">
-<td>C</td>
-<td>0.60</td>
-<td>0</td>
-</tr>
-<tr class="even">
-<td>D</td>
-<td>0.30</td>
-<td>0</td>
-</tr>
-<tr class="odd">
-<td>E</td>
-<td>0.10</td>
-<td>0</td>
+<td style="text-align: right;">Accuracy</td>
+<td style="text-align: center;">75%</td>
+<td style="text-align: left;">85%</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Questions:</strong></p>
-<ul>
-<li>Does the model discriminate well in this example?</li>
-<li>Which pairs of patients are correctly ranked?</li>
-<li>What would perfect discrimination look like?</li>
-<li>Could a model have excellent discrimination even if all of its predicted probabilities were systematically too high?</li>
-<li>What aspect of prediction is the AUC measuring: the accuracy of the probabilities themselves, or the ability to rank patients?</li>
-</ul>
-<p>Learning goal: Understand that discrimination is fundamentally about ranking individuals according to their risk.</p>
-<p><strong>Exercise 2A</strong>: AUC versus calibration</p>
-<p>Consider two models:</p>
+<p>The doctor asks you which model should be implemented.</p>
+<p>Questions for discussion</p>
+<ol type="1">
+<li>What does specificity measure?</li>
+<li>Which model is better at avoiding false positives?</li>
+<li>Which model is better at identifying patients who actually develop kidney injury?</li>
+<li>Why does Model B have higher accuracy?</li>
+<li>Can you recommend Model B based on these results alone?</li>
+<li>What additional information would you need before making a recommendation?</li>
+</ol>
+<p><strong>A3. The pharmaceutical company wants to know which model is best</strong></p>
+<p>Two research teams have developed prediction models for one-year mortality following stroke.</p>
+<p>The pharmaceutical company asks:</p>
+<blockquote class="blockquote">
+<p>We want to know which model is best at distinguishing between patients who will die and patients who will survive. We do not want to choose a specific classification threshold yet.</p>
+</blockquote>
+<p>The statistician reports:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: right;">Measure</th>
+<th style="text-align: center;">Model A</th>
+<th style="text-align: left;">Model B</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">Sensitivity</td>
+<td style="text-align: center;">80%</td>
+<td style="text-align: left;">65%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">Specificity</td>
+<td style="text-align: center;">90%</td>
+<td style="text-align: left;">95%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">Accuracy</td>
+<td style="text-align: center;">85%</td>
+<td style="text-align: left;">89%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">AUC</td>
+<td style="text-align: center;">0.91</td>
+<td style="text-align: left;">0.78</td>
+</tr>
+</tbody>
+</table>
+<p>The company is confused because Model B has higher accuracy, but Model A has higher AUC.</p>
+<p>Questions for discussion</p>
+<ol type="1">
+<li>What does AUC measure?</li>
+<li>What does an AUC of 0.91 tell us?</li>
+<li>Why can Model B have higher accuracy but lower AUC?</li>
+<li>Does AUC depend on the classification threshold?</li>
+<li>Can a model with an AUC of 0.90 still make poor predictions?</li>
+<li>Which model would you recommend if the only objective is to distinguish between patients who die and patients who survive?</li>
+</ol>
+<p><strong>A5. The doctor wants probabilities that can be trusted</strong></p>
+<p>A hospital has developed a model to predict the probability of death within 30 days after surgery.</p>
+<p>The doctor explains:</p>
+<blockquote class="blockquote">
+<p>We want to use the predicted probabilities to communicate the risk of death to patients and to plan postoperative care. If the model predicts a 20% risk, we want that prediction to mean something clinically.</p>
+</blockquote>
+<p>The statistician evaluates the model and reports the following results:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: right;">Measure</th>
+<th style="text-align: center;">Model A</th>
+<th style="text-align: left;">Model B</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">AUC</td>
+<td style="text-align: center;">0.90</td>
+<td style="text-align: left;">0.78</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">Calibration-in-the-large (CITL)</td>
+<td style="text-align: center;">-0.80</td>
+<td style="text-align: left;">0.02</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">Calibration slope</td>
+<td style="text-align: center;">0.65</td>
+<td style="text-align: left;">1.02</td>
+</tr>
+</tbody>
+</table>
+<p>Questions for discussion</p>
+<ol type="1">
+<li>What does calibration measure, and why is it important when communicating predicted probabilities to patients?</li>
+<li>Model A has a CITL of -0.80. What does this tell us about its predictions? Is it systematically overestimating or underestimating mortality?</li>
+<li>Model B has a CITL close to zero. Does this mean that Model B is perfectly calibrated?</li>
+<li>What is the difference between calibration-in-the-large and calibration slope?</li>
+<li>Model A has a calibration slope of 0.65. What does this tell us about its predictions? Are the predicted risks too extreme or not extreme enough?</li>
+<li>Which model would you prefer if the purpose is to communicate individual mortality risks to patients?</li>
+<li>Can you conclude that Model B is the better prediction model overall?</li>
+</ol>
+<!--
+### A: Reviewing other's models
+
+**Exercise 1A**: What does "validation" actually mean?
+
+Imagine you have developed a binary classifier that predicts whether a patient
+will experience an event.
+
+The development data show excellent performance.
+
+Questions:
+
+- What exactly are you trying to establish when you validate the model?
+
+- Why isn't a high accuracy/AUC on the development dataset sufficient?
+
+- What would make a validation dataset genuinely independent?
+
+- Give three different ways a model could appear to perform well while actually
+  being poorly validated.
+
+  Learning goal: Distinguish model development from assessment of
+  generalizability.
+
+**Exercise 1B**: Overfitting and generalizability
+
+A model is developed in 1,000 patients. It achieves an AUC of 0.92 in the
+development dataset.
+
+When the model is evaluated in a new dataset of 1,000 patients, the AUC is 0.71.
+
+**Questions:**
+
+- What could explain the difference between the development and validation
+  performance?
+- What is overfitting?
+- Why is development-set performance usually optimistic?
+- What is the difference between internal and external validation?
+- Why is performance in genuinely new observations more informative about
+  generalizability?
+
+Learning goal: Understand why validation is necessary and how overfitting can
+lead to overly optimistic estimates of model performance.
+
+**Exercise 2B**: Understanding discrimination as ranking
+
+Consider five patients with predicted probabilities:
+
+  | Patient | Predicted probability | Observed outcome |
+  | ------- | --------------------- | ---------------- |
+  | A       | 0.90                  | 1                |
+  | B       | 0.75                  | 1                |
+  | C       | 0.60                  | 0                |
+  | D       | 0.30                  | 0                |
+  | E       | 0.10                  | 0                |
+
+**Questions:**
+
+- Does the model discriminate well in this example?
+- Which pairs of patients are correctly ranked?
+- What would perfect discrimination look like?
+- Could a model have excellent discrimination even if all of its predicted
+  probabilities were systematically too high?
+- What aspect of prediction is the AUC measuring: the accuracy of the
+  probabilities themselves, or the ability to rank patients?
+
+Learning goal: Understand that discrimination is fundamentally about ranking
+individuals according to their risk.
+
+**Exercise 2A**: AUC versus calibration
+
+Consider two models:
+-->
 <!-- panache-ignore-format-start-->
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Model</th>
-<th>AUC</th>
-<th>Calibration</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>A</td>
-<td>0.86</td>
-<td>Poor</td>
-</tr>
-<tr class="even">
-<td>B</td>
-<td>0.76</td>
-<td>Excellent</td>
-</tr>
-</tbody>
-</table>
+<!--|Model  | AUC   | Calibration |
+|-------|-------|-------------|
+|A      | 0.86  | Poor        |
+|B      | 0.76  | Excellent   |
+-->
 <!-- panache-ignore-format-end-->
-<p>A colleague says:</p>
-<blockquote class="blockquote">
-<p>“Model A is clearly better because its AUC is higher.”</p>
-</blockquote>
-<p><strong>Questions:</strong></p>
-<p>Do you agree?</p>
-<ul>
-<li>What does the AUC tell you?</li>
-<li>What does it not tell you?</li>
-<li>Give a practical situation where Model B might be preferable.</li>
-<li>Give a practical situation where Model A might still be useful.</li>
-</ul>
-<p>Learning goal: Prevent the common mistake of treating AUC as a complete measure of predictive performance.</p>
-<p><strong>Exercise 3C</strong>: Calibration-in-the-large versus calibration slope</p>
-<p>Consider four models evaluated in the same validation population:</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Model</th>
-<th>Calibration intercept</th>
-<th>Calibration slope</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>A</td>
-<td>0.00</td>
-<td>1.00</td>
-</tr>
-<tr class="even">
-<td>B</td>
-<td>-1.00</td>
-<td>1.00</td>
-</tr>
-<tr class="odd">
-<td>C</td>
-<td>0.00</td>
-<td>0.50</td>
-</tr>
-<tr class="even">
-<td>D</td>
-<td>0.50</td>
-<td>1.40</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Questions:</strong></p>
-<ul>
-<li>Which model has no evidence of systematic over- or underprediction in the overall level of risk?</li>
-<li>Which model has predictions that are too extreme?</li>
-<li>Which model has predictions that are not extreme enough?</li>
-<li>What does a calibration intercept different from 0 indicate?</li>
-<li>What does a calibration slope different from 1 indicate?</li>
-<li>Can a model have a good calibration intercept but a poor calibration slope?</li>
-<li>Can a model have a good calibration slope but a poor calibration intercept?</li>
-</ul>
-<p>Learning goal: Distinguish problems with the overall level of predicted risk from problems with the spread or extremeness of predictions.</p>
-<p><strong>Exercise 3A</strong>: Calibration slope</p>
-<p>Imagine fitting a logistic regression in the validation dataset where the original model’s linear predictor is the only predictor.</p>
-<p>You obtain:</p>
-<ul>
-<li>calibration intercept = 0.05</li>
-<li>calibration slope = 0.62</li>
-</ul>
-<p><strong>Questions:</strong></p>
-<ul>
-<li>What does a slope of 1 represent?</li>
-<li>What does a slope substantially below 1 suggest?</li>
-<li>What would a slope substantially above 1 suggest?</li>
-<li>Why might a slope below 1 be evidence that the original model’s predictions are too extreme?</li>
-<li>How is this different from simply asking whether the average predicted risk equals the observed event rate?</li>
-</ul>
-<p>This is closely aligned with the paper’s proposed “B” component of validation.</p>
-<p><strong>Exercise 3B</strong>: What does calibration actually mean?</p>
-<p>Suppose a model is used to predict the probability of an event.</p>
-<p>Among patients for whom the model predicts approximately 20% risk, 20% actually experience the event.</p>
-<p>Among patients for whom the model predicts approximately 50% risk, 50% actually experience the event.</p>
-<p>Among patients for whom the model predicts approximately 80% risk, 80% actually experience the event.</p>
-<p><strong>Exercise 4A</strong>: The threshold trap</p>
-<p>Suppose a classifier outputs probabilities, but somebody converts them into classes:</p>
-<blockquote class="blockquote">
-<p>Predict positive if probability ≥ 0.50; otherwise predict negative.</p>
-</blockquote>
-<p>The resulting confusion matrix gives:</p>
-<ul>
-<li>Accuracy = 90%</li>
-<li>Sensitivity = 40%</li>
-<li>Specificity = 98%</li>
-</ul>
-<p><strong>Questions:</strong></p>
-<ul>
-<li>Is this necessarily a bad classifier?</li>
-<li>Why does the 0.50 threshold matter?</li>
-<li>What happens if the event is rare?</li>
-<li>Would changing the threshold change the AUC?</li>
-<li>Would changing the threshold change sensitivity and specificity?</li>
-<li>Is threshold-based classification appropriate if the model is intended to provide individual risk estimates?</li>
-</ul>
-<p>Learning goal: Separate evaluation of probability predictions from evaluation of a particular classification threshold.</p>
-<p><strong>Exercise 4B</strong>: What happens when the classification threshold changes?</p>
-<p>A model produces predicted probabilities for an event.</p>
-<p>Consider three possible classification thresholds:</p>
-<ul>
-<li>Threshold = 0.10</li>
-<li>Threshold = 0.50</li>
-<li>Threshold = 0.90</li>
-</ul>
-<p>A patient is classified as positive whenever their predicted probability is greater than or equal to the chosen threshold.</p>
-<p><strong>Questions:</strong></p>
-<ul>
-<li>What would you expect to happen to the number of patients classified as positive as the threshold increases?</li>
-<li>What would you expect to happen to sensitivity?</li>
-<li>What would you expect to happen to specificity?</li>
-<li>What would you expect to happen to false positives?</li>
-<li>What would you expect to happen to false negatives?</li>
-<li>Would changing the threshold change the underlying AUC?</li>
-<li>Why can the same prediction model have very different sensitivity and specificity depending on the chosen threshold?</li>
-</ul>
-<p>Learning goal: Understand that sensitivity and specificity depend on the classification threshold, whereas AUC evaluates discrimination across thresholds.</p>
-<p><strong>Exercise 5A</strong>: The prevalence shift thought experiment</p>
-<p>A model is developed in Population X:</p>
-<ul>
-<li>event prevalence = 30%</li>
-</ul>
-<p>It is externally validated in Population Y:</p>
-<ul>
-<li>event prevalence = 5%</li>
-</ul>
-<p>Assume the relationship between predictors and outcome is unchanged.</p>
-<p><strong>Questions:</strong></p>
-<ul>
-<li>Which performance measures might change merely because prevalence changed?</li>
-<li>Would you expect the AUC necessarily to collapse?</li>
-<li>Would you expect the calibration intercept to change?</li>
-<li>Why could a model retain useful ranking ability while producing systematically incorrect absolute risks?</li>
-</ul>
-<p>Learning goal: Understand why external validation can reveal case-mix and population differences that aren’t captured by discrimination alone.</p>
-<p><strong>Questions:</strong></p>
-<ul>
-<li>What does this tell you about the calibration of the model?</li>
-<li>What would perfect calibration look like?</li>
-<li>Could a model be well calibrated but have poor discrimination?</li>
-<li>Could a model have excellent discrimination but poor calibration?</li>
-<li>What would systematic overprediction look like?</li>
-<li>What would systematic underprediction look like?</li>
-</ul>
-<p>Learning goal: Understand calibration as agreement between predicted probabilities and observed event frequencies.</p>
-<p><strong>Exercise 6A</strong>: Putting A, B, and C together</p>
-<p>Two models are evaluated in the same external validation dataset.</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Performance measure</th>
-<th>Model A</th>
-<th>Model B</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>AUC</td>
-<td>0.88</td>
-<td>0.78</td>
-</tr>
-<tr class="even">
-<td>Calibration</td>
-<td>Poor</td>
-<td>Excellent</td>
-</tr>
-<tr class="odd">
-<td>Calibration slope</td>
-<td>0.55</td>
-<td>0.98</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Questions:</strong></p>
-<ul>
-<li>Which model has better discrimination?</li>
-<li>Which model gives more trustworthy absolute probabilities?</li>
-<li>What does the calibration slope of 0.55 tell you about Model A?</li>
-<li>Can you conclude that Model A is simply “better” because it has the higher AUC?</li>
-<li>Can you conclude that Model B is simply “better” because it is better calibrated?</li>
-<li>What additional information might you need before choosing between the models?</li>
-<li>Could the preferred model depend on the intended use of the predictions?</li>
-</ul>
-<p>Learning goal: Integrate discrimination, calibration, and clinical usefulness when evaluating predictive models rather than relying on a single performance measure.</p>
+<!--
+A colleague says:
+
+> "Model A is clearly better because its AUC is higher."
+
+**Questions:**
+
+Do you agree?
+
+- What does the AUC tell you?
+- What does it not tell you?
+- Give a practical situation where Model B might be preferable.
+- Give a practical situation where Model A might still be useful.
+
+Learning goal: Prevent the common mistake of treating AUC as a complete measure
+of predictive performance.
+
+**Exercise 3C**: Calibration-in-the-large versus calibration slope
+
+Consider four models evaluated in the same validation population:
+
+  | Model | Calibration intercept | Calibration slope |
+  | ----- | --------------------- | ----------------- |
+  | A     | 0.00                  | 1.00              |
+  | B     | -1.00                 | 1.00              |
+  | C     | 0.00                  | 0.50              |
+  | D     | 0.50                  | 1.40              |
+
+**Questions:**
+
+- Which model has no evidence of systematic over- or underprediction in the
+  overall level of risk?
+- Which model has predictions that are too extreme?
+- Which model has predictions that are not extreme enough?
+- What does a calibration intercept different from 0 indicate?
+- What does a calibration slope different from 1 indicate?
+- Can a model have a good calibration intercept but a poor calibration slope?
+- Can a model have a good calibration slope but a poor calibration intercept?
+
+Learning goal: Distinguish problems with the overall level of predicted risk
+from problems with the spread or extremeness of predictions.
+
+**Exercise 3A**: Calibration slope
+
+Imagine fitting a logistic regression in the validation dataset where the
+original model's linear predictor is the only predictor.
+
+You obtain:
+
+- calibration intercept = 0.05
+- calibration slope = 0.62
+
+**Questions:**
+
+- What does a slope of 1 represent?
+- What does a slope substantially below 1 suggest?
+- What would a slope substantially above 1 suggest?
+- Why might a slope below 1 be evidence that the original model's predictions
+  are too extreme?
+- How is this different from simply asking whether the average predicted risk
+  equals the observed event rate?
+
+This is closely aligned with the paper's proposed "B" component of validation.
+
+**Exercise 3B**: What does calibration actually mean?
+
+Suppose a model is used to predict the probability of an event.
+
+Among patients for whom the model predicts approximately 20% risk, 20% actually
+experience the event.
+
+Among patients for whom the model predicts approximately 50% risk, 50% actually
+experience the event.
+
+Among patients for whom the model predicts approximately 80% risk, 80% actually
+experience the event.
+
+**Exercise 4A**: The threshold trap
+
+Suppose a classifier outputs probabilities, but somebody converts them into
+classes:
+
+> Predict positive if probability ≥ 0.50; otherwise predict negative.
+
+The resulting confusion matrix gives:
+
+- Accuracy = 90%
+- Sensitivity = 40%
+- Specificity = 98%
+
+**Questions:**
+
+- Is this necessarily a bad classifier?
+- Why does the 0.50 threshold matter?
+- What happens if the event is rare?
+- Would changing the threshold change the AUC?
+- Would changing the threshold change sensitivity and specificity?
+- Is threshold-based classification appropriate if the model is intended to
+  provide individual risk estimates?
+
+Learning goal: Separate evaluation of probability predictions from evaluation of
+a particular classification threshold.
+
+**Exercise 4B**: What happens when the classification threshold changes?
+
+A model produces predicted probabilities for an event.
+
+Consider three possible classification thresholds:
+
+- Threshold = 0.10
+- Threshold = 0.50
+- Threshold = 0.90
+
+A patient is classified as positive whenever their predicted probability is
+greater than or equal to the chosen threshold.
+
+**Questions:**
+
+- What would you expect to happen to the number of patients classified as
+  positive as the threshold increases?
+- What would you expect to happen to sensitivity?
+- What would you expect to happen to specificity?
+- What would you expect to happen to false positives?
+- What would you expect to happen to false negatives?
+- Would changing the threshold change the underlying AUC?
+- Why can the same prediction model have very different sensitivity and
+  specificity depending on the chosen threshold?
+
+Learning goal: Understand that sensitivity and specificity depend on the
+classification threshold, whereas AUC evaluates discrimination across
+thresholds.
+
+**Exercise 5A**: The prevalence shift thought experiment
+
+A model is developed in Population X:
+
+- event prevalence = 30%
+
+It is externally validated in Population Y:
+
+- event prevalence = 5%
+
+Assume the relationship between predictors and outcome is unchanged.
+
+**Questions:**
+
+- Which performance measures might change merely because prevalence changed?
+- Would you expect the AUC necessarily to collapse?
+- Would you expect the calibration intercept to change?
+- Why could a model retain useful ranking ability while producing systematically
+  incorrect absolute risks?
+
+Learning goal: Understand why external validation can reveal case-mix and
+population differences that aren't captured by discrimination alone.
+
+**Questions:**
+
+- What does this tell you about the calibration of the model?
+- What would perfect calibration look like?
+- Could a model be well calibrated but have poor discrimination?
+- Could a model have excellent discrimination but poor calibration?
+- What would systematic overprediction look like?
+- What would systematic underprediction look like?
+
+Learning goal: Understand calibration as agreement between predicted
+probabilities and observed event frequencies.
+
+**Exercise 6A**: Putting A, B, and C together
+
+Two models are evaluated in the same external validation dataset.
+
+  | Performance measure | Model A | Model B   |
+  | ------------------- | ------- | --------- |
+  | AUC                 | 0.88    | 0.78      |
+  | Calibration         | Poor    | Excellent |
+  | Calibration slope   | 0.55    | 0.98      |
+
+**Questions:**
+
+- Which model has better discrimination?
+- Which model gives more trustworthy absolute probabilities?
+- What does the calibration slope of 0.55 tell you about Model A?
+- Can you conclude that Model A is simply "better" because it has the higher
+  AUC?
+- Can you conclude that Model B is simply "better" because it is better
+  calibrated?
+- What additional information might you need before choosing between the models?
+- Could the preferred model depend on the intended use of the predictions?
+
+Learning goal: Integrate discrimination, calibration, and clinical usefulness
+when evaluating predictive models rather than relying on a single performance
+measure.
+-->
 
 
-</section>
 </section>
 
 <script async="" src="https://scripts.simpleanalyticscdn.com/latest.js"></script></main> <!-- /main -->

@@ -9,16 +9,42 @@ smaller: true
 
 ![](../slides/images/crystal_ball_future.jpeg)
 
-## The ABCD Framework {.center .align-center}
+## Case session 18 {.smaller .scrollable}
 
-A useful way to remember prediction-model evaluation:
+> "From prediction to validation: How do we know our model works?"
 
-::: {.r-fit-text}
-- **A** = Calibration-in-the-large
-- **B** = Calibration slope
-- **C** = C-statistic / Discrimination
-- **D** = Decision curve / Clinical usefulness
-:::
+At NeuroPhaRma Inc., a biotech company developing tools for early detection of
+Alzheimer's disease, the research team has developed a prediction model to
+predict individual patient's cognitive impairment using their age, sex,
+cerebrospinal fluid biomarkers, and APOE genotype.
+
+The model performs well on the data used to develop it. The team is excited:
+could this tool help clinicians identify patients who need further assessment?
+
+Before the company presents the model to potential clinical partners, however,
+the biostatistics team must answer a crucial question:
+
+> "The model makes predictions. But how well can we trust them in real
+> patients?"
+
+As a junior biostatistician, you have been asked to evaluate the model before it
+moves forward. You must assess how well it distinguishes patients with and
+without cognitive impairment, whether its predicted probabilities reflect the
+risks actually observed, and whether its performance holds up in new data.
+
+Your task is to evaluate whether the model's predictions can be trusted.
+
+1. How would you assess whether the predicted risks agree with the observed
+   frequency of cognitive impairment, and whether the model systematically over-
+   or underestimates risk?
+2. How would you determine how well the model distinguishes between patients
+   with and without impairment?
+3. Finally, how would you investigate whether these properties hold in new
+   patients, rather than only in the data used to develop the model?
+
+At the project meeting, you will need to advise the team: is the model reliable
+enough to be considered for use in clinical practice, and what further evidence
+is needed before it can be trusted?
 
 ## Case Study: Cognitive Impairment Prediction
 
@@ -153,7 +179,24 @@ p2 <- ggplot(
 p2
 ```
 
+## Model details
+
+::: {.r-fit-text}
+See 16.5 on website 👀
+:::
+
 # Evaluating Prediction Models
+
+## The ABCD Framework {.center .align-center}
+
+A useful way to remember prediction-model evaluation:
+
+::: {.r-fit-text}
+- **A** = Calibration-in-the-large
+- **B** = Calibration slope
+- **C** = C-statistic / Discrimination
+- **D** = Decision curve / Clinical usefulness
+:::
 
 ## What We Need
 
@@ -173,6 +216,19 @@ outcome - .pred_impaired: predicted probability of impairment
 No need to fit a model; we simply evaluate its predictions.
 :::
 
+## Quantifying binary prediction success
+
+::: {.r-fit-text}
+In binary outcomes, there’s really only four cases:
+
+1. The model predicted class A, which was correct
+2. The model predicted class A, which was incorrect (it was B)
+3. The model predicted class B, which was correct
+4. The model predicted class B, which was incorrect (it was A)
+
+We need to work with these four cases in a clever way.
+:::
+
 ## The Validation Data {.r-fit-text}
 
 ```{r}
@@ -183,8 +239,8 @@ ad_validation_logistic <- medisr::ad_validation_logistic
 ```
 
 ::: {.r-fit-text}
-Class = observed outcome. `.pred_impaired` = predicted probability of
-impairment.
+- `Class` = observed outcome.
+- `.pred_impaired` = predicted probability of impairment.
 
 ```{r}
 #| label: looking-at-data
@@ -198,6 +254,128 @@ head(ad_validation_logistic)
 The dataset contains 167 observations with: - Class: factor with levels
 "control" and "impaired" - .pred_impaired: numeric predicted probabilities
 :::
+
+## A toy example
+
+```{r}
+#| label: fig-plot-logistic-data
+#| echo: false
+#| warning: false
+
+set.seed(524268529)
+
+n <- 10
+
+# Simulate Amyloid Beta
+amyloid_beta <- runif(n, 10, 100)
+
+# True probability of being cognitively impaired
+prob <- 1 / (1 + exp(-(-4 + 0.08 * amyloid_beta)))
+
+# Simulate observed group
+group_num <- rbinom(n, 1, prob)
+
+group_factor <- factor(
+  group_num,
+  levels = c(0, 1),
+  labels = c("Control", "Cognitive Impaired")
+)
+
+# Create data
+data <- data.frame(
+  Amyloid_Beta = amyloid_beta,
+  Group_Num = group_num,
+  Group = group_factor
+)
+
+# Fit logistic regression
+model <- glm(
+  Group_Num ~ Amyloid_Beta,
+  data = data,
+  family = binomial
+)
+
+# Model-predicted probability for each observation
+data$prob_impaired <- predict(
+  model,
+  newdata = data,
+  type = "response"
+)
+
+y_prob_threshold <- 0.50
+
+# Plot
+data |>
+    ggplot(aes(x = Amyloid_Beta, y = prob_impaired)) +
+  # Each dot is positioned according to its predicted probability
+  geom_point(
+    aes(color = Group),
+    size = 3,
+    alpha = 0.8
+  ) +
+  # Logistic regression curve
+  geom_smooth(
+    method = "glm",
+    method.args = list(family = "binomial"),
+    color = "#2c3e50",
+    linewidth = 1.2,
+    se = FALSE
+  ) +
+  # 50% classification threshold
+  geom_hline(
+    yintercept = y_prob_threshold,
+    linetype = "dashed",
+    color = "grey40"
+  ) +
+  scale_y_continuous(
+    limits = c(0, 1),
+    breaks = seq(0, 1, by = 0.25),
+    labels = c(
+      "0.00 (Control)",
+      "0.25",
+      "0.50",
+      "0.75",
+      "1.00 (Impaired)"
+    )
+  ) +
+  scale_color_manual(
+    values = c(
+      "Control" = "#27ae60",
+      "Cognitive Impaired" = "#e74c3c"
+    )
+  ) +
+  labs(
+    title = "Predicted Probability of Cognitive Impairment",
+    x = "Amyloid Beta",
+    y = "Model probability | Impaired",
+    color = "Observed group"
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(
+    plot.title = element_text(face = "bold", hjust = 0.5),
+    legend.position = "bottom"
+  ) +
+  geom_ribbon(aes(ymin = y_prob_threshold, ymax = 1), fill = "red", alpha = 0.1) +
+  geom_ribbon(aes(ymin = 0, ymax = y_prob_threshold), fill = "green", alpha = 0.1)
+```
+
+::: {.r-fit-text}
+*How many were correctly classified?*
+:::
+
+## The confusion matrix
+
+We can make a **confusion matrix** --- a 2×2 table that shows how many
+observations were classified (in)correctly for each class.
+
+For the fictitious data we plotted before, the confusion matrix would be:
+
+<!-- panache-ignore-format-start -->
+|                 | True: impaired | True: control |
+|-----------------|----------------|---------------|
+| Predicted: impaired |       4        |       1       |
+| Predicted: control  |       0        |       4       |
+<!-- panache-ignore-format-end -->
 
 ## Confusion Matrix {.r-fit-text}
 
@@ -379,6 +557,12 @@ The "right" threshold depends on the costs of false positives vs false
 negatives.
 :::
 
+## Using other thresholds - toy example
+
+::: {.r-fit-text}
+See 16.8.6 The receiver operating characteristic (ROC)
+:::
+
 ## ROC and AUC
 
 Instead of choosing one threshold, we can look at model discrimination across
@@ -465,11 +649,13 @@ flowchart LR
     style C fill:#E2F0D9,stroke:#548235,color:#222
 ```
 
-## ABCD Framework in Detail {.center .align-center}
+::: {.hidden}
+ABCD Framework in Detail {.center .align-center}
 
-::: {layout-ncol=2}
+::::: {layout-ncol=2}
 ![](../slides/images/poor_calibration_slope.png){fig-align="center"}
 ![](../slides/images/poor_citl.png){fig-align="center"}
+:::::
 :::
 
 ## ABCD Framework in Detail {.center style="text-align: center;"}
@@ -491,7 +677,7 @@ CITL measures a *systematic bias*:
 - prevalence: the average predicted probability is too large.
 
 The calibration slope is a measure of the association between observed and
-predicted tisk of the outcome event across the whole range of predicted risks.
+predicted risk of the outcome event across the whole range of predicted risks.
 
 - Errors across the prediction range.
 :::
@@ -553,9 +739,13 @@ ggplot(calibration_data,
 ## Are the Probabilities Accurate? {.center}
 
 ::: {.r-fit-text}
-Calibration asks a different question:
+Calibration asks the question:
 
 > When the model says 70%, does the event happen about 70% of the time?
+
+or in other words:
+
+> Can we interpret the predicted values as *real-world* probabilities
 
 A simple calibration plot compares predicted probability with the observed
 proportion.

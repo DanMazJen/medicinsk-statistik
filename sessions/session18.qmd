@@ -1653,6 +1653,13 @@ There are several ways in which we can perform external validation.
    because the validation data were collected independently of the model
    development process.
 
+5. **Prospective validation:**\
+   Validates model in real-time or future clinical settings. Develop the model
+   using one study and evaluate it using newly collected data that was not
+   available when the model was made. This is often the most used form of
+   external validation as it is needed for continuously making sure the model
+   fits "todays" data although it was trained on "yesterdays" data.
+
 The further the external validation data are from the development data, the more
 demanding the test of generalisability becomes.
 

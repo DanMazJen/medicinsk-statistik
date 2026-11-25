@@ -967,7 +967,7 @@ flowchart LR
     style R5 fill:transparent,stroke:transparent
 ```
 
-## External validation {.smaller}
+## External validation {.smaller .scrollable}
 
 1. **Temporal validation:**\
    Develop the model using data from an earlier time period and evaluate it
@@ -990,6 +990,13 @@ flowchart LR
    independent study. This is often the strongest form of external validation
    because the validation data were collected independently of the model
    development process.
+
+5. **Prospective validation:**\
+   Validates model in real-time or future clinical settings. Develop the model
+   using one study and evaluate it using newly collected data that was not
+   available when the model was made. This is often the most used form of
+   external validation as it is needed for continuously making sure the model
+   fits “todays” data although it was trained on “yesterdays” data.
 
 ## When to use internal and external validation? {.center style="text-align: center;"}
 
@@ -1053,8 +1060,8 @@ $$
 ## In practice:
 
 - Here, we try values `N  <- 1000:1500`
-- confidence bound = 0.10
-- prevalence = 0.70
+- prevalence = 0.10
+- *C*-stat = 0.70
 
 ```{r}
 #| label: manual-ssc-in-r
@@ -1127,3 +1134,11 @@ pmsampsize::pmsampsize(
   | Are the probabilities accurate?                      | Calibration     |
   | Does it improve clinical decisions?                  | Decision curve  |
   | How many participants are necessary?                 | SSC             |
+
+##
+
+::: {.r-fit-text}
+**Time for exercises** 🎉
+:::
+
+![](images/open_rstudio.jpeg){.r-stretch fig-align="center"}
